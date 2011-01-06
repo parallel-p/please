@@ -1,5 +1,5 @@
 a [http://code.google.com/p/please/w/list All Wiki pages]
-  * a [ToDoList]
+  * [ToDoList]
   * a [ProblemFormat]
     * `.tests/`
     * `.sandbox/`
