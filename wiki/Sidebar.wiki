@@ -1,4 +1,10 @@
+  * [ToDo]
   * [ProblemFormat]
   * Menu
-    * [ToDo]
-    * [Tags]
+    * .tests
+    * .work
+    * statements
+    * tests
+    * ...
+
+  * [Tags]
