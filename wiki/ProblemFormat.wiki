@@ -32,6 +32,7 @@
 <font color="gray">`.sandbox/`</font> — каталог для запуска утилитой `please` чего бы то ни было;<br/>
 <font color="red">`statements/`</font><br/>
 <font color="black">`statements/pictures/`</font><br/>
+<font color="black">`statements/include/`</font><br/>
 <font color="red">`statements/statement.{language}.tex`</font><br/>
 <font color="black">`statements/statement_{modification}.{language}.tex`</font><br/>
 <font color="red">`solutions/`</font><br/>
