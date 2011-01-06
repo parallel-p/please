@@ -1,0 +1,80 @@
+#summary Описание формата задач, используемого please
+#labels Phase-Requirements
+
+= О формате =
+
+Философия:
+  * `please` работает с задачами только в этом формате;
+  * из многих имеющихся форматов в этот легко импортировать;
+  * во многие имеющиеся форматы из этого легко экспортировать;
+
+Формат относительно гибкий, охватывает разумно широкий класс задач по информатике.
+
+= Конвенции =
+
+  * .name — файлы и каталоги, создаваемые автоматически; такие файлы и содержимое таких каталогов вручную редактироваться не следует;
+  * названия файлов состоят из латинских букв, цифр, знаков подчеркивания и точек; названия *регистро-зависимы*;
+  * языки обозначаются их кодами [http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes ISO_639-1];
+  * в этом тексте <font color="red">красным цветом</font> выделены обязательные файлы (в каталоге) и строчки (в файле);
+
+Расширения (суффиксы) названий файлов:
+  * `*.pas` — исходные коды на Free Pascal;
+  * `*.dpr` — исходные коды на Free Pascal;
+  * `*.c` — исходные коды на C;
+  * `*.cpp, *.c++` — исходные коды на C++;
+  * `*.java` — исходные коды на Java;
+  * `*.py` — исходные коды на Python;
+
+= Структура каталога =
+(для задачи стандартного типа)
+
+<font color="gray">`.tests/`</font> — генерируемый каталог с готовым набором тестов;<br/>
+<font color="gray">`.sandbox/`</font> — каталог для запуска утилитой `please` чего бы то ни было;<br/>
+<font color="red">`statements/`</font><br/>
+<font color="black">`statements/pictures/`</font><br/>
+<font color="red">`statements/statement.{language}.tex`</font><br/>
+<font color="black">`statements/statement_{modification}.{language}.tex`</font><br/>
+<font color="red">`solutions/`</font><br/>
+<font color="black">`solutions/problemName_author.*`</font><br/>
+<font color="black">`solutions/problemName_author_description.*`</font><br/>
+<font color="red">`tests/`</font><br/>
+<font color="red">`tests/generate`</font><br/>
+<font color="black">`tests/check.*`</font> (или `Check.java` с заглавной буквы)<br/>
+<font color="black">`tests/validator.*`</font> (или `Validator.java` с заглавной буквы)<br/>
+<font color="red">`problem.properties`</font><br/>
+<font color="black">`problem_{modification}.properties`</font><br/>
+<font color="red">`description.{language}.tex`</font><br/>
+<font color="black">`description_{modification}.{language}.tex`</font><br/>
+<font color="gray">`.fingerprint`</font><br/>
+
+= Файл `problem.properties` =
+
+`tags={tag1}, {tag2}, ..., {tagN}` — смотри [Tags]<br/>
+`type={|output_only}`<br/>
+`input={filename.ext|<stdin>}`<br/>
+`output={filename.ext|<stdout>}`<br/>
+`time_limit={Ts|Tms}`<br/>
+`memory_limit={XMb|XKb|X}`<br/>
+
+= Файл `generate` =
+
+<font color="red">`# please 1.0`</font> — в первой строчке<br/>
+`# комментарий`<br/>
+`command`<br/>
+`command command-line parameters`<br/>
+`command [parameter parameter=value parameter="value"]`<br/>
+`(multi-line list of commands) [common parameters]`<br/>
+`echo some text`<br/>
+`echo "some multi-line text"`<br/>
+
+== Параметры ==
+  * `input={|file mask|<stdout>|<none>}`
+  * `output={|file mask|<stdout>|<none>}`
+  * Пустой параметр `input`/`output` означает «догадаться»
+
+= Файлы `description*.tex` =
+
+<font color="red">
+{описание условия}<br/>
+{описание решения}
+</font>
