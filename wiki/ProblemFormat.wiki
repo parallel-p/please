@@ -61,7 +61,7 @@
 
 = Файл `generate` =
 
-<font color="red">`# please 1.0`</font> — в первой строчке<br/>
+<font color="red">`#!/usr/bin/please.py`</font> — в первой строчке<br/>
 `# комментарий`<br/>
 `command`<br/>
 `command command-line parameters`<br/>
@@ -71,8 +71,8 @@
 `echo "some multi-line text"`<br/>
 
 == Параметры ==
-  * `input={|file mask|<stdout>|<none>}`
-  * `output={|file mask|<stdout>|<none>}`
+  * `input={|file mask|stdout|<none>}`
+  * `output={|file mask|stdout|<none>}`
   * Пустой параметр `input`/`output` означает «догадаться»
 
 = Файлы `description*.tex` =
