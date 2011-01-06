@@ -52,6 +52,7 @@
 
 = Файл `problem.properties` =
 
+<font color="red">`please_version=0.1`</font><br/>
 `tags={tag1}, {tag2}, ..., {tagN}` — смотри [Tags]<br/>
 `type={|output_only}`<br/>
 `input={filename.ext|stdin}`<br/>
