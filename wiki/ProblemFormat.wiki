@@ -65,7 +65,7 @@
 `# комментарий`<br/>
 `command`<br/>
 `command command-line parameters`<br/>
-`command [parameter parameter=value parameter="value"]`<br/>
+`command [parameter parameter=value parameter="value" parameter={list of values, one per test}]`<br/>
 `(multi-line list of commands) [common parameters]`<br/>
 `echo some text`<br/>
 `echo "some multi-line text"`<br/>
