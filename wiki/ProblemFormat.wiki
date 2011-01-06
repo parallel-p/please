@@ -43,7 +43,7 @@
 <font color="red">`tests/`</font><br/>
 <font color="red">`tests/generate`</font><br/>
 <font color="black">`tests/check.*`</font> (или `Check.java` с заглавной буквы)<br/>
-<font color="black">`tests/validator.*`</font> (или `Validator.java` с заглавной буквы)<br/>
+<font color="black">`tests/validate.*`</font> (или `Validate.java` с заглавной буквы)<br/>
 <font color="red">`problem.properties`</font><br/>
 <font color="black">`problem_{modification}.properties`</font><br/>
 <font color="red">`description.{language}.tex`</font><br/>
@@ -58,6 +58,8 @@
 `output={filename.ext|stdout}`<br/>
 `time_limit={<число>s|<число>ms}`<br/>
 `memory_limit={<число>Mb|<число>Kb}`<br/>
+`check={filename.ext|standard (?)}`<br/>
+`validate={filename.ext|standard (?)}`<br/>
 
 = Файл `generate` =
 
