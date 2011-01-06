@@ -1,6 +1,6 @@
 a [http://code.google.com/p/please/w/list All Wiki pages]
   * [ToDoList]
-  * a [ProblemFormat]
+  * [ProblemFormat]
     * `.tests/`
     * `.sandbox/`
     * `statements/`
@@ -19,4 +19,4 @@ a [http://code.google.com/p/please/w/list All Wiki pages]
     * `description.{language}.tex`
     * `description_{modification}.{language}.tex`
     * `.fingerprint`
-  * a [Tags]
+  * [Tags]
