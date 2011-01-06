@@ -52,12 +52,12 @@
 
 = Файл `problem.properties` =
 
-`tags={tag1}, {tag2}, ..., {tagN}` — смотри [Tags]<br/>
+`tags={tag1}, {tag2}, ..., {tagN}` — смотри [Tags] (просто список через запятую)<br/>
 `type={|output_only}`<br/>
-`input={filename.ext|<stdin>}`<br/>
-`output={filename.ext|<stdout>}`<br/>
-`time_limit={Ts|Tms}`<br/>
-`memory_limit={XMb|XKb|X}`<br/>
+`input={filename.ext|stdin}`<br/>
+`output={filename.ext|stdout}`<br/>
+`time_limit={<число>s|<число>ms}`<br/>
+`memory_limit={<число>Mb|<число>Kb}`<br/>
 
 = Файл `generate` =
 
