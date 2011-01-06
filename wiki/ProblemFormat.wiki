@@ -19,13 +19,13 @@
   * в этом тексте <font color="red">красным цветом</font> выделены обязательные файлы (в каталоге) и строчки (в файле);
 
 Расширения (суффиксы) названий файлов:
-  * `*.pas` (`*.pp`) — исходные коды на Free Pascal;
+  * `*.pas, *.pp` — исходные коды на Free Pascal;
   * `*.dpr` — исходные коды на Free Pascal (delphi???);
   * `*.c` — исходные коды на C;
   * `*.cpp, *.c++` — исходные коды на C++;
   * `*.java` — исходные коды на Java;
-  * `*.py` — исходные коды на Python;
   * `*.cs` — исходные коды на C#;
+  * `*.py` — исходные коды на Python;
 
 = Структура каталога =
 (для задачи стандартного типа)
@@ -52,7 +52,7 @@
 
 = Файл `problem.properties` =
 
-`tags={tag1}, {tag2}, ..., {tagN}` — смотри [Tags] (просто список через запятую)<br/>
+`tags={tag1}, {tag2}, ..., {tagN}` — смотри [Tags]<br/>
 `type={|output_only}`<br/>
 `input={filename.ext|stdin}`<br/>
 `output={filename.ext|stdout}`<br/>
@@ -70,8 +70,9 @@
 `echo "some multi-line text"`<br/>
 
 == Параметры ==
-  * `input={|file mask|stdout|<none>}`
-  * `output={|file mask|stdout|<none>}`
+  * `tags=sample, manual, random, ...`
+  * `input={|file mask|stdout|none}`
+  * `output={|file mask|stdout|none}`
   * Пустой параметр `input`/`output` означает «догадаться»
 
 = Файлы `description*.tex` =
