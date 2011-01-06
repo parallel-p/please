@@ -1,7 +1,7 @@
-  * a [ToDoList] a
-  * a [ProblemFormat] a
-    * a `.tests/` a
-    * a `.sandbox/` a
+  *  [ToDoList] 
+  *  [ProblemFormat] 
+    *  `.tests/` 
+    *  `.sandbox/` 
   * abc
 
  [http://code.google.com/p/please/w/list All Wiki pages]
