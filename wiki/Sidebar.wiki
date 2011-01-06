@@ -1,4 +1,4 @@
-  * [ToDo]
+  * [ToDoList]
   * [ProblemFormat]
     * .tests
     * .work
