@@ -1,5 +1,5 @@
 #summary Описание формата задач, используемого утилитой please
-#labels Phase-Requirements
+#labels Phase-Requirements,Featured
 
 = О формате =
 
