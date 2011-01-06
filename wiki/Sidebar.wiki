@@ -1,5 +1,6 @@
  [http://code.google.com/p/please/w/list All Wiki pages]
   * [ToDoList]
+  * [PleaseCommands]
   * [ProblemFormat]
     * `.tests/`
     * `.sandbox/`
