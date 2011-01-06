@@ -1,7 +1,7 @@
 #summary Full list of all tags for problems
 #labels Featured
 
-{{{
+<code language="text">
 data structures
 -linear data structures
 --stack
@@ -19,7 +19,7 @@ data structures
 sort=sorting
 -quick sort
 -merge sort
--heap sort [heap]
+-heap sort {heap}
 -quadratic sort
 --bubble sort
 --insertion sort
@@ -56,7 +56,7 @@ math
 ---sieve of eratosthenes
 ---little fermat theorem
 --gcd
---rsa [encryption]
+--rsa {encryption}
 --chinese remainder theorem
 -generating functions
 -linear algebra
@@ -90,7 +90,7 @@ graph theory=graph
 --graph embedding
 --planarity check
 -graph isomorphism
---tree isomorphism [tree]
+--tree isomorphism {tree}
 -matching
 --perfect matching in bipartite graph
 --perfect matching in arbitrary graph
@@ -125,12 +125,12 @@ string=string manipulation
 --xml
 -trie
 -substring search
---knuth-morris-pratt algorithm [prefix-function]
+--knuth-morris-pratt algorithm {prefix-function}
 --aho-corasick algorithm
 -prefix-function
 -z-function
 -suffix array
--suffix automaton [dfa]
+-suffix automaton {dfa}
 -suffix tree
 --ukkonen algorithm
 
@@ -149,4 +149,4 @@ tutorial
 -while
 -for
 -procedures and functions
-}}}
+</code>
