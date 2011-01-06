@@ -1,6 +1,6 @@
  [http://code.google.com/p/please/w/list All Wiki pages]
-  * [ToDoList]
-  * [ProblemFormat]
+  *  [ToDoList] 
+  *  [ProblemFormat] 
     *  `.tests/` 
     *  `.sandbox/` 
     *  `statements/` 
