@@ -20,4 +20,4 @@
     * `description_{modification}.{language}.tex`
     * `.fingerprint`
 
-  * [Tags]
+  * [Tags]
