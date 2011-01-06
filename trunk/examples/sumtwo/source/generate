@@ -28,21 +28,3 @@
     ioi:score=4
   ] # ещё куча тестов c тегами
 ) [shitness=200]
-
-# этого не нужно, ибо дефолт
-(
-  set input=??
-  set output=??.a
-  set csv=tests.csv
-  set recursive=true
-  set columns=tags;description
-  # а вот и скрипт
-  take [hand,sample;"hand tests"]
-  gen_random.c++ 239017 [random]
-  gen_random.c++ 239018 [random]
-  gen_random.c++ 239019 [random]
-  gen_many.c++ 301703
-  gen_new.c++ 239
-  gen_new.c++ 566
-) [shitness=1000]
-
