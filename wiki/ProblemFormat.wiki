@@ -61,7 +61,6 @@
 
 = Файл `generate` =
 
-<font color="red">`#!/usr/bin/please.py`</font> — в первой строчке<br/>
 `# комментарий`<br/>
 `command`<br/>
 `command command-line parameters`<br/>
