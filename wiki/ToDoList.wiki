@@ -1,5 +1,5 @@
 #summary Список задач, вопросов и мыслей.
-#labels Phase-Design
+#labels Phase-Design,Featured
 
 = ToDo =
 
