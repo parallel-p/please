@@ -1,4 +1,6 @@
 a [http://code.google.com/p/please/w/list All Wiki pages] a
   * a [ToDoList] a
   * a [ProblemFormat] a
+    * `.tests/`
+    * `.sandbox/`
   * a [Tags] a
