@@ -1,4 +1,4 @@
-#summary Описание формата задач, используемого `please`
+#summary Описание формата задач, используемого утилитой please
 #labels Phase-Requirements
 
 = О формате =
