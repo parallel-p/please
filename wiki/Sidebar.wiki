@@ -1,5 +1,4 @@
  [http://code.google.com/p/please/w/list All Wiki pages]
-  * a[ToDoList]a
-  * a[ProblemFormat]a
-    * a `.tests/` a
-  * a[Tags]a
+  * [ToDoList]
+  * [ProblemFormat]
+  * [Tags]
