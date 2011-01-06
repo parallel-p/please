@@ -1,4 +1,4 @@
- [http://code.google.com/p/please/w/list All Wiki pages]
-  * [ToDoList]
-  * [ProblemFormat]
-  * [Tags]
+a [http://code.google.com/p/please/w/list All Wiki pages] a
+  * a [ToDoList] a
+  * a [ProblemFormat] a
+  * a [Tags] a
