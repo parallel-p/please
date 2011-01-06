@@ -14,7 +14,7 @@
     * `tests/`
       * `generate`
       * `check.*`
-      * `validator.*`
+      * `validate.*`
     * `problem.properties`
     * `problem_{modification}.properties`
     * `description.{language}.tex`
