@@ -1,28 +1,22 @@
-  *  [ToDoList] 
-  *  [ProblemFormat] 
-    *  `.tests/` 
-    *  `.sandbox/` 
-  * abc
-
  [http://code.google.com/p/please/w/list All Wiki pages]
   * [ToDoList]
   * [ProblemFormat]
-    * `.tests/`
-    * `.sandbox/`
-    * `statements/`
-    * `statements/pictures/`
-    * `statements/statement.{language}.tex`
-    * `statements/statement_{modification}.{language}.tex`
-    * `solutions/`
-    * `solutions/problemName_author.*`
-    * `solutions/problemName_author_description.*`
-    * `tests/`
-    * `tests/generate`
-    * `tests/check.*`
-    * `tests/validator.*`
-    * `problem.properties`
-    * `problem_{modification}.properties`
-    * `description.{language}.tex`
-    * `description_{modification}.{language}.tex`
-    * `.fingerprint`
-  * [Tags]
+    *  `.tests/` 
+    *  `.sandbox/` 
+    *  `statements/` 
+    *  `statements/pictures/` 
+    *  `statements/statement.{language}.tex` 
+    *  `statements/statement_{modification}.{language}.tex` 
+    *  `solutions/` 
+    *  `solutions/problemName_author.*` 
+    *  `solutions/problemName_author_description.*` 
+    *  `tests/` 
+    *  `tests/generate` 
+    *  `tests/check.*` 
+    *  `tests/validator.*` 
+    *  `problem.properties` 
+    *  `problem_{modification}.properties` 
+    *  `description.{language}.tex` 
+    *  `description_{modification}.{language}.tex` 
+    *  `.fingerprint` 
+  *  [Tags] 
