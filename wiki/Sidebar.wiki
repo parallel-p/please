@@ -19,4 +19,5 @@
     * `description.{language}.tex`
     * `description_{modification}.{language}.tex`
     * `.fingerprint`
+
   * [Tags]
