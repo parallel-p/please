@@ -1,0 +1,1 @@
+python please.py $*
