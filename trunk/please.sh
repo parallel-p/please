@@ -1,3 +1,3 @@
 #!/bin/sh
 
-python please.py $*
+python3 please.py $*
