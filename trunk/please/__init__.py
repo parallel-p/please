@@ -32,6 +32,6 @@ def Main(directory='.', args=None, log=None):
         log.error(locale.get('main.unknown-context'))
         return 1
         
-    log.info(locale.get('main.assuming-context') % context.NAME)
+    log.debug(locale.get('main.assuming-context') % str(context))
     context.handle(args)
     return 0

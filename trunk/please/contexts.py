@@ -10,7 +10,10 @@ Please can be run inside:
 """
 
 from . import commands
+from . import config
 from . import locale
+
+import os.path
 
 class Context(object):
     """Context defines what can be done in the particular directory.
@@ -26,6 +29,9 @@ class Context(object):
         self.directory = directory
         self.log = log
         
+    def __str__(self):
+        return self.NAME + ' (' + self.directory + ')'
+        
     def handle(self, args):
         if not args:
             commands.HelpCommand(self, args).handle()
@@ -39,15 +45,30 @@ class Context(object):
             command.handle()
             return
         
-        self.log.error(locale.get('contexts.unknown-command-in-context') % 
+        self.log.error(locale.get('unknown-command-in-context') % 
                        {'command': args[0], 'context': self.NAME})
+        
+    @staticmethod
+    def is_applicable(path):
+        return False
 
 
 class ProblemContext(Context):
     """Please-formatted problem context."""
     
-    # Should have .problem field at least.
-    pass
+    NAME = locale.get('context.problem.name')
+    COMMANDS = [commands.HelpCommand]
+
+    def __init__(self, directory, log):
+        Context.__init__(self, directory, log)
+        # Should have .problem field at least.
+
+    @staticmethod
+    def is_applicable(path):
+        please_dir = os.path.join(path, config.PLEASE_WORK_DIR)
+        problem_file = os.path.join(please_dir, config.PLEASE_PROBLEM_FILE)
+        return (os.path.isdir(path) and os.path.isdir(please_dir) and
+                os.path.isfile(problem_file))
 
 
 class SeemsLikeProblemContext(Context):
@@ -70,8 +91,21 @@ class GlobalContext(Context):
     NAME = locale.get('context.global.name')
     COMMANDS = [commands.HelpCommand, commands.UpdateCommand]
 
+    @staticmethod
+    def is_applicable(path):
+        return True
+
+
+_CONTEXTS = [ProblemContext, ContestContext,
+             SeemsLikeProblemContext, GlobalContext]
 
 def guess(directory, log):
-    # TODO(dgozman): implement this
-    return GlobalContext(directory, log)
+    for cls in _CONTEXTS:
+        path = directory
+        # TODO(dgozman): why 10? Go to the root?
+        for _ in xrange(10):
+            if cls.is_applicable(path):
+                return cls(path, log)
+            path = os.path.split(path)[0]
+    return None
 

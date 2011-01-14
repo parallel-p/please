@@ -8,10 +8,19 @@ _ru = {
     'main.assuming-context': 'Assuming context: %s.',
        
     'context.global.name': 'global',
-    'contexts.unknown-command-in-context': 'Unknown command "%(command)s" in %(context)s context. Use "please help".',
+    'context.problem.name': 'problem',
+
+    'unknown-command-in-context': 'Unknown command "%(command)s" in %(context)s context. Use "please help [--all]".',
+    'unknown-command': 'Unknown command "%s". Use "please help --all".',
+    'help.general-header': 'Usage: please <command> [options]\nVersion 0.1\nCommands are:',
     
-    'commands.help.name': 'help',
-    'commands.update.name': 'update',
+    'commands.help.usage': 'usage: please help [command]',
+    'commands.help.description': 'Print general or specific command help.',
+    'commands.help.valid-options': 'Valid options are:',
+
+    'options.use-help': 'Use: "please help %s".',
+    'options.usage-all': ('-a [--all]\n'
+                          '  Show help for all commands (not only specific to context).'),
     }
 
 _current_locale = _ru
