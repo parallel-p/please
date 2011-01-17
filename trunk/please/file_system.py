@@ -20,6 +20,13 @@ class FileSystem:
             file in os.listdir(search_dir)
             if func_filter(os.path.join(search_dir, file))]
 
+    def exists(self, file):
+        return os.path.exists(os.path.join(self.__pwd, file))
+
+    def read(self, file):
+        with open(file, "rt") as f:
+            return f.read()
+
     def files(self, subdir):
         return self.__items(
             os.path.join(self.__pwd, subdir),
@@ -31,7 +38,7 @@ class FileSystem:
             os.path.isdir)
 
     def find(self, subdir, basename_regex, deep = 1):
-        """generator of all files accept by regex"""
+        """generator of all files accepted by regex"""
         for file in self.files(subdir):
             if re.search(basename_regex, os.path.basename(file)):
                 yield file
@@ -51,4 +58,6 @@ if __name__ == "__main__":
     print(list(fs.find(".", ".*\.py", deep = 1)))
     print(list(fs.find(".", ".*\.py", deep = 2)))
     print(list(fs.find("commands", ".*\.py", deep = 2)))
+    assert(fs.exists("__init__.py"))
+    assert(fs.exists(os.path.join("extensions", "base.py")))
 

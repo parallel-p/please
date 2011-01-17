@@ -1,8 +1,9 @@
 class Checker:
     TOKENS, INTEGERS, YES_NO = range(3)
     def __init__(self,
-            standard_type = None,
-            file = None):
+            file = None,
+            standard_type = None
+            ):
         if standard_type != None and file != None:
             raise Exception("checker must be either standard or in some file")
         self.__file = file
