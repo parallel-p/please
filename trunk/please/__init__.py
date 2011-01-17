@@ -10,7 +10,18 @@ from . import logging
 import os.path
 import sys
 
-def Main(directory='.', args=None, log=None):
+def _set_log_level(args, log):
+    for item in args:
+        if item == '--verbose':
+            log.level = logging.DEBUG
+            args.remove(item)
+        elif item == '--silent':
+            log.level = logging.NO_LOGGING
+            args.remove(item)
+    return args
+
+
+def main(directory='.', args=None, log=None):
     """Main method to run please tool.
     
     Args:
@@ -24,6 +35,8 @@ def Main(directory='.', args=None, log=None):
         args = sys.argv[1:]
     if log is None:
         log = logging.ConsoleLog()
+    
+    args = _set_log_level(args, log)
     
     log.info(locale.get('main.header'))
     

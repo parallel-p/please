@@ -3,6 +3,13 @@
 """Localization utilities."""
 
 _ru = {
+    'log.debug': 'debug',
+    'log.info': '',  # This is not shown anywhere, so it's empty.
+    'log.notice': 'notice',
+    'log.warning': 'warning',
+    'log.error': 'error',
+    'log.fatal': 'fatal',   
+    
     'main.header': 'This is a please tool.',
     'main.unknown-context': 'Unknown environment. Use "please help".',
     'main.assuming-context': 'Assuming context: {0}.',
@@ -17,10 +24,17 @@ _ru = {
     'commands.help.usage': 'usage: please help [command]',
     'commands.help.description': 'Print general or specific command help.',
     'commands.help.valid-options': 'Valid options are:',
+    'commands.help.general-options': (
+        'General options are:\n'
+        '  --verbose\n'
+        '    Show debug output.\n'
+        '  --silent\n'
+        '    Do not output anything.\n'),
 
-    'options.use-help': 'Use: "please help {0}".',
-    'options.usage-all': ('-a [--all]\n'
-                          '  Show help for all commands (not only specific to context).'),
+    'options.parse-error': '{0}. Use: "please help {1}".',
+    'options.usage-all': (
+        '-a [--all]\n'
+        '  Show help for all commands (not only specific to context).'),
     }
 
 _current_locale = _ru

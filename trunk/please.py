@@ -8,4 +8,4 @@ import please
 import sys
 
 if __name__ == '__main__':
-    sys.exit(please.Main())
+    sys.exit(please.main())
