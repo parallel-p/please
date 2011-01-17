@@ -1,4 +1,7 @@
-import base
+#!/usr/bin/python
+
+from . import base
+
 class Statements(base.Base):
     LATEX = 0
     def __init__(self):

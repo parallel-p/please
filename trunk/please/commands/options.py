@@ -15,7 +15,7 @@ class OptionParser(optparse.OptionParser):
         
     def error(self, message):
         self.log.error(message)
-        self.log.info(locale.get('options.use-help') % self.command.NAME)
+        self.log.info(locale.get('options.use-help').format(self.command.NAME))
         sys.exit(2)
 
 

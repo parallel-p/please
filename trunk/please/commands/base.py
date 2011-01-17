@@ -67,14 +67,15 @@ class HelpCommand(Command):
                 command = c
         
         if command is None:
-            message = (locale.get('unknown-command-in-context') %
-                       {'command': name, 'context': self.context.NAME})
+            message = locale.get('unknown-command-in-context').format(
+                command=name, context=self.context.NAME)
             if self.options.all:
-                message = locale.get('unknown-command') % name
+                message = locale.get('unknown-command').format(name)
             self.context.log.info(message)
             return
 
-        self.context.log.info('%s: %s' % (command.NAME, command.description()))
+        self.context.log.info('{0}: {1}'.format(
+            command.NAME, command.description()))
         self.context.log.info(command.usage())
         
         if not command.OPTIONS:
@@ -92,9 +93,9 @@ class HelpCommand(Command):
     def handle_general(self, commands):
         self.context.log.info(locale.get('help.general-header'))
         max_len = max([len(c.NAME) for c in commands])
-        format = '%' + str(max_len + 2) + 's %s'
+        fmt = '{0:' + str(max_len + 2) + '} {1}'
         for c in commands:
-            self.context.log.info(format % (c.NAME, c.description()))
+            self.context.log.info(fmt.format(c.NAME, c.description()))
 
 
 class UpdateCommand(Command):

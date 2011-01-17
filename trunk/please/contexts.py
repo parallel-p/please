@@ -45,8 +45,8 @@ class Context(object):
             command.handle()
             return
         
-        self.log.error(locale.get('unknown-command-in-context') % 
-                       {'command': args[0], 'context': self.NAME})
+        self.log.error(locale.get('unknown-command-in-context').format( 
+            command=args[0], context=self.NAME))
         
     @staticmethod
     def is_applicable(path):
@@ -103,7 +103,7 @@ def guess(directory, log):
     for cls in _CONTEXTS:
         path = directory
         # TODO(dgozman): why 10? Go to the root?
-        for _ in xrange(10):
+        for _ in range(10):
             if cls.is_applicable(path):
                 return cls(path, log)
             path = os.path.split(path)[0]

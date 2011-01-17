@@ -1,4 +1,7 @@
-import base
+#!/usr/bin/python
+
+from . import base
+
 class Programs(base.Base):
     CPP, PASCAL, PYTHON = range(3)
     def __init__(self):

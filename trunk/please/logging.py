@@ -9,11 +9,11 @@ class Log(object):
 
 class ConsoleLog(object):
     def info(self, message):
-        print message
+        print(message)
 
     def error(self, message):
-        print '[error] %s' % message
+        print('[error] {0}'.format(message))
 
     def debug(self, message):
-        print '[debug] %s' % message
+        print('[debug] {0}'.format(message))
 

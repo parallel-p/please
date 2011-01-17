@@ -1,10 +1,13 @@
+#!/usr/bin/python
+
 import os
 import os.path
 
 class File:
-"""
-Helpful utility for working with files
-"""
+    """
+    Helpful utility for working with files
+    """
+    
     def __init__(self, filename):
         self.__filename = filename
 

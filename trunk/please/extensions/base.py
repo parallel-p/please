@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 class Base:
     ALL = -1
     def __init__(self, extensions_dict):
