@@ -2,7 +2,7 @@
 
 """Localization utilities."""
 
-_ru = {
+_en = {
     'log.debug': 'debug',
     'log.info': '',  # This is not shown anywhere, so it's empty.
     'log.notice': 'notice',
@@ -37,7 +37,7 @@ _ru = {
         '  Show help for all commands (not only specific to context).'),
     }
 
-_current_locale = _ru
+_current_locale = _en
 
 def get(name):
     return _current_locale[name]

@@ -57,6 +57,9 @@ class HelpCommand(Command):
         if self.args:
             for name in self.args:
                 self.handle_command(commands, name)
+            
+            self.context.log.info('')
+            self.print_general_options()
         else:
             self.handle_general(commands)
             
@@ -88,9 +91,6 @@ class HelpCommand(Command):
                 usage = option.usage_callback()
                 for line in usage.split('\n'):
                     self.context.log.info('  ' + line)
-                self.context.log.info('')
-                
-        self.print_general_options()
         
     def handle_general(self, commands):
         self.context.log.info(locale.get('help.general-header'))
@@ -98,7 +98,6 @@ class HelpCommand(Command):
         fmt = '{0:' + str(max_len + 2) + '} {1}'
         for c in commands:
             self.context.log.info(fmt.format(c.NAME, c.description()))
-        self.print_general_options()
         
     def print_general_options(self):
         self.context.log.info(locale.get('commands.help.general-options'))

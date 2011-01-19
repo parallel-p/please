@@ -1,0 +1,5 @@
+This is a list of used third party packages.
+License and documentation for each package should be available on it's home page.
+
+Mock from http://www.voidspace.org.uk/python/mock/
+  - mock.py
