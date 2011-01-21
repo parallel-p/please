@@ -20,12 +20,3 @@ class File:
             return ""
         else:
             return extension_split[1]
-
-if __name__ == "__main__":
-    for filename, extension, basename in [
-            ("./ura.php", "php", "ura.php"),
-            ("././dere/.svn/ura.cpp", "cpp", "ura.cpp"),
-            ("ewr/ura", "", "ura")]:
-        f = File(filename)
-        assert(f.extension() == extension)
-        assert(f.basename() == basename)
