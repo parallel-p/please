@@ -3,4 +3,4 @@
 """Configuration."""
 
 PLEASE_WORK_DIR = '.please'
-PLEASE_PROBLEM_FILE = 'problem'
+PLEASE_PROBLEM_FILE = 'problem.properties'

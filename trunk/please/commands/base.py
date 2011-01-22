@@ -108,3 +108,51 @@ class UpdateCommand(Command):
     
     def handle(self):
         self.context.log.info('This is an update command.')
+
+class CheckProblemCommand(Command):
+    NAME = 'check'
+
+    def validator(self, problem, fs):
+        validator = problem.validator()
+        if validator is None:
+            from please.searcher.validator import Validator
+            validator_file = Validator(fs).file()
+            if validator_file is not None:
+                from please.properties.validator import Validator
+                validator = Validator(validator_file)
+
+        return validator
+    
+    def checker(self, problem, fs):
+        checker = problem.checker()
+        if checker is None:
+            from please.searcher.checker import Checker
+            checker_file = Checker(fs).file()
+            if checker_file is not None:
+                from please.properties.checker import Checker
+                checker = Checker(checker_file)
+
+        return checker
+    
+    def handle(self):
+        log = self.context.log
+        log.info('Running check problem command.')
+        from please.properties.problem import Problem
+        from please.file_system import FileSystem
+        fs = FileSystem(self.context.directory)
+        problem = Problem(fs)
+        
+        validator = self.validator(problem, fs)
+        if validator is not None:
+            log.info("validator is found on path %s" % validator.file())
+        else:
+            log.warning("validator is not found")
+
+        checker = self.checker(problem, fs)
+        if checker is not None:
+            log.info("checker is found on path %s" % checker.file())
+        else:
+            log.error("checker is not found")
+
+
+

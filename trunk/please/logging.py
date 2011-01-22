@@ -25,7 +25,7 @@ class Log(object):
         self.warning = lambda text: self.log(WARNING, text)
         self.error = lambda text: self.log(ERROR, text)
         self.fatal = lambda text: self.log(FATAL, text)
-        self.level = INFO
+        self.level = DEBUG
         
     def log(self, level, message, end='\n'):
         if level < self.level:

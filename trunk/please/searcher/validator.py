@@ -4,4 +4,10 @@ class Validator:
 
     def file(self):
         """Returns path to validator or None"""
-        return None
+        candidates = list(
+            self.__file_system.find(".", "val.*\..*", deep = 2)
+            )
+        if len(candidates) != 1:
+            return None
+        else:
+            return candidates[0]

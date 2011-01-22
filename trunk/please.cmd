@@ -1,1 +1,1 @@
-python please.py $*
+python E:\Vitaly\please\please.py %*

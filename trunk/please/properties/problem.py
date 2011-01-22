@@ -1,6 +1,6 @@
-import checker
-import statements
-import validator 
+from . import checker
+from . import statements
+from . import validator 
 
 import os.path
 

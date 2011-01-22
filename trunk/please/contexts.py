@@ -57,7 +57,7 @@ class ProblemContext(Context):
     """Please-formatted problem context."""
     
     NAME = locale.get('context.problem.name')
-    COMMANDS = [commands.HelpCommand]
+    COMMANDS = [commands.HelpCommand, commands.CheckProblemCommand]
 
     def __init__(self, directory, log):
         Context.__init__(self, directory, log)
@@ -65,10 +65,13 @@ class ProblemContext(Context):
 
     @staticmethod
     def is_applicable(path):
-        please_dir = os.path.join(path, config.PLEASE_WORK_DIR)
-        problem_file = os.path.join(please_dir, config.PLEASE_PROBLEM_FILE)
-        return (os.path.isdir(path) and os.path.isdir(please_dir) and
-                os.path.isfile(problem_file))
+        #please_dir = os.path.join(path, config.PLEASE_WORK_DIR)
+        problem_file = os.path.join(path, config.PLEASE_PROBLEM_FILE)
+        if (os.path.isdir(path) and #os.path.isdir(please_dir) and
+                os.path.isfile(problem_file)):
+            return True
+        else:
+            return False
 
 
 class SeemsLikeProblemContext(Context):
