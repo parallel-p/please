@@ -3,14 +3,15 @@
 
 = Ближайшие шаги =
 
-  * переименовать файлы
-  * лог под Windows
-  * ProblemCommand
-  * alias для команд
-  * вынести file_system в context
-  * описать формат generate.please
+  * [dg] переименовать файлы
+  * [dg] лог под Windows
+  * [vg] ProblemCommand
+  * [dg] alias для команд
+  * [vg] вынести file_system в context
+  * [dg] описать формат generate.please
   * sandbox смотрит на появившиеся файлы
-  * второй лог для операций, производимых please
+  * [dg] второй лог для операций, производимых please
+  * run tools
 
 = Предстоит сделать =
 
