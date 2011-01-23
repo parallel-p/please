@@ -15,16 +15,16 @@ class FileSystem:
 
     def __items(self, search_dir, func_filter):
         return [
-            os.path.normpath(
-                os.path.join(search_dir, file)) for
-            file in os.listdir(search_dir)
+            os.path.relpath(os.path.join(search_dir, file),
+                self.__pwd)
+            for file in os.listdir(search_dir)
             if func_filter(os.path.join(search_dir, file))]
 
     def exists(self, file):
         return os.path.exists(os.path.join(self.__pwd, file))
 
     def read(self, file):
-        with open(file, "rt") as f:
+        with open(os.path.join(self.__pwd, file), "rt") as f:
             return f.read()
 
     def files(self, subdir):
@@ -37,15 +37,15 @@ class FileSystem:
             os.path.join(self.__pwd, subdir),
             os.path.isdir)
 
-    def find(self, subdir, basename_regex, deep = 1):
+    def find(self, subdir, basename_regex, depth = 1):
         """generator of all files accepted by regex"""
         for file in self.files(subdir):
             if re.search(basename_regex, os.path.basename(file)):
                 yield file
-        if deep > 1:
+        if depth > 1:
             for dir in self.dirs(subdir):
                 if not dir.startswith("."):
-                    for file in self.find(dir, basename_regex, deep - 1):
+                    for file in self.find(dir, basename_regex, depth - 1):
                         yield file
 
 if __name__ == "__main__":
@@ -55,9 +55,9 @@ if __name__ == "__main__":
     print(list(fs.files("commands")))
     print("finding...")
     print(list(fs.find(".", ".*\.py")))
-    print(list(fs.find(".", ".*\.py", deep = 1)))
-    print(list(fs.find(".", ".*\.py", deep = 2)))
-    print(list(fs.find("commands", ".*\.py", deep = 2)))
+    print(list(fs.find(".", ".*\.py", depth = 1)))
+    print(list(fs.find(".", ".*\.py", depth = 2)))
+    print(list(fs.find("commands", ".*\.py", depth = 2)))
     assert(fs.exists("__init__.py"))
     assert(fs.exists(os.path.join("extensions", "base.py")))
 

@@ -1,12 +1,13 @@
 from . import checker
 from . import statements
 from . import validator 
+from .. import config
 
 import os.path
 
 #TODO: move parsing to separate class?
 class Problem:
-    def __init__(self, file_system, filename = "problem.properties"):
+    def __init__(self, file_system, filename = config.PLEASE_PROBLEM_FILE):
         if not file_system.exists(filename):
             raise Exception("No '%s' file" % filename)
 
