@@ -28,6 +28,9 @@ class Context(object):
     def __init__(self, directory, log):
         self.directory = directory
         self.log = log
+
+        from please.file_system import FileSystem
+        self.file_system = FileSystem(directory)
         
     def __str__(self):
         return self.NAME + ' (' + self.directory + ')'
@@ -57,7 +60,7 @@ class ProblemContext(Context):
     """Please-formatted problem context."""
     
     NAME = locale.get('context.problem.name')
-    COMMANDS = [commands.HelpCommand, commands.CheckProblemCommand]
+    COMMANDS = [commands.HelpCommand, commands.problem.Inspect]
 
     def __init__(self, directory, log):
         Context.__init__(self, directory, log)

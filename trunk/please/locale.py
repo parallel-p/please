@@ -2,6 +2,9 @@
 
 """Localization utilities."""
 
+from . import config
+import os.path
+
 _en = {
     'log.debug': 'debug',
     'log.info': '',  # This is not shown anywhere, so it's empty.
@@ -20,6 +23,15 @@ _en = {
     'unknown-command-in-context': 'Unknown command "{command}" in {context} context. Use "please help [--all]".',
     'unknown-command': 'Unknown command "{0}". Use "please help --all".',
     'help.general-header': 'Usage: please <command> [options]\nVersion 0.1\nCommands are:',
+
+    'problem.checker-not-found': 'checker is not found',
+    'problem.validator-not-found': 'validator is not found',
+    'problem.validator-found': 'validator = %s',
+    'problem.checker-found': 'checker = %s',
+    'problem.generate-not-found': "please generate file not found at '%s'" % config.PLEASE_GENERATE_FILE,
+    'problem.statements-found': 'statements = %s',
+    'problem.statements-not-found': "statements not found",
+
     
     'commands.help.usage': 'usage: please help [command]',
     'commands.help.description': 'Print general or specific command help.',
