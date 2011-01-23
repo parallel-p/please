@@ -3,7 +3,6 @@
 
 = Ближайшие шаги =
 
-  * [dg] переименовать файлы
   * [dg] лог под Windows
   * [vg] ProblemCommand
   * [dg] alias для команд
