@@ -12,7 +12,6 @@
 
 = Конвенции =
 
-  * .name — файлы и каталоги, создаваемые автоматически; такие файлы и содержимое таких каталогов вручную редактироваться не следует;
   * .please — кажется, что лучше все сгенерированное и временное класть в одну папочку, чтобы не было много левых папок;
   * названия файлов состоят из латинских букв, цифр, знаков подчеркивания и точек; названия *регистро-независимы* (please громко ругается!! если есть заглавные буквы не на Java и матерится, если есть два файла, которые отличаются только регистром);
   * языки обозначаются их кодами [http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes ISO_639-1];
@@ -30,27 +29,26 @@
 = Структура каталога =
 (для задачи стандартного типа)
 
-<font color="gray">`.tests/`</font> — генерируемый каталог с готовым набором тестов;<br/>
-<font color="gray">`.sandbox/`</font> — каталог для запуска утилитой `please` чего бы то ни было;<br/>
+<font color="gray">`.please/`</font> — генерируемый каталог с временными и сгенерированными файлами;<br/>
 <font color="red">`statements/`</font><br/>
 <font color="black">`statements/pictures/`</font><br/>
 <font color="black">`statements/include/`</font><br/>
-<font color="red">`statements/statement.{language}.tex`</font><br/>
-<font color="black">`statements/statement_{modification}.{language}.tex`</font><br/>
+<font color="red">`statements/default.{language}.tex`</font><br/>
+<font color="black">`statements/{modification}.{language}.tex`</font><br/>
 <font color="red">`solutions/`</font><br/>
 <font color="black">`solutions/problemName_author.*`</font><br/>
 <font color="black">`solutions/problemName_author_description.*`</font><br/>
 <font color="red">`tests/`</font><br/>
-<font color="red">`tests/generate`</font><br/>
+<font color="red">`tests/generate.please`</font><br/>
 <font color="black">`tests/check.*`</font> (или `Check.java` с заглавной буквы)<br/>
 <font color="black">`tests/validate.*`</font> (или `Validate.java` с заглавной буквы)<br/>
-<font color="red">`problem.properties`</font><br/>
-<font color="black">`problem_{modification}.properties`</font><br/>
+<font color="red">`default.package`</font><br/>
+<font color="black">`{modification}.package`</font><br/>
 <font color="red">`description.{language}.tex`</font><br/>
 <font color="black">`description_{modification}.{language}.tex`</font><br/>
 <font color="gray">`.fingerprint`</font><br/>
 
-= Файл `problem.properties` =
+= Файл `default.package` =
 
 <font color="red">`please_version=0.1`</font><br/>
 `tags={tag1}, {tag2}, ..., {tagN}` — смотри [Tags]<br/>
@@ -62,7 +60,7 @@
 `check={filename.ext|standard (?)}`<br/>
 `validate={filename.ext|standard (?)}`<br/>
 
-= Файл `generate` =
+= Файл `generate.please` =
 
 `# комментарий`<br/>
 `command`<br/>
