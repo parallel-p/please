@@ -8,6 +8,9 @@
   * ProblemCommand
   * alias для команд
   * вынести file_system в context
+  * описать формат generate.please
+  * sandbox смотрит на появившиеся файлы
+  * второй лог для операций, производимых please
 
 = Предстоит сделать =
 
