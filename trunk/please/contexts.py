@@ -42,7 +42,7 @@ class Context(object):
         
         command = None
         for command_cls in self.COMMANDS:
-            if command_cls.NAME == args[0]:
+            if args[0] in command_cls.NAMES:
                 command = command_cls(self, args[1:])
         if command:
             command.handle()
@@ -60,7 +60,7 @@ class ProblemContext(Context):
     """Please-formatted problem context."""
     
     NAME = locale.get('context.problem.name')
-    COMMANDS = [commands.HelpCommand, commands.problem.Inspect]
+    COMMANDS = [commands.Help, commands.problem.Inspect]
 
     def __init__(self, directory, log):
         Context.__init__(self, directory, log)
@@ -95,7 +95,7 @@ class GlobalContext(Context):
     """Context 'somewhere'."""
     
     NAME = locale.get('context.global.name')
-    COMMANDS = [commands.HelpCommand, commands.UpdateCommand]
+    COMMANDS = [commands.Help, commands.Update]
 
     @staticmethod
     def is_applicable(path):

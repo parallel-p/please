@@ -33,7 +33,7 @@ _en = {
     'problem.statements-not-found': "statements not found",
 
     
-    'commands.help.usage': 'usage: please help [command]',
+    'commands.help.usage': 'usage: please help [command] [options]',
     'commands.help.description': 'Print general or specific command help.',
     'commands.help.valid-options': 'Valid options are:',
     'commands.help.general-options': (
@@ -43,6 +43,10 @@ _en = {
         '  --silent\n'
         '    Do not output anything.\n'),
 
+    'commands.inspect.usage': 'usage: please inspect [options]',
+    'commands.inspect.description': 'Check whether problem is well-formed.',
+
+    
     'options.parse-error': '{0}. Use: "please help {1}".',
     'options.usage-all': (
         '-a [--all]\n'

@@ -12,8 +12,16 @@ class Command(object):
     Only one command can be run at a time. Commands are specific to contexts.
     """
     
-    NAME = ''
+    NAMES = ''
     OPTIONS = []
+
+    @classmethod
+    def names(cls):
+      if len(cls.NAMES) == 0:
+          return ''
+      if len(cls.NAMES) == 1:
+          return cls.NAMES[0]
+      return '{0} ({1})'.format(cls.NAMES[0], ', '.join(cls.NAMES[1:]))
     
     @classmethod
     def usage(cls):
@@ -37,8 +45,8 @@ class Command(object):
         pass    
 
 
-class HelpCommand(Command):
-    NAME = 'help'
+class Help(Command):
+    NAMES = ['help', 'h', '?']
     OPTIONS = ['all']
     
     @classmethod
@@ -66,7 +74,7 @@ class HelpCommand(Command):
     def handle_command(self, commands, name):
         command = None
         for c in commands:
-            if c.NAME == name:
+            if name in c.NAMES:
                 command = c
         
         if command is None:
@@ -79,7 +87,7 @@ class HelpCommand(Command):
 
         self.context.log.info('')
         self.context.log.info('{0}: {1}'.format(
-            command.NAME, command.description()))
+            command.names(), command.description()))
         self.context.log.info(command.usage())
         
         if not command.OPTIONS:
@@ -94,17 +102,17 @@ class HelpCommand(Command):
         
     def handle_general(self, commands):
         self.context.log.info(locale.get('help.general-header'))
-        max_len = max([len(c.NAME) for c in commands])
+        max_len = max([len(c.names()) for c in commands])
         fmt = '{0:' + str(max_len + 2) + '} {1}'
-        for c in commands:
-            self.context.log.info(fmt.format(c.NAME, c.description()))
+        for c in sorted(commands, key=lambda c: c.names()):
+            self.context.log.info(fmt.format(c.names(), c.description()))
         
     def print_general_options(self):
         self.context.log.info(locale.get('commands.help.general-options'))
 
 
-class UpdateCommand(Command):
-    NAME = 'update'
+class Update(Command):
+    NAMES = ['update']
     
     def handle(self):
         self.context.log.info('This is an update command.')

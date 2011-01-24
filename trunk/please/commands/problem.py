@@ -42,7 +42,15 @@ class Base(base.Command):
         return statements
 
 class Inspect(Base):
-    NAME = 'inspect'
+    NAMES = ['inspect', 'lint']
+    
+    @classmethod
+    def usage(cls):
+        return locale.get('commands.inspect.usage')
+    
+    @classmethod
+    def description(cls):
+        return locale.get('commands.inspect.description')
 
     def __init__(self, context, args):
         super(Inspect, self).__init__(context, args)

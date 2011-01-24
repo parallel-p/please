@@ -4,6 +4,8 @@
 
 from . import locale
 
+import os
+
 DEBUG, INFO, NOTICE, WARNING, ERROR, FATAL, NO_LOGGING = range(7)
 
 _MESSAGES = {
@@ -45,6 +47,7 @@ class ConsoleLog(Log):
         }
     
     def write(self, level, message, end):
-        message = "\x1b[1;%dm%s\x1b[0m" % (self._COLORS[level], message)
+        if os.name == 'posix':
+            message = "\x1b[1;%dm%s\x1b[0m" % (self._COLORS[level], message)
         print(message, end=end)
 
