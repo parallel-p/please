@@ -4,13 +4,14 @@
 = Ближайшие шаги =
 
   * [dg] лог под Windows
-  * [vg] ProblemCommand
   * [dg] alias для команд
-  * [vg] вынести file_system в context
   * [dg] описать формат generate.please
   * sandbox смотрит на появившиеся файлы
   * [dg] второй лог для операций, производимых please
   * run tools
+
+  * ~~[vg] ProblemCommand~~
+  * ~~[vg] вынести file_system в context~~
 
 = Предстоит сделать =
 
