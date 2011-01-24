@@ -39,15 +39,28 @@ class Log(object):
     def write(self, level, message, end):
         pass
     
-
-class ConsoleLog(Log):
-    _COLORS = {
-        DEBUG: 36, INFO: 22, NOTICE: 32, WARNING: 33, ERROR: 31, FATAL: 31,
-        NO_LOGGING: 30
-        }
+if os.name == 'posix':
+    class ConsoleLog(Log):
+        _COLORS = {
+            DEBUG: 36, INFO: 22, NOTICE: 32, WARNING: 33, ERROR: 31, FATAL: 31,
+            NO_LOGGING: 30
+            }
     
-    def write(self, level, message, end):
-        if os.name == 'posix':
+        def write(self, level, message, end):
             message = "\x1b[1;%dm%s\x1b[0m" % (self._COLORS[level], message)
-        print(message, end=end)
+            print(message, end=end)
+
+elif os.name == 'nt':
+    import ctypes
+    class ConsoleLog(Log):
+        STD_OUTPUT_HANDLE = ctypes.windll.kernel32.GetStdHandle(-11)
+
+        _COLORS = {
+            DEBUG: 11, INFO: 7, NOTICE: 2, WARNING: 14, ERROR: 12, FATAL: 4,
+            NO_LOGGING: 0
+            }
+    
+        def write(self, level, message, end):
+            ctypes.windll.kernel32.SetConsoleTextAttribute(self.STD_OUTPUT_HANDLE, self._COLORS[level])
+            print(message, end=end)
 
