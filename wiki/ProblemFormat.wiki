@@ -62,19 +62,32 @@
 
 = Файл `generate.please` =
 
-`# комментарий`<br/>
-`command`<br/>
-`command command-line parameters`<br/>
-`command [parameter parameter=value parameter="value" parameter={list of values, one per test}]`<br/>
-`(multi-line list of commands) [common parameters]`<br/>
-`echo some text`<br/>
-`echo "some multi-line text"`<br/>
+{{{
+# comment
+[meta1=a,b meta2=c meta3+=d]
+    command parameters
+    source/executable parameters
+    [group]
+        command1
+        command2 parameters
+    [meta4=value]
+        another-command parameters
+}}}
+
+== Команды ==
+  * `echo param1 param2` - вывести параметры через пробел, результат является тестом
+  * `echo "some  string"` - вывести текст в качестве теста
+  * `call source/executable parameters` - запустить файл с параметрами (если задан исходник - скомпилировать)
+  * `extract src dst` - распаковать файл(ы)
+  * `shell script-file parameters` - запустить скрипт (shell/cmd)
+  * `split source-file separator` - разделить исходный файл, сгенерировав из него тесты, по умолчанию сепаратор - перевод строки
 
 == Параметры ==
-  * `tags=sample, manual, random, ...`
+  * `tags=(+=)sample,manual,...`
   * `input={|file mask|stdout|none}`
   * `output={|file mask|stdout|none}`
-  * Пустой параметр `input`/`output` означает «догадаться»
+  * `stdout` - то же что `input=stdout`
+  * `group` - сгруппировать
 
 = Файлы `description*.tex` =
 
