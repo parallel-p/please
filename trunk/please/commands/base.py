@@ -3,6 +3,7 @@
 """Base commands."""
 
 from .. import locale
+from .. import run
 from . import options
 
 ALL_COMMANDS = []
@@ -116,4 +117,23 @@ class Update(Command):
     
     def handle(self):
         self.context.log.info('This is an update command.')
+
+class Run(Command):
+    NAMES = ['run']
+
+    @classmethod
+    def description(cls):
+        return locale.get('commands.run.description')
+
+    def handle(self):
+       if len(self.args) != 1:
+           self.context.log.info("TODO: run usage");
+           return
+       executable = self.args[0]
+       self.context.log.info("executable = " + str(executable))
+       invoker = run.Invoker()
+       result = invoker(executable)
+       self.context.log.info("run: " + str(executable))
+       self.context.log.info("time: %.3f sec" % result.timepeak)
+       self.context.log.info("memory: %.3f MB" % (result.memorypeak / (1024.0 * 1024.0)))
 

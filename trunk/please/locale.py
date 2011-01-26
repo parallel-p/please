@@ -42,6 +42,7 @@ _en = {
         '    Show debug output.\n'
         '  --silent\n'
         '    Do not output anything.\n'),
+    'commands.run.description': 'Runs selected executable (or script) with time and memory limits.',
 
     'commands.inspect.usage': 'usage: please inspect [options]',
     'commands.inspect.description': 'Check whether problem is well-formed.',

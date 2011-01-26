@@ -37,7 +37,7 @@ class Context(object):
         
     def handle(self, args):
         if not args:
-            commands.HelpCommand(self, args).handle()
+            commands.Help(self, args).handle()
             return
         
         command = None
@@ -95,7 +95,7 @@ class GlobalContext(Context):
     """Context 'somewhere'."""
     
     NAME = locale.get('context.global.name')
-    COMMANDS = [commands.Help, commands.Update]
+    COMMANDS = [commands.Help, commands.Update, commands.Run]
 
     @staticmethod
     def is_applicable(path):
