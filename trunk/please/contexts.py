@@ -11,6 +11,7 @@ Please can be run inside:
 
 from . import commands
 from . import config
+from . import exceptions
 from . import locale
 
 import os.path
@@ -36,20 +37,30 @@ class Context(object):
         return self.NAME + ' (' + self.directory + ')'
         
     def handle(self, args):
-        if not args:
-            commands.Help(self, args).handle()
-            return
+        try:
+            if not args:
+                commands.Help(self, args).handle()
+                return
         
-        command = None
-        for command_cls in self.COMMANDS:
-            if args[0] in command_cls.NAMES:
-                command = command_cls(self, args[1:])
-        if command:
-            command.handle()
-            return
-        
-        self.log.error(locale.get('unknown-command-in-context').format( 
-            command=args[0], context=self.NAME))
+            command = None
+            for command_cls in self.COMMANDS:
+                if args[0] in command_cls.NAMES:
+                    command = command_cls(self, args[1:])
+            
+            if command:
+                command.handle()
+            else:
+                message = locale.get('unknown-command-in-context').format( 
+                    command=args[0], context=self.NAME)
+                raise exceptions.UserInputError(message, None)
+
+        except exceptions.UserInputError as e:
+            if e.command:
+                self.log.error(locale.get('user-input-error').format(
+                               e.message, e.command))
+            else:
+                self.log.error(locale.get('user-input-error-no-command').format(
+                               e.message))
         
     @staticmethod
     def is_applicable(path):

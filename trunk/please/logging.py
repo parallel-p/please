@@ -61,6 +61,7 @@ elif os.name == 'nt':
             }
     
         def write(self, level, message, end):
-            ctypes.windll.kernel32.SetConsoleTextAttribute(self.STD_OUTPUT_HANDLE, self._COLORS[level])
+            ctypes.windll.kernel32.SetConsoleTextAttribute(
+                self.STD_OUTPUT_HANDLE, self._COLORS[level])
             print(message, end=end)
 

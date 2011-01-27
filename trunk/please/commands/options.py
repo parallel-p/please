@@ -3,9 +3,9 @@
 """Options for commands."""
 
 from .. import locale
+from .. import exceptions
 
 import optparse
-import sys
 
 class OptionParser(optparse.OptionParser):
     def __init__(self, log, command):
@@ -14,9 +14,7 @@ class OptionParser(optparse.OptionParser):
         self.command = command
         
     def error(self, message):
-        self.log.error(locale.get('options.parse-error').format(
-            message, self.command.NAME))
-        sys.exit(2)
+        raise exceptions.UserInputError(message, self.command)
 
 
 class Option(object):

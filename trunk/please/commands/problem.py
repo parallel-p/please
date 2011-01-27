@@ -1,4 +1,5 @@
 from . import base
+from .. import exceptions
 from .. import locale
 
 class Base(base.Command):
@@ -7,6 +8,7 @@ class Base(base.Command):
         
         from please.properties.problem import Problem
         self.properties = Problem(self.context.file_system)
+        self.problem_name = self.context.file_system.root_basename()
 
     def validator(self):
         validator = self.properties.validator()
@@ -41,6 +43,7 @@ class Base(base.Command):
 
         return statements
 
+
 class Inspect(Base):
     NAMES = ['inspect', 'lint']
     
@@ -56,10 +59,15 @@ class Inspect(Base):
         super(Inspect, self).__init__(context, args)
 
     def handle(self):
+        if len(self.args):
+            raise exceptions.UserInputError(
+                locale.get('too-much-arguments'), self)
+        
         log = self.context.log
-        log.info('Running check problem command.')
-
         fs = self.context.file_system
+        
+        log.info(locale.get('commands.inspect.header').format(
+            self.problem_name))
 
         validator = self.validator()
         if validator is not None:

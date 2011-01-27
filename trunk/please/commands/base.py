@@ -2,6 +2,7 @@
 
 """Base commands."""
 
+from .. import exceptions
 from .. import locale
 from .. import run
 from . import options
@@ -18,11 +19,11 @@ class Command(object):
 
     @classmethod
     def names(cls):
-      if len(cls.NAMES) == 0:
-          return ''
-      if len(cls.NAMES) == 1:
-          return cls.NAMES[0]
-      return '{0} ({1})'.format(cls.NAMES[0], ', '.join(cls.NAMES[1:]))
+        if len(cls.NAMES) == 0:
+            return ''
+        if len(cls.NAMES) == 1:
+            return cls.NAMES[0]
+        return '{0} ({1})'.format(cls.NAMES[0], ', '.join(cls.NAMES[1:]))
     
     @classmethod
     def usage(cls):
@@ -43,8 +44,8 @@ class Command(object):
         self.options, self.args = parser.parse_args(args=args)
     
     def handle(self):
-        pass    
-
+        pass
+    
 
 class Help(Command):
     NAMES = ['help', 'h', '?']
@@ -83,8 +84,7 @@ class Help(Command):
                 command=name, context=self.context.NAME)
             if self.options.all:
                 message = locale.get('unknown-command').format(name)
-            self.context.log.info(message)
-            return
+            raise exceptions.UserInputError(message, None)
 
         self.context.log.info('')
         self.context.log.info('{0}: {1}'.format(
@@ -102,7 +102,7 @@ class Help(Command):
                     self.context.log.info('  ' + line)
         
     def handle_general(self, commands):
-        self.context.log.info(locale.get('help.general-header'))
+        self.context.log.info(locale.get('commands.help.general-header'))
         max_len = max([len(c.names()) for c in commands])
         fmt = '{0:' + str(max_len + 2) + '} {1}'
         for c in sorted(commands, key=lambda c: c.names()):
@@ -118,22 +118,31 @@ class Update(Command):
     def handle(self):
         self.context.log.info('This is an update command.')
 
+
 class Run(Command):
     NAMES = ['run']
 
+    @classmethod
+    def usage(cls):
+        return locale.get('commands.run.usage')
+    
     @classmethod
     def description(cls):
         return locale.get('commands.run.description')
 
     def handle(self):
-       if len(self.args) != 1:
-           self.context.log.info("TODO: run usage");
-           return
-       executable = self.args[0]
-       self.context.log.info("executable = " + str(executable))
-       invoker = run.Invoker()
-       result = invoker(executable)
-       self.context.log.info("run: " + str(executable))
-       self.context.log.info("time: %.3f sec" % result.timepeak)
-       self.context.log.info("memory: %.3f MB" % (result.memorypeak / (1024.0 * 1024.0)))
+        if len(self.args) > 1:
+            raise exceptions.UserInputError(
+                locale.get('too-much-arguments'), self)
+        if not self.args:
+            raise exceptions.UserInputError(
+                locale.get('not-enough-arguments'), self)
+
+        executable = self.args[0]
+        self.context.log.info("executable = " + str(executable))
+        invoker = run.Invoker()
+        result = invoker(executable)
+        self.context.log.info("run: " + str(executable))
+        self.context.log.info("time: %.3f sec" % result.timepeak)
+        self.context.log.info("memory: %.3f MB" % (result.memorypeak / (1024.0 * 1024.0)))
 

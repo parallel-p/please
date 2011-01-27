@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import os
-import os.path
 import re
 
 class FileSystem:
@@ -20,6 +19,12 @@ class FileSystem:
             for file in os.listdir(search_dir)
             if func_filter(os.path.join(search_dir, file))]
 
+    def root(self):
+        return self.__pwd
+    
+    def root_basename(self):
+        return os.path.basename(self.__pwd)
+    
     def exists(self, file):
         return os.path.exists(os.path.join(self.__pwd, file))
 
