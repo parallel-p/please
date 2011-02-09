@@ -90,3 +90,73 @@ class Inspect(Base):
         from .. import config
         if not fs.exists(config.PLEASE_GENERATE_FILE):
             log.error(locale.get("problem.generate-not-found"))
+
+class Statement(Base):
+    NAMES = ['statement']
+    
+    @classmethod
+    def usage(cls):
+        return locale.get('commands.statement.usage')
+    
+    @classmethod
+    def description(cls):
+        return locale.get('commands.statement.description')
+
+    def __init__(self, context, args):
+        super(Statement, self).__init__(context, args)
+
+    def handle(self):
+        if len(self.args):
+            raise exceptions.UserInputError(
+                locale.get('too-much-arguments'), self)
+        
+        log = self.context.log
+        fs = self.context.file_system
+        
+        log.info(locale.get('commands.statement.header').format(
+            self.problem_name))
+
+        statements = self.statements()
+        if statements is None:
+            raise exception.UserInputError(locale.get("problem.statements-not-found"))
+	  
+        log.info(locale.get('commands.statement.preparing-tex-file'))
+        
+        from .. import config
+        from os import path, chdir
+                       
+        workdir = path.join(config.PLEASE_WORK_DIR, "work"); # or should this be in config? --- PK
+        fs.del_dir(workdir)
+        fs.mkdir(workdir)
+        
+        chdir(workdir)
+        
+        texfile = "statement_full"
+        
+        f = open(texfile + ".tex", "w");
+        f.write("\\input{../../../_prologue.tex}\n"); # should be got from configuration, I think, and should have different path --- PK
+        f.write("\\import{../../}{%s}\n" % statements.file())
+        f.write("\\end{document}\n");
+        f.close()
+        
+        log.info(locale.get('commands.statement.running-tex'))
+        
+        # TeX commands should also come from configuration, I think --- PK
+        fs.exec("latex", texfile + ".tex")
+        fs.exec("latex", texfile + ".tex")
+        fs.exec("dvips", texfile)
+        fs.exec("dvipdfm", texfile)
+       
+        chdir("../..") # should use something like pushdir/popdir --- PK
+        
+        log.info(locale.get('commands.statement.moving-pdf'))
+        
+        outputdir = path.join(config.PLEASE_WORK_DIR, "statement-ready"); # or should this be in config? --- PK
+        fs.del_dir(outputdir)
+        fs.mkdir(outputdir)
+        
+        fs.copy(path.join(workdir, texfile + ".pdf"), path.join(outputdir, texfile + ".pdf"))
+        fs.copy(path.join(workdir, texfile + ".ps"), path.join(outputdir, texfile + ".ps"))
+        
+        log.info(locale.get('done'))
+       

@@ -27,6 +27,7 @@ _en = {
     'unknown-command': 'Unknown command "{0}". Use "please help --all"',
     'too-much-arguments': 'Too much arguments',
     'not-enough-arguments': 'Not enough arguments',
+    'done': 'Done!',
 
 
     'problem.checker-not-found': 'checker is not found',
@@ -56,6 +57,12 @@ _en = {
     'commands.inspect.description': 'Check whether problem is well-formed.',
     'commands.inspect.header': 'Inspecting problem "{0}".',
 
+    'commands.statement.usage': 'usage: please statement',
+    'commands.statement.description': 'Compile statement into pdf.',
+    'commands.statement.header': 'Compiling statement for problem "{0}".',
+    'commands.statement.preparing-tex-file': 'Preparing TeX file with statements',
+    'commands.statement.running-tex': 'Running TeX',
+    'commands.statement.moving-pdf': 'Moving .ps and .pdf files',
     
     'options.usage-all': (
         '-a [--all]\n'

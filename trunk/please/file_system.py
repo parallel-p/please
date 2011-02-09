@@ -2,6 +2,7 @@
 
 import os
 import re
+import shutil
 
 class FileSystem:
     """
@@ -52,6 +53,19 @@ class FileSystem:
                 if not dir.startswith("."):
                     for file in self.find(dir, basename_regex, depth - 1):
                         yield file
+    
+    def del_dir(self, dir):
+        if self.exists(dir):
+            shutil.rmtree(dir)
+    
+    def mkdir(self, dir):
+        os.makedirs(dir)
+        
+    def exec(self, command, args):
+        os.system(command + " " + args)
+        
+    def copy(self, file1, file2):
+        shutil.copy(file1, file2)
 
 if __name__ == "__main__":
     fs = FileSystem()

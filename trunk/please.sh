@@ -1,3 +1,3 @@
 #!/bin/sh
 
-python3 please.py $*
+python3 `dirname $0`/please.py $*
