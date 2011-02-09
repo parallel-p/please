@@ -118,7 +118,7 @@ class Statement(Base):
 
         statements = self.statements()
         if statements is None:
-            raise exception.UserInputError(locale.get("problem.statements-not-found"))
+            raise exceptions.UserInputError(locale.get("problem.statements-not-found"), None)
 	  
         log.info(locale.get('commands.statement.preparing-tex-file'))
         
