@@ -61,6 +61,9 @@ class Context(object):
             else:
                 self.log.error(locale.get('user-input-error-no-command').format(
                                e.message))
+                               
+        except exceptions.PleaseError as e:
+            self.log.error(locale.get('general-error').format(e.message))
         
     @staticmethod
     def is_applicable(path):

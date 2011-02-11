@@ -27,6 +27,7 @@ _en = {
     'unknown-command': 'Unknown command "{0}". Use "please help --all"',
     'too-much-arguments': 'Too much arguments',
     'not-enough-arguments': 'Not enough arguments',
+    'general-error': 'An error occured: {0}', 
     'done': 'Done!',
 
 

@@ -16,3 +16,7 @@ class UserInputError(PleaseError):
         else:
             self.command = command.NAMES[0]
 
+class MalformedProblemError(PleaseError):
+    def __init__(self, message):
+        self.message = message
+
