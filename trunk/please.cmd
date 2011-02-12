@@ -1,3 +1,3 @@
 @echo off
 rem Temporary set full path to please.py below.
-python please.py %*
+python %~p0\please.py %*

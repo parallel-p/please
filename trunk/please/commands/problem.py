@@ -132,10 +132,11 @@ class Statement(Base):
         chdir(workdir)
         
         texfile = "statement_full"
+        stmtfile = statements.file().replace("\\","/") # TeX will not accept \ in the filename
         
         f = open(texfile + ".tex", "w");
         f.write("\\input{../../../_prologue.tex}\n"); # should be got from configuration, I think, and should have different path --- PK
-        f.write("\\import{../../}{%s}\n" % statements.file())
+        f.write("\\import{../../}{%s}\n" % stmtfile)
         f.write("\\end{document}\n");
         f.close()
         
