@@ -28,6 +28,8 @@ _en = {
     'too-much-arguments': 'Too much arguments',
     'not-enough-arguments': 'Not enough arguments',
     'general-error': 'An error occured: {0}', 
+    'malformed-problem-error': 'Malformed problem: {0}',
+    
     'done': 'Done!',
 
 

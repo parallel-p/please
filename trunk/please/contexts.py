@@ -54,16 +54,8 @@ class Context(object):
                     command=args[0], context=self.NAME)
                 raise exceptions.UserInputError(message, None)
 
-        except exceptions.UserInputError as e:
-            if e.command:
-                self.log.error(locale.get('user-input-error').format(
-                               e.message, e.command))
-            else:
-                self.log.error(locale.get('user-input-error-no-command').format(
-                               e.message))
-                               
-        except exceptions.PleaseError as e:
-            self.log.error(locale.get('general-error').format(e.message))
+        except Exception as e:
+            self.log.error(e.__class__.__name__ + ": " + str(e))
         
     @staticmethod
     def is_applicable(path):
