@@ -37,7 +37,7 @@ _en = {
     'problem.validator-not-found': 'validator is not found',
     'problem.validator-found': 'validator = %s',
     'problem.checker-found': 'checker = %s',
-    'problem.generate-not-found': "please generate file not found at '%s'" % config.PLEASE_GENERATE_FILE,
+    'problem.generate-not-found': "please generate file not found at '%s'" % config.config.generateFile(),
     'problem.statements-found': 'statements = %s',
     'problem.statements-not-found': "statements not found",
 

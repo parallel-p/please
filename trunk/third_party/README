@@ -3,3 +3,6 @@ License and documentation for each package should be available on it's home page
 
 Mock from http://www.voidspace.org.uk/python/mock/
   - mock.py
+  
+Configobj from http://www.voidspace.org.uk/downloads/configobj.py
+  - ..\please\configobj.py

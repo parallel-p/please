@@ -7,7 +7,7 @@ import os.path
 
 #TODO: move parsing to separate class?
 class Problem:
-    def __init__(self, file_system, filename = config.PLEASE_PROBLEM_FILE):
+    def __init__(self, file_system, filename = config.config.problemFile()):
         if not file_system.exists(filename):
             raise Exception("No '%s' file" % filename)
 

@@ -79,7 +79,7 @@ class ProblemContext(Context):
     @staticmethod
     def is_applicable(path):
         #please_dir = os.path.join(path, config.PLEASE_WORK_DIR)
-        problem_file = os.path.join(path, config.PLEASE_PROBLEM_FILE)
+        problem_file = os.path.join(path, config.config.problemFile())
         if (os.path.isdir(path) and #os.path.isdir(please_dir) and
                 os.path.isfile(problem_file)):
             return True

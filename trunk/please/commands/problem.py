@@ -88,7 +88,7 @@ class Inspect(Base):
             log.warning(locale.get("problem.statements-not-found"))
 
         from .. import config
-        if not fs.exists(config.PLEASE_GENERATE_FILE):
+        if not fs.exists(config.config.generateFile()):
             log.error(locale.get("problem.generate-not-found"))
 
 class Statement(Base):
@@ -125,7 +125,7 @@ class Statement(Base):
         from .. import config
         from os import path, chdir
                        
-        workdir = path.join(config.PLEASE_WORK_DIR, "work"); # or should this be in config? --- PK
+        workdir = path.join(config.config.pleaseDir(), "work"); # or should this be in config? --- PK
         fs.del_dir(workdir)
         fs.mkdir(workdir)
         
@@ -152,7 +152,7 @@ class Statement(Base):
         
         log.info(locale.get('commands.statement.moving-pdf'))
         
-        outputdir = path.join(config.PLEASE_WORK_DIR, "statement-ready"); # or should this be in config? --- PK
+        outputdir = path.join(config.config.pleaseDir(), "statement-ready"); # or should this be in config? --- PK
         fs.del_dir(outputdir)
         fs.mkdir(outputdir)
         
