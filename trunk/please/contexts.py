@@ -55,6 +55,10 @@ class Context(object):
                 raise exceptions.UserInputError(message, None)
 
         except Exception as e:
+            import traceback
+            tb = traceback.format_exc()
+            self.log.info("")
+            self.log.info(tb)
             self.log.error(e.__class__.__name__ + ": " + str(e))
         
     @staticmethod
