@@ -146,7 +146,7 @@ class Statement(Base):
         
         cmds = config.config.texCommands()
         for cmd in cmds:
-            fs.exec(cmds[cmd], texfile)
+            fs.exec(cmd, texfile)
        
         chdir("../..") # should use something like pushdir/popdir --- PK
         

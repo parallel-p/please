@@ -62,6 +62,6 @@ class Config(object):
            
         if not cmd:
            cmd = {1: 'latex', 2: 'latex', 3: 'dvips', 4: 'dvipdfm'}
-        return cmd
+        return list(cmd.values())
         
 config = Config() # TODO: I suspect it is not the right way to do this -- PK
