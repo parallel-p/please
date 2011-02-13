@@ -160,6 +160,7 @@
 \def\kw@Output{Формат выходного файла}
 \def\kw@Example{Пример}
 \def\kw@Examples{Примеры}
+\def\kw@Comment{Замечание}
 \def\kw@page{Страница}
 \def\kw@of{из}
 \else
@@ -175,6 +176,7 @@
 \def\kw@Output{Output}
 \def\kw@Example{Example}
 \def\kw@Examples{Examples}
+\def\kw@Comment{Comment}
 \def\kw@page{Page}
 \def\kw@of{of}
 \fi
@@ -197,6 +199,7 @@
 \createsection{\OutputFile}{\kw@Output}
 \createsection{\Example}{\kw@Example}
 \createsection{\Examples}{\kw@Examples}
+\createsection{\Comment}{\kw@Comment}
 
 % -- End of problem sections
 
@@ -219,16 +222,16 @@
 % -- Default memory limit --
 % :FIXME:
 %\def\@t{#5}
-%
-%\ifx\@t\empty
-%    \def\@memorylimit{\defaultmemorylimit}
-%\else
+
+\ifx\@t\empty
+    \def\@memorylimit{\defaultmemorylimit}
+\else
 %\ifcat\par\@t
 %    \def\@memorylimit{\defaultmemorylimit}
 %\else
 %    \def\@memorylimit{#5}
 %\fi
-%\fi
+\fi
 % -- End of default memory limit --
 
     {
@@ -240,14 +243,19 @@
         \nopagebreak
         \par\vspace{\afterproblemhead}
         \problemtextfont\parindent=6.5mm
+
+%        \def\@t{#2}
+
+        \ifx\@t\empty\else
         \vbox{
             \begin{tabular}{l@{\extracolsep{1cm}}l}
-%            \kw@InputFileName & \texttt{#2} \\
-%            \kw@OutputFileName & \texttt{#3} \\
+%              \kw@InputFileName & \texttt{#2} \\
+%              \kw@OutputFileName & \texttt{#3} \\
 %            \kw@TimeLimit & #4 \\
 %            \kw@MemoryLimit & \@memorylimit \\
             \end{tabular}
         }
+        \fi
         \nopagebreak
         \par\vspace{\afterconstraints}
     }
@@ -255,8 +263,8 @@
 
 %    \newcommand{\InputFileName}{#2}
 %    \newcommand{\OutputFileName}{#3}
-    \newcommand{\InputFileName}{input}
-    \newcommand{\OutputFileName}{output}
+    \newcommand{\InputFileName}{Input file}
+    \newcommand{\OutputFileName}{Output file}
 }{
     \problemend
 }
@@ -291,9 +299,9 @@
 }
 
 \newenvironment{examplewide}[1][]{%
-    \s@tm@cr@s#1
-    \ttfamily\obeylines\obeyspaces\frenchspacing
-    \newcommand{\exmp}[2]{
+    \s@tm@cr@s#1%
+    \ttfamily\obeylines\obeyspaces\frenchspacing%
+    \newcommand{\exmp}[2]{%
         \begin{tabular}{|c|}
         \hline
         \multicolumn{1}{|c|}{\bf\texttt{\InputFileName}}\\
@@ -368,3 +376,6 @@
 \binoppenalty=10000
 \relpenalty=10000
 
+
+
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}{\hbox{$\mathsurround=0pt #1$}}{}}

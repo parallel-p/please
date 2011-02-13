@@ -62,10 +62,10 @@ _en = {
 
     'commands.statement.usage': 'usage: please statement',
     'commands.statement.description': 'Compile statement into pdf.',
-    'commands.statement.header': 'Compiling statement for problem "{0}".',
-    'commands.statement.preparing-tex-file': 'Preparing TeX file with statements',
-    'commands.statement.running-tex': 'Running TeX',
-    'commands.statement.moving-pdf': 'Moving .ps and .pdf files',
+    'commands.statement.header': 'Compiling statement for problem "{0}"...',
+    'commands.statement.preparing-tex-file': 'Preparing TeX file with statements...',
+    'commands.statement.running-tex': 'Running TeX...',
+    'commands.statement.moving-pdf': 'Moving .ps and .pdf files...',
     
     'options.usage-all': (
         '-a [--all]\n'

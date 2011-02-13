@@ -92,7 +92,9 @@ class Inspect(Base):
             log.error(locale.get("problem.generate-not-found"))
 
 class Statement(Base):
-    NAMES = ['statement']
+    # TODO: allow parameters --ps and ---pdf
+    # (will need to rework config.texCommands to separate)
+    NAMES = ['statement', 'statements']
     
     @classmethod
     def usage(cls):
@@ -125,7 +127,7 @@ class Statement(Base):
         from .. import config
         from os import path, chdir
                        
-        workdir = path.join(config.config.pleaseDir(), "work"); # or should this be in config? --- PK
+        workdir = config.config.workDir() # TODO: use sandbox
         fs.del_dir(workdir)
         fs.mkdir(workdir)
         
@@ -135,24 +137,22 @@ class Statement(Base):
         stmtfile = statements.file().replace("\\","/") # TeX will not accept \ in the filename
         
         f = open(texfile + ".tex", "w");
-        f.write("\\input{../../../_prologue.tex}\n"); # should be got from configuration, I think, and should have different path --- PK
-        f.write("\\import{../../}{%s}\n" % stmtfile)
+        f.write("\\input{%s}\n" % config.config.texPrologue(True));
+        f.write("\\import{../../}{%s}\n" % stmtfile) # TODO: replace ../../ with calculated relative path to problem root?
         f.write("\\end{document}\n");
         f.close()
         
         log.info(locale.get('commands.statement.running-tex'))
         
-        # TeX commands should also come from configuration, I think --- PK
-        fs.exec("latex", texfile + ".tex")
-        fs.exec("latex", texfile + ".tex")
-        fs.exec("dvips", texfile)
-        fs.exec("dvipdfm", texfile)
+        cmds = config.config.texCommands()
+        for cmd in cmds:
+            fs.exec(cmds[cmd], texfile)
        
         chdir("../..") # should use something like pushdir/popdir --- PK
         
         log.info(locale.get('commands.statement.moving-pdf'))
         
-        outputdir = path.join(config.config.pleaseDir(), "statement-ready"); # or should this be in config? --- PK
+        outputdir = path.join(config.config.statementsReadyDir()); 
         fs.del_dir(outputdir)
         fs.mkdir(outputdir)
         
