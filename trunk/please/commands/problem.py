@@ -1,6 +1,9 @@
+import os.path
 from . import base
 from .. import exceptions
 from .. import locale
+from .. import sandbox
+from .. import config
 
 class Base(base.Command):
     def __init__(self, context, args):
@@ -87,7 +90,6 @@ class Inspect(Base):
         else:
             log.warning(locale.get("problem.statements-not-found"))
 
-        from .. import config
         if not fs.exists(config.config.generateFile()):
             log.error(locale.get("problem.generate-not-found"))
 
@@ -121,43 +123,36 @@ class Statement(Base):
         statements = self.statements()
         if statements is None:
             raise exceptions.MalformedProblemError(locale.get("problem.statements-not-found"))
-	  
+
+        sb = sandbox.Sandbox("make_statements")
+        sb.push(config.config.texPrologue())
+        fl = config.config.texFiles()
+        for file in fl:
+            sb.push(file)
+        
         log.info(locale.get('commands.statement.preparing-tex-file'))
-        
-        from .. import config
-        from os import path, chdir
-                       
-        workdir = config.config.workDir() # TODO: use sandbox
-        fs.del_dir(workdir)
-        fs.mkdir(workdir)
-        
-        chdir(workdir)
-        
-        texfile = "statement_full"
         stmtfile = statements.file().replace("\\","/") # TeX will not accept \ in the filename
-        
-        f = open(texfile + ".tex", "w");
-        f.write("\\input{%s}\n" % config.config.texPrologue(True));
-        f.write("\\import{../../}{%s}\n" % stmtfile) # TODO: replace ../../ with calculated relative path to problem root?
-        f.write("\\end{document}\n");
-        f.close()
+        texCode = ("\\input{%s}\n" % os.path.basename(config.config.texPrologue(True)) +
+                   "\\import{%s/}{%s}\n" % 
+                        (sb.relPath(self.context.directory) + "/" + 
+                         os.path.dirname(stmtfile),  
+                         os.path.basename(stmtfile)) + 
+                   "\\end{document}\n" )
+        texFile = "statements_full"
+        sb.echoToFile(texFile + ".tex", texCode)
         
         log.info(locale.get('commands.statement.running-tex'))
-        
         cmds = config.config.texCommands()
         for cmd in cmds:
-            fs.exec(cmd, texfile)
-       
-        chdir("../..") # should use something like pushdir/popdir --- PK
-        
+            sb.exec(cmd, texFile)
+
         log.info(locale.get('commands.statement.moving-pdf'))
-        
-        outputdir = path.join(config.config.statementsReadyDir()); 
+        outputdir = config.config.statementsReadyDir(); 
         fs.del_dir(outputdir)
         fs.mkdir(outputdir)
         
-        fs.copy(path.join(workdir, texfile + ".pdf"), path.join(outputdir, texfile + ".pdf"))
-        fs.copy(path.join(workdir, texfile + ".ps"), path.join(outputdir, texfile + ".ps"))
+        sb.pop(texFile + ".pdf", outputdir)
+        sb.pop(texFile + ".ps", outputdir)
         
         log.info(locale.get('done'))
-       
+

@@ -63,5 +63,15 @@ class Config(object):
         if not cmd:
            cmd = {1: 'latex', 2: 'latex', 3: 'dvips', 4: 'dvipdfm'}
         return list(cmd.values())
-        
+
+    def texFiles(self):
+        try:
+           fl = self.config['tex']['files']
+        except KeyError:
+           fl = {}
+        res = []
+        for file in fl.values():
+            res.append(os.path.join(self.pleaseiniDir(), file))
+        return res
+
 config = Config() # TODO: I suspect it is not the right way to do this -- PK

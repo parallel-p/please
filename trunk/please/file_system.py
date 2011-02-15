@@ -66,6 +66,16 @@ class FileSystem:
         
     def copy(self, file1, file2):
         shutil.copy(file1, file2)
+        
+    def echoToFile(self,  fname, contents):
+        f = open(fname, "w")
+        f.write(contents)
+        f.close()
+        
+    def chdir(self, dir):
+        self.__pwd = os.path.abspath(dir) #Is anything else needed?
+        os.chdir(dir)
+        
 
 if __name__ == "__main__":
     fs = FileSystem()
