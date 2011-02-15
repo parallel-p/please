@@ -4,7 +4,7 @@
 
 import os
 import os.path
-from . import configobj
+from .third_party import configobj
 
 class Config(object):
     #All the paths that point to a particular object (like scriptDir or texPrologue) 
