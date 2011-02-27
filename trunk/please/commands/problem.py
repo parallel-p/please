@@ -131,12 +131,13 @@ class Statement(Base):
             sb.push(file)
         
         log.info(locale.get('commands.statement.preparing-tex-file'))
-        stmtfile = statements.file().replace("\\","/") # TeX will not accept \ in the filename
+        # TeX will not accept \ in the filenames, so we need to adjust them here
+        stmtPath = os.path.dirname( statements.file() ).replace("\\","/") 
+        stmtFile = os.path.basename( statements.file() )
+        relPath = sb.relPath(self.context.directory).replace("\\","/")
+        
         texCode = ("\\input{%s}\n" % os.path.basename(config.config.texPrologue(True)) +
-                   "\\import{%s/}{%s}\n" % 
-                        (sb.relPath(self.context.directory) + "/" + 
-                         os.path.dirname(stmtfile),  
-                         os.path.basename(stmtfile)) + 
+                   "\\import{%s/}{%s}\n" % (relPath + "/" + stmtPath, stmtFile) + 
                    "\\end{document}\n" )
         texFile = "statements_full"
         sb.echoToFile(texFile + ".tex", texCode)
