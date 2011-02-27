@@ -114,6 +114,10 @@ class GlobalContext(Context):
 
 _CONTEXTS = [ProblemContext, ContestContext,
              SeemsLikeProblemContext, GlobalContext]
+from .commands import base
+for context in _CONTEXTS:
+    for command in context.COMMANDS:
+        base.ALL_COMMANDS.append(command)
 
 def guess(directory, log):
     for cls in _CONTEXTS:
