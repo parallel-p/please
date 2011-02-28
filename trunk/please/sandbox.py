@@ -20,6 +20,7 @@ class Sandbox(object):
         self.fs.del_dir(self.dirname)
         self.fs.mkdir(self.dirname)
         self.mustKeep = keep
+        self.files = set([])
         
     def __del__(self):
         if (not self.mustKeep):
@@ -40,19 +41,30 @@ class Sandbox(object):
         if (targetFName == ""):
             targetFName = os.path.basename(fname)
         self.fs.copy(fname, os.path.join(self.dirname, targetFName))
+        self.files.add(targetFName)
         
     def echoToFile(self, fname, contents):
         """Creates a new file with given contents
         """
         self.fs.echoToFile(os.path.join(self.dirname, fname), contents)
+        self.files.add(fname)
         
-    def exec(self, command,  args):
+    def exec(self, command,  args = "",  localRun = False):
+        """localRun must be set to true if path to command is relative to current dir
+        (this will force to use os.path.join(".", cmd) under Linux)"""
         pwd = os.path.abspath(self.fs.root())
         self.fs.chdir(self.dirname)
-        self.fs.exec(command, args)
+        self.fs.exec(command, args, localRun)
         self.fs.chdir(pwd)
 
     def pop(self, file, where):
         if os.path.isdir(where):
             where = os.path.join(where, os.path.basename(file))
         self.fs.copy(os.path.join(self.dirname, file), where)
+        
+    def newFiles(self):
+        pwd = os.path.abspath(self.fs.root())
+        self.fs.chdir(self.dirname)
+        res = set(self.fs.files(".")) - self.files
+        self.fs.chdir(pwd)
+        return res

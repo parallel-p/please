@@ -4,6 +4,7 @@ from .. import exceptions
 from .. import locale
 from .. import sandbox
 from .. import config
+from ..generator import generator
 
 class Base(base.Command):
     def __init__(self, context, args):
@@ -155,5 +156,40 @@ class Statement(Base):
         sb.pop(texFile + ".pdf", outputdir)
         sb.pop(texFile + ".ps", outputdir)
         
-        log.info(locale.get('done'))
+        log.info(locale.get('done')) #TODO: print path to statements
 
+class Generate(Base):
+    NAMES = ['generate', 'build']
+    
+    @classmethod
+    def usage(cls):
+        return locale.get('commands.generate.usage')
+    
+    @classmethod
+    def description(cls):
+        return locale.get('commands.generate.description')
+
+    def __init__(self, context, args):
+        super(Generate, self).__init__(context, args)
+
+    def handle(self):
+        if len(self.args):
+            raise exceptions.UserInputError(
+                locale.get('too-much-arguments'), self)
+        
+        log = self.context.log
+        fs = self.context.file_system
+        
+        log.info(locale.get('commands.generate.header').format(
+            self.problem_name))
+            
+        log.info(locale.get('commands.generate.running-script').format(
+                    config.config.generateFile()))
+        outputDir = config.config.testsReadyDir()
+        fs.del_dir(outputDir)
+        fs.mkdir(outputDir)
+        gena = generator.Generator(config.config.generateFile(), log,  locale,  
+                                   config.config)
+        gena.execute(outputDir)
+        
+        log.info(locale.get('done')) #TODO: print path to statements

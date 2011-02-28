@@ -67,6 +67,15 @@ _en = {
     'commands.statement.running-tex': 'Running TeX...',
     'commands.statement.moving-pdf': 'Moving .ps and .pdf files...',
     
+    'commands.generate.usage': 'usage: please generate', 
+    'commands.generate.description': 'Generates tests', 
+    'commands.generate.header': 'Generating tests for problem "{0}"', 
+    'commands.generate.running-script': 'Running generator script "{0}"', 
+
+    'generator.running-command': 'Running command "{0}"', 
+    'generator.test-found': 'Found tests %d in file "%s", to be renamed to "%s"', 
+    'generator.answer-found': '   ... and answer in file "%s", to be renamed to "%s"', 
+
     'options.usage-all': (
         '-a [--all]\n'
         '  Show help for all commands (not only specific to context).'),

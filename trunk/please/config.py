@@ -39,6 +39,16 @@ class Config(object):
        return os.path.join(self.pleaseDir(),
                 self.config.get('statements-ready-directory', 'statements-ready'))
                 
+    def testsReadyDir(self):
+       return os.path.join(self.pleaseDir(),
+                self.config.get('tests-ready-directory', 'tests-ready'))
+                
+    def inputFormat(self):
+       return self.config.get('input-format', '%02d')
+                
+    def answerFormat(self):
+       return self.config.get('answer-format', '%02d.a')
+                
     def texPrologue(self, forTeX = False): # Is there a way to make it accessible as config.tex.prologue() ? -- PK
         """tex.prologue returns the file with TeX prologue.
         forTex means: if false, return the path with slashes as needed by current OS;

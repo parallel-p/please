@@ -61,7 +61,9 @@ class FileSystem:
     def mkdir(self, dir):
         os.makedirs(dir)
         
-    def exec(self, command, args):
+    def exec(self, command, args,  localRun = False):
+        if localRun and (os.name == "posix"):
+            command = os.path.join(".", command)
         os.system(command + " " + args)
         
     def copy(self, file1, file2):

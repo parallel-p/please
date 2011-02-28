@@ -70,7 +70,8 @@ class ProblemContext(Context):
     """Please-formatted problem context."""
     
     NAME = locale.get('context.problem.name')
-    COMMANDS = [commands.Help, commands.problem.Inspect, commands.problem.Statement]
+    COMMANDS = [commands.Help, commands.problem.Inspect, 
+                commands.problem.Statement, commands.problem.Generate]
 
     def __init__(self, directory, log):
         Context.__init__(self, directory, log)
