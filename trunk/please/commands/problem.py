@@ -118,8 +118,8 @@ class Statement(Base):
         log = self.context.log
         fs = self.context.file_system
         
-        log.info(locale.get('commands.statement.header').format(
-            self.problem_name))
+        log.info(locale.get('commands.statement.doing').format(
+            self.problem_name) + "...")
 
         statements = self.statements()
         if statements is None:
@@ -156,7 +156,10 @@ class Statement(Base):
         sb.pop(texFile + ".pdf", outputdir)
         sb.pop(texFile + ".ps", outputdir)
         
-        log.info(locale.get('done')) #TODO: print path to statements
+        log.info(locale.get('commands.statement.doing').format(self.problem_name) +
+                 ": " + locale.get('done') + "! " + 
+                 locale.get('see-dir').format(outputdir)
+          )
 
 class Generate(Base):
     NAMES = ['generate', 'build']
@@ -180,8 +183,8 @@ class Generate(Base):
         log = self.context.log
         fs = self.context.file_system
         
-        log.info(locale.get('commands.generate.header').format(
-            self.problem_name))
+        log.info(locale.get('commands.generate.doing').format(
+            self.problem_name) + "...")
             
         log.info(locale.get('commands.generate.running-script').format(
                     config.config.generateFile()))
@@ -192,4 +195,7 @@ class Generate(Base):
                                    config.config)
         gena.execute(outputDir)
         
-        log.info(locale.get('done')) #TODO: print path to statements
+        log.info(locale.get('commands.generate.doing').format(self.problem_name) +
+                 ": " + locale.get('done') + "! " + 
+                 locale.get('see-dir').format(outputDir)
+          )

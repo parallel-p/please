@@ -64,4 +64,5 @@ elif os.name == 'nt':
             ctypes.windll.kernel32.SetConsoleTextAttribute(
                 self.STD_OUTPUT_HANDLE, self._COLORS[level])
             print(message, end=end)
-
+            ctypes.windll.kernel32.SetConsoleTextAttribute(
+                self.STD_OUTPUT_HANDLE, 7) # TODO: learn how to reset to original attr, not to default 7

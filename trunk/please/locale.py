@@ -30,7 +30,8 @@ _en = {
     'general-error': 'An error occured: {0}', 
     'malformed-problem-error': 'Malformed problem: {0}',
     
-    'done': 'Done!',
+    'done': 'Done',
+    'see-dir': 'See directory "{0}"',
 
 
     'problem.checker-not-found': 'checker is not found',
@@ -62,14 +63,14 @@ _en = {
 
     'commands.statement.usage': 'usage: please statement',
     'commands.statement.description': 'Compile statement into pdf.',
-    'commands.statement.header': 'Compiling statement for problem "{0}"...',
+    'commands.statement.doing': 'Compiling statement for problem "{0}"',  #Used both in header and in Done'
     'commands.statement.preparing-tex-file': 'Preparing TeX file with statements...',
     'commands.statement.running-tex': 'Running TeX...',
     'commands.statement.moving-pdf': 'Moving .ps and .pdf files...',
     
     'commands.generate.usage': 'usage: please generate', 
     'commands.generate.description': 'Generates tests', 
-    'commands.generate.header': 'Generating tests for problem "{0}"', 
+    'commands.generate.doing': 'Generating tests for problem "{0}"',   #Used both in header and in Done'
     'commands.generate.running-script': 'Running generator script "{0}"', 
 
     'generator.running-command': 'Running command "{0}"', 
