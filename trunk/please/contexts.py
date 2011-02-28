@@ -117,7 +117,7 @@ _CONTEXTS = [ProblemContext, ContestContext,
 from .commands import base
 for context in _CONTEXTS:
     for command in context.COMMANDS:
-        base.ALL_COMMANDS.append(command)
+        base.ALL_COMMANDS.add(command)
 
 def guess(directory, log):
     for cls in _CONTEXTS:

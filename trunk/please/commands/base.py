@@ -7,7 +7,7 @@ from .. import locale
 from .. import run
 from . import options
 
-ALL_COMMANDS = []
+ALL_COMMANDS = set([])
 
 class Command(object):
     """Command is an action performed by please tool.
