@@ -27,3 +27,7 @@ class MalformedProblemError(PleaseError):
     def __init__(self, message):
         self.message = locale.get('malformed-problem-error').format(message)
 
+class UnknownLanguageError(PleaseError):
+    def __init__(self, lang, filename):
+        self.message = locale.get('unknown-language-error').format(lang, filename)
+

@@ -29,6 +29,7 @@ _en = {
     'not-enough-arguments': 'Not enough arguments',
     'general-error': 'An error occured: {0}', 
     'malformed-problem-error': 'Malformed problem: {0}',
+    'unknown-language-error': 'Unknown language "{0}" for soure file "{1}"',
     
     'done': 'Done',
     'see-dir': 'See directory "{0}"',
@@ -63,15 +64,19 @@ _en = {
 
     'commands.statement.usage': 'usage: please statement',
     'commands.statement.description': 'Compile statement into pdf.',
-    'commands.statement.doing': 'Compiling statement for problem "{0}"',  #Used both in header and in Done'
+    'commands.statement.doing': 'Compiling statement for problem "{0}"',  #Used both in header and in Done
     'commands.statement.preparing-tex-file': 'Preparing TeX file with statements...',
     'commands.statement.running-tex': 'Running TeX...',
     'commands.statement.moving-pdf': 'Moving .ps and .pdf files...',
     
     'commands.generate.usage': 'usage: please generate', 
     'commands.generate.description': 'Generates tests', 
-    'commands.generate.doing': 'Generating tests for problem "{0}"',   #Used both in header and in Done'
+    'commands.generate.doing': 'Generating tests for problem "{0}"',   #Used both in header and in Done
     'commands.generate.running-script': 'Running generator script "{0}"', 
+    
+    'commands.compile.usage': 'usage: please compile <sourcefile>',
+    'commands.compile.description': 'Compiles a given source file using parameters from please configuration',
+    'commands.compile.doing': 'Compiling the source file "{0}"',   #Used both in header and in Done
 
     'generator.running-command': 'Running command "{0}"', 
     'generator.test-found': 'Found tests %d in file "%s", to be renamed to "%s"', 

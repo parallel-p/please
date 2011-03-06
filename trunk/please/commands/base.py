@@ -5,6 +5,9 @@
 from .. import exceptions
 from .. import locale
 from .. import run
+from .. import sourcefile
+from .. import sandbox
+from .. import file_system
 from . import options
 
 ALL_COMMANDS = set([])
@@ -146,3 +149,44 @@ class Run(Command):
         self.context.log.info("time: %.3f sec" % result.timepeak)
         self.context.log.info("memory: %.3f MB" % (result.memorypeak / (1024.0 * 1024.0)))
 
+class Compile(Command):
+    NAMES = ['compile']
+
+    @classmethod
+    def usage(cls):
+        return locale.get('commands.compile.usage')
+    
+    @classmethod
+    def description(cls):
+        return locale.get('commands.compile.description')
+
+    def handle(self):
+        log = self.context.log
+        fs = self.context.file_system
+           
+        if len(self.args) > 1:
+            raise exceptions.UserInputError(
+                locale.get('too-much-arguments'), self)
+        if not self.args:
+            raise exceptions.UserInputError(
+                locale.get('not-enough-arguments'), self)
+        filename = self.args[0]
+                
+        log.info(locale.get('commands.compile.doing').format( #TODO: probably make a Command.doing() function or something
+            filename) + "...")
+
+        sb = sandbox.Sandbox("compile")
+        sb.push(filename)
+        sf = sourcefile.SourceFile(filename, sb)        
+        sf.compile()
+
+        # TODO: probably make a Command.popResult() function, as the following code is widely used in several commands
+        outputDir = ".please/compile-ready" # TODO: use config
+        fs.del_dir(outputDir)
+        fs.mkdir(outputDir)
+        sb.pop(sf.executable(), outputDir)
+
+        log.info(locale.get('commands.compile.doing').format(filename) + 
+                 ": " + locale.get('done') + "! " + 
+                 locale.get('see-dir').format(outputDir)
+          )

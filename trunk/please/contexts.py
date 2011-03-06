@@ -71,7 +71,8 @@ class ProblemContext(Context):
     
     NAME = locale.get('context.problem.name')
     COMMANDS = [commands.Help, commands.problem.Inspect, 
-                commands.problem.Statement, commands.problem.Generate]
+                commands.problem.Statement, commands.problem.Generate, commands.Compile] 
+    # TODO: Should not we automatically add all the commands from GlobalContext here?
 
     def __init__(self, directory, log):
         Context.__init__(self, directory, log)
@@ -106,7 +107,7 @@ class GlobalContext(Context):
     """Context 'somewhere'."""
     
     NAME = locale.get('context.global.name')
-    COMMANDS = [commands.Help, commands.Update, commands.Run]
+    COMMANDS = [commands.Help, commands.Update, commands.Run, commands.Compile]
 
     @staticmethod
     def is_applicable(path):

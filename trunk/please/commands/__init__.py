@@ -2,7 +2,7 @@
 
 """Different please commands."""
 
-from .base import Help, Update, Run
+from .base import Help, Update, Compile, Run
 from . import problem
 
-__all__ = [Help, Update, problem]
+__all__ = [Help, Update, Compile, problem]
