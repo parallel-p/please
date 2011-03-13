@@ -5,12 +5,41 @@
 import os
 import os.path
 from .third_party import configobj
+from . import locale
+
+class LanguageConfig(object):
+    """Stores the parameters of a given language"""
+    # TODO: a better realization is required
+    def __init__(self, compileFormat, runFormat):
+        self.compileFormat = compileFormat
+        self.runFormat = runFormat
+       
+    def compileLine(self, file, outputFile):
+        return self.compileFormat.format(file, outputFile)
+        
+    def runLine(self, file):
+        if self.runString == "":
+            return os.path.join(".", file) # assuming the file is in the current dir
+        else:
+            return self.runString.format(file)
 
 class Config(object):
     #All the paths that point to a particular object (like scriptDir or texPrologue) 
     #are returned relative to current dir. Probably we will need to change this, but think first. -- PK
     def __init__(self):
         self.config = configobj.ConfigObj(os.path.join(self.pleaseiniDir(), "please.ini"))
+        
+        try:
+            langs = set(self.config["compilers"].keys())
+        except KeyError: langs = set([])
+        try:
+            langs = langs | set(self.config["executers"].keys())
+        except KeyError: pass
+        self.lang = dict()
+        for lang in langs:
+            comp = self.config["compilers"].get(lang, "");
+            run = self.config["executers"].get(lang, "");
+            self.lang[lang] = LanguageConfig(comp, run)
         
     def scriptDir(self):
         return os.path.relpath(os.path.join(os.path.dirname(__file__), "..")) # TODO: is there a normal way to to this? -- PK
@@ -83,5 +112,9 @@ class Config(object):
         for file in fl.values():
             res.append(os.path.join(self.pleaseiniDir(), file))
         return res
+        
+    def languageConfig(self, lang):
+        """Return the configuration for language lang. Throws KeyError if no such language"""
+        return self.lang[lang]; 
 
 config = Config() # TODO: I suspect it is not the right way to do this -- PK

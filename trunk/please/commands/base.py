@@ -175,7 +175,7 @@ class Compile(Command):
         log.info(locale.get('commands.compile.doing').format( #TODO: probably make a Command.doing() function or something
             filename) + "...")
 
-        sb = sandbox.Sandbox("compile")
+        sb = sandbox.Sandbox("compile") # TODO: make sandbox someow keep() if something went wrong. The best is to do it automagically.
         sb.push(filename)
         sf = sourcefile.SourceFile(filename, sb)        
         sf.compile()

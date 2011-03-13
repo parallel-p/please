@@ -2,8 +2,6 @@
 
 """Localization utilities."""
 
-from . import config
-
 _en = {
     'log.debug': 'debug',
     'log.info': '',  # This is not shown anywhere, so it's empty.
@@ -39,7 +37,7 @@ _en = {
     'problem.validator-not-found': 'validator is not found',
     'problem.validator-found': 'validator = %s',
     'problem.checker-found': 'checker = %s',
-    'problem.generate-not-found': "please generate file not found at '%s'" % config.config.generateFile(),
+    'problem.generate-not-found': "please generate file not found at '%s'",
     'problem.statements-found': 'statements = %s',
     'problem.statements-not-found': "statements not found",
 

@@ -92,7 +92,7 @@ class Inspect(Base):
             log.warning(locale.get("problem.statements-not-found"))
 
         if not fs.exists(config.config.generateFile()):
-            log.error(locale.get("problem.generate-not-found"))
+            log.error(locale.get("problem.generate-not-found") % config.config.generateFile())
 
 class Statement(Base):
     # TODO: allow parameters --ps and ---pdf

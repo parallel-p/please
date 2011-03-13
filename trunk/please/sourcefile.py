@@ -8,22 +8,31 @@ import os.path
 from . import config
 from . import sandbox
 from . import exceptions
+from . import file_system
 
+#TODO: rework for non-compiled languages
 class SourceFile(object):
     def __init__(self, filename, sandbox):
-        self.filename, self.lang = os.path.splitext(filename)
-        if self.lang != ".pas": # TODO: load list of languages from config; and use all the parameters below
-            raise exceptions.UnknownLanguageError(self.lang, filename)
+        self.fileName, self.lang = os.path.splitext(filename)
+        try:
+            self.langConfig = config.config.lang[self.lang];
+        except KeyError:
+            raise exception.UnknownLanguageError(self.lang, filename)
         self.sandbox = sandbox
+        self.fs = file_system.FileSystem()
             
     def compile(self):
-        self.sandbox.exec("fpc","-Mdelphi " + self.filename +  self.lang) # TODO: check return value
+        self.sandbox.exec(self.langConfig.compileLine(
+            self.fileName + self.lang, 
+            self.executable()            
+        )) # TODO: check return value
         
     def executable(self):
-        if os.name == "posix":
-            return self.filename
-        elif os.name == "nt":
-            return self.filename + ".exe"
+        return self.fileName + self.fs.binarySuffix()
         
-    
+    def run(self):
+        self.sandbox.exec(self.langConfig.runLine(
+            self.executable()
+        )) # TODO: check return value
+        
         

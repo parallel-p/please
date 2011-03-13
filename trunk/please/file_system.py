@@ -77,7 +77,12 @@ class FileSystem:
     def chdir(self, dir):
         self.__pwd = os.path.abspath(dir) #Is anything else needed?
         os.chdir(dir)
-        
+    
+    def binarySuffix(self):
+        if os.name == "posix": 
+            return ""
+        elif os.name == "nt": 
+            return ".exe"
 
 if __name__ == "__main__":
     fs = FileSystem()
