@@ -15,13 +15,15 @@ class LanguageConfig(object):
         self.runFormat = runFormat
        
     def compileLine(self, file, outputFile):
-        return self.compileFormat.format(file, outputFile)
+        baseName = os.path.splitext(file)[0]
+        return self.compileFormat.format(baseName, file, outputFile)
         
-    def runLine(self, file):
-        if self.runString == "":
-            return os.path.join(".", file) # assuming the file is in the current dir
+    def runLine(self, file, outputFile):
+        baseName = os.path.splitext(file)[0]
+        if self.runFormat == "":
+            return os.path.join(".", outputFile) # assuming the file is in the current dir
         else:
-            return self.runString.format(file)
+            return self.runFormat.format(baseName, file, outputFile)
 
 class Config(object):
     #All the paths that point to a particular object (like scriptDir or texPrologue) 

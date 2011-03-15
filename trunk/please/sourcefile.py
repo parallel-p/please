@@ -16,8 +16,8 @@ class SourceFile(object):
         self.fileName, self.lang = os.path.splitext(filename)
         try:
             self.langConfig = config.config.lang[self.lang];
-        except KeyError:
-            raise exception.UnknownLanguageError(self.lang, filename)
+        except KeyError as e:
+            raise exceptions.UnknownLanguageError(self.lang, filename) from e # Is it a correct way to do this? --- P.K.
         self.sandbox = sandbox
         self.fs = file_system.FileSystem()
             
@@ -32,7 +32,8 @@ class SourceFile(object):
         
     def run(self):
         self.sandbox.exec(self.langConfig.runLine(
-            self.executable()
+            self.fileName + self.lang, 
+            self.executable()            
         )) # TODO: check return value
         
         

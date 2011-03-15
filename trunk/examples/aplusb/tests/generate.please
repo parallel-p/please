@@ -1,2 +1,3 @@
-gen.cmd
-gen2.cmd
+gen_pas.pas
+gen_php.php
+gen_cpp.cpp

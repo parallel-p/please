@@ -2,6 +2,7 @@
 
 from . import file
 from .. import sandbox
+from .. import sourcefile
 import os.path
 
 class Generator(object):
@@ -22,7 +23,11 @@ class Generator(object):
             sb = sandbox.Sandbox(hint)
             
             sb.push(os.path.join(self.config.testsDir(), cmd))
-            sb.exec(cmd, "", True)
+            sf = sourcefile.SourceFile(cmd, sb)
+            sf.compile()
+            sb.resetFiles()
+            sf.run()
+            
             nf = sb.newFiles()
             tests = {}
             for file in nf:

@@ -3,13 +3,15 @@
 """Sandbox allows to run commands and see what has changed
 """
 
+#TODO: print all actions to log
+
 import time
 import os
 from . import config
 from . import file_system
 
 class Sandbox(object):
-    def __init__(self, name,  keep = False):
+    def __init__(self, name, keep = False):
         """Creates a directory for sandbox. 
         name is an "identifier" to be used in directory name
         keep = True means do not delete sandbox directory even after the work is done
@@ -68,3 +70,11 @@ class Sandbox(object):
         res = set(self.fs.files(".")) - self.files
         self.fs.chdir(pwd)
         return res
+        
+    def resetFiles(self):
+        """Resets the internal list of files to match the current files in the sandbox.
+        Immediately after resetFiles(), newFiles() will return empty set"""
+        pwd = os.path.abspath(self.fs.root())
+        self.fs.chdir(self.dirname)
+        self.files = set(self.fs.files("."))
+        self.fs.chdir(pwd)
