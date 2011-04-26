@@ -7,6 +7,7 @@
 То, что нужно знать:
   * SVN
   * ООП (понятие класса)
-  * Python 3.x
+  * Python 3.x (базовые типы данных: list, tuple, generator)
   * mock объекты, unit test
   * Документирование кода
+  * Style guide
