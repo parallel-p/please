@@ -21,3 +21,4 @@
     * `description_{modification}.{language}.tex`
     * `.fingerprint`
   * [Tags]
+  * [SisStudyProject]
