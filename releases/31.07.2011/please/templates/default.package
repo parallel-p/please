@@ -1,0 +1,15 @@
+please_version=0.1
+name=
+shortname=$shortname$
+tags=
+type=
+input=stdin
+output=stdout
+time_limit=2
+memory_limit=64
+checker=$checker$
+validator=$validator$
+main_solution=$solution$
+statement=$statement$
+description=$description$
+
