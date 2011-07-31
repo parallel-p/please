@@ -1,0 +1,25 @@
+please_version = 0.1
+name = Последние штаны
+shortname = distinct_numbers
+tags = 
+type = 
+input = pants.in
+output = pants.out
+time_limit = 2
+memory_limit = 256
+checker = checker.cpp
+validator = validator.cpp
+main_solution = solutions/solution_py3.py
+statement = statements/default.ru.tex
+description = statements/description.ru.tex
+
+solution = {
+    source = solutions/solution_cpp.cpp
+    expected_verdicts = OK
+    possible_verdicts = OK
+}
+solution = {
+    source = solutions/solution_py3.py
+    expected_verdicts = OK
+    possible_verdicts = OK
+}

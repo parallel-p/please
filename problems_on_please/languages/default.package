@@ -1,0 +1,19 @@
+﻿please_version = 0.1
+name = Полиглоты
+shortname = polyglots
+tags = 
+type = 
+input = stdin
+output = stdout
+time_limit = 4
+memory_limit = 256
+checker = cheker.dpr
+validator = valid.py
+main_solution = solutions/main_sol.py
+statement = statements/default.ru.tex
+description = statements/description.ru.tex
+solution = {
+    source = solutions/sec_sol.dpr
+    expected_verdicts = TL, WA, PE
+    possible_verdicts = OK
+}
