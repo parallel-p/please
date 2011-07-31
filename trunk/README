@@ -15,6 +15,7 @@ To export problems to ejudge using Windows needs modules: pscp, plink
 Use 32-bit python to have possibility use of some libraries
 
 Install g++ compiler. For windows it is good idea to install Code::Blocks
+    (http://prdownload.berlios.de/codeblocks/codeblocks-10.05mingw-setup.exe)
 
 Installation
 =====
