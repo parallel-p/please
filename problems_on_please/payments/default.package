@@ -1,0 +1,19 @@
+please_version = 0.1
+name = payments
+shortname = payments
+tags = dictionary read strings
+type = 
+input = payments.in
+output = payments.out
+time_limit = 2
+memory_limit = 32
+checker = fcmp.cpp
+validator = validator.py
+main_solution = solutions/payments.py
+statement = statements/default.ru.tex
+description = statements/description.ru.tex
+solution = {
+    source = solutions/payments.dpr
+    expected_verdicts = OK
+    possible_verdicts = RE
+}

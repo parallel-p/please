@@ -1,0 +1,20 @@
+please_version = 0.1
+name = spell
+shortname = spell
+tags = 
+type = 
+input = spell.in
+output = spell.out
+time_limit = 2
+memory_limit = 2048
+checker = icmp.cpp
+validator = validator.java
+main_solution = solutions/cpp_solution.cpp
+statement = statements/default.ru.tex
+description = statements/description.ru.tex
+
+solution = {
+    source = solutions/python_solution.py
+    expected_verdicts = OK
+    possible_verdicts = OK
+}
