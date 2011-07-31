@@ -11,8 +11,10 @@ Dependencies
 To run the tests needs module Mox. To generate html_report needs module HTML.
 To export problems to ejudge using Windows needs modules: pscp, plink
 (for example, these files are contained in library putty).
+
 Use 32-bit python to have possibility use of some libraries
 
+Install g++ compiler. For windows it is good idea to install Code::Blocks
 
 Installation
 =====

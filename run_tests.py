@@ -59,13 +59,3 @@ if len(args) == 2:
 if len(args) == 3:
      if args[2] == "short":
           run_tests(args[1])
-
-
-
-
-
-
-
-
-
-

@@ -94,9 +94,14 @@ class TestStressTester(unittest.TestCase):
     def test_integration(self):
         current_dir = os.getcwd()
         try:
-            os.chdir(os.path.join(global_config.root, "stress_tester", "test_problem"))
-            tester = please.stress_tester.stress_tester.StressTester(please.solution_tester.package_config.PackageConfig.get_config('.', ignore_cache = True))
-            tester(os.path.join('tests', 'generator.cpp'), os.path.join('solutions', 'solution_wrong.cpp'), os.path.join('solutions', 'solution.cpp'))
+            cur_root = os.path.split(__file__)[0]
+            os.chdir(os.path.join(cur_root, "test_problem"))
+            tester = please.stress_tester.stress_tester.StressTester(
+                please.solution_tester.package_config.PackageConfig.get_config('.', ignore_cache = True))
+            print(os.path.exists(os.path.join('tests', 'generator.cpp')))
+            tester(os.path.join('tests', 'generator.cpp'),
+                   os.path.join('solutions', 'solution_wrong.cpp'),
+                   os.path.join('solutions', 'solution.cpp'))
         finally:
             os.chdir(current_dir)
         self.assertRaises(please.stress_tester.stress_tester.StressCheckMatchException)
