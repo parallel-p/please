@@ -1,0 +1,19 @@
+please_version = 0.1
+name = 
+shortname = keyvalue
+tags = 
+type = 
+input = keyvalue.in
+output = keyvalue.out
+time_limit = 0.1
+memory_limit = 32
+checker = fcmp.cpp
+main_solution = solutions/solution2.cpp
+statement = statements/default.ru.tex
+description = statements/description.ru.tex
+validator = validator.cpp
+solution = {
+    source = solutions/solution.py
+    expected_verdicts = OK
+    possible_verdicts = OK
+}

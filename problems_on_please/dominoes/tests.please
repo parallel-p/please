@@ -1,0 +1,29 @@
+[sample] tests/01
+[sample] genchess.dpr 10 10
+[tests] genchess.dpr 100 100
+[tests] genfull.dpr 1 100
+[tests] genfull.dpr 100 1
+[tests] genfull.dpr 13 13
+[tests] genfull.dpr 100 100
+[tests] genev.dpr 21 41
+[tests] genev.dpr 99 95
+[tests] genodd.dpr 61 21
+[tests] genodd.dpr 99 95
+[tests] gentria.dpr 70 80 100
+[tests] gentria.dpr 100 100 1000
+[tests] gen13.dpr
+[tests] gen14.dpr
+[tests] gen15.dpr
+[tests] gen16.dpr
+[tests] gen17.dpr
+[tests] gen18.dpr
+[tests] genrnd.dpr 89 98 50
+[tests] genrnd.dpr 89 98 80
+[tests] genrnd.dpr 89 98 85
+[tests] genrnd.dpr 89 98 90
+[tests] genrnd.dpr 89 98 95
+[tests] genrnd.dpr 89 98 99
+[tests] genrnd2.dpr 99 95 50 -230 -100
+[tests] genrnd2.dpr 99 95 10 -230 -190
+[tests] genrnd2.dpr 99 95 90 -230 1
+[tests] genrnd2.dpr 99 95 34 230 -1

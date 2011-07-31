@@ -1,0 +1,40 @@
+\begin{problem}{${problem.name}}{${problem.inputFile}}{${problem.outputFile}}{${(problem.timeLimit/1000)?c} секунд<#if (problem.timeLimit>1000)>ы</#if><#if (problem.timeLimit<=1000)>а</#if>}
+{${(problem.memoryLimit/1048576)?c} мегабайт<#if 
+(
+(
+((problem.memoryLimit/1048576)%100<10) ||  
+((problem.memoryLimit/1048576)%100>20)
+)
+ && 
+(
+((problem.memoryLimit/1048576)%10 == 2) ||
+((problem.memoryLimit/1048576)%10 == 3) ||
+((problem.memoryLimit/1048576)%10 == 4)
+)
+)>а</#if>}
+
+${problem.legend}
+
+\InputFile
+${problem.input}
+
+\OutputFile
+${problem.output}
+
+<#if (problem.sampleTests?size > 1)>\Examples</#if>
+<#if (problem.sampleTests?size == 1)>\Example</#if>
+
+<#if (problem.sampleTests?size >= 1)>
+\begin{example}
+<#list problem.sampleTests as test>
+\exmp{${test.input}}{${test.output}}%
+</#list>
+\end{example}
+</#if>
+
+<#if (problem.notes??) && (problem.notes?length > 0)>
+\Note
+${problem.notes}
+
+</#if>
+\end{problem}

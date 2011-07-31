@@ -1,0 +1,20 @@
+please_version = 0.1
+name = dominoes
+shortname = dominoes
+tags = group-b, matching
+type = 
+input = dominoes.in
+output = dominoes.out
+time_limit = 2.0
+memory_limit = 64.0
+checker = check.cpp
+validator = validate.cpp
+main_solution = solutions/dominoes_af1.java
+statement = statements/statement.russian.tex
+description = statements/description.ru.tex
+
+solution = {
+    source = solutions\dominoes_af3.java
+    expected_verdicts = OK
+    possible_verdicts = OK
+}
