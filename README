@@ -1,0 +1,30 @@
+Description
+===========
+
+...
+
+
+Dependencies
+============
+
+    Requires python 3.2 and modules: psutil, colorama. 
+To run the tests needs module Mox. To generate html_report needs module HTML.
+To export problems to ejudge using Windows needs modules: pscp, plink
+(for example, these files are contained in library putty).
+Use 32-bit python to have possibility use of some libraries
+
+
+Installation
+=====
+
+Run setup.py install Dir
+
+Dir - folder where you want to install Please (without directory Please)
+
+Example:
+ python setup.py install D:\Dir\
+
+Known bugs
+==========
+On Win64 it may periodically crash with NoSuchProcess exception because
+of local psutil issue (hlink).
