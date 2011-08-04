@@ -1,4 +1,8 @@
  [http://code.google.com/p/please/w/list All Wiki pages]
+   * [WindowsInstall]
+
+____
+  
   * [ToDoList]
   * [PleaseCommands]
   * [ProblemFormat]
