@@ -1,0 +1,13 @@
+Installation instruction for windows
+
+= Introduction =
+
+For installing please on system you need to install several third party instruments. And add to path several paths.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
