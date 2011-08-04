@@ -1,13 +1,22 @@
+1. Install Python 3.2.1 (http://www.python.org/getit/releases/3.2/).
+Note: currently please works correct only under 32-bit version of python. So
+it's highly recommented to install 32-bit python even under 64-bi machine.
+
+2. Install libraries. You can find them in 'lib' directory.
+
+Base required libraries:
+*   psutil 0.3 (psutil-0.3.0.win32-py3.2.exe)
+*   lxml 2.3 (lxml-2.3.win32-py3.2.exe)
+*   colorama 0.2.4 (colorama-0.2.4.zip)
+
+Additional libraries - install what you need depending on functional:
+
+Generating HTML reports:
+*   HTML 0.04 (!! add installer to 'third_party' !!)
+
+3. Run setup.py install %dir%, where %dir% is folder where you want to install 
+please.
+    Example: python setup.py D:\olymp_utils\
+
+Now you can use please from command-line.
 Installation instruction for windows
-
-= Introduction =
-
-For installing please on system you need to install several third party instruments. And add to path several paths.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
