@@ -16,7 +16,7 @@ Generating HTML reports:
 
 3. Run setup.py install %dir%, where %dir% is folder where you want to install 
 please.
+
 Example: python setup.py D:\olymp_utils\
 
-Now you can use please from command-line.
-Installation instruction for windows
+Now you can use please from command-line or import please in python.
