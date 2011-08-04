@@ -2,7 +2,7 @@
 Note: currently please works correct only under 32-bit version of python. So
 it's highly recommented to install 32-bit python even under 64-bi machine.
 
-2. Install libraries.й You can find them in 'lib' directory.
+2. Install libraries. You can find them in 'lib' directory.
 
 Base required libraries:
   * psutil 0.3 (psutil-0.3.0.win32-py3.2.exe)
