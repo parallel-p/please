@@ -86,13 +86,23 @@ class LatexConstructor:
             returns string, which contains tex file.
             changes template word in this string (for example "#{time_limit}", ...) to the names.
         """
-        examples = "%s\n\\begin{%s}\n" % ('', self.__example_environment)
         result = self.__problem_template
         for tag, value in self.__replacements.items():
             result = result.replace(tag, str(value))
-        for in_example, out_example in zip(self.__input_example, self.__output_example):
-            examples += "\\exmp{\n%s}{%s}%%\n" % (str(in_example), str(out_example))
-        examples += "\\end{%s}\n" % (self.__example_environment)
+
+        if self.__input_example: #if at least one sample test exists
+            examples = "%s\n\\begin{%s}\n" % ('', self.__example_environment)
+            for in_example, out_example in zip(self.__input_example, self.__output_example):
+                examples += "\\exmp{\n%s}{%s}%%\n" % (str(in_example), str(out_example))
+            examples += "\\end{%s}\n" % (self.__example_environment)
+        else:
+            examples = ''
+
+            ###### Dirty hack not to print word "EXAMPLES" in statement: how to do it better? (
+            result = result.replace("\\Examples", "")        
+            result = result.replace("\\Example", "")
+            ######
+        
         result = result.replace(self.__example_tag, examples)
         return result
 
@@ -193,7 +203,7 @@ class Latex2Pdf:
         else:
             os.putenv("TEXINPUTS", get_template_full_path('') + ":.:")
         for i in range(2):
-            # necessary two iterations for pages counting; bug of "pdflatex" 
+            # necessary two iterations for pages counting
             result_info, stdout, stderr = runner.run(path_to_tex_file, encoding = encoding)            
             if (result_info.verdict == 'None'):
                 raise Exception("Are You sure, that latex has been installed on your computer?")
