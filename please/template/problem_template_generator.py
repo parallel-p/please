@@ -46,7 +46,7 @@ def generate_problem_advanced(shortname, human_language, programming_language):
     mkdir(shortname)
 
     statement_path = os.path.join(shortname, global_config.statements_dir)
-    tests_path = os.path.join(shortname, 'tests')
+    tests_path = os.path.join(shortname, global_config.tests_dir)
     solutions_path = os.path.join(shortname, global_config.solutions_dir)
 
     # make dirs

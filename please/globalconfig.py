@@ -17,6 +17,7 @@ default_human_language = "ru"
 # config for folders in problem
 statements_dir = "statements"
 solutions_dir = "solutions"
+tests_dir = "tests"
 
 # temporary folders
 temp_statements_dir = ".statements"
