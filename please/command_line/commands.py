@@ -55,28 +55,28 @@ Global commands available:
   {3}:
     Generates PDF for problems listed. All the tasks must
     be in the directory, where you launch this command
-    example: please generate statements island agripina dominoes
-
+    example: please generate statements island agripina dominoes""".format(PLEASE_VERSION, *global_commands))
+    print("""
 Commands available when inside problem's folder:
 
-  {4}:
+  {0}:
     Generates pdf statement for current problem
     
-  {5}:
+  {1}:
     Generates tests for current problem
     example: generate tests
              generate tests with qsort arrays
               
-  {6} : Generates answers for all tests in .tests dir
+  {2} : Generates answers for all tests in .tests dir
     example : generate answers
              
-  {7}:
+  {3}:
     Shows TODO and builds everything
     
-  {8}:
+  {4}:
     Shows TODO
     
-  {9}:
+  {5}:
     Sets standard checker with name
     Default standard checkers:  acmp.cpp, dcmp.cpp, fcmp.cpp, 
                                 hcmp.cpp, icmp.cpp, lcmp.cpp,
@@ -85,63 +85,63 @@ Commands available when inside problem's folder:
                                 wcmp.cpp, yesno.cpp
     example: add standard checker acmp
   
-  {10}:
+  {6}:
     Adds tags to current problem
     example: add tags qsort arrays
     
-  {11}:
+  {7}:
     Prints all tags associated with current problem
     
-  {12}:
+  {8}:
     Removes all tags associated with current problem
     
-  {13}:
+  {9}:
     Adds solution with some expected and possible verdicts
     example: add solution ..\..\sources\solution_tl_ml.cpp expected: TL,ML possible: OK,RE
    
-  {14}:
+  {10}:
     Adds solution with some expected verdicts and OK possible verdict
     example: add solution ..\sources\solution_wa.cpp with WA
 
-  {15}: 
+  {11}: 
     Sets main solution (solution that should pass all tests). Copies specified file in \solutions and edits default.package
     example: add main solution ..\..\sources\solution_ok.cpp
    
-  {16}: 
+  {12}: 
     Sets checker. Copies specified file to the problem directory and edits default.package
     example: add checker ..\..\sources\checker.dpr
     
-  {17}: 
+  {13}: 
     Sets validator. Copies specified file to the problem directory and edits default.package
     example: add validator ..\..\sources\validator.cpp
     
-  {18}:
+  {14}:
     Checks solution specified
     example: check solution solutiontl.cpp
     
-  {19}
+  {15}
     Checks all solutions available    
     
-  {20}:
+  {16}:
     Performs a stress test of current solution
     example: stress test solutions/wrong.cpp "tests/gen.cpp 10 5"
              stress test solutions/wrong.cpp solutions/aa.cpp tests/gen.cpp
-  {21}
+  {17}
     Imports Polygon package (in .zip format) to please package"
     example: import polygon package centroid.zip
 
-  {22}
+  {18}
     Computes adequate TL of current problem as doubled maximum running time of main solution
 
-  {23}
+  {19}
     Computes adequate integer TL of current problem as doubled maximum running time of main solution
   
-  {24}
+  {20}
     Generates html file report.html. This file contains tables with results of working of all solutions.
   
-  {25}
+  {21}
     Sets current problem name
-""".format(PLEASE_VERSION, *(global_commands + problem_commands)))
+""".format(*problem_commands))
 
 
 
