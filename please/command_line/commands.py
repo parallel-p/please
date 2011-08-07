@@ -1,9 +1,10 @@
 PLEASE_VERSION = "0.1"
 
-commands = [ "create problem PROBLEM_NAME", 
+global_commands = ["create problem PROBLEM_NAME", 
              "export to ejudge contest CONTEST_ID problem[s] PROBLEM_LIST",
-             "generate statements PROBLEMS_LIST",
-             "generate statement",
+             "generate statements PROBLEMS_LIST"]
+
+problem_commands = ["generate statement",
              "generate tests [with tag[s] TAGS_LIST]",
              "generate answers",
              "build all",
@@ -26,11 +27,14 @@ commands = [ "create problem PROBLEM_NAME",
              "generate html report",
              "set problem name NAME"]
 
-def print_lite_help():
+def print_lite_help(in_problem_folder):
     print("\nUsage: please [command]")
     print("Commands available (try 'please help' for more information):\n")
-    for value in commands:
+    for value in global_commands:
         print(value)
+    if in_problem_folder:
+        for value in problem_commands:
+            print(value)
 
 def print_help():
     print("""
@@ -137,7 +141,7 @@ Commands available when inside problem's folder:
   
   {25}
     Sets current problem name
-""".format(PLEASE_VERSION, *[value for value in commands]))
+""".format(PLEASE_VERSION, *(global_commands + problem_commands)))
 
 
 
