@@ -33,9 +33,10 @@ problem_commands = ["generate statement",
 def print_lite_help(in_problem_folder):
     print("\nUsage: please [command]")
     print("Commands available (try 'please help' for more information):\n")
+    print("Global commands:\n")
     print(*sorted(global_commands), sep = "\n")
-    if in_problem_folder:
-        print(*sorted(problem_commands), sep = "\n")
+    print("\nCommands inside problem folder:\n")
+    print(*sorted(problem_commands), sep = "\n")
 
 def print_help():
     print(len(global_commands))
