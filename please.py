@@ -25,6 +25,7 @@ from please.solution_tester import package_config
 from please.export2ejudge.export import export2ejudge
 import os
 from please.import_from_polygon.import_problem_from_polygon import import_problem_from_polygon
+from please.import_from_polygon.create_problem import create_problem as import_polygon_package
 from please.answers_generator.answers_generator import AnswersGenerator
 from please.reports import generate_html_report
 
@@ -42,7 +43,7 @@ if __name__ == "__main__":
     matcher.add_handler(Template(["show", "todo", "#root_path"]), todo.get_todo, True)
     matcher.add_handler(Template(["todo", "#root_path"]), todo.get_todo, True)
     matcher.add_handler(Template(["import", "polygon", "contest", "#contest_id", "problem", "#problem_letter"]), import_problem_from_polygon, True)
-
+    matcher.add_handler(Template(["import", "polygon", "package", "#package"]), import_polygon_package)
     # If we are inside folder with  the problem, we have more handlers
     package_config = package_config.PackageConfig.get_config('.')
     in_problem_folder = (package_config != False)
