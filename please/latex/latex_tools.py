@@ -28,7 +28,7 @@ def generate_contest(problem_names = ['.'], title = None, date = None, location 
         problem = SingleProblemCreator(config = package_conf)
         problem = problem()
         contest.add_problem(problem)
-        if len(problem_names) > 1:
+        if not single_problem:
             os.chdir('..')
 
     if not os.path.exists(globalconfig.temp_statements_dir):
