@@ -73,7 +73,7 @@ if __name__ == "__main__":
         matcher.add_handler(Template(["generate", "html", "report"]), generate_html_report.generate_html_report)
 
     if len(sys.argv) == 1:
-        print_lite_help()
+        print_lite_help(package_config)
     else:
         # Get the command line arguments (exclude the first one - it's program's name)
         args = sys.argv[1:]
@@ -82,7 +82,7 @@ if __name__ == "__main__":
             matcher.matches(args)
         except MatcherException as ex:
             print(str(ex))
-            print_lite_help()
+            print_lite_help(package_config)
         except CompileError as ex:
             log = logging.getLogger("please_logger.executors.compiler")
             log.error("CompilerError: " + str(ex))
