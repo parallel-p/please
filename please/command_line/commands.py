@@ -2,7 +2,10 @@ PLEASE_VERSION = "0.1"
 
 global_commands = ["create problem PROBLEM_NAME", 
              "export to ejudge contest CONTEST_ID problem[s] PROBLEM_LIST",
-             "generate statements PROBLEMS_LIST"]
+             "generate statements PROBLEMS_LIST",
+             "help",
+             "[show] todo PATH_TO_PROBLEM",
+             "import polygon package PATH_TO_POLYGON_PACKAGE"]
 
 problem_commands = ["generate statement",
              "generate tests [with tag[s] TAGS_LIST]",
@@ -13,32 +16,31 @@ problem_commands = ["generate statement",
              "add tag[s] TAGS_LIST",
              "show tags",
              "clear tags",
-             "add solution PATH_TO_SOLUTION expected: EXPECTED_VERDICTS_LIST\n  possible: POSSIBLE_VERDICTS_LIST",
+             "add solution PATH_TO_SOLUTION expected: EXPECTED_VERDICTS_LIST possible: POSSIBLE_VERDICTS_LIST",
              "add solution PATH_TO_SOLUTION with EXPECTED_VERDICTS_LIST",
              "set main solution PATH_TO_MAIN_SOLUTION",
-             "set checker  PATH_TO_CHECKER",
+             "set checker PATH_TO_CHECKER",
              "set validator PATH_TO_VALIDATOR",
              "check solution PATH_TO_SOLUTION",
              "check solutions",
              "stress test SOLUTION [CORRECT_SOLUTION] GENERATOR",
-             "import polygon package PATH_TO_POLYGON_PACKAGE",
              "compute TL",
              "compute integer TL",
              "generate html report",
-             "set problem name NAME"]
+             "set problem name NAME",
+             "check main solution"]
 
 def print_lite_help(in_problem_folder):
     print("\nUsage: please [command]")
     print("Commands available (try 'please help' for more information):\n")
-    for value in global_commands:
-        print(value)
+    print(*sorted(global_commands), sep = "\n")
     if in_problem_folder:
-        for value in problem_commands:
-            print(value)
+        print(*sorted(problem_commands), sep = "\n")
 
 def print_help():
+    print(len(global_commands))
     print("""
-Please version {0}
+Please version: {0}
 Usage: please [command]
 
 Global commands available:
@@ -55,7 +57,17 @@ Global commands available:
   {3}:
     Generates PDF for problems listed. All the tasks must
     be in the directory, where you launch this command
-    example: please generate statements island agripina dominoes""".format(PLEASE_VERSION, *global_commands))
+    example: please generate statements island agripina dominoes
+    
+  {4}:
+    Shows this help
+    
+  {5}:
+    Shows TODO for given problem
+    
+  {6}:
+    Imports Polygon package (in .zip format) to please package
+    example: import polygon package centroid.zip""".format(PLEASE_VERSION, *global_commands))
     print("""
 Commands available when inside problem's folder:
 
@@ -97,23 +109,23 @@ Commands available when inside problem's folder:
     
   {9}:
     Adds solution with some expected and possible verdicts
-    example: add solution ..\..\sources\solution_tl_ml.cpp expected: TL,ML possible: OK,RE
+    example: add solution ../../sources/solution_tl_ml.cpp expected: TL,ML possible: OK,RE
    
   {10}:
     Adds solution with some expected verdicts and OK possible verdict
-    example: add solution ..\sources\solution_wa.cpp with WA
+    example: add solution ../sources/solution_wa.cpp with WA
 
   {11}: 
-    Sets main solution (solution that should pass all tests). Copies specified file in \solutions and edits default.package
-    example: add main solution ..\..\sources\solution_ok.cpp
+    Sets main solution (solution that should pass all tests). Copies specified file in /solutions and edits default.package
+    example: add main solution ../../sources/solution_ok.cpp
    
   {12}: 
     Sets checker. Copies specified file to the problem directory and edits default.package
-    example: add checker ..\..\sources\checker.dpr
+    example: add checker ../../sources/checker.dpr
     
   {13}: 
     Sets validator. Copies specified file to the problem directory and edits default.package
-    example: add validator ..\..\sources\validator.cpp
+    example: add validator ../../sources/validator.cpp
     
   {14}:
     Checks solution specified
@@ -121,25 +133,25 @@ Commands available when inside problem's folder:
     
   {15}
     Checks all solutions available    
+
+  {21}:
+    Checks main solution, specified in default.package
     
   {16}:
     Performs a stress test of current solution
     example: stress test solutions/wrong.cpp "tests/gen.cpp 10 5"
              stress test solutions/wrong.cpp solutions/aa.cpp tests/gen.cpp
+             
   {17}
-    Imports Polygon package (in .zip format) to please package"
-    example: import polygon package centroid.zip
-
-  {18}
     Computes adequate TL of current problem as doubled maximum running time of main solution
 
-  {19}
+  {18}
     Computes adequate integer TL of current problem as doubled maximum running time of main solution
   
-  {20}
+  {19}
     Generates html file report.html. This file contains tables with results of working of all solutions.
   
-  {21}
+  {20}
     Sets current problem name
 """.format(*problem_commands))
 
