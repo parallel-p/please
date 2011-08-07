@@ -39,27 +39,27 @@ class TestsAndAnswersGenerator:
             return True
 
         return admit
-
-    def __generate_answers (self,tests):
+    
+    def __generate_answers (self, tests):
         result = []
         count_errors = 0
         config = package_config.PackageConfig.get_config('.')
         tests_names = []
         if 'validator' in config  and config['validator'] != "" :        
             for test in tests:
-                logger.info("Start validator on test: "+ test)
-                validator_result = validator_runner.validate(config ["validator"],test)  
+                logger.info("Start validator on test: " + test)
+                validator_result = validator_runner.validate(config["validator"], test)  
                 if get_return_code (validator_result) != 0:
                     count_errors += 1                
                 verd = get_verdict(validator_result)
                 if verd == "FNF":
-                    return (1,[])
+                    return (1, [])
                 result.append((test,verd))
-                if   verd == "OK":
+                if verd == "OK":
                     tests_names.append(test)
-                elif verd != "FNF":                
-                    logger.error(error_str+verd)
-                    logger.error("\nSTDERR:\n"+validator_result[2].decode())
+                else:                
+                    logger.error(error_str + verd)
+                    logger.error("\nSTDERR:\n" + validator_result[2].decode())
         answers_gen = answers_generator.AnswersGenerator()
         answers_gen.generate (tests_names, config ["main_solution"], [], config)
         return (count_errors,result)
