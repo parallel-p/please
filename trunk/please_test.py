@@ -150,7 +150,6 @@ class PleaseTest(unittest.TestCase):
         self.__matcher.matches("generate statement".split())
         
         os.chdir(start_dir)
-        
         self.assertTrue(os.path.exists(os.path.join(test_problem_dir, "statements", "default.ru.pdf")))        
         
         
