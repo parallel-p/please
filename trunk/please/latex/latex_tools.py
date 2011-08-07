@@ -20,7 +20,8 @@ def generate_contest(problem_names = ['.'], title = None, date = None, location 
 
     with open(problem_template_path, "r", encoding = "UTF8") as template:
         contest = LatexContestConstructor(template.read(), title, date, location, separator)
-
+    single_problem = (problem_names == ["."])
+    
     for problem in problem_names:
         os.chdir(problem)
         package_conf = package_config.PackageConfig.get_config(dir = '.', ignore_cache = True)
@@ -35,7 +36,7 @@ def generate_contest(problem_names = ['.'], title = None, date = None, location 
 
     os.chdir(globalconfig.temp_statements_dir)
     
-    if problem_names == ["."]:
+    if single_problem:
         new_tex_name = os.path.basename(package_conf["statement"])
     else:
         new_tex_name = "_".join(problem_names) + ".tex"
@@ -49,7 +50,10 @@ def generate_contest(problem_names = ['.'], title = None, date = None, location 
     os.chdir("..")
     
     pdf_out_name = os.path.join(globalconfig.temp_statements_dir, os.path.splitext(new_tex_name)[0] + ".pdf")
-    shutil.copy(pdf_out_name, os.path.splitext(new_tex_name)[0] + ".pdf")
+    if single_problem:
+        shutil.copy(pdf_out_name, os.path.join(globalconfig.statements_dir, os.path.splitext(new_tex_name)[0] + ".pdf"))
+    else:
+        shutil.copy(pdf_out_name, os.path.splitext(new_tex_name)[0] + ".pdf")
     #os.remove(statement_name)
     log.info("PDF %s was created successfully", os.path.splitext(new_tex_name)[0] + ".pdf")
     return pdf_out_name
