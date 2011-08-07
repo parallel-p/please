@@ -52,6 +52,7 @@ def generate_contest(problem_names = ['.'], title = None, date = None, location 
     #os.remove(statement_name)
     log.info("PDF %s was created successfully", os.path.splitext(new_tex_name)[0] + ".pdf")
     return pdf_out_name
+
 class LatexConstructor:
     """
     Creates string contains tex file with problem statement

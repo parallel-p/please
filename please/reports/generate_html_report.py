@@ -13,7 +13,7 @@ def generate_html_for_solution(config, solution, expected_verdicts = ["OK"], pos
         expected_verdicts = []
     if possible_verdicts is None:
         possible_verdicts = []
-
+    possible_verdicts.extend(expected_verdicts)
     impossible_met = set()
     for test, checker_verdict in sorted(report.items(), key = lambda x: int(os.path.basename(x[0]))):
         invoker_verdict = checker_verdict[0]
