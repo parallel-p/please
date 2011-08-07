@@ -5,20 +5,20 @@ class MatcherTest(unittest.TestCase):
 
     def test_matches(self):
         clm = Matcher()
-        clm.add_handler(NoneTemplate(), lambda: self.return_0())
-        clm.add_handler(ConstTemplate(), lambda a, b: self.const_call(a, b))
+        clm.add_handler(NoneTemplate(), lambda: self.return_0(), True)
+        clm.add_handler(ConstTemplate(), lambda a, b: self.const_call(a, b), True)
         self.assertEqual(clm.matches("ASDASD"), "const_call")
 
     def test_matches_throws_exceptions_no_match(self):
         clm = Matcher()
-        clm.add_handler(NoneTemplate(), lambda: self.return_0())
+        clm.add_handler(NoneTemplate(), lambda: self.return_0(), True)
         self.assertRaises(Exception, clm.matches, "ASD")
         self.assertRaises(Exception, clm.matches, "QWE")
 
     def test_matches_throws_exceptions_two_match(self):
         clm = Matcher()
-        clm.add_handler(ConstTemplate(), lambda a, b: self.const_call(a, b))
-        clm.add_handler(ConstTemplate(), lambda a, b: self.const_call(a, b))
+        clm.add_handler(ConstTemplate(), lambda a, b: self.const_call(a, b), True)
+        clm.add_handler(ConstTemplate(), lambda a, b: self.const_call(a, b), True)
         self.assertRaises(Exception, clm.matches, "ASD")
 
     def return_0(self):

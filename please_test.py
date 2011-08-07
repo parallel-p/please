@@ -17,7 +17,7 @@ class PleaseTest(unittest.TestCase):
     
     def setUp(self):
         self.__matcher = Matcher()
-        self.__matcher.add_handler(Template(["create", "problem", "#shortname"]), problem_gen.generate_problem)
+        self.__matcher.add_handler(Template(["create", "problem", "#shortname"]), problem_gen.generate_problem, True)
         self.__matcher.matches("create problem problem_test".split())
         
     def tearDown(self):
@@ -53,7 +53,7 @@ class PleaseTest(unittest.TestCase):
         start_dir = os.getcwd()
         os.chdir("problem_test")
          
-        self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags)
+        self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags, True)
         self.__matcher.matches("add tags tag1 tag2 tag3 tag4".split()) 
               
         open_config = package_config.PackageConfig.get_config(ignore_cache = True)    
@@ -70,14 +70,14 @@ class PleaseTest(unittest.TestCase):
         start_dir = os.getcwd()
         os.chdir("problem_test")
         
-        self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags)
+        self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags, True)
         self.__matcher.matches("add tags tag1 tag2 tag3 tag4".split())
         
         std_to_file = open("temp.txt", "a+")
         saveout = sys.stdout
         sys.stdout = std_to_file
         
-        self.__matcher.add_handler(Template(["show", "tags"]), show_tags)
+        self.__matcher.add_handler(Template(["show", "tags"]), show_tags, True)
         self.__matcher.matches("show tags".split())
         
         tags_from_std = std_to_file.read().split("\n")[0]
@@ -96,17 +96,17 @@ class PleaseTest(unittest.TestCase):
         start_dir = os.getcwd()
         os.chdir("problem_test")
         
-        self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags)
+        self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags, True)
         self.__matcher.matches("add tags tag1 tag2 tag3 tag4".split())
         
-        self.__matcher.add_handler(Template(["clear", "tags"]), clear_tags)
+        self.__matcher.add_handler(Template(["clear", "tags"]), clear_tags, True)
         self.__matcher.matches("clear tags".split())
         
         std_to_file = open("temp.txt", "a+")
         saveout = sys.stdout
         sys.stdout = std_to_file
         
-        self.__matcher.add_handler(Template(["show", "tags"]), show_tags)
+        self.__matcher.add_handler(Template(["show", "tags"]), show_tags, True)
         self.__matcher.matches("show tags".split())
         
         tags_from_std = std_to_file.read().split("\n")[0]
@@ -127,7 +127,7 @@ class PleaseTest(unittest.TestCase):
         
         open_config = package_config.PackageConfig.get_config()
         
-        self.__matcher.add_handler(Template(["add", "standard", "checker", "#checker"]), add_standard_checker_to_solution)
+        self.__matcher.add_handler(Template(["add", "standard", "checker", "#checker"]), add_standard_checker_to_solution, True)
         self.__matcher.matches("add standard checker test_checker".split())
         
 
@@ -146,7 +146,7 @@ class PleaseTest(unittest.TestCase):
         if os.path.exists(os.path.join("statements", "default.ru.pdf")):
             os.remove(os.path.join("statements", "default.ru.pdf"))
         
-        self.__matcher.add_handler(Template(["generate", "statement"]), latex_tools.generate_contest)
+        self.__matcher.add_handler(Template(["generate", "statement"]), latex_tools.generate_contest, True)
         self.__matcher.matches("generate statement".split())
         
         os.chdir(start_dir)
