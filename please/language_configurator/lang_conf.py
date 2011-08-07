@@ -14,7 +14,7 @@ def get_language_configurator(file_name):
         return get_dpr_configurator()
     elif lang == "java":
         return get_java_configurator()
-    elif lang in "python2":
+    elif lang == "python2":
         return get_python_configurator()
     elif lang == "python3":
         return get_python3_configurator()
