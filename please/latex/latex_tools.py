@@ -35,20 +35,21 @@ def generate_contest(problem_names = ['.'], title = None, date = None, location 
 
     os.chdir(globalconfig.temp_statements_dir)
     
-    statement_name = os.path.basename(package_conf["statement"])
-    
-    new_tex_name = statement_name
+    if problem_names == ["."]:
+        new_tex_name = os.path.basename(package_conf["statement"])
+    else:
+        new_tex_name = "_".join(problem_names) + ".tex"
     new_tex = open(new_tex_name, "w", encoding = "UTF8")
     new_tex.write(contest.construct())
     new_tex.close()
-
+    
     converter = Latex2Pdf()
     converter.convert(new_tex_name)
 
     os.chdir("..")
     
     pdf_out_name = os.path.join(globalconfig.temp_statements_dir, os.path.splitext(new_tex_name)[0] + ".pdf")
-    shutil.copy(pdf_out_name, globalconfig.statements_dir)
+    shutil.copy(pdf_out_name, os.path.splitext(new_tex_name)[0] + ".pdf")
     #os.remove(statement_name)
     log.info("PDF %s was created successfully", os.path.splitext(new_tex_name)[0] + ".pdf")
     return pdf_out_name
