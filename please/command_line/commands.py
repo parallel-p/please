@@ -30,7 +30,8 @@ problem_commands = ["generate statement",
              "compute integer TL",
              "generate html report",
              "set problem name NAME",
-             "check main solution"]
+             "check main solution",
+             "clean up"]
 
 def print_lite_help(in_problem_folder):
     print("\nUsage: please [command]")
@@ -71,6 +72,7 @@ Global commands available:
   {6}:
     Imports Polygon package (in .zip format) to please package
     example: import polygon package centroid.zip
+  
   {7}:
     Imports given Polygon problem from given contest""".format(PLEASE_VERSION, *global_commands))
     print("""
@@ -158,6 +160,9 @@ Commands available when inside problem's folder:
   
   {20}
     Sets current problem name
+  
+  {21}
+    Cleans up current directory - removes generated binary files, temporary folders, logs
 """.format(*problem_commands))
 
 
