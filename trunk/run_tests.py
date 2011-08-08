@@ -1,5 +1,6 @@
 import unittest
 import sys
+from coverage import coverage
 from please import log
 
 def analysis(infile):
@@ -41,6 +42,10 @@ def run_tests(directory):
 def run_consol_test(directory):
      suite.addTests(loader.discover(directory,"*_test.py"))
      unittest.TextTestRunner(verbosity = 2).run(suite)
+
+cov = coverage(config_file=True)
+cov.start()
+
 loader = unittest.TestLoader()
 suite = unittest.TestSuite()
 
@@ -59,3 +64,7 @@ if len(args) == 2:
 if len(args) == 3:
      if args[2] == "short":
           run_tests(args[1])
+
+cov.stop()
+cov.html_report()
+cov.report()
