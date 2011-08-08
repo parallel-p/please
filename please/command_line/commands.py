@@ -5,7 +5,9 @@ global_commands = ["create problem PROBLEM_NAME",
              "generate statements PROBLEMS_LIST",
              "help",
              "[show] todo PATH_TO_PROBLEM",
-             "import polygon package PATH_TO_POLYGON_PACKAGE"]
+             "import polygon package PATH_TO_POLYGON_PACKAGE",
+             "import polygon problem PROBLEM_LETTER from contest CONTEST_ID"
+             ]
 
 problem_commands = ["generate statement",
              "generate tests [with tag[s] TAGS_LIST]",
@@ -68,7 +70,9 @@ Global commands available:
     
   {6}:
     Imports Polygon package (in .zip format) to please package
-    example: import polygon package centroid.zip""".format(PLEASE_VERSION, *global_commands))
+    example: import polygon package centroid.zip
+  {7}:
+    Imports given Polygon problem from given contest""".format(PLEASE_VERSION, *global_commands))
     print("""
 Commands available when inside problem's folder:
 

@@ -42,7 +42,7 @@ if __name__ == "__main__":
     matcher.add_handler(Template(["generate", "statements", "@problem_names"]), latex_tools.generate_contest, True)
     matcher.add_handler(Template(["show", "todo", "#root_path"]), todo.get_todo, True)
     matcher.add_handler(Template(["todo", "#root_path"]), todo.get_todo, True)
-    matcher.add_handler(Template(["import", "polygon", "contest", "#contest_id", "problem", "#problem_letter"]), import_problem_from_polygon, True)
+    matcher.add_handler(Template(["import", "polygon", "problem", "#problem_letter", "from", "contest", "#contest_id"]), import_problem_from_polygon, True)
     matcher.add_handler(Template(["import", "polygon", "package", "#package"]), import_polygon_package, True)
     # If we are inside folder with  the problem, we have more handlers
     package_config = package_config.PackageConfig.get_config('.')
