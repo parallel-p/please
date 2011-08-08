@@ -10,9 +10,11 @@ def is_compilation_garbage(source):
 class PDFLatexConfigurator:
     def get_run_command(self, source):
         return ["pdflatex", "-output-format=pdf", "-interaction=nonstopmode", source]
-    def is_compile_garbage (self, source) :
+    def is_compile_garbage (self, source):
         #return is_compilation_garbage(source)
         return False
+    def get_binary_name(self, source):
+        return [os.path.splitext(source)[0] + ".pdf"]
 
 def get_pdflatex_configurator():
     return PDFLatexConfigurator()
