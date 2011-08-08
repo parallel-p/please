@@ -150,7 +150,7 @@ Commands available when inside problem's folder:
              stress test solutions/wrong.cpp solutions/aa.cpp tests/gen.cpp
              
   {17}
-    Computes adequate TL of current problem as doubled maximum running time of main solution
+    Computes adequate TL of current problem as ceiled doubled maximum running time of main solution
 
   {18}
     Computes adequate integer TL of current problem as doubled maximum running time of main solution
