@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 from please import log
+from please.cleaner import cleaner
 from please.command_line.matcher import Matcher, MatcherException
 from please.command_line.template import Template
 from please.latex import latex_tools
@@ -47,6 +48,7 @@ if __name__ == "__main__":
     # If we are inside folder with  the problem, we have more handlers
     package_config = package_config.PackageConfig.get_config('.')
     in_problem_folder = (package_config != False)
+    matcher.add_handler(Template(["clean", "up"]), cleaner.cleanup, in_problem_folder)
     matcher.add_handler(Template(["show", "todo"]), todo.get_todo, in_problem_folder)
     matcher.add_handler(Template(["todo"]), todo.get_todo, in_problem_folder)
     matcher.add_handler(Template(["add", "tag|tags", "@tags"]), tags.add_tags, in_problem_folder)
