@@ -161,7 +161,7 @@ Commands available when inside problem's folder:
   {20}
     Sets current problem name
   
-  {21}
+  {22}
     Cleans up current directory - removes generated binary files, temporary folders, logs
 """.format(*problem_commands))
 
