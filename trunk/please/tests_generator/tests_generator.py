@@ -2,12 +2,13 @@ import shutil
 import os
 from please.executors import compiler, runner
 from please.utils import line_ending
+from .. import globalconfig
 import io
 import logging
 
 logger = logging.getLogger('please_logger.TestsGenerator')
 
-TESTS_DIR = ".tests"
+TESTS_DIR = globalconfig.temp_tests_dir
 
 class TestsGenerator:
     def __init__(self, tests_info):

@@ -21,6 +21,7 @@ tests_dir = "tests"
 
 # temporary folders
 temp_statements_dir = ".statements"
+temp_tests_dir = ".tests"
 
 # logging conts
 standart_logging_lvl = INFO
@@ -28,6 +29,7 @@ detailed_logging_lvl = DEBUG
 console_logging_lvl = INFO
 
 checkers_dir = "checkers"
+logs = ["detailed.log", "please.log"]
 
 # checker return codes -> verdicts
 checker_return_codes = {0:"OK", 1:"WA", 2:"PE"}
