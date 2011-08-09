@@ -32,27 +32,13 @@ class PleaseTest(unittest.TestCase):
         self.assertTrue(os.path.exists(os.path.join("problem_test", "statements")))
         self.assertTrue(os.path.exists(os.path.join("problem_test", "default.package")))
         self.assertTrue(os.path.exists(os.path.join("problem_test", "tests.please")))
-        
-    def test_tests_generation(self):
-        """ Checks command 'generate tests' """
-        
-        """start_dir = os.getcwd()
-        os.chdir("test_problem")
-        
-        self.__matcher.add_handler(Template(["generate", "tests"]), generate_tests)
-        self.__matcher.matches("generate tests".split())
-        
-        self.assertTrue(os.path.exists("tests"))
-        
-        os.chdir(start_dir)"""
-        pass
-    
+            
     def test_add_tags(self):
         """ Checks command 'add tags tag1 tag2 ... tagN' """
         
         start_dir = os.getcwd()
         os.chdir("problem_test")
-         
+        package_config.PackageConfig.configs_dict = {}
         self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags, True)
         self.__matcher.matches("add tags tag1 tag2 tag3 tag4".split()) 
               
@@ -85,10 +71,8 @@ class PleaseTest(unittest.TestCase):
         sys.stdout = saveout
         
         open_config = package_config.PackageConfig.get_config(ignore_cache = True) 
-    
-        self.assertEqual(open_config["tags"], tags_from_std)
-        
         os.chdir(start_dir)
+        self.assertEqual(open_config["tags"], tags_from_std)
     
     def test_clear_tags(self):
         """ Checks command 'clear tags' """
@@ -109,15 +93,16 @@ class PleaseTest(unittest.TestCase):
         self.__matcher.add_handler(Template(["show", "tags"]), show_tags, True)
         self.__matcher.matches("show tags".split())
         
-        tags_from_std = std_to_file.read().split("\n")[0]
+        ttt = std_to_file.read()
+        tags_from_std = ttt.split("\n")[0]
         std_to_file.close()
         sys.stdout = saveout
-        
+
         open_config = package_config.PackageConfig.get_config(ignore_cache = True)
-        
+        os.chdir(start_dir)
         self.assertEqual(tags_from_std, "")
         
-        os.chdir(start_dir)
+        
         
     def test_add_standard_checker(self):
         """ Checks command 'add standard checker checker_name' """
@@ -139,7 +124,6 @@ class PleaseTest(unittest.TestCase):
         """ Checks command 'generate statement' """
         
         start_dir = os.getcwd()
-        
         #shutil.copy(os.path.join("island", "statements", "default.ru.pdf"), ".")
         test_problem_dir = os.path.join("test_problems", "island")
         os.chdir(test_problem_dir)

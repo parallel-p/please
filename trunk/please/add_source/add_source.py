@@ -4,14 +4,9 @@ import sys
 from ..package import config
 import logging
 from .. import globalconfig
+from ..solution_tester.package_config import PackageConfig
 
 log = logging.getLogger("please_logger.add_source")
-
-def __readpackage():
-    input_stream = open(globalconfig.default_package, "r", encoding = "utf-8")
-    config_file = input_stream.read()
-    input_stream.close()
-    return config_file
 
 def __writepackage(text):
     output_stream = open(globalconfig.default_package, "w", encoding = "utf-8")
@@ -28,7 +23,7 @@ def add_main_solution_with_config(package_config, path):
     package_config['main_solution'] = "solutions" + '/' + basename
 
 def add_main_solution (path):
-    package_config = config.Config(__readpackage())
+    package_config = PackageConfig.get_config()
     add_main_solution_with_config(package_config,path)
     package_text = package_config.get_text()
     __writepackage(package_text)   
@@ -46,7 +41,7 @@ def add_solution_with_config (package_config, path, expected_list = [], possible
     package_config.set("solution", config_file, None, True)
 
 def add_solution (path,expected_list = [], possible_list = []):
-    package_config  = config.Config(__readpackage())
+    package_config = PackageConfig.get_config()
     add_solution_with_config(package_config,path,expected_list,possible_list)
     package_text = package_config.get_text()
     __writepackage(package_text)
@@ -66,7 +61,7 @@ def add_checker_with_config (package_config,path):
     package_config["checker"] = basename
 
 def add_checker (path):
-    package_config = config.Config(__readpackage())
+    package_config = PackageConfig.get_config()
     add_checker_with_config(package_config,path)
     package_text = package_config.get_text()
     __writepackage(package_text)   
@@ -78,7 +73,7 @@ def add_validator_with_config (package_config,path):
     package_config["validator"] = basename
 
 def add_validator (path):
-    package_config = config.Config(__readpackage())
+    package_config = PackageConfig.get_config()
     add_validator_with_config(package_config,path)
     package_text = package_config.get_text()
     __writepackage(package_text)  
