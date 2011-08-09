@@ -42,9 +42,9 @@ class Snapshot:
             self.items_list = [os.path.join(dir, item) for item in self.items_list]            
         else:      
             # Recursive, loop through all files via os.walk type: generator with tuples   
-            
             # Convert os.walk(dir) result (generator with tuples (root, sub_folders, files)) to a list of dirs and a list of files         
-            for root, sub_folders, files in os.walk(dir):
+            lst = [(root, sub_folders, files) for root, sub_folders, files in os.walk(dir)]
+            for root, sub_folders, files in lst:
                 self.__ignore_dir(dirs_to_ignore, sub_folders)   
                 # Append the directory         
                 self.items_list.append(root)
@@ -61,6 +61,9 @@ class Snapshot:
         for dir_to_ignore in dirs_to_ignore:
             if dir_to_ignore in sub_folders:
                 sub_folders.remove(dir_to_ignore)
+
+    def __str__(self):
+        return str('\n'.join(self.items_list))
 
 def get_changes(old_snapshot, new_snapshot):
     
