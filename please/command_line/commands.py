@@ -31,7 +31,8 @@ problem_commands = ["generate statement",
              "generate html report",
              "set problem name NAME",
              "check main solution",
-             "clean up"]
+             "clean up",
+             "validate tests"]
 
 def print_lite_help(in_problem_folder):
     print("\nUsage: please [command]")
@@ -133,6 +134,9 @@ Commands available when inside problem's folder:
   {13}: 
     Sets validator. Copies specified file to the problem directory and edits default.package
     example: add validator ../../sources/validator.cpp
+
+  {23}:
+    Validates all generated tests
     
   {14}:
     Checks solution specified
