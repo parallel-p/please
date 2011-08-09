@@ -91,7 +91,7 @@ def invoke(handler, limits):
     
     start_time = time.time()
     real_time = 0
-    
+    pid = handler.pid
     while (handler.is_running()):
         try:
             cpu_time = sum(list(handler.get_cpu_times()))
@@ -115,12 +115,12 @@ def invoke(handler, limits):
             handler.kill()
             verdict = "ML"
             return_code = None
-		
+        
         try:
             return_code = handler.wait(CHECK_PERIOD)
         except psutil.TimeoutExpired:
             pass
-        
+            
     verdict = verdict or ("OK" if return_code == 0 else "RE")
     return ResultInfo(verdict, return_code, real_time, cpu_time, used_memory / MEGABYTE)
 

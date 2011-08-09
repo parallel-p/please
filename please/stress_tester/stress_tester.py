@@ -1,4 +1,5 @@
 from ..solution_runner import solution_runner
+from please.utils import cleanup
 import os
 import os.path
 import random
@@ -116,13 +117,11 @@ class StressTester():
         except StressRunException:
             self.logger.error("Correct solution %s failed to run" % correct_solution)
             raise StressCheckException()
-
         if not self.__compare_outputs(test_path, correct, output, checker):
             self.logger.error("Answers do not match, correct answer saved to %s, incorrect to %s, test saved to %s"
                 %  (os.path.join(self.PLEASE_TEMP, self.CORRECT_OUT),
                     os.path.join(self.PLEASE_TEMP, self.INCORRECT_OUT),
                     os.path.join(self.PLEASE_TEMP, self.INPUT_TEST)))
-
             shutil.copy(test_path, os.path.join(self.PLEASE_TEMP, self.INPUT_TEST))
             raise StressCheckMatchException()
 
@@ -148,4 +147,5 @@ class StressTester():
                 finally:
                     os.remove(test_path)
         except KeyboardInterrupt:
+            cleanup.clean()
             self.logger.info("Interrupted")
