@@ -1,5 +1,6 @@
 from please.executors import compiler #new name for this function in compiler -> change it
 from please.executors.runner import run
+import sys
 import shutil
 import os
 import logging
@@ -44,7 +45,6 @@ def run_solution(config):
             compiler.compile(config.source_path)
             
             run_dump = run(config.source_path, config.args, config.execution_limits, stream_in, stream_out)
-        
             # info = run_dump[0]
             # print("[debug] run_dump =", run_dump)
             # print("[debug]  verdict =", info.verdict)

@@ -1,4 +1,5 @@
 ﻿from ..directory_diff import snapshot
+import sys
 from ..invoker import invoker
 from ..language_configurator.lang_conf import get_language_configurator
 import psutil
@@ -38,75 +39,94 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = N
         run("C:\\New Folder\\a.cpp", ["1", "3"], invoker.ExecutionLimits(10, 256), \
             file_handler, env = {"PATH": "C:\\Python32"})
     """
-    
+    log = logging.getLogger("please_logger.executors.runner.run")
+    snapshot_before = snapshot.Snapshot()
+ 
+    tmp_stdout = None
+    tmp_stderr = None
+        
+    if stdout_fh is None:
+        tmp_stdout = __temp_file_name()
+        log.debug('creating stdout_fh %s', tmp_stdout)
+        stdout_fh = open(tmp_stdout, 'wb')
+            
+    if stderr_fh is None:
+        tmp_stderr = __temp_file_name()
+        log.debug('creating stderr_fh %s', tmp_stderr)
+        stderr_fh = open(tmp_stderr, 'wb')
+            
+    lang = get_language_configurator(source)
+    cmd = lang.get_run_command(source)
+    args = cmd + args_list
+    log.debug("Starting process: args:%s, stdout:%s, stdin:%s, stderr:%s, env:%s", str(args), str(stdout_fh), str(stdin_fh), str(stderr_fh), str(env))
+    #print("fuck")
     for i in range(5):
-        
-        tmp_stdout = None
-        tmp_stderr = None
-        
         try:
-            if stdout_fh is None:
-                tmp_stdout = __temp_file_name()
-                stdout_fh = open(tmp_stdout, 'wb')
-            
-            if stderr_fh is None:
-                tmp_stderr = __temp_file_name()
-                stderr_fh = open(tmp_stderr, 'wb')
-        except:
-            continue
-            
-        log = logging.getLogger("please_logger.executors.runner.run")
-        snapshot_before = snapshot.Snapshot()
-        lang = get_language_configurator(source)
-        cmd = lang.get_run_command(source)
-        args = cmd + args_list
-        try:
-            log.debug("Starting process: args:%s, stdout:%s, stdin:%s, stderr:%s, env:%s", str(args), str(stdout_fh), str(stdin_fh), str(stderr_fh), str(env))
-            process = psutil.Popen(args, stdout = stdout_fh, stdin = stdin_fh, \
-                                   stderr = stderr_fh, env = env)
-            result = invoker.invoke(process, limits)
-            snapshot_after = snapshot.Snapshot()
-            log.debug("Removing trash created...")
-            trash_remover.remove_trash(snapshot.get_changes(snapshot_before, snapshot_after), \
-                                       lang.is_compile_garbage)
+            process = psutil.Popen(args, stdout = stdout_fh, stdin = stdin_fh, stderr = stderr_fh, env = env)
+            break
+        except psutil.error.NoSuchProcess:
+            if (i != 4):
+                log.info("NoSuchProcess error, trying again...")
+                continue
+            else:
+                log.error("NoSuchProcess error for five times, something strange is going on :-(")
 
+        except Exception as e:
+            log.error("Unknown exception while starting the process: %s", str(e))
             
-            if tmp_stdout is None:
-                stdout = None
-            else:
-                with open(tmp_stdout, 'rb') as stdout_fh:
-                    stdout = stdout_fh.read()
-                    stdout_fh.close()
-                try:
-                    if (not (tmp_stdout is None)):
-                        if (not os.path.exists(tmp_stdout)):
-                            log.error('Somebody deleted {0}, which was tmp_stdout for runner' % (tmp_stdout))
-                        else:
-                            os.remove(tmp_stdout)
-                except:
-                    pass
-            if tmp_stderr is None:
-                stderr = None
-            else:
-                with open(tmp_stderr, 'rb') as stderr_fh:
-                    stderr = stderr_fh.read()
-                    stderr_fh.close()
-                try:
-                    if (not (tmp_stderr is None)):
-                        if (not os.path.exists(tmp_stderr)):
-                            log.error('Somebody deleted {0}, which was tmp_stdout for runner' % (tmp_stderr))
-                        else:  
-                            os.remove(tmp_stderr)
-                except:
-                    pass
-            return (result, stdout, stderr)
-        except OSError as oserr:
+
+    result = invoker.invoke(process, limits)
+    #print('\n'.join([c for a,b,c in os.walk('.')][0]))
+    snapshot_after = snapshot.Snapshot()
+    #log.debug('snapshot after: \n%s', str(snapshot_before))
+    log.debug("Removing trash created...")
+    
+
+    trash_remover.remove_trash(snapshot.get_changes(snapshot_before, snapshot_after), \
+                               lang.is_compile_garbage)        
+    if tmp_stdout is None:
+        stdout = None
+    else:
+        with open(tmp_stdout, 'rb') as stdout_fh:
+            stdout = stdout_fh.read()
             stdout_fh.close()
-            stdout_fh = None
+        if (not (tmp_stdout is None)):
+            if (not os.path.exists(tmp_stdout)):
+                log.error('Somebody deleted {0}, which was tmp_stdout for runner' % (tmp_stdout))
+            else:
+                for i in range(100):
+                    try:
+                        os.remove(tmp_stdout)
+                        break;
+                    except Exception as e:
+                        log.debug('Catched %s, trying again', str(e))
+     
+    if tmp_stderr is None:
+        stderr = None
+    else:
+        with open(tmp_stderr, 'rb') as stderr_fh:
+            stderr = stderr_fh.read()
             stderr_fh.close()
-            stderr_fh = None
-            os.remove(tmp_stdout)
-            os.remove(tmp_stderr)
-            tmp_stdout = None
-            tmp_stderr = None
-            continue
+        if (not (tmp_stderr is None)):
+            if (not os.path.exists(tmp_stderr)):
+                log.error('Somebody deleted {0}, which was tmp_stdout for runner' % (tmp_stderr))
+            else:  
+                for i in range(100):
+                    try:
+                        os.remove(tmp_stderr)
+                        break;
+                    except Exception as e:
+                        log.debug('Catched %s, trying again', str(e))
+        
+    return (result, stdout, stderr)
+
+#except OSError as oserr:
+#    stdout_fh.close()
+#    stdout_fh = None
+#    stderr_fh.close()
+#    stderr_fh = None
+#    os.remove(tmp_stdout)
+#    os.remove(tmp_stderr)
+#    tmp_stdout = None
+#    tmp_stderr = None
+#    continue
