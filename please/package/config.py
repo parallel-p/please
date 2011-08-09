@@ -194,6 +194,8 @@ class Config:
         
     def set(self, item, value, comment=None, in_list=False):
         self.__changed = True
+        if type(value) == str:
+            value = value.strip()
         if item not in self.__settings:
             if in_list == True:
                 self.__settings[item] = [value]
