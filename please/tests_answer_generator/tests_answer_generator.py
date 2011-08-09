@@ -1,5 +1,6 @@
 from ..test_config_parser import parser
 import io
+import os
 from please import globalconfig
 from ..tests_generator import tests_generator
 from ..invoker.invoker import ExecutionLimits
@@ -31,6 +32,31 @@ class TestsAndAnswersGenerator:
     Example:
      TestsAndAnswersGenerator().generate(["BIG_TESTS"])
     """
+    def validate(self):
+        config = package_config.PackageConfig.get_config('.')
+        counter = 1
+        count_errors = 0
+        result = []
+        if 'validator' in config and config['validator'] not in ["", None]:
+            test_filename = os.path.join(globalconfig.temp_tests_dir, str(counter))
+            while os.path.exists(test_filename):
+                logger.info("Start validator on test: " + test_filename)
+                validator_result = validator_runner.validate(config["validator"], test_filename) 
+                if get_return_code(validator_result) != 0:
+                    count_errors += 1                
+                verd = get_verdict(validator_result)
+                if verd == "FNF":
+                    return (1, [])
+                result.append((test_filename, verd))
+                if verd != "OK":         
+                    logger.error(error_str + verd)
+                    logger.error("\nSTDERR:\n" + validator_result[2].decode())
+                counter += 1
+                test_filename = os.path.join(globalconfig.temp_tests_dir, str(counter))
+        else:
+            logger.warning("Validator is empty")
+        return (count_errors, result)
+            
     def __get_admit (self, tags):        
         def admit(attr):
             for tag in tags:
@@ -45,7 +71,7 @@ class TestsAndAnswersGenerator:
         count_errors = 0
         config = package_config.PackageConfig.get_config('.')
         tests_names = []
-        if 'validator' in config  and config['validator'] != "" :        
+        if 'validator' in config and config['validator'] not in ["", None]:        
             for test in tests:
                 logger.info("Start validator on test: " + test)
                 validator_result = validator_runner.validate(config["validator"], test)  
@@ -54,15 +80,17 @@ class TestsAndAnswersGenerator:
                 verd = get_verdict(validator_result)
                 if verd == "FNF":
                     return (1, [])
-                result.append((test,verd))
+                result.append((test, verd))
                 if verd == "OK":
                     tests_names.append(test)
                 else:                
                     logger.error(error_str + verd)
                     logger.error("\nSTDERR:\n" + validator_result[2].decode())
+        else:
+            logger.warning("Validator is empty")
         answers_gen = answers_generator.AnswersGenerator()
         answers_gen.generate (tests_names, config ["main_solution"], [], config)
-        return (count_errors,result)
+        return (count_errors, result)
 
     def generate_all(self):       
         tests = tests_generator.TestsGenerator(parser.parse_test_config()).generate_all()
