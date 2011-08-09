@@ -53,7 +53,7 @@ class TestInfo:
             #tokens = non-empty words from self.operator
             
             if tokens == []:
-                raise EnvironmentError("tests.please parser:\n Line %d: no operator" % (self.line_number))
+                raise EnvironmentError("tests config parser:\n Line %d: no operator" % (self.line_number))
             
             tokens[0] = self.__do_normal_path(tokens[0])
             first_token = tokens[0]
@@ -66,12 +66,12 @@ class TestInfo:
                 self.command = self.__tokens_to_command(tokens)
             elif len(tokens) != 1: #if it is not command either generator, it must be
                                    #single filename
-                raise EnvironmentError("tests.please parser:\n Line %d: expected 1 argument, more found" % (self.line_number))
+                raise EnvironmentError("tests config parser:\n Line %d: expected 1 argument, more found" % (self.line_number))
             elif self.__is_file(first_token):
                 self.type = TestInfoType.FILE
                 self.command = self.__to_file(first_token)
             else:
-                raise EnvironmentError("tests.please parser:\n Line %d cannot be parsed (maybe there is no such file?)" % (self.line_number))
+                raise EnvironmentError("tests config parser:\n Line %d cannot be parsed (maybe there is no such file?)" % (self.line_number))
             
     def __do_normal_path(self, path):
         result = ''
@@ -123,7 +123,7 @@ class TestInfo:
                           #line or doesn't contain attributes
         
         if self.__line.find(']') == -1:
-            raise EnvironmentError("tests.please parser:\n Line %d: wrong format, ']' expected" % (self.line_number))
+            raise EnvironmentError("tests config parser:\n Line %d: wrong format, ']' expected" % (self.line_number))
                                    
         self.attributes_str = self.__line[1 : self.__line.find(']')]
         attributes_list = self.attributes_str.split(',')
@@ -178,7 +178,7 @@ def parse_test_config():
     Example:
       list_of_tests = parse_test_config()
     """
-    with open('tests.please', 'r', encoding='utf-8') as test_config_file:
+    with open(globalconfig.default_tests_config, 'r', encoding='utf-8') as test_config_file:
         result = []
         
         test_config = test_config_file.read()
