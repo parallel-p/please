@@ -166,7 +166,7 @@ class SolutionTesterTest(unittest.TestCase):
                          ({"WA":[self.a(".tests","1")]}, [], {self.a(".tests","1"):\
                         [self.q("WA"), "stdout", "stderr"]}))
     
-    def test_DifficultExpectedMLUnexpectedTLandOK(self):
+    def test_DifficultExpectedMLUnexpectedTLandOK(self): # pragma: no cover
         config = {}
         config["solution_config"] = None
         config["solution_args"] = None
