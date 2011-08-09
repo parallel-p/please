@@ -45,11 +45,9 @@ def run_consol_test(directory):
 
 cov = coverage(config_file=True)
 cov.start()
-
+args = sys.argv
 loader = unittest.TestLoader()
 suite = unittest.TestSuite()
-
-args = sys.argv
 
 if len(args) == 1 :
      run_consol_test (".")
@@ -64,7 +62,5 @@ if len(args) == 2:
 if len(args) == 3:
      if args[2] == "short":
           run_tests(args[1])
-
 cov.stop()
 cov.html_report()
-cov.report()
