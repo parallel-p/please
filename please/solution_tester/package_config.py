@@ -2,6 +2,7 @@ from ..package.config import Config
 import os
 import io
 import logging
+from .. import globalconfig
 
 class PackageConfigNotFoundException(Exception):
     pass
@@ -23,9 +24,9 @@ class PackageConfig:
     # configs_dict["default_package"] => Config of default package
     # It helps us check whether config has already been parsed.
     configs_dict = {}
-    
+        
     @staticmethod
-    def get_config(dir = ".", package_name = "default.package", ignore_cache = False):
+    def get_config(dir = ".", package_name = globalconfig.default_package, ignore_cache = False):
         logger = logging.getLogger("please_logger.check_solution")
         #logging.basicConfig(level=logging.INFO)
         if not os.path.exists(dir):            
