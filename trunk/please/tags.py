@@ -8,15 +8,16 @@ from .template import problem_template_generator as problem_gen
 from .package import config
 import codecs
 import sys
+from . import globalconfig
 
 def __readpackage():
-    input_stream = open("default.package", "r", encoding = "utf-8")
+    input_stream = open(globalconfig.default_package, "r", encoding = "utf-8")
     config_file = input_stream.read()
     input_stream.close()
     return config_file
 
 def __writepackage(text):
-    output_stream = open("default.package", "w", encoding = "utf-8")
+    output_stream = open(globalconfig.default_package, "w", encoding = "utf-8")
     output_stream.write(text)
     output_stream.close()
 

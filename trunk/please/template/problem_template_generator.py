@@ -62,10 +62,10 @@ def generate_problem_advanced(shortname, human_language, programming_language):
                 'checker': generate_checker(shortname, programming_language),
                 'main_solution': global_config.solutions_dir + '/' + generate_solution(solutions_path, programming_language)}
 
-    generate_package('default.package', replaces, shortname)
+    generate_package(global_config.default_package, replaces, shortname)
 
     # generate empty tests.please
-    open(os.path.join(shortname, 'tests.please'), 'w').close()
+    open(os.path.join(shortname, global_config.default_tests_config), 'w').close()
 
     # copy testlib.h & testlib.pas
     testlib_h = get_template_full_path("testlib.h")

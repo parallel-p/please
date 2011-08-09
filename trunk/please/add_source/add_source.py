@@ -3,17 +3,18 @@ import shutil
 import sys
 from ..package import config
 import logging
+from .. import globalconfig
 
 log = logging.getLogger("please_logger.add_source")
 
 def __readpackage():
-    input_stream = open("default.package", "r", encoding = "utf-8")
+    input_stream = open(globalconfig.default_package, "r", encoding = "utf-8")
     config_file = input_stream.read()
     input_stream.close()
     return config_file
 
 def __writepackage(text):
-    output_stream = open("default.package", "w", encoding = "utf-8")
+    output_stream = open(globalconfig.default_package, "w", encoding = "utf-8")
     output_stream.write(text)
     output_stream.close()
 
