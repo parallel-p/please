@@ -44,11 +44,10 @@ def run_consol_test(directory):
      unittest.TextTestRunner(verbosity = 2).run(suite)
 
 cov = coverage(config_file=True)
-cov.start()
 args = sys.argv
 loader = unittest.TestLoader()
 suite = unittest.TestSuite()
-
+cov.start()
 if len(args) == 1 :
      run_consol_test (".")
      

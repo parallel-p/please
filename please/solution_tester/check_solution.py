@@ -5,6 +5,7 @@ from colorama import Fore
 from ..utils.platform_detector import get_platform
 from ..solution_tester.package_config import PackageConfig
 from ..invoker import invoker
+from .. import globalconfig
 
 colorama.init()
 
@@ -29,7 +30,7 @@ def get_test_results_from_solution(solution, config = None):
     # Find all attributes from config's root or embedded solution's config        
     new_config = {}
     new_config["checker"] = config["checker"]
-    new_config["tests_dir"] = ".tests" #config["tests_dir"]        
+    new_config["tests_dir"] = globalconfig.temp_tests_dir #config["tests_dir"]        
     
     if solution == config["main_solution"]:
         #print("MAIN SOLUTION " + solution)
@@ -39,7 +40,6 @@ def get_test_results_from_solution(solution, config = None):
         new_config["solution_config"] = {"input":config["input"], "output":config["output"]}
         new_config["solution_args"] = []
     else:
-    
         for sol_found in config["solution"]:
             if sol_found["source"] == solution:
                 #print("SOLUTION FOUND: " + sol_found)               
