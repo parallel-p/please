@@ -28,6 +28,7 @@ import os
 from please.import_from_polygon.import_problem_from_polygon import import_problem_from_polygon
 from please.import_from_polygon.create_problem import create_problem as import_polygon_package
 from please.answers_generator.answers_generator import AnswersGenerator
+from please.tests_answer_generator import tests_answer_generator
 from please.reports import generate_html_report
 
 mod_logger = logging.getLogger("please_logger")
@@ -48,6 +49,7 @@ if __name__ == "__main__":
     # If we are inside folder with  the problem, we have more handlers
     package_config = package_config.PackageConfig.get_config('.')
     in_problem_folder = (package_config != False)
+    matcher.add_handler(Template(["validate", "tests"]), tests_answer_generator.TestsAndAnswersGenerator().validate, in_problem_folder)
     matcher.add_handler(Template(["clean", "up"]), cleaner.Cleaner().cleanup, in_problem_folder)
     matcher.add_handler(Template(["show", "todo"]), todo.get_todo, in_problem_folder)
     matcher.add_handler(Template(["todo"]), todo.get_todo, in_problem_folder)
