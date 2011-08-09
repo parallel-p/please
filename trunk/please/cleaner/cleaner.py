@@ -5,6 +5,9 @@ from ..solution_tester import package_config
 import os
 import shutil
 from ..executors import trash_remover
+import logging
+
+logger = logging.getLogger("please_logger.cleaner.cleaner")
 
 class Cleaner:
     def __clean_binary(self, source):
@@ -12,7 +15,10 @@ class Cleaner:
         if lang_conf is not None:
             binary_name = lang_conf.get_binary_name(source)[0]
             if os.path.exists(binary_name):
+                logger.info("Removing " + binary_name)
                 os.remove(binary_name)
+            else:
+                logger.info("There is no binary file for " + source)
                 
     def cleanup(self):
         if os.path.exists(globalconfig.temp_statements_dir):
@@ -30,7 +36,9 @@ class Cleaner:
             for solution in solutions:    
                 self.__clean_binary(solution["source"])
         tests = parser.parse_test_config()
+        generators = []
         for test in tests:
-            if test.type == parser.TestInfoType.GENERATOR:
+            if test.type == parser.TestInfoType.GENERATOR and test.command[0] not in generators:
                 self.__clean_binary(test.command[0])
+                generators.append(test.command[0])
         trash_remover.remove_logs_in_depth(globalconfig.logs, ".")
