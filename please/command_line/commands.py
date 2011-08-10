@@ -31,7 +31,7 @@ problem_commands = ["generate statement",
              "generate html report",
              "set problem name NAME",
              "check main solution",
-             "clean up",
+             "clean",
              "validate tests"]
 
 def print_lite_help(in_problem_folder):
