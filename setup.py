@@ -35,7 +35,7 @@ else:
      system = platform_detector.get_platform()
      print(system)
      if   system[0] == "Windows":
-          path = os.path.join("C://Program Files","Please")
+          path = os.path.join("C:\\\\Program Files","Please")
           make_dir(path)
           copy_file("please.py",os.path.join(path, "please.py"))
      elif system[0] == 'Linux':
@@ -56,8 +56,8 @@ logger.info("Setup library Please in Python")
 setup(name        = 'Please',
       version     = '0.1',
       description = '***',
-      py_modules = ['please'], 
-      packages    = glob.glob("please/*/")
+      packages = ['please'] + glob.glob("please/*/"),
+      package_data={'please': ['templates/*.*']}
       )
 
 delete_garbage()
