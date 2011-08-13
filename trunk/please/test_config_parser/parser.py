@@ -88,7 +88,8 @@ class TestInfo:
     
     def __is_command(self, token):
         #command are not supported now
-        return False
+        #list will contain more elements in future
+        return token in ['echo'] 
     
     def __to_file(self, token):
         return os.path.join(".", token)
@@ -100,7 +101,8 @@ class TestInfo:
     def __is_generator(self, token):
         #if we can determine the programming language of file token, it is generator
         lang = Language()
-        return not lang.get(token) is None
+        check = lang.get(token)
+        return check is not None and check != 'command'
         
     def __tokens_to_command(self, tokens):
         #first token is a name of command or probram, follows are arguments

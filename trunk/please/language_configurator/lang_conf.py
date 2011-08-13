@@ -4,6 +4,7 @@ from .cpp import get_cpp_configurator
 from .dpr import get_dpr_configurator
 from .java import get_java_configurator
 from .pdflatex import get_pdflatex_configurator
+from .command import get_command_configurator
 
 def get_language_configurator(file_name):
     ''' Returns configurator object by file path '''
@@ -20,5 +21,7 @@ def get_language_configurator(file_name):
         return get_python3_configurator()
     elif lang in ["latex", "tex", "pdflatex"]:
         return get_pdflatex_configurator()
+    elif lang in ["command"]:
+        return get_command_configurator()
     else:
         return None
