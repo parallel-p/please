@@ -11,6 +11,7 @@ ensure = testlib.Error.ensure
 
 def validate ( inf ):
     tmpstr = inf.read("%s",[testlib.Limit.all()])[0]
+    inf.readEoln()
     ansstr = tmpstr.split('-')
 
     ensure(int(ansstr[0]) < day_limit, "big day!")
