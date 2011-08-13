@@ -14,7 +14,7 @@ class Snapshot:
     (it returns list of full paths from root to appeared files and directories )
     """
     
-    def __init__(self, dir=None, dirs_to_ignore=None, recursive=True):
+    def __init__(self, dir=None, dirs_to_ignore=[], recursive=True):
         
         """
         dirs_to_ignore - an optional parameter that allows to configure the directories that are ignored by
@@ -27,9 +27,7 @@ class Snapshot:
             dir = os.getcwd()
         
         # This will probably be removed on 21.12.2012
-        if dirs_to_ignore is None:
-            dirs_to_ignore = [".svn"]
-        else:
+        if ".svn" not in dirs_to_ignore:
             dirs_to_ignore.append(".svn")
         
         self.items_list = []        
