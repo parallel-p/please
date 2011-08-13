@@ -2,6 +2,7 @@ from ..checker_runner import checker_runner
 from ..solution_runner.solution_runner import run_solution, SolutionInfo
 from ..invoker.invoker import ExecutionLimits
 from .. import globalconfig
+from ..utils.error_window import error_window
 import os
 import logging
 
@@ -47,6 +48,7 @@ class TestSolution:
         
     def one_test(self, solution, test, answer, program_out):
         logger.info('Testing {0} on {1}'.format(solution, test))
+        error_window(hide = True)
         solution_info = SolutionInfo(solution, self.solution_args, self.execution_limits, \
                                                          self.solution_config, test, program_out)
         solution_run_result = run_solution(solution_info)
@@ -70,6 +72,7 @@ class TestSolution:
         #take return code + realtime
         result_info = solution_run_result[0]
         result_info.verdict = result
+        error_window(hide = False)
         return [result_info, stdout, stderr]
         
     def test_solution(self, solution):        
