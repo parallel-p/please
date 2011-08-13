@@ -1,7 +1,7 @@
 import os
 import shutil
-import please.package.config as config
-import please.add_source.add_source as add_source
+from ..package import config
+from ..add_source import add_source
 
 polygon2please_verdicts = {
     'main': (['OK'], []),
@@ -14,7 +14,7 @@ polygon2please_verdicts = {
     'failed': (['CF'], ['OK', 'WA', 'ML', 'TL', 'RE', 'PE'])
     }
 
-def __push_back(line, data):
+def __push_back(line, data)
     if line == '':
         return data
     else:

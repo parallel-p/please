@@ -1,5 +1,5 @@
-from please.executors import compiler #new name for this function in compiler -> change it
-from please.executors.runner import run
+from ..executors import compiler
+from ..executors.runner import run
 import sys
 import shutil
 import os

@@ -1,8 +1,7 @@
 import os
 import shutil
-import sys
-from ..package import config
 import logging
+from ..package import config
 from .. import globalconfig
 from ..solution_tester.package_config import PackageConfig
 

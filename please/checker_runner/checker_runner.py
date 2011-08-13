@@ -1,7 +1,5 @@
 from ..executors import compiler
 from ..executors import runner
-import shutil
-import os
 
 class CheckerCompileError(Exception):
     pass

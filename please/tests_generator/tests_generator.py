@@ -1,7 +1,7 @@
 import shutil
 import os
-from please.executors import compiler, runner
-from please.utils import line_ending
+from ..executors import compiler, runner
+from ..utils import line_ending
 from .. import globalconfig
 import io
 import logging

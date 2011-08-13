@@ -1,7 +1,6 @@
 from ..solution_runner.solution_runner import SolutionInfo, run_solution
-from please import globalconfig
+from .. import globalconfig
 import os
-from ..package import config
 from ..invoker.invoker import ExecutionLimits 
 from ..solution_tester import package_config
 from ..utils import utests

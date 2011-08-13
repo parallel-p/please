@@ -1,6 +1,6 @@
 import psutil
 import time
-from please.utils import platform_detector
+from ..utils import platform_detector
 
 class ResultInfo:
     '''

@@ -1,7 +1,7 @@
 from os import mkdir
 from os.path import exists
 import os.path
-from .. import globalconfig as global_config
+from .. import globalconfig
 from .template_utils import get_template_full_path
 from .statement_template_generator import generate_description, generate_statement
 from .source_code_file_generator import generate_checker, generate_solution, generate_validator
@@ -45,27 +45,27 @@ def generate_problem_advanced(shortname, human_language, programming_language):
 
     mkdir(shortname)
 
-    statement_path = os.path.join(shortname, global_config.statements_dir)
-    tests_path = os.path.join(shortname, global_config.tests_dir)
-    solutions_path = os.path.join(shortname, global_config.solutions_dir)
+    statement_path = os.path.join(shortname, globalconfig.statements_dir)
+    tests_path = os.path.join(shortname, globalconfig.tests_dir)
+    solutions_path = os.path.join(shortname, globalconfig.solutions_dir)
 
     # make dirs
     mkdir(statement_path)
     mkdir(tests_path)
     mkdir(solutions_path)
 
-    replaces = {'please_version': str(global_config.please_version),
+    replaces = {'please_version': str(globalconfig.please_version),
                 'shortname': shortname,
-                'description': global_config.statements_dir + '/' + generate_description(statement_path, human_language),
-                'statement': global_config.statements_dir + '/' + generate_statement(statement_path, human_language),
+                'description': globalconfig.statements_dir + '/' + generate_description(statement_path, human_language),
+                'statement': globalconfig.statements_dir + '/' + generate_statement(statement_path, human_language),
                 'validator': generate_validator(shortname, programming_language),
                 'checker': generate_checker(shortname, programming_language),
-                'main_solution': global_config.solutions_dir + '/' + generate_solution(solutions_path, programming_language)}
+                'main_solution': globalconfig.solutions_dir + '/' + generate_solution(solutions_path, programming_language)}
 
-    generate_package(global_config.default_package, replaces, shortname)
+    generate_package(globalconfig.default_package, replaces, shortname)
 
     # generate empty tests.please
-    open(os.path.join(shortname, global_config.default_tests_config), 'w').close()
+    open(os.path.join(shortname, globalconfig.default_tests_config), 'w').close()
 
     # copy testlib.h & testlib.pas
     testlib_h = get_template_full_path("testlib.h")
@@ -78,8 +78,8 @@ def generate_problem_advanced(shortname, human_language, programming_language):
 def generate_problem(shortname, handle_exception=True):
     try:
         generate_problem_advanced(shortname,
-                              global_config.default_human_language,
-                              global_config.default_programming_language)
+                              globalconfig.default_human_language,
+                              globalconfig.default_programming_language)
         info_generator.create_time_file(shortname)
         log.info("Problem %s created successfully", str(shortname))
     except ProblemExistsError as Error:
