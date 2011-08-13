@@ -3,6 +3,7 @@ import shutil
 import sys
 import math
 from ..package import config
+from .. import globalconfig
 from ..solution_tester.package_config import PackageConfig
 from ..solution_tester.check_solution import get_test_results_from_solution
 
@@ -14,7 +15,7 @@ def __writepackage(text):
 def set_integer_tl():
     opened_config = PackageConfig.get_config()
     solution = opened_config["main_solution"]
-    opened_config["time_limit"] = 10
+    opened_config["time_limit"] = globalconfig.default_limits.cpu_time
     result_dictionary = get_test_results_from_solution(solution, opened_config)
     max_time = 0 
     for key, value in result_dictionary.items():
@@ -26,7 +27,7 @@ def set_integer_tl():
 def set_float_tl():
     opened_config = PackageConfig.get_config()
     solution = opened_config["main_solution"]  
-    opened_config["time_limit"] = 10
+    opened_config["time_limit"] = globalconfig.default_limits.cpu_time
     result_dictionary = get_test_results_from_solution(solution, opened_config)
     max_time = 0 
     for key, value in result_dictionary.items():
