@@ -58,21 +58,16 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = N
     lang = get_language_configurator(source)
     cmd = lang.get_run_command(source)
     args = cmd + args_list
-    
-    log.debug("Starting process: args:%s, stdout:%s, stdin:%s, stderr:%s, env:%s", str(args), str(stdout_fh), str(stdin_fh), str(stderr_fh), str(env))
-    for i in range(5):
+    log.debug("Starting process: args:%s, stdout:%s, stdin:%s, stderr:%s, env:%s", str(args), str(stdout_fh), str(stdin_fh), str(stderr_fh), str(env))   
+    while True:
         try:
             process = psutil.Popen(args, stdout = stdout_fh, stdin = stdin_fh, stderr = stderr_fh, env = env, shell = shell)
             break
         except psutil.error.NoSuchProcess:
-            if (i != 4):
-                log.info("NoSuchProcess error, trying again...")
-                continue
-            else:
-                log.error("NoSuchProcess error for five times, something strange is going on :-(")
-
+            log.info("NoSuchProcess error, trying again...")
         except Exception as e:
             log.error("Unknown exception while starting the process: %s", str(e))
+            break
             
 
     result = invoker.invoke(process, limits)
@@ -94,12 +89,8 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = N
             if (not os.path.exists(tmp_stdout)):
                 log.error('Somebody deleted {0}, which was tmp_stdout for runner' % (tmp_stdout))
             else:
-                for i in range(100):
-                    try:
-                        os.remove(tmp_stdout)
-                        break;
-                    except Exception as e:
-                        log.debug('Catched %s, trying again', str(e))
+                while os.path.exists(tmp_stdout):
+                    os.remove(tmp_stdout)
      
     if tmp_stderr is None:
         stderr = None
@@ -111,12 +102,8 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = N
             if (not os.path.exists(tmp_stderr)):
                 log.error('Somebody deleted {0}, which was tmp_stdout for runner' % (tmp_stderr))
             else:  
-                for i in range(100):
-                    try:
-                        os.remove(tmp_stderr)
-                        break;
-                    except Exception as e:
-                        log.debug('Catched %s, trying again', str(e))
+                while os.path.exists(tmp_stderr):
+                    os.remove(tmp_stderr)
         
     return (result, stdout, stderr)
 

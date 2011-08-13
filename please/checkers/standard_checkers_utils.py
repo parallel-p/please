@@ -15,13 +15,6 @@ log = logging.getLogger("please_logger.checkers.standard_checker_utils")
 class AddStandartCheckerError (Exception) :
     pass
 
-
-def __readpackage():
-    input_stream = open("default.package", "r", encoding = "utf-8")
-    config_file = input_stream.read()
-    input_stream.close()
-    return config_file
-
 def __writepackage(text):
     output_stream = open("default.package", "w", encoding = "utf-8")
     output_stream.write(text)
@@ -33,17 +26,14 @@ def add_standard_checker_to_solution (checker):
        If checker is found in global directory then this function
        will write the global path to the checker into config file.
     """
-    #opened_config = config.Config(__readpackage())
-    #singletone
     opened_config = package_config.PackageConfig.get_config()
-    checker_name = os.path.splitext(checker)[0] + ".cpp"
-    
-    checker_local_path = os.path.join(checker_name)
-    checker_global_path = os.path.join(global_config.root, global_config.checkers_dir, checker_local_path)
+    checker_name = checker + ".cpp"
+    checker_global_path = os.path.join(global_config.root, global_config.checkers_dir, checker_name)
     
     if not os.path.exists(checker_global_path) :
         raise Exception("Standart checker " + checker_name + " not found!")
-    opened_config['checker'] = checker_name
-    config_file = opened_config.get_text()
-    __writepackage(config_file)
-    log.info("Standard checker %s was added successfully", checker_name)
+    else:
+        opened_config['checker'] = checker_name
+        config_file = opened_config.get_text()
+        __writepackage(config_file)
+        log.info("Standard checker %s was added successfully", checker_name)

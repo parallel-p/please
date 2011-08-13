@@ -35,7 +35,7 @@ def get_test_results_from_solution(solution, config = None):
     if solution == config["main_solution"]:
         #print("MAIN SOLUTION " + solution)
         new_config["expected_verdicts"] = ["OK"]
-        new_config["optional_verdicts"] = ["OK"]
+        new_config["optional_verdicts"] = []
         new_config["execution_limits"]  = invoker.ExecutionLimits(float(config["time_limit"]), float(config["memory_limit"]))
         new_config["solution_config"] = {"input":config["input"], "output":config["output"]}
         new_config["solution_args"] = []
@@ -51,9 +51,9 @@ def get_test_results_from_solution(solution, config = None):
                 break   
     
     test_solution = TestSolution(new_config)
-    (met_not_expected, expected_not_met, testing_result) = test_solution.test_solution(solution)
+    met_not_expected, expected_not_met, testing_result = test_solution.test_solution(solution)
     
-    return testing_result
+    return (met_not_expected, expected_not_met, testing_result)
     
 
 # Separate method for command line matcher
@@ -82,7 +82,7 @@ def check_one_solution(*paths, config = None, print_table = True):
         # Get test results for all solutions
         for solution in chunk:    
             
-            testing_result = get_test_results_from_solution(solution, config)
+            testing_result = get_test_results_from_solution(solution, config)[2]
             
             #print("TESTING RESULT: " + str(testing_result))
             

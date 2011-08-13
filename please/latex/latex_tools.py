@@ -249,10 +249,10 @@ class SingleProblemCreator():
 
         statement_template_path = get_template_full_path(globalconfig.default_template_statement)
 
-        with open(statement_template_path, "r", encoding = "UTF8") as template_file:
+        with open(statement_template_path, "r", encoding = "utf-8") as template_file:
             problem = LatexConstructor(template_file.read())
 
-        with open(statement_path, "r", encoding = "UTF8") as problem_file:
+        with open(statement_path, "r", encoding = "utf-8") as problem_file:
             problem.set_text(problem_file.read())
 
         if self.__config['input'] == 'stdin':

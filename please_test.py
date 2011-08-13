@@ -116,9 +116,9 @@ class PleaseTest(unittest.TestCase):
         self.__matcher.matches("add standard checker test_checker".split())
         
 
+        os.chdir(start_dir)
         self.assertEqual(os.path.join(start_dir, "please", "checkers", "test_checker.cpp"), open_config["checker"])
         
-        os.chdir(start_dir)
         
     def test_generate_statement(self):
         """ Checks command 'generate statement' """
