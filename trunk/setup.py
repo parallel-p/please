@@ -1,7 +1,7 @@
 import sys
 
 import distribute_setup
-distribute_setup.use_setuptools()
+distribute_setup.use_setuptools(version="0.6.19")
 
 from setuptools import setup, find_packages
 
