@@ -69,7 +69,7 @@ def check_one_solution(*paths, config = None, print_table = True):
     fail_count = 0
 
     if config is None:
-        config = PackageConfig.get_config(".")        
+        config = PackageConfig.get_config()        
     
     # Split the paths into chunks, 3 in each and print them    
     for chunk in list(chunks(paths, 3)):

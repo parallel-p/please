@@ -42,7 +42,7 @@ class AnswersGenerator :
         solution_config = {"input" : opened_config['input'], "output" : opened_config['output']}
         #generating list of tests
         #running tests        
-        for test in utests.get_tests(globalconfig.temp_tests_dir):
+        for test in utests.get_tests():
             run_solution (SolutionInfo (source_path, args, execution_limits, solution_config,
                                     os.path.join(globalconfig.temp_tests_dir, test), 
                                     os.path.join(globalconfig.temp_tests_dir, test + ".a")))

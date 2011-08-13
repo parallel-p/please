@@ -8,8 +8,7 @@ from ..validator_runner import validator_runner
 from ..answers_generator import answers_generator
 from ..solution_tester import package_config
 import logging
-
-
+from ..utils import utests
 
 logger = logging.getLogger("Please_logger.TestsAndAnswerGenerator")
 error_str = "Validator executions has had "
@@ -33,13 +32,11 @@ class TestsAndAnswersGenerator:
      TestsAndAnswersGenerator().generate(["BIG_TESTS"])
     """
     def validate(self):
-        config = package_config.PackageConfig.get_config('.')
-        counter = 1
+        config = package_config.PackageConfig.get_config()
         count_errors = 0
         result = []
         if 'validator' in config and config['validator'] not in ["", None]:
-            test_filename = os.path.join(globalconfig.temp_tests_dir, str(counter))
-            while os.path.exists(test_filename):
+            for test_filename in utests.get_tests():
                 logger.info("Start validator on test: " + test_filename)
                 validator_result = validator_runner.validate(config["validator"], test_filename) 
                 if get_return_code(validator_result) != 0:
@@ -51,8 +48,6 @@ class TestsAndAnswersGenerator:
                 if verd != "OK":         
                     logger.error(error_str + verd)
                     logger.error("\nSTDERR:\n" + validator_result[2].decode())
-                counter += 1
-                test_filename = os.path.join(globalconfig.temp_tests_dir, str(counter))
         else:
             logger.warning("Validator is empty")
         return (count_errors, result)
@@ -69,7 +64,7 @@ class TestsAndAnswersGenerator:
     def __generate_answers (self, tests):
         result = []
         count_errors = 0
-        config = package_config.PackageConfig.get_config('.')
+        config = package_config.PackageConfig.get_config()
         tests_names = []
         if 'validator' in config and config['validator'] not in ["", None]:        
             for test in tests:

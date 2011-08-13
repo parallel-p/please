@@ -2,6 +2,7 @@ from ..checker_runner import checker_runner
 from ..solution_runner.solution_runner import run_solution, SolutionInfo
 from ..invoker.invoker import ExecutionLimits
 from .. import globalconfig
+from ..utils import utests
 from ..utils.error_window import error_window
 import os
 import logging
@@ -79,16 +80,14 @@ class TestSolution:
         met_not_expected = {}
         expected_not_met = []
         testing_result = {}
-        test_iter = 1
         verdicts = dict(zip(self.expected_verdicts, [0] * len(self.expected_verdicts))) 
         #{"WA":0, "OK":0, "TL":0 ... }
         program_out = os.path.join(self.tests_dir, globalconfig.temp_solution_out_file)
         #.tests/out
-        while os.path.exists(os.path.join(self.tests_dir, str(test_iter))): 
+        for test in utests.get_tests(self.tests_dir):
             #.tests/1, .tests/2 ...
-            test = os.path.join(self.tests_dir, str(test_iter))
-            #.tests/1.a, .tests/2.a ...
             answer = test + ".a" 
+            #.tests/1.a, .tests/2.a ...
             result = self.one_test(solution, test, answer, program_out)
             if result[0].verdict in verdicts:
                 verdicts[result[0].verdict] += 1
@@ -97,7 +96,6 @@ class TestSolution:
                 #{"PE":[".tests/1", ".tests/4"]}
             testing_result[test] = result
             #{".tests/1":[ResultInfo,stdout,stderr], ".tests/2":[ResultInfo,stdout,stderr]}
-            test_iter += 1
         for item, value in verdicts.items():
             if value == 0: #if didn't meet
                 expected_not_met.append(item) #["WA", "TL"]
