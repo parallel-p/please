@@ -39,7 +39,7 @@ class Tester (unittest.TestCase):
         dic = {"input":"stdin", "output":"stdout", "validator" : "val", "solution" : "sol", "main_solution" : "ms", "memory_limit" : "32"}
         
         self.mox.StubOutWithMock(package_config.PackageConfig, "get_config")
-        package_config.PackageConfig.get_config('.').AndReturn(dic)
+        package_config.PackageConfig.get_config().AndReturn(dic)
         
         self.mox.StubOutWithMock(validator_runner, "validate")
         validator_runner.validate(mox.IgnoreArg(), mox.IgnoreArg()).AndReturn((val_res, []))
