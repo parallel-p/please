@@ -21,7 +21,7 @@ def __temp_file_name():
     return name    
 
 def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = None, \
-        stdout_fh = None, stderr_fh = None, env=None, encoding = 'UTF-8', shell = False):
+        stdout_fh = None, stderr_fh = None, env=None, encoding = 'utf-8', shell = False):
     """
     Runs the binary, associated with language of the source given.
     Also removes al the trash, generated during running (Ex: *.pyc)
