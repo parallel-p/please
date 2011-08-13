@@ -43,8 +43,7 @@ class PackageConfig:
             # Find full path to the package
             path_to_package = os.path.join(dir, package_name)
             # Parse and register the config
-            #with io.open(path_to_package, encoding = "UTF8") as f:
-            f = io.open(path_to_package, encoding = "UTF8")
+            f = open(path_to_package, encoding = "utf-8")
             config_text = f.read()
             f.close()
             PackageConfig.configs_dict[package_name] = Config(config_text)

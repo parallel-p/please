@@ -4,25 +4,24 @@ import please.package.config as config
 import please.add_source.add_source as add_source
 
 polygon2please_verdicts = {
-    'main': (['OK'], ['OK']),
-    'accepted': (['OK'], ['OK']),
-    'memory-limit-exceeded': (['ML'], ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']),
-    'time-limit-exceeded': (['TL'], ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']),
-    'wrong-answer': (['WA'], ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']),
-    'presentation-error': (['PE'], ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']),
+    'main': (['OK'], []),
+    'accepted': (['OK'], []),
+    'memory-limit-exceeded': (['ML'], ['OK', 'WA', 'TL', 'RE', 'PE']),
+    'time-limit-exceeded': (['TL'], ['OK', 'WA', 'ML', 'RE', 'PE']),
+    'wrong-answer': (['WA'], ['OK', 'ML', 'TL', 'RE', 'PE']),
+    'presentation-error': (['PE'], ['OK', 'WA', 'ML', 'TL', 'RE']),
     'rejected': ([], ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']), #WARNING: uncorrect line
-    'failed': (['CF'], ['OK', 'WA', 'ML', 'TL', 'RE', 'PE', 'CF'])
+    'failed': (['CF'], ['OK', 'WA', 'ML', 'TL', 'RE', 'PE'])
     }
 
 def __push_back(line, data):
     if line == '':
         return data
     else:
-        return line+', '+str(data)
+        return line + ', ' + str(data)
        
-def copy_something(problem_config, problem_path, \
-                   something_in_problem_path, something_path, \
-                   something_name):
+def copy_something(problem_config, problem_path, something_in_problem_path, \
+                   something_path, something_name):
     shutil.copy(something_path, os.path.join(problem_path, something_in_problem_path))
     if not something_name is None:
         problem_config[something_name] = __push_back(problem_config[something_name], \

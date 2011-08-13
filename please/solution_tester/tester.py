@@ -40,8 +40,8 @@ class TestSolution:
         #all necessary parameters in config are below:
         self.checker = config["checker"]
         self.tests_dir = config["tests_dir"]
-        self.expected_verdicts = config["expected_verdicts"]
-        self.optional_verdicts = config["optional_verdicts"]
+        self.expected_verdicts = config["expected_verdicts"] or []
+        self.optional_verdicts = config["optional_verdicts"] or []
         self.execution_limits = config["execution_limits"] or globalconfig.default_limits
         self.solution_config = config["solution_config"]
         self.solution_args = config["solution_args"]
@@ -92,7 +92,7 @@ class TestSolution:
             result = self.one_test(solution, test, answer, program_out)
             if result[0].verdict in verdicts:
                 verdicts[result[0].verdict] += 1
-            elif self.optional_verdicts is not None and result[0].verdict not in self.optional_verdicts:
+            elif result[0].verdict not in self.optional_verdicts:
                 met_not_expected.setdefault(result[0].verdict, []).append(test) 
                 #{"PE":[".tests/1", ".tests/4"]}
             testing_result[test] = result

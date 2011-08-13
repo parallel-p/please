@@ -66,7 +66,7 @@ if __name__ == "__main__":
     matcher.add_handler(Template(["compute", "TL"]), set_float_tl, in_problem_folder)
     matcher.add_handler(Template(["compute", "integer", "TL"]), set_integer_tl, in_problem_folder)
     matcher.add_handler(Template(["clear", "tags"]), tags.clear_tags, in_problem_folder)
-    matcher.add_handler(Template(["generate", "tests", "with", "@tags"]), generate_tests_with_tags, in_problem_folder)
+    matcher.add_handler(Template(["generate", "tests", "with", "tag|tags", "@tags"]), generate_tests_with_tags, in_problem_folder)
     matcher.add_handler(Template(["generate", "tests"]), generate_tests, in_problem_folder)
     matcher.add_handler(Template(["generate", "statement"]), latex_tools.generate_contest, in_problem_folder)
     matcher.add_handler(Template(["generate", "answers"]), AnswersGenerator.generate_without_arguments, in_problem_folder)

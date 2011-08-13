@@ -47,7 +47,7 @@ class ExecutionLimits:
     This class represents constraints of the execution.
     '''
     def __init__(self, cpu_time=10, memory=512, real_time=None):
-        real_time = real_time or cpu_time*5
+        real_time = real_time or cpu_time * 5
         self.real_time, self.memory, self.cpu_time = \
             real_time, memory, cpu_time 
         self.real_time = float(self.real_time)
