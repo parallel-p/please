@@ -1,4 +1,4 @@
-﻿from ..directory_diff import snapshot
+from ..directory_diff import snapshot
 import sys
 from ..invoker import invoker
 from ..language_configurator.lang_conf import get_language_configurator
@@ -21,7 +21,7 @@ def __temp_file_name():
     return name    
 
 def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = None, \
-        stdout_fh = None, stderr_fh = None, env=None, encoding = 'UTF-8'):
+        stdout_fh = None, stderr_fh = None, env=None, encoding = 'UTF-8', shell = False):
     """
     Runs the binary, associated with language of the source given.
     Also removes al the trash, generated during running (Ex: *.pyc)
@@ -54,15 +54,15 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = N
         tmp_stderr = __temp_file_name()
         log.debug('creating stderr_fh %s', tmp_stderr)
         stderr_fh = open(tmp_stderr, 'wb')
-            
+    
     lang = get_language_configurator(source)
     cmd = lang.get_run_command(source)
     args = cmd + args_list
+    
     log.debug("Starting process: args:%s, stdout:%s, stdin:%s, stderr:%s, env:%s", str(args), str(stdout_fh), str(stdin_fh), str(stderr_fh), str(env))
-    #print("fuck")
     for i in range(5):
         try:
-            process = psutil.Popen(args, stdout = stdout_fh, stdin = stdin_fh, stderr = stderr_fh, env = env)
+            process = psutil.Popen(args, stdout = stdout_fh, stdin = stdin_fh, stderr = stderr_fh, env = env, shell = shell)
             break
         except psutil.error.NoSuchProcess:
             if (i != 4):

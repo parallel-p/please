@@ -1,6 +1,7 @@
 #/bin/python3
 import os
-langs = ["c", "c++", "c#", "pascal", "delphi", "python2", "python3", "java"]
+#the last is for commands
+langs = ["c", "c++", "c#", "pascal", "delphi", "python2", "python3", "java", ""] 
 
 class Language:
     '''
@@ -19,7 +20,8 @@ class Language:
 
     def __by_ext(self, fn):
         ext = os.path.splitext(fn)[1].lower()
-        if (ext == ''): return None
+        if not ext:
+            return 'command'
         dct = { ".c" : "c", 
                 ".cpp" : "c++",
                 ".c++" : "c++",
@@ -53,13 +55,13 @@ class Language:
 
 
     def get(self, path):
-        if (not os.path.isfile(path)):
-            raise OSError("There is no file " + path)
         res_by_ext = self.__by_ext(path)
         if (res_by_ext is None):
             return None
         if (res_by_ext[0] != '?'):
             return res_by_ext
+        if (not os.path.isfile(path)):
+            raise OSError("There is no file " + path)
         res_by_content = self.__by_contents(path, res_by_ext)
         return res_by_content
 
