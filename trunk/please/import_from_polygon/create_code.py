@@ -14,7 +14,7 @@ polygon2please_verdicts = {
     'failed': (['CF'], ['OK', 'WA', 'ML', 'TL', 'RE', 'PE'])
     }
 
-def __push_back(line, data)
+def __push_back(line, data):
     if line == '':
         return data
     else:
