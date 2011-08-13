@@ -56,6 +56,12 @@ entry_points = {
     'console_scripts' : ['please = please:main']
 }
 
+install_requires = [
+    'lxml',
+    'psutil',
+    'colorama',
+]
+
 setup_params = { \
     'name'             : 'Please', 
     'version'          : '0.1', 
@@ -64,7 +70,8 @@ setup_params = { \
     'package_dir'      : {'please': 'please'}, 
     'packages'         : find_packages(),
     'package_data'     : package_data,
-    'install_requires' : ['lxml'],
+    'install_requires' : install_requires,
+    'dependency_links' : ['http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0-py3.2-win32.egg'],
     'entry_points'     : entry_points
 }
 
