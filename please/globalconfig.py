@@ -47,6 +47,6 @@ ejudge_password = "ejudge"
 ejudge_contests_dir = "/var/lib/ejudge/"
 
 #information about polygon
-access = {'login': 'gurovic', "password" : "12345"}
-polygon_url = "http://polygon.lksh.ru"
+access = {'login': 'makhmedov', "password" : "lzlzfbr"}
+polygon_url = "http://codecenter.sgu.ru:8081/polygon"
 ejudge_contests_dir = "/var/lib/ejudge/"
