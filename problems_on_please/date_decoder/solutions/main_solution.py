@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 def date_formatter(string, months):
     
     string_splitted = string.split("-")
@@ -20,7 +21,7 @@ def date_formatter(string, months):
 input_file = open('date_decoder.in', "r")
 output_file = open('date_decoder.out', "w")
 
-input_string = input_file.read()
+input_string = input_file.readline().rstrip()
 months = {"JAN":1, "FEB":2, "MAR":3, "APR":4, "MAY":5, "JUN":6, "JUL":7, "AUG":8, "SEP":9, "OCT":10, "NOV":11, "DEC":12}
 
 (year, month, day) = date_formatter(input_string, months)
