@@ -1,7 +1,7 @@
 import string
 import os
-from please.language.language import Language
-import please.globalconfig as globalconfig
+from ..language.language import Language
+from .. import globalconfig
 
 class TestInfo:
     """

@@ -1,5 +1,5 @@
-import please.template.problem_template_generator as problem_generator
-import please.package.config as config
+from ..template import problem_template_generator as problem_generator
+from ..package import config
 import os
 import shutil
 

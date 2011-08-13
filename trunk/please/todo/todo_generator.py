@@ -1,6 +1,6 @@
 import os
-from please.package.config import Config as package_config
-from please.todo import painter
+from ..package.config import Config
+from ..todo import painter
 
 class TodoGenerator: 
     """ 
@@ -33,7 +33,7 @@ class TodoGenerator:
         config_path = "default.package"
         config_file = open(config_path)
         config_text = "\n".join(config_file.readlines())
-        self.__config = package_config(config_text) 
+        self.__config = Config(config_text) 
         items = ["statement", "checker", "description", "validator", "main_solution"]        
         for item in items:
             self.print_to_console(self.__get_item_status(item), item)
