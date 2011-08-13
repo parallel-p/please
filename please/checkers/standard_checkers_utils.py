@@ -1,13 +1,6 @@
 import os
-from please import log
 import logging
-from ..command_line.matcher import Matcher
-from ..command_line.template import Template
-from ..template import problem_template_generator as problem_gen
-from ..package import config
-import codecs
-import sys
-from .. import globalconfig as global_config
+from .. import globalconfig
 from ..solution_tester import package_config
 
 log = logging.getLogger("please_logger.checkers.standard_checker_utils")
@@ -28,7 +21,7 @@ def add_standard_checker_to_solution (checker):
     """
     opened_config = package_config.PackageConfig.get_config()
     checker_name = checker + ".cpp"
-    checker_global_path = os.path.join(global_config.root, global_config.checkers_dir, checker_name)
+    checker_global_path = os.path.join(globalconfig.root, globalconfig.checkers_dir, checker_name)
     
     if not os.path.exists(checker_global_path) :
         raise Exception("Standart checker " + checker_name + " not found!")

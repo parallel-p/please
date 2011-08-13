@@ -1,6 +1,6 @@
 import psutil
-from please.invoker.invoker import ExecutionLimits, invoke
-from please.utils.platform_detector import get_platform
+from ..invoker.invoker import ExecutionLimits, invoke
+from ..utils.platform_detector import get_platform
 import os.path
 
 class Connector:

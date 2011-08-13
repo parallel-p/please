@@ -1,5 +1,5 @@
 import os.path
-from .. import globalconfig as global_config
+from .. import globalconfig
 
 class ConfigException(Exception):
     pass
@@ -183,7 +183,7 @@ class Config:
             checker = self.__settings.get(item)
             checker_local_path = self.__convert_separators(checker)
             if not os.path.exists(checker_local_path):
-                return os.path.join(global_config.root, global_config.checkers_dir, checker_local_path)
+                return os.path.join(globalconfig.root, globalconfig.checkers_dir, checker_local_path)
             return checker_local_path
         elif item in ["source", "validator", "statement", "description", "main_solution"]:
             return self.__convert_separators(self.__settings.get(item))

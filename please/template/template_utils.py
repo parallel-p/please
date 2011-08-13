@@ -1,12 +1,12 @@
 from os.path import exists
 import os.path
 from shutil import copy
-from .. import globalconfig as global_config
+from .. import globalconfig
 
 def get_template_full_path(template_name):
-    default_template_path = os.path.join(global_config.root, global_config.default_template_dir, template_name)
-    user_template_path = os.path.join(global_config.user_template_dir, template_name)
-    if (global_config.user_template_dir != "") and exists(user_template_path):
+    default_template_path = os.path.join(globalconfig.root, globalconfig.default_template_dir, template_name)
+    user_template_path = os.path.join(globalconfig.user_template_dir, template_name)
+    if (globalconfig.user_template_dir != "") and exists(user_template_path):
         return user_template_path
     elif exists(default_template_path):
         return default_template_path

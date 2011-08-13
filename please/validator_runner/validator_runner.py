@@ -1,5 +1,5 @@
-from please.executors import compiler, runner
-from please.invoker.invoker import ResultInfo
+from ..executors import compiler, runner
+from ..invoker.invoker import ResultInfo
 import logging    
 
 from distutils.core import CompileError

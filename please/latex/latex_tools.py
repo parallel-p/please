@@ -2,7 +2,6 @@ from .. import globalconfig
 from ..solution_tester import package_config
 import subprocess
 import os
-import sys
 from ..template.template_utils import get_template_full_path, make_statement_name
 import shutil
 from ..executors import runner

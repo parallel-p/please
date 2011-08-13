@@ -1,5 +1,4 @@
 from ..directory_diff import snapshot
-import sys
 from ..invoker import invoker
 from ..language_configurator.lang_conf import get_language_configurator
 import psutil
@@ -106,14 +105,3 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = N
                     os.remove(tmp_stderr)
         
     return (result, stdout, stderr)
-
-#except OSError as oserr:
-#    stdout_fh.close()
-#    stdout_fh = None
-#    stderr_fh.close()
-#    stderr_fh = None
-#    os.remove(tmp_stdout)
-#    os.remove(tmp_stderr)
-#    tmp_stdout = None
-#    tmp_stderr = None
-#    continue

@@ -1,7 +1,7 @@
-from please.import_from_polygon import create_stub
-from please.import_from_polygon import create_statements
-from please.import_from_polygon import create_code
-from please.test_config_parser.parser import TestInfo
+from ..import_from_polygon import create_stub
+from ..import_from_polygon import create_statements
+from ..import_from_polygon import create_code
+from ..test_config_parser.parser import TestInfo
 
 import please.package.config as config
 

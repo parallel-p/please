@@ -1,5 +1,4 @@
 from .. import globalconfig
-from ..test_config_parser import parser
 from ..language_configurator.lang_conf import get_language_configurator
 from ..solution_tester import package_config
 import os

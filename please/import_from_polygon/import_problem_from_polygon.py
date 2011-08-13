@@ -1,5 +1,5 @@
-from .import download_zip
-from .import create_problem
+from . import download_zip
+from . import create_problem
 
 def import_problem_from_polygon(contest_id, problem_letter):
     problem_name = download_zip.get_problem(int(contest_id), str(problem_letter).upper())
