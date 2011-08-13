@@ -38,7 +38,7 @@ class TestLanguageDetection(unittest.TestCase):
         lang = Language()
         f = False
         try:
-            lang.get("random.cpp")
+            lang.get("random.py")
         except OSError:
             f = True
         self.assertTrue(f)

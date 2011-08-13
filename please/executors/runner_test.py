@@ -16,7 +16,7 @@ class RunTest(unittest.TestCase):
     def test_run(self) :
         self.mox.StubOutWithMock(psutil, "Popen")
         process = self.mox.CreateMockAnything()
-        psutil.Popen(["a.exe"], stdin = None, stdout = mox.IgnoreArg(), stderr = mox.IgnoreArg(), env = None).AndReturn(process)
+        psutil.Popen(["a.exe"], stdin = None, shell = False, stdout = mox.IgnoreArg(), stderr = mox.IgnoreArg(), env = None).AndReturn(process)
         
                                                          
         self.mox.StubOutWithMock(rn.invoker, "invoke")

@@ -20,9 +20,12 @@ class TestsGenerator:
         file_name = os.path.join(TESTS_DIR, file_name)
         if (test.type == 'file'):
             shutil.copyfile(test.command, file_name)
-        if (test.type == 'command'):
-            raise Exception("Not implemented")
-        if (test.type == 'generator'):
+        elif (test.type == 'command'):
+            f = io.open(file_name, 'wb')
+            with f:
+                res = runner.run(test.command[0], test.command[1], shell = True)[1]
+                f.write(res)
+        elif (test.type == 'generator'):
             compiler.compile(test.command[0])
             f = io.open(file_name, 'wb')
             with f:
