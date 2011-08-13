@@ -19,7 +19,7 @@ def add_main_solution_with_config(package_config, path):
     path = os.path.join(*temp)
     basename = os.path.basename(path)
     if path.replace("\\", "/") != globalconfig.solutions_dir + "/" + basename:
-        shutil.copy(path, os.path.join(globalconfig.solution_dir, basename))
+        shutil.copy(path, os.path.join(globalconfig.solutions_dir, basename))
     package_config['main_solution'] = globalconfig.solutions_dir + "/" + basename
 
 def add_main_solution (path):
