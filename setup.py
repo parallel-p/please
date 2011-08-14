@@ -60,6 +60,7 @@ install_requires = [
     'lxml',
     'psutil',
     'colorama',
+    'HTML.py'
 ]
 
 setup_params = { \
@@ -71,7 +72,8 @@ setup_params = { \
     'packages'         : find_packages(),
     'package_data'     : package_data,
     'install_requires' : install_requires,
-    'dependency_links' : ['http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0-py3.2-win32.egg'],
+    'dependency_links' : ['http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0-py3.2-win32.egg',
+                          'http://please.googlecode.com/svn/third_party/windows/HTML.py-0.04-py3.2.egg'],
     'entry_points'     : entry_points
 }
 
