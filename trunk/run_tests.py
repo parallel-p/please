@@ -69,4 +69,4 @@ if len(args) == 3:
           run_consol_test(".")
 if len(args) < 3 or args[2] != "coverage":
         cov.stop()
-	cov.html_report()
+        cov.html_report()
