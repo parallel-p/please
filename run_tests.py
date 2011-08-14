@@ -67,6 +67,6 @@ if len(args) == 3:
           run_tests(args[1])
      else:
           run_consol_test(".")
-if len(args) < 3 or args[2] != "coverage":
-	cov.stop()
-	cov.html_report()
+#if len(args) < 3 or args[2] != "coverage":
+#	cov.stop()
+#	cov.html_report()
