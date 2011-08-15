@@ -43,7 +43,6 @@ def print_lite_help(in_problem_folder):
     print(*sorted(problem_commands), sep = "\n")
 
 def print_help():
-    print(len(global_commands))
     print("""
 Please version: {0}
 Usage: please [command]
