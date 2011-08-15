@@ -1,4 +1,6 @@
 import sys
+from distutils import log as log
+import os
 
 import distribute_setup
 distribute_setup.use_setuptools(version="0.6.19")
@@ -72,11 +74,32 @@ setup_params = { \
     'packages'         : find_packages(),
     'package_data'     : package_data,
     'install_requires' : install_requires,
-    'dependency_links' : ['http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0-py3.2-win32.egg',
+    'dependency_links' : ['http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win32-py3.2.exe',
                           'http://please.googlecode.com/svn/third_party/windows/HTML.py-0.04-py3.2.egg'],
     'entry_points'     : entry_points
 }
 
+setup(**setup_params)
+
+
+import platform
+system = platform.system()[0]
+if (system == 'W'):
+    log.info("\nChecking Path variable...")
+    from distutils import sysconfig as conf
+    path = os.getenv('path').split(';')
+    log.info("Path: %s", os.getenv('path'))
+    pp = os.path.join(conf.PREFIX, 'scripts')
+    if (not (pp in path or (pp + os.sep) in path)):
+        os.system('echo Y | reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v PATH /t REG_SZ /d "%s;%s"' % (os.getenv('path'), pp))
+        log.info('Added %s to path', pp)
+        log.info('\nTo apply changes, after the installation, please reboot the computer.')
+
+log.info('\nInstallation finished!')
+
+    
+        
     
 
-setup(**setup_params)
+        
+
