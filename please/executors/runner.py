@@ -81,27 +81,19 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = N
     if tmp_stdout is None:
         stdout = None
     else:
+        if not stdout_fh.closed:
+            stdout_fh.close()
         with open(tmp_stdout, 'rb') as stdout_fh:
             stdout = stdout_fh.read()
-            stdout_fh.close()
-        if (not (tmp_stdout is None)):
-            if (not os.path.exists(tmp_stdout)):
-                log.error('Somebody deleted {0}, which was tmp_stdout for runner' % (tmp_stdout))
-            else:
-                while os.path.exists(tmp_stdout):
-                    os.remove(tmp_stdout)
+        os.remove(tmp_stdout)
      
     if tmp_stderr is None:
         stderr = None
     else:
+        if not stderr_fh.closed:
+            stderr_fh.close()
         with open(tmp_stderr, 'rb') as stderr_fh:
             stderr = stderr_fh.read()
-            stderr_fh.close()
-        if (not (tmp_stderr is None)):
-            if (not os.path.exists(tmp_stderr)):
-                log.error('Somebody deleted {0}, which was tmp_stdout for runner' % (tmp_stderr))
-            else:  
-                while os.path.exists(tmp_stderr):
-                    os.remove(tmp_stderr)
+        os.remove(tmp_stderr)
         
     return (result, stdout, stderr)
