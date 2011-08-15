@@ -1,10 +1,15 @@
 import os
+import shutil
 import logging
 
 def remove_trash (diff, is_trash):
-    for token in diff:
+    #diff == [[dirs], [files]]
+    for token in diff[1]:
         if is_trash(token):
             os.remove(token)
+    for token in diff[0]:
+        if is_trash(token):
+            shutil.rmtree(token)
 
 
 def remove_logs_in_depth(logs_names_list, base_dir):            
