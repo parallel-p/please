@@ -5,6 +5,7 @@ import os
 import shutil
 from ..executors import trash_remover
 import logging
+from ..test_config_parser import parser
 
 logger = logging.getLogger("please_logger.cleaner.cleaner")
 
