@@ -99,3 +99,5 @@ def main():
             log.error("OSError: " + str(ex))
         except IOError as ex:
             log.error("IOError: " + str(ex))
+        except EnvironmentError as ex:
+            log.error("EnvironmentError: " + str(ex))

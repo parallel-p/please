@@ -1,6 +1,5 @@
 import unittest
 import sys
-from coverage import coverage
 from please import log
 
 def analysis(infile):
@@ -48,10 +47,6 @@ args = sys.argv
 loader = unittest.TestLoader()
 suite = unittest.TestSuite()
 
-if len(args) < 3 or args[2] != "coverage":
-	cov = coverage(config_file=True)
-	cov.start()
-
 if len(args) == 1 :
      run_consol_test (".")
      
@@ -67,6 +62,3 @@ if len(args) == 3:
           run_tests(args[1])
      else:
           run_consol_test(".")
-if len(args) < 3 or args[2] != "coverage":
-        cov.stop()
-        cov.html_report()
