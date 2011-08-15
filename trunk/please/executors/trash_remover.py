@@ -1,6 +1,7 @@
 import os
 import shutil
 import logging
+from .. import globalconfig
 
 def remove_trash (diff, is_trash):
     #diff == [[dirs], [files]]
@@ -12,11 +13,12 @@ def remove_trash (diff, is_trash):
             shutil.rmtree(token)
 
 
-def remove_logs_in_depth(logs_names_list, base_dir):            
+def remove_logs_in_depth(logs_names_list=globalconfig.logs, base_dir='.', out=True):            
     logging.shutdown()
     for root, dirs, files in os.walk(base_dir):
         for file in files:
             for log in logs_names_list:
                 if file == log:
-                    print("Removing log " + log + " in " + root)
+                    if out:
+                        print("Removing log " + log + " in " + root)
                     os.remove(os.path.join(root, log))

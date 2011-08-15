@@ -41,4 +41,4 @@ class Cleaner:
             if test.type == parser.TestInfoType.GENERATOR and test.command[0] not in generators:
                 self.__clean_binary(test.command[0])
                 generators.append(test.command[0])
-        trash_remover.remove_logs_in_depth(globalconfig.logs, ".")
+        trash_remover.remove_logs_in_depth()
