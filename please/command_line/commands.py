@@ -1,3 +1,6 @@
+from ..executors import trash_remover
+from .. import globalconfig
+
 PLEASE_VERSION = "0.1"
 
 global_commands = ["create problem PROBLEM_NAME", 
@@ -41,6 +44,7 @@ def print_lite_help(in_problem_folder):
     print(*sorted(global_commands), sep = "\n")
     print("\nCommands inside problem folder:\n")
     print(*sorted(problem_commands), sep = "\n")
+    trash_remover.remove_logs_in_depth(out=False)
 
 def print_help():
     print("""
@@ -167,6 +171,7 @@ Commands available when inside problem's folder:
   {22}
     Cleans up current directory - removes generated binary files, temporary folders, logs
 """.format(*problem_commands))
+    trash_remover.remove_logs_in_depth(out=False)
 
 
 
