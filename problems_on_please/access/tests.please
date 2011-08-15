@@ -1,9 +1,9 @@
 [sample]tests\01
-[sample]tests\02
+tests\02
 test.py 1 5 1 10 1
 test.py 1 5 1 10 2
 test.py 1 5 1 10 3
-test.py 1 5 1 10 5
+[sample]test.py 1 5 1 10 5
 test.py 5 25 10 100 8
 test.py 5 25 10 100 13
 test.py 5 25 10 100 21
