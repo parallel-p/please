@@ -1,7 +1,7 @@
 import unittest
 import sys
+from coverage import coverage
 from please import log
-
 def analysis(infile):
      strings = infile.read().split("\n")
      errors = []
