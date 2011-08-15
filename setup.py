@@ -75,7 +75,8 @@ setup_params = { \
     'package_data'     : package_data,
     'install_requires' : install_requires,
     'dependency_links' : ['http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win32-py3.2.exe',
-                          'http://please.googlecode.com/svn/third_party/windows/HTML.py-0.04-py3.2.egg'],
+                          'http://please.googlecode.com/svn/third_party/windows/HTML.py-0.04-py3.2.egg',
+                          'http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win-amd64-py3.2.exe'],
     'entry_points'     : entry_points
 }
 
