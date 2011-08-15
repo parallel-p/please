@@ -3,7 +3,7 @@ from ..solution_runner.solution_runner import run_solution, SolutionInfo
 from ..invoker.invoker import ExecutionLimits
 from .. import globalconfig
 from ..utils import utests
-from ..utils.error_window import error_window
+from ..utils.error_window import PreventErrorWindow
 import os
 import logging
 
@@ -41,7 +41,10 @@ class TestSolution:
         #all necessary parameters in config are below:
         self.checker = config["checker"]
         self.tests_dir = config["tests_dir"]
-        self.expected_verdicts = config["expected_verdicts"] or []
+        if "expected_verdicts" in config:
+            self.expected_verdicts = config["expected_verdicts"] 
+        else:
+            self.expected_verdicts = [] 
         self.optional_verdicts = config["optional_verdicts"] or []
         self.execution_limits = config["execution_limits"] or globalconfig.default_limits
         self.solution_config = config["solution_config"]
@@ -49,31 +52,32 @@ class TestSolution:
         
     def one_test(self, solution, test, answer, program_out):
         logger.info('Testing {0} on {1}'.format(solution, test))
-        error_window(hide = True)
-        solution_info = SolutionInfo(solution, self.solution_args, self.execution_limits, \
-                                                         self.solution_config, test, program_out)
-        solution_run_result = run_solution(solution_info)
-        result = ""
-        stdout = ""
-        stderr = ""
-        if solution_run_result[0].verdict != "OK":
-            if solution_run_result[0].verdict == "RE":
-                logger.info("\nSTDERR:\n" + solution_run_result[2].decode())
-            result = solution_run_result[0].verdict
-        else:
-            checker_info = checker_runner.CheckerInfo(self.checker, test, answer, program_out)
-            check_result = checker_runner.run_checker(checker_info) 
-            #tuple: ResultInfo, stdout, stderr
-            if check_result[0].return_code in globalconfig.checker_return_codes:
-                result = globalconfig.checker_return_codes[check_result[0].return_code]
+        with PreventErrorWindow():
+#        error_window(hide = True)
+            solution_info = SolutionInfo(solution, self.solution_args, self.execution_limits, \
+                                                             self.solution_config, test, program_out)
+            solution_run_result = run_solution(solution_info)
+            result = ""
+            stdout = ""
+            stderr = ""
+            if solution_run_result[0].verdict != "OK":
+                if solution_run_result[0].verdict == "RE":
+                    logger.info("\nSTDERR:\n" + solution_run_result[2].decode())
+                result = solution_run_result[0].verdict
             else:
-                result = "CF"
-            stdout = check_result[1]
-            stderr = check_result[2]
-        #take return code + realtime
-        result_info = solution_run_result[0]
-        result_info.verdict = result
-        error_window(hide = False)
+                checker_info = checker_runner.CheckerInfo(self.checker, test, answer, program_out)
+                check_result = checker_runner.run_checker(checker_info) 
+                #tuple: ResultInfo, stdout, stderr
+                if check_result[0].return_code in globalconfig.checker_return_codes:
+                    result = globalconfig.checker_return_codes[check_result[0].return_code]
+                else:
+                    result = "CF"
+                stdout = check_result[1]
+                stderr = check_result[2]
+            #take return code + realtime
+            result_info = solution_run_result[0]
+            result_info.verdict = result
+#        error_window(hide = False)
         return [result_info, stdout, stderr]
         
     def test_solution(self, solution):        
