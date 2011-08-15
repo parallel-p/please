@@ -38,7 +38,7 @@ problem_commands = ["generate statement",
              "validate tests"]
 
 def print_lite_help(in_problem_folder):
-    print("\nUsage: please [command]")
+    print("Usage: please [command]")
     print("Commands available (try 'please help' for more information):\n")
     print("Global commands:\n")
     print(*sorted(global_commands), sep = "\n")
