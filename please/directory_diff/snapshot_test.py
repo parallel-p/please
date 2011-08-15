@@ -27,7 +27,7 @@ class TestSnapshot(unittest.TestCase):
         # Make a snapshot of directory after creating a new file
         snap2 = Snapshot("temp_files", [], False)
         
-        self.assertEqual(get_changes(snap1, snap2), [ os.path.join("temp_files", "temp.py") ])
+        self.assertEqual(get_changes(snap1, snap2), [ [], [os.path.join("temp_files", "temp.py") ] ])
         
         # Clean up
         os.remove("temp_files/temp.py")        
@@ -39,7 +39,7 @@ class TestSnapshot(unittest.TestCase):
         # Make a snapshot of directory without a folder inside to ignore 
         snap2 = Snapshot("temp_files", [], False)
         
-        self.assertEqual(get_changes(snap1, snap2), [ os.path.join("temp_files", "to_ignore") ])
+        self.assertEqual(get_changes(snap1, snap2), [[ os.path.join("temp_files", "to_ignore") ],[]])
     
 if __name__ == '__main__':
     unittest.main()

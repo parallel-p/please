@@ -18,12 +18,12 @@ class RemoveTrashTest(unittest.TestCase):
     def test_remover(self):
         
         self.mox.StubOutWithMock(os,"remove")
-        diff = ["C:\wsvn\work\ololo.exe", "C:\wsvn\work\ololo.trash", 
+        diff = [[], ["C:\wsvn\work\ololo.exe", "C:\wsvn\work\ololo.trash", 
                 "C:\wsvn\work\ololo.pdb.trash", "C:\wsvn\work\ololo",
-                "C:\wsvn\work\log.ini.trash"]
-        os.remove(diff[1])
-        os.remove(diff[2])
-        os.remove(diff[4])
+                "C:\wsvn\work\log.ini.trash"]]
+        os.remove(diff[1][1])
+        os.remove(diff[1][2])
+        os.remove(diff[1][4])
         
         self.mox.ReplayAll()
         remove_trash (diff,RemoveTrashTest.is_trash)
