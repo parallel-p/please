@@ -1,83 +1,76 @@
 import sys
 from distutils import log as log
+from distutils.core import Command
+from setup_extensions.develop import develop
 import os
 
 import distribute_setup
+# Ставим дистрибьют правильной версии
 distribute_setup.use_setuptools(version="0.6.19")
 
 from setuptools import setup, find_packages
-
-#print(find_packages())
-#sys.exit()
-
-'''packages = [ \
-    'add_source',
-    'answers_generator',
-    'auto_TL',
-    'build_all',
-    'checker_runner',
-    'checkers',
-    'cleaner',
-    'command_line',
-    'directory_diff',
-    'executors',
-    'export2ejudge',
-    'import_from_polygon',
-    'invoker',
-    'language',
-    'language_configurator',
-    'latex',
-    'package',
-    'reports',
-    'solution_runner',
-    'solution_tester',
-    'stress_tester',
-    'template',
-    'test_config_parser',
-    'tests_answer_generator',
-    'tests_generator',
-    'todo',
-    'utils',
-    'validator_runner'
-]'''
-
-#packages = ['please'] + ['please/' + s for s in packages]    
 
 modules = [ \
     'please',
     'please/tags',
     'please/globalconfig',
-    'please/log'
+    'please/log',
 ]
 
+# Папки, не содержащие код
 package_data = {
     'please': ['templates/*.*', 'checkers/*.*']
 }
+
 
 entry_points = {
     'console_scripts' : ['please = please:main']
 }
 
+# python-библиотеки, обязательные к установке.
+# Можно указывать версию. Больше информации можно найти здесь:
+# http://packages.python.org/distribute/setuptools.html#id12
+# Если инсталлятор не находит правильной версии библиотеки, то
+# нужно прописать в dependency_links либо прямую ссылку на дистрибутив, либо
+# ссылку на страницу, где перечислены варианты дистрибутивов этой библиотеки
+# со ссылками - он сам повыдёргивает, откуда скачать.
 install_requires = [
     'lxml',
     'psutil',
     'colorama',
-    'HTML.py'
 ]
 
+dependency_links = [
+    'http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win32-py3.2.exe', #psutil for win32
+    'http://please.googlecode.com/svn/third_party/windows/HTML.py-0.04-py3.2.egg', #html for win32
+    'http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win-amd64-py3.2.exe', # psutil for amd64
+]
+
+# python-библиотеки, необходимые для разработчика.
+# Формат аналогичен предыдущему пункту.
+# dependency_links с предыдущим пунктом общие.
+develop_requires = [
+    'coverage',
+    'mox',
+]
+
+extras_require = {
+    'develop' : develop_requires
+}
+
 setup_params = { \
-    'name'             : 'Please', 
-    'version'          : '0.1', 
-    'description'      : '***', 
-    'py_modules'       : modules, 
-    'package_dir'      : {'please': 'please'}, 
+    'name'             : 'Please',
+    'version'          : '0.1',
+    'description'      : '***',
+    'py_modules'       : modules,
+    'package_dir'      : {'please': 'please'},
     'packages'         : find_packages(),
     'package_data'     : package_data,
     'install_requires' : install_requires,
-    'dependency_links' : ['http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win32-py3.2.exe',
-                          'http://please.googlecode.com/svn/third_party/windows/HTML.py-0.04-py3.2.egg',
-                          'http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win-amd64-py3.2.exe'],
-    'entry_points'     : entry_points
+    'extras_require'   : extras_require,
+    'dependency_links' : dependency_links,
+    'entry_points'     : entry_points,
+    'cmdclass'         : {'develop' : develop},
 }
 
 setup(**setup_params)
@@ -98,9 +91,9 @@ if (system == 'W'):
 
 log.info('\nInstallation finished!')
 
-    
-        
-    
 
-        
+
+
+
+
 
