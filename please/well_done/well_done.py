@@ -104,6 +104,8 @@ class WellDone:
     def check(self):
         self.__fixes = []
         for function_name in self.__check_functions_list:
+            #dirty trick to operate with splitted lists whith unknown spaces
+            function_name = function_name.strip()
             result = getattr(self, function_name)()
             if result == CRASH:
                 return (CRASH, [function_name])
