@@ -9,6 +9,7 @@ from ..answers_generator import answers_generator
 from ..solution_tester import package_config
 import logging
 from ..utils import utests
+from ..well_done import well_done
 
 logger = logging.getLogger("Please_logger.TestsAndAnswerGenerator")
 error_str = "Validator executions has had "
@@ -52,6 +53,20 @@ class TestsAndAnswersGenerator:
             logger.warning("Validator is empty")
         return (count_errors, result)
             
+    def well_done(self):
+        config = package_config.PackageConfig.get_config()
+        if 'well_done_test' in config and config['well_done_test'] not in ["", None]:
+            for test_filename in utests.get_tests():
+                well_done.well_done_check_test(test_filename, config["well_done_test"].split(', ')) 
+        else:
+            logger.warning("Well_done config for tests is empty")
+
+        if 'well_done_answer' in config and config['well_done_answer'] not in ["", None]:
+            for test_filename in utests.get_tests():
+                well_done.well_done_check_test(test_filename + '.a', config["well_done_answer"].split(', ')) 
+        else:
+            logger.warning("Well_done config for answers is empty")
+
     def __get_admit (self, tags):        
         def admit(attr):
             for tag in tags:
@@ -65,6 +80,11 @@ class TestsAndAnswersGenerator:
         result = []
         count_errors = 0
         config = package_config.PackageConfig.get_config()
+        if 'well_done_test' in config and config['well_done_test'] not in ["", None]:
+            for test_filename in tests:
+                well_done.well_done_check_test(test_filename, config["well_done_test"].split(', ')) 
+        else:
+            logger.warning("Well_done config for tests is empty")
         tests_names = []
         if 'validator' in config and config['validator'] not in ["", None]:        
             for test in tests:
@@ -85,6 +105,11 @@ class TestsAndAnswersGenerator:
             logger.warning("Validator is empty")
         answers_gen = answers_generator.AnswersGenerator()
         answers_gen.generate (tests_names, config ["main_solution"], [], config)
+        if 'well_done_answer' in config and config['well_done_answer'] not in ["", None]:
+            for test_filename in tests_names:
+                well_done.well_done_check_test(test_filename + '.a', config["well_done_answer"].split(', ')) 
+        else:
+            logger.warning("Well_done config for answers is empty")
         return (count_errors, result)
 
     def generate_all(self):       
