@@ -37,9 +37,12 @@ install_requires = [
     'lxml',
     'psutil',
     'colorama',
+    'HTML.py ==0.04',
 ]
 
 dependency_links = [
+    'http://please.googlecode.com/svn/third_party/HTML.py-0.04-py3.2.egg',
+    'http://www.decalage.info/files/',
     'http://pypi.python.org/pypi/colorama',
     'http://please.googlecode.com/svn/third_party/psutil-0.3.0.tar.gz',
     'http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win32-py3.2.exe', #psutil for win32
