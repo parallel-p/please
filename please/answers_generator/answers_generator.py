@@ -42,11 +42,10 @@ class AnswersGenerator :
         #generating list of tests
         #running tests        
         for test in utests.get_tests():
-            run_solution (SolutionInfo (source_path, args, execution_limits, solution_config,
-                                    os.path.join(globalconfig.temp_tests_dir, test), 
-                                    os.path.join(globalconfig.temp_tests_dir, test + ".a")))
-        
-    
+            logger.info('Generating answer for {0} with {1}'.format(str(test), str(source_path)))
+            run_solution (SolutionInfo (source_path, args, execution_limits, 
+                               solution_config, test, test + ".a"))
+
     def generate (self, tests, source_path, args, solution_config, execution_limits = globalconfig.default_limits) :
         for test in tests :
             logger.info('Generating answer for {0} with {1}'.format(str(test), str(source_path)))
