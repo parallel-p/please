@@ -16,6 +16,7 @@ class PreventErrorWindow:
         self.name = "DontShowUI" 
             
     def __enter__(self):
+        if "Windows-7" in platform():
             self.value = 0 #QueryValue(keyVal, name)
             #print('*', self.value, '*')
             key = OpenKey(HKEY_LOCAL_MACHINE, self.keyVal, 0, KEY_ALL_ACCESS)
@@ -23,6 +24,7 @@ class PreventErrorWindow:
             CloseKey(key)
 
     def __exit__(self, type, value, traceback):
+        if "Windows-7" in platform():
             key = OpenKey(HKEY_LOCAL_MACHINE, self.keyVal, 0, KEY_ALL_ACCESS)
             SetValueEx(key, self.name, 0, REG_DWORD, self.value)
             CloseKey(key)
