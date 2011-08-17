@@ -94,7 +94,9 @@ if (system == 'W'):
     log.info("Path: %s", os.getenv('path'))
     pp = os.path.join(conf.PREFIX, 'scripts')
     if (not (pp in path or (pp + os.sep) in path)):
-        os.system('echo Y | reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v PATH /t REG_SZ /d "%s;%s"' % (os.getenv('path'), pp))
+        req = 'echo Y | reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v PATH /t REG_SZ /d "%s;%s"' % (os.getenv('path'), pp)
+        log.info('calling ', req)
+        os.system(req)
         log.info('Added %s to path', pp)
         log.info('\nTo apply changes, after the installation, please reboot the computer.')
 
