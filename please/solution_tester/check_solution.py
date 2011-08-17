@@ -32,7 +32,10 @@ def get_test_results_from_solution(solution, config = None):
     new_config["checker"] = config["checker"]
     new_config["tests_dir"] = globalconfig.temp_tests_dir #config["tests_dir"]        
     
-    if solution == config["main_solution"]:
+    solution = solution.replace('\\','/')
+    main_solution = config["main_solution"].replace('\\','/')
+    print(solution, main_solution)
+    if solution == main_solution:
         #print("MAIN SOLUTION " + solution)
         new_config["expected_verdicts"] = ["OK"]
         new_config["optional_verdicts"] = []
@@ -81,9 +84,7 @@ def check_one_solution(*paths, config = None, print_table = True):
         
         # Get test results for all solutions
         for solution in chunk:    
-            
             testing_result = get_test_results_from_solution(solution, config)[2]
-            
             #print("TESTING RESULT: " + str(testing_result))
             
             table_header += solution + " | "
