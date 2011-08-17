@@ -1,7 +1,6 @@
 import sys
 from distutils import log as log
 from distutils.core import Command
-from setup_extensions.develop import develop
 import os
 
 import distribute_setup
@@ -57,6 +56,11 @@ develop_requires = [
 extras_require = {
     'develop' : develop_requires
 }
+
+try:
+    from setup_extensions.develop import develop
+except ImportError as e:
+    print('Error while importing develop extension: %s' % (str(e)))
 
 setup_params = { \
     'name'             : 'Please',
