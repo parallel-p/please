@@ -40,6 +40,7 @@ install_requires = [
 ]
 
 dependency_links = [
+    'http://pypi.python.org/pypi/colorama',
     'http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win32-py3.2.exe', #psutil for win32
     'http://please.googlecode.com/svn/third_party/windows/HTML.py-0.04-py3.2.egg', #html for win32
     'http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win-amd64-py3.2.exe', # psutil for amd64
