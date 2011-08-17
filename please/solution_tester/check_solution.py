@@ -1,3 +1,4 @@
+import os.path
 from ..solution_tester.tester import TestSolution
 import logging
 import colorama
@@ -32,10 +33,7 @@ def get_test_results_from_solution(solution, config = None):
     new_config["checker"] = config["checker"]
     new_config["tests_dir"] = globalconfig.temp_tests_dir #config["tests_dir"]        
     
-    solution = solution.replace('\\','/')
-    main_solution = config["main_solution"].replace('\\','/')
-    print(solution, main_solution)
-    if solution == main_solution:
+    if os.path.abspath(solution) == os.path.abspath(config["main_solution"]):
         #print("MAIN SOLUTION " + solution)
         new_config["expected_verdicts"] = ["OK"]
         new_config["optional_verdicts"] = []
@@ -44,7 +42,7 @@ def get_test_results_from_solution(solution, config = None):
         new_config["solution_args"] = []
     else:
         for sol_found in config["solution"]:
-            if sol_found["source"] == solution:
+            if os.path.abspath(sol_found["source"]) == os.path.abspath(solution):
                 #print("SOLUTION FOUND: " + sol_found)               
                 new_config["expected_verdicts"] = sol_found["expected_verdicts"]
                 new_config["optional_verdicts"] = sol_found["possible_verdicts"]
