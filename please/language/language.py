@@ -1,6 +1,8 @@
 #/bin/python3
 import os
-#the last is for commands
+import logging
+
+#"" is for commands
 langs = ["c", "c++", "c#", "pascal", "delphi", "python2", "python3", "java", ""] 
 
 class Language:
@@ -43,11 +45,14 @@ class Language:
         f.close()
         if (line.find("python3") != -1):
             return "python3"
-        else:
+        elif (line.find("python2") != -1):
             return "python2"
-        
+        else:
+            log = logging.getLogger("please_logger.language")
+            log.info("Assuming " + path + " is python2 file. If you want to translate it with python3, insert 'python3' in the first line of this file")        
+            return "python2"
+
     def __by_contents(self, path, info):
-        
         if (info[1:] == "python"):
             return self.__proceed_python(path)
         else:
