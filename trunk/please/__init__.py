@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 def main():
-    from please import log
+    from please.log import logger
     from please.cleaner import cleaner
     from please.command_line.matcher import Matcher, MatcherException
     from please.command_line.template import Template
@@ -32,11 +32,7 @@ def main():
     from please.answers_generator.answers_generator import AnswersGenerator
     from please.tests_answer_generator import tests_answer_generator
     from please.reports import generate_html_report
-    
-    mod_logger = logging.getLogger("please_logger")
-    
-    log.update_shortname()    
-    
+
     todo = todo_generator.TodoGenerator()
     matcher = Matcher()
     matcher.add_handler(Template(["create", "problem", "#shortname"]), problem_gen.generate_problem, True)
@@ -79,7 +75,6 @@ def main():
     matcher.add_handler(Template(["check", "main", "solution"]), check_solution.check_main_solution, in_problem_folder)
     matcher.add_handler(Template(["generate", "html", "report"]), generate_html_report.generate_html_report, in_problem_folder)
 
-    log = logging.getLogger("please_logger")
     if len(sys.argv) == 1:
         print_lite_help(package_config)
     else:
@@ -91,14 +86,14 @@ def main():
         except MatcherException as ex:
             print(str(ex))
             print_lite_help(package_config)
-        except CompileError as ex:
-            log = logging.getLogger("please_logger.executors.compiler")
-            log.error("CompilerError: " + str(ex))
+        #except CompileError as ex:
+        #    log = logging.getLogger("please_logger.executors.compiler")
+        #    log.error("CompilerError: " + str(ex))
         except RunnerError as ex:
             pass
         except OSError as ex:
-            log.error("OSError: " + str(ex))
+            logger.error("OSError: " + str(ex))
         #except IOError as ex:
         #    log.error("IOError: " + str(ex))
         except EnvironmentError as ex:
-            log.error("EnvironmentError: " + str(ex))
+            logger.error("EnvironmentError: " + str(ex))

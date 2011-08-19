@@ -1,7 +1,4 @@
-import please.log
-import logging
-
-logger = logging.getLogger('please_logger.log.log_test')
+from please.log import logger
 
 logger.debug('DEBUG')
 logger.info('INFO')
