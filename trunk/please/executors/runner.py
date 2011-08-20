@@ -38,6 +38,9 @@ class ExecutionControl:
         for f in (self.stdin_fh, self.stdout_fh, self.stderr_fh, self.process):
             if not f is None:
                 b = b or (f.__exit__(type, value, traceback) == True)
+        if (isinstance(type, psutil.error.NoSuchProcess)):
+            b = True
+        return b
 
 def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = None, \
         stdout_fh = None, stderr_fh = None, env=None, encoding = 'utf-8', shell = False):
