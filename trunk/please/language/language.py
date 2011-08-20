@@ -3,7 +3,7 @@ import os
 import logging
 
 #"" is for commands
-langs = ["c", "c++", "c#", "pascal", "delphi", "python2", "python3", "java", ""] 
+langs = ["c", "c++", "c#", "pascal", "delphi", "python2", "python3", "java", ""]
 
 class Language:
     '''
@@ -11,7 +11,7 @@ class Language:
     source code file is written.
     Currently it's very stupid, so don't mix extensions and
     don't be sad if it has made a mistake.
-    
+
     Example:
     Language lang()
     print(lang().get("test_files/helloworld.pas")) # outputs pascal
@@ -24,7 +24,7 @@ class Language:
         ext = os.path.splitext(fn)[1].lower()
         if not ext:
             return 'command'
-        dct = { ".c" : "c", 
+        dct = { ".c" : "c",
                 ".cpp" : "c++",
                 ".c++" : "c++",
                 ".cs" : "c#",
@@ -49,7 +49,7 @@ class Language:
             return "python2"
         else:
             log = logging.getLogger("please_logger.language")
-            log.info("Assuming " + path + " is python2 file. If you want to translate it with python3, insert 'python3' in the first line of this file")        
+            log.warning("Assuming " + path + " is python2 file. \nIf you want to translate it with python3, insert 'python3' in the comment in the first line of this file")
             return "python2"
 
     def __by_contents(self, path, info):
