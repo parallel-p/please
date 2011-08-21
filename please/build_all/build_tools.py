@@ -7,17 +7,16 @@ from ..utils import cleanup
 
 def build_all () :
     opened_config = package_config.PackageConfig.get_config()
-    
+
     #run todo
     todo_class = TodoGenerator ()
-    todo_class.get_todo() 
-    
+    todo_class.get_todo()
+
     #statement generation
     latex_tools.generate_contest()
-    
+
     #run Tests And Answers Generator
     generate_tests()
-    
-    #run check soltuion 
+
+    #run check soltuion
     check_multiple_solution()
-    cleanup.clean()
