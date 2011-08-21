@@ -54,7 +54,7 @@ class StressTester():
                 self.logger.error("Run exception: %s is not OK, invoker returned %s, return code %s" % (solution, res[0].verdict, res[0].return_code))
                 raise StressRunException()
         except CompileError:
-            # TODO: add runerror 
+            # TODO: add runerror
             self.logger.error("%s failed to compile" % solution)
             raise StressRunException()
 
@@ -147,5 +147,4 @@ class StressTester():
                 finally:
                     os.remove(test_path)
         except KeyboardInterrupt:
-            cleanup.clean()
             self.logger.info("Interrupted")
