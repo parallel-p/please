@@ -63,7 +63,7 @@ It returns ResultInfo, showing result of execution.
 
 Example of using:
   import psutil
-  import subprocess.PIPE
+  from subprocess import PIPE
 
   handler = psutil.Popen(["program.exe", "--arg1=first", "/arg2=second"],
                          stdout = PIPE) # read help(psutil.Popen)
