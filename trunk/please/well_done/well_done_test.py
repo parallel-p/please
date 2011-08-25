@@ -16,6 +16,7 @@ class Tester(unittest.TestCase):
         copyfile(os.path.join(self.__dir, 'testdata', filename), 
                 os.path.join(self.__dir, 'tmp'))
         self.assertEqual(WellDone(os.path.join(self.__dir, 'tmp'), func_list).check(), correct_result)
+        #Uncomment the followin line to leave fixed files as *.b files in testdata
         #copyfile(os.path.join(self.__dir, 'tmp'), os.path.join(self.__dir, 'testdata', filename + '.b'))
         self.assertTrue(cmp(os.path.join(self.__dir, 'tmp'), 
                         os.path.join(self.__dir, 'testdata', filename + '.a')))  
@@ -29,6 +30,38 @@ class Tester(unittest.TestCase):
         with self.assertRaises(IOError):
             WellDone(os.path.join(self.__dir, 'tmp2'), ['endswith_EOLN'])
 
+    def test_no_left_spaces(self):
+        self.__tests_runner('106', ['no_left_space'],(OK, []))
+        self.__tests_runner('107', ['no_left_space'],(OK, []))
+        self.__tests_runner('108', ['no_left_space'],(OK, []))
+        self.__tests_runner('109', ['no_left_space'],(OK, []))
+        self.__tests_runner('110', ['no_left_space'],(FIXED, ['no_left_space']))
+        self.__tests_runner('111', ['no_left_space'],(OK, []))
+        self.__tests_runner('112', ['no_left_space'],(FIXED, ['no_left_space']))
+        self.__tests_runner('113', ['no_left_space'],(FIXED, ['no_left_space']))
+        self.__tests_runner('114', ['no_left_space'],(OK, []))
+        self.__tests_runner('115', ['no_left_space'],(FIXED, ['no_left_space']))
+        self.__tests_runner('116', ['no_left_space'],(OK, []))
+        self.__tests_runner('117', ['no_left_space'],(OK, []))
+        self.__tests_runner('118', ['no_left_space'],(FIXED, ['no_left_space']))
+        self.__tests_runner('119', ['no_left_space'],(FIXED, ['no_left_space']))
+        
+    def test_no_right_spaces(self):
+        self.__tests_runner('206', ['no_right_space'],(OK, []))
+        self.__tests_runner('207', ['no_right_space'],(OK, []))
+        self.__tests_runner('208', ['no_right_space'],(OK, []))
+        self.__tests_runner('209', ['no_right_space'],(OK, []))
+        self.__tests_runner('210', ['no_right_space'],(OK, []))
+        self.__tests_runner('211', ['no_right_space'],(FIXED, ['no_right_space']))
+        self.__tests_runner('212', ['no_right_space'],(FIXED, ['no_right_space']))
+        self.__tests_runner('213', ['no_right_space'],(OK, []))
+        self.__tests_runner('214', ['no_right_space'],(FIXED, ['no_right_space']))
+        self.__tests_runner('215', ['no_right_space'],(FIXED, ['no_right_space']))
+        self.__tests_runner('216', ['no_right_space'],(OK, []))
+        self.__tests_runner('217', ['no_right_space'],(OK, []))
+        self.__tests_runner('218', ['no_right_space'],(FIXED, ['no_right_space']))
+        self.__tests_runner('219', ['no_right_space'],(FIXED, ['no_right_space']))
+        
     def test_no_left_right_spaces(self):
         self.__tests_runner('6', ['no_left_right_space'],(OK, []))
         self.__tests_runner('7', ['no_left_right_space'],(OK, []))
@@ -56,6 +89,22 @@ class Tester(unittest.TestCase):
         self.__tests_runner('28', ['no_double_space'],(FIXED, ['no_double_space']))
         self.__tests_runner('29', ['no_double_space'],(FIXED, ['no_double_space']))
  
+    def test_no_top_emptyline(self):
+        self.__tests_runner('131', ['no_top_emptyline'],(OK, []))
+        self.__tests_runner('132', ['no_top_emptyline'],(OK, []))
+        self.__tests_runner('133', ['no_top_emptyline'],(FIXED, ['no_top_emptyline']))
+        self.__tests_runner('134', ['no_top_emptyline'],(FIXED, ['no_top_emptyline']))
+        self.__tests_runner('135', ['no_top_emptyline'],(OK, []))
+        self.__tests_runner('136', ['no_top_emptyline'],(FIXED, ['no_top_emptyline']))
+    
+    def test_no_bottom_emptyline(self):
+        self.__tests_runner('231', ['no_bottom_emptyline'],(OK, []))
+        self.__tests_runner('232', ['no_bottom_emptyline'],(OK, []))
+        self.__tests_runner('233', ['no_bottom_emptyline'],(OK, []))
+        self.__tests_runner('234', ['no_bottom_emptyline'],(OK, []))
+        self.__tests_runner('235', ['no_bottom_emptyline'],(FIXED, ['no_bottom_emptyline']))
+        self.__tests_runner('236', ['no_bottom_emptyline'],(FIXED, ['no_bottom_emptyline']))
+    
     def test_no_top_bottom_emptyline(self):
         self.__tests_runner('31', ['no_top_bottom_emptyline'],(OK, []))
         self.__tests_runner('32', ['no_top_bottom_emptyline'],(OK, []))
@@ -70,18 +119,27 @@ class Tester(unittest.TestCase):
         self.__tests_runner('26', ['not_empty'],(OK, []))
         self.__tests_runner('27', ['not_empty'],(CRASH, ['not_empty']))
  
+    def test_no_emptyline(self):
+        self.__tests_runner('42', ['no_emptyline'],(OK, []))
+        self.__tests_runner('43', ['no_emptyline'],(OK, []))
+        self.__tests_runner('44', ['no_emptyline'],(FIXED, ['no_emptyline']))
+        self.__tests_runner('45', ['no_emptyline'],(FIXED, ['no_emptyline']))
+        self.__tests_runner('46', ['no_emptyline'],(FIXED, ['no_emptyline']))
+        self.__tests_runner('47', ['no_emptyline'],(FIXED, ['no_emptyline']))
+        self.__tests_runner('48', ['no_emptyline'],(FIXED, ['no_emptyline']))
+
     def test_complex(self):
         self.__tests_runner('37', ['endswith_EOLN', 'no_symbols_less_32', 
-                 'no_left_right_space', 'no_double_space', 
-                 'no_top_bottom_emptyline', 'not_empty'],(OK, []))
+                 'no_right_space', 'no_double_space', 
+                 'no_bottom_emptyline', 'not_empty'],(OK, []))
         self.__tests_runner('38', ['no_symbols_less_32', 
                  'no_left_right_space', 'no_double_space', 
-                 'no_top_bottom_emptyline', 'endswith_EOLN', 'not_empty'], 
+                 'no_top_emptyline', 'endswith_EOLN', 'not_empty'], 
                  (FIXED, ['no_left_right_space', 
-                   'no_double_space', 'no_top_bottom_emptyline']))
+                   'no_double_space', 'no_top_emptyline']))
         self.__tests_runner('39', ['no_symbols_less_32', 
-                 'no_left_right_space', 'no_double_space', 
-                 'no_top_bottom_emptyline', 'endswith_EOLN', 'not_empty'], 
+                 'no_right_space', 'no_double_space', 
+                 'no_emptyline', 'endswith_EOLN', 'not_empty'], 
                  (CRASH, ['not_empty']))
         self.__tests_runner('40', ['no_symbols_less_32', 
                  'no_left_right_space', 'no_double_space', 
