@@ -1,6 +1,9 @@
 from os import mkdir
 from os.path import exists
 import os.path
+import psutil
+from subprocess import PIPE
+from ..invoker.invoker import invoke, ExecutionLimits
 from .. import globalconfig
 from .template_utils import get_template_full_path
 from .statement_template_generator import generate_description, generate_statement
@@ -84,5 +87,11 @@ def generate_problem(shortname, handle_exception=True):
                               globalconfig.default_programming_language)
         info_generator.create_time_file(shortname)
         log.info("Problem %s created successfully", str(shortname))
+        handler = psutil.Popen(["svn", "import", shortname, "https://please.googlecode.com/svn/problems_on_please/" + shortname,
+              '-m', 'create problem ' + shortname],
+                         stdout = PIPE) 
+        limits = ExecutionLimits(real_time=30, memory=1024) 
+        result = invoke(handler, limits)
+        print(str(result)) 
     except ProblemExistsError as Error:
         log.error(str(Error))
