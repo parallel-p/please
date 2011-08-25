@@ -49,18 +49,28 @@ class WellDone:
         else:
             return OK
 
-    def no_left_right_space(self):
+    def no_left_space(self):
+        result = OK
+        if re.search(r'^\ ', self.__content):
+            result = FIXED
+            self.__content = re.sub(r'^\ +', '', self.__content)
+        if re.search(r'\n\ ', self.__content):
+            result = FIXED
+            self.__content = re.sub(r'\n\ *', '\n', self.__content)
+        return result
+
+    def no_right_space(self):
         result = OK
         if re.search(r'\ $', self.__content):
             result = FIXED
             self.__content = re.sub(r'\ +$', '', self.__content)
-        if re.search(r'^\ ', self.__content):
+        if re.search(r'\ \n', self.__content):
             result = FIXED
-            self.__content = re.sub(r'^\ +', '', self.__content)
-        if re.search(r'\ \n', self.__content) or re.search(r'\n\ ', self.__content):
-            result = FIXED
-            self.__content = re.sub(r'\ *\n\ *', '\n', self.__content)
+            self.__content = re.sub(r'\ *\n', '\n', self.__content)
         return result
+
+    def no_left_right_space(self):
+        return max(self.no_left_space(), self.no_right_space())
 
     def no_symbols_less_32(self):
         for c in self.__content:
@@ -76,15 +86,22 @@ class WellDone:
         else:
             return OK
      
-    def no_top_bottom_emptyline(self):
+    def no_top_emptyline(self):
         result = OK
         if re.search(r'^\n', self.__content):
             result = FIXED
             self.__content = re.sub(r'^\n+', '', self.__content)
+        return result
+
+    def no_bottom_emptyline(self):
+        result = OK
         if re.search(r'\n\n$', self.__content):
             result = FIXED
             self.__content = re.sub(r'\n\n+$', '\n', self.__content)
         return result
+
+    def no_top_bottom_emptyline(self):
+        return max(self.no_top_emptyline(), self.no_bottom_emptyline())
 
     def not_empty(self):
         #check if file contains __non-space__ characters
@@ -93,18 +110,30 @@ class WellDone:
         else:
             return OK
 
+    def no_emptyline(self):
+        result = OK
+        if re.search(r'^\n', self.__content):
+            result = FIXED
+            self.__content = re.sub(r'^\n+', '', self.__content)
+        if re.search(r'\n\n', self.__content):
+            result = FIXED
+            self.__content = re.sub(r'\n\n+', '\n', self.__content)
+        return result
+
 ###################################################################
 # End of check functions block
 ###################################################################
 
     def __rewrite(self):
+        #write down modified content of file
         with open(self.__path, 'w', encoding = "utf-8") as f:
             f.write(self.__content)
 
     def check(self):
+        #apply each checking function to the content of the file
         self.__fixes = []
         for function_name in self.__check_functions_list:
-            #dirty trick to operate with splitted lists whith unknown spaces
+            #dirty trick to operate with splitted lists with unknown spaces
             function_name = function_name.strip()
             result = getattr(self, function_name)()
             if result == CRASH:
@@ -119,6 +148,8 @@ class WellDone:
 
 
 def well_done_check_test(filename, function_list):
+    #check test or answer file and write result to the log
+    #in future this function must return verdict to be analysed by test generator
     logger = logging.getLogger("please_logger.well_done")
     result = WellDone(os.path.join(filename), function_list).check()
     if result[0] == OK:
