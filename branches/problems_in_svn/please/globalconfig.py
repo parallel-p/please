@@ -49,4 +49,7 @@ ejudge_contests_dir = "/var/lib/ejudge/"
 #information about polygon
 access = {'login': 'makhmedov', "password" : "lzlzfbr"}
 polygon_url = "http://codecenter.sgu.ru:8081/polygon"
-ejudge_contests_dir = "/var/lib/ejudge/"
+
+#information about problems' svn-repository
+svn_access = {'login': 'gurovic@gmail.com', "password" : "ez9NP2Hz5BD5"}
+svn_url = "https://please.googlecode.com/svn/problems_on_please/"
