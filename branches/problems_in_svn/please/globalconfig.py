@@ -53,6 +53,6 @@ polygon_url = "http://codecenter.sgu.ru:8081/polygon"
 
 #information about problems' svn-repository
 svn = {'url': 'https://please-svn.googlecode.com/svn/problems/',
-       'login': 'gurovic@gmail.com', 
+       'username': 'gurovic@gmail.com', 
        'password' : 'ez9NP2Hz5BD5'}
 
