@@ -14,11 +14,14 @@ def svn_operation(command):
     handler = psutil.Popen(['svn'] + command + ['--username', svn['username'], 
                                       '--password', svn['password']],
                            stdout = PIPE) 
-    print(" ".join(['svn'] + command + ['--username', svn['username'], 
-                                      '--password', svn['password']]))
+    #print(" ".join(['svn'] + command + ['--username', svn['username'], 
+    #                                  '--password', svn['password']]))
     result = invoke(handler, default_limits)
     if result.verdict == 'OK':
         logger.info(" ".join(command)) 
+    else:
+        logger.error("failed " + " ".join(command))
+        exit()
     return result
 
 def add_created_problem(shortname):
