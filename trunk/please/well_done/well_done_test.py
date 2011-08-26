@@ -10,7 +10,8 @@ from please.well_done.well_done import *
 
 class Tester(unittest.TestCase):
 
-    __dir = os.path.dirname(__file__)
+    __dir = str(os.path.dirname(__file__))
+    print(__dir)  
 
     def __tests_runner(self,filename, func_list, correct_result):
         copyfile(os.path.join(self.__dir, 'testdata', filename), 
@@ -154,14 +155,6 @@ class Tester(unittest.TestCase):
                  (FIXED, ['no_left_right_space', 'no_top_bottom_emptyline', 
                   'endswith_EOLN']))
 
-    #def __tests_check_runner(self, filename, func_list, correct_result):
-    #    copyfile(os.path.join(self.__dir, 'testdata', filename), 
-    #            os.path.join(self.__dir, 'tmp'))
-    #    self.assertEqual(WellDone(os.path.join(self.__dir, 'tmp'), func_list).check(), correct_result)
-    #    copyfile(os.path.join(self.__dir, 'tmp'), os.path.join(self.__dir, 'testdata', filename + '.b'))
-    #    self.assertTrue(cmp(os.path.join(self.__dir, 'tmp'), 
-    #                    os.path.join(self.__dir, 'testdata', filename + '.a')))  
-
     def setUp(self):
         self.mox = mox.Mox()
 
@@ -186,13 +179,13 @@ class Tester(unittest.TestCase):
         self.__well_done_check_runner('.tests/42', ['no_symbols_less_32', 
                  'no_left_right_space', 'no_double_space', 
                  'no_top_bottom_emptyline', 'endswith_EOLN', 'not_empty'], 
-                 'C:\\temp\\_sis2011-jul\\P\\please\\please\\trunk\\please\\well_done\\.tests/42 was fixed with no_left_right_space, no_double_space, no_top_bottom_emptyline')
+                 self.__dir + '\\.tests/42 was fixed with no_left_right_space, no_double_space, no_top_bottom_emptyline')
         self.__well_done_check_runner('.tests/43', [], 
-                 'C:\\temp\\_sis2011-jul\\P\\please\\please\\trunk\\please\\well_done\\.tests/43 is well-done')
+                 self.__dir + '\\.tests/43 is well-done')
         self.__well_done_check_runner('.tests/44', ['no_symbols_less_32', 
                  'no_left_right_space', 'no_double_space', 
                  'no_top_bottom_emptyline', 'endswith_EOLN', 'not_empty'], 
-                 'C:\\temp\\_sis2011-jul\\P\\please\\please\\trunk\\please\\well_done\\.tests/44 check was crashed while testing with not_empty')
+                 self.__dir + '\\.tests/44 check was crashed while testing with not_empty')
          
     def tearDown(self):        
         if os.path.exists(os.path.join(self.__dir, 'tmp')):
