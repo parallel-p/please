@@ -5,6 +5,7 @@ please_version = 0.1
 root = os.path.split(__file__)[0]
 
 default_limits = ExecutionLimits(20, 3512)
+
 # templates
 default_template_dir = "templates"
 default_template_contest = "contest.tex"
@@ -51,5 +52,7 @@ access = {'login': 'makhmedov', "password" : "lzlzfbr"}
 polygon_url = "http://codecenter.sgu.ru:8081/polygon"
 
 #information about problems' svn-repository
-svn_access = {'login': 'gurovic@gmail.com', "password" : "ez9NP2Hz5BD5"}
-svn_url = "https://please.googlecode.com/svn/problems_on_please/"
+svn = {'url': 'https://please-svn.googlecode.com/svn/problems/',
+       'login': 'gurovic@gmail.com', 
+       'password' : 'ez9NP2Hz5BD5'}
+
