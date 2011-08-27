@@ -87,7 +87,7 @@ class TestInfo:
         return line[0 : first_not_whitespace]
     
     def __is_command(self, token):
-        #command are not supported now
+        #command echo is the only supported command now
         #list will contain more elements in future
         return token in ['echo'] 
     
