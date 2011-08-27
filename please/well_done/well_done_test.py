@@ -11,7 +11,6 @@ from please.well_done.well_done import *
 class Tester(unittest.TestCase):
 
     __dir = str(os.path.dirname(__file__))
-    print(__dir)  
 
     def __tests_runner(self,filename, func_list, correct_result):
         copyfile(os.path.join(self.__dir, 'testdata', filename), 
