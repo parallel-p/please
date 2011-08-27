@@ -24,16 +24,17 @@ def get_svn_name(shortname):
 
 def svn_operation(command):
     #all real communication with svn is in this function only
-    handler = psutil.Popen(['svn'] + command + ['--username', svn['username'], 
-                                                '--password', svn['password']],
-                           stdout = PIPE) 
-    result = invoke(handler, default_limits)
-    if result.verdict == 'OK':
-        logger.info("svn " + " ".join(command)) 
-    else:
-        logger.error("failed: svn " + " ".join(command))
-        exit()
-    return result
+    if svn['url'] != '':
+        handler = psutil.Popen(['svn'] + command + ['--username', svn['username'], 
+                                                    '--password', svn['password']],
+                               stdout = PIPE) 
+        result = invoke(handler, default_limits)
+        if result.verdict == 'OK':
+            logger.info("svn " + " ".join(command)) 
+        else:
+            logger.error("failed: svn " + " ".join(command))
+            exit()
+        return result
 
 def add_created_problem(shortname):
     shortname = str(shortname)
@@ -72,10 +73,11 @@ def on_remove_error(func, path, exc_info):
     os.unlink(path)
 
 def delete_problem(shortname):
-    svn_path = get_svn_path(shortname)
-    svn_name = get_svn_name(shortname)
     shutil.rmtree(shortname, onerror = on_remove_error)
-    svn_operation(['move', svn_path + '/' + svn_name,
+    if svn['url'] != '':
+        svn_path = get_svn_path(shortname)
+        svn_name = get_svn_name(shortname)
+        svn_operation(['move', svn_path + '/' + svn_name,
                            svn_path + '/.deleted/' + svn_name,
                    '--parents', '-m', 'move problem ' + shortname + ' to .deleted'])
 

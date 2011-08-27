@@ -12,6 +12,7 @@ from please.template import problem_template_generator as problem_gen
 from please.solution_tester import package_config
 from please.tags import add_tags, show_tags, clear_tags
 from please.latex import latex_tools
+from please.svn import delete_problem
 
 class PleaseTest(unittest.TestCase):
     
@@ -23,7 +24,7 @@ class PleaseTest(unittest.TestCase):
     def tearDown(self):
         
         if os.path.exists("problem_test"):
-            shutil.rmtree("problem_test")        
+            delete_problem("problem_test")        
     
     def test_problem_creation(self):
         """ Checks command 'create problem problem_name' """

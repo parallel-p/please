@@ -2,6 +2,8 @@ import unittest
 import sys
 from coverage import coverage
 from please import log
+from please import globalconfig
+
 def analysis(infile):
      strings = infile.read().split("\n")
      errors = []
@@ -42,7 +44,8 @@ def run_consol_test(directory):
      suite.addTests(loader.discover(directory,"*_test.py"))
      unittest.TextTestRunner(verbosity = 2).run(suite)
 
-
+#do not use svn during tests
+globalconfig.svn['url'] = ''
 args = sys.argv
 loader = unittest.TestLoader()
 suite = unittest.TestSuite()

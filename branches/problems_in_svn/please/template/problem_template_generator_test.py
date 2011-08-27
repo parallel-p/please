@@ -1,10 +1,11 @@
-from please.template.problem_template_generator import *
 from os.path import exists
 from os import mkdir, remove
 from shutil import rmtree, copytree
 import os
-
 import unittest
+
+from please.template.problem_template_generator import *
+from please.svn import delete_problem
 
 class TestStatementDescriptionGenerator(unittest.TestCase):
     def setUpClass():
@@ -12,9 +13,9 @@ class TestStatementDescriptionGenerator(unittest.TestCase):
     
     def tearDownClass():
         if exists("aplusb"):
-            rmtree("aplusb")
+            delete_problem("aplusb")
         if exists("cats"):
-            rmtree("cats")
+            delete_problem("cats")
         
     def test_problem1(self):
         generate_problem('aplusb')
