@@ -9,7 +9,8 @@ global_commands = ["create problem PROBLEM_NAME",
              "help",
              "[show] todo PATH_TO_PROBLEM",
              "import polygon package PATH_TO_POLYGON_PACKAGE",
-             "import polygon problem PROBLEM_LETTER from contest CONTEST_ID"
+             "import polygon problem PROBLEM_LETTER from contest CONTEST_ID",
+	     "delete problem PROBLEM_NAME", 
              ]
 
 problem_commands = ["generate statement",
@@ -78,7 +79,11 @@ Global commands available:
     example: import polygon package centroid.zip
   
   {7}:
-    Imports given Polygon problem from given contest""".format(PLEASE_VERSION, *global_commands))
+    Imports given Polygon problem from given contest
+
+  {8}:
+    Deletes local copy of the problem and moves it to .deleted folder
+    in svn repository, if globalconfig.svn['url'] != ''""".format(PLEASE_VERSION, *global_commands))
     print("""
 Commands available when inside problem's folder:
 
