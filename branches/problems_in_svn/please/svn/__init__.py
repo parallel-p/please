@@ -73,11 +73,10 @@ def on_remove_error(func, path, exc_info):
     os.unlink(path)
 
 def delete_problem(shortname):
-    shutil.rmtree(shortname, onerror = on_remove_error)
     if svn['url'] != '':
         svn_path = get_svn_path(shortname)
         svn_name = get_svn_name(shortname)
         svn_operation(['move', svn_path + '/' + svn_name,
                            svn_path + '/.deleted/' + svn_name,
                    '--parents', '-m', 'move problem ' + shortname + ' to .deleted'])
-
+    shutil.rmtree(shortname, onerror = on_remove_error)
