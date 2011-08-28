@@ -12,6 +12,9 @@ from ..invoker.invoker import invoke, ExecutionLimits
 class SvnError(Exception):
     pass
 
+def problem_in_svn(shortname = '.'):
+    return os.path.exists(os.path.join(shortname, '.please', 'svn_path'))
+
 def svn_probname(shortname):
     user = svn['username'].split('@')[0]
     return shortname + '_' + user + '_' + str(int(float(get_time_config(shortname))))
@@ -31,15 +34,17 @@ def get_time_config(shortname):
                                         'r', encoding='utf-8') as f:
         return f.readline()
 
+def svn_accessible(shortname = '.'):
+    return svn_path_exists(get_svn_path(shortname))
 
-def svn_exists(path):
-    return svn_operation(['info', path]) == 'OK'
+def svn_path_exists(path):
+    return svn_operation(['info', path]).verdict == 'OK'
 
-def svn_problem_exists(shortname):
-    return svn_exists(get_svn_path(shortname) + '/' + get_svn_name(shortname))
+def svn_problem_exists(shortname = '.'):
+    return svn_path_exists(get_svn_path(shortname) + '/' + get_svn_name(shortname))
 
-def svn_deleted_problem_exists(shortname):
-    return svn_exists(get_svn_path(shortname) + '/.deleted/' + get_svn_name(shortname))
+def svn_deleted_problem_exists(shortname = '.'):
+    return svn_path_exists(get_svn_path(shortname) + '/.deleted/' + get_svn_name(shortname))
 
 def svn_operation(command):
     #all real communication with svn is in this function only
@@ -106,3 +111,21 @@ def delete_problem(shortname):
                            svn_path + '/.deleted/' + svn_name,
                    '--parents', '-m', 'move problem ' + shortname + ' to .deleted'])
     shutil.rmtree(shortname, onerror = on_remove_error)
+
+def svn_add(path):
+    #run from problem directory
+    if not problem_in_svn():
+        logger.info("Problem is not in svn repository")
+        return
+    if not svn_accessible():
+        logger.info("No access to svn. Please, commit your changes manually later")
+        return 
+    if not svn_problem_exists():
+        if svn_deleted_problem_exists():
+            logger.info("Problem was deleted and moved to .deleted folder in svn")
+            return 
+        else:
+            logger.error("Problem was not found in svn")
+            return 
+    logger.info("Problem found in svn")
+             
