@@ -6,6 +6,7 @@ import subprocess
 from ..log import logger
 from ..globalconfig import svn, default_limits
 from ..invoker.invoker import invoke, ExecutionLimits
+from ..utils import platform_detector
 
 class SvnError(Exception):
     pass
@@ -53,13 +54,17 @@ def svn_operation(command):
         if command[0] == 'ls':
             run_command = ['svn'] + command + ['--username', svn['username'], 
                                                         '--password', svn['password']]
-            #print(run_command)
             result = 1 - subprocess.call(run_command)
             return result
         else:
             logger.info("svn " + " ".join(command)) 
-            run_command = ['svn'] + command + ['--username', svn['username'], 
+            if platform_detector.get_platform()[0] == 'Windows':
+                run_command = ['svn'] + command + ['--username', svn['username'], 
                                                         '--password', svn['password']]
+            else:
+                run_command = 'bash -c"' + " ".join(['svn'] + command + ['--username', svn['username'], 
+                                                        '--password', svn['password']]) + '"'
+                print(run_command)
             result = 1 - subprocess.call(run_command)
             if result:
                 return True
