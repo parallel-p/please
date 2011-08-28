@@ -88,7 +88,7 @@ def add_created_problem(shortname):
     # 1. Create empty directory in svn
     # --parents creates directory 'problems', if it doesn't exist
     svn_operation(['mkdir', svn['url'] + svnname, '--parents',
-                   '-m', 'create directory for new problem ' + shortname])
+                   '-m', '"create directory for new problem ' + shortname + '"'])
 
     # 2. Checkout it into local problem directory
     svn_operation(['checkout', svn['url'] + svnname, shortname])
@@ -98,7 +98,7 @@ def add_created_problem(shortname):
     svn_operation(['add', '*'])
 
     # 4. Commit
-    svn_operation(['ci', '-m', 'problem ' + shortname + ' initial commit'])
+    svn_operation(['ci', '-m', '"problem ' + shortname + ' initial commit"'])
     os.chdir('..')
 
 def on_remove_error(func, path, exc_info):
@@ -114,7 +114,7 @@ def delete_problem(shortname):
         svn_name = get_svn_name(shortname)
         svn_operation(['move', svn_path + '/' + svn_name,
                            svn_path + '/.deleted/' + svn_name,
-                   '--parents', '-m', 'move problem ' + shortname + ' to .deleted'])
+                   '--parents', '-m', '"move problem ' + shortname + ' to .deleted"'])
     shutil.rmtree(shortname, onerror = on_remove_error)
 
 class ProblemInSvn:
@@ -153,9 +153,9 @@ class ProblemInSvn:
         #run from problem directory
         if self.__in_svn:
             svn_operation(['add', path])
-            svn_operation(['ci', '-m', description + ' ' + path + ' added'])
+            svn_operation(['ci', '-m', '"' + description + ' ' + path + ' added"'])
 
     def update(self, path, description = ''):
         #run from problem directory
         if self.__in_svn:
-            svn_operation(['ci', '-m', description + ' ' + path + ' updated'])
+            svn_operation(['ci', '-m', '"' + description + ' ' + path + ' updated"'])
