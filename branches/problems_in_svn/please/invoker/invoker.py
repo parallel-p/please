@@ -118,10 +118,9 @@ def invoke(handler, limits):
         
         try:
             return_code = handler.wait(CHECK_PERIOD)
-            print('return_code = ', return_code)
         except psutil.TimeoutExpired:
             pass
-    print('verdict = ', verdict, ' return_code =', return_code)        
+
     verdict = verdict or ("OK" if return_code == 0 else "RE")
     return ResultInfo(verdict, return_code, real_time, cpu_time, used_memory / MEGABYTE)
 
