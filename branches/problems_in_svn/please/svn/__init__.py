@@ -1,8 +1,7 @@
 import os
 import stat
 import shutil
-import psutil
-from subprocess import PIPE
+import subprocess
 
 from ..executors import runner
 from ..log import logger
@@ -38,7 +37,9 @@ def svn_accessible(shortname = '.'):
     return svn_path_exists(get_svn_path(shortname))
 
 def svn_path_exists(path):
-    return svn_operation(['info', path]).verdict == 'OK'
+    result = svn_operation(['ls', path, '--depth=empty'])
+    #print(result)
+    return result
 
 def svn_problem_exists(shortname = '.'):
     return svn_path_exists(get_svn_path(shortname) + '/' + get_svn_name(shortname))
@@ -50,19 +51,19 @@ def svn_operation(command):
     #all real communication with svn is in this function only
     if svn['url'] != '':
         #check if svn path exist:
-        if command[0] == 'info':
-            handler = psutil.Popen(['svn'] + command + ['--username', svn['username'], 
-                                                        '--password', svn['password']],
-                                   stdout = PIPE, stderr = PIPE) 
-            result = invoke(handler, default_limits)
+        if command[0] == 'ls':
+            run_command = ['svn'] + command + ['--username', svn['username'], 
+                                                        '--password', svn['password']]
+            #print(run_command)
+            result = 1 - subprocess.call(run_command)
             return result
         else:
             logger.info("svn " + " ".join(command)) 
-            handler = psutil.Popen(['svn'] + command + ['--username', svn['username'], 
-                                                        '--password', svn['password']]) 
-            result = invoke(handler, default_limits)
-            if result.verdict == 'OK':
-                return result
+            run_command = ['svn'] + command + ['--username', svn['username'], 
+                                                        '--password', svn['password']]
+            result = 1 - subprocess.call(run_command)
+            if result:
+                return True
             else:
                 logger.error("failed: svn " + " ".join(command))
                 raise SvnError("failed: svn " + " ".join(command))
@@ -112,20 +113,45 @@ def delete_problem(shortname):
                    '--parents', '-m', 'move problem ' + shortname + ' to .deleted'])
     shutil.rmtree(shortname, onerror = on_remove_error)
 
-def svn_add(path):
-    #run from problem directory
-    if not problem_in_svn():
-        logger.info("Problem is not in svn repository")
-        return
-    if not svn_accessible():
-        logger.info("No access to svn. Please, commit your changes manually later")
-        return 
-    if not svn_problem_exists():
-        if svn_deleted_problem_exists():
-            logger.info("Problem was deleted and moved to .deleted folder in svn")
-            return 
+class ProblemInSvn:
+    '''Main purpose of this class - to exclude double checks of svn accessibility
+       and duplicating svn up command
+
+       USAGE:
+       in_svn = ProblemInSVN()
+       in_svn.add('checker.cpp', 'checker')
+       in_svn.update('solutions/solution.cpp', 'solution')
+       in_svn.update('default.please')
+    '''   
+
+    def __init__(self):
+        #run from problem directory
+        if not problem_in_svn():
+            logger.warning("Problem is not in svn repository")
+            self.__in_svn = False
+        elif not svn_accessible():
+            logger.warning("No access to svn. Please, commit your changes manually later")
+            self.__in_svn = False
+        elif not svn_problem_exists():
+            if svn_deleted_problem_exists():
+                logger.warning("Problem was deleted and moved to .deleted folder in svn")
+                self.__in_svn = False
+            else:
+                logger.error("Problem was not found in svn")
+                self.__in_svn = False
         else:
-            logger.error("Problem was not found in svn")
-            return 
-    logger.info("Problem found in svn")
+            logger.info("Problem found in svn")
+            self.__in_svn = True
+            svn_operation(['up'])
+
+    def add(self, path, description = ''):
+        #run from problem directory
+        if self.__in_svn:
+            svn_operation(['add', path])
+            svn_operation(['ci', '-m', description + ' ' + path + ' added'])
+
+    def update(self, path, description = ''):
+        #run from problem directory
+        if self.__in_svn:
+            svn_operation(['ci', '-m', description + ' ' + path + ' updated'])
              

@@ -1,3 +1,5 @@
 import please.svn
 #please.svn.delete_problem('a11')
-print(please.svn.svn_add('tmp'))
+insvn = please.svn.ProblemInSvn()
+insvn.add('tmp','temporary')
+insvn.update('tmp','temporary')
