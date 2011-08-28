@@ -62,7 +62,7 @@ def svn_operation(command):
                 run_command = ['svn'] + command + ['--username', svn['username'], 
                                                         '--password', svn['password']]
             else:
-                run_command = 'bash -c"' + " ".join(['svn'] + command + ['--username', svn['username'], 
+                run_command = 'bash -c "' + " ".join(['svn'] + command + ['--username', svn['username'], 
                                                         '--password', svn['password']]) + '"'
                 print(run_command)
             result = 1 - subprocess.call(run_command)
