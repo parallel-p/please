@@ -4,37 +4,63 @@ import shutil
 import psutil
 from subprocess import PIPE
 
+from ..executors import runner
 from ..log import logger
 from ..globalconfig import svn, default_limits
 from ..invoker.invoker import invoke, ExecutionLimits
 
+class SvnError(Exception):
+    pass
+
 def svn_probname(shortname):
     user = svn['username'].split('@')[0]
-    return shortname + '_' + user 
+    return shortname + '_' + user + '_' + str(int(float(get_time_config(shortname))))
 
-def get_svn_path(shortname):
+def get_svn_path(shortname = '.'):
     with open(os.path.join(shortname, '.please', 'svn_path'),
                                         'r', encoding='utf-8') as f:
         return f.readline()
 
-def get_svn_name(shortname):
+def get_svn_name(shortname = '.'):
     with open(os.path.join(shortname, '.please', 'svn_name'),
                                         'r', encoding='utf-8') as f:
         return f.readline()
 
+def get_time_config(shortname):
+    with open(os.path.join(shortname, '.please', 'time.config'),
+                                        'r', encoding='utf-8') as f:
+        return f.readline()
+
+
+def svn_exists(path):
+    return svn_operation(['info', path]) == 'OK'
+
+def svn_problem_exists(shortname):
+    return svn_exists(get_svn_path(shortname) + '/' + get_svn_name(shortname))
+
+def svn_deleted_problem_exists(shortname):
+    return svn_exists(get_svn_path(shortname) + '/.deleted/' + get_svn_name(shortname))
+
 def svn_operation(command):
     #all real communication with svn is in this function only
     if svn['url'] != '':
-        handler = psutil.Popen(['svn'] + command + ['--username', svn['username'], 
-                                                    '--password', svn['password']],
-                               stdout = PIPE) 
-        result = invoke(handler, default_limits)
-        if result.verdict == 'OK':
-            logger.info("svn " + " ".join(command)) 
+        #check if svn path exist:
+        if command[0] == 'info':
+            handler = psutil.Popen(['svn'] + command + ['--username', svn['username'], 
+                                                        '--password', svn['password']],
+                                   stdout = PIPE, stderr = PIPE) 
+            result = invoke(handler, default_limits)
+            return result
         else:
-            logger.error("failed: svn " + " ".join(command))
-            exit()
-        return result
+            logger.info("svn " + " ".join(command)) 
+            handler = psutil.Popen(['svn'] + command + ['--username', svn['username'], 
+                                                        '--password', svn['password']]) 
+            result = invoke(handler, default_limits)
+            if result.verdict == 'OK':
+                return result
+            else:
+                logger.error("failed: svn " + " ".join(command))
+                raise SvnError("failed: svn " + " ".join(command))
 
 def add_created_problem(shortname):
     shortname = str(shortname)

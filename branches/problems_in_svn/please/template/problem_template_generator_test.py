@@ -15,7 +15,7 @@ class TestStatementDescriptionGenerator(unittest.TestCase):
         if exists("aplusb"):
             delete_problem("aplusb")
         if exists("cats"):
-            delete_problem("cats")
+            shutil.rmtree("cats")
         
     def test_problem1(self):
         generate_problem('aplusb')

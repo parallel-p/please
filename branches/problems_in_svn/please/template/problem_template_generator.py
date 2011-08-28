@@ -40,6 +40,7 @@ def generate_package(name, replaces, shortname):
 def generate_problem_advanced(shortname, human_language, programming_language):
     ''' Generates file structure of problem (templates (checker, validator, etc) and default.package) '''
     if exists(shortname):
+        input()
         raise ProblemExistsError(shortname)
 
     mkdir(shortname)
