@@ -3,7 +3,6 @@ import stat
 import shutil
 import subprocess
 
-from ..executors import runner
 from ..log import logger
 from ..globalconfig import svn, default_limits
 from ..invoker.invoker import invoke, ExecutionLimits
@@ -128,6 +127,7 @@ class ProblemInSvn:
         #run from problem directory
         if not problem_in_svn():
             logger.warning("Problem is not in svn repository")
+            raise SvnError
             self.__in_svn = False
         elif not svn_accessible():
             logger.warning("No access to svn. Please, commit your changes manually later")
