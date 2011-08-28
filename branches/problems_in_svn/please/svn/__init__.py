@@ -52,19 +52,19 @@ def svn_operation(command):
     if svn['url'] != '':
         #check if svn path exist:
         if command[0] == 'ls':
-            run_command = ['svn'] + command + ['--username', svn['username'], 
+            run_command = ['svn'] + command + ['--username', svn['username'],
                                                         '--password', svn['password']]
             result = 1 - subprocess.call(run_command)
             return result
         else:
-            logger.info("svn " + " ".join(command)) 
+            logger.info("svn " + " ".join(command))
             if platform_detector.get_platform()[0] == 'Windows':
-                run_command = ['svn'] + command + ['--username', svn['username'], 
+                run_command = ['svn'] + command + ['--username', svn['username'],
                                                         '--password', svn['password']]
             else:
-                run_command = 'bash -c "' + " ".join(['svn'] + command + ['--username', svn['username'], 
-                                                        '--password', svn['password']]) + '"'
-                print(run_command)
+                run_command = ['bash', '-c', " ".join(['svn'] + command + ['--username', svn['username'],
+                                                        '--password', svn['password']])]
+                #logger.error(' '.join(run_command))
             result = 1 - subprocess.call(run_command)
             if result:
                 return True
@@ -95,7 +95,7 @@ def add_created_problem(shortname):
 
     # 3. Add all content of this directory to svn
     os.chdir(shortname)
-    svn_operation(['add', '*']) 
+    svn_operation(['add', '*'])
 
     # 4. Commit
     svn_operation(['ci', '-m', 'problem ' + shortname + ' initial commit'])
@@ -103,7 +103,7 @@ def add_created_problem(shortname):
 
 def on_remove_error(func, path, exc_info):
     # path contains the path of the file that couldn't be removed
-    # let's just assume that it's read-only and unlink it: 
+    # let's just assume that it's read-only and unlink it:
     # it's usually .svn/all-wcprops
     os.chmod(path, stat.S_IWRITE)
     os.unlink(path)
@@ -126,7 +126,7 @@ class ProblemInSvn:
        in_svn.add('checker.cpp', 'checker')
        in_svn.update('solutions/solution.cpp', 'solution')
        in_svn.update('default.please')
-    '''   
+    '''
 
     def __init__(self):
         #run from problem directory
@@ -159,4 +159,3 @@ class ProblemInSvn:
         #run from problem directory
         if self.__in_svn:
             svn_operation(['ci', '-m', description + ' ' + path + ' updated'])
-             
