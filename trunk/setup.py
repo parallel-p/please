@@ -69,7 +69,7 @@ except ImportError as e:
 
 setup_params = { \
     'name'             : 'Please',
-    'version'          : '0.1',
+    'version'          : '0.2',
     'description'      : '***',
     'py_modules'       : modules,
     'package_dir'      : {'please': 'please'},
