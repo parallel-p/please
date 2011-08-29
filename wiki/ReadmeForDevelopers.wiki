@@ -28,12 +28,16 @@ _К слову - developer-версия отличается от install-вер
 
 Я опишу самые частоюзабельные команды у него.
 
+== install ==
+{{{python setup.py install}}}
+Собственно то, ради чего этот скрипт и писался. Оно ставит please как приложение на комп конечному пользователю. Хочет права администратора/суперюзера. Что тут ещё сказать?
+
 == develop ==
 {{{python setup.py develop}}}
 
 Ставит please как библиотеку к вам в питон, правда фейковым образом - всё содержимое библиотеки выносится в рабочую копию, то есть выполнятся будет именно тот код, который у вас лежит в рабочей копии.
 
-== bdist* ==
+== bdist, bdist_dubm, bdist_rpm, bdist_wininst, ... ==
 {{{
 python setup.py bdist
 python setup.py bdist_dumb
@@ -48,7 +52,22 @@ python setup.py bdist_wininst
 python setup.py sdist
 }}}
 
-Создаёт в папке sdist source-дистрибутив. Он собой представляет архив (.tar.gz или .zip, в зависимости от системы) с setup.py и всеми внутренностями нашего дорогого please, который мы будем выкладывать в downloads. Как именно - читайте [ReadmeForDevelopers#Публикация_дистрибутива здесь].
+Создаёт в папке sdist source-дистрибутив. Он собой представляет архив (.tar.gz или .zip, в зависимости от системы) с setup.py и всеми внутренностями нашего дорогого please, который мы будем выкладывать в downloads. Как именно - читайте [ReadmeForDevelopers#Publication].
 
-== Публикация дистрибутива ==
-Если вам придёт в голову
+= Publication ==
+Если вам нужно выложить что-то в раздел downloads, то для этого есть скрипт, упрощащающий жизнь - он называется googlecode_uploader.py
+*Это важно: Он не работает под python 3! (_А мне пока было лень разбираться, почему портирование с помощью 2to3 ломает всю сисстему общения с сервером_) Пользуйтесь, пожалуйста, python 2, используя его!*
+Синтаксис:
+{{{
+python googlecode_upload.py -s "{description}" -p please -u {username} -w {googlecode_password} {filename}
+}}}
+Оно выкладывает файл {filename} в раздел downloads в code.google.com/p/please от лица юзера {username} с паролем {googlecode_password}
+Пример работы с ним:
+{{{
+python3 setup.py sdist
+python googlecode_upload.py -s "0.42final please release. Download it immediatly!" -p please -u Vasya.Pupkin@gmail.com -w A1B2CqE3R42h dist/Please-0.42.tar.gz
+}}}
+Не бойтесь, если оно работает долго. Оно у всех работает долго. Почему - покрыто мраком, может быть тормозят сервера гугла.
+
+= Known bugs in installing =
+  * Может не собраться psutil под виндовой системой из-за отсутсвия инсталлера. Эта ошибка, по идее, должна исправиться с выходом 0.6.20 версии Distribute. Пока что нужно писать нам issue, мы ручками соберём его для вашей системы и выложим яйцо к нам в third_party.
