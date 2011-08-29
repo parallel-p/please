@@ -135,6 +135,7 @@ class WellDone:
         for function_name in self.__check_functions_list:
             #dirty trick to operate with splitted lists with unknown spaces
             function_name = function_name.strip()
+            
             result = getattr(self, function_name)()
             if result == CRASH:
                 return (CRASH, [function_name])
@@ -153,9 +154,9 @@ def well_done_check_test(filename, function_list):
     logger = logging.getLogger("please_logger.well_done")
     result = WellDone(os.path.join(filename), function_list).check()
     if result[0] == OK:
-        logger.info(filename + ' is well-done')
+        logger.info(os.path.basename(filename) + ' is well-done')
     elif result[0] == FIXED:
-        logger.info(filename + ' was fixed with ' + ', '.join(result[1]))
+        logger.info(os.path.basename(filename) + ' was fixed with ' + ', '.join(result[1]))
     else:
-        logger.info(filename + ' check was crashed while testing with ' + result[1][0])
+        logger.info(os.path.basename(filename) + ' check was crashed while testing with ' + result[1][0])
 
