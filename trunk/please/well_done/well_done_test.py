@@ -178,13 +178,13 @@ class Tester(unittest.TestCase):
         self.__well_done_check_runner('.tests/42', ['no_symbols_less_32', 
                  'no_left_right_space', 'no_double_space', 
                  'no_top_bottom_emptyline', 'endswith_EOLN', 'not_empty'], 
-                 self.__dir + '\\.tests/42 was fixed with no_left_right_space, no_double_space, no_top_bottom_emptyline')
+                 '42 was fixed with no_left_right_space, no_double_space, no_top_bottom_emptyline')
         self.__well_done_check_runner('.tests/43', [], 
-                 self.__dir + '\\.tests/43 is well-done')
+                 '43 is well-done')
         self.__well_done_check_runner('.tests/44', ['no_symbols_less_32', 
                  'no_left_right_space', 'no_double_space', 
                  'no_top_bottom_emptyline', 'endswith_EOLN', 'not_empty'], 
-                 self.__dir + '\\.tests/44 check was crashed while testing with not_empty')
+                 '44 check was crashed while testing with not_empty')
          
     def tearDown(self):        
         if os.path.exists(os.path.join(self.__dir, 'tmp')):
