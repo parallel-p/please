@@ -3,8 +3,14 @@ import os
 import logging
 from .. import log
 from .. import globalconfig
+from ..test_config_parser.parser import TestInfoType
+from ..solution_tester import package_config
+from ..test_config_parser import parser
+from ..utils.utests import get_tests
 
 OK, FIXED, CRASH = 0, 1, 2
+
+logger = logging.getLogger("please_logger.well_done")
 
 class WellDone:
     '''
@@ -147,16 +153,119 @@ class WellDone:
         else:
             return (OK, [])
 
+class WellDoneCheck:
+    '''Check that all tests are WellDone
+       USAGE: result = WellDoneCheck.all() #result is bool
+    
+    '''
 
-def well_done_check_test(filename, function_list):
-    #check test or answer file and write result to the log
-    #in future this function must return verdict to be analysed by test generator
-    logger = logging.getLogger("please_logger.well_done")
-    result = WellDone(os.path.join(filename), function_list).check()
-    if result[0] == OK:
-        logger.info(os.path.basename(filename) + ' is well-done')
-    elif result[0] == FIXED:
-        logger.info(os.path.basename(filename) + ' was fixed with ' + ', '.join(result[1]))
-    else:
-        logger.info(os.path.basename(filename) + ' check was crashed while testing with ' + result[1][0])
 
+    def __init__(self):
+        
+        #need to rebuild tests
+        self.rebuild = False
+        
+        #need to fix and rebuild tests
+        self.fix_and_rebuild = False
+
+        self.config = package_config.PackageConfig.get_config('.')
+        if self.config:
+            if 'well_done_test' in self.config and self.config['well_done_test'] not in ["", None]:
+                self.well_done_answer = list(map(str.strip, self.config["well_done_answer"].split(',')))
+            else:
+                logger.warning("Well_done config for tests is empty")
+            if 'well_done_answer' in self.config and self.config['well_done_answer'] not in ["", None]:
+                self.well_done_test = list(map(str.strip, self.config["well_done_test"].split(',')))
+            else:
+                logger.warning("Well_done config for answers is empty")
+            self.tests_info = parser.parse_test_config()
+
+
+    def __test(self, filename, function_list, log_text = ''):
+        #check test or answer file and write result to the log
+        #in future this function must return verdict to be analysed by test generator
+        result = WellDone(os.path.join(filename), function_list).check()
+
+        if log_text:
+            log_prefix = log_text + ' '
+        else:
+            log_prefix = os.path.basename(filename) + ' ' 
+
+        if result[0] == OK:
+            logger.info(log_prefix + 'well-done')
+        elif result[0] == FIXED:
+            logger.warning(log_prefix + 'fixed with ' + ', '.join(result[1]))
+            self.rebuild = True
+        else:
+            logger.error(log_prefix + 'crashed while checking ' + result[1][0])
+            self.fix_and_rebuild = True
+
+    def __tests(self):
+        self.rebuild = False
+        self.fix_and_rebuild = False
+
+        logger.info('\n\nChecking generated tests')
+        for test in self.tests_info:
+            #do not check manual tests again
+            if test.type != TestInfoType.FILE:
+                log_text = globalconfig.default_tests_config + ':line ' + str(test.line_number) + ':test:' + " ".join([test.command[0], " ".join(test.command[1])]) + ':'
+                self.__test(os.path.join('.tests', str(test.line_number)), self.well_done_test, log_text)
+        if self.fix_and_rebuild:
+            logger.error('Please fix generators or commands in tests config and generate all tests again.')
+            return False
+        elif self.rebuild:
+            logger.error('Generated tests were fixed. But you should fix generators or tests config and generate all tests again.')
+            return False
+        else:
+            return True
+
+    def __answers(self):
+        self.rebuild = False
+        self.fix_and_rebuild = False
+
+        logger.info('\n\nChecking tests\' answers')
+        for test in self.tests_info:
+            if test.type != TestInfoType.FILE:
+                log_text = globalconfig.default_tests_config + ':line ' + str(test.line_number) + ':answer:' + " ".join([test.command[0], " ".join(test.command[1])]) + ':'
+            else:
+                log_text = globalconfig.default_tests_config + ':line ' + str(test.line_number) + ':answer:' + str(test.command) + ':'
+            self.__test(os.path.join('.tests', str(test.line_number)) + '.a', self.well_done_test, log_text)
+        if self.fix_and_rebuild:
+            logger.error('Please fix main solution generate all answers again.')
+            return False
+        elif self.rebuild:
+            logger.error('Generated answers were fixed. But you should fix main solution and generate all tests again.')
+            return False
+        else:
+            return True
+
+    def __sources(self):
+        #check all manual tests' sources
+        logger.info('\n\nChecking manual tests source files')
+        for test in self.tests_info:
+            if test.type == TestInfoType.FILE:
+                log_text = globalconfig.default_tests_config + ':line ' + str(test.line_number) + ':manual test:' + test.command + ':'
+                self.__test(test.command, self.well_done_test, log_text)
+        if self.fix_and_rebuild:
+            logger.error('Please fix manual tests and generate all tests again.')
+            return False
+        elif self.rebuild:
+            logger.error('Manual tests were fixed. Please, generate all tests again.')
+            return False
+        else:
+            return True
+
+
+    def all(self):
+        '''check manual test sources, then generated tests, then generated answers
+           returns True if all are well done, and False otherwise
+        '''
+        if not self.__sources():
+            return False
+        elif not self.__tests():
+            return False
+        elif not self.__answers():
+            return False
+        else:
+            logger.info('All tests and answers are well done')
+            return True    
