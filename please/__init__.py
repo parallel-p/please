@@ -11,11 +11,11 @@ def main():
     from please.executors.runner import RunnerError
     from please.template import problem_template_generator as problem_gen
     from please.add_source.add_source import add_solution, add_main_solution, add_checker, add_validator, add_solution_with_expected
-    #from please.package import config
     from please import tags
     from please.solution_tester import check_solution
     import sys
     import logging
+    from please.test_config_parser import parser
     from please.auto_TL.auto_tl import set_integer_tl
     from please.auto_TL.auto_tl import set_float_tl
     from please.command_line.generate_tests import generate_tests, generate_tests_with_tags
@@ -46,8 +46,9 @@ def main():
     # If we are inside folder with  the problem, we have more handlers
     package_config = package_config.PackageConfig.get_config('.')
     in_problem_folder = (package_config != False)
+    from please.well_done import well_done
+    matcher.add_handler(Template(["well", "done"]), well_done.WellDoneCheck().all, in_problem_folder)
     matcher.add_handler(Template(["validate", "tests"]), tests_answer_generator.TestsAndAnswersGenerator().validate, in_problem_folder)
-    matcher.add_handler(Template(["well", "done"]), tests_answer_generator.TestsAndAnswersGenerator().well_done, in_problem_folder)
     matcher.add_handler(Template(["clean"]), cleaner.Cleaner().cleanup, in_problem_folder)
     matcher.add_handler(Template(["show", "todo"]), todo.get_todo, in_problem_folder)
     matcher.add_handler(Template(["todo"]), todo.get_todo, in_problem_folder)
