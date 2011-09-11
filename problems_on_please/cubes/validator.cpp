@@ -20,7 +20,6 @@ int main()
         inf.readInt(0, 1000000000);
         inf.nextLine();
     }
-    inf.readEoln();
     inf.readEof();
 
     return 0;

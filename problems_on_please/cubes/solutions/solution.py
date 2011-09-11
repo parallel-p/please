@@ -28,6 +28,21 @@ for a in range(i, n):
     ansmasha.append(masha[a])
 for a in range(j, m):
     anspasha.append(pasha[a])
-print(str(len(intersect)) + " " + " ".join(list(map(str, intersect))))
-print(str(len(ansmasha)) + " " + " ".join(list(map(str, ansmasha))))
-print(str(len(anspasha)) + " " + " ".join(list(map(str, anspasha))))
+
+print(str(len(intersect)), end='') 
+if len(intersect) > 0:
+    print(" " + " ".join(list(map(str, intersect))))
+else:
+    print("")
+
+print(str(len(ansmasha)), end='') 
+if len(ansmasha) > 0:
+    print(" " + " ".join(list(map(str, ansmasha))))
+else:
+    print()
+
+print(str(len(anspasha)), end='')
+if len(anspasha) > 0:
+    print(" " + " ".join(list(map(str, anspasha))))
+else:
+    print()

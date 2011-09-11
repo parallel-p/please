@@ -1,4 +1,4 @@
-[sample]echo 01
+[sample]tests\01
 tests\02
 test.py 1 5 1 10 1
 test.py 1 5 1 10 2

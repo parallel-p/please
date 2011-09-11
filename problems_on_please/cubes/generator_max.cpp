@@ -22,7 +22,6 @@ int main(int argc, char* argv[])
     {
         cout << v[i-1] << endl;
     }
-    cout << endl;
     return 0;
 }
 

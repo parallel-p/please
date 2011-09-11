@@ -21,7 +21,6 @@ int main(int argc, char* argv[])
         t = rand() % (1000 * 1000 * 1000 + 1);
         cout << t << endl;
     }
-    cout << endl;
     return 0;
 }
 
