@@ -14,11 +14,11 @@ class Tester(unittest.TestCase):
 
     def __tests_runner(self,filename, func_list, correct_result):
         copyfile(os.path.join(self.__dir, 'testdata', filename), 
-                os.path.join(self.__dir, 'tmp'))
-        self.assertEqual(WellDone(os.path.join(self.__dir, 'tmp'), func_list).check(), correct_result)
+                os.path.join(self.__dir, filename + '.b'))
+        self.assertEqual(WellDone(os.path.join(self.__dir, filename + '.b'), func_list).check(), correct_result)
         #Uncomment the followin line to leave fixed files as *.b files in testdata
         #copyfile(os.path.join(self.__dir, 'tmp'), os.path.join(self.__dir, 'testdata', filename + '.b'))
-        self.assertTrue(cmp(os.path.join(self.__dir, 'tmp'), 
+        self.assertTrue(cmp(os.path.join(self.__dir, filename + '.b'), 
                         os.path.join(self.__dir, 'testdata', filename + '.a')))  
 
     def test_endswith_EOLN(self):
@@ -161,7 +161,7 @@ class Tester(unittest.TestCase):
          
     def tearDown(self):        
         if os.path.exists(os.path.join(self.__dir, 'tmp')):
-            remove(os.path.join(self.__dir, 'tmp'))
+            pass#remove(os.path.join(self.__dir, 'tmp'))
         if os.path.exists(os.path.join(self.__dir, '.tests')):
             rmtree(os.path.join(self.__dir, '.tests'))
         self.mox.UnsetStubs()
