@@ -11,14 +11,15 @@ logger = logging.getLogger("please_logger.cleaner.cleaner")
 
 class Cleaner:
     def __clean_binary(self, source):
-        lang_conf = get_language_configurator(source)
-        if lang_conf is not None:
-            binary_name = lang_conf.get_binary_name(source)[0]
-            if os.path.exists(binary_name):
-                logger.info("Removing " + binary_name)
-                os.remove(binary_name)
-            else:
-                logger.info("There is no binary file for " + source)
+        if source is not None:
+            lang_conf = get_language_configurator(source)
+            if lang_conf is not None:
+                binary_name = lang_conf.get_binary_name(source)[0]
+                if os.path.exists(binary_name):
+                    logger.info("Removing " + binary_name)
+                    os.remove(binary_name)
+                else:
+                    logger.info("There is no binary file for " + source)
                 
     def cleanup(self):
         if os.path.exists(globalconfig.temp_statements_dir):

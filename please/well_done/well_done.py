@@ -171,11 +171,11 @@ class WellDoneCheck:
         self.config = package_config.PackageConfig.get_config('.')
         if self.config:
             if 'well_done_test' in self.config and self.config['well_done_test'] not in ["", None]:
-                self.well_done_answer = list(map(str.strip, self.config["well_done_answer"].split(',')))
+                self.well_done_test = list(map(str.strip, self.config["well_done_test"].split(',')))
             else:
                 logger.warning("Well_done config for tests is empty")
             if 'well_done_answer' in self.config and self.config['well_done_answer'] not in ["", None]:
-                self.well_done_test = list(map(str.strip, self.config["well_done_test"].split(',')))
+                self.well_done_answer = list(map(str.strip, self.config["well_done_answer"].split(',')))
             else:
                 logger.warning("Well_done config for answers is empty")
             self.tests_info = parser.parse_test_config()

@@ -185,7 +185,7 @@ class Config:
             if not os.path.exists(checker_local_path):
                 return os.path.join(globalconfig.root, globalconfig.checkers_dir, checker_local_path)
             return checker_local_path
-        elif item in ["source", "validator", "statement", "description", "main_solution"]:
+        elif item in ["source", "validator", "statement", "description", "main_solution"] and self.__settings.get(item) is not None:
             return self.__convert_separators(self.__settings.get(item))
         return self.__settings.get(item)
 
