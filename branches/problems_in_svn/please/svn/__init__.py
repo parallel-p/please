@@ -12,7 +12,12 @@ class SvnError(Exception):
     pass
 
 def problem_in_svn(shortname = '.'):
-    return os.path.exists(os.path.join(shortname, '.please', 'svn_path'))
+    if globalconfig.svn['type'] == 'public':
+        return os.path.exists(os.path.join(shortname, '.please', 'svn_path'))
+    elif globalconfig.svn['type'] == 'private':
+        return os.path.exists('.svn')
+    else:
+        raise SvnError('svn repository type is unknown in globalconfig')        
 
 def svn_probname(shortname):
     user = svn['username'].split('@')[0]
@@ -121,23 +126,29 @@ class ProblemInSvn:
     '''Main purpose of this class - to exclude double checks of svn accessibility
        and duplicating svn up command
 
-       USAGE:
+       USAGE for public svn:
        in_svn = ProblemInSVN()
        in_svn.add('checker.cpp', 'checker')
        in_svn.update('solutions/solution.cpp', 'solution')
        in_svn.update('default.please')
+
+       USAGE for personal svn:
+       in_svn = ProblemInSVN()
+       in_svn.sync()
     '''
 
     def __init__(self):
         #run from problem directory
-        if not problem_in_svn():
+        if globalconfig.svn['type'] not in ('public', 'personal'):
+            raise SvnError('svn type in globalconfig.py must be public or personal')
+        elif not problem_in_svn():
             logger.warning("Problem is not in svn repository")
-            raise SvnError
+            #raise SvnError
             self.__in_svn = False
         elif not svn_accessible():
             logger.warning("No access to svn. Please, commit your changes manually later")
             self.__in_svn = False
-        elif not svn_problem_exists():
+        elif globalconfig.svn['type'] == 'public' and not svn_problem_exists():
             if svn_deleted_problem_exists():
                 logger.warning("Problem was deleted and moved to .deleted folder in svn")
                 self.__in_svn = False
@@ -151,11 +162,21 @@ class ProblemInSvn:
 
     def add(self, path, description = ''):
         #run from problem directory
-        if self.__in_svn:
+        if globalconfig.svn['type'] == 'public' and self.__in_svn:
             svn_operation(['add', path])
             svn_operation(['ci', '-m', '"' + description + ' ' + path + ' added"'])
 
     def update(self, path, description = ''):
         #run from problem directory
-        if self.__in_svn:
+        if globalconfig.svn['type'] == 'public' and self.__in_svn:
             svn_operation(['ci', '-m', '"' + description + ' ' + path + ' updated"'])
+
+    def sync():
+        '''for personal svn
+           1. svn add all except trash
+           2. svn commit
+        '''
+        if globalconfig.svn['type'] == 'personal' and self.__in_svn:
+            svn_operation(['add'])
+            svn_operation(['ci', '-m', '" "'])
+        
