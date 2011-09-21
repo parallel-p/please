@@ -13,7 +13,7 @@ def remove_trash (diff, is_trash):
             shutil.rmtree(token)
 
 
-def remove_logs_in_depth(logs_names_list=globalconfig.logs, base_dir='.', out=True):            
+def remove_logs_in_depth(logs_names_list=globalconfig.logs, base_dir='.', out=True, depth=True):            
     logging.shutdown()
     for root, dirs, files in os.walk(base_dir):
         for file in files:
@@ -22,3 +22,5 @@ def remove_logs_in_depth(logs_names_list=globalconfig.logs, base_dir='.', out=Tr
                     if out:
                         print("Removing log " + log + " in " + root)
                     os.remove(os.path.join(root, log))
+        if not depth:
+            break

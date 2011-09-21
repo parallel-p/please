@@ -37,14 +37,15 @@ problem_commands = ["generate statement",
              "clean",
              "validate tests"]
 
-def print_lite_help(in_problem_folder):
+def print_lite_help():
     print("Usage: please [command]")
     print("Commands available (try 'please help' for more information):\n")
     print("Global commands:\n")
     print(*sorted(global_commands), sep = "\n")
     print("\nCommands inside problem folder:\n")
     print(*sorted(problem_commands), sep = "\n")
-    trash_remover.remove_logs_in_depth(out=False)
+    if(not globalconfig.in_problem_folder):
+        trash_remover.remove_logs_in_depth(out=False, depth=False)
 
 def print_help():
     print("""
@@ -171,12 +172,8 @@ Commands available when inside problem's folder:
   {22}
     Cleans up current directory - removes generated binary files, temporary folders, logs
 """.format(*problem_commands))
-
-
-
-
-
-
+    if(not globalconfig.in_problem_folder):
+        trash_remover.remove_logs_in_depth(out=False, depth=False)
 
 
 
