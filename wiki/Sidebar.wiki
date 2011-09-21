@@ -9,7 +9,6 @@ ____
   * [CppCompiler]
 ____  
 
-  * [ToDoList]
   * [PleaseCommands]
   * [ProblemFormat]
   * [Tags]
