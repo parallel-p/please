@@ -12,7 +12,6 @@ To export problems to ejudge using Windows needs modules: *pscp*, *plink*
 ===Installation===
 ----
   # Install Python 3.2 (3.1 is not enough!) from <br><br> http://python.org/download/<br><br>
-  # Under 64-bit Windows, install *psutil* python module manually (automatic installation will be added after distribute-0.6.20 release due to some bugs in current version of this package). To install *psutil* it is strongly recommended to use win-installer from: <br><br>http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win-amd64-py3.2.exe<br><br>
   # Install gcc/g++ compiler (MinGW recommended), free pascal compiler (if needed to work with problems), Java Development Kit (if needed)
   # Install MIKTEX (you need *pdflatex* command to create statements)
   # Download please distributive from here: <br><br>http://code.google.com/p/please/downloads/list<br><br> and unzip it the temporary folder.
