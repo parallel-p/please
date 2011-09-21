@@ -2,12 +2,12 @@
 ==Linux==
 =Создание=
 Переместимся в директорию, в которой хотим создать задачу. Теперь создадим пустой макет для нашей задачи.
-<br><br>
+{{{
 ~$ please create problem <problem_name>
 Untitle(INFO) [01:40:23]: Problem <problem_name> created successfully
-<br><br>
+}}}
 Зайдём в папку с задачей и посмотрим, что внутри.
-<br><br>
+{{{
 ~$ cd <problem_name>
 ~<problem_name>$ ll
 drwxr-xr-x  6 dubov94 dubov94  4096 2011-09-22 01:40 ./
@@ -22,7 +22,7 @@ drwxr-xr-x  2 dubov94 dubov94  4096 2011-09-22 01:40 statements/
 drwxr-xr-x  2 dubov94 dubov94  4096 2011-09-22 01:40 tests/
 -rw-r--r--  1 dubov94 dubov94     0 2011-09-22 01:40 tests.please
 -rw-r--r--  1 dubov94 dubov94   107 2011-09-22 01:40 validator.cpp
-<br><br>
+}}}
 tests - папка с ручными тестами
 solutions - папка со всеми решениями, лежит заготовка на cpp
 statements - папка со всеми условиями, лежат две заготовки, для описания (description.ru.tex) и непосредственно условий (default.ru.tex). В перспективе развития please - много условий на разных языках, но пока нет, поэтому не обращаем внимания на *.ru
@@ -38,7 +38,7 @@ tests.please - см. конфигурирование тестов
 Теперь что со всем этим можно делать, когда все конфиги прописаны.
 =Жизнь после конфигурирования=
 Прежде всего нужно понять, что без предварительно сгенерированных тестов ничего проверяться не будет. Генерируются они следующей командой:
-<br><br>
+{{{
 ~/<problem name>$ please generate tests
 cubes(INFO) [02:02:30]: Generating 21 tests
 cubes(INFO) [02:02:30]: Test #1 generated
@@ -128,12 +128,12 @@ cubes(INFO) [02:02:47]: Generating answer for .tests/18 with solutions/solution.
 cubes(INFO) [02:02:48]: Generating answer for .tests/19 with solutions/solution.py
 cubes(INFO) [02:02:49]: Generating answer for .tests/20 with solutions/solution.py
 cubes(INFO) [02:02:50]: Generating answer for .tests/21 with solutions/solution.py
-<br><br>
+}}}
 Заметим, что они заодно провалидировались и ответы к ним (по main solution) составились.
 Ещё можно задать теги (please generate tests with tag[s] ...), тогда будут браться тесты только с заданными тегами. Смотрите please help.
 <br><br>
 Теперь у нас есть некий набор тестов, который хранится в .tests. Да-да, у нас появилась новая папка. Так вот, представим, что мы заметили ошибку в валидаторе, и хотим заново провалидировать уже готовые тесты. Тогда сделаем так:
-<br><br>
+{{{
 ~/<problem_name>$ please validate tests
 cubes(INFO) [02:11:42]: Start validator on test: .tests/1
 cubes(INFO) [02:11:42]: Validating .tests/1 by validator.cpp
@@ -177,11 +177,11 @@ cubes(INFO) [02:11:43]: Start validator on test: .tests/20
 cubes(INFO) [02:11:43]: Validating .tests/20 by validator.cpp
 cubes(INFO) [02:11:43]: Start validator on test: .tests/21
 cubes(INFO) [02:11:43]: Validating .tests/21 by validator.cpp
-<br><br>
+}}}
 Если что-то пойдёт не так, в одной из строк нас ждёт сюрприз:
-<br><br>
+{{{
 cubes(ERROR) [02:13:16]: Validator executions has had RE
 cubes(ERROR) [02:13:16]: 
 STDERR:
-<br><br>
+}}}
 Также можно перегенерировать ответы, please generate answers.
