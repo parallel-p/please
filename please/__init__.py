@@ -46,6 +46,7 @@ def main():
     # If we are inside folder with  the problem, we have more handlers
     package_config = package_config.PackageConfig.get_config('.')
     in_problem_folder = (package_config != False)
+    globalconfig.in_problem_folder = in_problem_folder
     from please.well_done import well_done
     matcher.add_handler(Template(["well", "done"]), well_done.WellDoneCheck().all, in_problem_folder)
     matcher.add_handler(Template(["validate", "tests"]), tests_answer_generator.TestsAndAnswersGenerator().validate, in_problem_folder)
@@ -77,7 +78,7 @@ def main():
     matcher.add_handler(Template(["generate", "html", "report"]), generate_html_report.generate_html_report, in_problem_folder)
 
     if len(sys.argv) == 1:
-        print_lite_help(package_config)
+        print_lite_help()
     else:
         # Get the command line arguments (exclude the first one - it's program's name)
         args = sys.argv[1:]

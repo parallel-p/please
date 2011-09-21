@@ -17,7 +17,7 @@ class Tester(unittest.TestCase):
                 os.path.join(self.__dir, 'tmp'))
         self.assertEqual(WellDone(os.path.join(self.__dir, 'tmp'), func_list).check(), correct_result)
         #Uncomment the followin line to leave fixed files as *.b files in testdata
-        #copyfile(os.path.join(self.__dir, 'tmp'), os.path.join(self.__dir, 'testdata', filename + '.b'))
+        copyfile(os.path.join(self.__dir, 'tmp'), os.path.join(self.__dir, 'testdata', filename + '.b'))
         self.assertTrue(cmp(os.path.join(self.__dir, 'tmp'), 
                         os.path.join(self.__dir, 'testdata', filename + '.a')))  
 
