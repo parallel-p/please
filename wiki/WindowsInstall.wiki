@@ -1,59 +1,21 @@
-Description
-===========
-
-...
-
-
-Dependencies
-============
+===Dependencies===
+----
 Requires python 3.2 and modules: 
-*psutil*, 
-*colorama*,
-*HTML*.
+  # *psutil* 
+  # *colorama*
+  # *HTML*
  
 To run the tests needs module *Mox*. To generate html_report needs module *HTML*.
 To export problems to ejudge using Windows needs modules: *pscp*, *plink*
 (for example, these files are contained in library *putty*).
 
-Installation
-============
-
-WINDOWS
--------
-1. Install Python 3.2 (3.1 is not enough!) from 
-
-http://python.org/download/
-
-
-2. Under 64-bit windows, install psutil python module manually (automatic installation will be added after distribute-0.6.20 release 
-due to some bugs in current version of this package).
-To install psutil it is strongly recommended to use win-installer from: 
-http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win-amd64-py3.2.exe
-
-3. Install gcc/g++ compiler (MinGW recommended), free pascal compiler (if needed to work with problems), 
-Java Development Kit (if needed)
-
-4. Install MIKTEX (you need pdflatex command to create statements)
-
-5. Download please distributive from here: 
-
-http://code.google.com/p/please/downloads/list
-
-and unzip it the temporary folder.
-
-
-6. Install please module, running command
-
->>> python setup.py install
-
-in your temporary folder. It will use internet to download dependencies.
-
-5. Reboot the computer to activate new PATH environment variable
-
-6. run command
-
->>> please
-
-from command-line or from FAR to check that all works (you'll see list of please command). Run
-please help 
-for more help.
+===Installation===
+----
+  # Install Python 3.2 (3.1 is not enough!) from http://python.org/download/
+  # Under 64-bit Windows, install *psutil* python module manually (automatic installation will be added after distribute-0.6.20 release due to some bugs in current version of this package). To install *psutil* it is strongly recommended to use win-installer from: <br><br>http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win-amd64-py3.2.exe<br><br>
+  # Install gcc/g++ compiler (MinGW recommended), free pascal compiler (if needed to work with problems), Java Development Kit (if needed)
+  # Install MIKTEX (you need *pdflatex* command to create statements)
+  # Download please distributive from here: <br><br>http://code.google.com/p/please/downloads/list<br><br> and unzip it the temporary folder.
+  # Install please module, running command <br><br>_>>> python setup.py install_<br><br> in your temporary folder. It will use internet to download dependencies.
+  # Reboot the computer to activate new PATH environment variable
+  # run command <br><br>_>>> please_<br><br> from command-line or from FAR to check that all works (you'll see list of please command). Run <br><br>_>>> please help_<br><br>for more help.
