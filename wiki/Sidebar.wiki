@@ -1,13 +1,11 @@
 [http://code.google.com/p/please/w/list All Wiki pages]
 
   * [ReadmeForDevelopers]
-
-____
-
+----
   * [WindowsInstall]
   * [DprCompiler]
   * [CppCompiler]
-____  
-
+----
+  * [ProblemFormat]
   * [Tags]
   * [SisStudyProject]
