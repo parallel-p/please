@@ -11,23 +11,5 @@ ____
   * [ToDoList]
   * [PleaseCommands]
   * [ProblemFormat]
-    * `.tests/`
-    * `.sandbox/`
-    * `statements/`
-      * `pictures/`
-      * `statement.{language}.tex`
-      * `statement_{modification}.{language}.tex`
-    * `solutions/`
-      * `problemName_author.*`
-      * `problemName_author_description.*`
-    * `tests/`
-      * `generate`
-      * `check.*`
-      * `validate.*`
-    * `problem.properties`
-    * `problem_{modification}.properties`
-    * `description.{language}.tex`
-    * `description_{modification}.{language}.tex`
-    * `.fingerprint`
   * [Tags]
   * [SisStudyProject]
