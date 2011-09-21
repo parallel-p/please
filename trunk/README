@@ -24,11 +24,7 @@ WINDOWS
 
 http://python.org/download/
 
-
-2. Under 64-bit windows, install psutil python module manually (automatic installation will be added after distribute-0.6.20 release 
-due to some bugs in current version of this package).
-To install psutil it is strongly recommended to use win-installer from: 
-http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win-amd64-py3.2.exe
+2. ---
 
 3. Install gcc/g++ compiler (MinGW recommended), free pascal compiler (if needed to work with problems), 
 Java Development Kit (if needed)
