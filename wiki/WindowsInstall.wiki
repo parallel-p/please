@@ -7,12 +7,12 @@ Description
 Dependencies
 ============
 Requires python 3.2 and modules: 
-psutil, 
-colorama,
-html.
+*psutil*, 
+*colorama*,
+*HTML*.
  
-To run the tests needs module Mox. To generate html_report needs module HTML.
-To export problems to ejudge using Windows needs modules: pscp, plink
+To run the tests needs module *Mox*. To generate html_report needs module *HTML*.
+To export problems to ejudge using Windows needs modules: *pscp*, *plink*
 (for example, these files are contained in library putty).
 
 Installation
