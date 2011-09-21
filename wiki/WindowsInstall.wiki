@@ -1,22 +1,59 @@
-1. Install Python 3.2.1 (http://www.python.org/getit/releases/3.2/).
-Note: currently please works correct only under 32-bit version of python. So
-it's highly recommented to install 32-bit python even under 64-bi machine.
+Description
+===========
 
-2. Install libraries. You can find them in 'lib' directory.
+...
 
-Base required libraries:
-  * psutil 0.3 (psutil-0.3.0.win32-py3.2.exe)
-  * lxml 2.3 (lxml-2.3.win32-py3.2.exe)
-  * colorama 0.2.4 (colorama-0.2.4.zip)
 
-Additional libraries - install what you need depending on functional:
+Dependencies
+============
+Requires python 3.2 and modules: 
+psutil, 
+colorama,
+html.
+ 
+To run the tests needs module Mox. To generate html_report needs module HTML.
+To export problems to ejudge using Windows needs modules: pscp, plink
+(for example, these files are contained in library putty).
 
-Generating HTML reports:
-  * HTML 0.04 (!! add installer to 'third_party' !!)
+Installation
+============
 
-3. Run setup.py install %dir%, where %dir% is folder where you want to install 
-please.
+WINDOWS
+-------
+1. Install Python 3.2.* (3.1 is not enough!) from 
 
-Example: python setup.py D:\olymp_utils\
+http://python.org/download/
 
-Now you can use please from command-line or import please in python.
+
+2. Under 64-bit windows, install psutil python module manually (automatic installation will be added after distribute-0.6.20 release 
+due to some bugs in current version of this package).
+To install psutil it is strongly recommended to use win-installer from: 
+http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win-amd64-py3.2.exe
+
+3. Install gcc/g++ compiler (MinGW recommended), free pascal compiler (if needed to work with problems), 
+Java Development Kit (if needed)
+
+4. Install MIKTEX (you need pdflatex command to create statements)
+
+5. Download please distributive from here: 
+
+http://code.google.com/p/please/downloads/list
+
+and unzip it the temporary folder.
+
+
+6. Install please module, running command
+
+>>> python setup.py install
+
+in your temporary folder. It will use internet to download dependencies.
+
+5. Reboot the computer to activate new PATH environment variable
+
+6. run command
+
+>>> please
+
+from command-line or from FAR to check that all works (you'll see list of please command). Run
+please help 
+for more help.
