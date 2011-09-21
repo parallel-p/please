@@ -20,7 +20,7 @@ Installation
 
 WINDOWS
 -------
-1. Install Python 3.2.* (3.1 is not enough!) from 
+1. Install Python 3.2 (3.1 is not enough!) from 
 
 http://python.org/download/
 
