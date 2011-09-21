@@ -1,11 +1,12 @@
- [http://code.google.com/p/please/w/list All Wiki pages]
+[http://code.google.com/p/please/w/list All Wiki pages]
 
-   * [ReadmeForDevelopers]
+  * [ReadmeForDevelopers]
 
 ____
 
-   * [WindowsInstall]
-
+  * [WindowsInstall]
+  * [DprCompiler]
+  * [CppCompiler]
 ____  
 
   * [ToDoList]
