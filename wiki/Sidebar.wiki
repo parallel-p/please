@@ -9,7 +9,5 @@ ____
   * [CppCompiler]
 ____  
 
-  * [PleaseCommands]
-  * [ProblemFormat]
   * [Tags]
   * [SisStudyProject]
