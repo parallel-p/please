@@ -3,10 +3,14 @@ import stat
 import shutil
 import subprocess
 
+from .. import globalconfig
 from ..log import logger
 from ..globalconfig import svn, default_limits
 from ..invoker.invoker import invoke, ExecutionLimits
 from ..utils import platform_detector
+
+svn_trash_dirs = ['.tests', '.statements']
+svn_trash_mask = ['*.exe']
 
 class SvnError(Exception):
     pass
@@ -14,7 +18,7 @@ class SvnError(Exception):
 def problem_in_svn(shortname = '.'):
     if globalconfig.svn['type'] == 'public':
         return os.path.exists(os.path.join(shortname, '.please', 'svn_path'))
-    elif globalconfig.svn['type'] == 'private':
+    elif globalconfig.svn['type'] == 'personal':
         return os.path.exists('.svn')
     else:
         raise SvnError('svn repository type is unknown in globalconfig')        
@@ -52,6 +56,17 @@ def svn_problem_exists(shortname = '.'):
 def svn_deleted_problem_exists(shortname = '.'):
     return svn_path_exists(get_svn_path(shortname) + '/.deleted/' + get_svn_name(shortname))
 
+def svn_command_with_star(command):
+    #if command include *, it must be run with bash under unix
+    #TODO check for MAC
+    if platform_detector.get_platform()[0] == 'Windows':
+        return ['svn'] + command + ['--username', svn['username'],
+                                    '--password', svn['password']]
+    else:
+        return ['bash', '-c', " ".join(['svn'] + command + ['--username', 
+                svn['username'], '--password', svn['password']])]
+
+
 def svn_operation(command):
     #all real communication with svn is in this function only
     if svn['url'] != '':
@@ -63,14 +78,7 @@ def svn_operation(command):
             return result
         else:
             logger.info("svn " + " ".join(command))
-            if platform_detector.get_platform()[0] == 'Windows':
-                run_command = ['svn'] + command + ['--username', svn['username'],
-                                                        '--password', svn['password']]
-            else:
-                run_command = ['bash', '-c', " ".join(['svn'] + command + ['--username', svn['username'],
-                                                        '--password', svn['password']])]
-                #logger.error(' '.join(run_command))
-            result = 1 - subprocess.call(run_command)
+            result = 1 - subprocess.call(svn_command_with_star(command))
             if result:
                 return True
             else:
@@ -127,38 +135,47 @@ class ProblemInSvn:
        and duplicating svn up command
 
        USAGE for public svn:
-       in_svn = ProblemInSVN()
-       in_svn.add('checker.cpp', 'checker')
-       in_svn.update('solutions/solution.cpp', 'solution')
-       in_svn.update('default.please')
+       ProblemInSVN().add('checker.cpp', 'checker')
+       ProblemInSVN().update('solutions/solution.cpp', 'solution')
+       ProblemInSVN().update('default.please')
 
        USAGE for personal svn:
-       in_svn = ProblemInSVN()
-       in_svn.sync()
+       ProblemInSVN().sync()
     '''
+
+    __in_svn = None
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(ProblemInSvn, cls).__new__(
+                                cls, *args, **kwargs)
+        return cls._instance
 
     def __init__(self):
         #run from problem directory
-        if globalconfig.svn['type'] not in ('public', 'personal'):
-            raise SvnError('svn type in globalconfig.py must be public or personal')
-        elif not problem_in_svn():
-            logger.warning("Problem is not in svn repository")
-            #raise SvnError
-            self.__in_svn = False
-        elif not svn_accessible():
-            logger.warning("No access to svn. Please, commit your changes manually later")
-            self.__in_svn = False
-        elif globalconfig.svn['type'] == 'public' and not svn_problem_exists():
-            if svn_deleted_problem_exists():
-                logger.warning("Problem was deleted and moved to .deleted folder in svn")
+        if self.__in_svn is None:
+            if globalconfig.svn['type'] not in ('public', 'personal'):
+                raise SvnError('svn type in globalconfig.py must be public or personal')
+            elif not problem_in_svn():
+                logger.warning("Problem is not in svn repository")
+                #raise SvnError
                 self.__in_svn = False
+            elif not svn_accessible():
+                logger.warning("No access to svn. Please, commit your changes manually later")
+                self.__in_svn = False
+            elif globalconfig.svn['type'] == 'public' and not svn_problem_exists():
+                if svn_deleted_problem_exists():
+                    logger.warning("Problem was deleted and moved to .deleted folder in svn")
+                    self.__in_svn = False
+                else:
+                    logger.error("Problem was not found in svn")
+                    self.__in_svn = False
             else:
-                logger.error("Problem was not found in svn")
-                self.__in_svn = False
-        else:
-            logger.info("Problem found in svn")
-            self.__in_svn = True
-            svn_operation(['up'])
+                print(self.__in_svn)
+                logger.info("Problem found in svn")
+                self.__in_svn = True
+                svn_operation(['up'])
 
     def add(self, path, description = ''):
         #run from problem directory
@@ -173,10 +190,15 @@ class ProblemInSvn:
 
     def sync():
         '''for personal svn
-           1. svn add all except trash
-           2. svn commit
+           1. svn add all 
+           2. revert trash dirs
+           3. revert trash files
+           4. commit
         '''
         if globalconfig.svn['type'] == 'personal' and self.__in_svn:
-            svn_operation(['add'])
+            svn_operation(['add', '*'])
+            svn_operation(['revert', svn_trash_dirs])
+            for (directory, tmp, tmp2) in os.walk('.'):
+                svn_operation(['revert', list(map(lambda x: os.path.join(directory, x), svn_trash_dirs))])            
             svn_operation(['ci', '-m', '" "'])
         

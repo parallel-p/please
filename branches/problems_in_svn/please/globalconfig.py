@@ -48,13 +48,15 @@ ejudge_password = "ejudge"
 ejudge_contests_dir = "/var/lib/ejudge/"
 
 #information about polygon
-access = {'login': 'makhmedov', "password" : "lzlzfbr"}
+access = {'login': 'makhmedov', "password": "lzlzfbr"}
 polygon_url = "http://codecenter.sgu.ru:8081/polygon"
 
 #information about problems' svn-repository
 #set 'url' to '' (empty string) if you don't want to work with svn,
 #but do not delete neither this dictionary, nor any key in it!
-svn = {'url': 'https://please-svn.googlecode.com/svn/problems/',
-       'username': 'gurovic@gmail.com', 
-       'password' : 'ez9NP2Hz5BD5'}
+#type: personal (you control your repository) / public
+svn = {     'type': 'public',
+             'url': 'https://please-svn.googlecode.com/svn/problems/',
+        'username': 'gurovic@gmail.com', 
+        'password': 'ez9NP2Hz5BD5'}
 
