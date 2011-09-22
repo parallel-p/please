@@ -43,7 +43,7 @@ def get_test_results_from_solution(solution, config = None):
     else:
         for sol_found in config["solution"]:
             if os.path.abspath(sol_found["source"]) == os.path.abspath(solution):
-                #print("SOLUTION FOUND: " + sol_found)               
+                #print("SOLUTION FOUND: " + sol_found["source"])               
                 new_config["expected_verdicts"] = sol_found["expected_verdicts"]
                 new_config["optional_verdicts"] = sol_found["possible_verdicts"]
                 new_config["execution_limits"]  = invoker.ExecutionLimits(float(config["time_limit"]), float(config["memory_limit"]))

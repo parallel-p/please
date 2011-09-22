@@ -80,7 +80,7 @@ class TestSolution:
 #        error_window(hide = False)
         return [result_info, stdout, stderr]
         
-    def test_solution(self, solution):        
+    def test_solution(self, solution):  
         met_not_expected = {}
         expected_not_met = []
         testing_result = {}
