@@ -5,6 +5,7 @@ please_version = 0.1
 root = os.path.split(__file__)[0]
 
 default_limits = ExecutionLimits(20, 3512)
+stress_up = 1000000
 # templates
 default_template_dir = "templates"
 default_template_contest = "contest.tex"
