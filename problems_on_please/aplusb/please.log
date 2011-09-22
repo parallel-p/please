@@ -5,3 +5,9 @@
 23.09.2011[01:43:16] - aplusb - please_logger(INFO) svn add --force *
 23.09.2011[01:43:17] - aplusb - please_logger(INFO) svn revert .tests .statements
 23.09.2011[01:43:18] - aplusb - please_logger(INFO) svn ci -m " "
+23.09.2011[01:43:59] - aplusb - please_logger.TestsGenerator(INFO) Generating 0 tests
+23.09.2011[01:43:59] - aplusb - please_logger.latex.latex_tools(INFO) Generating pdf from tex...
+23.09.2011[01:44:02] - aplusb - please_logger.latex.latex_tools(INFO) PDF default.ru.pdf was created successfully
+23.09.2011[01:44:19] - aplusb - please_logger(INFO) svn add --force *
+23.09.2011[01:44:19] - aplusb - please_logger(INFO) svn revert .tests .statements
+23.09.2011[01:44:20] - aplusb - please_logger(INFO) svn ci -m " "
