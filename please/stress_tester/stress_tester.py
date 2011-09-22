@@ -72,7 +72,9 @@ class StressTester():
 
     def __generate_test(self, generator):
         ''' Creates random test '''
-        test_info = TestInfo(1, "%s %s" % (generator, random.randint(0, 1000000)))
+        newrand = random.randint(0, globalconfig.stress_up)
+        test_info = TestInfo(1, "%s %s" % (generator, newrand))
+        self.logger.warning("Random number for generator is: %s" % newrand)
         # generate ONE random test using given generator
         return TestsGenerator([test_info]).generate_all()[0]
 
