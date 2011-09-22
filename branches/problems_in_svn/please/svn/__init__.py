@@ -154,17 +154,16 @@ class ProblemInSvn:
 
     def __init__(self):
         #run from problem directory
-        if self.__in_svn is None:
-            if globalconfig.svn['type'] not in ('public', 'personal'):
-                raise SvnError('svn type in globalconfig.py must be public or personal')
-            elif not problem_in_svn():
+        if self.__in_svn is None and globalconfig.svn['type'] == 'public':
+            print('*********')
+            if not problem_in_svn():
                 logger.warning("Problem is not in svn repository")
                 #raise SvnError
                 self.__in_svn = False
             elif not svn_accessible():
                 logger.warning("No access to svn. Please, commit your changes manually later")
                 self.__in_svn = False
-            elif globalconfig.svn['type'] == 'public' and not svn_problem_exists():
+            elif not svn_problem_exists():
                 if svn_deleted_problem_exists():
                     logger.warning("Problem was deleted and moved to .deleted folder in svn")
                     self.__in_svn = False
@@ -172,7 +171,6 @@ class ProblemInSvn:
                     logger.error("Problem was not found in svn")
                     self.__in_svn = False
             else:
-                print(self.__in_svn)
                 logger.info("Problem found in svn")
                 self.__in_svn = True
                 svn_operation(['up'])
@@ -190,15 +188,17 @@ class ProblemInSvn:
 
     def sync():
         '''for personal svn
+           0. svn up
            1. svn add all 
            2. revert trash dirs
            3. revert trash files
            4. commit
         '''
         if globalconfig.svn['type'] == 'personal' and self.__in_svn:
+            svn_operation(['up'])
             svn_operation(['add', '*'])
             svn_operation(['revert', svn_trash_dirs])
             for (directory, tmp, tmp2) in os.walk('.'):
-                svn_operation(['revert', list(map(lambda x: os.path.join(directory, x), svn_trash_dirs))])            
+                svn_operation(['revert', list(map(lambda x: os.path.join(directory, x), svn_trash_mask))])            
             svn_operation(['ci', '-m', '" "'])
         
