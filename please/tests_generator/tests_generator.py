@@ -11,12 +11,13 @@ logger = logging.getLogger('please_logger.TestsGenerator')
 TESTS_DIR = globalconfig.temp_tests_dir
 
 class TestsGenerator:
-    def __init__(self, tests_info):
+    def __init__(self, tests_info, prefix=""):
         self.__tests_info = tests_info
+        self.__prefix = prefix
     
     def __generate_test(self, test, test_id):
         
-        file_name = "{0:d}".format(test_id)
+        file_name = self.__prefix + "{0:d}".format(test_id)
         file_name = os.path.join(TESTS_DIR, file_name)
         if (test.type == 'file'):
             shutil.copyfile(test.command, file_name)

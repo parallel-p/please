@@ -76,7 +76,7 @@ class StressTester():
         test_info = TestInfo(1, "%s %s" % (generator, newrand))
         self.logger.warning("Random number for generator is: %s" % newrand)
         # generate ONE random test using given generator
-        return TestsGenerator([test_info]).generate_all()[0]
+        return TestsGenerator([test_info], "stress").generate_all()[0]
 
     def __compare_outputs(self, input, correct_out, second_out, checker):
         ''' Compares two outputs with checker, returns True/False '''
@@ -141,12 +141,15 @@ class StressTester():
                     self.__check_solutions(solution, correct_solution, self.__config["checker"], test_path)
                     self.logger.info("Test passed")
                 except (StressCheckMatchException, StressCheckException):
-                    self.logger.error("Test failed")
+                    self.logger.error("Test failed")  
                     break
                 except StressCheckFail:
                     self.logger.error("Check failed")
                     break
                 finally:
-                    os.remove(test_path)
+                    if os.path.exists(test_path):
+                        os.remove(test_path)
+                    if os.path.exists(test_path+".out"):
+                        os.remove(test_path+".out")
         except KeyboardInterrupt:
             self.logger.info("Interrupted")
