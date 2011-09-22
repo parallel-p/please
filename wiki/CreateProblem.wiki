@@ -134,3 +134,28 @@ Failed: 5
 Passed: 16
 }}}
 Или же все вместе командой please check solutions.
+
+Также можно автоматически выставлять TL в конфиг: будет протестировано главное решение, и будет прописано удвоенное максимальное время выполнения. Вывод ничем не примечателен:
+{{{
+/cubes$ please compute TL
+cubes(INFO) [01:07:45]: Testing solutions/solution.py on .tests/1
+cubes(INFO) [01:07:45]: Testing solutions/solution.py on .tests/2
+...
+cubes(INFO) [01:08:00]: Testing solutions/solution.py on .tests/21
+}}}
+А в default.package теперь записано:
+{{{
+...
+output = stdout
+time_limit = 2.3
+memory_limit = 256
+...
+}}}
+Ещё есть возможность записать то же самое число, но округлённое вверх. Делается это командой please compute integer TL. Содержимое default.package после этого:
+{{{
+...
+output = stdout
+time_limit = 3
+memory_limit = 256
+...
+}}}
