@@ -200,3 +200,12 @@ cubes(ERROR) [01:36:25]: Run exception: solutions/solution_wrong.cpp is not OK, 
 cubes(ERROR) [01:36:25]: Solution solutions/solution_wrong.cpp failed to run
 cubes(ERROR) [01:36:25]: Test failed
 }}}
+=Условия=
+please generate statement создаст pdf на основе tex'овского файла условий, указанного в default.package, и тестов, помеченных sample.
+=Всего и сразу=
+please build all <=>
+  * please generate tests
+  * please generate statement
+  * please check solutions
+=Очистить от мусора=
+please clean удалит логи, исполняемые файлы всего, что прописано в default.package и pdf.
