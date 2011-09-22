@@ -87,7 +87,7 @@ def main():
             matcher.matches(args)
         except MatcherException as ex:
             print(str(ex))
-            print_lite_help(package_config)
+            print_lite_help()
         #except CompileError as ex:
         #    log = logging.getLogger("please_logger.executors.compiler")
         #    log.error("CompilerError: " + str(ex))
