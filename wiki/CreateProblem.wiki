@@ -161,3 +161,40 @@ time_limit = 3
 memory_limit = 256
 ...
 }}}
+=Стресс-тестирование=
+Для того, чтобы провести стресс-тестирование, нужно выполнить следующий алгоритм.
+  # Написать генератор, который создаёт различные тесты в зависимости от первого переданного в main значения
+  # Написать верное решение
+  # Написать любое другое решение
+  # Выполнить команду please stress test SOLUTION CORRECT_SOLUTION GENERATOR, полагаю, переменные ясны. Если верное решение прописано как главное в конфиге задачи, параметр CORRECT_SOLUTION можно опустить.
+
+Примеры:
+{{{
+~/cubes$ please stress test solutions/solution_wrong.cpp generator_random.cpp
+cubes(WARNING) [01:35:03]: Random number for generator is: 476230
+cubes(INFO) [01:35:03]: Generating 1 tests
+cubes(INFO) [01:35:03]: Test #1 generated
+cubes(INFO) [01:35:03]: Test passed
+cubes(WARNING) [01:35:03]: Random number for generator is: 834591
+cubes(INFO) [01:35:03]: Generating 1 tests
+cubes(INFO) [01:35:04]: Test #1 generated
+cubes(INFO) [01:35:04]: Test passed
+cubes(WARNING) [01:35:11]: Random number for generator is: 765094
+cubes(INFO) [01:35:11]: Generating 1 tests
+cubes(INFO) [01:35:11]: Test #1 generated
+cubes(ERROR) [01:35:12]: Answers do not match, correct answer saved to .please/correct.a, incorrect to .please/incorrect.a, test saved to .please/input.test
+cubes(ERROR) [01:35:12]: Test failed
+}}}
+{{{
+~/cubes$ please stress test solutions/solution_wrong.cpp generator_random.cpp
+cubes(WARNING) [01:36:23]: Random number for generator is: 715347
+cubes(INFO) [01:36:23]: Generating 1 tests
+cubes(INFO) [01:36:23]: Test #1 generated
+cubes(INFO) [01:36:24]: Test passed
+cubes(WARNING) [01:36:24]: Random number for generator is: 216341
+cubes(INFO) [01:36:24]: Generating 1 tests
+cubes(INFO) [01:36:24]: Test #1 generated
+cubes(ERROR) [01:36:25]: Run exception: solutions/solution_wrong.cpp is not OK, invoker returned RE, return code 11
+cubes(ERROR) [01:36:25]: Solution solutions/solution_wrong.cpp failed to run
+cubes(ERROR) [01:36:25]: Test failed
+}}}
