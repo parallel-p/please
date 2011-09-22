@@ -170,7 +170,7 @@ memory_limit = 256
 
 Примеры:
 {{{
-~/cubes$ please stress test solutions/solution_wrong.cpp generator_random.cpp
+~/cubes$ please stress test solutions/solution_wrong.cpp solutions/solution.cpp generator_random.cpp
 cubes(WARNING) [01:35:03]: Random number for generator is: 476230
 cubes(INFO) [01:35:03]: Generating 1 tests
 cubes(INFO) [01:35:03]: Test #1 generated
