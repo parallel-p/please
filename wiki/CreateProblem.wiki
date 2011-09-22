@@ -3,13 +3,13 @@
 =Создание=
 Переместимся в директорию, в которой хотим создать задачу. Теперь создадим пустой макет для нашей задачи.
 {{{
-~$ please create problem <problem_name>
-Untitle(INFO) [01:40:23]: Problem <problem_name> created successfully
+~$ please create problem cubes
+Untitle(INFO) [01:40:23]: Problem cubes created successfully
 }}}
 Зайдём в папку с задачей и посмотрим, что внутри.
 {{{
-~$ cd <problem_name>
-~<problem_name>$ ll
+~$ cd cubes
+~/cubes$ ll
 drwxr-xr-x  6 dubov94 dubov94  4096 2011-09-22 01:40 ./
 drwxr-xr-x 61 dubov94 dubov94  4096 2011-09-22 01:40 ../
 -rw-r--r--  1 dubov94 dubov94   133 2011-09-22 01:40 checker.cpp
@@ -43,19 +43,7 @@ cubes(INFO) [02:02:30]: Test #3 generated
 cubes(INFO) [02:02:30]: Test #4 generated
 cubes(INFO) [02:02:30]: Compiling: path:generator_random.cpp
 cubes(INFO) [02:02:31]: Test #5 generated
-cubes(INFO) [02:02:31]: Test #6 generated
-cubes(INFO) [02:02:31]: Test #7 generated
-cubes(INFO) [02:02:31]: Test #8 generated
-cubes(INFO) [02:02:31]: Test #9 generated
-cubes(INFO) [02:02:32]: Test #10 generated
-cubes(INFO) [02:02:32]: Test #11 generated
-cubes(INFO) [02:02:32]: Test #12 generated
-cubes(INFO) [02:02:32]: Test #13 generated
-cubes(INFO) [02:02:32]: Test #14 generated
-cubes(INFO) [02:02:32]: Test #15 generated
-cubes(INFO) [02:02:33]: Test #16 generated
-cubes(INFO) [02:02:33]: Test #17 generated
-cubes(INFO) [02:02:33]: Test #18 generated
+...
 cubes(INFO) [02:02:33]: Test #19 generated
 cubes(INFO) [02:02:33]: Compiling: path:generator_max.cpp
 cubes(INFO) [02:02:34]: Test #20 generated
@@ -65,64 +53,12 @@ cubes(INFO) [02:02:34]: Compiling: path:validator.cpp
 cubes(INFO) [02:02:36]: Validating .tests/1 by validator.cpp
 cubes(INFO) [02:02:36]: Start validator on test: .tests/2
 cubes(INFO) [02:02:36]: Validating .tests/2 by validator.cpp
-cubes(INFO) [02:02:36]: Start validator on test: .tests/3
-cubes(INFO) [02:02:36]: Validating .tests/3 by validator.cpp
-cubes(INFO) [02:02:36]: Start validator on test: .tests/4
-cubes(INFO) [02:02:36]: Validating .tests/4 by validator.cpp
-cubes(INFO) [02:02:36]: Start validator on test: .tests/5
-cubes(INFO) [02:02:36]: Validating .tests/5 by validator.cpp
-cubes(INFO) [02:02:36]: Start validator on test: .tests/6
-cubes(INFO) [02:02:36]: Validating .tests/6 by validator.cpp
-cubes(INFO) [02:02:36]: Start validator on test: .tests/7
-cubes(INFO) [02:02:36]: Validating .tests/7 by validator.cpp
-cubes(INFO) [02:02:37]: Start validator on test: .tests/8
-cubes(INFO) [02:02:37]: Validating .tests/8 by validator.cpp
-cubes(INFO) [02:02:37]: Start validator on test: .tests/9
-cubes(INFO) [02:02:37]: Validating .tests/9 by validator.cpp
-cubes(INFO) [02:02:37]: Start validator on test: .tests/10
-cubes(INFO) [02:02:37]: Validating .tests/10 by validator.cpp
-cubes(INFO) [02:02:37]: Start validator on test: .tests/11
-cubes(INFO) [02:02:37]: Validating .tests/11 by validator.cpp
-cubes(INFO) [02:02:37]: Start validator on test: .tests/12
-cubes(INFO) [02:02:37]: Validating .tests/12 by validator.cpp
-cubes(INFO) [02:02:37]: Start validator on test: .tests/13
-cubes(INFO) [02:02:37]: Validating .tests/13 by validator.cpp
-cubes(INFO) [02:02:37]: Start validator on test: .tests/14
-cubes(INFO) [02:02:37]: Validating .tests/14 by validator.cpp
-cubes(INFO) [02:02:37]: Start validator on test: .tests/15
-cubes(INFO) [02:02:37]: Validating .tests/15 by validator.cpp
-cubes(INFO) [02:02:37]: Start validator on test: .tests/16
-cubes(INFO) [02:02:37]: Validating .tests/16 by validator.cpp
-cubes(INFO) [02:02:37]: Start validator on test: .tests/17
-cubes(INFO) [02:02:37]: Validating .tests/17 by validator.cpp
-cubes(INFO) [02:02:37]: Start validator on test: .tests/18
-cubes(INFO) [02:02:37]: Validating .tests/18 by validator.cpp
-cubes(INFO) [02:02:38]: Start validator on test: .tests/19
-cubes(INFO) [02:02:38]: Validating .tests/19 by validator.cpp
-cubes(INFO) [02:02:38]: Start validator on test: .tests/20
-cubes(INFO) [02:02:38]: Validating .tests/20 by validator.cpp
+...
 cubes(INFO) [02:02:38]: Start validator on test: .tests/21
 cubes(INFO) [02:02:38]: Validating .tests/21 by validator.cpp
 cubes(INFO) [02:02:38]: Generating answer for .tests/1 with solutions/solution.py
 cubes(INFO) [02:02:38]: Generating answer for .tests/2 with solutions/solution.py
-cubes(INFO) [02:02:38]: Generating answer for .tests/3 with solutions/solution.py
-cubes(INFO) [02:02:38]: Generating answer for .tests/4 with solutions/solution.py
-cubes(INFO) [02:02:39]: Generating answer for .tests/5 with solutions/solution.py
-cubes(INFO) [02:02:39]: Generating answer for .tests/6 with solutions/solution.py
-cubes(INFO) [02:02:40]: Generating answer for .tests/7 with solutions/solution.py
-cubes(INFO) [02:02:40]: Generating answer for .tests/8 with solutions/solution.py
-cubes(INFO) [02:02:41]: Generating answer for .tests/9 with solutions/solution.py
-cubes(INFO) [02:02:42]: Generating answer for .tests/10 with solutions/solution.py
-cubes(INFO) [02:02:43]: Generating answer for .tests/11 with solutions/solution.py
-cubes(INFO) [02:02:43]: Generating answer for .tests/12 with solutions/solution.py
-cubes(INFO) [02:02:44]: Generating answer for .tests/13 with solutions/solution.py
-cubes(INFO) [02:02:45]: Generating answer for .tests/14 with solutions/solution.py
-cubes(INFO) [02:02:45]: Generating answer for .tests/15 with solutions/solution.py
-cubes(INFO) [02:02:46]: Generating answer for .tests/16 with solutions/solution.py
-cubes(INFO) [02:02:47]: Generating answer for .tests/17 with solutions/solution.py
-cubes(INFO) [02:02:47]: Generating answer for .tests/18 with solutions/solution.py
-cubes(INFO) [02:02:48]: Generating answer for .tests/19 with solutions/solution.py
-cubes(INFO) [02:02:49]: Generating answer for .tests/20 with solutions/solution.py
+...
 cubes(INFO) [02:02:50]: Generating answer for .tests/21 with solutions/solution.py
 }}}
 Заметим, что они заодно провалидировались и ответы к ним (по main solution) составились.
@@ -130,49 +66,13 @@ cubes(INFO) [02:02:50]: Generating answer for .tests/21 with solutions/solution.
 <br><br>
 Теперь у нас есть некий набор тестов, который хранится в .tests. Да-да, у нас появилась новая папка. Так вот, представим, что мы заметили ошибку в валидаторе, и хотим заново провалидировать уже готовые тесты. Тогда сделаем так:
 {{{
-~/<problem_name>$ please validate tests
+~/cubes$ please validate tests
 cubes(INFO) [02:11:42]: Start validator on test: .tests/1
 cubes(INFO) [02:11:42]: Validating .tests/1 by validator.cpp
 cubes(INFO) [02:11:42]: Start validator on test: .tests/2
 cubes(INFO) [02:11:42]: Validating .tests/2 by validator.cpp
 cubes(INFO) [02:11:42]: Start validator on test: .tests/3
 cubes(INFO) [02:11:42]: Validating .tests/3 by validator.cpp
-cubes(INFO) [02:11:42]: Start validator on test: .tests/4
-cubes(INFO) [02:11:42]: Validating .tests/4 by validator.cpp
-cubes(INFO) [02:11:42]: Start validator on test: .tests/5
-cubes(INFO) [02:11:42]: Validating .tests/5 by validator.cpp
-cubes(INFO) [02:11:42]: Start validator on test: .tests/6
-cubes(INFO) [02:11:42]: Validating .tests/6 by validator.cpp
-cubes(INFO) [02:11:42]: Start validator on test: .tests/7
-cubes(INFO) [02:11:42]: Validating .tests/7 by validator.cpp
-cubes(INFO) [02:11:42]: Start validator on test: .tests/8
-cubes(INFO) [02:11:42]: Validating .tests/8 by validator.cpp
-cubes(INFO) [02:11:42]: Start validator on test: .tests/9
-cubes(INFO) [02:11:42]: Validating .tests/9 by validator.cpp
-cubes(INFO) [02:11:42]: Start validator on test: .tests/10
-cubes(INFO) [02:11:42]: Validating .tests/10 by validator.cpp
-cubes(INFO) [02:11:42]: Start validator on test: .tests/11
-cubes(INFO) [02:11:42]: Validating .tests/11 by validator.cpp
-cubes(INFO) [02:11:43]: Start validator on test: .tests/12
-cubes(INFO) [02:11:43]: Validating .tests/12 by validator.cpp
-cubes(INFO) [02:11:43]: Start validator on test: .tests/13
-cubes(INFO) [02:11:43]: Validating .tests/13 by validator.cpp
-cubes(INFO) [02:11:43]: Start validator on test: .tests/14
-cubes(INFO) [02:11:43]: Validating .tests/14 by validator.cpp
-cubes(INFO) [02:11:43]: Start validator on test: .tests/15
-cubes(INFO) [02:11:43]: Validating .tests/15 by validator.cpp
-cubes(INFO) [02:11:43]: Start validator on test: .tests/16
-cubes(INFO) [02:11:43]: Validating .tests/16 by validator.cpp
-cubes(INFO) [02:11:43]: Start validator on test: .tests/17
-cubes(INFO) [02:11:43]: Validating .tests/17 by validator.cpp
-cubes(INFO) [02:11:43]: Start validator on test: .tests/18
-cubes(INFO) [02:11:43]: Validating .tests/18 by validator.cpp
-cubes(INFO) [02:11:43]: Start validator on test: .tests/19
-cubes(INFO) [02:11:43]: Validating .tests/19 by validator.cpp
-cubes(INFO) [02:11:43]: Start validator on test: .tests/20
-cubes(INFO) [02:11:43]: Validating .tests/20 by validator.cpp
-cubes(INFO) [02:11:43]: Start validator on test: .tests/21
-cubes(INFO) [02:11:43]: Validating .tests/21 by validator.cpp
 }}}
 Если что-то пойдёт не так, нас ждёт сюрприз:
 {{{
@@ -181,3 +81,56 @@ cubes(ERROR) [02:13:16]:
 STDERR:
 }}}
 Также можно перегенерировать ответы, please generate answers.
+=Проверка решений=
+Допустим, что мы уже прописали в конфиге все решения, и сгенерировали все тесты. Тогда мы можем проверять различные решения, например, главное:
+{{{
+~/cubes$ please check main solution
+cubes(INFO) [00:47:15]: Testing solutions/solution.py on .tests/1
+cubes(INFO) [00:47:15]: Testing solutions/solution.py on .tests/2
+...
+cubes(INFO) [00:47:29]: Testing solutions/solution.py on .tests/21
+
+----------------------------------
+| Test # | solutions/solution.py | 
+----------------------------------
+|      1 | OK T=0.09s RT=0.10s   | 
+----------------------------------
+|      2 | OK T=0.09s RT=0.10s   | 
+----------------------------------
+...
+----------------------------------
+|     21 | OK T=1.11s RT=1.12s   | 
+----------------------------------
+
+Total:  21
+Failed: 0
+Passed: 21
+}}}
+Какое-нибудь конкретное:
+{{{
+/cubes$ please check solution solutions/solution_wrong.cpp
+cubes(INFO) [00:49:20]: Testing solutions/solution_wrong.cpp on .tests/1
+cubes(INFO) [00:49:20]: Testing solutions/solution_wrong.cpp on .tests/2
+...
+cubes(INFO) [00:49:23]: Testing solutions/solution_wrong.cpp on .tests/21
+cubes(INFO) [00:49:24]: 
+STDERR:
+
+
+-----------------------------------------
+| Test # | solutions/solution_wrong.cpp | 
+-----------------------------------------
+|      1 | OK T=0.00s RT=0.00s          | 
+-----------------------------------------
+|      2 | OK T=0.00s RT=0.00s          | 
+-----------------------------------------
+...
+-----------------------------------------
+|     21 | RE T=0.00s RT=0.00s          | 
+-----------------------------------------
+
+Total:  21
+Failed: 5
+Passed: 16
+}}}
+Или же все вместе командой please check solutions.
