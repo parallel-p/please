@@ -2,3 +2,6 @@
 23.09.2011[01:42:20] - aplusb - please_logger(INFO) svn delete .tests .statements
 23.09.2011[01:42:20] - aplusb - please_logger(ERROR) failed: svn delete .tests .statements
 23.09.2011[01:42:20] - aplusb - please_logger(INFO) svn ci -m " "
+23.09.2011[01:43:16] - aplusb - please_logger(INFO) svn add --force *
+23.09.2011[01:43:17] - aplusb - please_logger(INFO) svn revert .tests .statements
+23.09.2011[01:43:18] - aplusb - please_logger(INFO) svn ci -m " "
