@@ -83,7 +83,6 @@ def svn_operation(command):
                 return True
             else:
                 logger.error("failed: svn " + " ".join(command))
-                raise SvnError("failed: svn " + " ".join(command))
 
 def add_created_problem(shortname):
     shortname = str(shortname)
@@ -186,19 +185,22 @@ class ProblemInSvn:
         if globalconfig.svn['type'] == 'public' and self.__in_svn:
             svn_operation(['ci', '-m', '"' + description + ' ' + path + ' updated"'])
 
-    def sync():
-        '''for personal svn
-           0. svn up
+    def sync(self):
+        '''
+           0. svn up (for personal svn only)
            1. svn add all 
            2. revert trash dirs
            3. revert trash files
            4. commit
         '''
-        if globalconfig.svn['type'] == 'personal' and self.__in_svn:
+        if globalconfig.svn['type'] == 'personal':
             svn_operation(['up'])
-            svn_operation(['add', '*'])
-            svn_operation(['revert', svn_trash_dirs])
-            for (directory, tmp, tmp2) in os.walk('.'):
-                svn_operation(['revert', list(map(lambda x: os.path.join(directory, x), svn_trash_mask))])            
-            svn_operation(['ci', '-m', '" "'])
+        svn_operation(['add', '--force', '*'])
+        svn_operation(['revert'] + svn_trash_dirs)
+        for (directory, tmp, files) in os.walk('.'):
+            if directory.find('.svn') == -1:
+                for file in files:
+                    if file.endswith('.exe'):
+                        svn_operation(['revert', os.path.join(directory, file)])            
+        svn_operation(['ci', '-m', '" "'])
         

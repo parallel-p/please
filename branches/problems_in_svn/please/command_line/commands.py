@@ -36,7 +36,9 @@ problem_commands = ["generate statement",
              "set problem name NAME",
              "check main solution",
              "clean",
-             "validate tests"]
+             "validate tests",
+             "[svn] sync",
+             ]
 
 def print_lite_help(in_problem_folder):
     print("Usage: please [command]")
@@ -143,9 +145,6 @@ Commands available when inside problem's folder:
     Sets validator. Copies specified file to the problem directory and edits default.package
     example: add validator ../../sources/validator.cpp
 
-  {23}:
-    Validates all generated tests
-    
   {14}:
     Checks solution specified
     example: check solution solutiontl.cpp
@@ -153,9 +152,6 @@ Commands available when inside problem's folder:
   {15}
     Checks all solutions available    
 
-  {21}:
-    Checks main solution, specified in default.package
-    
   {16}:
     Performs a stress test of current solution
     example: stress test solutions/wrong.cpp "tests/gen.cpp 10 5"
@@ -173,8 +169,18 @@ Commands available when inside problem's folder:
   {20}
     Sets current problem name
   
+  {21}:
+    Checks main solution, specified in default.package
+    
   {22}
     Cleans up current directory - removes generated binary files, temporary folders, logs
+
+  {23}:
+    Validates all generated tests
+    
+  {24}:
+    Syncronize local copy of the problem with svn repository (svn up, then add and commit new content)
+
 """.format(*problem_commands))
     trash_remover.remove_logs_in_depth(out=False)
 

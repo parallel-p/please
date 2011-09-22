@@ -48,6 +48,8 @@ def main():
     # If we are inside folder with  the problem, we have more handlers
     package_config = package_config.PackageConfig.get_config('.')
     in_problem_folder = (package_config != False)
+    matcher.add_handler(Template(["svn", "sync"]), svn.ProblemInSvn().sync, in_problem_folder)
+    matcher.add_handler(Template(["sync"]), svn.ProblemInSvn().sync, in_problem_folder)
     matcher.add_handler(Template(["validate", "tests"]), tests_answer_generator.TestsAndAnswersGenerator().validate, in_problem_folder)
     matcher.add_handler(Template(["well", "done"]), tests_answer_generator.TestsAndAnswersGenerator().well_done, in_problem_folder)
     matcher.add_handler(Template(["clean"]), cleaner.Cleaner().cleanup, in_problem_folder)
