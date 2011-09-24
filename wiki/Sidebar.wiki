@@ -6,7 +6,7 @@
   * [WindowsInstall]
   * [DprCompiler]
   * [CppCompiler]
-  * [StoringProblemsInSVN]
+  * [StoringProblemsInSvn]
 ----
   * [ProblemFormat]
   * [Tags]
