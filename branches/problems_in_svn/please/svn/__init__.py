@@ -10,10 +10,14 @@ from ..invoker.invoker import invoke, ExecutionLimits
 from ..utils import platform_detector
 
 svn_trash_dirs = ['.tests', '.statements']
-svn_trash_mask = ['*.exe']
+svn_trash_ext = ['exe', 'log', 'pdf']
 
 class SvnError(Exception):
     pass
+
+
+def sync():
+    ProblemInSvn().sync()
 
 def problem_in_svn(shortname = '.'):
     if globalconfig.svn['type'] == 'public':
@@ -85,6 +89,13 @@ def svn_operation(command):
                 logger.error("failed: svn " + " ".join(command))
 
 def add_created_problem(shortname):
+    if globalconfig.svn['type'] == 'personal':
+        ProblemInSvn(svn_up = False).sync()
+        return
+
+    ###################    
+    #public svn section
+    ###################
     shortname = str(shortname)
     svnname = svn_probname(shortname)
 
@@ -121,6 +132,14 @@ def on_remove_error(func, path, exc_info):
     os.unlink(path)
 
 def delete_problem(shortname):
+    if svn['type'] == 'personal':
+        logger.error("svn type is personal: delete problem manually")
+        return
+
+    ###################
+    #public svn section
+    ###################
+
     if svn['url'] != '':
         svn_path = get_svn_path(shortname)
         svn_name = get_svn_name(shortname)
@@ -144,17 +163,17 @@ class ProblemInSvn:
 
     __in_svn = None
     _instance = None
-
+    files = []
+    
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
             cls._instance = super(ProblemInSvn, cls).__new__(
                                 cls, *args, **kwargs)
         return cls._instance
 
-    def __init__(self):
+    def __init__(self, svn_up = True):
         #run from problem directory
-        if self.__in_svn is None and globalconfig.svn['type'] == 'public':
-            print('*********')
+        if self.__in_svn is None and globalconfig.svn['type'] == 'public' and svn_up:
             if not problem_in_svn():
                 logger.warning("Problem is not in svn repository")
                 #raise SvnError
@@ -174,16 +193,22 @@ class ProblemInSvn:
                 self.__in_svn = True
                 svn_operation(['up'])
 
+    def commit(self):
+        if self.files:
+            svn_operation(['ci', '-m', '" "'] + self.files)
+
     def add(self, path, description = ''):
         #run from problem directory
         if globalconfig.svn['type'] == 'public' and self.__in_svn:
             svn_operation(['add', path])
-            svn_operation(['ci', '-m', '"' + description + ' ' + path + ' added"'])
+            #svn_operation(['ci', '-m', '"' + description + ' ' + path + ' added"'])
+            self.files += [path]
 
     def update(self, path, description = ''):
         #run from problem directory
         if globalconfig.svn['type'] == 'public' and self.__in_svn:
-            svn_operation(['ci', '-m', '"' + description + ' ' + path + ' updated"'])
+            #svn_operation(['ci', '-m', '"' + description + ' ' + path + ' updated"'])
+            self.files += [path]
 
     def sync(self):
         '''
@@ -200,7 +225,7 @@ class ProblemInSvn:
         for (directory, tmp, files) in os.walk('.'):
             if directory.find('.svn') == -1:
                 for file in files:
-                    if file.endswith('.exe'):
+                    if '.' not in file or file.split('.')[-1] in svn_trash_ext:
                         svn_operation(['revert', os.path.join(directory, file)])            
         svn_operation(['ci', '-m', '" "'])
         
