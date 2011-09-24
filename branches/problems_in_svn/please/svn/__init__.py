@@ -90,7 +90,8 @@ def svn_operation(command):
 
 def add_created_problem(shortname):
     if globalconfig.svn['type'] == 'personal':
-        ProblemInSvn(svn_up = False).sync()
+        svn_operation(['add', shortname])
+        svn_operation(['ci', '-m', '"problem ' + shortname + ' initial commit"', shortname])
         return
 
     ###################    
@@ -173,7 +174,8 @@ class ProblemInSvn:
 
     def __init__(self, svn_up = True):
         #run from problem directory
-        if self.__in_svn is None and globalconfig.svn['type'] == 'public' and svn_up:
+        if self.__in_svn is None and svn['type'] == 'public' and svn_up:
+            print('**********************')
             if not problem_in_svn():
                 logger.warning("Problem is not in svn repository")
                 #raise SvnError
