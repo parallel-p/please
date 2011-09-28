@@ -9,7 +9,7 @@ output = stdout
 time_limit = 2
 memory_limit = 64
 
-checker = checker.cpp
+checker = checker.pas
 validator = validator.cpp
 main_solution = solutions/solution.cpp
 
