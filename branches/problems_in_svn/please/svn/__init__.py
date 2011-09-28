@@ -229,5 +229,5 @@ class ProblemInSvn:
                 for file in files:
                     if '.' not in file or file.split('.')[-1] in svn_trash_ext:
                         svn_operation(['revert', os.path.join(directory, file)])            
-        svn_operation(['ci', '-m', '" "'])
+        svn_operation(['ci', '-m', '"Problem ' + get_svn_name() + ' synced"'])
         
