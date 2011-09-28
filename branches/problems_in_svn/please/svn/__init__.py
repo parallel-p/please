@@ -195,9 +195,13 @@ class ProblemInSvn:
                 self.__in_svn = True
                 svn_operation(['up'])
 
-    def commit(self):
+    #TODO: why not use this everywhere where one needs to commit? i.e. everywhere in this file too
+    #TODO: make messages more informative by passing some values to message?
+    def commit(self, message = ''):
+        if message == '':
+            message = "commit some changes"
         if self.files:
-            svn_operation(['ci', '-m', '" "'] + self.files)
+            svn_operation(['ci', '-m', '"Problem ' + get_svn_name() + ': ' + message +'"'] + self.files)
 
     def add(self, path, description = ''):
         #run from problem directory
