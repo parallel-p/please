@@ -24,6 +24,6 @@ solution = {
     expected_verdicts = OK
 }
 solution = {
-    source = solutions/aplusb_pk2.dpr
+    source = solutions/aplusb_pk_wrong.dpr
     expected_verdicts = OK
 }

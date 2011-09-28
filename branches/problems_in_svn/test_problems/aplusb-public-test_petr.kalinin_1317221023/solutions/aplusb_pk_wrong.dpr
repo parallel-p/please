@@ -3,7 +3,7 @@
 {$ifdef fpc}
 {$mode delphi}
 {$endif}
-var a,b:integer;
+var a,b:smallint;
 begin
 read(a,b);
 writeln(a+b);
