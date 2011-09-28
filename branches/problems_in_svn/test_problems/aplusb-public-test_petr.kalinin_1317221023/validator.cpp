@@ -4,6 +4,8 @@ using namespace std;
 
 int main() {
     registerValidation();
-
-    return 0;
+    inf.readInt(1, 1000000000);
+    inf.readSpace();
+    inf.readInt(1, 1000000000);
+    inf.readEof();
 }
