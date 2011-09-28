@@ -27,13 +27,3 @@ solution = {
     source = solutions/aplusb_pk_wrong.dpr
     expected_verdicts = OK
 }
-solution = {
-    source = solutions/aplusb_pk.dpr
-    expected_verdicts = foo
-    possible_verdicts = bar
-}
-solution = {
-    source = solutions/aplusb_pk.dpr
-    expected_verdicts = foo
-    possible_verdicts = bar
-}
