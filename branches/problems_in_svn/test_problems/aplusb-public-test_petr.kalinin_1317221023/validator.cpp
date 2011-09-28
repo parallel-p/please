@@ -7,7 +7,7 @@ int main() {
     inf.readInt(-1000000000, 1000000000);
     inf.readSpace();
     inf.readInt(-1000000000, 1000000000);
-    inf.readEoln();
+//    inf.readEoln();
     inf.readEof();
     return 0;
 }
