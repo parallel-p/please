@@ -9,7 +9,7 @@ output = stdout
 time_limit = 2
 memory_limit = 64
 
-checker = checker.pas
+checker = checker.dpr
 validator = validator.cpp
 main_solution = solutions/aplusb_pk.dpr
 
