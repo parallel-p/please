@@ -1,7 +1,7 @@
 { Copyright(c) SPb-IFMO CTD Developers, 2000 }
 { Copyright(c) Anton Sukhanov, 1996 }
 
-{ $Id: testlib.pas,v 1.1 2001/11/08 15:37:55 sta Exp $ }
+{ $Id: testlib.pas,v 2.0.fpc 2001/11/08 15:37:55 sta Exp $ }
 
 { Evaluating programs support stuff }
 
@@ -9,6 +9,10 @@
 {$ERROR}
 {$ELSE}
 {$I-,O+,Q-,R-,S-}
+{$endif}
+
+{$ifdef fpc}
+{$mode delphi}
 {$endif}
 
 (*
@@ -130,7 +134,8 @@ var
 implementation
 
 uses 
-    sysutils, math, windows;
+    sysutils;
+
 
 const
     LightGray = $07;    
@@ -139,11 +144,11 @@ const
     LightGreen = $0a;
 
 procedure TextColor(x: word);
-var
-    h: THandle;
+{var
+    h: THandle;}
 begin
-    h := GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(h, x);
+{    h := GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(h, x);}
 end;
 
 const 
@@ -159,8 +164,6 @@ procedure XMLSafeWrite(var t: text; s: string);
 var
     i: integer;
 begin
-    if length(s) > 200 then
-        s := copy(s ,1, 200) + '...';
     for i := 1 to length(s) do
     begin
         case s[i] of
@@ -168,6 +171,7 @@ begin
             '<': write(t, '&lt;');
             '>': write(t, '&gt;');
             '"': write(t, '&quot;');
+            #128..#255: write(t, '?');
             #0..#31: write(t, '.');
             else
                 write(t, s[i]);
@@ -197,7 +201,7 @@ begin
     case res of
         _fail: 
             begin 
-//                beep(100, 300);
+{                beep(100, 300);}
                 ErrorName := 'FAIL ';
                 Scr(LightRed, ErrorName);
             end;
@@ -238,12 +242,13 @@ begin
         if IOResult <> 0 then Quit(_fail, 'Can not write to Result file');
         if AppesMode then
         begin
-            write(ResFile, '<?xml version="1.0" encoding="windows-1251"?>');
             write(ResFile, '<result outcome = "', outcomes[res], '">');
             xmlsafewrite(ResFile, msg);
             writeln(ResFile, '</result>');
         end else  begin
-            writeln(ResFile, msg);
+            writeln(ResFile, '.Testlib Result Number = ', ord(res));
+            writeln(ResFile, '.Result name (optional) = ', ErrorName);
+            writeln(ResFile, '.Check Comments = ', msg);
         end;
         close(ResFile);
         if IOResult <> 0 then Quit(_fail, 'Can not write to Result file');
@@ -260,7 +265,7 @@ begin
 
     TextColor(LightGray);
 
-    if appesmode and ((res = _ok) or (ResultName <> '')) then 
+    if (res = _ok) or (ResultName <> '') then 
         halt(0)
     else 
         halt(ord(res));
@@ -398,88 +403,11 @@ end;
 function InStream.ReadReal: extended;
 var 
     help: string;
-    i, dc, mexp, ec, esign, exp: integer;
-    sign, cur, q: extended;
+    code: integer;
 begin
     help := ReadWord (NumberBefore, NumberAfter);
-    if Length(help) = 0 then
-        Quit(_pe, 'Expected real instead of "' + help + '"');
-    // parse sign
-    i := 1;
-    sign := 1;
-    if help[i] = '+' then
-        Inc(i)
-    else if help[i] = '-' then begin
-        sign := -1;
-        Inc(i);
-    end;
-    // Mantissa will be represented as cur * 10^mexp where abs(cur) < 1
-    // parse mantissa before dot
-    dc := 0;
-    mexp := 0;
-    cur := 0;
-    q := 1;
-    while (i <= Length(help)) and (help[i] in ['0'..'9']) do begin
-        if q > 1e20 then // matissa is already too precise -- skip remaining digits
-            Inc(mexp)
-        else if (cur <> 0) or (help[i] <> '0') then begin
-            q := 10 * q;
-            cur := cur + (Ord(help[i]) - Ord('0')) / q;
-            Inc(mexp);
-        end;
-        Inc(i);
-        Inc(dc);
-    end;
-    // parse mantissa after dot
-    if (i <= Length(help)) and (help[i] = '.') then begin
-        Inc(i);
-        while (i <= Length(help)) and (help[i] in ['0'..'9']) do begin
-            if q > 1e20 then // matissa is already too precise -- skip remaining digits
-            else if (cur <> 0) or (help[i] <> '0') then begin
-                q := 10 * q;
-                cur := cur + (Ord(help[i]) - Ord('0')) / q;
-            end else
-                Dec(mexp);
-            Inc(i);
-            Inc(dc);
-        end;
-    end;
-    if dc = 0 then // must have at least one digit in mantissa
-        Quit(_pe, 'Expected real instead of "' + help + '"');
-    // parse exponent
-    esign := 1;
-    exp := 0;
-    if (i <= Length(help)) and (help[i] in ['e', 'E']) then begin
-        Inc(i);
-        ec := 0;
-        if i > Length(help) then // should have something after 'e'
-            Quit(_pe, 'Expected real instead of "' + help + '"');
-        if help[i] = '+' then
-            Inc(i)
-        else if help[i] = '-' then begin
-            esign := -1;
-            Inc(i);
-        end;
-        while (i <= Length(help)) and (help[i] in ['0'..'9']) do begin
-            if exp < 1000000 then // don't increase further when exp is already too large for 'extended'
-                exp := 10 * exp + (Ord(help[i]) - Ord('0'));
-            Inc(i);
-            Inc(ec);    
-        end;
-        if ec = 0 then // must have at least one digit after 'e'
-            Quit(_pe, 'Expected real instead of "' + help + '"');
-    end;
-    if i <= Length(help) then // must have already finished parsing
-        Quit(_pe, 'Expected real instead of "' + help + '"');
-    // compute actual exponent for mantissa and result
-    Inc(mexp, esign * exp);
-    if (cur <> 0) and (mexp > 300) then // number is too big
-        Quit(_pe, 'Expected real instead of "' + help + '"');
-    if mexp < -300 then
-        cur := 0 // flush to zero
-    else
-        cur := cur * IntPower(10, mexp);
-    Result := sign * cur;
+    val(help, result, code);
+    if code <> 0 then Quit(_pe, 'Expected real instead of "' + help + '"');
 end;
 
 procedure InStream.skip(setof: CharSet);
