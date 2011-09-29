@@ -1,7 +1,7 @@
 { Copyright(c) SPb-IFMO CTD Developers, 2000 }
 { Copyright(c) Anton Sukhanov, 1996 }
 
-{ $Id: testlib.pas,v 2.0.delphi 2001/11/08 15:37:55 sta Exp $ }
+{ $Id: testlib.pas,v 2.0.fpc 2001/11/08 15:37:55 sta Exp $ }
 
 { Evaluating programs support stuff }
 
@@ -9,6 +9,10 @@
 {$ERROR}
 {$ELSE}
 {$I-,O+,Q-,R-,S-}
+{$endif}
+
+{$ifdef fpc}
+{$mode delphi}
 {$endif}
 
 (*
@@ -130,7 +134,8 @@ var
 implementation
 
 uses 
-    sysutils, windows;
+    sysutils;
+
 
 const
     LightGray = $07;    
@@ -139,11 +144,11 @@ const
     LightGreen = $0a;
 
 procedure TextColor(x: word);
-var
-    h: THandle;
+{var
+    h: THandle;}
 begin
-    h := GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(h, x);
+{    h := GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(h, x);}
 end;
 
 const 
@@ -196,7 +201,7 @@ begin
     case res of
         _fail: 
             begin 
-                beep(100, 300);
+{                beep(100, 300);}
                 ErrorName := 'FAIL ';
                 Scr(LightRed, ErrorName);
             end;

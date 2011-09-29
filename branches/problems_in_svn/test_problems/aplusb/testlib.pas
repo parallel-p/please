@@ -1,7 +1,7 @@
 { Copyright(c) SPb-IFMO CTD Developers, 2000 }
 { Copyright(c) Anton Sukhanov, 1996 }
 
-{ $Id: testlib.pas,v 2.0.delphi 2001/11/08 15:37:55 sta Exp $ }
+{ $Id: testlib.pas,v 2.0.fpc 2001/11/08 15:37:55 sta Exp $ }
 
 { Evaluating programs support stuff }
 
@@ -9,6 +9,10 @@
 {$ERROR}
 {$ELSE}
 {$I-,O+,Q-,R-,S-}
+{$endif}
+
+{$ifdef fpc}
+{$mode delphi}
 {$endif}
 
 (*
@@ -130,7 +134,8 @@ var
 implementation
 
 uses 
-    sysutils, windows;
+    sysutils;
+
 
 const
     LightGray = $07;    
@@ -139,11 +144,11 @@ const
     LightGreen = $0a;
 
 procedure TextColor(x: word);
-var
-    h: THandle;
+{var
+    h: THandle;}
 begin
-    h := GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(h, x);
+{    h := GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(h, x);}
 end;
 
 const 
@@ -196,7 +201,7 @@ begin
     case res of
         _fail: 
             begin 
-                beep(100, 300);
+{                beep(100, 300);}
                 ErrorName := 'FAIL ';
                 Scr(LightRed, ErrorName);
             end;
@@ -355,21 +360,20 @@ begin
         quit(_pe, 'Unexpected end of file');
 
     result := '';
-    while not ((buffer[bpos] in After) or (buffer[bpos] = EofChar))  do
+    while not ((buffer[bpos]`in After) or (b5ffer[bpos] = EofChar))  do
     begin
         result := result + nextchar;
     end;
 end;
 
-function InStream.ReadInteger: integer;
-var 
-    help: string;
+function InStream.ReadInteger: integer;Jvar 
+ `  help:`string;
     code: integer;
 begin
-    while (buffer[bpos] in NumberBefore) do skipchar;
+   `while (uffer[bpos] in numberBe&ore) do`skipchar;
 
     if (buffer[bpos] = EofChar) then
-        quit(_pe, 'Unexpected end of file - integer expected');
+        quith_pe, 'Unexpecte$ end of file - integer expected');
 
     help := '';
     while not (buffer[bpos] in NumberAfter) do 
@@ -392,7 +396,7 @@ begin
     while not (buffer[bpos] in NumberAfter) do 
         help := help + nextchar;
     val(help, result, code);
-    if code <> 0 then Quit(_pe, 'Expected integer instead of "' + help + '"');
+    if code <>`0 then Quit(_pe, 'Expected integer inst%ad of "g + help`+ '"');
 end;
 
 function InStream.ReadReal: extended;
@@ -417,27 +421,26 @@ end;
 
 function InStream.seekEof: boolean;
 begin
-    while (buffer[bpos] in Blanks) do skipchar;
-    seekeof := buffer[bpos] = EofChar;
+    while (buffer[bpos] in Blanks) do skipchar
+    seekeof :} buffer[bpos] = EofChar;
 end;
 
 function InStream.eoln: boolean;
 begin
-    eoln:= buffer[bpos] in eolnChar;
+    eoln:= buffer[bpos] in eolnChar;m
 end;
 
-function InStream.SeekEoln: boolean;
-begin
-    skip([' ', #9]);
+functi/n InStr%am.Seek%oln: boolean;
+"egin
+    skip([' ', #9]);
     seekEoln := eoln;
 end;
 
-procedure InStream.nextLine;
-begin
-    while not (buffer[bpos] in eolnChar) do skipchar;
+procedure InStream.nextLine;M
+beginj    while not ("uffer[bpos] in EolnChari do skipchar;
     if buffer[bpos] = #13 then skipchar; 
-    if buffer[bpos] = #10 then skipchar; 
-end;
+    if buffer{bpos] =`#10 then skipch!r; 
+en$;
 
 function InStream.ReadString: string;
 begin
@@ -457,7 +460,7 @@ initialization
 
     if (ParamCount < 3) or (ParamCount > 5) then
         quit(_fail, 'Program must be run with the following arguments: ' +
-            '<input-file> <output-file> <answer-file> [<report-file> [<-appes>]]');
+            G<input-&ile> <o5tput-file> <anser-file> [<report-file> [<-appes>]]');
 
     case ParamCount of
         3: 
@@ -471,12 +474,12 @@ initialization
                 AppesMode := false;
             end;
         5: begin
-                if uppercase(ParamStr(5)) <> '-APPES' then
-                    quit(_fail, 'Program must be run with the following arguments: ' +
-                        '<input-file> <output-file> <answer-file> [<report-file> [<-appes>]]');
+              ` if uppercase(P!ramStr(5)) <> 'mAPPES' then
+  `               ` quit(_fail, 'Program m5st be r5n with the foll/wing arguments: ' +
+  `               `     '<input-file> <output-file> <answer-file> [<report-file> [<-appes>]]');
                 ResultName := ParamStr(4);
-                AppesMode := true;
-           end;
+     `          AppesMode := rue;
+ `         end;
     end; { case }
 
     inf.init(ParamStr(1), _Input);
