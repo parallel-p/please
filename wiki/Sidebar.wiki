@@ -4,6 +4,7 @@
 ----
   * [CreateProblem]
   * [ProblemConfig]
+  * [TestsConfig]
   * [WindowsInstall]
   * [DprCompiler]
   * [CppCompiler]
