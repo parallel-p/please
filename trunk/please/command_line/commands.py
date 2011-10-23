@@ -35,7 +35,9 @@ problem_commands = ["generate statement",
              "set problem name NAME",
              "check main solution",
              "clean",
-             "validate tests"]
+             "validate tests",
+             "well done"
+             ]
 
 def print_lite_help():
     print("Usage: please [command]")
@@ -168,6 +170,10 @@ Commands available when inside problem's folder:
 
   {20}
     Sets current problem name
+
+  {24}
+    Corrects manual tests and inform you if generators are to be corrected according
+    to well-done test description in problem config
 
   {22}
     Cleans up current directory - removes generated binary files, temporary folders, logs
