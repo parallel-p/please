@@ -3,6 +3,7 @@
   * [ReadmeForDevelopers]
 ----
   * [CreateProblem]
+  * [ProblemConfig]
   * [WindowsInstall]
   * [DprCompiler]
   * [CppCompiler]
