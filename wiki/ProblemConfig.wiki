@@ -1,0 +1,20 @@
+=Конфигурируем параметры задачи=
+Все изменения происходят в файле default.package, который находится в папке с задачей.
+{{{
+~/cubes$ please set main solution solutions/solution.py
+cubes(INFO) [15:59:42]: Main solution solutions/solution.py was added successfully
+}}}
+
+Устанавливает основное решение.
+
+_*Примечание:*_ желательно главным решением устанавливать самое медленное из верных, потому что автоконфигурирование TL по команде please compute [integer] TL происходит именно по главному решению.
+
+{{{
+~/cubes$ please clear tags
+~/cubes$ please show tags
+
+~/cubes$ please add tags множества, сортировка
+~/cubes$ please show tags
+множества; сортировка
+}}}
+Управление тегами задачи, которые в перспективе помогут в поиске задач на одинаковые темы из базы.
