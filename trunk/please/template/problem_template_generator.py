@@ -1,16 +1,15 @@
 from os import mkdir
 from os.path import exists
 import os.path
+from ..log import logger
+import shutil
 from .. import globalconfig
 from .template_utils import get_template_full_path
 from .statement_template_generator import generate_description, generate_statement
 from .source_code_file_generator import generate_checker, generate_solution, generate_validator
 from ..package.config import Config as package_config
 from . import info_generator
-import logging
-import shutil
-
-log = logging.getLogger("please_logger.template.problem_template_generator")
+from .. import svn
 
 class ProblemExistsError(IOError):
     def __init__(self, shortname):
@@ -83,6 +82,8 @@ def generate_problem(shortname, handle_exception=True):
                               globalconfig.default_human_language,
                               globalconfig.default_programming_language)
         info_generator.create_time_file(shortname)
-        log.info("Problem %s created successfully", str(shortname))
+        logger.info("Problem %s created successfully", str(shortname))
+        svn.add_created_problem(shortname)
+        os.chdir(shortname)
     except ProblemExistsError as Error:
-        log.error(str(Error))
+        logger.error(str(Error))

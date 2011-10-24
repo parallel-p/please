@@ -10,11 +10,7 @@ import codecs
 import sys
 from . import globalconfig
 from .solution_tester.package_config import PackageConfig
-
-def __writepackage(text):
-    output_stream = open(globalconfig.default_package, "w", encoding = "utf-8")
-    output_stream.write(text)
-    output_stream.close()
+from .utils.writepackage import writepackage
 
 def add_tags (tags):
     opened_config = PackageConfig.get_config()
@@ -29,7 +25,7 @@ def add_tags (tags):
 
     opened_config["tags"] = s
     config_file = opened_config.get_text()
-    __writepackage(config_file)
+    writepackage(config_file)
     
 def clear_tags ():
     opened_config = PackageConfig.get_config()
@@ -37,7 +33,7 @@ def clear_tags ():
         pass
     opened_config["tags"] = " "
     config_file = opened_config.get_text()
-    __writepackage(config_file)   
+    writepackage(config_file)   
     
 def show_tags ():
     _inst_logger= logging.getLogger ("please_logger.tags.show_tags")
@@ -49,4 +45,4 @@ def show_tags ():
 def set_name(name):
     opened_config = PackageConfig.get_config()
     opened_config["name"] = name
-    __writepackage(opened_config.get_text())
+    writepackage(opened_config.get_text())
