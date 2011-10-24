@@ -13,6 +13,7 @@ def main():
     from please.add_source.add_source import add_solution, add_main_solution, add_checker, add_validator, add_solution_with_expected
     from please import tags
     from please.solution_tester import check_solution
+    from please.well_done import well_done
     import sys
     import logging
     from please.test_config_parser import parser
@@ -32,10 +33,12 @@ def main():
     from please.answers_generator.answers_generator import AnswersGenerator
     from please.tests_answer_generator import tests_answer_generator
     from please.reports import generate_html_report
+    from please import svn
 
     todo = todo_generator.TodoGenerator()
     matcher = Matcher()
     matcher.add_handler(Template(["create", "problem", "#shortname"]), problem_gen.generate_problem, True)
+    matcher.add_handler(Template(["delete", "problem", "#shortname"]), svn.delete_problem, True)
     matcher.add_handler(Template(["export", "to", "ejudge", "contest", "#contest_id", "problem|problems", "@tasks"]), export2ejudge, True)
     matcher.add_handler(Template(["help"]), print_help, True)
     matcher.add_handler(Template(["generate", "statements", "@problem_names"]), latex_tools.generate_contest, True)
@@ -47,8 +50,9 @@ def main():
     package_config = package_config.PackageConfig.get_config('.')
     in_problem_folder = (package_config != False)
     globalconfig.in_problem_folder = in_problem_folder
-    from please.well_done import well_done
     matcher.add_handler(Template(["well", "done"]), well_done.WellDoneCheck().all, in_problem_folder)
+    matcher.add_handler(Template(["svn", "sync"]), svn.sync, in_problem_folder)
+    matcher.add_handler(Template(["sync"]), svn.sync, in_problem_folder)
     matcher.add_handler(Template(["validate", "tests"]), tests_answer_generator.TestsAndAnswersGenerator().validate, in_problem_folder)
     matcher.add_handler(Template(["clean"]), cleaner.Cleaner().cleanup, in_problem_folder)
     matcher.add_handler(Template(["show", "todo"]), todo.get_todo, in_problem_folder)
@@ -99,3 +103,6 @@ def main():
         #    log.error("IOError: " + str(ex))
         except EnvironmentError as ex:
             logger.error("EnvironmentError: " + str(ex))
+    
+    if in_problem_folder:
+        svn.ProblemInSvn(svn_up=False).commit()

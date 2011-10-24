@@ -1,7 +1,7 @@
 from ..executors import trash_remover
 from .. import globalconfig
 
-PLEASE_VERSION = "0.1"
+PLEASE_VERSION = globalconfig.please_version
 
 global_commands = ["create problem PROBLEM_NAME",
              "export to ejudge contest CONTEST_ID problem[s] PROBLEM_LIST",
@@ -9,7 +9,8 @@ global_commands = ["create problem PROBLEM_NAME",
              "help",
              "[show] todo PATH_TO_PROBLEM",
              "import polygon package PATH_TO_POLYGON_PACKAGE",
-             "import polygon problem PROBLEM_LETTER from contest CONTEST_ID"
+             "import polygon problem PROBLEM_LETTER from contest CONTEST_ID",
+	     "delete problem PROBLEM_NAME", 
              ]
 
 problem_commands = ["generate statement",
@@ -37,6 +38,7 @@ problem_commands = ["generate statement",
              "clean",
              "validate tests",
              "well done"
+             "[svn] sync",
              ]
 
 def print_lite_help():
@@ -81,7 +83,11 @@ Global commands available:
     example: import polygon package centroid.zip
 
   {7}:
-    Imports given Polygon problem from given contest""".format(PLEASE_VERSION, *global_commands))
+    Imports given Polygon problem from given contest
+
+  {8}:
+    Deletes local copy of the problem and moves it to .deleted folder
+    in svn repository, if globalconfig.svn['url'] != ''""".format(PLEASE_VERSION, *global_commands))
     print("""
 Commands available when inside problem's folder:
 
@@ -141,9 +147,6 @@ Commands available when inside problem's folder:
     Sets validator. Copies specified file to the problem directory and edits default.package
     example: add validator ../../sources/validator.cpp
 
-  {23}:
-    Validates all generated tests
-
   {14}:
     Checks solution specified
     example: check solution solutiontl.cpp
@@ -153,7 +156,7 @@ Commands available when inside problem's folder:
 
   {21}:
     Checks main solution, specified in default.package
-
+    
   {16}:
     Performs a stress test of current solution
     example: stress test solutions/wrong.cpp "tests/gen.cpp 10 5"
@@ -175,8 +178,18 @@ Commands available when inside problem's folder:
     Corrects manual tests and inform you if generators are to be corrected according
     to well-done test description in problem config
 
+  {21}:
+    Checks main solution, specified in default.package
+    
   {22}
     Cleans up current directory - removes generated binary files, temporary folders, logs
+
+  {23}:
+    Validates all generated tests
+    
+  {24}:
+    Syncronize local copy of the problem with svn repository (svn up, then add and commit new content)
+
 """.format(*problem_commands))
     if(not globalconfig.in_problem_folder):
         trash_remover.remove_logs_in_depth(out=False, depth=False)

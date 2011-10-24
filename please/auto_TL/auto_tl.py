@@ -2,12 +2,9 @@ import math
 from .. import globalconfig
 from ..solution_tester.package_config import PackageConfig
 from ..solution_tester.check_solution import get_test_results_from_solution
+from .. import svn
+from ..utils.writepackage import writepackage
 
-def __writepackage(text):
-    output_stream = open("default.package", "w", encoding = "utf-8")
-    output_stream.write(text)
-    output_stream.close()
-    
 def set_integer_tl():
     opened_config = PackageConfig.get_config()
     solution = opened_config["main_solution"]
@@ -18,7 +15,7 @@ def set_integer_tl():
         max_time = max(max_time, value[0].cpu_time)
     seconds = math.ceil(max_time * 2)
     opened_config["time_limit"] = max(int(seconds), 1)
-    __writepackage(opened_config.get_text())
+    writepackage(opened_config.get_text())
     
 def set_float_tl():
     opened_config = PackageConfig.get_config()
@@ -30,4 +27,4 @@ def set_float_tl():
         max_time = max(max_time, value[0].cpu_time)
     seconds = max(0.1, math.ceil(max_time * 20) / 10)
     opened_config["time_limit"] = seconds
-    __writepackage(opened_config.get_text())
+    writepackage(opened_config.get_text())

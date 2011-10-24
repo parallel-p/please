@@ -63,7 +63,7 @@ It returns ResultInfo, showing result of execution.
 
 Example of using:
   import psutil
-  import subprocess.PIPE
+  from subprocess import PIPE
 
   handler = psutil.Popen(["program.exe", "--arg1=first", "/arg2=second"],
                          stdout = PIPE) # read help(psutil.Popen)
@@ -120,7 +120,7 @@ def invoke(handler, limits):
             return_code = handler.wait(CHECK_PERIOD)
         except psutil.TimeoutExpired:
             pass
-            
+
     verdict = verdict or ("OK" if return_code == 0 else "RE")
     return ResultInfo(verdict, return_code, real_time, cpu_time, used_memory / MEGABYTE)
 
