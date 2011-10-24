@@ -2,16 +2,13 @@ import os
 import logging
 from .. import globalconfig
 from ..solution_tester import package_config
+from .. import svn
+from ..utils.writepackage import writepackage
 
 log = logging.getLogger("please_logger.checkers.standard_checker_utils")
 
 class AddStandartCheckerError (Exception) :
     pass
-
-def __writepackage(text):
-    output_stream = open("default.package", "w", encoding = "utf-8")
-    output_stream.write(text)
-    output_stream.close()
 
 def add_standard_checker_to_solution (checker):
     """
@@ -28,5 +25,5 @@ def add_standard_checker_to_solution (checker):
     else:
         opened_config['checker'] = checker_name
         config_file = opened_config.get_text()
-        __writepackage(config_file)
+        writepackage(config_file)
         log.info("Standard checker %s was added successfully", checker_name)

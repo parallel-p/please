@@ -1,7 +1,7 @@
 import os
 from .invoker.invoker import ExecutionLimits
 from logging import INFO,ERROR,CRITICAL,WARNING,DEBUG
-please_version = 0.1
+please_version = 0.2
 root = os.path.split(__file__)[0]
 
 default_limits = ExecutionLimits(20, 3512)
@@ -48,6 +48,15 @@ ejudge_password = "ejudge"
 ejudge_contests_dir = "/var/lib/ejudge/"
 
 #information about polygon
-access = {'login': 'makhmedov', "password" : "lzlzfbr"}
+access = {'login': 'makhmedov', "password": "lzlzfbr"}
 polygon_url = "http://codecenter.sgu.ru:8081/polygon"
-ejudge_contests_dir = "/var/lib/ejudge/"
+
+#information about problems' svn-repository
+#set 'url' to '' (empty string) if you don't want to work with svn,
+#but do not delete neither this dictionary, nor any key in it!
+#type: personal (you control your repository) / public
+svn = {     'type': 'personal',
+             'url': 'https://please-svn.googlecode.com/svn/problems/',
+        'username': 'gurovic@gmail.com', 
+        'password': 'ez9NP2Hz5BD5'}
+

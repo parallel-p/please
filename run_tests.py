@@ -2,6 +2,11 @@ import unittest
 import sys
 from coverage import coverage
 from please import log
+from please import globalconfig
+
+#do not use svn during tests; commen this line to work with svn
+globalconfig.svn['url'] = ''
+
 def analysis(infile):
      strings = infile.read().split("\n")
      errors = []
@@ -41,7 +46,6 @@ def run_tests(directory):
 def run_consol_test(directory):
      suite.addTests(loader.discover(directory,"*_test.py"))
      unittest.TextTestRunner(verbosity = 2).run(suite)
-
 
 args = sys.argv
 loader = unittest.TestLoader()
