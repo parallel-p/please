@@ -39,7 +39,7 @@ class PleaseTest(unittest.TestCase):
         
         start_dir = os.getcwd()
         os.chdir("problem_test")
-        package_config.PackageConfig.configs_dict = {}
+        #package_config.PackageConfig.configs_dict = {}
         self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags, True)
         self.__matcher.matches("add tags tag1 tag2 tag3 tag4".split()) 
               
