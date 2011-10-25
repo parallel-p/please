@@ -23,6 +23,7 @@ def main():
     from please.command_line.commands import print_help, print_lite_help
     from please.stress_tester import stress_tester
     from please.checkers.standard_checkers_utils import add_standard_checker_to_solution
+    from please.checkers.standard_checkers_utils import print_standard_checkers
     from please.todo import todo_generator
     from please.build_all.build_tools import build_all
     from please.solution_tester import package_config
@@ -59,6 +60,7 @@ def main():
     matcher.add_handler(Template(["todo"]), todo.get_todo, in_problem_folder)
     matcher.add_handler(Template(["add", "tag|tags", "@tags"]), tags.add_tags, in_problem_folder)
     matcher.add_handler(Template(["set", "standard", "checker", "#checker"]), add_standard_checker_to_solution, in_problem_folder)
+    matcher.add_handler(Template(["set", "standard", "checker"]), print_standard_checkers, in_problem_folder)
     matcher.add_handler(Template(["add", "solution", "#path", "expected:", "@expected_list", "possible:", "@possible_list"]), add_solution, in_problem_folder)
     matcher.add_handler(Template(["add", "solution", "#path", "with", "@expected_list"]), add_solution_with_expected, in_problem_folder)
     matcher.add_handler(Template(["set", "checker", "#path"]), add_checker, in_problem_folder)
