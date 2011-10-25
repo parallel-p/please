@@ -1,14 +1,26 @@
 import os
 import logging
+import shutil
 from .. import globalconfig
 from ..solution_tester import package_config
 from .. import svn
 from ..utils.writepackage import writepackage
+from ..add_source.add_source import add_checker
 
 log = logging.getLogger("please_logger.checkers.standard_checker_utils")
 
 class AddStandartCheckerError (Exception) :
     pass
+
+def print_standard_checkers():
+    opened_config = package_config.PackageConfig.get_config()
+    checkers_dir = os.path.join(globalconfig.root, globalconfig.checkers_dir)
+    dirList=os.listdir(checkers_dir)
+    filelist = []
+    for fname in dirList:
+        if fname.endswith('.cpp'):
+           filelist += [fname[:-4]]
+    log.warning('standart checkers available: ' + ', '.join(filelist))
 
 def add_standard_checker_to_solution (checker):
     """
@@ -17,13 +29,16 @@ def add_standard_checker_to_solution (checker):
        will write the global path to the checker into config file.
     """
     opened_config = package_config.PackageConfig.get_config()
-    checker_name = checker + ".cpp"
+    if not checker.endswith('.cpp'):
+        checker_name = checker + ".cpp"
+    else:
+        checker_name = checker
     checker_global_path = os.path.join(globalconfig.root, globalconfig.checkers_dir, checker_name)
     
     if not os.path.exists(checker_global_path) :
-        raise Exception("Standart checker " + checker_name + " not found!")
+        print_standard_checkers()
+        raise AddStandartCheckerError("Standart checker " + checker_name + " not found!")
     else:
-        opened_config['checker'] = checker_name
-        config_file = opened_config.get_text()
-        writepackage(config_file)
-        log.info("Standard checker %s was added successfully", checker_name)
+        if not os.path.exists('testlib.h') :
+            shutil.copy(os.path.join(globalconfig.root, globalconfig.checkers_dir, 'testlib.h'), 'testlib.h')
+        add_checker(checker_global_path)
