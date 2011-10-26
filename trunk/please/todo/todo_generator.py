@@ -39,7 +39,7 @@ class TodoGenerator:
         config_file = open(config_path)
         config_text = "\n".join(config_file.readlines())
         self.__config = Config(config_text) 
-        items = ["statement", "checker", "description", "validator", "main_solution"]        
+        items = ["statement", "checker", "description", "analysis", "validator", "main_solution"]        
         for item in items:
             self.print_to_console(self.__get_item_status(item), item)
         tests_description_path = "tests.please"

@@ -18,15 +18,10 @@ memory_limit = 31
 # Имя файла с чекером (по умолчанию доступны ..., ..., ...)
 checker = test_checker.cpp
 # Имя файла с валидатором (доступны ..., ..., ...)
-validator = validate_tests.cpp
+validator = tests/validator.cpp
 # Имя файла с правильным решением
 main_solution = solutions/solution.cpp
 # Название файла с полным описанием задачи
 statement = statements/default.ru.tex
 # Название файла с кратким описанием задачи
 description = statements/description.ru.tex
-solution = {
-    source = solutions/sol.cpp
-    expected_verdicts = OK
-    possible_verdicts = TL, ML, RE
-}
