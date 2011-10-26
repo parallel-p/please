@@ -5,7 +5,7 @@ from ..log import logger
 import shutil
 from .. import globalconfig
 from .template_utils import get_template_full_path
-from .statement_template_generator import generate_description, generate_statement
+from .statement_template_generator import generate_description, generate_analysis, generate_statement
 from .source_code_file_generator import generate_checker, generate_solution, generate_validator
 from ..package.config import Config as package_config
 from . import info_generator
@@ -56,6 +56,7 @@ def generate_problem_advanced(shortname, human_language, programming_language):
     replaces = {'please_version': str(globalconfig.please_version),
                 'shortname': shortname,
                 'description': globalconfig.statements_dir + '/' + generate_description(statement_path, human_language),
+                'analysis': globalconfig.statements_dir + '/' + generate_analysis(statement_path, human_language),
                 'statement': globalconfig.statements_dir + '/' + generate_statement(statement_path, human_language),
                 'validator': generate_validator(shortname, programming_language),
                 'checker': generate_checker(shortname, programming_language),

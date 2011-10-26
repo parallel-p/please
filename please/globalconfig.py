@@ -10,6 +10,7 @@ stress_up = 1000000
 default_template_dir = "templates"
 default_template_contest = "contest.tex"
 default_template_statement = "statement.tex"
+default_template_analysis = "analysis.tex"
 default_package = "default.package"
 default_tests_config = "tests.please"
 user_template_dir = ""
