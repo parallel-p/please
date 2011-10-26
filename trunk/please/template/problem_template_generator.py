@@ -82,6 +82,7 @@ def generate_problem(shortname, handle_exception=True):
                               globalconfig.default_human_language,
                               globalconfig.default_programming_language)
         info_generator.create_time_file(shortname)
+        info_generator.create_md5_file(shortname)
         logger.info("Problem %s created successfully", str(shortname))
         svn.add_created_problem(shortname)
         os.chdir(shortname)

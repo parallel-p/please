@@ -1,4 +1,5 @@
 import os
+import hashlib
 from ..package.config import Config
 from ..todo import painter
 
@@ -17,17 +18,21 @@ class TodoGenerator:
         please show todo
     if you are in problem folder
     """
+    def __init__(self, root_path='.'):
+     
+        md5path = os.path.join(root_path, '.please', 'md5.config')
+        if os.path.exists(md5path):
+            
+            self.md5value = dict()
+            for s in open(md5path):
+                resource, md5 = s.strip().split(':')
+                self.md5value[resource] = md5
     
     def get_todo(self, root_path = "."): 
         # prints todo        
-        
         initial_position = os.getcwd()
         if (os.path.exists(root_path)):
-            os.chdir(root_path) 
-            time_file_path = os.path.join(".please", "time.config")
-            time_file = open(time_file_path, "r")
-            self.__folder_generation_time_sec = float(time_file.read())
-            time_file.close()
+            pass
         else:
             raise "problem does not exist"
         config_path = "default.package"
@@ -38,7 +43,7 @@ class TodoGenerator:
         for item in items:
             self.print_to_console(self.__get_item_status(item), item)
         tests_description_path = "tests.please"
-        self.print_to_console(self.__get_item_status(path=tests_description_path), "tests desription")
+        self.print_to_console(self.__get_item_status(path=tests_description_path, item="tests_description"), "tests description")
         
         if (root_path != "."):
             os.chdir(initial_position)
@@ -71,10 +76,9 @@ class TodoGenerator:
             else:
                 return("error")
         if (os.path.exists(item_path)):
-            item_modification_time_sec = os.stat(item_path).st_mtime
-            if (item_modification_time_sec > self.__folder_generation_time_sec+1 or
-                item_modification_time_sec < self.__folder_generation_time_sec - 60*2): # please create problem can't
-                                                                                        # work slower, than 2 minutes
+            m = hashlib.md5()
+            m.update(open(item_path,"r+b").read())
+            if (m.hexdigest() != self.md5value[item]):
                 return("ok")
             else:
                 return("warning")
