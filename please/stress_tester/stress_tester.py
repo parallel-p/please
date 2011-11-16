@@ -76,7 +76,7 @@ class StressTester():
         test_info = TestInfo(1, "%s %s" % (generator, newrand))
         self.logger.warning("Random number for generator is: %s" % newrand)
         # generate ONE random test using given generator
-        return TestsGenerator([test_info], "stress").generate_all()[0]
+        return TestsGenerator([test_info], "stress").generate(lambda x: True)[0]
 
     def __compare_outputs(self, input, correct_out, second_out, checker):
         ''' Compares two outputs with checker, returns True/False '''
