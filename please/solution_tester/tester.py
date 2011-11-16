@@ -4,6 +4,7 @@ from ..invoker.invoker import ExecutionLimits
 from .. import globalconfig
 from ..utils import utests
 from ..utils.error_window import PreventErrorWindow
+from ..utils import form_error_output
 import os
 import logging
 
@@ -62,7 +63,10 @@ class TestSolution:
             stderr = ""
             if solution_run_result[0].verdict != "OK":
                 if solution_run_result[0].verdict == "RE":
-                    logger.info("\nSTDERR:\n" + solution_run_result[2].decode())
+                    logger.error("Solution has had RE with exit code: " + str(solution_run_result[0].return_code))
+                    out_err = form_error_output.form_err_string_by_std(solution_run_result[1], solution_run_result[2].decode())
+                    if out_err != "":
+                        logger.error(out_err)
                 result = solution_run_result[0].verdict
             else:
                 checker_info = checker_runner.CheckerInfo(self.checker, test, answer, program_out)
