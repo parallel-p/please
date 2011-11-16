@@ -52,6 +52,7 @@ class TestsAndAnswersGenerator:
                     if verd == "RE":
                         out_err_str += " with exit code: " + validator_result[0].code
                     logger.error(out_err_str)
+                    logger.error("hi")
                     logger.error(form_err_string_by_std(
                         validator_result[1].decode(),
                         validator_result[2].decode()))
@@ -86,8 +87,13 @@ class TestsAndAnswersGenerator:
                 if verd == "OK":
                     tests_names.append(test)
                 else:
-                    logger.error(error_str + verd)
-                    logger.error("\nSTDERR:\n" + validator_result[2].decode())
+                    out_err_str = error_str + verd
+                    if verd == "RE":
+                        out_err_str += " with exit code: " + str(validator_result[0].return_code)
+                    logger.error(out_err_str)
+                    logger.error(form_error_output.form_err_string_by_std(
+                        validator_result[1].decode(),
+                        validator_result[2].decode()))
         else:
             logger.warning("Validator is empty")
         answers_gen = answers_generator.AnswersGenerator()
