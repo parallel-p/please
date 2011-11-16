@@ -1,7 +1,7 @@
 please_version = 0.2
-name = 
+name = Кубики
 shortname = cubes
-tags = 
+tags = множества; сортировка
 type = 
 
 input = stdin
@@ -11,7 +11,7 @@ memory_limit = 64
 
 checker = checker.cpp
 validator = validator.cpp
-main_solution = solutions/solution.cpp
+main_solution = solutions/solution.py
 
 statement = statements/default.ru.tex
 description = statements/description.ru.tex
@@ -20,3 +20,12 @@ well_done_test = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_doub
 well_done_answer = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
 
 analysis = statements/analysis.ru.tex
+solution = {
+    source = solutions/solution.cpp
+    expected_verdicts = OK
+}
+solution = {
+    source = solutions/solution_wrong.cpp
+    expected_verdicts = WA, OK
+    possible_verdicts = RE
+}
