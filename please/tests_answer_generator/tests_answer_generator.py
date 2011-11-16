@@ -11,6 +11,7 @@ import logging
 from ..utils import utests
 from ..well_done import well_done
 from please.log import logger
+from ..utils import form_error_output
 
 error_str = "Validator executions has had "
 
@@ -47,8 +48,13 @@ class TestsAndAnswersGenerator:
                     return (1, [])
                 result.append((test_filename, verd))
                 if verd != "OK":
-                    logger.error(error_str + verd)
-                    logger.error("\nSTDERR:\n" + validator_result[2].decode())
+                    out_err_str = error_str
+                    if verd == "RE":
+                        out_err_str += " with exit code: " + validator_result[0].code
+                    logger.error(out_err_str)
+                    logger.error(form_err_string_by_std(
+                        validator_result[1].decode(),
+                        validator_result[2].decode()))
         else:
             logger.warning("Validator is empty")
         return (count_errors, result)
