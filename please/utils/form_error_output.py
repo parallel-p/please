@@ -1,7 +1,7 @@
 def form_err_string_by_std(stdout, stderr):
     result = ""
     if stderr.strip() != "":
-        result += "\nSTDERR:\n" + stderr
+        result += "\n\t\tSTDERR:\n" + stderr
     if stdout.strip() != "":
-        result += "\nSTDOUT\n" + stdout
+        result += "\n\t\tSTDOUT:\n" + stdout
     return result
