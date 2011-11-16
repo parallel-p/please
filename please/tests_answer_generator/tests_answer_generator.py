@@ -47,14 +47,18 @@ class TestsAndAnswersGenerator:
                 if verd == "FNF":
                     return (1, [])
                 result.append((test_filename, verd))
-                if verd != "OK":
-                    out_err_str = error_str
+                if verd == "OK":
+                    logger.info("Validator said OK")
+                else:
+                    out_err_str = error_str + verd
                     if verd == "RE":
                         out_err_str += " with exit code: " + str(validator_result[0].return_code)
                     logger.error(out_err_str)
-                    logger.error(form_error_output.form_err_string_by_std(
+                    formed_std = form_error_output.form_err_string_by_std(
                         validator_result[1].decode(),
-                        validator_result[2].decode()))
+                        validator_result[2].decode())
+                    if formed_std != "":
+                        logger.error(formed_std)
         else:
             logger.warning("Validator is empty")
         return (count_errors, result)
@@ -84,15 +88,18 @@ class TestsAndAnswersGenerator:
                     return (1, [])
                 result.append((test, verd))
                 if verd == "OK":
+                    logger.info("Validator said OK")
                     tests_names.append(test)
                 else:
                     out_err_str = error_str + verd
                     if verd == "RE":
                         out_err_str += " with exit code: " + str(validator_result[0].return_code)
                     logger.error(out_err_str)
-                    logger.error(form_error_output.form_err_string_by_std(
+                    formed_std = form_error_output.form_err_string_by_std(
                         validator_result[1].decode(),
-                        validator_result[2].decode()))
+                        validator_result[2].decode())
+                    if formed_std != "":
+                        logger.error(formed_std)
         else:
             logger.warning("Validator is empty")
         answers_gen = answers_generator.AnswersGenerator()
