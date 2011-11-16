@@ -99,6 +99,8 @@ def main():
         #    log.error("CompilerError: " + str(ex))
         except RunnerError as ex:
             pass
+        except CompileError as ex:
+            pass
         except OSError as ex:
             logger.error("OSError: " + str(ex))
         #except IOError as ex:
