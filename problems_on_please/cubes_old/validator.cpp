@@ -8,7 +8,7 @@ int main()
     int n, m;
     n = inf.readInt(0, 100000);
     inf.readChar(' ');
-    m = inf.readInt(0, 100000);
+    m = inf.readInt(0, 1000);
     inf.nextLine();
     for(int i = 0; i < n; i++)
     {
