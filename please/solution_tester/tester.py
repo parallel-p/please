@@ -63,10 +63,8 @@ class TestSolution:
             stderr = ""
             if solution_run_result[0].verdict != "OK":
                 if solution_run_result[0].verdict == "RE":
-                    logger.error("Solution has had RE with exit code: " + str(solution_run_result[0].return_code))
-                    out_err = form_error_output.form_err_string_by_std(solution_run_result[1], solution_run_result[2].decode())
-                    if out_err != "":
-                        logger.error(out_err)
+                    form_error_output.process_err_exit("Solution has had", solution_run_result[0].verdict, solution_run_result[0].return_code, 
+                                                       solution_run_result[1], solution_run_result[2].decode(), logger)
                 result = solution_run_result[0].verdict
             else:
                 checker_info = checker_runner.CheckerInfo(self.checker, test, answer, program_out)

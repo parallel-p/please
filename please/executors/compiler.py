@@ -4,6 +4,7 @@ from ..invoker import invoker
 from .. import globalconfig
 from ..directory_diff import snapshot
 from . import trash_remover
+from ..utils import form_error_output
 import psutil
 import subprocess
 import os
@@ -55,15 +56,15 @@ def compile(path, limits=globalconfig.default_limits):
         handler = psutil.Popen(command, \
                                stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     except OSError:
-        raise CompileError("There is no compiler for file '" + path + "'")
+        log.error("There is no compiler for file '" + path + "'")
+        raise CompileError()
     result = invoker.invoke(handler, limits)
     stdout, stderr = handler.communicate()
     new_folder_state = snapshot.Snapshot(cur_folder)
     trash_remover.remove_trash(snapshot.get_changes(old_folder_state, new_folder_state), configurator.is_compile_garbage)
     if(result.verdict != "OK"):
-        raise CompileError("Compilation failed with: " + result.verdict + \
-                           "\nSTDOUT:\n" + stdout.decode() + \
-                           "\nSTDERR:\n" + stderr.decode())
+        form_error_output.process_err_exit("Compilation failed with:", result.verdict, result.return_code, stdout.decode(), stderr.decode(), log)
+        raise CompileError()
     else:
         return (result, stdout, stderr)
     

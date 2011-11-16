@@ -100,14 +100,11 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = N
                 stderr = stderr_fh.read();
 
     except psutil.error.NoSuchProcess:
-        logger.error("NoSuchProcess error, fail...")
+        logger.error("NoSuchProcess error")
     #except Exception as e:
     #    logger.error("Unknown exception while invoking the process: %s", str(e))
 
     #print('\n'.join([c for a,b,c in os.walk('.')][0]))
-
-
-    logger.debug("Removing trash created...")
 
 
     return (result, stdout, stderr)
