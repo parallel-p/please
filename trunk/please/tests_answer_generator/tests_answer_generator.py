@@ -50,10 +50,9 @@ class TestsAndAnswersGenerator:
                 if verd != "OK":
                     out_err_str = error_str
                     if verd == "RE":
-                        out_err_str += " with exit code: " + validator_result[0].code
+                        out_err_str += " with exit code: " + str(validator_result[0].return_code)
                     logger.error(out_err_str)
-                    logger.error("hi")
-                    logger.error(form_err_string_by_std(
+                    logger.error(form_error_output.form_err_string_by_std(
                         validator_result[1].decode(),
                         validator_result[2].decode()))
         else:
