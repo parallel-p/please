@@ -71,7 +71,7 @@ def run_solution(config):
                 with open(config.solution_output_file, 'r') as ouf:
                     run_dump = (run_dump[0], ouf.read(), run_dump[2])
             if isinstance(run_dump[1], str):
-                run_dump[1] = run_dump[1].encode()
+                run_dump = (run_dump[0], run_dump[1].encode(), run_dump[2])
             return run_dump
         except OSError as e:
             if (e.errno == 13):
