@@ -88,6 +88,7 @@ class TestsAndAnswersGenerator:
                                                        validator_result[1].decode(), validator_result[2].decode(), logger)
         else:
             logger.warning("Validator is empty")
+            tests_names = tests
         answers_gen = answers_generator.AnswersGenerator()
         answers_gen.generate (tests_names, config ["main_solution"], [], config)
         return (count_errors, result)

@@ -10,7 +10,7 @@ time_limit = 2
 memory_limit = 64
 
 checker = checker.cpp
-validator = validator.cpp
+validator = #validator.cpp
 main_solution = solutions/solution.py
 
 statement = statements/default.ru.tex
