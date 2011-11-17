@@ -80,7 +80,7 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = N
     args = cmd + args_list
     logger.debug("Starting process: args:%s, stdout:%s, stdin:%s, stderr:%s, env:%s", str(args), str(stdout_fh), str(stdin_fh), str(stderr_fh), str(env))
 
-    stdout = stderr = ''
+    stdout = stderr = b''
     process = psutil.Popen(args, stdout = stdout_fh, stdin = stdin_fh, stderr = stderr_fh, env = env, shell = shell)
     result = None
     try:
