@@ -69,7 +69,7 @@ def run_solution(config):
         
             if run_dump[0].verdict == 'OK':
                 with open(config.solution_output_file, 'r') as ouf:
-                    run_dump = (run_dump[0], ouf.read(), run_dump[2])
+                    run_dump = (run_dump[0], ouf.read().encode(), run_dump[2])
             return run_dump
         except OSError as e:
             if (e.errno == 13):
