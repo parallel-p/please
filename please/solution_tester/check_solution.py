@@ -13,6 +13,9 @@ colorama.init()
 logger = logging.getLogger("please_logger.check_solution")
 
 
+class SolutionNotFoundException(Exception):
+    pass
+
 def printc(text, color = Fore.RESET):
     print(color + text + Fore.RESET)
     logger.debug(text)
@@ -33,24 +36,28 @@ def get_test_results_from_solution(solution, config = None):
     new_config["checker"] = config["checker"]
     new_config["tests_dir"] = globalconfig.temp_tests_dir #config["tests_dir"]        
     
-    if os.path.abspath(solution) == os.path.abspath(config["main_solution"]):
+    if os.path.normpath(solution) in os.path.abspath(config["main_solution"]):
         #print("MAIN SOLUTION " + solution)
         new_config["expected_verdicts"] = ["OK"]
         new_config["optional_verdicts"] = []
         new_config["execution_limits"]  = invoker.ExecutionLimits(float(config["time_limit"]), float(config["memory_limit"]))
         new_config["solution_config"] = {"input":config["input"], "output":config["output"]}
         new_config["solution_args"] = []
+        solution = os.path.abspath(config["main_solution"])     
     else:
         for sol_found in config["solution"]:
-            if os.path.abspath(sol_found["source"]) == os.path.abspath(solution):
+            if os.path.normpath(solution) in os.path.abspath(sol_found["source"]):
                 #print("SOLUTION FOUND: " + sol_found["source"])               
                 new_config["expected_verdicts"] = sol_found["expected_verdicts"]
                 new_config["optional_verdicts"] = sol_found["possible_verdicts"]
                 new_config["execution_limits"]  = invoker.ExecutionLimits(float(config["time_limit"]), float(config["memory_limit"]))
                 new_config["solution_config"] = {"input":config["input"], "output":config["output"]}
                 new_config["solution_args"] = []
+                solution = os.path.abspath(sol_found["source"])
                 break   
-    
+        else:
+            raise SolutionNotFoundException(solution + ' not found in config')
+
     test_solution = TestSolution(new_config)
     met_not_expected, expected_not_met, testing_result = test_solution.test_solution(solution)
     
