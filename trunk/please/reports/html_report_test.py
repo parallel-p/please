@@ -22,7 +22,7 @@ class Tester(unittest.TestCase):
         html_reporter.add_test("third", "01", ResultInfo("JE"))
         html_reporter.add_test("third", "02", ResultInfo("OK"))
         answer = html_reporter.str()
-        with open("test.html", 'w') as f:
+        with open("html_report_test.html", 'w') as f:
             print(answer, file=f)
 
 
