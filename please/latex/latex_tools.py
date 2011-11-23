@@ -25,7 +25,6 @@ def generate_contest(problem_names = ['.'], title = None, date = None, location 
         os.chdir(problem)
         package_conf = package_config.PackageConfig.get_config(dir = '.', ignore_cache = True)
         problem = SingleProblemCreator(config = package_conf)
-        problem = problem()
         contest.add_problem(problem)
         if not single_problem:
             os.chdir('..')
