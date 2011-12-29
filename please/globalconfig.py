@@ -56,8 +56,8 @@ polygon_url = "http://codecenter.sgu.ru:8081/polygon"
 #set 'url' to '' (empty string) if you don't want to work with svn,
 #but do not delete neither this dictionary, nor any key in it!
 #type: personal (you control your repository) / public
-svn = {     'type': 'personal',
+'''svn = {     'type': 'personal',
              'url': 'https://please-svn.googlecode.com/svn/problems/',
         'username': 'gurovic@gmail.com', 
-        'password': 'ez9NP2Hz5BD5'}
+        'password': 'ez9NP2Hz5BD5'}'''
 

@@ -23,8 +23,7 @@ class FileTestInfoTest(unittest.TestCase):
         
         self.assertEqual(fti.get_tags(), {"to":"be", "or":"not"})
         strres = fti.to_please_format()
-        print(strres)
-        self.assertTrue(strres == "[or = not, to = be] my.txt")
+        self.assertEqual(strres, "[or = not, to = be] my.txt")
         
         newfile = open(r[0], "r")
         self.assertEqual(newfile.read(), "test")
