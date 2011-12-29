@@ -59,5 +59,4 @@ polygon_url = "http://codecenter.sgu.ru:8081/polygon"
 '''svn = {     'type': 'personal',
              'url': 'https://please-svn.googlecode.com/svn/problems/',
         'username': 'gurovic@gmail.com', 
-        'password': 'ez9NP2Hz5BD5'}'''
-
+        'password': 'ez9NP2Hz5BD5'}''' 
