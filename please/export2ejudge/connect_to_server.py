@@ -62,14 +62,14 @@ class WindowsConnector:
         result = invoke(handler, limits)
 
 class LinuxConnector:
-    def __init__(self, host, port, login, password): 
+    def __init__(self, host, port, login, password):
         self.__host = host
         self.__port = port
         self.__login = login
         self.__password = password
     
     def upload_file(self, source, destination):
-        limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600) 
+        limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600)
         
         handler = psutil.Popen(["scp", "-P", self.__port, source, self.__login + "@" + self.__host + ":" + destination])
         result = invoke(handler, limits)
@@ -84,5 +84,6 @@ class LinuxConnector:
         
     def download_file(self, source, destination):
         handler = psutil.Popen(["scp", "-P", self.__port, self.__login + "@" + self.__host + ":" + source, destination])
-        limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600) 
+        limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600)
         result = invoke(handler, limits)
+

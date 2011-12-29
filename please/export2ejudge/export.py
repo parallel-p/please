@@ -15,21 +15,21 @@ global corr_sfx
 
 ignoring_dirs = ['.svn']
 
-def is_text(filename): 
+def is_text(filename):
     '''
     Check file is text, not binary
     '''
     s = str(open(filename, 'rb').read(512))
-    text_characters = "".join(list(map(chr, range(32, 255))) + list("\n\r\t\b")) 
-    if "\0" in (s): 
+    text_characters = "".join(list(map(chr, range(32, 255))) + list("\n\r\t\b"))
+    if "\0" in (s):
         return False
     if not s:  # Empty files are considered text 
         return True
 
-    t = ''.join(filter(lambda x: not ((x) in text_characters), s)) 
+    t = ''.join(filter(lambda x: not ((x) in text_characters), s))
     # If more than 30% non-text characters, then 
     # this is considered a binary file 
-    if len(t)/len(s) > 0.30: 
+    if len(t)/len(s) > 0.30:
         return False
     return True
     
@@ -92,7 +92,7 @@ def export_problem2ejudge(contest_path, task, problem_id):
     
     tests_info = prepare_tests(os.path.join(task, '.tests'))
     
-    replaces = {'$id$': str(problem_id), 
+    replaces = {'$id$': str(problem_id),
                 '$shortname$': problem_config['shortname'],
                 '$longname$': problem_config['name'],
                 '$internalname$': problem_config['shortname'],
@@ -101,7 +101,7 @@ def export_problem2ejudge(contest_path, task, problem_id):
                 '$timelimit_ms$': str(round(float(problem_config['time_limit'])*1000)),
                 '$memorylimit_kb$': str(round(float(problem_config['memory_limit'])*1024)),
                 '$checker$': without_extention(problem_config['checker']),
-                '$testnamelen$': r"%02d" % tests_info[2]} 
+                '$testnamelen$': r"%02d" % tests_info[2]}
 
     if os.path.join(globalconfig.root, globalconfig.checkers_dir) in problem_config['checker']:
         try:
@@ -117,7 +117,7 @@ def export_problem2ejudge(contest_path, task, problem_id):
 
     summary_serve_problem = []
 
-    for line in serve_problem_template:         
+    for line in serve_problem_template:
         re_find = re.match('!(.*)!(.*)', line)
         if not re_find:
             summary_serve_problem.append(line)

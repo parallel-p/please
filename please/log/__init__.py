@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from logging import Formatter as _Formatter, getLogger, DEBUG, StreamHandler, FileHandler
 import os.path
 import time
