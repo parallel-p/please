@@ -4,7 +4,7 @@ from please import log
 from please import globalconfig
 
 #do not use svn during tests; commen this line to work with svn
-globalconfig.svn['url'] = ''
+#globalconfig.svn['url'] = ''
 
 def analysis(infile):
      strings = infile.read().split("\n")
