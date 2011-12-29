@@ -57,7 +57,6 @@ class WindowsConnector:
             destination, "-d", os.path.split(new_dir)[0], ";rm", destination])
 
     def download_file(self, source, destination):
-        print(["pscp", "-P", self.__port, "-pw", self.__password, self.__login + "@" + self.__host + ":" + source, destination])
         handler = psutil.Popen(["pscp", "-P", self.__port, "-pw", self.__password, self.__login + "@" + self.__host + ":" + source, destination])
         limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600) 
         result = invoke(handler, limits)
@@ -84,7 +83,6 @@ class LinuxConnector:
         result = invoke(handler, limits)
         
     def download_file(self, source, destination):
-        print("FUCKER!")
         handler = psutil.Popen(["scp", "-P", self.__port, self.__login + "@" + self.__host + ":" + source, destination])
         limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600)
         result = invoke(handler, limits)
