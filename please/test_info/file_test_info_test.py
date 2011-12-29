@@ -11,15 +11,20 @@ class FileTestInfoTest(unittest.TestCase):
         self.mox.UnsetStubs()
         self.mox.VerifyAll()
         
-    def test_gen_test(self):
+    def test_one_big(self):
         myfilename = "my.txt"
         
         pig = open(myfilename , "w")
         pig.write("test")
         pig.close()
         
-        fti = file_test_info.FileTestInfo("my.txt")
+        fti = file_test_info.FileTestInfo("my.txt", {"to":"be", "or":"not"})
         r = fti.tests()
+        
+        self.assertEqual(fti.get_tags(), {"to":"be", "or":"not"})
+        strres = fti.to_please_format()
+        print(strres)
+        self.assertTrue(strres == "[or = not, to = be] my.txt")
         
         newfile = open(r[0], "r")
         self.assertEqual(newfile.read(), "test")
