@@ -1,4 +1,5 @@
 import psutil
+from please.log import logger
 from ..invoker.invoker import ExecutionLimits, invoke
 from ..utils.platform_detector import get_platform
 import os.path
@@ -32,11 +33,15 @@ class Connector:
             self.__connector = LinuxConnector(host, port, login, password)
 
     def upload_file(self, source, destination):
+        logger.info("Uploading...")
         self.__connector.upload_file(source, destination)
+        logger.info("File was uploaded.")
                     
     def download_file(self, source, destination):
+        logger.info("Downloading...")
         self.__connector.download_file(source, destination)
-
+        logger.info("File was downloaded.")
+        
 class WindowsConnector:
     def __init__(self, host, port, login, password): 
         self.__host = host
