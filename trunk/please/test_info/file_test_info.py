@@ -22,4 +22,7 @@ class FileTestInfo(test_info.TestInfo):
             if value is not None:
                 curtag += " = " + str(value)
             tags_list.append(curtag)
-        return "[" + ', '.join(tags_list) + "] " + self.__file
+        if len(tags_list) > 0:
+            return "[" + ', '.join(tags_list) + "] " + self.__file
+        else:
+            return self.__file
