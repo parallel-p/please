@@ -16,13 +16,4 @@ class FileTestInfo(test_info.TestInfo):
         return self.__attr
     
     def to_please_format():
-        tags_list = []
-        for key, value in self.__tags.items():
-            curtag = str(key)
-            if value is not None:
-                curtag += " = " + str(value)
-            tags_list.append(curtag)
-        if len(tags_list) > 0:
-            return "[" + ', '.join(tags_list) + "] " + self.__file
-        else:
-            return self.__file
+        return get_to_please_format_prefix(self.__tags) + self.__file
