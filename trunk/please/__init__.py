@@ -83,6 +83,7 @@ def main():
     matcher.add_handler(Template(["check", "main", "solution"]), check_solution.check_main_solution, in_problem_folder)
     matcher.add_handler(Template(["generate", "html", "report"]), generate_html_report.generate_html_report, in_problem_folder)
 
+    print("FUCK YOU!")
     if len(sys.argv) == 1:
         print_lite_help()
     else:

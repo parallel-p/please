@@ -8,7 +8,8 @@ import re
 import shutil
 import zipfile
 import distutils.archive_util
-
+from please.log import logger
+    
 serve_problem_template_name = os.path.join(globalconfig.root, 'export2ejudge', 'serve_problem_template.part')
 global test_sfx
 global corr_sfx
@@ -148,6 +149,14 @@ def export_problem2ejudge(contest_path, task, problem_id):
             shutil.copy(os.path.join(task, file), os.path.join(problem_path, file))
 
 def export2ejudge(contest_id, tasks):
+    '''
+    logger.debug('DEBUG')
+    logger.info('INFO')
+    logger.warning('WARNING')
+    logger.error('ERROR')
+    logger.critical('CRITICAL')
+    '''
+    logger.critical('YYAAAAAZZZZZ')
     export_path = '.export2ejudge'
     recreate_dir(export_path)
     
