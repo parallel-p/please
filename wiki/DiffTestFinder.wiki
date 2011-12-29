@@ -16,6 +16,6 @@ class DiffTestFinder:
         if mask defined:
             diff = diff / <set of files, which not matchs mask>
         if diff is empty:
-            return [stdout]
+            return stdout
         else:
             return diff
