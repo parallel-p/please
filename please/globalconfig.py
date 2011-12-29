@@ -60,4 +60,3 @@ polygon_url = "http://codecenter.sgu.ru:8081/polygon"
              'url': 'https://please-svn.googlecode.com/svn/problems/',
         'username': 'gurovic@gmail.com', 
         'password': 'ez9NP2Hz5BD5'}'''
-#
