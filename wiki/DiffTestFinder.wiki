@@ -8,7 +8,7 @@
 
 Класс для определения по диффу папки с задачей, что является тестами
 
-class DiffTestFinder:
+'class DiffTestFinder:
     def __init__(self, mask=None, exclude=None) #mask and exclude is a string
     def tests(self, diff, stdout=None): #diff is a list of files, stdout - file of redirected stdout of generator, returns names of test files
         if exclude defined:
@@ -19,3 +19,4 @@ class DiffTestFinder:
             return stdout
         else:
             return diff
+'
