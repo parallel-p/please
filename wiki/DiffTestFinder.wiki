@@ -1,0 +1,20 @@
+Находить тесты, сгенерированные генератором по диффу
+
+= Introduction =
+
+См. subj
+
+= Details =
+
+Класс для определения по диффу папки с задачей, что является тестами
+class DiffTestFinder:
+    def __init__(self, mask=None, exclude=None) #mask and exclude is a string
+    def tests(self, diff, stdout=None): #diff is a list of files, stdout - file of redirected stdout of generator, returns names of test files
+        if exclude defined:
+	    diff = diff / <set of files, which matchs exclude>
+        if mask defined:
+            diff = diff / <set of files, which not matchs mask>
+        if diff is empty:
+            return [stdout]
+        else:
+	    return diff
