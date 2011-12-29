@@ -1,6 +1,5 @@
 import unittest
 import sys
-from coverage import coverage
 from please import log
 from please import globalconfig
 
