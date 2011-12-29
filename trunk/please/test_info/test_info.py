@@ -1,17 +1,17 @@
 class TestInfo:
-    def __init__():
+    def __init__(self):
         raise NotImplementedError()
     
-    def tests():
+    def tests(self):
         raise NotImplementedError()
     
-    def get_tags():
+    def get_tags(self):
         raise NotImplementedError()
     
-    def to_please_format():
+    def to_please_format(self):
         raise NotImplementedError()
     
-    def get_to_please_format_prefix(tags):
+    def get_to_please_format_prefix(self, tags):
         tags_list = []
         for key, value in tags.items():
             curtag = str(key)
