@@ -14,12 +14,6 @@ import os
 class RunnerError(Exception):
     pass
 
-def __temp_file_name():
-    name = 'tmp_' + str(random.randint(0, 1<<30))
-    while os.path.exists(name):
-        name = 'tmp_' + str(random.randint(0, 1<<30))
-    return name
-
 class ExecutionControl:
     def __init__(self, stdin_fh, stdout_fh, stderr_fh, process):
         self.stdin_fh = stdin_fh
