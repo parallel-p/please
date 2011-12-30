@@ -1,15 +1,8 @@
 import unittest
-import mox
 from . import file_test_info
 import os
 
 class FileTestInfoTest(unittest.TestCase):
-    def setUp(self):
-        self.mox = mox.Mox()
-        
-    def tearDown(self):
-        self.mox.UnsetStubs()
-        self.mox.VerifyAll()
         
     def test_one_big(self):
         myfilename = "my.txt"
@@ -21,7 +14,7 @@ class FileTestInfoTest(unittest.TestCase):
         fti = file_test_info.FileTestInfo("my.txt", {"to":"be", "or":"not"})
         r = fti.tests()
         
-        self.assertEqual(fti.get_tags(), {"to":"be", "or":"not"})
+        self.assertDictEqual(fti.get_tags(), {"to":"be", "or":"not"})
         strres = fti.to_please_format()
         self.assertEqual(strres, "[or = not, to = be] my.txt")
         
