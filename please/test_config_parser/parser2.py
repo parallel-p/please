@@ -25,7 +25,7 @@ class TestObjectFactory:
         first_token = tokens[0]
                 
         if self.__is_command(first_token):
-            return command_test_info.CommandTestInfo(tokens[0], tokens[1 : len(tokens)])
+            return command_test_info.CommandTestInfo([tokens[0]], tokens[1 : len(tokens)])
         elif self.__is_generator(first_token):
             return stdgen_test_info.StdGenTestInfo(tokens[0], tokens[1 : len(tokens)])
         elif len(tokens) != 1: 
