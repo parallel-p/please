@@ -1,8 +1,11 @@
 import mox
 import psutil
+import subprocess
 import please.executors.runner as rn
 import unittest
 import os
+
+import tempfile
 
 class RunTest(unittest.TestCase):
 
@@ -12,7 +15,7 @@ class RunTest(unittest.TestCase):
     def tearDown(self):
         self.mox.UnsetStubs()
         self.mox.VerifyAll()
-
+        
     def test_run(self) :
         self.mox.StubOutWithMock(psutil, "Popen")
         process = self.mox.CreateMockAnything()
