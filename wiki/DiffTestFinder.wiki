@@ -10,7 +10,7 @@
 
 {{{
 class DiffTestFinder:
-    def __init__(self, mask=None, exclude=None) #mask and exclude is a string
+    def __init__(self, execute_dir, mask=None, exclude=None) #mask and exclude is a string, execute_dir - directory, in which generator worked
     def tests(self, diff, stdout=None):
         #diff is a list of files, stdout - file of redirected stdout of generator, returns names of test files
         if exclude defined:
@@ -26,7 +26,7 @@ class DiffTestFinder:
 
 Перевод с псевдопитона на русский:
 
-Конструктор принимает опционально маску файлов, являющихся тестами (mask) и маску файлов, не являющихся тестами (exclude, исключение). Если файл соответствует сразу двум маскам, то исключение приоритетно.
+Конструктор принимает опционально маску файлов, являющихся тестами (mask), маску файлов, не являющихся тестами (exclude, исключение) и директорию, в которой запускался генератор (execute_dir). Все имена файлов для сравнения с масками переводятся в относительные для execute_dir пути. Если файл соответствует сразу двум маскам, то исключение приоритетно.
 
 tests принимает diff и stdout (файл с перенаправденным стандартным выводом генератора), исключает оттуда исключения.
 
