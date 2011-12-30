@@ -6,13 +6,12 @@ class CommandTestInfo(test_info.TestInfo):
     def __init__(self, command, args, tags={}):
         """example: command = ["echo"], args = ["1", "2", "3"]"""
         super(CommandTestInfo, self).__init__(tags)
-        self.__command = command
+        self.__command = command[0]
         self.__args = args
         
     def tests(self):
         temp = tempfile.NamedTemporaryFile(delete = False)
-        f = open(temp.name, 'w')
-        runner.run(self.__command[0], self.__args, stdout_fh = f, shell = True)
+        runner.run(self.__command, self.__args, stdout_fh = temp)
         return [ temp.name ]
     
     def to_please_format(self):
