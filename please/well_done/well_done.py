@@ -3,9 +3,8 @@ import os
 import logging
 from .. import log
 from .. import globalconfig
-from ..test_config_parser.parser import TestInfoType
 from ..solution_tester import package_config
-from ..test_config_parser import parser
+from ..test_config_parser import parser2
 from ..utils.utests import get_tests
 
 OK, FIXED, CRASH = 0, 1, 2
@@ -178,7 +177,7 @@ class WellDoneCheck:
                 self.well_done_answer = list(map(str.strip, self.config["well_done_answer"].split(',')))
             else:
                 logger.warning("Well_done config for answers is empty")
-            self.tests_info = parser.parse_test_config()
+         #   self.tests_info = parser2.parse_test_config()
 
 
     def __test(self, filename, function_list, log_text = ''):
@@ -229,7 +228,7 @@ class WellDoneCheck:
                 log_text = globalconfig.default_tests_config + ':line ' + str(test.line_number) + ':answer:' + " ".join([test.command[0], " ".join(test.command[1])]) + ':'
             else:
                 log_text = globalconfig.default_tests_config + ':line ' + str(test.line_number) + ':answer:' + str(test.command) + ':'
-            self.__test(os.path.join('.tests', str(test.line_number)) + '.a', self.well_done_test, log_text)
+            self.__test(os.path.join('.tests', str(test.line_number)) + '.a', self.well_done_answer, log_text)
         if self.fix_and_rebuild:
             logger.error('Please fix main solution generate all answers again.')
             return False
