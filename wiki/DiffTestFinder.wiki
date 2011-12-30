@@ -11,7 +11,7 @@
 {{{
 class DiffTestFinder:
     def __init__(self, execute_dir, mask=None, exclude=None)
-    #mask and exclude is a string, execute_dir - directory, in which generator worked
+    #mask and exclude is a string, execute_dir - string, directory, in which generator worked
     def tests(self, diff, stdout=None):
         #diff is a list of files, stdout - file of redirected stdout of generator, returns names of test files
         if exclude defined:
