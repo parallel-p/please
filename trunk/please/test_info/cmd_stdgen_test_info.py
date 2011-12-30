@@ -1,6 +1,6 @@
 from . import test_info
 import tempfile
-from ..executors import runner
+from ..executors import runner, compiler
 
 class CmdOrStdGenTestInfo(test_info.TestInfo):
     def __init__(self, executor, args, tags={}):
@@ -8,11 +8,12 @@ class CmdOrStdGenTestInfo(test_info.TestInfo):
         command = "generator.cpp", args = ["17", "42", "100500"]
         """
         super(CmdOrStdGenTestInfo, self).__init__(tags)
-        self.__executor = command
+        self.__executor = executor
         self.__args = args
         
     def tests(self):
         temp = tempfile.NamedTemporaryFile(delete = False)
+        compiler.compile(self.__executor)
         runner.run(self.__executor, self.__args, stdout_fh = temp)
         return [ temp.name ]
     

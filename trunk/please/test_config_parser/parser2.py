@@ -3,9 +3,8 @@ import os
 from ..language.language import Language
 from .. import globalconfig
 from ..test_info import file_test_info
-from ..test_info import command_test_info
+from ..test_info import cmd_stdgen_test_info
 from ..test_info import filegen_test_info
-from ..test_info import stdgen_test_info
 
 class TestObjectFactory:
     def __init__(self, line_number, line):
@@ -21,13 +20,10 @@ class TestObjectFactory:
         if tokens == []:
             raise EnvironmentError("Tests config parser: Line %d: no operator" % (self.__line_number))
                 
-        tokens[0] = self.__do_normal_path(tokens[0])
-        first_token = tokens[0]
-                
-        if self.__is_command(first_token):
-            return command_test_info.CommandTestInfo(tokens[0], tokens[1 : len(tokens)])
-        elif self.__is_generator(first_token):
-            return stdgen_test_info.StdGenTestInfo(tokens[0], tokens[1 : len(tokens)])
+        first_token = self.__do_normal_path(tokens[0])
+        #TODO: make it simpler
+        if self.__is_command(first_token) or self.__is_generator(first_token):
+            return cmd_stdgen_test_info.CmdOrStdGenTestInfo(first_token, tokens[1 : len(tokens)], self.__attributes)
         elif len(tokens) != 1: 
             raise EnvironmentError("Tests config parser: Line %d: expected 1 argument, more found" % (self.__line_number))
         elif self.__is_file(first_token):
