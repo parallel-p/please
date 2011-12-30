@@ -15,14 +15,17 @@ from please.latex import latex_tools
 from please.svn import delete_problem
 
 class PleaseTest(unittest.TestCase):
-    
+    def ifed(self):
+        if os.path.exists("problem_test"):
+            delete_problem("problem_test") 
     def setUp(self):
+        self.ifed()
         self.__matcher = Matcher()
         self.__matcher.add_handler(Template(["create", "problem", "#shortname"]), problem_gen.generate_problem, True)
         self.__matcher.matches("create problem problem_test".split())
         
     def tearDown(self):
-        
+        self.ifed()
         if os.path.exists("problem_test"):
             delete_problem("problem_test")        
     
@@ -107,12 +110,10 @@ class PleaseTest(unittest.TestCase):
         
     def test_add_standard_checker(self):
         """ Checks command 'add standard checker checker_name' """
-        
         start_dir = os.getcwd()
         os.chdir("problem_test")
         
         open_config = package_config.PackageConfig.get_config()
-        
         self.__matcher.add_handler(Template(["add", "standard", "checker", "#checker"]), add_standard_checker_to_solution, True)
         self.__matcher.matches("add standard checker test_checker".split())
         
