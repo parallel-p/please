@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import configparser, os, io
+import ejudge_formatter
 
 class EjudgeContest:
     ''' Ejudge contests handling '''
@@ -7,12 +8,15 @@ class EjudgeContest:
         self.__static = ""
         self.__abstract_name = ""
         self.__problems_raw = []
-        self.__problems = []
+        self.__problems = {}
         self.__problems_set = set()
         self.__max_problem_id = 1
+        self.__advanced_layout = False
         config = open(config_path, 'r')
         in_problem = False
         for line in config.readlines():
+            if line[:-1] == 'advanced_layout':
+                self.__advanced_layout = True
             if line[:-1] == '[problem]':
                 self.__problems_raw.append("[problem]\n")
                 in_problem = True
@@ -22,38 +26,37 @@ class EjudgeContest:
                 self.__problems_raw[-1] += line
             if not in_problem:
                 self.__static += line
+        config.close()
 
         for problem in self.__problems_raw:
             problem_config = configparser.RawConfigParser(allow_no_value = True)
             problem_config.read_string(problem)
-            for param in problem_config['problem']:
-                if problem_config['problem'][param] and problem_config['problem'][param][0] == '"' and problem_config['problem'][param][-1] == '"':
-                    problem_config['problem'][param] = problem_config['problem'][param][1:-1]
             ej_problem = EjudgeProblem(problem_config['problem'], problem)
-            self.__problems.append(ej_problem)
             if ej_problem.abstract:
                 self.__abstract_name = ej_problem.short_name
-            self.__problems_set.add(ej_problem.internal_name)
+            self.__problems[ej_problem.internal_name] = ej_problem
             self.__max_problem_id = max(self.__max_problem_id, ej_problem.id)
 
-    def get_backup_list(self):
-        return self.__backup_list
+    def get_version(self):
+        if not self.__advanced_layout:
+            return 0
+        else:
+            return 1
+
+    def get_matches(self):
+        return self.__matching
 
     def add_problems(self, problems):
         ''' Adds problems to contest '''
-        for problem in problems:
-            if problem.internal_name in self.__problems_set:
-                self.__backup_list.append(problem.short_name)
-
+        self.__matching = {}
         for problem in problems:
             problem.super = self.__abstract_name
-            added = False
-            for old_problem in self.__problems:
-                if old_problem.internal_name == problem.internal_name:
-                    added = True
-                    old_problem = problem
-            if not added:
-                self.__problems.append(problem)
+            if problem.internal_name in self.__problems_set:
+                self.__matching[problem.internal_name] = problem.short_name
+            else:
+                self.__matching[problem.internal_name] = problem.internal_name
+
+            self.__problems[problem.internal_name] = problem
 
     def __str__(self):
         ''' Returns serialized (serv.cfg) string to write to file '''
@@ -66,23 +69,31 @@ class EjudgeContest:
 class EjudgeProblem:
     def __init__(self, config = [], raw_config = ""):
         ''' Initializes problem using dictionary containing keys from [problem] section of config '''
+        self.__config = config
         self.abstract = "abstract" in config
-        self.short_name = "short_name" in config and config["short_name"]
-        self.long_name = "long_name" in config and config["long_name"]
-        self.internal_name = "internal_name" in config and config["internal_name"]
-        self.super = "super" in config and config["super"]
-        self.tl = "time_limit" in config and int(config["time_limit"])
-        self.ml = "max_vm_size" in config and config["max_vm_size"]
-        self.checker = "check_cmd" in config and config["check_cmd"]
-        self.id = "id" in config and int(config["id"])
+        self.short_name = self.config_param("short_name")
+        self.long_name = self.config_param("long_name")
+        self.internal_name = self.config_param("internal_name")
+        self.super = self.config_param("super")
+        self.tl = self.config_param("time_limit")
+        if self.tl is not None:
+            self.tl = int(self.tl)
+        self.ml = self.config_param("max_vm_size")
+        self.checker = self.config_param("check_cmd")
+        self.id = self.config_param("id")
+        if self.id is not None:
+            self.id = int(self.id)
+        self.test_sfx = self.config_param("test_sfx")
         if "use_stdin" in config:
             self.input = "stdin"
         else:
-            self.input = "input" in config and config["input"]
+            self.input = self.config_param("input")
         if "use_stdout" in config:
             self.output = "stdout"
         else:
-            self.output = "output" in config and config["output"]
+            self.output = self.config_param("output")
+        self.test_sfx = self.config_param("test_sfx")
+        self.corr_sfx = self.config_param("corr_sfx")
 
         self.__raw = ''
         for line in raw_config.split('\n'):
@@ -97,6 +108,9 @@ class EjudgeProblem:
             if raw:
                 self.__raw += "%s\n" % line
 
+    def config_param(self, param):
+        return param in self.__config and self.__config[param]
+
     def __str__(self):
         ''' Returns serialized ([problem] section) problem '''
         res = ""
@@ -106,55 +120,85 @@ class EjudgeProblem:
         if self.id:
             res += 'id = %d\n' % self.id
         if self.super:
-            res += 'super = "%s"\n' % self.super
+            res += 'super = %s\n' % self.super
         if self.short_name:
-            res += 'short_name = "%s"\n' % self.short_name
+            res += 'short_name = %s\n' % self.short_name
         if self.long_name:
-            res += 'long_name = "%s"\n' % self.long_name
+            res += 'long_name = %s\n' % self.long_name
         if self.internal_name:
-            res += 'internal_name = "%s"\n' % self.internal_name
+            res += 'internal_name = %s\n' % self.internal_name
         if self.input:
             if self.input == "stdin":
                 res += "use_stdin\n"
             else:
-                res += 'input = "%s"\n' % self.input
+                res += 'input = %s\n' % self.input
         if self.output:
             if self.output == "stdout":
                 res += "use_stdout\n"
             else:
-                res += 'output = "%s"\n' % self.output
+                res += 'output = %s\n' % self.output
         if self.tl:
             res += 'time_limit = %d\n' % round(self.tl)
         if self.ml:
             res += 'max_vm_size = %s\n' % self.ml
         if self.checker:
-            res += 'check_cmd = "%s"\n' % self.checker
-
-        res += 'test_sfx = ""\n'
-        res += 'corr_sfx = ".a"\n'
+            res += 'check_cmd = %s\n' % self.checker
+        if self.test_sfx:
+            res += 'test_sfx = %s\n' % self.test_sfx
+        if self.corr_sfx:
+            res += 'corr_sfx = %s\n' % self.corr_sfx
 
         res += self.__raw
         return res
 
+class EjudgeProblemToCopy:
+    def __init__(self, problem_from, problem_to, problem_checker):
+        """
+            from is <internal name> (so all problem lays in ./please_tmp/<from>/)
+            to is <short name> where we should copy our problem (for new format: ../problems/<to>/)
+            checker is relative path to checker file
+        """
+        self.problem_from = problem_from
+        self.problem_to = problem_to
+        self.problem_checker = problem_checker
+
+def without_extension(s):
+    return os.path.splitext(s)[0]
+
+def no_quotes(s):
+    if s[0] == '"' and s[-1] == '"':
+        return s[1:-1]
+    else:
+        return s
+
 if __name__ == "__main__":
-    #print("Exporting to ejudge")
     contest = EjudgeContest("../conf/serve.cfg")
     new_problems = []
     for problem in os.listdir("."):
         if os.path.isdir(problem):
-            #print("Adding problem: %s" % problem)
             if os.path.exists(os.path.join(problem, 'default.simple')):
                 problem_config = "".join(open(os.path.join(problem, 'default.simple'), 'r').readlines()).split('\n')
                 new_problem = EjudgeProblem()
-                new_problem.short_name = problem_config[0]
-                new_problem.long_name = problem_config[1]
+                new_problem.short_name = '"%s"' % problem_config[0]
+                new_problem.long_name = '"%s"' % problem_config[1]
                 new_problem.internal_name = new_problem.short_name
-                new_problem.input = problem_config[2]
-                new_problem.output = problem_config[3]
+                new_problem.input = '"%s"' % problem_config[2]
+                new_problem.output = '"%s"' % problem_config[3]
                 new_problem.tl = int(problem_config[4])
-                new_problem.ml = problem_config[4] + 'M'
-                new_problem.checker = problem_config[5]
+                new_problem.ml = problem_config[5] + 'M'
+                new_problem.checker = '"%s"' % without_extension(problem_config[6])
+                new_problem.checker_ext = '%s' % problem_config[6]
+                new_problem.test_sfx = ""
+                new_problem.corr_sfx = ".a"
 
                 new_problems.append(new_problem)
     contest.add_problems(new_problems)
-    print(str(contest))
+    to_copy = []
+    for problem in new_problems:
+        to_copy.append(EjudgeProblemToCopy(no_quotes(problem.internal_name), no_quotes(problem.short_name), problem.checker_ext))
+
+    if contest.get_version() == 0:
+        formatter = ejudge_formatter.EjudgeFormatter(to_copy)
+    else:
+        formatter = ejudge_formatter.NewEjudgeFormatter(to_copy)
+    formatter.put_all()
