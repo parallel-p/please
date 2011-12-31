@@ -4,7 +4,6 @@ import logging
 from .. import log
 from .. import globalconfig
 from ..solution_tester import package_config
-from ..test_config_parser import parser2
 from ..utils.utests import get_tests
 
 OK, FIXED, CRASH = 0, 1, 2
