@@ -40,3 +40,10 @@ class NewEjudgeFormatter(EjudgeFormatter):
     
     def put_checker(self, path_to_problem, target_path_to_problem, name_of_checker):
         shutil.copyfile(os.path.join(path_to_problem, name_of_checker), os.path.join(target_path_to_problem, name_of_checker))
+
+class OldEjudgeFormatter(EjudgeFormatter):
+    def __init__(self):
+        raise NotImplementedError
+    def put_all(self):
+        raise NotImplementedError
+    
