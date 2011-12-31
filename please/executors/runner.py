@@ -72,7 +72,7 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = N
     lang = get_language_configurator(source)
     cmd = lang.get_run_command(source)
     args = cmd + args_list
-    print(args)
+    #print(args)
     logger.debug("Starting process: args:%s, stdout:%s, stdin:%s, stderr:%s, env:%s", str(args), str(stdout_fh), str(stdin_fh), str(stderr_fh), str(env))
 
     stdout = stderr = b''
