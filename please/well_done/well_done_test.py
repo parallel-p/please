@@ -15,7 +15,7 @@ class Tester(unittest.TestCase):
     def __tests_runner(self,filename, func_list, correct_result):
         copyfile(os.path.join(self.__dir, 'testdata', filename), 
                 os.path.join(self.__dir, 'tmp'))
-        self.assertEqual(WellDone(os.path.join(self.__dir, 'tmp'), func_list).check(), correct_result)
+        self.assertEqual(WellDone(func_list).check(os.path.join(self.__dir, 'tmp')), correct_result)
         #Uncomment the followin line to leave fixed files as *.b files in testdata
         copyfile(os.path.join(self.__dir, 'tmp'), os.path.join(self.__dir, 'testdata', filename + '.b'))
         self.assertTrue(cmp(os.path.join(self.__dir, 'tmp'), 
@@ -28,7 +28,7 @@ class Tester(unittest.TestCase):
         self.__tests_runner('4', ['endswith_EOLN'],(FIXED, ['endswith_EOLN']))
         self.__tests_runner('5', ['endswith_EOLN'],(OK, []))
         with self.assertRaises(IOError):
-            WellDone(os.path.join(self.__dir, 'tmp2'), ['endswith_EOLN'])
+            WellDone(['endswith_EOLN']).check(os.path.join(self.__dir, 'tmp2'))
 
     def test_no_left_spaces(self):
         self.__tests_runner('106', ['no_left_space'],(OK, []))
