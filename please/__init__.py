@@ -51,7 +51,7 @@ def main():
     package_config = package_config.PackageConfig.get_config('.')
     in_problem_folder = (package_config != False)
     globalconfig.in_problem_folder = in_problem_folder
-    matcher.add_handler(Template(["well", "done"]), well_done.WellDoneCheck().all, in_problem_folder)
+    #matcher.add_handler(Template(["well", "done"]), well_done.WellDoneCheck().all, in_problem_folder)
     matcher.add_handler(Template(["svn", "sync"]), svn.sync, in_problem_folder)
     matcher.add_handler(Template(["sync"]), svn.sync, in_problem_folder)
     matcher.add_handler(Template(["validate", "tests"]), tests_answer_generator.TestsAndAnswersGenerator().validate, in_problem_folder)

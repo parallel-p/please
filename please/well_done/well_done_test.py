@@ -156,34 +156,6 @@ class Tester(unittest.TestCase):
 
     def setUp(self):
         self.mox = mox.Mox()
-
-    def __well_done_check_runner(self, filename, function_list, log):
-        self.mox.StubOutWithMock(logging, "getLogger")
-        logger = self.mox.CreateMockAnything()
-        logger.info(log)
-        logging.getLogger("please_logger.well_done").AndReturn(logger)
-        self.mox.ReplayAll()
-        os.mkdir(os.path.join(self.__dir,'.tests'))
-        copyfile(os.path.join(self.__dir, 'testdata', filename), os.path.join(self.__dir, filename))
-        well_done_check_test(os.path.join(self.__dir, filename), function_list)
-        #copyfile(os.path.join(self.__dir, '.tests', filename), os.path.join(self.__dir, 'testdata', filename + '.b'))
-        self.assertTrue(cmp(os.path.join(self.__dir, filename), 
-                        os.path.join(self.__dir, 'testdata', filename+'.a')))  
-        self.mox.VerifyAll()        
-        self.mox.UnsetStubs()
-        rmtree(os.path.join(self.__dir, '.tests'))
-
-    def well_done_check_test(self):
-        self.__well_done_check_runner('.tests/42', ['no_symbols_less_32', 
-                 'no_left_right_space', 'no_double_space', 
-                 'no_top_bottom_emptyline', 'endswith_EOLN', 'not_empty'], 
-                 self.__dir + '\\.tests/42 was fixed with no_left_right_space, no_double_space, no_top_bottom_emptyline')
-        self.__well_done_check_runner('.tests/43', [], 
-                 self.__dir + '\\.tests/43 is well-done')
-        self.__well_done_check_runner('.tests/44', ['no_symbols_less_32', 
-                 'no_left_right_space', 'no_double_space', 
-                 'no_top_bottom_emptyline', 'endswith_EOLN', 'not_empty'], 
-                 self.__dir + '\\.tests/44 check was crashed while testing with not_empty')
          
     def tearDown(self):        
         if os.path.exists(os.path.join(self.__dir, 'tmp')):
