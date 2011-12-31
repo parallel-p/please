@@ -12,10 +12,12 @@ class DiffTestFinder:
     Returns list of test relative paths from execute_dir.
     
     Example:
-    test_finder = DiffTestFinder('directory_where_generator_executed', '.*/.*\\.in', '\\.\\./trash.*\\.in')
-    (mask in cmd or bash corresponds with */*.in, exclude corresponds with ../trash*.in)
+    test_finder = DiffTestFinder('directory_where_generator_executed', '.*\\.in$', '\\.\\./trash.*\\.in$')
+    (mask in cmd or bash corresponds with *.in, exclude corresponds with ../trash*.in)
     tests = test_finder.tests(diff, 'generator_stdout.out')
     tests == ['../01.in', '../02.in', '03.in', 'tests/100500.in']
+    
+    Warning: read python re syntax carefully before use!
     """
     def __init__(self, execute_dir, mask=None, exclude=None):
         #mask and exclude is a string, execute_dir - string, directory, in which generator worked
@@ -23,31 +25,38 @@ class DiffTestFinder:
         self.mask = mask
         self.exclude = exclude
         
-    def match(self, filename, mask):
+    def match(self, file, mask):
         return re.match(mask, file) is not None
     
     def tests(self, diff, stdout=None):
-        #diff is a list of files, stdout - file of redirected stdout of generator, returns names of test files
+        """
+        diff is a list of files, stdout - file of redirected stdout of generator,
+        returns names of test files, if stdout == None and no files found returns []
+        """
         cur_diff=diff[1][:] #diff[0] is new dirs, diff[1] is new files
         new_diff = []
         
         for file in cur_diff: #make paths relative from execute_dir
             new_diff.append(os.path.relpath(file, self.execute_dir))
         cur_diff = new_diff[:]
+        new_diff = []
         
-        if exclude is not None:
+        if self.exclude is not None:
             for file in cur_diff:
-                if not self.match(file, exclude):
-                    new_diff.append(i)
-            cur_diff=new_diff[:]
+                if not self.match(file, self.exclude):
+                    new_diff.append(file)
+            cur_diff = new_diff[:]
+            new_diff = []
 
-        if mask is not None:
+        if self.mask is not None:
             for file in cur_diff:
-                if self.match(file, mask):
-                    new_diff.append(i)
-            cur_diff=new_diff[:]
-
+                if self.match(file, self.mask):
+                    new_diff.append(file)
+            cur_diff = new_diff[:]
+            new_diff = []
+            
         if not cur_diff and stdout is not None:
             return [stdout]
         else:
             return cur_diff
+        
