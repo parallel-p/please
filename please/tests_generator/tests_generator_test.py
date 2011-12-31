@@ -38,11 +38,12 @@ class Tester(unittest.TestCase):
     class TestInfoMock():
         def __init__(self, filename, tags, new_filename):
             self.file = filename
-            self.tags = tags
-            self.new_filename = new_filename
-        
+            self.__tags = tags
+            self.__new_filename = new_filename
+        def get_tags(self):
+            return self.__tags
         def tests(self):
-            return [self.new_filename]
+            return [self.__new_filename]
             
 
     def test_file(self):
