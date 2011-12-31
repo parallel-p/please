@@ -11,11 +11,6 @@ class DiffTestFinder:
     Masks are in python.re syntax.
     Returns list of test relative paths from execute_dir.
     
-    Warning: if ways from diff are relative (now it means if diff was taked from directory
-    with relative path) it would be better not change directory before using this class,
-    in other way os.path.relpaths(<filename from not current directory>, <execute_dir>) must
-    work incorrectly.
-    
     Example:
     test_finder = DiffTestFinder('directory_where_generator_executed', '.*/.*\\.in', '\\.\\./trash.*\\.in')
     (mask in cmd or bash corresponds with */*.in, exclude corresponds with ../trash*.in)
