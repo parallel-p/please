@@ -12,6 +12,8 @@ class TestObjectFactory:
         self.__line_number = line_number
     
     def get_first_token(self):
+        pass
+    
     def create(self):
         self.__attributes = self.__get_attributes_and_make_operator()
         
