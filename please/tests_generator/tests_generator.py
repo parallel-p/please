@@ -40,12 +40,12 @@ class TestsGenerator:
         os.makedirs(TESTS_DIR)
         generated = []
         
-        logger.info('Generating {0} tests'.format(len([test for test in self.__tests_info if admit(test.tags)])))
+        logger.info('Generating {0} tests'.format(len([test for test in self.__tests_info if admit(test.get_tags())])))
         
         current_test_id = 1
         for i, test in enumerate(self.__tests_info):
                         # TODO : this should be changed to generated_tests_count
-            if (admit(test.tags)):
+            if (admit(test.get_tags())):
                 file_names, tests_in_series_count = self.__generate_test(test, current_test_id)    
                 current_test_id += tests_in_series_count               
                 for file_name in file_names:

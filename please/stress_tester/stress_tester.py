@@ -5,7 +5,7 @@ import os.path
 import random
 from .. import globalconfig
 from ..invoker.invoker import ExecutionLimits
-from ..test_config_parser.parser import TestInfo
+from ..test_config_parser import parser2
 from ..tests_generator.tests_generator import TestsGenerator
 from ..checker_runner import checker_runner
 from ..executors.compiler import CompileError
@@ -73,7 +73,7 @@ class StressTester():
     def __generate_test(self, generator):
         ''' Creates random test '''
         newrand = random.randint(0, globalconfig.stress_up)
-        test_info = TestInfo(1, "%s %s" % (generator, newrand))
+        test_info = parser2.TestObjectFactory(1, "%s %s" % (generator, newrand)).create()
         self.logger.warning("Random number for generator is: %s" % newrand)
         # generate ONE random test using given generator
         return TestsGenerator([test_info], "stress").generate(lambda x: True)[0]
