@@ -1,4 +1,4 @@
-from ..test_config_parser import parser2
+from ..test_config_parser import parser
 import io
 import os
 from please import globalconfig
@@ -94,9 +94,9 @@ class TestsAndAnswersGenerator:
         return (count_errors, result)
 
     def generate_all(self):
-        tests = tests_generator.TestsGenerator(parser2.parse_test_config()).generate_all()
+        tests = tests_generator.TestsGenerator(parser.parse_test_config()).generate_all()
         return self.__generate_answers(tests)
 
     def generate (self,tags):
-        tests = tests_generator.TestsGenerator(parser2.parse_test_config()).generate( self.__get_admit ( tags ) )
+        tests = tests_generator.TestsGenerator(parser.parse_test_config()).generate( self.__get_admit ( tags ) )
         return self.__generate_answers(tests)
