@@ -5,7 +5,7 @@ import os
 from ..template.template_utils import get_template_full_path, make_statement_name
 import shutil
 from ..executors import runner
-from ..test_config_parser.parser2 import parse_test_config
+from ..test_config_parser.parser import parse_test_config
 from ..tests_generator.tests_generator import TestsGenerator
 from ..language_configurator.language_configurator_utils import is_windows
 from ..tests_answer_generator.tests_answer_generator import TestsAndAnswersGenerator
