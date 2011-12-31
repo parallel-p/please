@@ -13,12 +13,11 @@ logger = logging.getLogger("please_logger.well_done")
 
 class WellDone:
     '''
-    USAGE:   WellDone(path_to_file, list_of_funcnames).check()
 
 
-    EXAMPLE: WellDone('.tests/1', ['no_symbols_less_32', 
+    EXAMPLE: WellDone(['no_symbols_less_32', 
              'no_left_right_space', 'no_double_space', 'no_top_bottom_emptyline', 
-             'endswith_EOLN', 'not_empty']).check()
+             'endswith_EOLN', 'not_empty']).check('.tests/1')
     
 
     Checks and if possible - repair the file according to the rules.
@@ -38,10 +37,7 @@ class WellDone:
     '''
 
     def __init__(self, check_functions_list):
-        self.__path = path
         self.__check_functions_list = check_functions_list
-        with open(path, encoding = "utf-8") as f:
-            self.__content = f.read()
 
 ###################################################################
 # Check functions block
@@ -125,17 +121,15 @@ class WellDone:
             self.__content = re.sub(r'\n\n+', '\n', self.__content)
         return result
 
-###################################################################
-# End of check functions block
-###################################################################
-
     def __rewrite(self):
         #write down modified content of file
         with open(self.__path, 'w', encoding = "utf-8") as f:
             f.write(self.__content)
 
-    def check(self):
+    def check(self, path):
         #apply each checking function to the content of the file
+        self.__content = open(path).read()
+        self.__path = path
         self.__fixes = []
         for function_name in self.__check_functions_list:
             #dirty trick to operate with splitted lists with unknown spaces
