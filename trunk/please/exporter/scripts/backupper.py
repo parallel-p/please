@@ -11,9 +11,10 @@ def make_backup():
     path_to_current_backup_folder = os.path.join(backup_folder, 'tmp')
     os.copytree('..', path_to_current_backup_folder)
     shutil.rmtree(os.path.join(path_to_current_backup_folder, '.backup'))
-    current_time = time.time()
-    archive_name = string(current_time)
-    
-    os.rmtree(path_to_current_backup_folder)
+    current_time = time.localtime()
+    archive_name = ("%04d-%02-%02; %02d:%02d:%02d" % (current_time.tm_year(), current_time.tm_mon(), 
+                   current_time.tm_mday(), current_time.tm_hour(), current_time.tm_min(), current_time.tm_sec()))
+        
+    shutil.rmtree(path_to_current_backup_folder)
     
     
