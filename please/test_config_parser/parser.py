@@ -3,8 +3,7 @@ import os
 from ..language.language import Language
 from .. import globalconfig
 from ..test_info import file_test_info
-from ..test_info import cmd_stdgen_test_info
-from ..test_info import filegen_test_info
+from ..test_info import cmd_gen_test_info
 
 class TestObjectFactory:
     def __init__(self, line_number, line):
@@ -25,7 +24,7 @@ class TestObjectFactory:
         
         first_token = self.__do_normal_path(tokens[0])
         if self.__is_command(first_token) or self.__is_generator(first_token):
-            return cmd_stdgen_test_info.CmdOrStdGenTestInfo(first_token, tokens[1 : len(tokens)], self.__attributes)
+            return cmd_gen_test_info.CmdOrGenTestInfo(first_token, tokens[1 : len(tokens)], self.__attributes)
         elif len(tokens) != 1: 
             raise EnvironmentError("Tests config parser: Line %d: expected 1 argument, more found" % (self.__line_number))
         elif self.__is_file(first_token):
