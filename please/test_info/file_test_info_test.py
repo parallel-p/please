@@ -18,7 +18,7 @@ class FileTestInfoTest(unittest.TestCase):
         pig.write("test")
         pig.close()
         
-        fti = file_test_info.FileTestInfo(well_done, "my.txt", {"to":"be", "or":"not"})
+        fti = file_test_info.FileTestInfo("my.txt", {"to":"be", "or":"not"}, well_done)
         r = fti.tests()
         
         self.assertDictEqual(fti.get_tags(), {"to":"be", "or":"not"})
