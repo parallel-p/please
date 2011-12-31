@@ -18,6 +18,10 @@ user_template_dir = ""
 default_programming_language = "cpp"
 default_human_language = "ru"
 
+export_scripts = {
+'ejudje' : default_template_dir.join('ejudge_export_script_please.py')
+}
+
 # config for folders in problem
 statements_dir = "statements"
 solutions_dir = "solutions"
