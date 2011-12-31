@@ -10,7 +10,8 @@ class TestObjectFactory:
     def __init__(self, line_number, line):
         self.__line = line.strip()
         self.__line_number = line_number
-        
+    
+    def get_first_token(self):
     def create(self):
         self.__attributes = self.__get_attributes_and_make_operator()
         
@@ -93,7 +94,8 @@ class TestObjectFactory:
         return result
     
 
-    
+def extract_binaries_sources():
+    pass
 
 def parse_test_config():
     """
