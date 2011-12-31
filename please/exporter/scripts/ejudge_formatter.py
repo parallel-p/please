@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os, shutil
+    
 class EjudgeFormatter:
     def __init__(self):
         pass
@@ -21,13 +22,13 @@ class NewEjudgeFormatter(EjudgeFormatter):
             os.mkdir(target_path_to_problems)
 
         for problem in self.__problems:                     
-            path_to_problem = os.join('.', problem.problem_from)
+            path_to_problem = os.path.join('.', problem.problem_from)
             if not os.path.isdir(path_to_problem):
                 raise FileNotFoundException
                 
             target_path_to_problem = os.join(target_path_to_problems, problem.problem_to)
             if os.path.exists(target_path_to_problem):
-                # make backup!
+                make_backup()
                 shutil.rmtree(target_path_to_problem)
             os.mkdir(target_path_to_problem)
             put_tests(path_to_problem, target_path_to_problem)
