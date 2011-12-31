@@ -1,5 +1,6 @@
 import shutil
 import os
+from .. import globalconfig
 from ..archiver import Archiver
 from ..ssh_tools.connector import Connector
 from generic_exporter import GenericExporter
@@ -8,16 +9,16 @@ class EjudgeExporter(GenericExporter):
         self.connector = Connector(network['host'],network['port'],network['login'],network['password'])
         self.archiver = ZIPArchiver()
         super(EjudgeExporter,self).__init__(self.archiver,self.connector,libs,problems)
-    def get_script():
+    def get_script(self):
+        return globalconfig.export_scripts['ejudge']
+    def run_script(self):
         pass
-    def run_script():
-        pass
-    def create_archive():
+    def create_archive(self):
         super(EjudgeExporter,self).create_archive()
         self.archiver.add(get_script)
-    def upload_file():
+    def upload_file(self):
         self.connector.upload_file(self.archiver.path,network['destination'])
-        run_script()
+        run_script() # Igor, what's isn't necesarilly
         
         
         
