@@ -39,10 +39,6 @@ class WellDone:
     def __init__(self, check_functions_list):
         self.__check_functions_list = check_functions_list
 
-###################################################################
-# Check functions block
-###################################################################
-
     def endswith_EOLN(self):
         if len(self.__content) == 0 or self.__content[-1] != '\n':
             self.__content += '\n' 
@@ -127,15 +123,19 @@ class WellDone:
             f.write(self.__content)
 
     def check(self, path):
-        #apply each checking function to the content of the file
         self.__content = open(path).read()
         self.__path = path
         self.__fixes = []
+        #apply each checking function to the content of the file
         for function_name in self.__check_functions_list:
-            #dirty trick to operate with splitted lists with unknown spaces
+            #to operate with splitted list with unknown spaces
             function_name = function_name.strip()
-            
-            result = getattr(self, function_name)()
+            #TODO: potentially dangerous
+            try:
+                result = getattr(self, function_name)()
+            except AttributeError:
+                raise EnvironmentError("There is no validating function " + function_name + 
+                                       ", check default.package properties (well_done_test, well_done_answer)")
             if result == CRASH:
                 return (CRASH, [function_name])
             elif result == FIXED:
