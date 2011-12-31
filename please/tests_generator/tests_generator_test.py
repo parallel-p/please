@@ -61,9 +61,13 @@ class Tester(unittest.TestCase):
         os.makedirs(os.path.join(TESTS_DIR)).MultipleTimes()        
 
         self.mox.StubOutWithMock(shutil, "move")
+        self.mox.StubOutWithMock(line_ending, "convert")
         shutil.move("new_file_path2", os.path.join(TESTS_DIR, "1"))
+        line_ending.convert(os.path.join(TESTS_DIR, "1"))
         shutil.move("new_file_path", os.path.join(TESTS_DIR, "1"))
+        line_ending.convert(os.path.join(TESTS_DIR, "1"))
         shutil.move("new_file_path2", os.path.join(TESTS_DIR, "2"))
+        line_ending.convert(os.path.join(TESTS_DIR, "2"))
 
         self.mox.ReplayAll()
         
