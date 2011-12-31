@@ -1,5 +1,4 @@
 from ..solution_runner import solution_runner
-from please.utils import cleanup
 import os
 import os.path
 import random
