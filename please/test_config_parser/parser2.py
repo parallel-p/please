@@ -19,7 +19,7 @@ class TestObjectFactory:
                 
         if tokens == []:
             raise EnvironmentError("Tests config parser: Line %d: no operator" % (self.__line_number))
-                
+        
         first_token = self.__do_normal_path(tokens[0])
         if self.__is_command(first_token) or self.__is_generator(first_token):
             return cmd_stdgen_test_info.CmdOrStdGenTestInfo(first_token, tokens[1 : len(tokens)], self.__attributes)
