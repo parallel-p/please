@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-import os, shutil, time
+import os, shutil
+from time import gmtime, strftime
+
 def make_backup():
     # this function makes backup of hull contest.
     # it makes folder .backup in the root of this contest
@@ -11,10 +13,7 @@ def make_backup():
     path_to_current_backup_folder = os.path.join(backup_folder, 'tmp')
     os.copytree('..', path_to_current_backup_folder)
     shutil.rmtree(os.path.join(path_to_current_backup_folder, '.backup'))
-    current_time = time.localtime()
-    archive_name = ("%04d-%02d-%02d; %02d:%02d:%02d" % (current_time.tm_year(), current_time.tm_mon(), 
-                   current_time.tm_mday(), current_time.tm_hour(), current_time.tm_min(), current_time.tm_sec()))
-        
+    archive_name = strftime("%Y-%m-%d; %H:%M:%S")
     shutil.rmtree(path_to_current_backup_folder)
-    
-    
+
+#print(strftime("%Y-%m-%d; %H:%M:%S"))
