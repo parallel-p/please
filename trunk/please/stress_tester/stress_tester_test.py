@@ -5,7 +5,6 @@ import os.path
 import io
 
 import please.stress_tester.stress_tester
-import please.test_config_parser.parser
 import please.solution_runner.solution_runner
 import please.checker_runner.checker_runner
 import please.globalconfig as global_config
