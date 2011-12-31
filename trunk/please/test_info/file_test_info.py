@@ -4,7 +4,7 @@ import shutil
 #from ..well_done.well_done import WellDone
 
 class FileTestInfo(test_info.TestInfo):
-    def __init__(self, well_done, filename, tags={}):
+    def __init__(self, filename, tags={}, well_done=None):
         self.__file = filename
         self.__well_done = well_done
         super(FileTestInfo, self).__init__(tags)
