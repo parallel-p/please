@@ -11,7 +11,7 @@ class Snapshot:
     
     Snapshot.get_changes(old_snapshot, new_snapshot)
     output: [ ["new_dir"], ["new_file.txt", "/new_dir/new_file.txt"] ]
-    (it returns list of full paths from root to appeared files and directories )
+    (it returns list of absolute full paths from root to appeared files and directories )
     """
     
     def __init__(self, dir=os.getcwd(), dirs_to_ignore=[], recursive=True, files_to_ignore=[]):
@@ -22,6 +22,9 @@ class Snapshot:
         
         recursive - an optional parameter that  defines whether Snapshot needs to be looking for files recursively.       
         """
+        
+        if not os.path.isabs(dir):
+            dir=os.path.join(os.getcwd(), dir)
         
         # This will probably be removed on 21.12.2012
         if ".svn" not in dirs_to_ignore:
