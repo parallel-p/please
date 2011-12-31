@@ -28,6 +28,7 @@ class TestsGenerator:
             file_name = os.path.join(TESTS_DIR, file_name)     
             shutil.move(temp_file, file_name)
             file_names.append(file_name)
+            line_ending.convert(file_name)
         
         return file_names, tests_in_series_number
     
@@ -40,17 +41,17 @@ class TestsGenerator:
         os.makedirs(TESTS_DIR)
         generated = []
         
-        logger.info('Generating {0} tests'.format(len([test for test in self.__tests_info if admit(test.get_tags())])))
+        logger.info('Generating {0} tests series'.format(len([test for test in self.__tests_info if admit(test.get_tags())])))
         
         current_test_id = 1
         for i, test in enumerate(self.__tests_info):
-                        # TODO : this should be changed to generated_tests_count
+            # TODO : this should be changed to generated_tests_count
             if (admit(test.get_tags())):
                 file_names, tests_in_series_count = self.__generate_test(test, current_test_id)    
                 current_test_id += tests_in_series_count               
                 for file_name in file_names:
                     generated.append(file_name)
-                logger.info('Test Series#{0} generated'.format(i + 1))
+                logger.info('Test series#{0} generated'.format(i + 1))
         
         return generated
         
