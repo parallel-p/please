@@ -1,7 +1,7 @@
 import unittest
 import mox
 from . import parser
-from ..test_info import file_test_info, filegen_test_info, cmd_stdgen_test_info
+from ..test_info import file_test_info, cmd_gen_test_info
 import os
 
 class TestObjectFactoryTest(unittest.TestCase):
@@ -9,14 +9,14 @@ class TestObjectFactoryTest(unittest.TestCase):
         self.mox = mox.Mox()
     def test_command(self):
         t = parser.TestObjectFactory(1, "echo 17 mama").create()
-        self.assertIsInstance(t, cmd_stdgen_test_info.CmdOrStdGenTestInfo)
+        self.assertIsInstance(t, cmd_gen_test_info.CmdOrGenTestInfo)
         q = t.tests()
         self.assertEqual( open(q[0]).read(), '17 mama\n')
         os.remove(q[0])
         
     def test_stdgen(self):
         self.assertIsInstance(
-            parser.TestObjectFactory(1, "gen.cpp 17 42 100500").create(), cmd_stdgen_test_info.CmdOrStdGenTestInfo)
+            parser.TestObjectFactory(1, "gen.cpp 17 42 100500").create(), cmd_gen_test_info.CmdOrGenTestInfo)
     def test_nonexist_file(self):
         with self.assertRaises(EnvironmentError):
             parser.TestObjectFactory(1, "iwasbreaking.awindow").create()
