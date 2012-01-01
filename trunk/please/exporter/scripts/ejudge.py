@@ -39,7 +39,10 @@ class EjudgeContest:
             ej_problem = EjudgeProblem(problem_config['problem'], problem)
             if ej_problem.abstract:
                 self.__abstract_name = ej_problem.short_name
-            self.__problems_byname[ej_problem.internal_name] = ej_problem
+            if ej_problem.internal_name is None:
+                self.__problems_byname[ej_problem.short_name] = ej_problem
+            else:
+                self.__problems_byname[ej_problem.internal_name] = ej_problem
             self.__problems.append(ej_problem)
             self.__max_problem_id = max(self.__max_problem_id, ej_problem.id)
 
@@ -58,13 +61,12 @@ class EjudgeContest:
         for problem in problems:
             problem.super = self.__abstract_name
             if problem.internal_name in self.__problems_byname:
-                self.__matching[problem.internal_name] = problem.short_name
                 copy_problem(problem, self.__problems_byname[problem.internal_name])
             else:
-                self.__matching[problem.internal_name] = problem.internal_name
                 self.__max_problem_id += 1
                 problem.id = self.__max_problem_id
                 self.__problems.append(problem)
+            self.__matching[problem.internal_name] = problem.internal_name
 
     def __str__(self):
         ''' Returns serialized (serv.cfg) string to write to file '''
