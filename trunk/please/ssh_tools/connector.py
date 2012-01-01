@@ -54,7 +54,7 @@ class WindowsConnector:
         self.__login = login
         self.__password = password
        
-    def upload_file(self, source, destinationi, need_to_extract_zip = True):
+    def upload_file(self, source, destination, need_to_extract_zip = True):
         limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600) 
         
         handler = psutil.Popen(["pscp", "-P", self.__port, "-pw", self.__password, source, self.__login + "@" + self.__host + ":" + destination])
