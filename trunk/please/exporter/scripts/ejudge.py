@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import configparser, os, io
+
+# run_tests.py will run ejudge_formatter test correct only with relative imports
 try:
     import ejudge_formatter
 except ImportError:
