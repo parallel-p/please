@@ -2,7 +2,6 @@ from .. import globalconfig
 from ..svn import ProblemInSvn
 
 def writepackage(text):
-    output_stream = open("default.package", "w", encoding = "utf-8")
-    output_stream.write(text)
-    output_stream.close()
+    with open("default.package", "w", encoding = "utf-8") as output_stream:
+        output_stream.write(text)
     ProblemInSvn().update(globalconfig.default_package)

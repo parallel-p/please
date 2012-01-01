@@ -38,6 +38,7 @@ def run_solution(config):
             if config.solution_config['input'] != 'stdin':
                 shutil.copy(config.solution_input_file, config.solution_config['input'])
             else:
+                #TODO:make accurate closing of this file
                 stream_in = open(config.solution_input_file, "r")
             if config.solution_config['output'] == 'stdout':
                 stream_out = open(config.solution_output_file, 'w')

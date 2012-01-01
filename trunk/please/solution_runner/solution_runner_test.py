@@ -16,9 +16,9 @@ class SolutionRunnerTest (unittest.TestCase) :
         
         run_class = run_solution(info_class)
 
-        output_file = open(os.path.join(prefix, "test.out"), "r")
-        input_file = open(os.path.join(prefix, "test.in"), "r")
-        self.assertEqual(input_file.read(), output_file.read())
+        with open(os.path.join(prefix, "test.out"), "r") as output_file: 
+            with open(os.path.join(prefix, "test.in"), "r") as input_file: 
+                self.assertEqual(input_file.read(), output_file.read())
         
     def test_solution_runner_with_stdstreams(self):
         info_class = SolutionInfo(os.path.join(prefix, "stdtest.py"), 
@@ -28,9 +28,10 @@ class SolutionRunnerTest (unittest.TestCase) :
                                   os.path.join(prefix, "test.in"),
                                   os.path.join(prefix, "test.out" ))
         run_class = run_solution(info_class)
-        output_file = open(os.path.join(prefix, "test.out"), "r")
-        input_file = open(os.path.join(prefix, "test.in"), "r")
-        self.assertEqual(input_file.read(), output_file.read())
+        with open(os.path.join(prefix, "test.out"), "r") as output_file: 
+            with open(os.path.join(prefix, "test.in"), "r") as input_file: 
+                self.assertEqual(input_file.read(), output_file.read())
+
 if __name__ == '__main__':
     unittest.main()
 	

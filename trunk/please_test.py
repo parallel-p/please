@@ -65,15 +65,14 @@ class PleaseTest(unittest.TestCase):
         self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags, True)
         self.__matcher.matches("add tags tag1 tag2 tag3 tag4".split())
         
-        std_to_file = open("temp.txt", "a+")
-        saveout = sys.stdout
-        sys.stdout = std_to_file
-        
-        self.__matcher.add_handler(Template(["show", "tags"]), show_tags, True)
-        self.__matcher.matches("show tags".split())
-        
-        tags_from_std = std_to_file.read().split("\n")[0]
-        std_to_file.close()
+        with open("temp.txt", "a+") as std_to_file:
+            saveout = sys.stdout
+            sys.stdout = std_to_file
+            
+            self.__matcher.add_handler(Template(["show", "tags"]), show_tags, True)
+            self.__matcher.matches("show tags".split())
+            
+            tags_from_std = std_to_file.read().split("\n")[0]
         sys.stdout = saveout
         
         open_config = package_config.PackageConfig.get_config(ignore_cache = True) 
@@ -92,16 +91,15 @@ class PleaseTest(unittest.TestCase):
         self.__matcher.add_handler(Template(["clear", "tags"]), clear_tags, True)
         self.__matcher.matches("clear tags".split())
         
-        std_to_file = open("temp.txt", "a+")
-        saveout = sys.stdout
-        sys.stdout = std_to_file
-        
-        self.__matcher.add_handler(Template(["show", "tags"]), show_tags, True)
-        self.__matcher.matches("show tags".split())
-        
-        ttt = std_to_file.read()
-        tags_from_std = ttt.split("\n")[0]
-        std_to_file.close()
+        with open("temp.txt", "a+") as std_to_file:
+            saveout = sys.stdout
+            sys.stdout = std_to_file
+            
+            self.__matcher.add_handler(Template(["show", "tags"]), show_tags, True)
+            self.__matcher.matches("show tags".split())
+            
+            ttt = std_to_file.read()
+            tags_from_std = ttt.split("\n")[0]
         sys.stdout = saveout
 
         open_config = package_config.PackageConfig.get_config(ignore_cache = True)
