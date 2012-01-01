@@ -15,6 +15,7 @@ def main():
     from please import tags
     from please.solution_tester import check_solution
     from please.well_done import well_done
+    from please import globalconfig
     import sys
     import logging
     from please.test_config_parser import parser
@@ -83,7 +84,7 @@ def main():
     matcher.add_handler(Template(["check", "solution", "#path"]), check_solution.check_solution, in_problem_folder)
     matcher.add_handler(Template(["check", "main", "solution"]), check_solution.check_main_solution, in_problem_folder)
     matcher.add_handler(Template(["generate", "html", "report"]), generate_html_report.generate_html_report, in_problem_folder)
-    
+
     if len(sys.argv) == 1:
         print_lite_help()
     else:
