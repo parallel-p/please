@@ -1,0 +1,22 @@
+please_version = 0.1
+name = Кубики
+shortname = cubes
+tags = множества, сортировка
+type = 
+input = stdin
+output = stdout
+time_limit = 3
+memory_limit = 256
+checker = checker.cpp
+validator = validator.cpp
+main_solution = solutions/solution.py
+statement = statements/default.ru.tex
+description = statements/description.ru.tex
+solution = {
+    source = solutions/solution.cpp
+    expected_verdicts = OK
+}
+solution = {
+    source = solutions/solution_wrong.cpp
+    expected_verdicts = OK, RE, WA
+}

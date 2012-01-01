@@ -1,0 +1,21 @@
+[sample]tests/1
+[sample]tests/2
+tests/3
+tests/4
+generator_random.cpp 3
+generator_random.cpp 4
+generator_random.cpp 17
+generator_random.cpp 588
+generator_random.cpp 12398
+generator_random.cpp 0
+generator_random.cpp 37477
+generator_random.cpp 82838
+generator_random.cpp 194829
+generator_random.cpp 19299
+generator_random.cpp 4838
+generator_random.cpp 636
+generator_random.cpp 23
+generator_random.cpp 42
+generator_random.cpp 10
+generator_max.cpp 123
+generator_max.cpp 4321
