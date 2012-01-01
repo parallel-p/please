@@ -17,8 +17,15 @@ class Tester (unittest.TestCase):
     def tearDown(self):
         self.mox.UnsetStubs()
         self.mox.VerifyAll()
+    class WellDoneMock():
+        def __init__(self, key):
+            self.__key = key
+        def check(self, file):
+            return 0        
     
     def test_generate (self):
+        generator = tests_answer_generator.TestsAndAnswersGenerator()
+        
         test_info = self.mox.CreateMockAnything()
         test_info.command = ("file",[])
         test_list = [test_info]
@@ -27,17 +34,22 @@ class Tester (unittest.TestCase):
         val_res.return_code = 0
         val_res.verdict = "OK"
         
+        well_done = self.WellDoneMock("key")
+        f = self.mox.CreateMockAnything()
+        generator._create_well_done = f
+        f(generator, "key").AndReturn(well_done)              
+        
         ftcp = self.mox.CreateMock(parser.FileTestConfigParser)
         ftcp.get_test_info_objects().AndReturn(test_list)
         self.mox.StubOutWithMock(parser, "FileTestConfigParser")
-        parser.FileTestConfigParser().AndReturn(ftcp)
+        parser.FileTestConfigParser(well_done).AndReturn(ftcp)
         
         tests_gen = self.mox.CreateMock(tests_generator.TestsGenerator)
         tests_gen.generate_all().AndReturn(["file"])
         self.mox.StubOutWithMock(tests_generator, "TestsGenerator")
         tests_generator.TestsGenerator(test_list).AndReturn(tests_gen)
         
-        dic = {"input":"stdin", "output":"stdout", "validator" : "val", "solution" : "sol", "main_solution" : "ms", "memory_limit" : "32"}
+        dic = {"input":"stdin", "output":"stdout", "validator" : "val", "solution" : "sol", "main_solution" : "ms", "memory_limit" : "32", }
         
         self.mox.StubOutWithMock(package_config.PackageConfig, "get_config")
         package_config.PackageConfig.get_config().AndReturn(dic)
@@ -53,7 +65,6 @@ class Tester (unittest.TestCase):
                 
         self.mox.ReplayAll()
         
-        generator = tests_answer_generator.TestsAndAnswersGenerator()
         self.assertEqual(generator.generate_all(), (0,[("file","OK")]))
         
 if __name__ == '__main__':
