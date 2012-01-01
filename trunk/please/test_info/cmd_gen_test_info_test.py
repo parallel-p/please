@@ -16,21 +16,11 @@ class CmdOrGenTestInfo(unittest.TestCase):
         
     def test_generator(self):
         stdir = os.getcwd()
-        os.makedirs('test_problems/generator/')
-        f=open('test_problems/generator/main.cpp', 'w')
-        f.write('#include <iostream>\n \
-        #include <cstdio>\n \
-        using namespace std;\n \
-        int main(int argc, char *argv[]){\n \
-        for (int i=1; i<argc; ++i) cout<<argv[i]<<\' \';\n \
-        }')
-        f.close()
         a = cmd_gen_test_info.CmdOrGenTestInfo("test_problems/generator/main.cpp", ["blue", "dog"])
         res = a.tests()
         
         self.assertEqual(open(res[0]).read(), "blue dog ")
         os.remove(res[0])
-        shutil.rmtree('test_problems')
         
 if __name__ == '__main__':
     unittest.main()
