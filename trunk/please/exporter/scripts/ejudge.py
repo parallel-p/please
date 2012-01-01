@@ -5,7 +5,7 @@ import configparser, os, io
 try:
     import ejudge_formatter
 except ImportError:
-    from . import ejudge_formatter
+    import please.exporter.scripts.ejudge_formatter as ejudge_formatter
 
 class EjudgeContest:
     ''' Ejudge contests handling '''
@@ -214,11 +214,11 @@ def export(inp, out):
     for problem in new_problems:
         to_copy.append(EjudgeProblemToCopy(no_quotes(problem.internal_name), no_quotes(problem.short_name), problem.checker_ext))
 
-    #if contest.get_version() == 0:
-    #    formatter = ejudge_formatter.EjudgeFormatter(to_copy)
-    #else:
-    #    formatter = ejudge_formatter.NewEjudgeFormatter(to_copy)
-    #formatter.put_all()
+    if contest.get_version() == 0:
+        formatter = ejudge_formatter.EjudgeFormatter(to_copy)
+    else:
+        formatter = ejudge_formatter.NewEjudgeFormatter(to_copy)
+    formatter.put_all()
 
     with open(out, 'w') as f:
         f.write(str(contest))
