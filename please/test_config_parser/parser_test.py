@@ -32,7 +32,7 @@ class TestObjectFactoryTest(unittest.TestCase):
         
     def test_parse(self):
         a = parser.TestConfigParser("test_problems/generator/main.cpp 1 2 3\n[sample]test_problems/generator/main.cpp happy new year")
-        self.assertEqual(a.get_binaries(), ["test_problems/generator/main.cpp"])
+        self.assertEqual(a.get_binaries(), [os.path.join("test_problems", "generator", "main.cpp")])
         b = a.get_test_info_objects()
         
         t = b[0].tests()
@@ -42,8 +42,7 @@ class TestObjectFactoryTest(unittest.TestCase):
         t = b[1].tests()
         with open(t[0]) as f:
             self.assertEqual(f.read(), "happy new year ")
-                
-        
+            
     def tearDown(self):
         self.mox.VerifyAll()
         self.mox.UnsetStubs()
