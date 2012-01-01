@@ -122,7 +122,7 @@ class WellDone:
             f.write(self.__content)
 
     def check(self, path):
-        with open(path) as file:
+        with open(path, encoding = 'utf-8') as file:
             self.__content = file.read()
         self.__path = path
         self.__fixes = []
