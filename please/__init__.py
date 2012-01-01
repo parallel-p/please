@@ -110,3 +110,4 @@ def main():
     
     if in_problem_folder:
         svn.ProblemInSvn(svn_up=False).commit()
+

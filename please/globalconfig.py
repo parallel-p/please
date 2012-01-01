@@ -64,3 +64,9 @@ svn = {     'type': '', #personal',
              'url': '', #https://please-svn.googlecode.com/svn/problems/',
         'username': '', #gurovic@gmail.com', 
         'password': ''}#ez9NP2Hz5BD5'}
+
+#exports = {
+#    'lksh': export.Ejudge('ssh://ejudge@ejudge.lksh.ru'),
+#    'spbsu': export.Testsys('/mnt/server/D/problems/'),
+#}
+
