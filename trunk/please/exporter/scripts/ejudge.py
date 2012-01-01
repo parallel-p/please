@@ -3,9 +3,10 @@ import configparser, os, io
 
 # run_tests.py will run ejudge_formatter test correct only with relative imports
 try:
-    import ejudge_formatter
+    import ejudge_formatter, backupper
 except ImportError:
     import please.exporter.scripts.ejudge_formatter as ejudge_formatter
+    import please.exporter.scripts.backupper as backupper
 
 class EjudgeContest:
     ''' Ejudge contests handling '''
@@ -223,5 +224,7 @@ def export(inp, out):
     with open(out, 'w') as f:
         f.write(str(contest))
 
-if __name__ == "__main__":
+if __name__ == "__main__" and os.path.exists('../conf/serve.cfg'):
+    # Backup whole contest before doing something
+    backupper.make_backup()
     export('../conf/serve.cfg', '../conf/serve.cfg')
