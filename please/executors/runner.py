@@ -32,8 +32,6 @@ class ExecutionControl:
         for f in (self.stdin_fh, self.stdout_fh, self.stderr_fh, self.process):
             if not f is None:
                 b = b or (f.__exit__(type, value, traceback) == True)
-        if (isinstance(type, psutil.error.NoSuchProcess)):
-            b = True
         return b
 
 def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = None, \
@@ -72,35 +70,26 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = N
     lang = get_language_configurator(source)
     cmd = lang.get_run_command(source)
     args = cmd + args_list
-    #print(args)
     logger.debug("Starting process: args:%s, stdout:%s, stdin:%s, stderr:%s, env:%s", str(args), str(stdout_fh), str(stdin_fh), str(stderr_fh), str(env))
 
     stdout = stderr = b''
     process = psutil.Popen(args, stdout = stdout_fh, stdin = stdin_fh,
                            stderr = stderr_fh, env = env, shell = shell)
-    result = None
-    try:
-        with ExecutionControl(stdin_fh, stdout_fh, stderr_fh, process) as ec:
-            result = invoker.invoke(process, limits)
+    invoke_result = None
+    with ExecutionControl(stdin_fh, stdout_fh, stderr_fh, process) as ec:
+        invoke_result = invoker.invoke(process, limits)
 
-            snapshot_after = snapshot.Snapshot()
+        snapshot_after = snapshot.Snapshot()
 
-            trash_remover.remove_trash(snapshot.get_changes(snapshot_before, snapshot_after), \
-                               lang.is_compile_garbage)
-            if nrout:
-                stdout_fh.seek(0)
-                stdout = stdout_fh.read();
+        trash_remover.remove_trash(snapshot.get_changes(snapshot_before, snapshot_after), \
+                           lang.is_compile_garbage)
+        if nrout:
+            stdout_fh.seek(0)
+            stdout = stdout_fh.read();
 
-            if nrerr:
-                stderr_fh.seek(0)
-                stderr = stderr_fh.read();
-
-    except psutil.error.NoSuchProcess:
-        logger.error("NoSuchProcess error")
-    #except Exception as e:
-    #    logger.error("Unknown exception while invoking the process: %s", str(e))
-
-    #print('\n'.join([c for a,b,c in os.walk('.')][0]))
+        if nrerr:
+            stderr_fh.seek(0)
+            stderr = stderr_fh.read();
 
 
-    return (result, stdout, stderr)
+    return (invoke_result, stdout, stderr)
