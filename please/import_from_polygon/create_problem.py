@@ -65,6 +65,9 @@ class PolygonImporter:
             cmd = test.get('cmd').split()
             generator = self.to_extension[cmd[0]]
             attr = cmd[1:]
+            cur_output_file = test.get('from-file')
+            if cur_output_file:
+                tags['mask'] = str(cur_output_file) + '$'
             return cmd_gen_test_info.CmdOrGenTestInfo(generator, attr, tags)
 
     def make_tests(self):
