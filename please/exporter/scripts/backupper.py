@@ -32,20 +32,30 @@ class ZIPArchiver:
     def close(self):
         self.sbj.close()
 
+def myignorefunction(src, names, root):
+    s = set();
+    if (src == root and ('.backup' in names)):
+        s.add('.backup')
+    if (src == root and ('.' in names)):
+        s.add('.')
+    if ('.svn' in names):
+        s.add('.svn')
+    return s;       
+
 def make_backup():
     # this function makes backup of hull contest.
     # it makes folder .backup in the root of this contest
     # and puts there an archive with all files (except .backup).
     root = '..'
     backup_folder = os.path.join(root, '.backup')
-    if not os.isdir(backup_folder):
-        os.makedir(backup_folder)
+    if not os.path.isdir(backup_folder):
+        os.mkdir(backup_folder)
     path_to_current_backup_folder = os.path.join(backup_folder, 'tmp')
-    os.copytree('..', path_to_current_backup_folder)
-    shutil.rmtree(os.path.join(path_to_current_backup_folder, '.backup'))
-    archive_name = strftime("%Y-%m-%d; %H:%M:%S")
-    zip_archive = ZIParchiver(os.path.join(backup_folder, archive_name + '.zip'), 'w')
+    if os.path.isdir(path_to_current_backup_folder):
+        shutil.rmtree(path_to_current_backup_folder)
+    shutil.copytree('..', path_to_current_backup_folder, ignore = (lambda src, names : myignorefunction(src, names, root)))
+    archive_name = strftime("%Y%m%dT%H%M%S")
+    zip_archive = ZIPArchiver(os.path.join(backup_folder, archive_name + '.zip'), 'w')
     zip_archive.add_folder(path_to_current_backup_folder)
     zip_archive.close()
     shutil.rmtree(path_to_current_backup_folder)
-
