@@ -8,7 +8,7 @@ from please.command_line.matcher import Matcher
 from please.command_line import generate_tests
 from please.command_line.commands import print_help
 from please.command_line.generate_tests import generate_tests, generate_tests_with_tags
-from please.checkers.standard_checkers_utils import add_standard_checker_to_solution 
+from please.checkers.standard_checkers_utils import add_standard_checker_to_solution
 from please.template import problem_template_generator as problem_gen
 from please.solution_tester import package_config
 from please.tags import add_tags, show_tags, clear_tags
@@ -19,7 +19,7 @@ import please.globalconfig as globalconfig
 class PleaseTest(unittest.TestCase):
     def ifed(self):
         if os.path.exists("problem_test"):
-            delete_problem("problem_test") 
+            delete_problem("problem_test")
     def setUp(self):
         self.ifed()
         self.__matcher = Matcher()
@@ -29,7 +29,7 @@ class PleaseTest(unittest.TestCase):
     def tearDown(self):
         self.ifed()
         if os.path.exists("problem_test"):
-            delete_problem("problem_test")        
+            delete_problem("problem_test")
     
     def test_problem_creation(self):
         """ Checks command 'create problem problem_name' """
@@ -46,9 +46,9 @@ class PleaseTest(unittest.TestCase):
         os.chdir("problem_test")
         #package_config.PackageConfig.configs_dict = {}
         self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags, True)
-        self.__matcher.matches("add tags tag1 tag2 tag3 tag4".split()) 
+        self.__matcher.matches("add tags tag1 tag2 tag3 tag4".split())
               
-        open_config = package_config.PackageConfig.get_config(ignore_cache = True)    
+        open_config = package_config.PackageConfig.get_config(ignore_cache = True)
         
         
         os.chdir(start_dir)
@@ -138,7 +138,7 @@ class PleaseTest(unittest.TestCase):
         self.__matcher.matches("generate statement".split())
         
         os.chdir(start_dir)
-        self.assertTrue(os.path.exists(os.path.join(test_problem_dir, "statements", "default.ru.pdf")))        
+        self.assertTrue(os.path.exists(os.path.join(test_problem_dir, "statements", "default.ru.pdf")))
         
     def test_help(self):
         """ Checks command 'help' """
