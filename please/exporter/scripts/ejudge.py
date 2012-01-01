@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 import configparser, os, io
-import ejudge_formatter
+try:
+    import ejudge_formatter
+except ImportError:
+    from . import ejudge_formatter
 
 class EjudgeContest:
     ''' Ejudge contests handling '''
@@ -10,7 +13,7 @@ class EjudgeContest:
         self.__problems_raw = []
         self.__problems = []
         self.__problems_byname = {}
-        self.__max_problem_id = 1
+        self.__max_problem_id = 0
         self.__advanced_layout = False
         config = open(config_path, 'r')
         in_problem = False
@@ -55,9 +58,10 @@ class EjudgeContest:
             if problem.internal_name in self.__problems_byname:
                 self.__matching[problem.internal_name] = problem.short_name
                 copy_problem(problem, self.__problems_byname[problem.internal_name])
-                #self.__problems_byname[problem.internal_name].__dict__ = problem.__dict__.copy()
             else:
                 self.__matching[problem.internal_name] = problem.internal_name
+                self.__max_problem_id += 1
+                problem.id = self.__max_problem_id
                 self.__problems.append(problem)
 
     def __str__(self):
@@ -86,13 +90,13 @@ class EjudgeProblem:
         if self.id is not None:
             self.id = int(self.id)
         if "use_stdin" in config:
-            self.input = "stdin"
+            self.input = '"stdin"'
         else:
-            self.input = self.config_param("input")
+            self.input = self.config_param("input_file")
         if "use_stdout" in config:
-            self.output = "stdout"
+            self.output = '"stdout"'
         else:
-            self.output = self.config_param("output")
+            self.output = self.config_param("output_file")
         self.test_pat = self.config_param("test_pat")
         self.corr_pat = self.config_param("corr_pat")
         self.time_limit_millis = self.config_param("time_limit_millis")
@@ -102,7 +106,7 @@ class EjudgeProblem:
         self.__raw = ''
         for line in raw_config.split('\n'):
             raw = True
-            for x in ['[problem]', 'abstract', 'input', 'output', 'use_stdin', 'use_stdout',
+            for x in ['[problem]', 'abstract', 'input_file', 'output_file', 'use_stdin', 'use_stdout',
                       'super', 'short_name', 'long_name', 'internal_name', 'time_limit',
                       'max_vm_size', 'check_cmd', 'id', 'test_pat', 'corr_pat', 'time_limit_millis']:
                 if line.startswith(x):
@@ -134,12 +138,12 @@ class EjudgeProblem:
             if self.input == '"stdin"':
                 res += "use_stdin\n"
             else:
-                res += 'input = %s\n' % self.input
+                res += 'input_file = %s\n' % self.input
         if self.output:
             if self.output == '"stdout"':
                 res += "use_stdout\n"
             else:
-                res += 'output = %s\n' % self.output
+                res += 'output_file = %s\n' % self.output
         if self.time_limit_millis:
             res += 'time_limit_millis = %s\n' % int(self.time_limit_millis * 1000)
         elif self.tl:
@@ -182,8 +186,8 @@ def copy_problem(src, dst):
               "ml", "checker", "test_pat", "corr_pat"]:
         dst.__dict__[x] = src.__dict__[x]
 
-if __name__ == "__main__":
-    contest = EjudgeContest("../conf/serve.cfg")
+def export(inp, out):
+    contest = EjudgeContest(inp)
     new_problems = []
     for problem in os.listdir("."):
         if os.path.isdir(problem):
@@ -214,5 +218,8 @@ if __name__ == "__main__":
     #    formatter = ejudge_formatter.NewEjudgeFormatter(to_copy)
     #formatter.put_all()
 
-    with open('../conf/serve.cfg', 'w') as f:
+    with open(out, 'w') as f:
         f.write(str(contest))
+
+if __name__ == "__main__":
+    export('../conf/serve.cfg', '../conf/serve.cfg')
