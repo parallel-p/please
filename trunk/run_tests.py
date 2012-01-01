@@ -50,18 +50,10 @@ args = sys.argv
 loader = unittest.TestLoader()
 suite = unittest.TestSuite()
 
-if len(args) == 1 :
-     run_consol_test (".")
-     
+run = run_consol_test
+if len(args) >= 2 and args[1] == 'short':
+    run = run_tests
+    args = args[1:]
 
-if len(args) == 2:
-     if args[1] == "short":
-          run_tests(".")
-     else:
-          run_consol_test(args[1])
+run('.' if len(args) != 2 else args[1])
 
-if len(args) == 3:
-     if args[2] == "short":
-          run_tests(args[1])
-     else:
-          run_consol_test(".")
