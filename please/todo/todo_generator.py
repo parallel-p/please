@@ -2,6 +2,8 @@ import os
 import hashlib
 from ..package.config import Config
 from ..todo import painter
+from .. import globalconfig
+from ..template import info_generator
 
 class TodoGenerator: 
     """ 
@@ -28,15 +30,11 @@ class TodoGenerator:
                 for s in md5file:
                     resource, md5 = s.strip().split(':')
                     self.md5value[resource] = md5
-    
-    def get_todo(self, root_path = "."): 
-        # prints todo        
-        initial_position = os.getcwd()
-        if (os.path.exists(root_path)):
-            pass
         else:
-            raise "problem does not exist"
-        config_path = "default.package"
+            info_generator.create_md5_file(root_path)
+    
+    def get_todo(self): 
+        config_path = globalconfig.default_package
         with open(config_path) as config_file:
             config_text = "\n".join(config_file.readlines())
         self.__config = Config(config_text) 
@@ -45,9 +43,6 @@ class TodoGenerator:
             self.print_to_console(self.__get_item_status(item), item)
         tests_description_path = "tests.please"
         self.print_to_console(self.__get_item_status(path=tests_description_path, item="tests_description"), "tests description")
-        
-        if (root_path != "."):
-            os.chdir(initial_position)
             
     def print_to_console(self, status, text):
         """ prints message to please console. color depends on objective's status"""
