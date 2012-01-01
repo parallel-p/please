@@ -18,7 +18,8 @@ class EjudgeExporter(GenericExporter):
         self.archiver.add(get_script)
     def upload_file(self):
         self.connector.upload_file(self.archiver.path,network['destination'])
-        run_script() # Igor, what's isn't necesarilly
+        self.archiver.unzip()
+        run_script()
         
         
         
