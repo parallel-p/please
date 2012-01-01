@@ -25,7 +25,7 @@ def problem_in_svn(shortname = '.'):
     elif globalconfig.svn['type'] == 'personal':
         return os.path.exists('.svn')
     else:
-        raise SvnError('svn repository type is unknown in globalconfig')        
+        raise SvnError('svn repository type is unknown in globalconfig')
 
 def svn_probname(shortname):
     user = svn['username'].split('@')[0]
@@ -67,7 +67,7 @@ def svn_command_with_star(command):
         return ['svn'] + command + ['--username', svn['username'],
                                     '--password', svn['password']]
     else:
-        return ['bash', '-c', " ".join(['svn'] + command + ['--username', 
+        return ['bash', '-c', " ".join(['svn'] + command + ['--username',
                 svn['username'], '--password', svn['password']])]
 
 
@@ -232,6 +232,6 @@ class ProblemInSvn:
             if directory.find('.svn') == -1:
                 for file in files:
                     if '.' not in file or file.split('.')[-1] in svn_trash_ext:
-                        svn_operation(['revert', os.path.join(directory, file)])            
+                        svn_operation(['revert', os.path.join(directory, file)])
         svn_operation(['ci', '-m', '"Problem ' + get_svn_name() + ' synced"'])
-        
+
