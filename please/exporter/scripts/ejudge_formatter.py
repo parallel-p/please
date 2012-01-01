@@ -26,7 +26,7 @@ class NewEjudgeFormatter(EjudgeFormatter):
             if not os.path.isdir(path_to_problem):
                 raise FileNotFoundException
                 
-            target_path_to_problem = os.join(target_path_to_problems, problem.problem_to)
+            target_path_to_problem = os.path.join(target_path_to_problems, problem.problem_to)
             if os.path.exists(target_path_to_problem):
                 make_backup()
                 shutil.rmtree(target_path_to_problem)
