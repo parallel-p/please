@@ -34,12 +34,10 @@ class Cleaner:
         self.__clean_binary(config["statement"])
         solutions = config["solution"]
         if solutions != None:
-            for solution in solutions:    
+            for solution in solutions:
                 self.__clean_binary(solution["source"])
-        tests = parser.parse_test_config()
-        generators = []
-        for test in tests:
-            if test.type == parser.TestInfoType.GENERATOR and test.command[0] not in generators:
-                self.__clean_binary(test.command[0])
-                generators.append(test.command[0])
+        generators = parser.FileTestConfigParser().get_binaries()
+        for generator in generators:
+            self.__clean_binary(generator)
         trash_remover.remove_logs_in_depth()
+
