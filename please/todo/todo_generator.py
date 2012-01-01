@@ -23,16 +23,15 @@ class TodoGenerator:
     def __init__(self, root_path='.'):
      
         md5path = os.path.join(root_path, '.please', 'md5.config')
-        if os.path.exists(md5path):
-            
-            self.md5value = dict()
-            with open(md5path) as md5file:
-                for s in md5file:
-                    resource, md5 = s.strip().split(':')
-                    self.md5value[resource] = md5
-        else:
+        if not os.path.exists(md5path):
             info_generator.create_md5_file(root_path)
-    
+            
+        self.md5value = {}
+        with open(md5path) as md5file:
+            for s in md5file:
+                resource, md5 = s.strip().split(':')
+                self.md5value[resource] = md5
+                    
     def get_todo(self): 
         config_path = globalconfig.default_package
         with open(config_path) as config_file:
@@ -41,7 +40,7 @@ class TodoGenerator:
         items = ["statement", "checker", "description", "analysis", "validator", "main_solution"]        
         for item in items:
             self.print_to_console(self.__get_item_status(item), item)
-        tests_description_path = "tests.please"
+        tests_description_path = globalconfig.default_tests_config
         self.print_to_console(self.__get_item_status(path=tests_description_path, item="tests_description"), "tests description")
             
     def print_to_console(self, status, text):
@@ -73,7 +72,7 @@ class TodoGenerator:
                 return("error")
         if (os.path.exists(item_path)):
             m = hashlib.md5()
-            with open(item_path,"r+b") as item_file:
+            with open(item_path,"rb") as item_file:
                 m.update(item_file.read())
             if (m.hexdigest() != self.md5value[item]):
                 return("ok")

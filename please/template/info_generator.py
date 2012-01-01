@@ -1,7 +1,7 @@
 import os
 import time
 import hashlib
-
+from .. import globalconfig
 
 def create_time_file(root_path):
     """
@@ -23,18 +23,16 @@ def create_md5_file(root_path):
     '''
     with open(os.path.join(root_path, '.please', 'md5.config'), 'w') as md5file:
         d = dict(checker='checker.cpp', 
-                   validator='validator.cpp', 
-                   statement=os.path.join('statements', 'default.ru.tex'),
-                   description=os.path.join('statements', 'description.ru.tex'),
-                   analysis=os.path.join('statements', 'analysis.ru.tex'),
+                   validator='validator.cpp',
+                   statement='default.tex', 
+                   description='description.tex',
+                   analysis='analysis.tex',
                    tests_description='tests.please',
-                   main_solution=os.path.join('solutions', 'solution.cpp')
-                  )
+                   main_solution='solution.cpp'
+                  ) #default md5s from templates
         for (resource, dest) in d.items():
-            filepath = os.path.join(root_path, dest) 
-            if os.path.exists(filepath):
-                m = hashlib.md5()
-                with open(filepath,'r+b') as cur_file:
-                    m.update(cur_file.read())
-                md5file.write(resource + ":" + m.hexdigest() + "\n")
-
+            filepath = os.path.join(globalconfig.root, globalconfig.default_template_dir, dest) 
+            m = hashlib.md5()
+            with open(filepath,'rb') as cur_file:
+                m.update(cur_file.read())
+            md5file.write(resource + ":" + m.hexdigest() + "\n")
