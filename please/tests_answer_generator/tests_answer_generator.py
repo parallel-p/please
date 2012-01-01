@@ -94,9 +94,15 @@ class TestsAndAnswersGenerator:
         return (count_errors, result)
 
     def generate_all(self):
-        tests = tests_generator.TestsGenerator(parser.FileTestConfigParser().get_test_info_objects()).generate_all()
+        tests_well_done = self._create_well_done("tests_well_done")  
+        tests = tests_generator.TestsGenerator(parser.FileTestConfigParser(tests_well_done).get_test_info_objects()).generate_all()
         return self.__generate_answers(tests)
 
     def generate (self,tags):
-        tests = tests_generator.TestsGenerator(parser.FileTestConfigParser().get_test_info_objects()).generate( self.__get_admit ( tags ) )
+        tests_well_done = self._create_well_done("tests_well_done")  
+        tests = tests_generator.TestsGenerator(parser.FileTestConfigParser(tests_well_done).get_test_info_objects()).generate( self.__get_admit ( tags ) )
         return self.__generate_answers(tests)
+    
+    def _create_well_done(self, key):
+        config = package_config.PackageConfig.get_config()     
+        return well_done.WellDone(config[key])      
