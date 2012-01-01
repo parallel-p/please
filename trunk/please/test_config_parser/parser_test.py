@@ -16,7 +16,7 @@ class TestObjectFactoryTest(unittest.TestCase):
 			        
     def test_command(self):
         well_done = self.WellDoneMock("key")
-        t = parser.TestObjectFactory.create(1, "echo",  ["17",  "mama"])
+        t = parser.TestObjectFactory.create(well_done, 1, "echo",  ["17",  "mama"])
         self.assertIsInstance(t, cmd_gen_test_info.CmdOrGenTestInfo)
         q = t.tests()
         with open(q[0]) as test_file:
