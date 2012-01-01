@@ -41,6 +41,11 @@ class Connector:
         logger.info("Downloading...")
         self.__connector.download_file(source, destination)
         logger.info("File was downloaded.")
+
+    def run_command(self, command):
+        logger.info("Connecting to server and running the command")
+        self.__connector.run_command(command)
+        logger.info("Command executed")
         
 class WindowsConnector:
     def __init__(self, host, port, login, password): 
@@ -49,22 +54,29 @@ class WindowsConnector:
         self.__login = login
         self.__password = password
        
-    def upload_file(self, source, destination):
+    def upload_file(self, source, destinationi, need_to_extract_zip = True):
         limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600) 
         
         handler = psutil.Popen(["pscp", "-P", self.__port, "-pw", self.__password, source, self.__login + "@" + self.__host + ":" + destination])
         result = invoke(handler, limits)
-
-        splitted = destination.split(".")
-        assert(splitted.pop() == 'zip')
-        new_dir = ".".join(splitted)
-        handler = psutil.Popen(["plink", "-P", self.__port, "-pw", self.__password, "-l", self.__login, self.__host, "rm -r", new_dir, ";unzip", \
-            destination, "-d", os.path.split(new_dir)[0], ";rm", destination])
+        if need_to_extract_zip:
+            splitted = destination.split(".")
+            assert(splitted.pop() == 'zip')
+            new_dir = ".".join(splitted)
+            handler = psutil.Popen(["plink", "-P", self.__port, "-pw", self.__password, "-l", self.__login, self.__host, "rm -r", new_dir, ";unzip", \
+                destination, "-d", os.path.split(new_dir)[0], ";rm", destination])
+            result = invoke(handler, limits)
 
     def download_file(self, source, destination):
         handler = psutil.Popen(["pscp", "-P", self.__port, "-pw", self.__password, self.__login + "@" + self.__host + ":" + source, destination])
         limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600) 
         result = invoke(handler, limits)
+
+    def run_command(self, command):
+        handler = psutil.Popen(["ssh", "-P", self.__port, "-pw", self.__password, "-l", self.__login, self.__host, command])
+        limits = ExecutionLimits(realtime=600, memory=128, cpu_time=600)
+        result = invoke(handler, limits)
+
 
 class LinuxConnector:
     def __init__(self, host, port, login, password):
@@ -73,22 +85,27 @@ class LinuxConnector:
         self.__login = login
         self.__password = password
     
-    def upload_file(self, source, destination):
+    def upload_file(self, source, destination, need_to_extract_zip):
         limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600)
         
         handler = psutil.Popen(["scp", "-P", self.__port, source, self.__login + "@" + self.__host + ":" + destination])
         result = invoke(handler, limits)
 
-        splitted = destination.split(".")
-        assert(splitted.pop() == 'zip')
-        new_dir = ".".join(splitted)
-        handler = psutil.Popen(["ssh", "-p", self.__port, "-l", self.__login, self.__host, "rm -r", new_dir, ";unzip", \
-            destination, "-d", os.path.split(new_dir)[0], ";rm", destination])
+        if need_to_extract_zip:
+            splitted = destination.split(".")
+            assert(splitted.pop() == 'zip')
+            new_dir = ".".join(splitted)
+            handler = psutil.Popen(["ssh", "-p", self.__port, "-l", self.__login, self.__host, "rm -r", new_dir, ";unzip", \
+                destination, "-d", os.path.split(new_dir)[0], ";rm", destination])
 
-        result = invoke(handler, limits)
+            result = invoke(handler, limits)
         
     def download_file(self, source, destination):
         handler = psutil.Popen(["scp", "-P", self.__port, self.__login + "@" + self.__host + ":" + source, destination])
         limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600)
         result = invoke(handler, limits)
 
+    def run_command(self, command):
+        handler = psutil.Popen(["ssh", "-p", self.__port, "-l", self.__login, self.__host, command])
+        limits = ExecutionLimits(realtime=600, memory=128, cpu_time=600)
+        result = invoke(handler, limits)
