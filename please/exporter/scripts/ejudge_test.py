@@ -9,7 +9,7 @@ class FakeFormatter():
     def put_all(self):
         pass
 
-class CppTest(unittest.TestCase):
+class EjudgeTest(unittest.TestCase):
     def setUp(self):
         self.mox = mox.Mox()
         self.old_cwd = os.getcwd()
@@ -28,7 +28,7 @@ class CppTest(unittest.TestCase):
             out_lines = output.readlines()
         with open('../conf/serve.cfg.corr') as correct:
             corr_lines = correct.readlines()
-        for checked, answer in zip(out_lines, corr_line):
+        for checked, answer in zip(out_lines, corr_lines):
             self.assertEqual(checked, answer)
 
     def tearDown(self):
