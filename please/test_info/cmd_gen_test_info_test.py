@@ -1,5 +1,5 @@
 import unittest
-from please.test_info import cmd_gen_test_info
+from . import cmd_gen_test_info
 import os
 import shutil
 
