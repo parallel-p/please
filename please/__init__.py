@@ -3,6 +3,7 @@
 
 def main():
     from please.log import logger
+    from please.package import config
     from please.cleaner import cleaner
     from please.command_line.matcher import Matcher, MatcherException
     from please.command_line.template import Template
@@ -103,6 +104,8 @@ def main():
             logger.error("CompileError: " + str(ex))
         except OSError as ex:
             logger.error("OSError: " + str(ex))
+        except config.ConfigException as ex:
+            logger.error("ConfigError: " + str(ex))
         #except IOError as ex:
         #    log.error("IOError: " + str(ex))
         except EnvironmentError as ex:

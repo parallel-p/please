@@ -36,6 +36,9 @@ class WellDone:
     '''
 
     def __init__(self, check_functions_list):
+        if check_functions_list is None:
+            logger.warning("There is no validating functions for manual tests (see parameters well_done_tests and well_done_answers)")
+            check_functions_list = []
         self.__check_functions_list = check_functions_list
 
     def endswith_EOLN(self):
