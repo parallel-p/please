@@ -33,7 +33,7 @@ class Config:
         self.__settings = {}
         self.__source = []
         self.repeating_keywords = ["solution"]
-        self.list_keywords = ["expected_verdicts", "possible_verdicts"]
+        self.list_keywords = ["expected_verdicts", "possible_verdicts", "well_done_tests", "well_done_answers"]
         for key in self.repeating_keywords:
             if key in self.list_keywords:
                 raise ConfigException("Key '" + key + "' is in repeating_keywords and list_keywords at the same time")     

@@ -41,7 +41,7 @@ class TestObjectFactory:
             raise EnvironmentError("Tests config parser: Line %d cannot be parsed (maybe there is no such file?)" % (line_number))
         
 class TestConfigParser:
-    def __init__(self, well_done, config):
+    def __init__(self, config, well_done=None):
         self.__parsed = []
         self.__test_config = config
         self.__well_done = well_done
@@ -97,7 +97,7 @@ class TestConfigParser:
        return os.path.join(*result)
    
 class FileTestConfigParser(TestConfigParser):
-    def __init__(self, well_done, path = globalconfig.default_tests_config):
+    def __init__(self, well_done = None, path = globalconfig.default_tests_config):
         with open(path) as config_file:
-            super(FileTestConfigParser, self).__init__(well_done, config_file.read())
+            super(FileTestConfigParser, self).__init__(config_file.read(), well_done)
 
