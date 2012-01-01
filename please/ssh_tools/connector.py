@@ -73,8 +73,8 @@ class WindowsConnector:
         result = invoke(handler, limits)
 
     def run_command(self, command):
-        handler = psutil.Popen(["ssh", "-P", self.__port, "-pw", self.__password, "-l", self.__login, self.__host, command])
-        limits = ExecutionLimits(realtime=600, memory=128, cpu_time=600)
+        handler = psutil.Popen(["plink", "-P", self.__port, "-pw", self.__password, "-l", self.__login, self.__host, command])
+        limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600)
         result = invoke(handler, limits)
 
 
@@ -107,5 +107,5 @@ class LinuxConnector:
 
     def run_command(self, command):
         handler = psutil.Popen(["ssh", "-p", self.__port, "-l", self.__login, self.__host, command])
-        limits = ExecutionLimits(realtime=600, memory=128, cpu_time=600)
+        limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600)
         result = invoke(handler, limits)
