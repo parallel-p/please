@@ -24,7 +24,9 @@ class DprLinuxConfigurator:
         return ["fpc", source]
 
     def get_run_command(self, source):
-        return ['./' + os.path.splitext(source)[0]]
+        if "/" not in source:
+            source = "./" + source
+        return [os.path.splitext(source)[0]]
     
     def get_binary_name(self, source):
         return [os.path.splitext(source)[0] + '.o']
