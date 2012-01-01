@@ -1,7 +1,7 @@
 from . import test_info
 import tempfile
 import shutil
-#from ..well_done.well_done import WellDone
+from ..well_done import well_done
 
 class FileTestInfo(test_info.TestInfo):
     def __init__(self, filename, tags={}, well_done=None):
@@ -10,7 +10,8 @@ class FileTestInfo(test_info.TestInfo):
         super(FileTestInfo, self).__init__(tags)
     
     def tests(self):
-        self.__well_done.check(self.__file)
+        if self.__well_done is not None:
+            self.__well_done.check(self.__file)
         temp = tempfile.NamedTemporaryFile(delete = False)
         shutil.copy(self.__file, temp.name)
         return [ temp.name ]
