@@ -6,6 +6,7 @@ import filecmp
 from please.command_line.template import Template
 from please.command_line.matcher import Matcher
 from please.command_line import generate_tests
+from please.command_line.commands import print_help
 from please.command_line.generate_tests import generate_tests, generate_tests_with_tags
 from please.checkers.standard_checkers_utils import add_standard_checker_to_solution 
 from please.template import problem_template_generator as problem_gen
@@ -13,6 +14,7 @@ from please.solution_tester import package_config
 from please.tags import add_tags, show_tags, clear_tags
 from please.latex import latex_tools
 from please.svn import delete_problem
+import please.globalconfig as globalconfig
 
 class PleaseTest(unittest.TestCase):
     def ifed(self):
@@ -138,6 +140,15 @@ class PleaseTest(unittest.TestCase):
         os.chdir(start_dir)
         self.assertTrue(os.path.exists(os.path.join(test_problem_dir, "statements", "default.ru.pdf")))        
         
+    def test_help(self):
+        """ Checks command 'help' """
+
+        open_config = package_config.PackageConfig.get_config('.')
+        in_problem_folder = (package_config != False)
+        globalconfig.in_problem_folder = in_problem_folder
+
+        self.__matcher.add_handler(Template(["help"]), print_help, True)
+        self.__matcher.matches("help".split())
         
         
 if __name__ == "__main__":
