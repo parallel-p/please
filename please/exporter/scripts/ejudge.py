@@ -18,21 +18,20 @@ class EjudgeContest:
         self.__problems_byname = {}
         self.__max_problem_id = 0
         self.__advanced_layout = False
-        config = open(config_path, 'r')
-        in_problem = False
-        for line in config.readlines():
-            if line[:-1] == 'advanced_layout':
-                self.__advanced_layout = True
-            if line[:-1] == '[problem]':
-                self.__problems_raw.append("[problem]\n")
-                in_problem = True
-            elif line[0] == '[':
-                in_problem = False
-            elif in_problem and line != "\n":
-                self.__problems_raw[-1] += line
-            if not in_problem:
-                self.__static += line
-        config.close()
+        with open(config_path, 'r') as config:
+            in_problem = False
+            for line in config.readlines():
+                if line[:-1] == 'advanced_layout':
+                    self.__advanced_layout = True
+                if line[:-1] == '[problem]':
+                    self.__problems_raw.append("[problem]\n")
+                    in_problem = True
+                elif line[0] == '[':
+                    in_problem = False
+                elif in_problem and line != "\n":
+                    self.__problems_raw[-1] += line
+                if not in_problem:
+                    self.__static += line
 
         for problem in self.__problems_raw:
             problem_config = configparser.RawConfigParser(allow_no_value = True)
