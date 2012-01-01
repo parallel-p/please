@@ -96,12 +96,13 @@ def invoke(handler, limits):
         try:
             cpu_time = sum(list(handler.get_cpu_times()))
             real_time = time.time() - start_time
-            
             used_memory = max(used_memory, __get_memory_info(handler))
         except psutil.error.NoSuchProcess:
-            break
+            #TODO: log it or say something
+            continue 
         except psutil.error.AccessDenied:
-            break
+            #TODO: log it or say something
+            continue
 
         if real_time > limits.real_time:
             handler.kill()
@@ -120,6 +121,11 @@ def invoke(handler, limits):
             return_code = handler.wait(CHECK_PERIOD)
         except psutil.TimeoutExpired:
             pass
+    
+    real_time = time.time() - start_time
+    if real_time > limits.real_time:
+        verdict = "real TL"
+        return_code = None
 
     verdict = verdict or ("OK" if return_code == 0 else "RE")
     return ResultInfo(verdict, return_code, real_time, cpu_time, used_memory / MEGABYTE)
