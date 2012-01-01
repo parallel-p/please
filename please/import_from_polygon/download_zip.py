@@ -13,8 +13,8 @@ def extract_problems(xml):
 
 def read_authorised(url):
     print("Reading %s" % url)
-    res = request.urlopen(url, data=bytes(urllib.parse.urlencode(globalconfig.access), encoding="UTF-8"))
-    return res.read()
+    with request.urlopen(url, data=bytes(urllib.parse.urlencode(globalconfig.access), encoding="UTF-8")) as responce:
+        return responce.read()
 
 def request_contest_xml(contest_id):
     return ET.XML(read_authorised(

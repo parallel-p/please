@@ -194,7 +194,8 @@ def export(inp, out):
     for problem in os.listdir("."):
         if os.path.isdir(problem):
             if os.path.exists(os.path.join(problem, 'default.simple')):
-                problem_config = "".join(open(os.path.join(problem, 'default.simple'), 'r').readlines()).split('\n')
+                with open(os.path.join(problem, 'default.simple'), 'r') as simple_config:
+                    problem_config = "".join(simple_config.readlines()).split('\n')
                 new_problem = EjudgeProblem()
                 new_problem.short_name = '"%s"' % problem_config[0]
                 new_problem.long_name = '"%s"' % problem_config[1]

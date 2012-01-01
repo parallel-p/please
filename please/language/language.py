@@ -40,9 +40,8 @@ class Language:
             return None
 
     def __proceed_python(self, path):
-        f = open(path, 'r')
-        line = f.readline()
-        f.close()
+        with open(path, 'r') as f:
+            line = f.readline()
         if (line.find("python3") != -1):
             return "python3"
         elif (line.find("python2") != -1):
