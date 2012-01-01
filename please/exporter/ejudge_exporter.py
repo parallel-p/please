@@ -12,7 +12,7 @@ class EjudgeExporter(GenericExporter):
     def get_script(self):
         return globalconfig.export_scripts['ejudge']
     def run_script(self):
-        pass
+        self.connector.run_command('sh '.join(network['destination'],'/',globalconfig.export_scripts['ejudge']))
     def create_archive(self):
         super(EjudgeExporter,self).create_archive()
         self.archiver.add(get_script)
