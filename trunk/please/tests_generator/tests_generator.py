@@ -35,6 +35,7 @@ class TestsGenerator:
     def generate(self, admit):
         '''
         generates tests, whos tags admit given lambda
+        This method deletes old TESTS_DIR folder!!
         '''        
         if os.path.exists(TESTS_DIR):
             shutil.rmtree(os.path.join(TESTS_DIR))        
