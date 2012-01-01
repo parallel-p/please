@@ -20,22 +20,22 @@ class TestStatementDescriptionGenerator(unittest.TestCase):
     def test_problem1(self):
         generate_problem('aplusb')
         for x in ['default.package', 
-                  'statements/default.ru.tex', 
+                  os.path.join('statements', 'default.ru.tex'), 
                   'tests', 
                   'checker.cpp', 
-                  'solutions/solution.cpp', 
-                  'statements/description.ru.tex']:
-            self.assertTrue(exists("aplusb/"+x),"There is no " +x)
+                  os.path.join('solutions', 'solution.cpp'), 
+                  os.path.join('statements', 'description.ru.tex')]:
+            self.assertTrue(exists(os.path.join("aplusb", x)), "There is no " + x)
           
     def test_problem2(self):
         generate_problem_advanced('cats', 'en', 'pas')
         for x in ['default.package', 
-                  'statements/default.en.tex', 
+                  os.path.join('statements', 'default.en.tex'), 
                   'tests', 
                   'checker.pas', 
-                  'solutions/solution.pas', 
-                  'statements/description.en.tex']:
-            self.assertTrue(exists("cats/"+x),"There is no " +x)
+                  os.path.join('solutions', 'solution.pas'), 
+                  os.path.join('statements', 'description.en.tex')]:
+            self.assertTrue(exists(os.path.join("cats", x)), "There is no " + x)
         
 if __name__ == '__main__':
     unittest.main()
