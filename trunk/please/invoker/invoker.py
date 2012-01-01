@@ -2,6 +2,9 @@ import psutil
 import time
 from ..utils import platform_detector
 
+import logging
+logger = logging.getLogger("please_logger.invoker")
+
 class ResultInfo:
     '''
     This class represents all the information we have to get from the execution:
@@ -93,16 +96,31 @@ def invoke(handler, limits):
     real_time = 0
     pid = handler.pid
     while (handler.is_running()):
+        #wait some time before checking process information,
+        #beacuse in darwin it is access denied raised inf first
+        try:
+            return_code = handler.wait(CHECK_PERIOD)
+        except psutil.TimeoutExpired:
+            pass
+    
         try:
             cpu_time = sum(list(handler.get_cpu_times()))
             real_time = time.time() - start_time
             used_memory = max(used_memory, __get_memory_info(handler))
-        except psutil.error.NoSuchProcess:
-            #TODO: log it or say something
-            continue 
-        except psutil.error.AccessDenied:
-            #TODO: log it or say something
-            continue
+        except psutil.error.NoSuchProcess as e:
+            if psutil.pid_exists(handler.pid) or handler.is_running():
+                raise e
+            else:
+                #process just finished, so exit while
+                break
+        except psutil.error.AccessDenied as e:
+            #if handler is steel running we wait, while it will be finished
+            if handler.is_running():
+                logger.warning("Couldn't check limits: AccessDenied")
+                raise e
+            else:
+                #process just finished, so exit while
+                break
 
         if real_time > limits.real_time:
             handler.kill()
@@ -117,11 +135,6 @@ def invoke(handler, limits):
             verdict = "ML"
             return_code = None
         
-        try:
-            return_code = handler.wait(CHECK_PERIOD)
-        except psutil.TimeoutExpired:
-            pass
-    
     real_time = time.time() - start_time
     if real_time > limits.real_time:
         verdict = "real TL"
