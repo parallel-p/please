@@ -37,7 +37,7 @@ def make_backup():
     # it makes folder .backup in the root of this contest
     # and puts there an archive with all files (except .backup).
     root = '..'
-    backup_folder = os.join(root, '.backup')
+    backup_folder = os.path.join(root, '.backup')
     if not os.isdir(backup_folder):
         os.makedir(backup_folder)
     path_to_current_backup_folder = os.path.join(backup_folder, 'tmp')
