@@ -37,9 +37,8 @@ def generate_contest(problem_names = ['.'], title = None, date = None, location 
         new_tex_name = os.path.basename(package_conf["statement"])
     else:
         new_tex_name = "_".join(problem_names) + ".tex"
-    new_tex = open(new_tex_name, "w", encoding = "UTF8")
-    new_tex.write(contest.construct())
-    new_tex.close()
+    with open(new_tex_name, "w", encoding = "UTF8") as new_tex:
+        new_tex.write(contest.construct())
     
     converter = Latex2Pdf()
     converter.convert(new_tex_name)

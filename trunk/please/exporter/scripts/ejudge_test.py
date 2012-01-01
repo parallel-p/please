@@ -24,12 +24,12 @@ class CppTest(unittest.TestCase):
         cur_root = os.path.split(__file__)[0]
         os.chdir(os.path.join(cur_root, "tests", "please_tmp"))
         ejudge_exporter.export('../conf/serve.cfg', '../conf/serve.cfg.out')
-        out = open('../conf/serve.cfg.out')
-        corr = open('../conf/serve.cfg.corr')
-        out_lines = out.readlines()
-        corr_lines = corr.readlines()
-        for x in range(len(out_lines)):
-            self.assertEqual(out_lines[x], corr_lines[x])
+        with open('../conf/serve.cfg.out') as output:
+            out_lines = output.readlines()
+        with open('../conf/serve.cfg.corr') as correct:
+            corr_lines = correct.readlines()
+        for checked, answer in zip(out_lines, corr_line):
+            self.assertEqual(checked, answer)
 
     def tearDown(self):
         self.mox.UnsetStubs()

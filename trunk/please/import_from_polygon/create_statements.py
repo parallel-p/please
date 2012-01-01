@@ -24,8 +24,8 @@ def add_statement (default, lang, statement, path):
     problem_note = matched.group("note")
     if problem_note is not None:
         problem_statement += "\n \\Note \n" + problem_note
-    out_file  = open( os.path.join(path,"statements","statement."+lang+".tex"),"w", encoding = "UTF8")
-    out_file.write(problem_statement)
+    with open( os.path.join(path,"statements","statement."+lang+".tex"),"w", encoding = "UTF8") as out_file:
+        out_file.write(problem_statement)
 
     if not "statement" in default:
         default["statement"] = ""
@@ -35,5 +35,3 @@ def add_statement (default, lang, statement, path):
         default["name"] = ""
     default["name"] += matched.group("name") + "# names in other languages: " if default["name"] == "" else "; "
 
-#statement = open("problem.tex","r", encoding = "UTF-8").read()
-#add_statement({},"ru",statement,"")
