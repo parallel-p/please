@@ -32,7 +32,7 @@ class ZIPArchiver:
     def close(self):
         self.sbj.close()
 
-def myignorefunction(src, names, root):
+def myignorefunction(src, names, root, pleasetmp):
     s = set();
     if (src == root and ('.backup' in names)):
         s.add('.backup')
@@ -40,6 +40,8 @@ def myignorefunction(src, names, root):
         s.add('.')
     if ('.svn' in names):
         s.add('.svn')
+    if (pleasetmp in names):
+        s.add(pleasetmp)
     return s;       
 
 def make_backup():
@@ -53,9 +55,11 @@ def make_backup():
     path_to_current_backup_folder = os.path.join(backup_folder, 'tmp')
     if os.path.isdir(path_to_current_backup_folder):
         shutil.rmtree(path_to_current_backup_folder)
-    shutil.copytree('..', path_to_current_backup_folder, ignore = (lambda src, names : myignorefunction(src, names, root)))
+    shutil.copytree('..', path_to_current_backup_folder, ignore = (lambda src, names : myignorefunction(src, names, root, os.path.basename(os.path.abspath('.')))))
     archive_name = strftime("%Y%m%dT%H%M%S")
     zip_archive = ZIPArchiver(os.path.join(backup_folder, archive_name + '.zip'), 'w')
     zip_archive.add_folder(path_to_current_backup_folder)
     zip_archive.close()
     shutil.rmtree(path_to_current_backup_folder)
+
+#make_backup()
