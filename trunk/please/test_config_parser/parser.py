@@ -1,9 +1,9 @@
 import string
 import os
-from ..language.language import Language
-from .. import globalconfig
-from ..test_info import file_test_info
-from ..test_info import cmd_gen_test_info
+from please.language.language import Language
+from please import globalconfig
+from please.test_info import file_test_info
+from please.test_info import cmd_gen_test_info
 
 class TestObjectFactory:
     def __init__(self, line_number, line):

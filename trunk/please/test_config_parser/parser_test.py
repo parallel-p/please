@@ -1,7 +1,7 @@
 import unittest
 import mox
 from . import parser
-from ..test_info import file_test_info, cmd_gen_test_info
+from please.test_info import file_test_info, cmd_gen_test_info
 import os
 
 class TestObjectFactoryTest(unittest.TestCase):
