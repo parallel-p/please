@@ -43,24 +43,8 @@ class PackageConfig:
             # Find full path to the package
             path_to_package = os.path.join(dir, package_name)
             # Parse and register the config
-            f = open(path_to_package, encoding = "utf-8")
-            config_text = f.read()
-            f.close()
+            with open(path_to_package, encoding = "utf-8") as package_file:
+                config_text = package_file.read()
             PackageConfig.configs_dict[package_name] = Config(config_text)
             return PackageConfig.configs_dict[package_name]
-
-    """
-    @staticmethod
-    def get_config(problem_name, dir = ".", package_name = "default.package"):
-        if package_name in PackageConfig.configs_dict:
-            # This congfig is already registered, return it without extra re-parsing
-            return PackageConfig.configs_dict[package_name]
-        else:
-            # Find full path to the package
-            path_to_package = os.path.join(dir, problem_name, package_name)
-            # Parse and register the config
-            config_text = io.open(path_to_package).read()
-            PackageConfig.configs_dict[package_name] = Config(config_text)
-            return PackageConfig.configs_dict[package_name]
-    """
 

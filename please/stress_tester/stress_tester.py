@@ -60,8 +60,7 @@ class StressTester():
         output_path = test_path + ".out"
 
         if os.path.exists(output_path):
-            f = io.open(output_path)
-            with f:
+            with open(output_path) as f:
                 out = f.read()
             os.remove(output_path)
             return out
@@ -82,13 +81,11 @@ class StressTester():
         if not os.path.exists(".please"):
             os.mkdir(".please")
         correct_out_path = os.path.join(self.PLEASE_TEMP, self.CORRECT_OUT)
-        f = io.open(correct_out_path, "w")
-        with f:
+        with open(correct_out_path, "w") as f:
             f.write(correct_out)
 
         second_out_path = os.path.join(self.PLEASE_TEMP, self.INCORRECT_OUT)
-        f = io.open(second_out_path, "w")
-        with f:
+        with open(second_out_path, "w") as f:
             f.write(second_out)
 
         res = checker_runner.run_checker(checker_runner.CheckerInfo(

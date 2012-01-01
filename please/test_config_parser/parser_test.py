@@ -11,7 +11,8 @@ class TestObjectFactoryTest(unittest.TestCase):
         t = parser.TestObjectFactory.create(1, "echo",  ["17",  "mama"])
         self.assertIsInstance(t, cmd_gen_test_info.CmdOrGenTestInfo)
         q = t.tests()
-        self.assertEqual( open(q[0]).read(), '17 mama\n')
+        with open(q[0]) as test_file:
+            self.assertEqual(test_file.read(), '17 mama\n')
         os.remove(q[0])
         
     def test_stdgen(self):

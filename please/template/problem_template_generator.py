@@ -23,19 +23,16 @@ def generate_package(name, replaces, shortname):
     default_package_path = get_template_full_path(name) or get_template_full_path('default.package')
 
     if default_package_path:
-        default_package = open(default_package_path, 'r', encoding = "UTF8")
-        package = package_config(default_package.read())
-        default_package.close()
+        with open(default_package_path, 'r', encoding = "UTF8") as default_package: 
+            package = package_config(default_package.read())
     else:
         package = package_config("")
 
-    new_package = open(os.path.join(shortname, name), 'w', encoding = 'UTF8')
 
-    for replace, data in replaces.items():
-        package[replace] = data
-
-    new_package.write(package.get_text())
-    new_package.close()
+    with open(os.path.join(shortname, name), 'w', encoding = 'UTF8') as new_package: 
+        for replace, data in replaces.items():
+            package[replace] = data
+        new_package.write(package.get_text())
 
 def generate_problem_advanced(shortname, human_language, programming_language):
     ''' Generates file structure of problem (templates (checker, validator, etc) and default.package) '''
@@ -67,7 +64,8 @@ def generate_problem_advanced(shortname, human_language, programming_language):
     generate_package(globalconfig.default_package, replaces, shortname)
 
     # generate empty tests.please
-    open(os.path.join(shortname, globalconfig.default_tests_config), 'w').close()
+    with open(os.path.join(shortname, globalconfig.default_tests_config), 'w') as tests_config:
+        pass
 
     # copy testlib.h & testlib.pas
     testlib_h = get_template_full_path("testlib.h")
@@ -86,6 +84,5 @@ def generate_problem(shortname, handle_exception=True):
         info_generator.create_md5_file(shortname)
         logger.info("Problem %s created successfully", str(shortname))
         svn.add_created_problem(shortname)
-#        os.chdir(shortname)
     except ProblemExistsError as Error:
         logger.error(str(Error))

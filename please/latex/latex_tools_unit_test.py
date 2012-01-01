@@ -41,9 +41,8 @@ class TestLatexConstructor(unittest.TestCase):
         for test_in, test_out in tests:
             a.add_example(test_in, test_out)
 
-        read_file = open(correct, 'r', encoding = "UTF8")
-        correct_ans = read_file.read()
-        read_file.close()
+        with open(correct, 'r', encoding = "UTF8") as read_file:
+            correct_ans = read_file.read()
 
         self.assertEqual(a.construct(), correct_ans)
 

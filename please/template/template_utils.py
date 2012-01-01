@@ -19,7 +19,9 @@ def copy_or_create(source_path, destination_path):
         if (source_path != None) and (exists(source_path)):
             copy(source_path, destination_path)
         else:
-            open(destination_path, 'w').close()
+            #creating empty file
+            with open(destination_path, 'w') as empty_file:
+                pass
     except:
         if source_path is not None:
             source = source_path
