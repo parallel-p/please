@@ -1,8 +1,8 @@
-from please.test_info import test_info
+from . import test_info
 import tempfile
 from ..executors import runner, compiler
-from please.diff_test_finder.diff_test_finder import DiffTestFinder
-import please.directory_diff.snapshot as snapshot
+from ..diff_test_finder.diff_test_finder import DiffTestFinder
+from ..directory_diff import snapshot
 import os
 
 class CmdOrGenTestInfo(test_info.TestInfo):
