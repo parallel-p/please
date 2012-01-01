@@ -1,3 +1,5 @@
+# -*- coding: utf8 -*-
+
 import sys
 from distutils import log as log
 from distutils.core import Command
