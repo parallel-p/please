@@ -1,5 +1,5 @@
 import unittest
-from please.diff_test_finder.diff_test_finder import DiffTestFinder
+from .diff_test_finder import DiffTestFinder
 
 class TestDiffTestFinder(unittest.TestCase):
     def setUp(self):

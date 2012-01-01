@@ -1,6 +1,6 @@
 import unittest
-from please.directory_diff.snapshot import Snapshot
-from please.directory_diff.snapshot import get_changes
+from .snapshot import Snapshot
+from .snapshot import get_changes
 import os
 import shutil
 

@@ -4,11 +4,12 @@ import logging
 import os.path
 import io
 
-import please.stress_tester.stress_tester
-import please.solution_runner.solution_runner
-import please.checker_runner.checker_runner
+from . import stress_tester
+from ..solution_runner import solution_runner
+from ..checker_runner import checker_runner
 import please.globalconfig as global_config
-import please.solution_tester.package_config
+from ..solution_tester import package_config
+import please
 
 class FakeInvokerReport():
     verdict = "OK"
