@@ -1,12 +1,12 @@
-from please.answers_generator import answers_generator
+from ..answers_generator import answers_generator
 import io
-from please.tests_answer_generator import tests_answer_generator
-from please.validator_runner import validator_runner
-from please.solution_runner import solution_runner
-from please.invoker.invoker import ExecutionLimits
-from please.tests_generator import tests_generator
-from please.test_config_parser import parser
-from please.solution_tester import package_config
+from ..tests_answer_generator import tests_answer_generator
+from ..validator_runner import validator_runner
+from ..solution_runner import solution_runner
+from ..invoker.invoker import ExecutionLimits
+from ..tests_generator import tests_generator
+from ..test_config_parser import parser
+from ..solution_tester import package_config
 import unittest
 import mox
         
@@ -27,12 +27,13 @@ class Tester (unittest.TestCase):
         val_res.return_code = 0
         val_res.verdict = "OK"
         
-        self.mox.StubOutWithMock(parser, "parse_test_config")
-        parser.parse_test_config().AndReturn(test_list)
+        ftcp = self.mox.CreateMock(parser.FileTestConfigParser)
+        ftcp.get_test_info_objects().AndReturn(test_list)
+        self.mox.StubOutWithMock(parser, "FileTestConfigParser")
+        parser.FileTestConfigParser().AndReturn(ftcp)
         
         tests_gen = self.mox.CreateMock(tests_generator.TestsGenerator)
         tests_gen.generate_all().AndReturn(["file"])
-        
         self.mox.StubOutWithMock(tests_generator, "TestsGenerator")
         tests_generator.TestsGenerator(test_list).AndReturn(tests_gen)
         
