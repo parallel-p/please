@@ -18,9 +18,11 @@ ignoring_dirs = ['.svn']
 
 def is_text(filename):
     '''
-    Check file is text, not binary
+    Heuristic check, that file is text, not binary
     '''
-    s = str(open(filename, 'rb').read(512))
+    #read first several bytes
+    with open(filename, 'rb') as file:
+        s = str(file.read(512))
     text_characters = "".join(list(map(chr, range(32, 255))) + list("\n\r\t\b"))
     if "\0" in (s):
         return False
@@ -36,7 +38,6 @@ def is_text(filename):
     
 def without_extention(path):
     return re.match(r'(.*)\..*', os.path.basename(path)).groups()[0]
-
 
 def recreate_dir(path):
     if os.path.exists(path):
@@ -88,8 +89,10 @@ def recursive_zip(zipf, directory, folder=None):
     
 def export_problem2ejudge(contest_path, task, problem_id):
     problem_package_name = os.path.join(task, 'default.package')
-    problem_config = config.Config(open(problem_package_name, 'r').read())
-    serve_problem_template = open(serve_problem_template_name, 'r').readlines()
+    with open(problem_package_name, 'r') as package_file:
+        problem_config = config.Config(package_file.read())
+    with open(serve_problem_template_name, 'r') as serve_template_file:
+        serve_problem_template = serve_template_file.readlines()
     
     tests_info = prepare_tests(os.path.join(task, '.tests'))
     
@@ -126,7 +129,8 @@ def export_problem2ejudge(contest_path, task, problem_id):
             summary_serve_problem.append(re_find.groups()[1]+'\n')
 
     serve_cfg_path = os.path.join(contest_path, 'conf', 'serve.cfg')
-    open(serve_cfg_path, 'a').writelines(summary_serve_problem)
+    with open(serve_cfg_path, 'a') as serve_file:
+        serve_file.writelines(summary_serve_problem)
     
     problem_path = os.path.join(contest_path, 'problems', task)
     os.mkdir(problem_path)
@@ -161,7 +165,8 @@ def export2ejudge(contest_id, tasks):
     recreate_dir(contest_path)
     serve_cfg_path = os.path.join(contest_path, 'conf', 'serve.cfg')
     recreate_dir(os.path.join(contest_path, 'conf'))
-    serve_cfg_text = open(config_path, 'r').readlines()
+    with open(config_path, 'r') as config_file:
+        serve_cfg_text = config_file.readlines()
     
     i = 0
     abstracts = []
@@ -180,8 +185,9 @@ def export2ejudge(contest_id, tasks):
             abstracts += current_deleting
     
     serve_cfg_text += abstracts
-    
-    open(serve_cfg_path, 'w').writelines(serve_cfg_text)
+   
+    with open(serve_cfg_path, 'w') as serve_file: 
+        serve_file.writelines(serve_cfg_text)
     
     try:
         shutil.rmtree(os.join(contest_path, 'problems'))
