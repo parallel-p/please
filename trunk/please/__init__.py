@@ -43,8 +43,8 @@ def main():
     matcher.add_handler(Template(["export", "to", "ejudge", "contest", "#contest_id", "problem|problems", "@tasks"]), export2ejudge, True)
     matcher.add_handler(Template(["help"]), print_help, True)
     matcher.add_handler(Template(["generate", "statements", "@problem_names"]), latex_tools.generate_contest, True)
-    matcher.add_handler(Template(["show", "todo", "#root_path"]), todo.get_todo, True)
-    matcher.add_handler(Template(["todo", "#root_path"]), todo.get_todo, True)
+    #matcher.add_handler(Template(["show", "todo", "#root_path"]), todo.get_todo, True)
+    #matcher.add_handler(Template(["todo", "#root_path"]), todo.get_todo, True)
     matcher.add_handler(Template(["import", "polygon", "problem", "#problem_letter", "from", "contest", "#contest_id"]), import_problem_from_polygon, True)
     matcher.add_handler(Template(["import", "polygon", "package", "#package"]), import_polygon_package, True)
     # If we are inside folder with  the problem, we have more handlers
@@ -98,9 +98,9 @@ def main():
         #    log = logging.getLogger("please_logger.executors.compiler")
         #    log.error("CompilerError: " + str(ex))
         except RunnerError as ex:
-            pass
+            logger.error("RunnerError: " + str(ex))
         except CompileError as ex:
-            pass
+            logger.error("CompileError: " + str(ex))
         except OSError as ex:
             logger.error("OSError: " + str(ex))
         #except IOError as ex:
