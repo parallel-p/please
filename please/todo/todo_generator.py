@@ -24,9 +24,10 @@ class TodoGenerator:
         if os.path.exists(md5path):
             
             self.md5value = dict()
-            for s in open(md5path):
-                resource, md5 = s.strip().split(':')
-                self.md5value[resource] = md5
+            with open(md5path) as md5file:
+                for s in md5file:
+                    resource, md5 = s.strip().split(':')
+                    self.md5value[resource] = md5
     
     def get_todo(self, root_path = "."): 
         # prints todo        
@@ -36,8 +37,8 @@ class TodoGenerator:
         else:
             raise "problem does not exist"
         config_path = "default.package"
-        config_file = open(config_path)
-        config_text = "\n".join(config_file.readlines())
+        with open(config_path) as config_file:
+            config_text = "\n".join(config_file.readlines())
         self.__config = Config(config_text) 
         items = ["statement", "checker", "description", "analysis", "validator", "main_solution"]        
         for item in items:
@@ -77,7 +78,8 @@ class TodoGenerator:
                 return("error")
         if (os.path.exists(item_path)):
             m = hashlib.md5()
-            m.update(open(item_path,"r+b").read())
+            with open(item_path,"r+b") as item_file:
+                m.update(item_file.read())
             if (m.hexdigest() != self.md5value[item]):
                 return("ok")
             else:

@@ -122,7 +122,8 @@ class WellDone:
             f.write(self.__content)
 
     def check(self, path):
-        self.__content = open(path).read()
+        with open(path) as file:
+            self.__content = file.read()
         self.__path = path
         self.__fixes = []
         #apply each checking function to the content of the file

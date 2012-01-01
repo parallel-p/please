@@ -14,9 +14,8 @@ class FileTestInfoTest(unittest.TestCase):
         well_done = self.WellDoneMock(['no_symbols_less_32', 'no_left_right_space'])
         myfilename = "my.txt"
         
-        pig = open(myfilename , "w")
-        pig.write("test")
-        pig.close()
+        with open(myfilename , "w") as pig:
+            pig.write("test")
         
         fti = file_test_info.FileTestInfo("my.txt", {"to":"be", "or":"not"}, well_done)
         r = fti.tests()
@@ -25,9 +24,8 @@ class FileTestInfoTest(unittest.TestCase):
         strres = fti.to_please_format()
         self.assertEqual(strres, "[or = not, to = be] my.txt")
         
-        newfile = open(r[0], "r")
-        self.assertEqual(newfile.read(), "test")
-        newfile.close()
+        with open(r[0], "r") as newfile:
+            self.assertEqual(newfile.read(), "test")
         
         os.remove(r[0])
         os.remove(myfilename)

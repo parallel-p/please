@@ -12,7 +12,8 @@ class PackageConfigTest(unittest.TestCase):
     def tearDown(self):        
         self.mox.UnsetStubs()  
         self.mox.VerifyAll()  
-    
+
+    #TODO: fix this test
     #def test_package_config(self):        
     #    self.mox.StubOutWithMock(io, "open") 
     #    self.mox.StubOutWithMock(os.path, "exists")  
