@@ -1,4 +1,5 @@
 import os
+from .exporter.ejudge_exporter import EjudgeExporter
 from .invoker.invoker import ExecutionLimits
 from logging import INFO,ERROR,CRITICAL,WARNING,DEBUG
 please_version = 0.2
@@ -19,7 +20,22 @@ default_programming_language = "cpp"
 default_human_language = "ru"
 
 export_scripts = {
-'ejudje' : default_template_dir.join('ejudge_export_script_please.py')
+  'ejudge' : {
+    'scripts' : ['ejudge.py', 'ejudge_formatter.py', 'backupper.py'],
+    'run' : 'ejudge.py'
+  }
+}
+
+servers = {
+  'zhuravlev_ejudge' : EjudgeExporter(
+    'network' = {
+      'host' : '192.168.16.28',
+      'port' : '22',
+      'login' : 'ejudge',
+      'password' : 'ejudge'
+    },
+    'libs' = []
+  )
 }
 
 # config for folders in problem

@@ -37,11 +37,13 @@ def main():
     from please.tests_answer_generator import tests_answer_generator
     from please.reports import generate_html_report
     from please import svn
+    from exporter.exporter import export
 
     matcher = Matcher()
     matcher.add_handler(Template(["create", "problem", "#shortname"]), problem_gen.generate_problem, True)
     matcher.add_handler(Template(["delete", "problem", "#shortname"]), svn.delete_problem, True)
-    matcher.add_handler(Template(["export", "to", "ejudge", "contest", "#contest_id", "problem|problems", "@tasks"]), export2ejudge, True)
+    #matcher.add_handler(Template(["export", "to", "ejudge", "contest", "#contest_id", "problem|problems", "@tasks"]), export2ejudge, True)
+    matcher.add_handler(Template(["export", "to", "#server_name", "problems", "@problems"]), export, True)
     matcher.add_handler(Template(["help"]), print_help, True)
     matcher.add_handler(Template(["generate", "statements", "@problem_names"]), latex_tools.generate_contest, True)
     matcher.add_handler(Template(["import", "polygon", "problem", "#problem_letter", "from", "contest", "#contest_id"]), import_problem_from_polygon, True)
