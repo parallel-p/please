@@ -12,7 +12,7 @@ class CmdOrGenTestInfo(unittest.TestCase):
         
         #TODO:what is res[0]?
         with open(res[0]) as res_file:
-            self.assertEqual(res_file.read(), "blue dog")
+            self.assertEqual(res_file.read(), "blue dog\n")
         os.remove(res[0])
         
 if __name__ == '__main__':
