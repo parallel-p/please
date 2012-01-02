@@ -120,3 +120,6 @@ def main():
     if in_problem_folder:
         svn.ProblemInSvn(svn_up=False).commit()
 
+if __name__ == "__main__":
+    main()
+
