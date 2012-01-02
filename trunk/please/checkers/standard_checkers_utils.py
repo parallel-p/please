@@ -38,6 +38,7 @@ def add_standard_checker_to_solution (checker):
         print_standard_checkers()
         raise AddStandartCheckerError("Standart checker " + checker_name + " not found!")
     else:
+        shutil.copy(checker_global_path, checker_name)
         if not os.path.exists('testlib.h') :
             shutil.copy(os.path.join(globalconfig.root, globalconfig.checkers_dir, 'testlib.h'), 'testlib.h')
-        add_checker(checker_global_path)
+        add_checker(checker_name)
