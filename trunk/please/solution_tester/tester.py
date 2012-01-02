@@ -42,14 +42,12 @@ class TestSolution:
         #all necessary parameters in config are below:
         self.checker = config["checker"]
         self.tests_dir = config["tests_dir"]
-        if "expected_verdicts" in config:
-            self.expected_verdicts = config["expected_verdicts"] 
-        else:
-            self.expected_verdicts = [] 
+        self.expected_verdicts = config.get("expected_verdicts") or []
         self.optional_verdicts = config["optional_verdicts"] or []
         self.execution_limits = config["execution_limits"] or globalconfig.default_limits
         self.solution_config = config["solution_config"]
         self.solution_args = config["solution_args"]
+#        print(config)
         
     def one_test(self, solution, test, answer, program_out):
         logger.info('Testing {0} on {1}'.format(solution, test))
