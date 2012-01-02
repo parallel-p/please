@@ -1,5 +1,6 @@
 import os
 import re
+import glob
 from ..language.language import Language
 from please import globalconfig
 from ..test_info import file_test_info, cmd_gen_test_info, echo_test_info, python_test_info
@@ -16,7 +17,7 @@ class TokenSpecificator:
     @staticmethod
     def is_file(token):
         #if file exists, it is a file
-        return os.path.exists(TokenSpecificator.convert_path(token))
+        return glob.glob(token) != []
     
     @staticmethod
     def convert_path(token):
@@ -90,7 +91,9 @@ class TestConfigParser:
                     key = attribute.strip()
                     value = None
                 attribs[key] = value
-        string_without_attr = line[line.find(']') + 1 : ]
+            string_without_attr = line[line.find(']') + 1 : ]
+        else:
+            string_without_attr = line
         tokens = string_without_attr.split() #all items are stripped
         if tokens == []:
             raise EnvironmentError("Tests config parser: Line %d: no operator" % (line_number))
