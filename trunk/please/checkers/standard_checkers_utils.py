@@ -3,7 +3,6 @@ import logging
 import shutil
 from .. import globalconfig
 from ..solution_tester import package_config
-from .. import svn
 from ..utils.writepackage import writepackage
 from ..add_source.add_source import add_checker
 

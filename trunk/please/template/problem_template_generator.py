@@ -9,7 +9,6 @@ from .statement_template_generator import generate_description, generate_analysi
 from .source_code_file_generator import generate_checker, generate_solution, generate_validator
 from ..package.config import Config as package_config
 from . import info_generator
-from .. import svn
 
 class ProblemExistsError(IOError):
     def __init__(self, shortname):
@@ -83,6 +82,5 @@ def generate_problem(shortname, handle_exception=True):
         info_generator.create_time_file(shortname)
         info_generator.create_md5_file(shortname)
         logger.info("Problem %s created successfully", str(shortname))
-        svn.add_created_problem(shortname)
     except ProblemExistsError as Error:
         logger.error(str(Error))

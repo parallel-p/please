@@ -37,12 +37,10 @@ def main():
     from please.answers_generator.answers_generator import AnswersGenerator
     from please.tests_answer_generator import tests_answer_generator
     from please.reports import generate_html_report
-    from please import svn
     from please.exporter.exporter import export
 
     matcher = Matcher()
     matcher.add_handler(Template(["create", "problem", "#shortname"]), problem_gen.generate_problem, True)
-    matcher.add_handler(Template(["delete", "problem", "#shortname"]), svn.delete_problem, True)
     #matcher.add_handler(Template(["export", "to", "ejudge", "contest", "#contest_id", "problem|problems", "@tasks"]), export2ejudge, True)
     matcher.add_handler(Template(["export", "to", "#server_name", "contest", "#contest_id", "problem|problems", "@problems"]), export, True)
     matcher.add_handler(Template(["help"]), print_help, True)
@@ -54,8 +52,7 @@ def main():
     in_problem_folder = (package_config != False)
     globalconfig.in_problem_folder = in_problem_folder
     #matcher.add_handler(Template(["well", "done"]), well_done.WellDoneCheck().all, in_problem_folder)
-    matcher.add_handler(Template(["svn", "sync"]), svn.sync, in_problem_folder)
-    matcher.add_handler(Template(["sync"]), svn.sync, in_problem_folder)
+    #matcher.add_handler(Template(["delete", "problem", "#shortname"]), svn.delete_problem, in_problem_folder)
     matcher.add_handler(Template(["validate", "tests"]), tests_answer_generator.TestsAndAnswersGenerator().validate, in_problem_folder)
     matcher.add_handler(Template(["clean"]), cleaner.Cleaner().cleanup, in_problem_folder)
     matcher.add_handler(Template(["show", "todo"]), todo_generator.TodoGenerator.get_todo, in_problem_folder)
@@ -116,9 +113,6 @@ def main():
         except Exception as ex:
             logger.error("Exception: " + str(ex))
             raise ex
-    
-    if in_problem_folder:
-        svn.ProblemInSvn(svn_up=False).commit()
 
 if __name__ == "__main__":
     main()
