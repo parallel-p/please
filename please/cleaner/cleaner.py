@@ -40,6 +40,7 @@ class Cleaner:
         for generator in generators:
             self.__clean_binary(generator)
         if os.path.exists("report.html"):
+            logger.info("Removing report.html")
             os.remove("report.html")
         trash_remover.remove_logs_in_depth()
 
