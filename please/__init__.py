@@ -3,7 +3,6 @@
 
 def main():
     from please.log import logger
-    from please.test_info.python_test_info import TestConfigParserError
     from please.package import config
     from please.cleaner import cleaner
     from please.command_line.matcher import Matcher, MatcherException
@@ -108,8 +107,6 @@ def main():
             logger.error("IOError: " + str(ex))
         except EnvironmentError as ex:
             logger.error("EnvironmentError: " + str(ex))
-        except TestConfigParserError as ex:
-            logger.error("TestParserConfigError: " + str(ex))
         except tests_answer_generator.ValidatorError as ex:
             logger.error("ValidatorError: " + str(ex))
         except Exception as ex:
