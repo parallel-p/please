@@ -21,4 +21,4 @@ class FileTestInfo(test_info.TestInfo):
         return result
     
     def to_please_format(self):
-        return self.get_to_please_format_prefix() + self.__file
+        return self.get_to_please_format_prefix() + self.__mask
