@@ -268,8 +268,8 @@ class SingleProblemCreator():
         problem.set_time_limit(self.__config['time_limit'] + ' ' + get_time_string(float(self.__config["time_limit"])))
         problem.set_title(self.__config['name'])
 
-        examples_generator = TestsAndAnswersGenerator()
-        tests = examples_generator.generate(["sample"], "sample", False)[1]
+        tests = TestsAndAnswersGenerator().generate(["sample"], "sample", False)[1]
+        
         for test, verdict in tests:
             if verdict != 'OK':
                 continue
