@@ -53,7 +53,7 @@ class TestsAndAnswersGenerator:
                     logger.info("Validator said OK")
                 else:
                     err_out = form_error_output.process_err_exit(error_str, verd, validator_result[0].return_code,
-                                                       validator_result[1].decode(), validator_result[2].decode(), logger)
+                                                       validator_result[1].decode(), validator_result[2].decode())
                     raise ValidatorError(err_out)
         else:
             logger.warning("Validator is empty")
@@ -88,7 +88,7 @@ class TestsAndAnswersGenerator:
                     tests_names.append(test)
                 else:
                     err_out = form_error_output.process_err_exit(error_str, verd, validator_result[0].return_code,
-                                                       validator_result[1].decode(), validator_result[2].decode(), logger)
+                                                       validator_result[1].decode(), validator_result[2].decode())
                     raise ValidatorError(err_out)
         else:
             logger.warning("Validator is empty")
