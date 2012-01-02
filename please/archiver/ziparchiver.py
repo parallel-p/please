@@ -18,15 +18,20 @@ class ZIPArchiver:
     z.add_folder('dir2', 'path1')                       #add folder dir2 in path1
     '''
     def add_folder(self, directory, folder = ""):
+        if not seld.sbj:
+            self.sbj = zipfile.ZipFile(self.path, self.mod)
         for item in os.listdir(directory):
             if os.path.isfile(os.path.join(directory, item)):
                 self.sbj.write(os.path.join(directory, item), folder + os.sep + item)
             elif os.path.isdir(os.path.join(directory, item)):
                 self.add_folder(os.path.join(directory, item), folder + os.sep + item)
     def __init__(self, path, mod = 'w'):
-        self.sbj = zipfile.ZipFile(path, mod)
+        self.sbj = None #zipfile.ZipFile(path, mod)
         self.path = path
+        self.mod = mod
     def add(self, src_path, dst_path = './'):
+        if not self.sbj:
+            self.sbj = zipfile.ZipFile(self.path, self.mod)
         self.sbj.write(src_path, dst_path + src_path if dst_path[-1] in ['/', '\\'] else dst_path)
     def close(self):
         self.sbj.close()
