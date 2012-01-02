@@ -15,7 +15,7 @@ class GenericExporter:
         for problem in self.problems:
             os.chdir(problem)
             generate_tests()
-            with open('default.packahe', 'r') as f:
+            with open('default.package', 'r') as f:
                 conf = Config(f.read())
             if not os.path.exists(conf['checker']):
                 add_standart_checker_to_solution(conf['checker'])
