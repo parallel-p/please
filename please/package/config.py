@@ -216,7 +216,19 @@ class Config:
     
     def isChanged (self):
         return self.__changed
-    
+
+
+def create_simple_config(file_name, config):
+    with open(file_name, 'w') as file:
+        write = lambda x: file.write(config[x].join('\n'))
+        write('shortname')
+        write('name')
+        write('input')
+        write('output')
+        write('time_limit')
+        write('memory_limit')
+        write('checker')
+   
     def get(self, item, default = None):
         if item in self.__settings and self.__settings[item] is not None:
             return self.__settings[item] 

@@ -11,7 +11,7 @@ distribute_setup.use_setuptools(version="0.6.19")
 
 from setuptools import setup, find_packages
 
-modules = [ \
+modules = [
     'please',
     'please/tags',
     'please/globalconfig',
