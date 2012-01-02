@@ -1,6 +1,6 @@
 import shutil
 import os
-from .. import globalconfig
+from please import globalconfig
 from ..archiver import Archiver
 from ..ssh_tools.connector import Connector
 from generic_exporter import GenericExporter
