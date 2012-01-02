@@ -32,14 +32,16 @@ class TestsGenerator:
         
         return file_names, tests_in_series_number
     
-    def generate(self, admit):
+    def generate(self, admit, delete_folder=True):
         '''
         generates tests, whos tags admit given lambda
         This method deletes old TESTS_DIR folder!!
         '''        
-        if os.path.exists(TESTS_DIR):
-            shutil.rmtree(os.path.join(TESTS_DIR))        
-        os.makedirs(TESTS_DIR)
+        if delete_folder:
+            if os.path.exists(TESTS_DIR):
+                shutil.rmtree(os.path.join(TESTS_DIR))        
+        if not os.path.exists(TESTS_DIR):
+            os.makedirs(TESTS_DIR)
         generated = []
         
         logger.info('Generating {0} tests series'.format(len([test for test in self.__tests_info if admit(test.get_tags())])))
