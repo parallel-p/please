@@ -1,16 +1,26 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
-import os
+import errno, os
 from ..package import config
 from ..solution_tester.package_config import PackageConfig
 
 class IdMethod:
+
+    class IdException(Exception):
+        def __init__( self, id=None ):
+            self.__id = id
+        def __str__( self ):
+            if self.__id is None:
+                return "cannot assign id to new problem"
+            else:
+                return "problem with id '%s' already in contest" % id
+
     @classmethod
     def default( ids, short ):
         if short not in ids:
             return short
-        raise IdFailException # TODO: make exception
+        raise IdException(short)
 
     @classmethod
     def alpha( ids, short ):
@@ -19,7 +29,7 @@ class IdMethod:
         for x in map(chr, range(ord('A'), ord('Z') + 1)):
             if x not in ids:
                 return x
-        raise IdFailException # TODO: make exception
+        raise IdException()
 
     @classmethod
     def numeric( ids, short ):
@@ -35,16 +45,18 @@ class IdMethod:
         'numeric': numeric
     }
 
+
 class Contest:
     def __init__( self, config_name, ok_if_not_exists = False ):
-        if os.path.exists(config_name):
+        try:
             with open(config_name, 'r') as config_file:
                 config_data = config_file.readall()
             self.config = Config(config_data)
-        elif ok_if_not_exists:
-            solf.config = Config("")
-        else:
-            raise ConfigNotFoundException # TODO: make adequate exception
+        except IOError as e:
+            if e.errno == errno.ENOENT and ok_if_not_exists:
+                self.config = Config("")
+            else:
+                raise e
 
         self.__id_method = IdMethod.methods.get(self.config['id_method'], IdMethod.default)
         if isinstance(self.config['problem'], list):
