@@ -102,9 +102,9 @@ class TestsAndAnswersGenerator:
         tests = tests_generator.TestsGenerator(parser.FileTestConfigParser(tests_well_done).get_test_info_objects()).generate_all()
         return self.__generate_answers(tests)
 
-    def generate (self,tags):
+    def generate (self,tags, prefix="", delete_folder=True):
         tests_well_done = self._create_well_done("well_done_test")  
-        tests = tests_generator.TestsGenerator(parser.FileTestConfigParser(tests_well_done).get_test_info_objects()).generate( self.__get_admit ( tags ) )
+        tests = tests_generator.TestsGenerator(parser.FileTestConfigParser(tests_well_done).get_test_info_objects(), prefix).generate( self.__get_admit ( tags ), delete_folder )
         return self.__generate_answers(tests)
     
     def _create_well_done(self, key):

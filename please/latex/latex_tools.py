@@ -269,7 +269,7 @@ class SingleProblemCreator():
         problem.set_title(self.__config['name'])
 
         examples_generator = TestsAndAnswersGenerator()
-        tests = examples_generator.generate(["sample"])[1]
+        tests = examples_generator.generate(["sample"], "sample", False)[1]
         for test, verdict in tests:
             if verdict != 'OK':
                 continue
@@ -280,6 +280,7 @@ class SingleProblemCreator():
             with open(os.path.join(test_answer)) as f:
                 answer_data = f.read()
             problem.add_example(test_data, answer_data)
-
+            os.remove(test_path)
+            os.remove(test_answer)
         return (problem.construct())
 
