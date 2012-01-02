@@ -6,7 +6,6 @@ class GenericExporter:
     def __init__(self,archiver = None, connector = None,libs = [],problems = []):
         self.archiver = archiver
         self.problems = problems
-        self.need_testlib = need_testlib
         self.connector = connector
     def create_archive(self):
         for problem in self.problems:
