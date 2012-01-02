@@ -1,7 +1,7 @@
 import unittest
 import mox
 from ..test_config_parser import parser
-from ..test_info import file_test_info, cmd_gen_test_info
+from ..test_info import file_test_info, cmd_gen_test_info, echo_test_info
 import os
 
 class TestObjectFactoryTest(unittest.TestCase):
@@ -17,7 +17,7 @@ class TestObjectFactoryTest(unittest.TestCase):
     def test_command(self):
         well_done = self.WellDoneMock("key")
         t = parser.TestObjectFactory.create(well_done, 1, "echo",  ["17",  "mama"])
-        self.assertIsInstance(t, cmd_gen_test_info.CmdOrGenTestInfo)
+        self.assertIsInstance(t, echo_test_info.EchoTestInfo)
         q = t.tests()
         with open(q[0]) as test_file:
             self.assertEqual(test_file.read(), '17 mama\n')
