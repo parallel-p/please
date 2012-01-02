@@ -89,7 +89,7 @@ Global commands available:
     Deletes local copy of the problem and moves it to .deleted folder
     in svn repository, if globalconfig.svn['url'] != ''""".format(PLEASE_VERSION, *global_commands))
     print("""
-Commands available when inside problem's folder:
+Commands available inside problem's folder:
 
   {0}:
     Generates pdf statement for current problem
