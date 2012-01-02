@@ -33,7 +33,7 @@ class Config:
         self.__counter = counter
         self.__settings = {}
         self.__source = []
-        self.repeating_keywords = ["solution"]
+        self.repeating_keywords = ["solution", "problem"]
         self.list_keywords = ["expected_verdicts", "possible_verdicts", "well_done_test", \
                               "well_done_answer"]
         for key in self.repeating_keywords:
@@ -72,7 +72,7 @@ class Config:
             self.__source.append([key, comment, True])
             self.__counter += 1      
         if(depth != 0 and self.__counter >= len(text)):
-            raise ConfigException("Incorrect brackets sequence: depth = " + str(depth) + 
+            raise ConfigException("Incorrect brackets sequence: depth = " + str(depth) +
                                   ", but not met '}'\nLine: " + str(self.__counter))
         
     def __get_config_string(self, key, value, comment, depth, indent, paste_fin_bracket):
@@ -99,11 +99,11 @@ class Config:
             if ifcount == True:
                 if key in self.__settings:
                     value = self.__settings[key]
-                    if type(value) == Config:
+                    if type(value) is Config:
                         line += self.__get_config_string(key, value, comment, depth+1, indent, True)
                         lines.append(line)
                         continue
-                    elif type(value) == list:
+                    elif type(value) is list:
                         if key in dict_used:
                             dict_used[key] += 1
                             if type(value[dict_used[key]]) == Config:
@@ -112,8 +112,10 @@ class Config:
                                 continue
                             else: line += key + " = " + ", ".join(list(map(str, value[dict_used[key]])))
                         else: line += key + " = " + ", ".join(list(map(str, value)))
-                    elif value is None: line += key
-                    else: line += key + " = " + str(value)
+                    elif value is None:
+                        line += key
+                    else:
+                        line += key + " = " + str(value)
                     if comment is not None: line += " #" + comment
                     lines.append(line)
                 else:
@@ -206,6 +208,7 @@ class Config:
             self.__source.append([item, comment, True])
         else:
             if type(self.__settings[item]) == list and in_list == True:
+                index = len(self.__settings[item])
                 self.__source.append([item, comment, True])
                 self.__settings[item].append(value)
             else:
