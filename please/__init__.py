@@ -110,6 +110,8 @@ def main():
             logger.error("EnvironmentError: " + str(ex))
         except TestConfigParserError as ex:
             logger.error("TestParserConfigError: " + str(ex))
+        except tests_answer_generator.ValidatorError as ex:
+            logger.error("ValidatorError: " + str(ex))
         except Exception as ex:
             logger.error("Exception: " + str(ex))
     

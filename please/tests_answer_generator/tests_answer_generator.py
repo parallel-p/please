@@ -15,6 +15,8 @@ from ..utils import form_error_output
 
 error_str = "Validator executions has had"
 
+class ValidatorError(Exception):
+    pass
 
 def get_file_name(testinfo):
     return testinfo
@@ -50,8 +52,9 @@ class TestsAndAnswersGenerator:
                 if verd == "OK":
                     logger.info("Validator said OK")
                 else:
-                    form_error_output.process_err_exit(error_str, verd, validator_result[0].return_code,
+                    err_out = form_error_output.process_err_exit(error_str, verd, validator_result[0].return_code,
                                                        validator_result[1].decode(), validator_result[2].decode(), logger)
+                    raise ValidatorError(err_out)
         else:
             logger.warning("Validator is empty")
         return (count_errors, result)
@@ -84,8 +87,9 @@ class TestsAndAnswersGenerator:
                     logger.info("Validator said OK")
                     tests_names.append(test)
                 else:
-                    form_error_output.process_err_exit(error_str, verd, validator_result[0].return_code,
+                    err_out = form_error_output.process_err_exit(error_str, verd, validator_result[0].return_code,
                                                        validator_result[1].decode(), validator_result[2].decode(), logger)
+                    raise ValidatorError(err_out)
         else:
             logger.warning("Validator is empty")
             tests_names = tests
