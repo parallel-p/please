@@ -17,8 +17,10 @@ class GenericExporter:
             generate_tests()
             with open('default.package', 'r') as f:
                 conf = Config(f.read())
-            if not os.path.exists(conf['checker']):
-                add_standart_checker_to_solution(conf['checker'])
+            self.archiver.add(conf['checker'], os.path.join(problem, os.path.split(conf['checker'])[-1]))
+            #if not os.path.exists(conf['checker']):
+            #    print(conf['checker'])
+            #    print(-1/0)
             os.chdir('..')
             self.archiver.add_folder(problem, problem)
     
