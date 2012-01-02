@@ -25,17 +25,6 @@ export_scripts = {
   }
 }
 
-'''servers = {
-  'zhuravlev_ejudge' : EjudgeExporter(
-    network = {
-      'host' : '192.168.16.28',
-      'port' : '22',
-      'login' : 'ejudge',
-      'password' : 'ejudge'
-    },
-    libs = []
-  )
-}'''
 
 # config for folders in problem
 statements_dir = "statements"
