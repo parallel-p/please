@@ -94,17 +94,15 @@ class LatexConstructor:
 
         if self.__input_example: #if at least one sample test exists
             examples = "%s\n\\begin{%s}\n" % ('', self.__example_environment)
+            count = 0
             for in_example, out_example in zip(self.__input_example, self.__output_example):
                 examples += "\\exmp{\n%s}{%s}%%\n" % (str(in_example), str(out_example))
+                count += 1
             examples += "\\end{%s}\n" % (self.__example_environment)
+            examples = ("\\Example\n" if count == 1 else "\\Examples\n") + examples
         else:
             examples = ''
 
-            ###### Dirty hack not to print word "EXAMPLES" in statement: how to do it better? (
-            result = result.replace("\\Examples", "")        
-            result = result.replace("\\Example", "")
-            ######
-        
         result = result.replace(self.__example_tag, examples)
         return result
 
@@ -206,11 +204,11 @@ class Latex2Pdf:
             os.putenv("TEXINPUTS", get_template_full_path('') + ":.:")
         for i in range(2):
             # necessary two iterations for pages counting
-            result_info, stdout, stderr = runner.run(path_to_tex_file, encoding = encoding)            
+            result_info, stdout, stderr = runner.run(path_to_tex_file, encoding = encoding)
             if (result_info.verdict == 'None'):
                 raise Exception("Are You sure, that latex has been installed on your computer?")
             if (result_info.return_code != 0 and result_info.return_code != 1):
-                raise Exception("Couldn't generate pdf from tex; return code - " + str(result_info.return_code))    
+                raise Exception("Couldn't generate pdf from tex; return code - " + str(result_info.return_code))
 
 def get_time_string(time):
     #TODO: fix for multilang

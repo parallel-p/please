@@ -75,7 +75,7 @@ class PleaseTest(unittest.TestCase):
             tags_from_std = std_to_file.read().split("\n")[0]
         sys.stdout = saveout
         
-        open_config = package_config.PackageConfig.get_config(ignore_cache = True) 
+        open_config = package_config.PackageConfig.get_config(ignore_cache = True)
         os.chdir(start_dir)
         self.assertEqual(open_config["tags"], tags_from_std)
     
