@@ -18,7 +18,7 @@ class EjudgeContest:
         self.__problems_byname = {}
         self.__max_problem_id = 0
         self.__advanced_layout = False
-        with open(config_path, 'r') as config:
+        with open(config_path, 'r', encoding = "utf-8") as config:
             in_problem = False
             for line in config.readlines():
                 if line[:-1] == 'advanced_layout':
@@ -196,7 +196,7 @@ def export(inp, out):
     for problem in os.listdir("."):
         if os.path.isdir(problem):
             if os.path.exists(os.path.join(problem, 'default.simple')):
-                with open(os.path.join(problem, 'default.simple'), 'r') as simple_config:
+                with open(os.path.join(problem, 'default.simple'), 'r', encoding = 'utf-8') as simple_config:
                     problem_config = "".join(simple_config.readlines()).split('\n')
                 new_problem = EjudgeProblem()
                 new_problem.short_name = '"%s"' % problem_config[0]
