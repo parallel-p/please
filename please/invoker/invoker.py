@@ -37,7 +37,11 @@ class ResultInfo:
                 + "real time: {2:.2f} sec, cpu time: {3:.2f} sec\n" \
                 + "used memory: {4:.3f} Mb").format(self.verdict, self.return_code, 
                                                     self.real_time, self.cpu_time, 
-                                                    self.used_memory); 
+                                                    self.used_memory)
+
+    def __repr__(self):
+        return self.__str__()
+
     def __eq__(self, other):
         return (self.verdict == other.verdict and
                 self.return_code == other.return_code and
@@ -89,15 +93,15 @@ def invoke(handler, limits):
     
     used_memory = 0
     cpu_time = 0
-    return_code = 0
     verdict = None
     
     start_time = time.time()
     real_time = 0
     pid = handler.pid
+    return_code = handler.poll()
     while (handler.is_running()):
         #wait some time before checking process information,
-        #beacuse in darwin it is access denied raised inf first
+        #because in darwin it is access denied raised inf first
         try:
             return_code = handler.wait(CHECK_PERIOD)
         except psutil.TimeoutExpired:

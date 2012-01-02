@@ -1,5 +1,14 @@
+def decode_to_string(buf):
+    if isinstance(buf, str):
+        return buf
+    if isinstance(buf, bytes):
+        return buf.decode()
+    return str(buf)
+
 def form_err_string_by_std(stdout, stderr):
     result = ""
+    stdout = decode_to_string(stdout)
+    stderr = decode_to_string(stderr)
     if stderr.strip() != "":
         result += "\n\t\tSTDERR:\n" + stderr
     if stdout.strip() != "":

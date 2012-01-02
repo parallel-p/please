@@ -45,14 +45,7 @@ def run_solution(config):
                 
             compiler.compile(config.source_path)
             
-            run_dump = run(config.source_path, config.args, config.execution_limits, stream_in, stream_out)
-            # info = run_dump[0]
-            # print("[debug] run_dump =", run_dump)
-            # print("[debug]  verdict =", info.verdict)
-            # print("[debug]  return_code =", info.return_code)
-            # print("[debug]  real_time =", info.real_time)
-            # print("[debug]  cpu_time =", info.cpu_time)
-            # print("[debug]  used_memory =", info.used_memory)
+            run_info, stdout, stderr = run(config.source_path, config.args, config.execution_limits, stream_in, stream_out)
         
             if stream_in:
                 stream_in.close()
@@ -68,10 +61,10 @@ def run_solution(config):
             else:
                 pass
         
-            if run_dump[0].verdict == 'OK':
+            if run_info.verdict == 'OK':
                 with open(config.solution_output_file, 'r') as ouf:
-                    run_dump = (run_dump[0], ouf.read().encode(), run_dump[2])
-            return run_dump
+                    stdout = ouf.read().encode()
+            return (run_info, stdout, stderr)
         except OSError as e:
             if (e.errno == 13):
                 log.info('catched OSError 13/32, trying again...')
