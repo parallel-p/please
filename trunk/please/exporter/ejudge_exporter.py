@@ -22,7 +22,9 @@ class EjudgeExporter(GenericExporter):
     def get_script(self):
         return globalconfig.export_scripts['ejudge']
     def run_script(self):
-        self.connector.run_command('cd '+ self.network['destination'] + '/' + self.contest_id + '/please_tmp/ ; '+ '/usr/bin/env python3 ' + self.network['destination'] + '/' + self.contest_id + '/please_tmp/' + globalconfig.export_scripts['ejudge']['run'])
+        self.connector.run_command('cd '+ self.network['destination'] + '/' + self.contest_id + '/please_tmp/ ; '+ 
+                                   '/usr/bin/env python3 ' + self.network['destination'] + '/' + 
+                                   self.contest_id + '/please_tmp/' + globalconfig.export_scripts['ejudge']['run'])
     def create_archive(self):
         for problem in self.problems:
             with open(problem + os.path.sep + 'default.package', 'r') as configfile:
