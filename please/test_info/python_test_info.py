@@ -1,9 +1,6 @@
 from . import test_info
 import tempfile
 
-class TestConfigParserError(Exception):
-    pass
-
 class PythonTestInfo(test_info.TestInfo):
     def __init__(self, code, tags={}):
         self.__code = code
@@ -15,7 +12,7 @@ class PythonTestInfo(test_info.TestInfo):
             with open(temp.name, 'w') as f:
                 f.write(str(eval(self.__code)))
         except Exception as e:
-            raise TestConfigParserError(str(e))
+            raise EnvironmentError(str(e))
         return [ temp.name ]
     
     def to_please_format(self):
