@@ -32,6 +32,7 @@ class NewEjudgeFormatter(EjudgeFormatter):
         for problem in self.__problems:                     
             path_to_problem = os.path.join('.', problem.problem_from)
             if not os.path.isdir(path_to_problem):
+                print(path_to_problem)
                 raise FileNotFoundException
                 
             target_path_to_problem = os.path.join(target_path_to_problems, problem.problem_to)

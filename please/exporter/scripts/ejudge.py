@@ -223,7 +223,7 @@ def export(inp, out):
         formatter = ejudge_formatter.NewEjudgeFormatter(to_copy)
     formatter.put_all()
 
-    with open(out, 'w') as f:
+    with open(out, 'w', encoding = 'utf-8') as f:
         f.write(str(contest))
 
 if __name__ == "__main__" and os.path.exists('../conf/serve.cfg'):
