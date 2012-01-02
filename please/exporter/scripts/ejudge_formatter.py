@@ -17,7 +17,8 @@ class NewEjudgeFormatter(EjudgeFormatter):
         self.__problems = problems
 
     def __put_tests(self, path_to_problem, target_path_to_problem):
-        assert (os.path.isdir(os.path.join(path_to_problem, '.tests')))
+        if not os.path.isdir(os.path.join(path_to_problem, '.tests')):
+            os.mkdir(os.path.join(path_to_problem, '.tests'))
         shutil.copytree(os.path.join(path_to_problem, '.tests'), os.path.join(target_path_to_problem, 'tests'))        
     
     def __put_checker(self, path_to_problem, target_path_to_problem, name_of_checker):
