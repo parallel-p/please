@@ -42,5 +42,7 @@ class Cleaner:
         if os.path.exists("report.html"):
             logger.info("Removing report.html")
             os.remove("report.html")
+        else: 
+            logger.info("There is no report.html")
         trash_remover.remove_logs_in_depth()
 
