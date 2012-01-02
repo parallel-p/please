@@ -10,7 +10,6 @@ global_commands = ["create problem PROBLEM_NAME",
              "[show] todo PATH_TO_PROBLEM",
              "import polygon package PATH_TO_POLYGON_PACKAGE",
              "import polygon problem PROBLEM_LETTER from contest CONTEST_ID",
-	     "delete problem PROBLEM_NAME", 
              ]
 
 problem_commands = ["generate statement",
@@ -38,7 +37,6 @@ problem_commands = ["generate statement",
              "clean",
              "validate tests",
              "well done"
-             "[svn] sync",
              ]
 
 def print_lite_help():
@@ -84,10 +82,8 @@ Global commands available:
 
   {7}:
     Imports given Polygon problem from given contest
-
-  {8}:
-    Deletes local copy of the problem and moves it to .deleted folder
-    in svn repository, if globalconfig.svn['url'] != ''""".format(PLEASE_VERSION, *global_commands))
+    
+""".format(PLEASE_VERSION, *global_commands))
     print("""
 Commands available inside problem's folder:
 
@@ -186,9 +182,6 @@ Commands available inside problem's folder:
 
   {23}:
     Validates all generated tests
-    
-  {24}:
-    Syncronize local copy of the problem with svn repository (svn up, then add and commit new content)
 
 """.format(*problem_commands))
     if(not globalconfig.in_problem_folder):

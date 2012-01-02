@@ -5,7 +5,6 @@ import os
 import unittest
 
 from please.template.problem_template_generator import *
-from please.svn import delete_problem
 
 class TestStatementDescriptionGenerator(unittest.TestCase):
     def setUpClass():
@@ -13,7 +12,7 @@ class TestStatementDescriptionGenerator(unittest.TestCase):
     
     def tearDownClass():
         if exists("aplusb"):
-            delete_problem("aplusb")
+            shutil.rmtree("aplusb")
         if exists("cats"):
             shutil.rmtree("cats")
         

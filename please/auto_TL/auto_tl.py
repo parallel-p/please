@@ -2,7 +2,6 @@ import math
 from .. import globalconfig
 from ..solution_tester.package_config import PackageConfig
 from ..solution_tester.check_solution import get_test_results_from_solution
-from .. import svn
 from ..utils.writepackage import writepackage
 import logging
 
