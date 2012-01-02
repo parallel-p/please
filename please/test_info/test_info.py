@@ -11,6 +11,9 @@ class TestInfo:
     def to_please_format(self):
         raise NotImplementedError()
     
+    def set_tag(self, item, value):
+        self.__tags[item] = value
+    
     def get_to_please_format_prefix(self):
         tags_list = []
         for key, value in sorted(self.__tags.items()):
