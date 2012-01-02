@@ -1,7 +1,0 @@
-please_version=0.1
-tags=naive
-
-input=aplusb.in
-output=aplusb.out
-
-check=tester.pas

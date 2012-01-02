@@ -1,6 +1,0 @@
-This is a list of used third party packages.
-License and documentation for each package should be available on it's home page.
-
-__init__.py: Not a third-party package, but required for "from .third_party import ..." syntax
-
-configobj.py: ConfigObj from http://www.voidspace.org.uk/downloads/configobj.py
