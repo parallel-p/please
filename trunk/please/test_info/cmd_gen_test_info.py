@@ -14,6 +14,9 @@ class CmdOrGenTestInfo(test_info.TestInfo):
         self.__executor = executor
         self.__args = args
         super(CmdOrGenTestInfo, self).__init__(tags)
+    
+    def __eq__(self, other):
+        return self.__executor == other.__executor and self.__args == other.__args
         
     def tests(self):
         problem_dir = os.getcwd() #really?
