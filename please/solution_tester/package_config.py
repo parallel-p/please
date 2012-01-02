@@ -7,6 +7,7 @@ from .. import globalconfig
 class PackageConfigNotFoundException(Exception):
     pass
 
+#TODO:move it to another directory
 class PackageConfig:
     """
     Description:
