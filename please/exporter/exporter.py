@@ -1,4 +1,4 @@
-from please import globalconfig
+from .. import globalconfig
 
 def export(server_name, problems):
     server = globalconfig.servers[server_name]
