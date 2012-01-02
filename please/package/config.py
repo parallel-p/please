@@ -13,6 +13,7 @@ class Config:
         """
             conf = Config(text_of_config_file)
         """
+#        print(text)
         def strict_divide(string, number_of_parts, delim):
             parts = string.split(delim, number_of_parts - 1)
             n = string.count(delim)
@@ -33,7 +34,8 @@ class Config:
         self.__settings = {}
         self.__source = []
         self.repeating_keywords = ["solution"]
-        self.list_keywords = ["expected_verdicts", "possible_verdicts", "well_done_tests", "well_done_answers"]
+        self.list_keywords = ["expected_verdicts", "possible_verdicts", "well_done_test", \
+                              "well_done_answer"]
         for key in self.repeating_keywords:
             if key in self.list_keywords:
                 raise ConfigException("Key '" + key + "' is in repeating_keywords and list_keywords at the same time")     
@@ -214,3 +216,9 @@ class Config:
     
     def isChanged (self):
         return self.__changed
+    
+    def get(self, item, default = None):
+        if item in self.__settings and self.__settings[item] is not None:
+            return self.__settings[item] 
+        else:
+            return default
