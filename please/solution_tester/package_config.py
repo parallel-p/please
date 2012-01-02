@@ -1,5 +1,5 @@
 from ..package.config import Config
-import os
+import os.path
 import io
 import logging
 from .. import globalconfig
@@ -29,22 +29,18 @@ class PackageConfig:
     def get_config(dir = ".", package_name = globalconfig.default_package, ignore_cache = False):
         #logger = logging.getLogger("please_logger.check_solution")
         #logging.basicConfig(level=logging.INFO)
-        if not os.path.exists(dir):
+        package_path = os.path.abspath(os.path.join(dir, package_name))
+        if not os.path.exists(package_path):
             #logger.debug("Package dir '" + dir + "' does not exist")
             return False#raise PackageConfigNotFoundException("Package dir '" + dir + "' does not exist")
-        if not os.path.exists(os.path.join(dir, package_name)):
-            #logger.debug("Package '" + package_name + "' does not exist")
-            return False#raise PackageConfigNotFoundException("Package '" + package_name + "' does not exist")
 
-        if package_name in PackageConfig.configs_dict and not ignore_cache:
+        if package_path in PackageConfig.configs_dict and not ignore_cache:
             # This congfig is already registered, return it without extra re-parsing
-            return PackageConfig.configs_dict[package_name]
+            return PackageConfig.configs_dict[package_path]
         else:
             # Find full path to the package
-            path_to_package = os.path.join(dir, package_name)
             # Parse and register the config
-            with open(path_to_package, encoding = "utf-8") as package_file:
+            with open(package_path, encoding = "utf-8") as package_file:
                 config_text = package_file.read()
-            PackageConfig.configs_dict[package_name] = Config(config_text)
-            return PackageConfig.configs_dict[package_name]
-
+            PackageConfig.configs_dict[package_path] = Config(config_text)
+            return PackageConfig.configs_dict[package_path]
