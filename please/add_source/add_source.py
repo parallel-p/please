@@ -4,12 +4,10 @@ import logging
 from ..package import config
 from .. import globalconfig
 from ..solution_tester.package_config import PackageConfig
-from ..svn import ProblemInSvn
 from ..utils.writepackage import writepackage
 
 log = logging.getLogger("please_logger.add_source")
 
-#We want svn.ProblemInSvn to be created only once and only if needed
 def add_main_solution_with_config(package_config, path):
     temp = os.path.split(path)
     basename = os.path.basename(path)
@@ -18,7 +16,6 @@ def add_main_solution_with_config(package_config, path):
     if path.replace("\\", "/") != globalconfig.solutions_dir + "/" + basename:
         dest = os.path.join(globalconfig.solutions_dir, basename)
         shutil.copy(path, dest)
-        ProblemInSvn().add(dest)
     package_config['main_solution'] = globalconfig.solutions_dir + "/" + basename
 
 def add_main_solution (path):
@@ -35,7 +32,6 @@ def add_solution_with_config (package_config, path, expected_list = [], possible
     if path.replace("\\", "/") != globalconfig.solutions_dir + "/" + basename:
         dest = os.path.join(globalconfig.solutions_dir, basename)
         shutil.copy(path, dest)
-        ProblemInSvn().add(dest)
     config_file = config.Config("")
     config_file["source"] = globalconfig.solutions_dir + '/' + basename
     if expected_list != []:
@@ -63,7 +59,6 @@ def add_checker_with_config (package_config, path):
     if path.replace("\\", "/") != basename:
         dest = os.path.join(basename)
         shutil.copy(path, dest)
-        ProblemInSvn().add(dest)
     package_config["checker"] = basename
 
 def add_checker (path):
@@ -78,7 +73,6 @@ def add_validator_with_config (package_config, path):
     if path.replace("\\", "/") != basename:
         dest = os.path.join(basename)
         shutil.copy(path, dest)
-        ProblemInSvn().add(dest)
     package_config["validator"] = basename
 
 def add_validator (path):
