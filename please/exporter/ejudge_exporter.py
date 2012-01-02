@@ -9,7 +9,7 @@ import os
 class EjudgeExporter(GenericExporter):
     def __init__(self,network = {},libs = [],problems = []):
         self.connector = Connector(network['host'],network['port'],network['login'],network['password'])
-        self.archiver = ZIPArchiver()
+        self.archiver = ZIPArchiver('please.archive.zip')
         self.problems = problems
         self.libs = libs
         super(EjudgeExporter,self).__init__(self.archiver,self.connector,libs,problems)
@@ -18,12 +18,12 @@ class EjudgeExporter(GenericExporter):
     def get_script(self):
         return globalconfig.export_scripts['ejudge']
     def run_script(self):
-        self.connector.run_command('sh '.join(network['destination'],'/',globalconfig.export_scripts['ejudge']['run']))
+        self.connector.run_command('sh ' + network['destination'] + '/',globalconfig.export_scripts['ejudge']['run'])
     def create_archive(self):
         for problem in self.problems:
-            with open(problem.join(os.path.sep, 'default.package'), 'r') as configfile:
-                conf = config.Config(configfile)
-            config.create_simple_config(open(problem.join(os.path.sep, 'default.simple'), 'r'), conf)
+            with open(problem + os.path.sep + 'default.package', 'r') as configfile:
+                conf = config.Config(configfile.read())
+            config.create_simple_config(open(problem + os.path.sep + 'default.simple', 'r'), conf)
         for need_src in globalconfig.export_scripts['ejudge']['scripts']:
             shutil.copy(need_src, os.path.split(need_src)[-1])
         super(EjudgeExporter,self).create_archive()
