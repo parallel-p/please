@@ -7,6 +7,7 @@ import os
 
 import distribute_setup
 # Ставим дистрибьют правильной версии
+# Installation of the up to date distribution
 distribute_setup.use_setuptools(version="0.6.19")
 
 from setuptools import setup, find_packages
@@ -19,6 +20,7 @@ modules = [
 ]
 
 # Папки, не содержащие код
+# Folders without
 package_data = {
     'please': ['templates/*.*', 'checkers/*.*']
 }
@@ -29,7 +31,9 @@ entry_points = {
 }
 
 # python-библиотеки, обязательные к установке.
+# python-modules obligatory for installation
 # Можно указывать версию. Больше информации можно найти здесь:
+# You can specify the current version. For more information:
 # http://packages.python.org/distribute/setuptools.html#id12
 # Если инсталлятор не находит правильной версии библиотеки, то
 # нужно прописать в dependency_links либо прямую ссылку на дистрибутив, либо
@@ -56,7 +60,7 @@ dependency_links = [
 # Формат аналогичен предыдущему пункту.
 # dependency_links с предыдущим пунктом общие.
 develop_requires = [
-    'coverage',
+    #'coverage',
     'mox',
 ]
 

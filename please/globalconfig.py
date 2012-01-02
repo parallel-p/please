@@ -1,5 +1,4 @@
 import os
-from .exporter.ejudge_exporter import EjudgeExporter
 from .invoker.invoker import ExecutionLimits
 from logging import INFO,ERROR,CRITICAL,WARNING,DEBUG
 please_version = 0.2
@@ -26,7 +25,7 @@ export_scripts = {
   }
 }
 
-servers = {
+'''servers = {
   'zhuravlev_ejudge' : EjudgeExporter(
     network = {
       'host' : '192.168.16.28',
@@ -36,7 +35,7 @@ servers = {
     },
     libs = []
   )
-}
+}'''
 
 # config for folders in problem
 statements_dir = "statements"

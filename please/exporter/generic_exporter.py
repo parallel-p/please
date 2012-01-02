@@ -1,6 +1,5 @@
 import shutil
 import os
-from ..archiver import Archiver
 from ..ssh_tools.connector import Connector
 from ..build_all.build_tools import build_all
 class GenericExporter:

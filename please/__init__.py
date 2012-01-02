@@ -37,7 +37,7 @@ def main():
     from please.tests_answer_generator import tests_answer_generator
     from please.reports import generate_html_report
     from please import svn
-    from exporter.exporter import export
+    from please.exporter.exporter import export
 
     matcher = Matcher()
     matcher.add_handler(Template(["create", "problem", "#shortname"]), problem_gen.generate_problem, True)
