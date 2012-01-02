@@ -43,7 +43,7 @@ def get_test_results_from_solution(solution, config = None):
         new_config["execution_limits"]  = invoker.ExecutionLimits(float(config["time_limit"]), float(config["memory_limit"]))
         new_config["solution_config"] = {"input":config["input"], "output":config["output"]}
         new_config["solution_args"] = []
-        solution = os.path.abspath(config["main_solution"])     
+        solution = os.path.abspath(config["main_solution"])
     else:
         for sol_found in config["solution"]:
             if os.path.normpath(solution) in os.path.abspath(sol_found["source"]):
@@ -77,7 +77,7 @@ def check_one_solution(*paths, config = None, print_table = True):
     fail_count = 0
 
     if config is None:
-        config = PackageConfig.get_config()        
+        config = PackageConfig.get_config()
     
     # Split the paths into chunks, 3 in each and print them    
     for chunk in list(chunks(paths, 3)):
@@ -85,10 +85,10 @@ def check_one_solution(*paths, config = None, print_table = True):
         table_header = "| Test # | "
         
         # List of lines each corresponding to a certain test    
-        table_lines = {}       
+        table_lines = {}
         
         # Get test results for all solutions
-        for solution in chunk:    
+        for solution in chunk:
             testing_result = get_test_results_from_solution(solution, config)[2]
             #print("TESTING RESULT: " + str(testing_result))
             
@@ -97,7 +97,7 @@ def check_one_solution(*paths, config = None, print_table = True):
             # Remove unnecessary stuff from test names ("sfsdf/sdfsdf/1" => 1)
             testing_result2 = {}
             for key, value in testing_result.items():
-                testing_result2[key.replace("\\", "/").split("/")[1]] = testing_result[key]        
+                testing_result2[key.replace("\\", "/").split("/")[1]] = testing_result[key]
             
             # Loop through all results ({1:(invoker.ResultInfo, s, s)}) and print them
             for key, value in sorted(testing_result2.items()):
@@ -122,7 +122,7 @@ def check_one_solution(*paths, config = None, print_table = True):
                     table_lines[number] += Fore.RED
                 else:
                     ok_count += 1
-                    table_lines[number] += Fore.GREEN                
+                    table_lines[number] += Fore.GREEN
                 table_lines[number] += test_result + indent_verdict + Fore.RESET + "| " 
         
         # Print table header           
@@ -159,7 +159,7 @@ def check_multiple_solution():
     if solutions != None:
         for solution in solutions:
             # Make sure we don't add main solution that has already been added
-            if solution["source"] != main_solution:        
+            if solution["source"] != main_solution:
                 solution_list.append(solution["source"])
     
     # Check them all
