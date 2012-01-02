@@ -22,7 +22,7 @@ class GenericExporter:
             #    print(conf['checker'])
             #    print(-1/0)
             os.chdir('..')
-            self.archiver.add_folder(problem, problem)
+            self.archiver.add_folder(problem, conf['shortname'])
     
   
         
