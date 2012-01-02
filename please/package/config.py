@@ -122,7 +122,7 @@ class Config:
                         line += "#" + comment
                     lines.append(line)
             else:
-                if comment is not None: 
+                if comment is not None:
                     line += "#" + comment
                     lines.append(line)
         if(paste_fin_bracket==True):
@@ -156,7 +156,7 @@ class Config:
                         if numerator == iterator:
                             deltype = type(self.__settings[item][iterator])
                             del self.__settings[item][iterator]
-                            if self.__source[i][1] is None or deltype == Config:                            
+                            if self.__source[i][1] is None or deltype == Config:
                                 del self.__source[i]
                             else:
                                 self.__source[i][2] = False
@@ -231,6 +231,7 @@ def create_simple_config(file_name, config):
    
     def get(self, item, default = None):
         if item in self.__settings and self.__settings[item] is not None:
-            return self.__settings[item] 
+            return self.__settings[item]
         else:
             return default
+
