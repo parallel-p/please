@@ -2,7 +2,7 @@ import os
 import re
 from ..language.language import Language
 from please import globalconfig
-from ..test_info import file_test_info, cmd_gen_test_info, echo_test_info
+from ..test_info import file_test_info, cmd_gen_test_info, echo_test_info, python_test_info
 
 class TokenSpecificator:
     @staticmethod
@@ -13,7 +13,11 @@ class TokenSpecificator:
     
     @staticmethod
     def is_echo(token):
-        return token in ['echo']
+        return token == 'echo'
+    
+    @staticmethod
+    def is_python(token):
+        return token == 'python'
     
     @staticmethod
     def is_file(token):
@@ -36,6 +40,8 @@ class TestObjectFactory:
     def create(well_done, line_number, first_token, others=[], attr={}):
         if TokenSpecificator.is_echo(first_token):
             return echo_test_info.EchoTestInfo(' '.join(others), attr)
+        elif TokenSpecificator.is_python(first_token):
+            return python_test_info.PythonTestInfo(' '.join(others), attr)
         elif TokenSpecificator.is_command(first_token) or TokenSpecificator.is_generator(first_token):
             return cmd_gen_test_info.CmdOrGenTestInfo(first_token, others, attr)
         elif len(others) > 0: 

@@ -104,9 +104,13 @@ def main():
         except config.ConfigException as ex:
             logger.error("ConfigError: " + str(ex))
         except IOError as ex:
-            log.error("IOError: " + str(ex))
+            logger.error("IOError: " + str(ex))
         except EnvironmentError as ex:
             logger.error("EnvironmentError: " + str(ex))
+        except TestParserConfigError as ex:
+            logger.error("TestParserConfigError: " + str(ex))
+        except Exception as ex:
+            logger.error("Exception: " + str(ex))
     
     if in_problem_folder:
         svn.ProblemInSvn(svn_up=False).commit()
