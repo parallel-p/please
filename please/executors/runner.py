@@ -28,11 +28,11 @@ class ExecutionControl:
         return self
 
     def __exit__(self, type, value, traceback):
-        b = True
+        result = True
         for f in (self.stdin_fh, self.stdout_fh, self.stderr_fh, self.process):
-            if not f is None:
-                b = b or (f.__exit__(type, value, traceback) == True)
-        return b
+            if not f is None and not f.__exit__(type, value, traceback):
+                result = False
+        return result
 
 def run(source, args_list = [], limits=globalconfig.default_limits, stdin_fh = None, \
         stdout_fh = None, stderr_fh = None, env=None, encoding = 'utf-8', shell = False):
