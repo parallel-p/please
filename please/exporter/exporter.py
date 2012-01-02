@@ -1,7 +1,7 @@
-from .. import globalconfig
+from .. import export_servers
 
 def export(server_name, problems):
-    server = globalconfig.servers[server_name]
+    server = export_sevrers.servers[server_name]
     server.set_problems(problems)
     server.create_archive()
     server.upload_file()
