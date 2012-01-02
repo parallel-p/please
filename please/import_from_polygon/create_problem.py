@@ -35,7 +35,7 @@ class PolygonImporter:
                         raise e
                 shutil.move(_file, file)
 
-    def parse_statements(self):
+    """def parse_statements(self):
         self.default_package['statement'] = ''
         for statement in self.tree.xpath('/problem/statements/statement'):
             language = statement.get('language')
@@ -43,6 +43,19 @@ class PolygonImporter:
             with open(path, 'r', encoding='UTF-8') as f:
                 content = f.read()
             create_statements.add_statement(self.default_package, language, content, self.cwd)
+    """
+    def parse_statements(self):
+        self.default_package['statement'] = ''
+        statements = self.tree.xpath('/problem/statements/statement')
+        for statement in statements:
+            language = statement.get('language')
+            if language != 'russian' and statement != statements[-1]:
+                continue
+            path = statement.get('path')
+            with open(path, 'r', encoding='UTF-8') as f:
+                content = f.read()
+            create_statements.add_statement(self.default_package, language, content, self.cwd)
+            return
 
     def make_to_extension(self):
         # making file -> file.ext dictionary
@@ -71,11 +84,28 @@ class PolygonImporter:
             return cmd_gen_test_info.CmdOrGenTestInfo(generator, attr, tags)
 
     def make_tests(self):
-        tests = []
+        raw_tests = []
         for testset in self.tree.xpath('/problem/judging/testset'):
             tag = testset.get('name')
             for i, test in enumerate(testset.xpath('tests/test')):
-                tests.append(self.make_TestInfo(i, test, tag))
+                raw_tests.append(self.make_TestInfo(i, test, tag))
+        
+        #optimize multigenerators
+        tests = []
+        for curtest in raw_tests:
+            if type(curtest) != cmd_gen_test_info.CmdOrGenTestInfo:
+                tests.append(curtest)
+                continue
+            does = False
+            for prevtest in tests:
+                if type(prevtest) != cmd_gen_test_info.CmdOrGenTestInfo:
+                    continue
+                if prevtest == curtest:
+                    does = True
+                    prevtest.set_tag('mask', prevtest.get_tags()['mask']+'|'+curtest.get_tags()['mask'])
+            if not does:
+                tests.append(curtest)
+                
         return tests
 
     def write_tests(self, tests):
