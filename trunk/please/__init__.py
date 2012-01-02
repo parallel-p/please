@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 def main():
+    from please.contest import commands as contest_commands
     from please.log import logger
     from please.package import config
     from please.cleaner import cleaner
@@ -83,6 +84,9 @@ def main():
     matcher.add_handler(Template(["check", "solution", "#path"]), check_solution.check_solution, in_problem_folder)
     matcher.add_handler(Template(["check", "main", "solution"]), check_solution.check_main_solution, in_problem_folder)
     matcher.add_handler(Template(["generate", "html", "report"]), generate_html_report.generate_html_report, in_problem_folder)
+
+    # Contests support
+    matcher.add_handler(Template(["create", "contest", "#name", "@problems"]), contest_commands.create_contest, True)
 
     if len(sys.argv) == 1:
         print_lite_help()
