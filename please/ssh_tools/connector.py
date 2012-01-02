@@ -61,11 +61,10 @@ class WindowsConnector:
         result = invoke(handler, limits)
         if need_to_extract_zip:
             splitted = destination.split(".")
-            assert(splitted.pop() == 'zip')
-            new_dir = ".".join(splitted)
-            handler = psutil.Popen(["plink", "-P", self.__port, "-pw", self.__password, "-l", self.__login, self.__host, "rm -r", new_dir, ";unzip", \
-                destination, "-d", os.path.split(new_dir)[0], ";rm", destination])
-            result = invoke(handler, limits)
+            new_dir = os.path.split(destination)[0] + '/' + 'please_tmp/'
+            handler = psutil.Popen(["plink", "-P", self.__port, "-pw", self.__password, "-l", self.__login, self.__host, "rm -rf", new_dir, "; unzip", 
+                destination,"-d", new_dir, ";rm", destination])
+            #result = invoke(handler, limits)
 
     def download_file(self, source, destination):
         handler = psutil.Popen(["pscp", "-P", self.__port, "-pw", self.__password, self.__login + "@" + self.__host + ":" + source, destination])
@@ -93,11 +92,9 @@ class LinuxConnector:
 
         if need_to_extract_zip:
             splitted = destination.split(".")
-            assert(splitted.pop() == 'zip')
-            new_dir = ".".join(splitted)
-            handler = psutil.Popen(["ssh", "-p", self.__port, "-l", self.__login, self.__host, "rm -r", new_dir, ";unzip", \
-                destination, "-d", os.path.split(new_dir)[0], ";rm", destination])
-
+            new_dir = os.path.split(destination)[0] + '/' + 'please_tmp/'
+            handler = psutil.Popen(["ssh", "-p", self.__port, "-l", self.__login, self.__host, "rm -rf", new_dir, "; unzip", 
+                destination,"-d", new_dir, ";rm", destination])
             result = invoke(handler, limits)
         
     def download_file(self, source, destination):

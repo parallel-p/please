@@ -25,7 +25,8 @@ class ZIPArchiver:
                 self.add_folder(os.path.join(directory, item), folder + os.sep + item)
     def __init__(self, path, mod = 'w'):
         self.sbj = zipfile.ZipFile(path, mod)
+        self.path = path
     def add(self, src_path, dst_path = './'):
-        self.sbj.write(src_path, dst_path.join(src_path) if dst_path[-1] in ['/', '\\'] else dst_path)
+        self.sbj.write(src_path, dst_path + src_path if dst_path[-1] in ['/', '\\'] else dst_path)
     def close(self):
         self.sbj.close()
