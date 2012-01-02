@@ -205,7 +205,7 @@ def export(inp, out):
                 new_problem.input = '"%s"' % problem_config[2]
                 new_problem.output = '"%s"' % problem_config[3]
                 new_problem.time_limit_millis = float(problem_config[4])
-                new_problem.ml = problem_config[5] + 'M'
+                new_problem.ml = str(int(float(problem_config[5]))) + 'M'
                 new_problem.checker = '"%s"' % without_extension(problem_config[6])
                 new_problem.checker_ext = '%s' % problem_config[6]
                 new_problem.test_pat = '"%d"'
