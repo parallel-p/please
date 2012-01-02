@@ -4,16 +4,10 @@
 % (C) Dmitry S. Lomov (SPb SU Training Centre), 2001-2002
 % (C) Kitten Computing [Andrew Lopatin & Nick Durov], 2001-2002,2003
 % (C) Andrew Stankevich (SPb IFMO Training Center), 2003,2004
-%
-%
-% This is work in progress, please do not try to modify it.
-% 
-% Visit http://neerc.ifmo.ru/develop/olymp-sty/index.html for
-% project details.
+% (C) SPb SU Training Centre [Oleg Davydov, Ivan Kazmenko, Yury Petrov] 2010
 %
 
 \ProvidesPackage{olymp}
-
 
 \newif\if@landscape\@landscapefalse
 \newif\if@russian\@russianfalse
@@ -87,6 +81,7 @@
     \fi
 \fi
 
+\newlength{\thelinewidth}
 \if@twocolumn
     \thelinewidth=0.47\textwidth
 \else
@@ -113,25 +108,25 @@
 
 \newlength{\afterproblemhead}
 \newlength{\afterconstraints}
-\afterproblemhead=3mm
-\afterconstraints=2mm
-
-\newcommand{\problemheadfont}{\LARGE}
-\newcommand{\problemsectionfont}{\Large}
-\newcommand{\problemend}{\clearpage}
-\newcommand{\problemtextfont}{\normalsize}
-\newcommand{\beforeproblemsectioncaption}{\smallbreak\smallskip}
-\newcommand{\afterproblemsectioncaption}{\smallskip}
 
 \if@twocolumn
     \afterproblemhead=1mm
     \afterconstraints=1mm
-    \renewcommand{\problemheadfont}{\large}
-    \renewcommand{\problemsectionfont}{\normalsize}
-    \renewcommand{\problemend}{\par\medskip}
-    \renewcommand{\problemtextfont}{\footnotesize}
-    \renewcommand{\beforeproblemsectioncaption}{\smallbreak\smallskip}
-    \renewcommand{\afterproblemsectioncaption}{}
+    \newcommand{\problemheadfont}{\large}
+    \newcommand{\problemsectionfont}{\normalsize}
+    \newcommand{\problemend}{\par\medskip}
+    \newcommand{\problemtextfont}{\footnotesize}
+    \newcommand{\beforeproblemsectioncaption}{\smallbreak\smallskip}
+    \newcommand{\afterproblemsectioncaption}{}
+\else
+    \afterproblemhead=3mm
+    \afterconstraints=2mm
+    \newcommand{\problemheadfont}{\LARGE}
+    \newcommand{\problemsectionfont}{\Large}
+    \newcommand{\problemend}{\clearpage}
+    \newcommand{\problemtextfont}{\normalsize}
+    \newcommand{\beforeproblemsectioncaption}{\smallbreak\smallskip}
+    \newcommand{\afterproblemsectioncaption}{\smallskip}
 \fi
 
 \if@russian\else
@@ -156,6 +151,7 @@
 \def\kw@Output{Формат выходных данных}
 \def\kw@Example{Пример}
 \def\kw@Examples{Примеры}
+\def\kw@Note{Пояснение}
 \def\kw@Explanation{Пояснение к примеру}
 \def\kw@Explanations{Пояснения к примерам}
 \def\kw@Illustration{Иллюстрация}
@@ -182,6 +178,7 @@
 \def\kw@Output{Output}
 \def\kw@Example{Example}
 \def\kw@Examples{Examples}
+\def\kw@Note{Note}
 \def\kw@Explanation{Explanation}
 \def\kw@Explanations{Explanations}
 \def\kw@Illustration{Illustration}
@@ -231,10 +228,15 @@
 % -- Default limits --
 
 \if@russian
-\def\defaultmemorylimit{256 Мебибайт}
+    \def\defaulttimelimit{2 секунды}
+    \def\defaultmemorylimit{256 мебибайт}
 \else
-\def\defaultmemorylimit{256 Mebibytes}
+    \def\defaulttimelimit{2 seconds}
+    \def\defaultmemorylimit{256 mebibytes}
 \fi
+\newif\if@defaulttimelimit\@defaulttimelimittrue
+\newif\if@defaultmemorylimit\@defaultmemorylimittrue
+% TODO: default if false — no limits. But there should be command to set them in global contest .tex file
 
 % -- End of default limits --
 
@@ -244,43 +246,33 @@
 
 \newenvironment{problem}[6]{
 
-% Hotfix
-\def\@memorylimit{#5}
-
-%% -- Default memory limit --
-%% :FIXME:
-%\def\@t{#5}
-%
-%\ifx\@t\empty
-%    \def\@memorylimit{\defaultmemorylimit}
-%\else
-%%\ifcat\par\@t
-%%    \def\@memorylimit{\defaultmemorylimit}
-%%\else
-%    \def\@memorylimit{#5}
-%%\fi
-%\fi
-%% -- End of default memory limit --
-
-% -- No feedback case --
-% :FIXME:
-\def\@t{#6}
-
-\ifx\@t\empty
-    \def\@feedback{}
-\else
-%\ifcat\par\@t
-%    \def\@feedback{}
-%\else
-    \def\@feedback{\kw@Feedback & #6 \\}
+\def\@timelimit{#4}
+\ifx\@timelimit\empty
+    \if@defaulttimelimit
+       \def\@timelimit{\defaulttimelimit}
+    \fi
 \fi
-%\fi
-% -- End of no feedback case --
+
+\def\@memorylimit{#5}
+\ifx\@memorylimit\empty
+    \if@defaultmemorylimit
+       \def\@memorylimit{\defaultmemorylimit}
+    \fi
+\fi
+
+\def\@problemid{#6}
+\ifx\@problemid\empty
+    \if@arabic
+        \def\@problemid{\arabic{problem}}
+    \else
+        \def\@problemid{\Alph{problem}}
+    \fi
+\fi
 
     {
         \noindent
         \refstepcounter{problem}
-        \textbf{\problemheadfont\textsf{\kw@Problem\ \if@arabic\arabic{problem}.\else\Alph{problem}.\fi\ #1}}
+        \textbf{\problemheadfont\textsf{\kw@Problem\ \@problemid.\ #1}}
         \nopagebreak
         \par\vspace{\afterproblemhead}
         \problemtextfont\parindent=6.5mm
@@ -288,9 +280,12 @@
             \begin{tabular}{l@{\extracolsep{1cm}}l}
             \kw@InputFileName & \texttt{#2} \\
             \kw@OutputFileName & \texttt{#3} \\
-            \kw@TimeLimit & #4 \\
-            \kw@MemoryLimit & \@memorylimit \\
-            \@feedback
+            \ifx\@timelimit\empty\else
+                \kw@TimeLimit & \@timelimit \\
+            \fi
+            \ifx\@memorylimit\empty\else
+              \kw@MemoryLimit & \@memorylimit \\
+            \fi
             \end{tabular}
         }
         \nopagebreak
@@ -318,10 +313,10 @@
 \newenvironment{example}[1][]{
     \s@tm@cr@s#1
     \ttfamily\obeylines\obeyspaces\frenchspacing
-    \newcommand{\exmp}[2]{
+    \newcommand{\exmp}[2]{%
         \begin{minipage}[t]{\exmpwidinf}\rightskip=0pt plus 1fill\relax##1\medskip\end{minipage}&
         \begin{minipage}[t]{\exmpwidouf}\rightskip=0pt plus 1fill\relax##2\medskip\end{minipage}\\
-        \hline
+        \hline%
     }
 
     \begin{tabular}{|l|l|}
@@ -387,24 +382,24 @@
 
 \makeatletter
 
-\renewcommand{\@oddhead}{
-    \parbox{\textwidth}{
-        \sffamily
-        \begin{center}
-            \protect\contestname
-            \\[2pt]
-            \hrule
-        \end{center}
-    }
+\renewcommand{\@oddhead}{%
+    \parbox{\textwidth}{%
+        \sffamily%
+        \begin{center}%
+            \protect\contestname%
+            \\[2pt]%
+            \hrule%
+        \end{center}%
+    }%
 }
 
-\renewcommand{\@oddfoot}{
-    \parbox{\textwidth}{
-        \hrule
-        \vspace{6pt}
-        \sffamily
+\renewcommand{\@oddfoot}{%
+    \parbox{\textwidth}{%
+        \hrule%
+        \vspace{6pt}%
+        \sffamily%
         {{\hfil}\kw@page\ \thepage\ \kw@of\ \pageref{LastPage}\hfil}%
-    }
+    }%
 }
 
 \makeatother

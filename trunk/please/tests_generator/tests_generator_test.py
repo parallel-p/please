@@ -55,7 +55,7 @@ class Tester(unittest.TestCase):
         os.path.exists(TESTS_DIR).MultipleTimes().AndReturn(True)
 
         self.mox.StubOutWithMock(shutil, "rmtree")
-        shutil.rmtree(os.path.join(TESTS_DIR)).MultipleTimes()        
+        shutil.rmtree(os.path.join(TESTS_DIR)).MultipleTimes()
 
         self.mox.StubOutWithMock(shutil, "move")
         self.mox.StubOutWithMock(line_ending, "convert")
@@ -74,3 +74,4 @@ class Tester(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
