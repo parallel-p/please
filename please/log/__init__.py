@@ -37,14 +37,6 @@ class Formatter(_Formatter):
         else:
             return _Formatter.format(self, rec)
 
-def update_shortname ():
-    config = package_config.PackageConfig.get_config()
-    if config:
-        shortname = config['shortname']
-    else:
-        shortname = "Untitle"
-
-
 logger = getLogger ("please_logger")
 logger.setLevel(DEBUG)
 
@@ -79,6 +71,7 @@ s = inspect.getouterframes(inspect.currentframe())[1][1]
 s = os.path.abspath(s)
 logger.debug('Ancestor file is %s', s)
 
+#TODO: try to understand what is this, and write normally
 s = s[:-2]
 s = s.replace('\\', '/')
 s = s.replace('.', '/')
