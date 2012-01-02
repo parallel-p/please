@@ -20,7 +20,7 @@ default_human_language = "ru"
 
 export_scripts = {
   'ejudge' : {
-    'scripts' : [r'exporter\scripts\ejudge.py', r'exporter\scripts\ejudge_formatter.py', r'exporter\scripts\backupper.py'],
+    'scripts' : [os.path.join('exporter','scripts',filename) for filename in ['ejudge.py', 'ejudge_formatter.py', 'backupper.py']],
     'run' : 'ejudge.py'
   }
 }
