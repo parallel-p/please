@@ -18,8 +18,8 @@ def validate(validator, test):
                                 except IOError:
                                         log.error("Validator " + validator + " not found")
                                         return (ResultInfo("FNF", 0, 0, 0, 1), "", "")
-                        except compiler.CompileError:
-                                log.error("Validator has an unknown extension, or does not compile with error: " + str(compiler.CompileError))
+                        except compiler.CompileError as error:
+                                log.error("Validator has an unknown extension, or does not compile with error: %s" % error)
                                 return (ResultInfo("FNF", 0, 0, 0, 1), "", "")  
 
         except IOError:
