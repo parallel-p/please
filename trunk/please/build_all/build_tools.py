@@ -9,8 +9,7 @@ def build_all () :
     opened_config = package_config.PackageConfig.get_config()
 
     #run todo
-    todo_class = TodoGenerator ()
-    todo_class.get_todo()
+    TodoGenerator.get_todo()
 
     #statement generation
     latex_tools.generate_contest()
