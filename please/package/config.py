@@ -219,15 +219,16 @@ class Config:
 
 
 def create_simple_config(file_name, config):
+    print(config['shortname'])
     with open(file_name, 'w') as file:
-        write = lambda x: file.write(config[x].join('\n'))
+        write = lambda x: file.write(config[x] + '\n')
         write('shortname')
         write('name')
         write('input')
         write('output')
         write('time_limit')
         write('memory_limit')
-        write('checker')
+        file.write(os.path.split(config['checker'])[-1] + '\n')
    
     def get(self, item, default = None):
         if item in self.__settings and self.__settings[item] is not None:

@@ -10,9 +10,9 @@ class GenericExporter:
     def create_archive(self):
         for problem in self.problems:
             os.chdir(problem)
-            build_all()
+            #build_all()
             os.chdir('..')
-            archiver.add(problem)
+            self.archiver.add_folder(problem, problem)
     
   
         

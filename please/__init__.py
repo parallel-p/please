@@ -43,7 +43,7 @@ def main():
     matcher.add_handler(Template(["create", "problem", "#shortname"]), problem_gen.generate_problem, True)
     matcher.add_handler(Template(["delete", "problem", "#shortname"]), svn.delete_problem, True)
     #matcher.add_handler(Template(["export", "to", "ejudge", "contest", "#contest_id", "problem|problems", "@tasks"]), export2ejudge, True)
-    matcher.add_handler(Template(["export", "to", "#server_name", "problems", "@problems"]), export, True)
+    matcher.add_handler(Template(["export", "to", "#server_name", "contest", "#contest_id", "problem|problems", "@problems"]), export, True)
     matcher.add_handler(Template(["help"]), print_help, True)
     matcher.add_handler(Template(["generate", "statements", "@problem_names"]), latex_tools.generate_contest, True)
     matcher.add_handler(Template(["import", "polygon", "problem", "#problem_letter", "from", "contest", "#contest_id"]), import_problem_from_polygon, True)
