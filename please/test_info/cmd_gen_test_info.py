@@ -7,8 +7,9 @@ import os
 
 class CmdOrGenTestInfo(test_info.TestInfo):
     def __init__(self, executor, args, tags={}):
-        """examples: command = "echo", args = ["1", "2", "3"]
-        command = "generator.cpp", args = ["17", "42", "100500"]
+        """
+        example:
+            executor = "generator.cpp", args = ["17", "42", "100500"]
         """
         self.__executor = executor
         self.__args = args

@@ -2,14 +2,17 @@ import os
 import re
 from ..language.language import Language
 from please import globalconfig
-from ..test_info import file_test_info
-from ..test_info import cmd_gen_test_info
+from ..test_info import file_test_info, cmd_gen_test_info, echo_test_info
 
 class TokenSpecificator:
     @staticmethod
     def is_command(token):
         #command echo is the only supported command now
         #list will contain more elements in future
+        return False
+    
+    @staticmethod
+    def is_echo(token):
         return token in ['echo']
     
     @staticmethod
@@ -31,7 +34,9 @@ class TokenSpecificator:
 class TestObjectFactory:    
     @staticmethod
     def create(well_done, line_number, first_token, others=[], attr={}):
-        if TokenSpecificator.is_command(first_token) or TokenSpecificator.is_generator(first_token):
+        if TokenSpecificator.is_echo(first_token):
+            return echo_test_info.EchoTestInfo(' '.join(others), attr)
+        elif TokenSpecificator.is_command(first_token) or TokenSpecificator.is_generator(first_token):
             return cmd_gen_test_info.CmdOrGenTestInfo(first_token, others, attr)
         elif len(others) > 0: 
             raise EnvironmentError("Tests config parser: Line %d: expected 1 argument, more found" % (line_number))
@@ -93,8 +98,8 @@ class TestConfigParser:
         return [line_number, tokens[0], tokens[1 : len(tokens)], attribs]
     
     def __do_normal_path(self, path):
-       result = [item for item in re.split("\\\\|/", path) if item != ''] #split by / and \\
-       return os.path.join(*result)
+        result = [item for item in re.split("\\\\|/", path) if item != ''] #split by / and \\
+        return os.path.join(*result)
    
 class FileTestConfigParser(TestConfigParser):
     def __init__(self, well_done = None, path = globalconfig.default_tests_config):
