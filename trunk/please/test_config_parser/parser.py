@@ -4,13 +4,7 @@ from ..language.language import Language
 from please import globalconfig
 from ..test_info import file_test_info, cmd_gen_test_info, echo_test_info, python_test_info
 
-class TokenSpecificator:
-    @staticmethod
-    def is_command(token):
-        #command echo is the only supported command now
-        #list will contain more elements in future
-        return False
-    
+class TokenSpecificator:    
     @staticmethod
     def is_echo(token):
         return token == 'echo'
@@ -42,7 +36,7 @@ class TestObjectFactory:
             return echo_test_info.EchoTestInfo(' '.join(others), attr)
         elif TokenSpecificator.is_python(first_token):
             return python_test_info.PythonTestInfo(' '.join(others), attr)
-        elif TokenSpecificator.is_command(first_token) or TokenSpecificator.is_generator(first_token):
+        elif TokenSpecificator.is_generator(first_token):
             return cmd_gen_test_info.CmdOrGenTestInfo(first_token, others, attr)
         elif len(others) > 0: 
             raise EnvironmentError("Tests config parser: Line %d: expected 1 argument, more found" % (line_number))

@@ -64,7 +64,7 @@ class TestObjectFactoryTest(unittest.TestCase):
     def test_python(self):
         a = parser.TestConfigParser("python hi")
         b = a.get_test_info_objects()
-        with self.assertRaises(python_test_info.TestConfigParserError) as ex:  
+        with self.assertRaises(EnvironmentError) as ex:  
             t = b[0].tests()
     def tearDown(self):
         self.mox.VerifyAll()
