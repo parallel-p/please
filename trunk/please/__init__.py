@@ -115,6 +115,7 @@ def main():
             logger.error("ValidatorError: " + str(ex))
         except Exception as ex:
             logger.error("Exception: " + str(ex))
+            raise ex
     
     if in_problem_folder:
         svn.ProblemInSvn(svn_up=False).commit()

@@ -23,7 +23,7 @@ def create_contest(name, problems):
         problems = zip(problems, [False] * len(problems))
     new_contest = contest.Contest(get_contest_config(name), ok_if_not_exists = True)
 
-    for problem in problems:
-        new_contest.problem_add(problem[0], problem[1])
+    for problem, id in problems:
+        new_contest.problem_add(problem, id)
     with open(get_contest_config(name), 'w') as f:
         f.write(new_contest.config.get_text())

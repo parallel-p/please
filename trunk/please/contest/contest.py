@@ -16,7 +16,7 @@ class IdMethod:
             else:
                 return "problem with id '%s' already in contest" % id
 
-    @classmethod
+    @staticmethod
     def default( ids, short ):
         if short not in ids:
             return short
@@ -39,11 +39,14 @@ class IdMethod:
             ids += 1
         return id
     
-    methods = {
-        'default': default,
-        'alpha': alpha,
-        'numeric': numeric
-    }
+    @staticmethod
+    def get( m ):
+        methods = {
+            'default': IdMethod.default,
+            'alpha': IdMethod.alpha,
+            'numeric': IdMethod.numeric
+        }
+        return methods.get(m, IdMethod.default)
 
 
 class Contest:
@@ -55,13 +58,21 @@ class Contest:
         except IOError as e:
             if e.errno == errno.ENOENT and ok_if_not_exists:
                 self.config = Config("")
+                self.config["name"] = ""
+                self.config['id_method'] = 'default'
+                statement_config = Config('')
+                statement_config['name'] = ""
+                statement_config['location'] = ""
+                statement_config['date'] = ""
+                self.config['statement'] = statement_config
             else:
                 raise e
 
-        self.__id_method = IdMethod.methods.get(self.config['id_method'], IdMethod.default)
+        self.__id_method = IdMethod.get(self.config['id_method'])
         if not isinstance(self.config['problem'], list):
-            self.config['problem'] = []
-        self.__problems = self.config['problem']
+            self.__problems = []
+        else:
+            self.__problems = self.config['problem'][:] # Скопипастить список. Педобир одобряет.
         self.__dict = {problem['id'] : i for i, problem in enumerate(self.__problems)}
 
     def problem_add( self, path, id = False ):
@@ -71,9 +82,9 @@ class Contest:
         config = Config("")
         config['path'] = path
         config['id'] = id
-        self.config.set('problem', config, in_list=True)
         self.__dict[id] = len(self.__problems)
         self.__problems.append(config)
+        self.config.set('problem', config, in_list=True)
 
     def problem_find( self, path ):
         for problem in self.__problems:
