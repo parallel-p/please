@@ -63,7 +63,7 @@ def compile(path, limits=globalconfig.default_limits):
     new_folder_state = snapshot.Snapshot(cur_folder)
     trash_remover.remove_trash(snapshot.get_changes(old_folder_state, new_folder_state), configurator.is_compile_garbage)
     if(result.verdict != "OK"):
-        raise CompileError(form_error_output.process_err_exit("Compilation failed with:", result.verdict, \
+        raise CompileError(form_error_output.process_err_exit("Compilation %s failed with:" % path, result.verdict, \
                                                               result.return_code, stdout.decode(), stderr.decode()))
     else:
         return (result, stdout, stderr)
