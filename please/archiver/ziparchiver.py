@@ -18,7 +18,7 @@ class ZIPArchiver:
     z.add_folder('dir2', 'path1')                       #add folder dir2 in path1
     '''
     def add_folder(self, directory, folder = ""):
-        if not seld.sbj:
+        if not self.sbj:
             self.sbj = zipfile.ZipFile(self.path, self.mod)
         for item in os.listdir(directory):
             if os.path.isfile(os.path.join(directory, item)):
