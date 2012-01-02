@@ -28,13 +28,13 @@ export_scripts = {
 
 servers = {
   'zhuravlev_ejudge' : EjudgeExporter(
-    'network' = {
+    network = {
       'host' : '192.168.16.28',
       'port' : '22',
       'login' : 'ejudge',
       'password' : 'ejudge'
     },
-    'libs' = []
+    libs = []
   )
 }
 
