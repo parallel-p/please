@@ -14,11 +14,14 @@ class Cleaner:
         if source is not None:
             lang_conf = get_language_configurator(source)
             if lang_conf is not None:
-                binary_name = lang_conf.get_binary_name(source)[0]
-                if os.path.exists(binary_name):
-                    logger.info("Removing " + binary_name)
-                    os.remove(binary_name)
-                else:
+                binaries = lang_conf.get_binary_name(source)
+                num_deletes = 0
+                for binary in binaries:
+                    if os.path.exists(binary):
+                        logger.info("Removing " + binary)
+                        os.remove(binary)
+                        num_deletes += 1
+                if num_deletes == 0:
                     logger.info("There is no binary file for " + source)
                 
     def cleanup(self):
