@@ -13,7 +13,7 @@ class SolutionInfo:
         self.source_path = source_path                   #Source path, string
         self.args = args                                 #Run arguments, list
         self.execution_limits = execution_limits         #Executon limits, class ExecutionLimits from Invoker
-        self.solution_config = solution_config                     
+        self.solution_config = solution_config           #
         self.solution_input_file = solution_input_file   #Redirectering input file, string
         self.solution_output_file = solution_output_file #Rederectering output file, string  
         
@@ -77,3 +77,4 @@ def run_solution(config):
                 log.info('catched OSError 13/32, trying again...')
                 continue
             raise e
+
