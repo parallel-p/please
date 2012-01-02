@@ -32,6 +32,11 @@ class CmdOrGenTestInfo(test_info.TestInfo):
         diff_test_finder = DiffTestFinder(exe_dir, mask, exclude)
         tests = diff_test_finder.tests(diff, stdout.name)
         
+        #remove trash
+        for file in diff[1]:
+            if os.path.relpath(file, exe_dir) not in tests:
+                os.remove(os.path.join(exe_dir, file))
+        
         return tests
     
     def to_please_format(self):

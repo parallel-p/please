@@ -176,7 +176,7 @@ class LatexContestConstructor:
         self.__separator = separator
 
     def add_problem(self,problem):
-        self.__list.append(str(problem))
+        self.__list.append(problem())
 
     def construct(self):
         """Returns constructed contest"""
