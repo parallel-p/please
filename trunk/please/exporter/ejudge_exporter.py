@@ -1,7 +1,7 @@
 from .. import globalconfig
 from ..archiver.ziparchiver import ZIPArchiver
 from ..ssh_tools.connector import Connector
-from generic_exporter import GenericExporter
+from .generic_exporter import GenericExporter
 from ..package import config
 import shutil
 import os
