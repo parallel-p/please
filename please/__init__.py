@@ -38,19 +38,16 @@ def main():
     from please.reports import generate_html_report
     from please import svn
 
-    todo = todo_generator.TodoGenerator()
     matcher = Matcher()
     matcher.add_handler(Template(["create", "problem", "#shortname"]), problem_gen.generate_problem, True)
     matcher.add_handler(Template(["delete", "problem", "#shortname"]), svn.delete_problem, True)
     matcher.add_handler(Template(["export", "to", "ejudge", "contest", "#contest_id", "problem|problems", "@tasks"]), export2ejudge, True)
     matcher.add_handler(Template(["help"]), print_help, True)
     matcher.add_handler(Template(["generate", "statements", "@problem_names"]), latex_tools.generate_contest, True)
-    #matcher.add_handler(Template(["show", "todo", "#root_path"]), todo.get_todo, True)
-    #matcher.add_handler(Template(["todo", "#root_path"]), todo.get_todo, True)
     matcher.add_handler(Template(["import", "polygon", "problem", "#problem_letter", "from", "contest", "#contest_id"]), import_problem_from_polygon, True)
     matcher.add_handler(Template(["import", "polygon", "package", "#package"]), import_polygon_package, True)
     # If we are inside folder with  the problem, we have more handlers
-    package_config = package_config.PackageConfig.get_config('.')
+    package_config = package_config.PackageConfig.get_config()
     in_problem_folder = (package_config != False)
     globalconfig.in_problem_folder = in_problem_folder
     #matcher.add_handler(Template(["well", "done"]), well_done.WellDoneCheck().all, in_problem_folder)
@@ -58,8 +55,8 @@ def main():
     matcher.add_handler(Template(["sync"]), svn.sync, in_problem_folder)
     matcher.add_handler(Template(["validate", "tests"]), tests_answer_generator.TestsAndAnswersGenerator().validate, in_problem_folder)
     matcher.add_handler(Template(["clean"]), cleaner.Cleaner().cleanup, in_problem_folder)
-    matcher.add_handler(Template(["show", "todo"]), todo.get_todo, in_problem_folder)
-    matcher.add_handler(Template(["todo"]), todo.get_todo, in_problem_folder)
+    matcher.add_handler(Template(["show", "todo"]), todo_generator.TodoGenerator.get_todo, in_problem_folder)
+    matcher.add_handler(Template(["todo"]), todo_generator.TodoGenerator.get_todo, in_problem_folder)
     matcher.add_handler(Template(["add", "tag|tags", "@tags"]), tags.add_tags, in_problem_folder)
     matcher.add_handler(Template(["set", "standard", "checker", "#checker"]), add_standard_checker_to_solution, in_problem_folder)
     matcher.add_handler(Template(["set", "standard", "checker"]), print_standard_checkers, in_problem_folder)
@@ -96,9 +93,6 @@ def main():
         except MatcherException as ex:
             print(str(ex))
             print_lite_help()
-        #except CompileError as ex:
-        #    log = logging.getLogger("please_logger.executors.compiler")
-        #    log.error("CompilerError: " + str(ex))
         except RunnerError as ex:
             logger.error("RunnerError: " + str(ex))
         except CompileError as ex:
@@ -107,8 +101,8 @@ def main():
             logger.error("OSError: " + str(ex))
         except config.ConfigException as ex:
             logger.error("ConfigError: " + str(ex))
-        #except IOError as ex:
-        #    log.error("IOError: " + str(ex))
+        except IOError as ex:
+            log.error("IOError: " + str(ex))
         except EnvironmentError as ex:
             logger.error("EnvironmentError: " + str(ex))
     

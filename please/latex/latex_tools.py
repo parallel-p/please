@@ -22,7 +22,7 @@ def generate_contest(problem_names = ['.'], title = None, date = None, location 
     
     for problem in problem_names:
         os.chdir(problem)
-        package_conf = package_config.PackageConfig.get_config(dir = '.', ignore_cache = True)
+        package_conf = package_config.PackageConfig.get_config(ignore_cache = True)
         problem = SingleProblemCreator(config = package_conf)
         contest.add_problem(problem)
         if not single_problem:

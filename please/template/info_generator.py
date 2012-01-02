@@ -19,7 +19,7 @@ def create_time_file(root_path):
 
 def create_md5_file(root_path):
     '''
-    Creates md5conf.py with md5-sums of initial files
+    Creates md5.config with md5-sums of initial files
     '''
     with open(os.path.join(root_path, '.please', 'md5.config'), 'w') as md5file:
         d = dict(checker='checker.cpp', 
