@@ -39,5 +39,7 @@ class Cleaner:
         generators = parser.FileTestConfigParser().get_binaries()
         for generator in generators:
             self.__clean_binary(generator)
+        if os.path.exists("report.html"):
+            os.remove("report.html")
         trash_remover.remove_logs_in_depth()
 
