@@ -2,7 +2,7 @@
 # coding=utf-8
 
 import errno, os
-from ..package import config
+from ..package.config import Config
 from ..solution_tester.package_config import PackageConfig
 
 class IdMethod:
@@ -59,12 +59,10 @@ class Contest:
                 raise e
 
         self.__id_method = IdMethod.methods.get(self.config['id_method'], IdMethod.default)
-        if isinstance(self.config['problem'], list):
-            self.__problems = self.config['problem']
-            self.__dict = {problem['id'] : i for i, problem in enumerate(self.__problems)}
-        else:
-            self.__problems = []
-            self.__dict = {}
+        if not isinstance(self.config['problem'], list):
+            self.config['problem'] = []
+        self.__problems = self.config['problem']
+        self.__dict = {problem['id'] : i for i, problem in enumerate(self.__problems)}
 
     def problem_add( self, path, id = False ):
         problem_config = PackageConfig.get_config(path)
