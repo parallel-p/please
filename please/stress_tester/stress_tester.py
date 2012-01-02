@@ -33,7 +33,7 @@ class StressTester():
     CORRECT_OUT = "correct.a"
     INCORRECT_OUT = "incorrect.a"
     INPUT_TEST = "input.test"
-
+    #TODO: sometimes some garbage lefts (correct.a, incorrect.a when we have RunExc)
     def __init__(self, config = None):
         ''' Config is .package object '''
         self.__config = config
