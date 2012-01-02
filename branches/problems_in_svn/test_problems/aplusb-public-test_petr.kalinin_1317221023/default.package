@@ -6,7 +6,7 @@ type =
 
 input = stdin
 output = stdout
-time_limit = 2
+time_limit = 0.1
 memory_limit = 64
 
 checker = checker.dpr
