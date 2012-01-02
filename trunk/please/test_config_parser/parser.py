@@ -20,10 +20,6 @@ class TokenSpecificator:
         return glob.glob(token) != []
     
     @staticmethod
-    def convert_path(token):
-        return os.path.join(".", token)
-    
-    @staticmethod
     def is_generator(token):
         #if we can determine the programming language of file token, it is generator
         lang = Language()
@@ -42,7 +38,7 @@ class TestObjectFactory:
         elif len(others) > 0: 
             raise EnvironmentError("Tests config parser: Line %d: expected 1 argument, more found" % (line_number))
         elif TokenSpecificator.is_file(first_token):
-            return file_test_info.FileTestInfo(TokenSpecificator.convert_path(first_token), attr, well_done)
+            return file_test_info.FileTestInfo(first_token, attr, well_done)
         else:
             raise EnvironmentError("Tests config parser: Line %d cannot be parsed (maybe there is no such file?)" % (line_number))
         

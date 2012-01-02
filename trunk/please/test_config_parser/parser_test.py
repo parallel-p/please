@@ -3,6 +3,7 @@ import mox
 from ..test_config_parser import parser
 from ..test_info import file_test_info, cmd_gen_test_info, echo_test_info, python_test_info
 import os
+import glob
 
 class TestObjectFactoryTest(unittest.TestCase):
     def setUp(self):
@@ -33,8 +34,8 @@ class TestObjectFactoryTest(unittest.TestCase):
             parser.TestObjectFactory.create(well_done, 1, "iwasbreaking.awindow", [])
             
     def test_exist_file(self):
-        self.mox.StubOutWithMock(os.path, "exists")
-        os.path.exists(os.path.join(".","test.txt")).AndReturn(True)
+        self.mox.StubOutWithMock(glob, "glob")
+        glob.glob(os.path.join("test.txt")).AndReturn([os.path.join("test.txt")])
         self.mox.ReplayAll()
 
         well_done = self.WellDoneMock("key")        
