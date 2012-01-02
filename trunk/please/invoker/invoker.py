@@ -114,6 +114,10 @@ def invoke(handler, limits):
                 #process just finished, so exit while
                 break
         except psutil.error.AccessDenied as e:
+            try:#wait some time, in darwin process is steel running, but already not exists
+                return_code = handler.wait(CHECK_PERIOD)
+            except psutil.TimeoutExpired:
+                pass
             #if handler is steel running we wait, while it will be finished
             if handler.is_running():
                 logger.warning("Couldn't check limits: AccessDenied")
