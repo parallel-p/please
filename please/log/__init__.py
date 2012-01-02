@@ -38,7 +38,7 @@ class Formatter(_Formatter):
             return _Formatter.format(self, rec)
 
 def update_shortname ():
-    config = package_config.PackageConfig.get_config(".")
+    config = package_config.PackageConfig.get_config()
     if config:
         shortname = config['shortname']
     else:
@@ -57,7 +57,7 @@ dfh.setLevel(globalconfig.detailed_logging_lvl)
 fh = FileHandler('please.log')
 fh.setLevel(globalconfig.standart_logging_lvl)
 
-config = package_config.PackageConfig.get_config(".")
+config = package_config.PackageConfig.get_config()
 
 if config:
     shortname = config['shortname']
@@ -77,12 +77,7 @@ logger.addHandler(sh)
 logger.debug('Initialising name for logger')
 s = inspect.getouterframes(inspect.currentframe())[1][1]
 s = os.path.abspath(s)
-logger.debug('Father file is %s', s)
-
-# Приводим строку в приличный вид:
-# 1) разбираемся со слешами
-# 2) выпиливаем всё, что до please
-# 3) заменяем __init__ на название родительского пакета
+logger.debug('Ancestor file is %s', s)
 
 s = s[:-2]
 s = s.replace('\\', '/')

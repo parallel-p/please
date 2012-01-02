@@ -1,49 +1,32 @@
 import os
 import hashlib
-from ..package.config import Config
+from ..solution_tester import package_config
 from ..todo import painter
 from .. import globalconfig
 from ..template import info_generator
 
 class TodoGenerator: 
-    """ 
-    this class prints todo list in please console
-    
-    red color - file does not exist
-    yellow color - file is default
-    green color - file had been modified by user
-    
-    you can use it as 
-        please show todo <realative way>
-    if you are not in the root of problem folder 
-    or
-        please show todo
-    if you are in problem folder
-    """
-    def __init__(self, root_path='.'):
-     
+    @staticmethod
+    def get_todo(root_path = '.'): 
         md5path = os.path.join(root_path, '.please', 'md5.config')
         if not os.path.exists(md5path):
             info_generator.create_md5_file(root_path)
             
-        self.md5value = {}
+        md5value = {}
         with open(md5path) as md5file:
             for s in md5file:
                 resource, md5 = s.strip().split(':')
-                self.md5value[resource] = md5
+                md5value[resource] = md5
                     
-    def get_todo(self): 
-        config_path = globalconfig.default_package
-        with open(config_path) as config_file:
-            config_text = "\n".join(config_file.readlines())
-        self.__config = Config(config_text) 
+        config = package_config.PackageConfig.get_config()
         items = ["statement", "checker", "description", "analysis", "validator", "main_solution"]        
         for item in items:
-            self.print_to_console(self.__get_item_status(item), item)
+            TodoGenerator.print_to_console(TodoGenerator.__get_item_status(config, md5value, item), item)
         tests_description_path = globalconfig.default_tests_config
-        self.print_to_console(self.__get_item_status(path=tests_description_path, item="tests_description"), "tests description")
-            
-    def print_to_console(self, status, text):
+        TodoGenerator.print_to_console(TodoGenerator.__get_item_status(config, md5value, "tests_description", tests_description_path), "tests description")
+    
+    @staticmethod   
+    def print_to_console(status, text):
         """ prints message to please console. color depends on objective's status"""
         if (status == "ok"):
             print(painter.ok(text + " ok"))
@@ -52,8 +35,8 @@ class TodoGenerator:
         else:
             print(painter.error(text + " does not exist"))
     
-
-    def __get_item_status(self, item=None, path = None):
+    @staticmethod
+    def __get_item_status(config, md5value, item=None, path=None):
         """
         Description:
         this function returns one of three item statuses (types):
@@ -66,17 +49,17 @@ class TodoGenerator:
         if (path != None):    
             item_path = path
         else:
-            if (item in self.__config):
-                item_path = self.__config[item]
+            if (item in config):
+                item_path = config[item]
             else:
-                return("error")
+                return "error"
         if (os.path.exists(item_path)):
-            m = hashlib.md5()
+            hashobj = hashlib.md5()
             with open(item_path,"rb") as item_file:
-                m.update(item_file.read())
-            if (m.hexdigest() != self.md5value[item]):
-                return("ok")
+                hashobj.update(item_file.read())
+            if (hashobj.hexdigest() != md5value[item]):
+                return "ok" 
             else:
-                return("warning")
+                return "warning"
         else:
-            return("error")
+            return "error"
