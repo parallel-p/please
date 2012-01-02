@@ -1,8 +1,10 @@
 from ..solution_tester.check_solution import get_test_results_from_solution
 from ..solution_tester.package_config import PackageConfig
 from .html_report import HtmlReporter
-
+import logging
 import os.path
+
+logger = logging.getLogger("please_logger.reports.generate_html_report")
 
 def generate_html_for_solution(config, solution, expected_verdicts = ["OK"], possible_verdicts = []):
     ''' Generates <div> block with tabled report for given solution  '''
@@ -36,3 +38,6 @@ def generate_html_report():
     html = "<div style='width: 10000px'>" + html + "</div>"
     with open("report.html", "w", encoding = "utf-8") as output:
         output.write(html)
+    
+    logger.warning("HTML report is generated and saved as 'report.html' in the root directory of current problem")
+    
