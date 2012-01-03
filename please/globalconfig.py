@@ -1,4 +1,5 @@
 import os
+import time
 from .invoker.invoker import ExecutionLimits
 from logging import INFO,ERROR,CRITICAL,WARNING,DEBUG
 please_version = 0.2
@@ -74,3 +75,9 @@ svn = {     'type': '', #personal',
 #    'spbsu': export.Testsys('/mnt/server/D/problems/'),
 #}
 
+# Default latex template vars: used for generating one problem
+default_template_vars = {
+    "name": "Contest name",
+    "location": "",
+    "date": time.strftime("%A, %d %B")
+}
