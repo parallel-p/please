@@ -15,15 +15,15 @@ class TestLatexContestConstructor(unittest.TestCase):
     def test_set_title (self):
         test_title = "Yet another contest"
         self.__test_object.set_title(test_title)
-        self.assertEqual(self.__test_object._LatexContestConstructor__attributes["#{contest_title}"], test_title)
+        self.assertEqual(self.__test_object._LatexContestConstructor__attributes["#{tpl_name}"], test_title)
     def test_set_date (self):
         test_date = "13 июля, среда"
         self.__test_object.set_date(test_date)
-        self.assertEqual(self.__test_object._LatexContestConstructor__attributes["#{contest_date}"], test_date)
+        self.assertEqual(self.__test_object._LatexContestConstructor__attributes["#{tpl_date}"], test_date)
     def test_set_location (self):
         test_location = "ЛКШ-2011.июль, Берендеевы Поляны"
         self.__test_object.set_location(test_location)
-        self.assertEqual(self.__test_object._LatexContestConstructor__attributes["#{contest_location}"], test_location)
+        self.assertEqual(self.__test_object._LatexContestConstructor__attributes["#{tpl_location}"], test_location)
 
 class TestLatexConstructor(unittest.TestCase):
     def setUp(self):

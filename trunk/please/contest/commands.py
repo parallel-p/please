@@ -61,11 +61,13 @@ def command_generate_statement(name):
     current_contest = get_contest(name)
     problems = []
     for problem in current_contest.config['problem']:
+        config = package_config.PackageConfig.get_config(problem['path'])
+        config['id'] = problem['id']
+        print(config['id'])
         problems.append(problem['path'])
     template_vars = {}
     for ind, val in current_contest.config['statement'].items():
         template_vars[ind] = val
-    print(template_vars)
     latex_tools.generate_contest(problems, template_vars['template'], template_vars)
 
 def command_export(name, where, contest):
