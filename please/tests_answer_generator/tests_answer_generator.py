@@ -93,6 +93,7 @@ class TestsAndAnswersGenerator:
         else:
             logger.warning("Validator is empty")
             tests_names = tests
+            result = [(test, "OK") for test in tests]
         answers_gen = answers_generator.AnswersGenerator()
         answers_gen.generate (tests_names, config ["main_solution"], [], config)
         return (count_errors, result)

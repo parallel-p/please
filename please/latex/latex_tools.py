@@ -13,7 +13,7 @@ import logging
 
 log = logging.getLogger("please_logger.latex.latex_tools")
 
-def generate_contest(problem_names = ['.'], template = None, template_vars = {}):
+def generate_contest(problem_names = ['.'], template = None, template_vars = globalconfig.default_template_vars):
     problem_template_path = get_template_full_path(globalconfig.default_template_contest)
 
     with open(problem_template_path, "r", encoding = "UTF8") as template:
@@ -22,7 +22,7 @@ def generate_contest(problem_names = ['.'], template = None, template_vars = {})
 
     for problem in problem_names:
         os.chdir(problem)
-        package_conf = package_config.PackageConfig.get_config(ignore_cache = True)
+        package_conf = package_config.PackageConfig.get_config()
         problem = SingleProblemCreator(config = package_conf)
         contest.add_problem(problem)
         if not single_problem:
@@ -124,6 +124,9 @@ class LatexConstructor:
     def set_title(self, title):
         self.set_new_replace("#{title}", title)
 
+    def set_id(self, id):
+        self.set_new_replace("#{id}", id)
+
     def set_text(self, text):
         ''' Divides given text into 2 groups: text and notes. This is very useful if we want to put notes after examples  '''
         matcher = re.compile(r"(.*)(\\Note.*)", re.DOTALL)
@@ -157,16 +160,16 @@ class LatexContestConstructor:
         self.__template = str(template)
         self.__separator = str(separator)
         for index, value in template_vars.items():
-            self.__attributes["#{%s}" % index] = value
+            self.__attributes["#{tpl_%s}" % index] = value
 
     def set_title(self, title):
-        self.__attributes["#{contest_title}"] = str(title)
+        self.__attributes["#{tpl_name}"] = str(title)
 
     def set_location(self, location):
-        self.__attributes["#{contest_location}"] = str(location)
+        self.__attributes["#{tpl_location}"] = str(location)
 
     def set_date(self, date):
-        self.__attributes["#{contest_date}"] = str(date)
+        self.__attributes["#{tpl_date}"] = str(date)
 
     def set_separator (self,separator):
         self.__separator = separator
@@ -265,9 +268,13 @@ class SingleProblemCreator():
         problem.set_memory_limit(self.__config['memory_limit'] + ' ' + get_memory_string(float(self.__config["memory_limit"])))
         problem.set_time_limit(self.__config['time_limit'] + ' ' + get_time_string(float(self.__config["time_limit"])))
         problem.set_title(self.__config['name'])
+        if 'id' in self.__config:
+            problem.set_id(self.__config['id'])
+        else:
+            problem.set_id('')
 
         tests = TestsAndAnswersGenerator().generate(["sample"], "sample", False)[1]
-        
+
         for test, verdict in tests:
             if verdict != 'OK':
                 continue
