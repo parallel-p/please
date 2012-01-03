@@ -1,9 +1,10 @@
 from . import test_info
 import tempfile
 import shutil
+import logging
 import glob
 from ..well_done import well_done
-
+logger = logging.getLogger("please_logger.test_info.file_test_info")
 class FileTestInfo(test_info.TestInfo):
     def __init__(self, mask, tags={}, well_done=None, comment = ''):
         self.__mask = mask
@@ -18,6 +19,7 @@ class FileTestInfo(test_info.TestInfo):
             temp = tempfile.NamedTemporaryFile(delete = False)
             shutil.copy(file, temp.name)
             result.append(temp.name)
+            logger.info("File %s is copied" % file)
         return result
     
     def to_please_format(self):

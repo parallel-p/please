@@ -1,6 +1,7 @@
 from . import test_info
 import tempfile
-
+import logging
+logger = logging.getLogger("please_logger.test_info.echo_test_info")
 class EchoTestInfo(test_info.TestInfo):
     def __init__(self, line, tags={}, comment = ''):
         """
@@ -13,7 +14,7 @@ class EchoTestInfo(test_info.TestInfo):
         stdout = tempfile.NamedTemporaryFile(delete = False)
         with open(stdout.name, 'w') as f:
             f.write(self.__line + '\n')
-        
+        logger.info("Echo-result file generated")
         return [stdout.name]
     
     def to_please_format(self):
