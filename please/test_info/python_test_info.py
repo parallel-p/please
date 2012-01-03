@@ -2,9 +2,9 @@ from . import test_info
 import tempfile
 
 class PythonTestInfo(test_info.TestInfo):
-    def __init__(self, code, tags={}):
+    def __init__(self, code, tags={}, comment = ''):
         self.__code = code
-        super(PythonTestInfo, self).__init__(tags)
+        super(PythonTestInfo, self).__init__(tags, comment)
     
     def tests(self):
         temp = tempfile.NamedTemporaryFile(delete = False)
@@ -16,4 +16,4 @@ class PythonTestInfo(test_info.TestInfo):
         return [ temp.name ]
     
     def to_please_format(self):
-        return self.get_to_please_format_prefix() + self.__code
+        return ' '.join([self.get_prefix(), self.__code, self.get_suffix()]).strip()

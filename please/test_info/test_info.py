@@ -1,6 +1,7 @@
 class TestInfo:
-    def __init__(self, tags):
+    def __init__(self, tags, comment):
         self.__tags = tags
+        self.__comment = str(comment).strip()
     
     def tests(self):
         raise NotImplementedError()
@@ -14,7 +15,7 @@ class TestInfo:
     def set_tag(self, item, value):
         self.__tags[item] = value
     
-    def get_to_please_format_prefix(self):
+    def get_prefix(self):
         tags_list = []
         for key, value in sorted(self.__tags.items()):
             curtag = str(key)
@@ -22,6 +23,9 @@ class TestInfo:
                 curtag += " = " + str(value)
             tags_list.append(curtag)
         if len(tags_list) > 0:
-            return "[" + ', '.join(tags_list) + "] "
+            return "[" + ', '.join(tags_list) + "]"
         else:
-            return ""
+            return ''
+    
+    def get_suffix(self):
+        return ('#' + self.__comment) if self.__comment != '' else ''

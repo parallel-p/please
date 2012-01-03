@@ -5,10 +5,10 @@ import glob
 from ..well_done import well_done
 
 class FileTestInfo(test_info.TestInfo):
-    def __init__(self, mask, tags={}, well_done=None):
+    def __init__(self, mask, tags={}, well_done=None, comment = ''):
         self.__mask = mask
         self.__well_done = well_done
-        super(FileTestInfo, self).__init__(tags)
+        super(FileTestInfo, self).__init__(tags, comment)
     
     def tests(self):
         result = []
@@ -21,4 +21,4 @@ class FileTestInfo(test_info.TestInfo):
         return result
     
     def to_please_format(self):
-        return self.get_to_please_format_prefix() + self.__mask
+        return ' '.join([self.get_prefix(), self.__mask, self.get_suffix()]).strip()

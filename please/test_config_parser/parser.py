@@ -28,17 +28,17 @@ class TokenSpecificator:
     
 class TestObjectFactory:    
     @staticmethod
-    def create(well_done, line_number, first_token, others=[], attr={}):
+    def create(well_done, line_number, first_token, others=[], attr={}, comment = ''):
         if TokenSpecificator.is_echo(first_token):
-            return echo_test_info.EchoTestInfo(' '.join(others), attr)
+            return echo_test_info.EchoTestInfo(' '.join(others), attr, comment)
         elif TokenSpecificator.is_python(first_token):
-            return python_test_info.PythonTestInfo(' '.join(others), attr)
+            return python_test_info.PythonTestInfo(' '.join(others), attr, comment)
         elif TokenSpecificator.is_generator(first_token):
-            return cmd_gen_test_info.CmdOrGenTestInfo(first_token, others, attr)
+            return cmd_gen_test_info.CmdOrGenTestInfo(first_token, others, attr, comment)
         elif len(others) > 0: 
             raise EnvironmentError("Tests config parser: Line %d: expected 1 argument, more found" % (line_number))
         elif TokenSpecificator.is_file(first_token):
-            return file_test_info.FileTestInfo(first_token, attr, well_done)
+            return file_test_info.FileTestInfo(first_token, attr, well_done, comment)
         else:
             raise EnvironmentError("Tests config parser: Line %d cannot be parsed (maybe there is no such file?)" % (line_number))
         
@@ -50,7 +50,7 @@ class TestConfigParser:
         for line_number, line in enumerate(self.__test_config.split('\n')):
             if (line.strip() == ''):  #empty line
                 continue
-            self.__parsed.append(self.__parse_line(line_number + 1, line))
+            self.__parsed.append(self.__parse_line(line_number + 1, line.strip()))
     
     def get_binaries(self):
         result = []
@@ -68,7 +68,7 @@ class TestConfigParser:
     def __parse_line(self, line_number, line):
         """
         takes line number & stripped line
-        returns list like [line_number, first_token, [other_tokens], {attributes}]
+        returns list like [line_number, first_token, [other_tokens], {attributes}, comment]
         """
         attribs = {}
         if line[0] == '[':
@@ -87,14 +87,18 @@ class TestConfigParser:
                     key = attribute.strip()
                     value = None
                 attribs[key] = value
-            string_without_attr = line[line.find(']') + 1 : ]
+            new_line = line[line.find(']') + 1 : ]
         else:
-            string_without_attr = line
-        tokens = string_without_attr.split() #all items are stripped
+            new_line = line
+        comment = ''
+        if new_line.rfind('#') > -1:
+            new_line, comment = new_line.rsplit('#', 1)
+        new_line.strip()
+        tokens = new_line.split()
         if tokens == []:
             raise EnvironmentError("Tests config parser: Line %d: no operator" % (line_number))
         tokens[0] = self.__do_normal_path(tokens[0])
-        return [line_number, tokens[0], tokens[1 : len(tokens)], attribs]
+        return [line_number, tokens[0], tokens[1 : len(tokens)], attribs, comment]
     
     def __do_normal_path(self, path):
         result = [item for item in re.split("\\\\|/", path) if item != ''] #split by / and \\
