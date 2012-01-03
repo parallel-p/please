@@ -7,11 +7,11 @@ from ..utils.platform_detector import get_platform
 from ..solution_tester.package_config import PackageConfig
 from ..invoker import invoker
 from .. import globalconfig
+from .solution_config_utils import make_config
 
 colorama.init()
 
 logger = logging.getLogger("please_logger.check_solution")
-
 
 class SolutionNotFoundException(Exception):
     pass
@@ -25,62 +25,25 @@ def chunks(l, n):
     for i in range(0, len(l), n):
         yield l[i:i+n]
         
-        
 def get_test_results_from_solution(solution, config = None):
-    if config == None:
-        config = PackageConfig.get_config()
-    
-    # Get results from test_solution, create a config file to send.
-    # Find all attributes from config's root or embedded solution's config        
-    new_config = {}
-    new_config["checker"] = config["checker"]
-    new_config["tests_dir"] = globalconfig.temp_tests_dir #config["tests_dir"]        
-    
-    if os.path.normpath(solution) in os.path.abspath(config["main_solution"]):
-        #print("MAIN SOLUTION " + solution)
-        new_config["expected_verdicts"] = ["OK"]
-        new_config["optional_verdicts"] = []
-        new_config["execution_limits"]  = invoker.ExecutionLimits(float(config["time_limit"]), float(config["memory_limit"]))
-        new_config["solution_config"] = {"input":config["input"], "output":config["output"]}
-        new_config["solution_args"] = []
-        solution = os.path.abspath(config["main_solution"])
-    else:
-        for sol_found in config["solution"]:
-            if os.path.normpath(solution) in os.path.abspath(sol_found["source"]):
-                #print("SOLUTION FOUND: " + sol_found["source"])               
-                new_config["expected_verdicts"] = sol_found["expected_verdicts"]
-                new_config["optional_verdicts"] = sol_found["possible_verdicts"]
-                new_config["execution_limits"]  = invoker.ExecutionLimits(float(config["time_limit"]), float(config["memory_limit"]))
-                new_config["solution_config"] = {"input":config["input"], "output":config["output"]}
-                new_config["solution_args"] = []
-                solution = os.path.abspath(sol_found["source"])
-                break   
-        else:
-            raise SolutionNotFoundException(solution + ' not found in config')
+    new_config = make_config(solution, config)
 
     test_solution = TestSolution(new_config)
     met_not_expected, expected_not_met, testing_result = test_solution.test_solution(solution)
     
     return (met_not_expected, expected_not_met, testing_result)
-    
 
-# Separate method for command line matcher
-def check_solution(path):
-    check_one_solution(path)
-
-def check_one_solution(*paths, config = None, print_table = True):
+def print_results(test_all_results):
     """
-    Calls function test_solution and prints results to log and to console.
+    Takes list of cortages ('solution', test_results)
+    Draws table.
     RED text if result is not OK, GREEN text if OK    
     """
+
     ok_count = 0
     fail_count = 0
-
-    if config is None:
-        config = PackageConfig.get_config()
     
-    # Split the paths into chunks, 3 in each and print them    
-    for chunk in list(chunks(paths, 3)):
+    for chunk in list(chunks(test_all_results, 3)):
         # Build the header        
         table_header = "| Test # | "
         
@@ -89,10 +52,14 @@ def check_one_solution(*paths, config = None, print_table = True):
         
         # Get test results for all solutions
         for solution in chunk:
-            testing_result = get_test_results_from_solution(solution, config)[2]
-            #print("TESTING RESULT: " + str(testing_result))
+            #solution[1] is test results, (met_not_expected, expected_not_met, testing_result)
+            #solution[1][2] is testing result
+            #solution[0] is path to solution
+            #for more information see get_tests_result_from_solution
+            testing_result = solution[1][2]
+            solution_name = solution[0]
             
-            table_header += solution + " | "
+            table_header += solution_name + " | "
             
             # Remove unnecessary stuff from test names ("sfsdf/sdfsdf/1" => 1)
             testing_result2 = {}
@@ -114,7 +81,7 @@ def check_one_solution(*paths, config = None, print_table = True):
                 
                 # Get indents
                 indent_verdict = ""      
-                for i in range(len(solution) - len(test_result) + 1):
+                for i in range(len(solution_name) - len(test_result) + 1):
                     indent_verdict += " "                       
                              
                 if result_info.verdict != "OK":
@@ -142,8 +109,23 @@ def check_one_solution(*paths, config = None, print_table = True):
         
     printc("\nTotal:  %s" % (ok_count + fail_count), Fore.YELLOW)
     printc("Failed: %s" % fail_count,                Fore.RED)
-    printc("Passed: %s" % ok_count,                  Fore.GREEN)
+    printc("Passed: %s" % ok_count,                  Fore.GREEN)    
+
+def check_solutions(paths, config = None, print_table = True):
+    """
+    Calls function test_solution and prints results.
+    """
+
+    if config is None:
+        config = PackageConfig.get_config()
     
+    test_all_results = []
+    
+    for solution in paths:
+        result = get_test_results_from_solution(solution, config)
+        test_all_results.append( (solution, result) )
+        
+    print_results(test_all_results)
         
 def check_multiple_solution():
     """ Calls check_solution with different solution paths from config file including main solution """
@@ -163,13 +145,13 @@ def check_multiple_solution():
                 solution_list.append(solution["source"])
     
     # Check them all
-    check_one_solution(*solution_list, config = config)
-    
-    
+    check_solutions(solution_list, config = config)
     
 def check_main_solution():
     config = PackageConfig.get_config()
-    check_one_solution(config["main_solution"], config = config)
+    check_solutions([config["main_solution"]], config = config)
     
-    
-    
+# Separate method for command line matcher
+def check_solution(path):
+    config = PackageConfig.get_config()
+    check_solutions([path], config = config)

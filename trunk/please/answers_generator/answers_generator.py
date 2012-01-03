@@ -7,6 +7,7 @@ from ..solution_tester import package_config
 from ..utils import utests
 from ..utils.form_error_output import process_err_exit
 import logging
+from ..solution_tester import solution_config_utils
     
 logger = logging.getLogger("please_logger.answers_generator")
 
@@ -43,7 +44,14 @@ class AnswersGenerator :
         """
         #reading config
         opened_config = package_config.PackageConfig.get_config()    
+
+        args = opened_config['args'] if 'args' in opened_config else []
+        
+        config = solution_config_utils.make_config(opened_config['main_solution'], opened_config)
+        solution_config = config['solution_config']
         source_path = opened_config['main_solution']
+        execution_limits = config['execution_limits']
+        """        
         args = opened_config['args'] if 'args' in opened_config else []
         #float () - because opened_config['time_limit'] is str,
         #           but invoker uses float().
@@ -51,6 +59,7 @@ class AnswersGenerator :
                 float(opened_config['time_limit']),
                 float(opened_config['memory_limit']))
         solution_config = {"input" : opened_config['input'], "output" : opened_config['output']}
+        """
         #generating list of tests
         #running tests        
         for test in utests.get_tests():

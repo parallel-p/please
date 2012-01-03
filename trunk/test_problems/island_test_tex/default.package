@@ -5,7 +5,7 @@ tags = tag1 tag2 tag3 tag4
 type = 
 input = island2.in
 output = island2.out
-time_limit = 2
+time_limit = 1
 memory_limit = 32
 main_solution = island2_bv.cpp
 statement = statements/default.ru.tex
@@ -31,5 +31,5 @@ solution = {
     source = solutions/island2_ek.dpr
     expected_verdicts = OK
     possible_verdicts = OK
-}               
+}
 well_done_test = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty

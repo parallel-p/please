@@ -46,7 +46,7 @@ def run_solution(config):
             compiler.compile(config.source_path)
             
             run_info, stdout, stderr = run(config.source_path, config.args, config.execution_limits, stream_in, stream_out)
-        
+            
             if stream_in:
                 stream_in.close()
             if config.solution_config['input'] != 'stdin':
