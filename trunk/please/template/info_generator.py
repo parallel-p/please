@@ -3,24 +3,13 @@ import time
 import hashlib
 from .. import globalconfig
 
-def create_time_file(root_path):
-    """
-    Description:
-    This function creates in root folder new system folder (.please),
-    that contains a file(time.config), that contains it's creation time 
-    """
-    system_folder_path = os.path.join(root_path, ".please")
-    os.mkdir(system_folder_path)
-    time_file_path = os.path.join(system_folder_path, "time.config")
-    
-    with open(time_file_path, "w", encoding = 'UTF8') as time_file:
-        time_sec = str(time.time())
-        time_file.write(time_sec)
-
 def create_md5_file(root_path):
     '''
     Creates md5.config with md5-sums of initial files
     '''
+    sys_folder = os.path.join(root_path, '.please')
+    if not os.path.exists(sys_folder):
+        os.mkdir(sys_folder)
     with open(os.path.join(root_path, '.please', 'md5.config'), 'w') as md5file:
         d = dict(checker='checker.cpp', 
                    validator='validator.cpp',
