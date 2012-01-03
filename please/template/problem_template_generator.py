@@ -79,7 +79,6 @@ def generate_problem(shortname, handle_exception=True):
         generate_problem_advanced(shortname,
                               globalconfig.default_human_language,
                               globalconfig.default_programming_language)
-        info_generator.create_time_file(shortname)
         info_generator.create_md5_file(shortname)
         logger.info("Problem %s created successfully", str(shortname))
     except ProblemExistsError as Error:
