@@ -8,10 +8,6 @@
 = Команды =
 == Создание контеста ==
 {{{please create contest <название> problems <задачи>}}}
+Создаёт пустой контест и сохраняет его в файл {{{<название>.contest}}}. Нужно указать хотя бы одну задачу.
 
 (to be continued)
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
