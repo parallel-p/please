@@ -16,26 +16,25 @@ class TestsGenerator:
         self.__prefix = prefix
     
     def __generate_test(self, test, first_test_id):
-        
-        
         temp_file_names = test.tests()
+        tests_desc = test.get_desc()
         file_names = []
         tests_in_series_number = 0
-        for temp_file in temp_file_names:
-           
-            file_name = self.__prefix + "{0:d}".format(first_test_id + tests_in_series_number)
+        for temp_file, desc in zip(temp_file_names, tests_desc):
+            num = first_test_id + tests_in_series_number
+            file_name = self.__prefix + "{0:d}".format(num)
             tests_in_series_number += 1
             file_name = os.path.join(TESTS_DIR, file_name)     
             shutil.move(temp_file, file_name)
             file_names.append(file_name)
             line_ending.convert(file_name)
+            logger.info("Test #%s '%s' is generated" % (str(num), desc))
         
         return file_names, tests_in_series_number
     
     def generate(self, admit, delete_folder=True):
         '''
         generates tests, whos tags admit given lambda
-        This method deletes old TESTS_DIR folder!!
         '''        
         if delete_folder:
             if os.path.exists(TESTS_DIR):
@@ -48,7 +47,7 @@ class TestsGenerator:
         
         current_test_id = 1
         for i, test in enumerate(self.__tests_info):
-            # TODO : this should be changed to generated_tests_count
+            # TODO: this should be changed to generated_tests_count
             if (admit(test.get_tags())):
                 file_names, tests_in_series_count = self.__generate_test(test, current_test_id)    
                 current_test_id += tests_in_series_count               
@@ -59,5 +58,4 @@ class TestsGenerator:
         return generated
         
     def generate_all(self):
-        
         return self.generate(lambda x: True)

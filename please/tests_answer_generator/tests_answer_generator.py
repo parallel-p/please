@@ -12,9 +12,6 @@ from ..utils import utests
 from ..well_done import well_done
 from please.log import logger
 from ..utils import form_error_output
-from ..solution_tester import solution_config_utils
-
-error_str = "Validator executions has had"
 
 class ValidatorError(Exception):
     pass
@@ -36,29 +33,27 @@ class TestsAndAnswersGenerator:
     Example:
      TestsAndAnswersGenerator().generate(["BIG_TESTS"])
     """
-    def validate(self):
+    def validate(self, tests=None):
         config = package_config.PackageConfig.get_config()
         count_errors = 0
-        result = []
+        tests = tests or utests.get_tests()
         if 'validator' in config and config['validator'] not in ["", None]:
-            for test_filename in utests.get_tests():
-                logger.info("Start validator on test: " + test_filename)
+            for num, test_filename in enumerate(tests):
+                logger.info("Start validator on test #" + str(num+1))
                 validator_result = validator_runner.validate(config["validator"], test_filename)
                 if get_return_code(validator_result) != 0:
                     count_errors += 1
                 verd = get_verdict(validator_result)
                 if verd == "FNF":
-                    return (1, [])
-                result.append((test_filename, verd))
+                    raise ValidatorError("Validator isn't found")
                 if verd == "OK":
                     logger.info("Validator said OK")
                 else:
-                    err_out = form_error_output.process_err_exit(error_str, verd, validator_result[0].return_code,
+                    err_out = form_error_output.process_err_exit("Validator executions has had", verd, validator_result[0].return_code,
                                                        validator_result[1].decode(), validator_result[2].decode())
                     raise ValidatorError(err_out)
         else:
             logger.warning("Validator is empty")
-        return (count_errors, result)
 
     def __get_admit (self, tags):
         def admit(attr):
@@ -70,47 +65,19 @@ class TestsAndAnswersGenerator:
         return admit
 
     def __generate_answers (self, tests):
-        result = []
-        count_errors = 0
+        self.validate(tests)
         config = package_config.PackageConfig.get_config()
-        tests_names = []
-        if 'validator' in config and config['validator'] not in ["", None]:
-            for test in tests:
-                logger.info("Start validator on test: " + test)
-                validator_result = validator_runner.validate(config["validator"], test)
-                if get_return_code (validator_result) != 0:
-                    count_errors += 1
-                verd = get_verdict(validator_result)
-                if verd == "FNF":
-                    return (1, [])
-                result.append((test, verd))
-                if verd == "OK":
-                    logger.info("Validator said OK")
-                    tests_names.append(test)
-                else:
-                    err_out = form_error_output.process_err_exit(error_str, verd, validator_result[0].return_code,
-                                                       validator_result[1].decode(), validator_result[2].decode())
-                    raise ValidatorError(err_out)
-        else:
-            logger.warning("Validator is empty")
-            tests_names = tests
-            result = [(test, "OK") for test in tests]
-        answers_gen = answers_generator.AnswersGenerator()
-        full_solution_config = solution_config_utils.make_config(config ["main_solution"], config)
-        solution_config = full_solution_config['solution_config']
-        answers_gen.generate (tests_names, config ["main_solution"], [], solution_config)
-        return (count_errors, result)
-
-    def generate_all(self):
-        tests_well_done = self._create_well_done("well_done_test")  
-        tests = tests_generator.TestsGenerator(parser.FileTestConfigParser(tests_well_done).get_test_info_objects()).generate_all()
-        return self.__generate_answers(tests)
-
-    def generate (self,tags, prefix="", delete_folder=True):
-        tests_well_done = self._create_well_done("well_done_test")  
-        tests = tests_generator.TestsGenerator(parser.FileTestConfigParser(tests_well_done).get_test_info_objects(), prefix).generate( self.__get_admit ( tags ), delete_folder )
-        return self.__generate_answers(tests)
+        return answers_generator.AnswersGenerator().generate(tests, config["main_solution"], [], config)
     
-    def _create_well_done(self, key):
-        config = package_config.PackageConfig.get_config()     
-        return well_done.WellDone(config[key])      
+    def generate_all(self):
+        tests = tests_generator.TestsGenerator(parser.FileTestConfigParser(self.__create_well_done("well_done_test") ).get_test_info_objects()).generate_all()
+        answers = self.__generate_answers(tests)
+        return zip(tests, answers)
+        
+    def generate (self,tags, prefix = "", delete_folder=True):
+        tests = tests_generator.TestsGenerator(parser.FileTestConfigParser(self.__create_well_done("well_done_test")  ).get_test_info_objects(), prefix).generate( self.__get_admit ( tags ), delete_folder )
+        answers = self.__generate_answers(tests)
+        return zip(tests, answers)
+    
+    def __create_well_done(self, key):
+        return well_done.WellDone(package_config.PackageConfig.get_config()[key])      
