@@ -6,14 +6,14 @@ from ..directory_diff import snapshot
 import os
 
 class CmdOrGenTestInfo(test_info.TestInfo):
-    def __init__(self, executor, args, tags={}):
+    def __init__(self, executor, args, tags={}, comment=''):
         """
         example:
             executor = "generator.cpp", args = ["17", "42", "100500"]
         """
         self.__executor = executor
         self.__args = args
-        super(CmdOrGenTestInfo, self).__init__(tags)
+        super(CmdOrGenTestInfo, self).__init__(tags, comment)
     
     def __eq__(self, other):
         return self.__executor == other.__executor and self.__args == other.__args
@@ -44,4 +44,4 @@ class CmdOrGenTestInfo(test_info.TestInfo):
         return tests
     
     def to_please_format(self):
-        return self.get_to_please_format_prefix() + self.__executor + " " + " ".join(self.__args)
+        return ' '.join([self.get_prefix(), self.__executor, ' '.join(self.__args), self.get_suffix()]).strip()

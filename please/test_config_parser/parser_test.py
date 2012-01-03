@@ -45,7 +45,7 @@ class TestObjectFactoryTest(unittest.TestCase):
         
     def test_parse(self):
         well_done = self.WellDoneMock("key")
-        a = parser.TestConfigParser("test_problems/generator/main.cpp 1 2 3\n[sample]test_problems/generator/main.cpp happy new year", well_done)
+        a = parser.TestConfigParser("test_problems/generator/main.cpp 1 2 3\n[sample]test_problems/generator/main.cpp happy new year#YAAAAZ!", well_done)
         self.assertEqual(a.get_binaries(), [os.path.join("test_problems", "generator", "main.cpp")])
         b = a.get_test_info_objects()
         
@@ -53,6 +53,7 @@ class TestObjectFactoryTest(unittest.TestCase):
         with open(t[0]) as f:
             self.assertEqual(f.read(), "1 2 3 ")
         
+        self.assertEqual(b[1].to_please_format(), "[sample] test_problems/generator/main.cpp happy new year #YAAAAZ!")
         t = b[1].tests()
         with open(t[0]) as f:
             self.assertEqual(f.read(), "happy new year ")
