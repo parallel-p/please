@@ -14,7 +14,7 @@ class TestObjectFactoryTest(unittest.TestCase):
             self.__key = key
         def check(self, file):
             return 0  
-			        
+                    
     def test_command(self):
         well_done = self.WellDoneMock("key")
         t = parser.TestObjectFactory.create(well_done, 1, "echo",  ["17",  "mama"])
@@ -53,7 +53,7 @@ class TestObjectFactoryTest(unittest.TestCase):
         with open(t[0]) as f:
             self.assertEqual(f.read(), "1 2 3 ")
         
-        self.assertEqual(b[1].to_please_format(), "[sample] test_problems/generator/main.cpp happy new year #YAAAAZ!")
+        self.assertEqual(b[1].to_please_format(), "[sample] " + os.path.join("test_problems", "generator", "main.cpp") + " happy new year #YAAAAZ!")
         t = b[1].tests()
         with open(t[0]) as f:
             self.assertEqual(f.read(), "happy new year ")
