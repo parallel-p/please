@@ -80,6 +80,6 @@ def generate_problem(shortname, handle_exception=True):
                               globalconfig.default_human_language,
                               globalconfig.default_programming_language)
         info_generator.create_md5_file(shortname)
-        logger.info("Problem %s created successfully", str(shortname))
+        logger.info("Problem %s has been being created successfully", str(shortname))
     except ProblemExistsError as Error:
         logger.error(str(Error))
