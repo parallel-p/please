@@ -44,7 +44,7 @@ def main():
     #matcher.add_handler(Template(["export", "to", "ejudge", "contest", "#contest_id", "problem|problems", "@tasks"]), export2ejudge, True)
     matcher.add_handler(Template(["export", "to", "#server_name", "contest", "#contest_id", "problem|problems", "@problems"]), export, True)
     matcher.add_handler(Template(["help"]), print_help, True)
-    matcher.add_handler(Template(["generate", "statements", "@problem_names"]), latex_tools.generate_contest, True)
+    #matcher.add_handler(Template(["generate", "statements", "@problem_names"]), latex_tools.generate_contest, True)
     matcher.add_handler(Template(["import", "polygon", "problem", "#problem_letter", "from", "contest", "#contest_id"]), import_problem_from_polygon, True)
     matcher.add_handler(Template(["import", "polygon", "package", "#package"]), import_polygon_package, True)
     # If we are inside folder with  the problem, we have more handlers
@@ -83,7 +83,12 @@ def main():
     matcher.add_handler(Template(["generate", "html", "report"]), generate_html_report.generate_html_report, in_problem_folder)
 
     # Contests support
-    matcher.add_handler(Template(["create", "contest", "#name", "@problems"]), contest_commands.create_contest, True)
+    matcher.add_handler(Template(["create", "contest", "#name", "problems", "@problems"]), contest_commands.command_create_contest, True)
+    matcher.add_handler(Template(["add", "@problems", "to", "#name", "@problems_as"]), contest_commands.command_add_problems, True)
+    matcher.add_handler(Template(["add", "@problems", "to", "#name"]), contest_commands.command_add_problems, True)
+    matcher.add_handler(Template(["remove", "@problems", "from", "#name"]), contest_commands.command_remove_problems, True)
+    matcher.add_handler(Template(["generate", "statement", "for", "#name"]), contest_commands.command_generate_statement, True)
+    matcher.add_handler(Template(["export", "#name", "to", "#where", "contest", "#contest"]), contest_commands.command_export, True)
 
     if len(sys.argv) == 1:
         print_lite_help()

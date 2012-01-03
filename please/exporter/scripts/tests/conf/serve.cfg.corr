@@ -114,7 +114,7 @@ standard_checker = "cmp_int"
 [problem]
 id = 2
 super = "Generic"
-short_name = "B"
+short_name = "A"
 long_name = "B plus A"
 internal_name = "aplusb"
 input_file = "input.txt"
@@ -130,7 +130,7 @@ standard_checker = "cmp_int"
 [problem]
 id = 3
 super = "Generic"
-short_name = "test"
+short_name = "Z"
 long_name = "A plus B"
 internal_name = "test"
 use_stdin

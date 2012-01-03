@@ -187,7 +187,7 @@ def no_quotes(s):
 def copy_problem(src, dst):
     """ Copies only modified-by-user values from src to dst problem """
     for x in ["long_name", "input", "output", "time_limit_millis",
-              "ml", "checker", "test_pat", "corr_pat"]:
+              "short_name", "ml", "checker", "test_pat", "corr_pat"]:
         dst.__dict__[x] = src.__dict__[x]
 
 def export(inp, out):
@@ -199,9 +199,9 @@ def export(inp, out):
                 with open(os.path.join(problem, 'default.simple'), 'r', encoding = 'utf-8') as simple_config:
                     problem_config = "".join(simple_config.readlines()).split('\n')
                 new_problem = EjudgeProblem()
-                new_problem.short_name = '"%s"' % problem_config[0]
+                new_problem.short_name = '"%s"' % problem_config[7]
                 new_problem.long_name = '"%s"' % problem_config[1]
-                new_problem.internal_name = new_problem.short_name
+                new_problem.internal_name = '"%s"' % problem_config[0]
                 new_problem.input = '"%s"' % problem_config[2]
                 new_problem.output = '"%s"' % problem_config[3]
                 new_problem.time_limit_millis = float(problem_config[4])
