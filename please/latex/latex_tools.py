@@ -13,13 +13,13 @@ import logging
 
 log = logging.getLogger("please_logger.latex.latex_tools")
 
-def generate_contest(problem_names = ['.'], title = None, date = None, location = None, separator = "\n\\newpage\n"):
+def generate_contest(problem_names = ['.'], template = None, template_vars = {}):
     problem_template_path = get_template_full_path(globalconfig.default_template_contest)
 
     with open(problem_template_path, "r", encoding = "UTF8") as template:
-        contest = LatexContestConstructor(template.read(), title, date, location, separator)
+        contest = LatexContestConstructor(template.read(), template_vars)
     single_problem = (problem_names == ["."])
-    
+
     for problem in problem_names:
         os.chdir(problem)
         package_conf = package_config.PackageConfig.get_config(ignore_cache = True)
@@ -32,19 +32,19 @@ def generate_contest(problem_names = ['.'], title = None, date = None, location 
         os.mkdir(globalconfig.temp_statements_dir)
 
     os.chdir(globalconfig.temp_statements_dir)
-    
+
     if single_problem:
         new_tex_name = os.path.basename(package_conf["statement"])
     else:
         new_tex_name = "_".join(problem_names) + ".tex"
     with open(new_tex_name, "w", encoding = "UTF8") as new_tex:
         new_tex.write(contest.construct())
-    
+
     converter = Latex2Pdf()
     converter.convert(new_tex_name)
 
     os.chdir("..")
-    
+
     pdf_out_name = os.path.join(globalconfig.temp_statements_dir, os.path.splitext(new_tex_name)[0] + ".pdf")
     if single_problem:
         shutil.copy(pdf_out_name, os.path.join(globalconfig.statements_dir, os.path.splitext(new_tex_name)[0] + ".pdf"))
@@ -137,7 +137,7 @@ class LatexConstructor:
 
 class LatexContestConstructor:
     """
-        Description: generate the whole contest by template from given problem 
+        Description: generate the whole contest by template from given problem
             & selected attributes (title, location, date, separator between problems)
         Usage:
             contest_template = "Title: #{contest_title}\n\
@@ -150,16 +150,14 @@ class LatexContestConstructor:
             contest.set_date("20.12.2012")
             contest_in_tex = contest.construct()
     """
-    def __init__(self, template, title=None, location=None, date=None, separator="\n\\newpage\n"):
+    def __init__(self, template, template_vars = {}, separator="\n\\newpage\n"):
         empty_str = ""
         self.__attributes = {}
         self.__list = []
         self.__template = str(template)
         self.__separator = str(separator)
-        self.set_title(title or empty_str)
-        self.set_location(location or empty_str)
-        self.set_date(date or empty_str)
-
+        for index, value in template_vars.items():
+            self.__attributes["#{%s}" % index] = value
 
     def set_title(self, title):
         self.__attributes["#{contest_title}"] = str(title)

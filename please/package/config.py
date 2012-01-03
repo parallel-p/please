@@ -74,7 +74,7 @@ class Config:
         if(depth != 0 and self.__counter >= len(text)):
             raise ConfigException("Incorrect brackets sequence: depth = " + str(depth) +
                                   ", but not met '}'\nLine: " + str(self.__counter))
-        
+
     def __get_config_string(self, key, value, comment, depth, indent, paste_fin_bracket):
         line = ""
         line += key + " = {"
@@ -134,7 +134,11 @@ class Config:
 
     def __contains__(self, item):
         return item in self.__settings
-    
+
+    def items(self):
+        for x in self.__settings.items():
+            yield x
+
     def __delitem__(self, item):
         self.delete(item)
         
@@ -189,13 +193,13 @@ class Config:
             if not os.path.exists(checker_local_path):
                 return os.path.join(globalconfig.root, globalconfig.checkers_dir, checker_local_path)
             return checker_local_path
-        elif item in ["source", "validator", "statement", "description", "main_solution"] and self.__settings.get(item) is not None:
+        elif item in ["source", "validator", "statement", "description", "main_solution"] and self.__settings.get(item) is not None and type(self.__settings.get(item)) is not Config:
             return self.__convert_separators(self.__settings.get(item))
         return self.__settings.get(item)
 
     def __setitem__(self, item, value):
         self.set(item, value)
-        
+
     def set(self, item, value, comment=None, in_list=False):
         self.__changed = True
         if type(value) == str:
@@ -222,7 +226,7 @@ class Config:
 
 
 def create_simple_config(file_name, config):
-    print(config['shortname'])
+    #print(config['shortname'])
     with open(file_name, 'w') as file:
         write = lambda x: file.write(config[x] + '\n')
         write('shortname')
@@ -232,7 +236,11 @@ def create_simple_config(file_name, config):
         write('time_limit')
         write('memory_limit')
         file.write(os.path.split(config['checker'])[-1] + '\n')
-   
+        if not 'id' in config:
+            write('shortname')
+        else:
+            write('id')
+
     def get(self, item, default = None):
         if item in self.__settings and self.__settings[item] is not None:
             return self.__settings[item]

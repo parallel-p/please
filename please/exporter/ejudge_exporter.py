@@ -4,6 +4,7 @@ from ..ssh_tools.connector import Connector
 from .generic_exporter import GenericExporter
 from ..package import config
 from ..template.template_utils import get_template_full_path
+from ..solution_tester.package_config import PackageConfig
 import shutil
 import os
 
@@ -27,8 +28,9 @@ class EjudgeExporter(GenericExporter):
                                    self.contest_id + '/please_tmp/' + globalconfig.export_scripts['ejudge']['run'])
     def create_archive(self):
         for problem in self.problems:
-            with open(problem + os.path.sep + 'default.package', 'r') as configfile:
-                conf = config.Config(configfile.read())
+            conf = PackageConfig.get_config(dir = problem)
+            #with open(problem + os.path.sep + 'default.package', 'r') as configfile:
+            #    conf = config.Config(configfile.read())
             config.create_simple_config(problem + os.path.sep + 'default.simple', conf)
         for need_src in globalconfig.export_scripts['ejudge']['scripts']:
             self.archiver.add(globalconfig.root + os.path.sep + need_src, os.path.split(need_src)[-1])
