@@ -11,82 +11,49 @@
 =Создание=
 Переместимся в директорию, в которой хотим создать задачу. Теперь создадим пустой макет для нашей задачи.
 {{{
-~$ please create problem cubes
-Untitle(INFO) [01:40:23]: Problem cubes has been being created successfully
+~$ please create problem test
+Untitle(INFO) [12:34:13]: Problem test has been being created successfully
 }}}
 Зайдём в папку с задачей и посмотрим, что внутри.
 {{{
-~$ cd cubes
-~/cubes$ ll
-drwxr-xr-x  6 dubov94 dubov94  4096 2011-09-22 01:40 ./
-drwxr-xr-x 61 dubov94 dubov94  4096 2011-09-22 01:40 ../
--rw-r--r--  1 dubov94 dubov94   133 2011-09-22 01:40 checker.cpp
--rw-r--r--  1 dubov94 dubov94   552 2011-09-22 01:40 default.package
-drwxr-xr-x  2 dubov94 dubov94  4096 2011-09-22 01:40 .please/
-drwxr-xr-x  2 dubov94 dubov94  4096 2011-09-22 01:40 solutions/
-drwxr-xr-x  2 dubov94 dubov94  4096 2011-09-22 01:40 statements/
--rw-r--r--  1 dubov94 dubov94 56775 2011-09-22 01:40 testlib.h
--rw-r--r--  1 dubov94 dubov94 12076 2011-09-22 01:40 testlib.pas
-drwxr-xr-x  2 dubov94 dubov94  4096 2011-09-22 01:40 tests/
--rw-r--r--  1 dubov94 dubov94     0 2011-09-22 01:40 tests.please
--rw-r--r--  1 dubov94 dubov94   107 2011-09-22 01:40 validator.cpp
+~$ cd test
+~/test$ ll
+drwxrwxr-x 6 dubov94 dubov94  4096 2012-01-03 12:34 ./
+drwxrwxr-x 7 dubov94 dubov94  4096 2012-01-03 12:34 ../
+-rw-r--r-- 1 dubov94 dubov94   133 2012-01-03 12:34 checker.cpp
+-rw-rw-r-- 1 dubov94 dubov94   589 2012-01-03 12:34 default.package
+drwxrwxr-x 2 dubov94 dubov94  4096 2012-01-03 12:34 .please/
+drwxrwxr-x 2 dubov94 dubov94  4096 2012-01-03 12:34 solutions/
+drwxrwxr-x 2 dubov94 dubov94  4096 2012-01-03 12:34 statements/
+-rw-r--r-- 1 dubov94 dubov94 56061 2012-01-03 12:34 testlib.h
+-rw-r--r-- 1 dubov94 dubov94 12114 2012-01-03 12:34 testlib.pas
+drwxrwxr-x 2 dubov94 dubov94  4096 2012-01-03 12:34 tests/
+-rw-rw-r-- 1 dubov94 dubov94     0 2012-01-03 12:34 tests.please
+-rw-r--r-- 1 dubov94 dubov94    99 2012-01-03 12:34 validator.cpp
 }}}
   * tests - папка с ручными тестами
   * solutions - папка со всеми решениями, лежит заготовка на cpp
-  * statements - папка со всеми условиями, лежат две заготовки, для описания (description.ru.tex) и непосредственно условий (default.ru.tex). В перспективе развития please - много условий на разных языках, но пока нет, поэтому не обращаем внимания на `*`.ru
-  * checker.cpp, validator.cpp - заготовки понятно чего
-  * .please - папка с файлом md5.config, в котором хранятся md5-суммы созданных файлов
-  * testlib.h, testlib.pas - джентельменский набор (писать генераторы, чекеры и валидаторы)
+  * statements - папка со всеми условиями, лежат три заготовки, для описания (description.ru.tex), непосредственно условий (default.ru.tex) и разбора (analysis.ru.tex). В перспективе развития please - много условий на разных языках, но пока этой возможности нет, поэтому не обращаем внимания на `*`.ru.tex
+  * checker.cpp, validator.cpp - заготовки соответственно чекера и валидатора
+  * .please - папка с файлом md5.config, в котором хранятся md5-суммы созданных файлов (системный файл)
+  * testlib.h, testlib.pas - библиотеки, необходимые для написания чекеров, валидаторов, и т.п., см. [http://code.google.com/p/testlib/ testlib]
   * default.package - см. [ProblemConfig конфигурирование параметров]
   * tests.please - см. [TestsConfig конфигурирование тестов]
-Теперь что со всем этим можно делать, когда все конфиги прописаны.
-=Жизнь после конфигурирования=
-Прежде всего нужно понять, что без предварительно сгенерированных тестов ничего проверяться не будет. Генерируются они следующей командой:
+=После конфигурирования=
+Предварительно необходимо сгенерировать тесты. Генерируются они следующей командой:
 {{{
-~/<problem name>$ please generate tests
-cubes(INFO) [02:02:30]: Generating 21 tests
-cubes(INFO) [02:02:30]: Test #1 generated
-cubes(INFO) [02:02:30]: Test #2 generated
-cubes(INFO) [02:02:30]: Test #3 generated
-cubes(INFO) [02:02:30]: Test #4 generated
-cubes(INFO) [02:02:30]: Compiling: path:generator_random.cpp
-cubes(INFO) [02:02:31]: Test #5 generated
-...
-cubes(INFO) [02:02:33]: Test #19 generated
-cubes(INFO) [02:02:33]: Compiling: path:generator_max.cpp
-cubes(INFO) [02:02:34]: Test #20 generated
-cubes(INFO) [02:02:34]: Test #21 generated
-cubes(INFO) [02:02:34]: Start validator on test: .tests/1
-cubes(INFO) [02:02:34]: Compiling: path:validator.cpp
-cubes(INFO) [02:02:36]: Validating .tests/1 by validator.cpp
-cubes(INFO) [02:02:36]: Start validator on test: .tests/2
-cubes(INFO) [02:02:36]: Validating .tests/2 by validator.cpp
-...
-cubes(INFO) [02:02:38]: Start validator on test: .tests/21
-cubes(INFO) [02:02:38]: Validating .tests/21 by validator.cpp
-cubes(INFO) [02:02:38]: Generating answer for .tests/1 with solutions/solution.py
-cubes(INFO) [02:02:38]: Generating answer for .tests/2 with solutions/solution.py
-...
-cubes(INFO) [02:02:50]: Generating answer for .tests/21 with solutions/solution.py
+~/test$ please generate tests
 }}}
 Заметим, что они заодно провалидировались и ответы к ним (по main solution) составились.
 Ещё можно задать теги (please generate tests with tag`[s]` ...), тогда будут браться тесты только с заданными тегами. Смотрите please help.
 <br><br>
 Теперь у нас есть некий набор тестов, который хранится в .tests. Да-да, у нас появилась новая папка. Так вот, представим, что мы заметили ошибку в валидаторе, и хотим заново провалидировать уже готовые тесты. Тогда сделаем так:
 {{{
-~/cubes$ please validate tests
-cubes(INFO) [02:11:42]: Start validator on test: .tests/1
-cubes(INFO) [02:11:42]: Validating .tests/1 by validator.cpp
-cubes(INFO) [02:11:42]: Start validator on test: .tests/2
-cubes(INFO) [02:11:42]: Validating .tests/2 by validator.cpp
-cubes(INFO) [02:11:42]: Start validator on test: .tests/3
-cubes(INFO) [02:11:42]: Validating .tests/3 by validator.cpp
+~/test$ please validate tests=
 }}}
 Если что-то пойдёт не так, нас ждёт сюрприз:
 {{{
 cubes(ERROR) [02:13:16]: Validator executions has had RE
-cubes(ERROR) [02:13:16]: 
-STDERR:
 }}}
 Также можно перегенерировать ответы, please generate answers.
 =Проверка решений=
@@ -178,33 +145,10 @@ memory_limit = 256
 
 Примеры:
 {{{
-~/cubes$ please stress test solutions/solution_wrong.cpp solutions/solution.cpp generator_random.cpp
-cubes(WARNING) [01:35:03]: Random number for generator is: 476230
-cubes(INFO) [01:35:03]: Generating 1 tests
-cubes(INFO) [01:35:03]: Test #1 generated
-cubes(INFO) [01:35:03]: Test passed
-cubes(WARNING) [01:35:03]: Random number for generator is: 834591
-cubes(INFO) [01:35:03]: Generating 1 tests
-cubes(INFO) [01:35:04]: Test #1 generated
-cubes(INFO) [01:35:04]: Test passed
-cubes(WARNING) [01:35:11]: Random number for generator is: 765094
-cubes(INFO) [01:35:11]: Generating 1 tests
-cubes(INFO) [01:35:11]: Test #1 generated
-cubes(ERROR) [01:35:12]: Answers do not match, correct answer saved to .please/correct.a, incorrect to .please/incorrect.a, test saved to .please/input.test
-cubes(ERROR) [01:35:12]: Test failed
+~/test$ please stress test solutions/solution_wrong.cpp solutions/solution.cpp generator_random.cpp
 }}}
 {{{
-~/cubes$ please stress test solutions/solution_wrong.cpp generator_random.cpp
-cubes(WARNING) [01:36:23]: Random number for generator is: 715347
-cubes(INFO) [01:36:23]: Generating 1 tests
-cubes(INFO) [01:36:23]: Test #1 generated
-cubes(INFO) [01:36:24]: Test passed
-cubes(WARNING) [01:36:24]: Random number for generator is: 216341
-cubes(INFO) [01:36:24]: Generating 1 tests
-cubes(INFO) [01:36:24]: Test #1 generated
-cubes(ERROR) [01:36:25]: Run exception: solutions/solution_wrong.cpp is not OK, invoker returned RE, return code 11
-cubes(ERROR) [01:36:25]: Solution solutions/solution_wrong.cpp failed to run
-cubes(ERROR) [01:36:25]: Test failed
+~/test$ please stress test solutions/solution_wrong.cpp generator_random.cpp
 }}}
 =Условия=
 please generate statement создаст pdf на основе tex'овского файла условий, указанного в default.package, и тестов, помеченных sample.
