@@ -23,7 +23,7 @@ class IdMethod:
         raise IdException(short)
 
     @classmethod
-    def alpha( ids, short ):
+    def alpha( self, ids, short ):
         ids = set(ids)
         # iterate letters from A to Z
         for x in map(chr, range(ord('A'), ord('Z') + 1)):
@@ -32,13 +32,13 @@ class IdMethod:
         raise IdException()
 
     @classmethod
-    def numeric( ids, short ):
+    def numeric( self, ids, short ):
         ids = set(ids)
         id = 1
         while id in ids:
             ids += 1
         return id
-    
+
     @staticmethod
     def get( m ):
         methods = {
@@ -53,7 +53,7 @@ class Contest:
     def __init__( self, config_name, ok_if_not_exists = False ):
         try:
             with open(config_name, 'r') as config_file:
-                config_data = config_file.readall()
+                config_data = config_file.read()
             self.config = Config(config_data)
         except IOError as e:
             if e.errno == errno.ENOENT and ok_if_not_exists:
