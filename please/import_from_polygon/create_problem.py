@@ -102,7 +102,12 @@ class PolygonImporter:
                     continue
                 if prevtest == curtest:
                     does = True
-                    prevtest.set_tag('mask', prevtest.get_tags()['mask']+'|'+curtest.get_tags()['mask'])
+                    if 'mask' in prevtest.get_tags() and 'mask' in curtest.get_tags():                       
+                        prevtest.set_tag('mask', prevtest.get_tags()['mask']+'|'+curtest.get_tags()['mask'])
+                    elif 'mask' in prevtest.get_tags() or 'mask' in curtest.get_tags():
+                        prevtest.set_tag('mask', prevtest.get_tags()['mask'] or curtest.get_tags()['mask'])
+                    else:
+                        pass
             if not does:
                 tests.append(curtest)
                 
@@ -202,7 +207,7 @@ class PolygonImporter:
 
             create_stub.commit_config_file(self.default_package, self.cwd)
 
-            self.fix_creation_time()
+            #self.fix_creation_time()
 
         else:
 

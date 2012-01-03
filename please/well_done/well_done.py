@@ -137,6 +137,7 @@ class WellDone:
             try:
                 result = getattr(self, function_name)()
             except AttributeError:
+                print(self.__check_functions_list)
                 raise EnvironmentError("There is no validating function " + function_name + 
                                        ", check default.package properties (well_done_test, well_done_answer)")
             if result == CRASH:

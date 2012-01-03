@@ -23,6 +23,7 @@ class HtmlReporter:
 
         verdict_to_color = {
             'OK':   'lime',
+            'PE':   'red',
             'WA':   'red',
             'RE':   'red',
             'NO':   '',

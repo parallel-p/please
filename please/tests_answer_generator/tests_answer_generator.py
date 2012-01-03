@@ -12,6 +12,7 @@ from ..utils import utests
 from ..well_done import well_done
 from please.log import logger
 from ..utils import form_error_output
+from ..solution_tester import solution_config_utils
 
 error_str = "Validator executions has had"
 
@@ -95,7 +96,9 @@ class TestsAndAnswersGenerator:
             tests_names = tests
             result = [(test, "OK") for test in tests]
         answers_gen = answers_generator.AnswersGenerator()
-        answers_gen.generate (tests_names, config ["main_solution"], [], config)
+        full_solution_config = solution_config_utils.make_config(config ["main_solution"], config)
+        solution_config = full_solution_config['solution_config']
+        answers_gen.generate (tests_names, config ["main_solution"], [], solution_config)
         return (count_errors, result)
 
     def generate_all(self):
