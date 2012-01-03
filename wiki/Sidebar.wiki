@@ -1,15 +1,7 @@
 [http://code.google.com/p/please/w/list All Wiki pages]
-
-  * [ReadmeForDevelopers]
 ----
+User documentation
   * [CreateProblem]
   * [ProblemConfig]
   * [TestsConfig]
-  * [WindowsInstall]
-  * [DprCompiler]
-  * [CppCompiler]
-  * [StoringProblemsInSvn]
-----
-  * [ProblemFormat]
-  * [Tags]
-  * [SisStudyProject]
+  * [Install]
