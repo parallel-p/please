@@ -224,6 +224,11 @@ class Config:
     def isChanged (self):
         return self.__changed
 
+    def get(self, item, default = None):
+        if item in self.__settings and self.__settings[item] is not None:
+            return self.__settings[item]
+        else:
+            return default
 
 def create_simple_config(file_name, config):
     #print(config['shortname'])
@@ -236,14 +241,3 @@ def create_simple_config(file_name, config):
         write('time_limit')
         write('memory_limit')
         file.write(os.path.split(config['checker'])[-1] + '\n')
-        if not 'id' in config:
-            write('shortname')
-        else:
-            write('id')
-
-    def get(self, item, default = None):
-        if item in self.__settings and self.__settings[item] is not None:
-            return self.__settings[item]
-        else:
-            return default
-

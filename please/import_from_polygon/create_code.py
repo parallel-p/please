@@ -28,28 +28,35 @@ def copy_something(problem_config, problem_path, something_in_problem_path, \
                                                      something_path)
     
 def copy_validator(problem_config, problem_path, validator_path):
+    validator_name = os.path.basename(validator_path)
+    shutil.copy(validator_path, os.path.join(problem_path, validator_name))
     cur_dir = os.getcwd()
     os.chdir(problem_path)
-    add_source.add_validator_with_config(problem_config, os.path.join(cur_dir, validator_path))
+    add_source.add_validator_with_config(problem_config, validator_name)
     os.chdir(cur_dir)
     
 def copy_checker(problem_config, problem_path, checker_path):
+    checker_name = os.path.basename(checker_path)
+    shutil.copy(checker_path, os.path.join(problem_path, checker_name))
     cur_dir = os.getcwd()
     os.chdir(problem_path)
-    add_source.add_checker_with_config(problem_config, os.path.join(cur_dir, checker_path))
+    add_source.add_checker_with_config(problem_config, checker_name)
     os.chdir(cur_dir)
 
 def copy_resource(problem_config, problem_path, resources_path):
     copy_something(problem_config, problem_path, '', resources_path, None)
 
 def copy_solution(problem_config, problem_path, solution_path, tag):
+    solution_name = os.path.basename(solution_path)
+    new_solution_path = os.path.join('solutions', solution_name)
+    shutil.copy(solution_path, os.path.join(problem_path, new_solution_path))
     cur_dir = os.getcwd()
     os.chdir(problem_path)
-    add_source.add_solution_with_config(problem_config, os.path.join(cur_dir, solution_path),
+    add_source.add_solution_with_config(problem_config, new_solution_path,
                                         polygon2please_verdicts[tag][0], #expected values
                                         polygon2please_verdicts[tag][1]) #possible values
     if tag == 'main':
-        add_source.add_main_solution_with_config(problem_config, os.path.join(cur_dir, solution_path))
+        add_source.add_main_solution_with_config(problem_config, new_solution_path)
     os.chdir(cur_dir)
 
 def copy_source(problem_config, problem_path, sources_path):

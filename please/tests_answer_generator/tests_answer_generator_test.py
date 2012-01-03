@@ -49,7 +49,7 @@ class Tester (unittest.TestCase):
         self.mox.StubOutWithMock(tests_generator, "TestsGenerator")
         tests_generator.TestsGenerator(test_list).AndReturn(tests_gen)
         
-        dic = {"input":"stdin", "output":"stdout", "validator" : "val", "solution" : "sol", "main_solution" : "ms", "memory_limit" : "32", }
+        dic = {"input":"stdin", "output":"stdout", "validator" : "val", "solution" : "sol", "main_solution" : "ms", "memory_limit" : "32", 'solution' : [ {'source' : 'mc'} ], 'checker' : 'check.cpp', 'time_limit': 2, 'memory_limit': 64}
         
         self.mox.StubOutWithMock(package_config.PackageConfig, "get_config")
         package_config.PackageConfig.get_config().AndReturn(dic)
@@ -58,7 +58,7 @@ class Tester (unittest.TestCase):
         validator_runner.validate(mox.IgnoreArg(), mox.IgnoreArg()).AndReturn((val_res, []))
         
         answers_gen = self.mox.CreateMock(answers_generator.AnswersGenerator)
-        answers_gen.generate(["file"], "ms", [], dic)
+        answers_gen.generate(["file"], "ms", [], {"input":"stdin", "output":"stdout"})
         
         self.mox.StubOutWithMock(answers_generator, "AnswersGenerator")
         answers_generator.AnswersGenerator().AndReturn(answers_gen)
