@@ -1,6 +1,7 @@
 from . import test_info
 import tempfile
-
+import logging
+logger = logging.getLogger("please_logger.test_info.python_test_info")
 class PythonTestInfo(test_info.TestInfo):
     def __init__(self, code, tags={}, comment = ''):
         self.__code = code
@@ -13,6 +14,7 @@ class PythonTestInfo(test_info.TestInfo):
                 f.write(str(eval(self.__code)))
         except Exception as e:
             raise EnvironmentError(str(e))
+        logger.info("Python-result file is generated")
         return [ temp.name ]
     
     def to_please_format(self):
