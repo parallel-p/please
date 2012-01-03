@@ -12,7 +12,7 @@
 Переместимся в директорию, в которой хотим создать задачу. Теперь создадим пустой макет для нашей задачи.
 {{{
 ~$ please create problem cubes
-Untitle(INFO) [01:40:23]: Problem cubes created successfully
+Untitle(INFO) [01:40:23]: Problem cubes has been being created successfully
 }}}
 Зайдём в папку с задачей и посмотрим, что внутри.
 {{{
@@ -35,7 +35,7 @@ drwxr-xr-x  2 dubov94 dubov94  4096 2011-09-22 01:40 tests/
   * solutions - папка со всеми решениями, лежит заготовка на cpp
   * statements - папка со всеми условиями, лежат две заготовки, для описания (description.ru.tex) и непосредственно условий (default.ru.tex). В перспективе развития please - много условий на разных языках, но пока нет, поэтому не обращаем внимания на `*`.ru
   * checker.cpp, validator.cpp - заготовки понятно чего
-  * .please - папка с файлом time.config, в котором уникальная метка времени создания задачи
+  * .please - папка с файлом md5.config, в котором хранятся md5-суммы созданных файлов
   * testlib.h, testlib.pas - джентельменский набор (писать генераторы, чекеры и валидаторы)
   * default.package - см. [ProblemConfig конфигурирование параметров]
   * tests.please - см. [TestsConfig конфигурирование тестов]
