@@ -41,7 +41,7 @@ class TestSolution:
     def __init__(self, config):
         #all necessary parameters in config are below:
         self.checker = config["checker"]
-        self.tests_dir = config["tests_dir"]
+        self.tests_dir = globalconfig.temp_tests_dir#config["tests_dir"]
         self.expected_verdicts = config.get("expected_verdicts") or []
         self.optional_verdicts = config.get("optional_verdicts") or ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']
         self.execution_limits = config.get("execution_limits") or globalconfig.default_limits
@@ -49,7 +49,6 @@ class TestSolution:
         self.solution_args = config.get("solution_args") or []
         
     def one_test(self, solution, test, answer, program_out):
-        logger.info('Testing {0} on {1}'.format(solution, test))
         with PreventErrorWindow():
 #        error_window(hide = True)
             solution_info = SolutionInfo(solution, self.solution_args, self.execution_limits, \
@@ -87,10 +86,11 @@ class TestSolution:
         #{"WA":0, "OK":0, "TL":0 ... }
         program_out = os.path.join(self.tests_dir, globalconfig.temp_solution_out_file)
         #.tests/out
-        for test in utests.get_tests(self.tests_dir):
+        for num, test in enumerate(utests.get_tests(self.tests_dir)):
             #.tests/1, .tests/2 ...
             answer = test + ".a" 
             #.tests/1.a, .tests/2.a ...
+            logger.info('Testing {0} on test #{1}'.format(solution, str(num+1)))
             result = self.one_test(solution, test, answer, program_out)
             if result[0].verdict in verdicts:
                 verdicts[result[0].verdict] += 1

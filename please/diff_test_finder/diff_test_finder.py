@@ -28,6 +28,9 @@ class DiffTestFinder:
     def match(self, file, mask):
         return re.match(mask, file) is not None
     
+    def get_desc(self):
+        return self.__desc
+    
     def tests(self, diff, stdout=None):
         """
         diff is a list of files, stdout - file of redirected stdout of generator,
@@ -56,7 +59,9 @@ class DiffTestFinder:
             new_diff = []
             
         if not cur_diff and stdout is not None:
+            self.__desc = ['standard generator output']
             return [stdout]
         else:
+            self.__desc = cur_diff
             return cur_diff
         
