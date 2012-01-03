@@ -36,10 +36,13 @@ class Tester(unittest.TestCase):
             self.test.assertEqual(self.expected_write, data)
             
     class TestInfoMock():
-        def __init__(self, filename, tags, new_filename):
+        def __init__(self, filename, tags, new_filename, desc):
             self.file = filename
             self.__tags = tags
             self.__new_filename = new_filename
+            self.__desc = desc
+        def get_desc(self):
+            return [self.__desc]
         def get_tags(self):
             return self.__tags
         def tests(self):
@@ -48,8 +51,8 @@ class Tester(unittest.TestCase):
 
     def test_file(self):
         
-        test_info = self.TestInfoMock("file_path", {}, "new_file_path")
-        test_info2 = self.TestInfoMock("file_path2", {"second group"}, "new_file_path2")
+        test_info = self.TestInfoMock("file_path", {}, "new_file_path", "file_path")
+        test_info2 = self.TestInfoMock("file_path2", {"second group"}, "new_file_path2", "file_path2")
         
         self.mox.StubOutWithMock(os.path, "exists")
         os.path.exists(TESTS_DIR).MultipleTimes().AndReturn(True)

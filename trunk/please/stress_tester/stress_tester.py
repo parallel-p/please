@@ -145,7 +145,7 @@ class StressTester():
                 finally:
                     if os.path.exists(test_path):
                         os.remove(test_path)
-                    if os.path.exists(test_path+".out"):
-                        os.remove(test_path+".out")
+                    if os.path.exists(test_path + globalconfig.temp_solution_out_file):
+                        os.remove(test_path + globalconfig.temp_solution_out_file)
         except KeyboardInterrupt:
             self.logger.info("Interrupted")

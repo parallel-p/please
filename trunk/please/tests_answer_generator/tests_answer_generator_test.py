@@ -8,6 +8,7 @@ from ..tests_generator import tests_generator
 from ..test_config_parser import parser
 from ..solution_tester import package_config
 import unittest
+import os
 import mox
         
 class Tester (unittest.TestCase):
@@ -36,7 +37,7 @@ class Tester (unittest.TestCase):
         
         well_done = self.WellDoneMock("key")
         f = self.mox.CreateMockAnything()
-        generator._create_well_done = f
+        generator._TestsAndAnswersGenerator__create_well_done = f
         f(generator, "key").AndReturn(well_done)              
         
         ftcp = self.mox.CreateMock(parser.FileTestConfigParser)
@@ -45,27 +46,32 @@ class Tester (unittest.TestCase):
         parser.FileTestConfigParser(well_done).AndReturn(ftcp)
         
         tests_gen = self.mox.CreateMock(tests_generator.TestsGenerator)
-        tests_gen.generate_all().AndReturn(["file"])
+        tests_gen.generate_all().AndReturn([".tests/1"])
         self.mox.StubOutWithMock(tests_generator, "TestsGenerator")
         tests_generator.TestsGenerator(test_list).AndReturn(tests_gen)
         
         dic = {"input":"stdin", "output":"stdout", "validator" : "val", "solution" : "sol", "main_solution" : "ms", "memory_limit" : "32", 'solution' : [ {'source' : 'mc'} ], 'checker' : 'check.cpp', 'time_limit': 2, 'memory_limit': 64}
         
         self.mox.StubOutWithMock(package_config.PackageConfig, "get_config")
-        package_config.PackageConfig.get_config().AndReturn(dic)
+        package_config.PackageConfig.get_config().MultipleTimes().AndReturn(dic)
         
         self.mox.StubOutWithMock(validator_runner, "validate")
         validator_runner.validate(mox.IgnoreArg(), mox.IgnoreArg()).AndReturn((val_res, []))
         
         answers_gen = self.mox.CreateMock(answers_generator.AnswersGenerator)
-        answers_gen.generate(["file"], "ms", [], {"input":"stdin", "output":"stdout"})
+        answers_gen.generate(['.tests/1'], 'ms', [], 
+                             {'memory_limit': 64, 'main_solution': 'ms', 
+                              'validator': 'val', 'output': 'stdout', 
+                              'time_limit': 2, 'input': 'stdin', 
+                              'checker': 'check.cpp', 'solution': [{'source': 'mc'}]}).AndReturn([".tests/1.a"])
         
         self.mox.StubOutWithMock(answers_generator, "AnswersGenerator")
         answers_generator.AnswersGenerator().AndReturn(answers_gen)
                 
         self.mox.ReplayAll()
         
-        self.assertEqual(generator.generate_all(), (0,[("file","OK")]))
+        for t, p in generator.generate_all():
+            self.assertEqual((t, p), (".tests/1", ".tests/1.a"))
         
 if __name__ == '__main__':
     unittest.main()

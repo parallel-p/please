@@ -74,7 +74,7 @@ def main():
     matcher.add_handler(Template(["generate", "tests", "with", "tag|tags", "@tags"]), generate_tests_with_tags, in_problem_folder)
     matcher.add_handler(Template(["generate", "tests"]), generate_tests, in_problem_folder)
     matcher.add_handler(Template(["generate", "statement"]), latex_tools.generate_contest, in_problem_folder)
-    matcher.add_handler(Template(["generate", "answers"]), AnswersGenerator.generate_without_arguments, in_problem_folder)
+    matcher.add_handler(Template(["generate", "answers"]), AnswersGenerator.generate, in_problem_folder)
     matcher.add_handler(Template(["stress", "test", "#solution", "#generator"]), stress_tester.StressTester(config = package_config), in_problem_folder)
     matcher.add_handler(Template(["stress", "test", "#solution", "#correct_solution", "#generator"]), stress_tester.StressTester(config = package_config), in_problem_folder)
     matcher.add_handler(Template(["check", "solutions"]), check_solution.check_multiple_solution, in_problem_folder)

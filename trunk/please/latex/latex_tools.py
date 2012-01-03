@@ -273,19 +273,16 @@ class SingleProblemCreator():
         else:
             problem.set_id('')
 
-        tests = TestsAndAnswersGenerator().generate(["sample"], "sample", False)[1]
+        testans = TestsAndAnswersGenerator().generate(["sample"], "sample", False)
 
-        for test, verdict in tests:
-            if verdict != 'OK':
-                continue
-            test_path = test
-            test_answer = test_path + ".a"
-            with open(os.path.join(test_path)) as f:
+        for test, ans in testans:
+            with open(os.path.join(test)) as f:
                 test_data = f.read()
-            with open(os.path.join(test_answer)) as f:
+            with open(os.path.join(ans)) as f:
                 answer_data = f.read()
             problem.add_example(test_data, answer_data)
-            os.remove(test_path)
-            os.remove(test_answer)
+            os.remove(test)
+            os.remove(ans)
+            
         return (problem.construct())
 
