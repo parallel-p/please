@@ -29,7 +29,7 @@ class SolutionTesterTest(unittest.TestCase):
         config["checker"] = os.path.join("testdata", "checker.cpp")
         config["tests_dir"] = ".tests"
         config["expected_verdicts"] = ["OK", "WA"]
-        config["optional_verdicts"] = ["TL"]
+        config["possible_verdicts"] = ["TL"]
         config["execution_limits"] = None
         
         self.mox.StubOutWithMock(os.path, "exists")
@@ -64,7 +64,7 @@ class SolutionTesterTest(unittest.TestCase):
         config["checker"] = os.path.join("testdata", "checker.cpp")
         config["tests_dir"] = ".tests"
         config["expected_verdicts"] = ["OK"]
-        config["optional_verdicts"] = ["TL"]
+        config["possible_verdicts"] = ["TL"]
         config["execution_limits"] = None
         
         self.mox.StubOutWithMock(os.path, "exists")
@@ -99,7 +99,7 @@ class SolutionTesterTest(unittest.TestCase):
         config["checker"] = os.path.join("testdata", "checker.cpp")
         config["tests_dir"] = ".tests"
         config["expected_verdicts"] = ["OK", "WA"]
-        config["optional_verdicts"] = ["TL"]
+        config["possible_verdicts"] = ["TL"]
         config["execution_limits"] = None
         self.mox.StubOutWithMock(os.path, "exists")
         self.mox.StubOutWithMock(tester, "run_solution")
@@ -140,7 +140,7 @@ class SolutionTesterTest(unittest.TestCase):
         config["checker"] = os.path.join("testdata", "checker.cpp")
         config["tests_dir"] = ".tests"
         config["expected_verdicts"] = []
-        config["optional_verdicts"] = ["TL"]
+        config["possible_verdicts"] = ["TL"]
         config["execution_limits"] = None
         self.mox.StubOutWithMock(os.path, "exists")
         self.mox.StubOutWithMock(tester, "run_solution")
@@ -174,7 +174,7 @@ class SolutionTesterTest(unittest.TestCase):
         config["checker"] = os.path.join("testdata", "checker.cpp")
         config["tests_dir"] = ".tests"
         config["expected_verdicts"] = ["ML"]
-        config["optional_verdicts"] = ["WA"]
+        config["possible_verdicts"] = ["WA"]
         config["execution_limits"] = None
         self.mox.StubOutWithMock(os.path, "exists")
         self.mox.StubOutWithMock(tester, "run_solution")

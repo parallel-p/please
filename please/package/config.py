@@ -195,6 +195,8 @@ class Config:
             return checker_local_path
         elif item in ["source", "validator", "statement", "description", "main_solution"] and self.__settings.get(item) is not None and type(self.__settings.get(item)) is not Config:
             return self.__convert_separators(self.__settings.get(item))
+        if item not in self.__settings and item in self.repeating_keywords + self.list_keywords:
+            return []
         return self.__settings.get(item)
 
     def __setitem__(self, item, value):
