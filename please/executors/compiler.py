@@ -45,7 +45,7 @@ def compile(path, limits=globalconfig.default_limits):
     command = configurator.get_compile_command(path)
     if command is None or command == [""]:
         return DO_NOTHING_RESULT
-    log.info("Compiling: path:%s",str(path))
+    log.info("Compiling %s",str(path))
     log.debug("Compiler.py: running %s with limits %s" % (command, limits))
     try:
         handler = psutil.Popen(command, \
