@@ -100,8 +100,8 @@ Please поддерживает возможности тестирования 
 
 'check solution @solution_name' - тестирование решения @solution_name, где @solution_name - путь к решению из корня задачи, @solution_name описано в default.package
 
-Когда Вы делаете команду 'check solution ...', информация про expected_verdicts никак не отображается. Для того, чтобы проверять эти вердикты, пользуйтесь командой 'generate html report'.
-Пример сгенерированного репорта (expected_verdicts = WA)   
+Когда Вы делаете команду 'check solution ...', информация про expected_verdicts и possible_verdicts никак не отображается. Для того, чтобы проверять эти вердикты, пользуйтесь командой 'generate html report'.
+Пример сгенерированного репорта (в конфиге expected_verdicts = WA и possible_verdicts = ML)   
 {{{
 tests	solutions\solution.cpp
 1	OK
@@ -124,5 +124,6 @@ tests	solutions\solution.cpp
 18	OK
 19	OK
 20	OK
+unexpected but met: OK
 expected but not met: WA
 }}}
