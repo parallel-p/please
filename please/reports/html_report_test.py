@@ -21,7 +21,7 @@ class Tester(unittest.TestCase):
         html_reporter.add_test("second", "03", ResultInfo("CE"))
         html_reporter.add_test("third", "01", ResultInfo("JE"))
         html_reporter.add_test("third", "02", ResultInfo("OK"))
-        answer = html_reporter.str()
+        answer = html_reporter.get_str()
         with open("html_report_test.html", 'w') as f:
             print(answer, file=f)
 
