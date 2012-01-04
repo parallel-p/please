@@ -78,10 +78,11 @@ expected_verdicts = WA, OK, TL
 }}}
 
 Кроме того можно добавить решение, используя команды please:
-1) 
 {{{
-'add solution #path expected: @expected_list possible: @possible_list', где #path - путь до решения из корня. @expected_list - те вердикты, которые окажутся в expected_verdicts. @possible_list - те вердикты, которые окажутся в possible_verdicts.
-2) 'add solution #path with @expected_list'
+add solution #path expected: @expected_list possible: @possible_list
+#path - путь до решения из корня. 
+@expected_list - те вердикты, которые окажутся в expected_verdicts. @possible_list - те вердикты, которые окажутся в possible_verdicts.
+add solution #path with @expected_list
 }}}
 Изменить поля input, output не исправляя руками конфиг пока что нельзя.
 Используя команды please множества вердиктов нужно перечислять через пробел:
