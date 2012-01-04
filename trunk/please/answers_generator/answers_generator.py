@@ -39,7 +39,8 @@ class AnswersGenerator :
         config = package_config.PackageConfig.get_config()
         # TODO: check if config is None
         result = []
-        tests = tests or utests.get_tests()
+        if tests is None:
+            tests = utests.get_tests()
         source_path = source_path or config['main_solution']
         args = args or (config['args'] if 'args' in config else [])
         solution_config = solution_config or {"input" : config['input'], "output" : config['output']}

@@ -37,7 +37,7 @@ class TestsAndAnswersGenerator:
         config = package_config.PackageConfig.get_config()
         # TODO: check if config is None
         count_errors = 0
-        tests = tests or utests.get_tests()
+        if tests is None: tests = utests.get_tests()
         if 'validator' in config and config['validator'] not in ["", None]:
             for num, test_filename in enumerate(tests):
                 logger.info("Start validator on test #" + str(num+1))
