@@ -13,7 +13,7 @@ def main():
     from please.executors.compiler import CompileError
     from please.executors.runner import RunnerError
     from please.template import problem_template_generator as problem_gen
-    from please.add_source.add_source import add_solution, add_main_solution, add_checker, add_validator, add_solution_with_expected
+    from please.add_source.add_source import del_solution, add_solution, add_main_solution, add_checker, add_validator, add_solution_with_expected
     from please import tags
     from please.solution_tester import check_solution
     from please.well_done import well_done
@@ -62,6 +62,7 @@ def main():
     matcher.add_handler(Template(["set", "standard", "checker"]), print_standard_checkers, in_problem_folder)
     matcher.add_handler(Template(["add", "solution", "#path", "expected:", "@expected_list", "possible:", "@possible_list"]), add_solution, in_problem_folder)
     matcher.add_handler(Template(["add", "solution", "#path", "with", "@expected_list"]), add_solution_with_expected, in_problem_folder)
+    matcher.add_handler(Template(["delete|del", "solution", "#path"]), del_solution, in_problem_folder)
     matcher.add_handler(Template(["set", "checker", "#path"]), add_checker, in_problem_folder)
     matcher.add_handler(Template(["set", "main", "solution", "#path"]), add_main_solution, in_problem_folder)
     matcher.add_handler(Template(["set", "validator", "#path"]), add_validator, in_problem_folder)
@@ -119,7 +120,7 @@ def main():
         except AddSourceError as ex:
             logger.error("AddSourceError: " + str(ex))
         except Exception as ex:
-            logger.error("Error: " + str(ex))
+            logger.error("Unknown error: " + str(ex))
             raise ex
 
 if __name__ == "__main__":

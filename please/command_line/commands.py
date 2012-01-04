@@ -36,7 +36,8 @@ problem_commands = ["generate statement",
              "check main solution",
              "clean",
              "validate tests",
-             "well done"
+             "well done",
+             "del[ete] solution PATH_TO_SOLUTION"
              ]
 
 def print_lite_help():
@@ -130,6 +131,9 @@ Commands available inside problem's folder:
   {10}:
     Adds solution with some expected verdicts and OK possible verdict
     example: add solution ../sources/solution_wa.cpp with WA
+    
+  {25}:
+    Deletes solution from default.package
 
   {11}:
     Sets main solution (solution that should pass all tests). Copies specified file in /solutions and edits default.package
