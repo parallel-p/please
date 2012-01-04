@@ -20,6 +20,7 @@ def generate_contest(problem_names = ['.'], template = None, template_vars = glo
         contest = LatexContestConstructor(template.read(), template_vars)
     single_problem = (problem_names == ["."])
 
+    current_dir = os.getcwd()
     for problem in problem_names:
         os.chdir(problem)
         package_conf = package_config.PackageConfig.get_config()
@@ -27,7 +28,7 @@ def generate_contest(problem_names = ['.'], template = None, template_vars = glo
         problem = SingleProblemCreator(config = package_conf)
         contest.add_problem(problem)
         if not single_problem:
-            os.chdir('..')
+            os.chdir(current_dir)
 
     if not os.path.exists(globalconfig.temp_statements_dir):
         os.mkdir(globalconfig.temp_statements_dir)
@@ -46,7 +47,7 @@ def generate_contest(problem_names = ['.'], template = None, template_vars = glo
     converter = Latex2Pdf()
     converter.convert(new_tex_name)
 
-    os.chdir("..")
+    os.chdir(current_dir)
 
     if file is not None:
         pdf_out_name = os.path.join(globalconfig.temp_statements_dir, file + ".pdf")
