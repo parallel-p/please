@@ -121,7 +121,7 @@ Passed: 21
 }}}
 Какое-нибудь конкретное:
 {{{
-/cubes$ please check solution solutions/solution_wrong.cpp
+~/cubes$ please check solution solutions/solution_wrong.cpp
 cubes(INFO) [10:36:53]: Testing solutions/solution_wrong.cpp on test #1
 cubes(INFO) [10:36:53]: Compiling solutions/solution_wrong.cpp
 cubes(INFO) [10:36:54]: Testing solutions/solution_wrong.cpp on test #2
@@ -149,13 +149,16 @@ Passed: 16
 =Ожидаемые вердикты=
 Если в конфиге указаны ожидаемые и возможные вердикты, проверить, насколько это соответствует действительности на текущих тестах можно, выполнив команду please generate html report. Будет создан файл report.html с количеством таблиц, соответствующим количеству решений, в таблице каждая строчка - результат на очередном тесте, под таблицей, в случае каких-либо несоответствий, будет указаны "expected but not met" и "not expected but met" вердикты.
 =Автоконфигурирование TL=
-Также можно автоматически выставлять TL в конфиг: будет протестировано главное решение и прописано удвоенное максимальное время выполнения. Вывод ничем не примечателен:
+Также можно автоматически выставлять TL в конфиг: будет протестировано главное решение и прописано удвоенное максимальное время выполнения. Вывод:
 {{{
-/cubes$ please compute TL
-cubes(INFO) [01:07:45]: Testing solutions/solution.py on .tests/1
-cubes(INFO) [01:07:45]: Testing solutions/solution.py on .tests/2
+~/cubes$ please compute TL
+cubes(WARNING) [10:39:08]: Remember: TL is setting by execution results of main solution, so it should be the slowest solution
+cubes(INFO) [10:39:08]: Testing solutions/solution.py on test #1
+cubes(INFO) [10:39:08]: Testing solutions/solution.py on test #2
 ...
-cubes(INFO) [01:08:00]: Testing solutions/solution.py on .tests/21
+cubes(INFO) [10:39:21]: Testing solutions/solution.py on test #21
+cubes(WARNING) [10:39:22]: Maximal execution time: 1.15, now TL in default.package is: 2.3
+
 }}}
 А в default.package теперь записано:
 {{{
@@ -178,21 +181,36 @@ memory_limit = 256
   # Написать генератор, который создаёт различные тесты в зависимости от первого переданного в main значения
   # Написать верное решение
   # Написать любое другое решение
-  # Выполнить команду please stress test SOLUTION CORRECT_SOLUTION GENERATOR, полагаю, переменные ясны. Если верное решение прописано как главное в конфиге задачи, параметр CORRECT_SOLUTION можно опустить.
+  # Выполнить команду please stress test SOLUTION [CORRECT_SOLUTION] GENERATOR, полагаю, переменные ясны. Если верное решение прописано как главное в конфиге задачи, параметр CORRECT_SOLUTION можно опустить.
 
-Примеры:
+Пример:
 {{{
-~/test$ please stress test solutions/solution_wrong.cpp solutions/solution.cpp generator_random.cpp
-}}}
-{{{
-~/test$ please stress test solutions/solution_wrong.cpp generator_random.cpp
+~/cubes$ please stress test solutions/solution_wrong.cpp solutions/solution.cpp generator_random.cpp
+cubes(WARNING) [10:43:27]: Random number for generator is: 753588
+cubes(INFO) [10:43:27]: Generating 1 tests series
+cubes(INFO) [10:43:27]: Test #1 'standard generator output' is generated
+cubes(INFO) [10:43:27]: Test series #1 generated
+cubes(INFO) [10:43:27]: Compiling solutions/solution.cpp
+cubes(INFO) [10:43:28]: Test passed
+cubes(WARNING) [10:43:28]: Random number for generator is: 469681
+cubes(INFO) [10:43:28]: Generating 1 tests series
+cubes(INFO) [10:43:28]: Test #1 'standard generator output' is generated
+cubes(INFO) [10:43:28]: Test series #1 generated
+cubes(INFO) [10:43:28]: Test passed
+cubes(WARNING) [10:43:34]: Random number for generator is: 951171
+cubes(INFO) [10:43:34]: Generating 1 tests series
+cubes(INFO) [10:43:34]: Test #1 'standard generator output' is generated
+cubes(INFO) [10:43:34]: Test series #1 generated
+cubes(ERROR) [10:43:34]: Run exception: solutions/solution_wrong.cpp is not OK, invoker returned RE, return code 11
+cubes(ERROR) [10:43:34]: Solution solutions/solution_wrong.cpp failed to run
+cubes(ERROR) [10:43:34]: Test failed
 }}}
 =Условия=
 please generate statement создаст pdf на основе tex'овского файла условий, указанного в default.package, и тестов, помеченных sample.
-=Всего и сразу=
+=Всё сразу=
 please build all <=>
   * please generate tests
   * please generate statement
   * please check solutions
 =Очистить от мусора=
-please clean удалит логи, исполняемые файлы всего, что прописано в default.package и pdf.
+please clean удалит логи исполняемые файлы, прописанные в default.package и tests.please и pdf.
