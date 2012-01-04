@@ -99,3 +99,30 @@ Please поддерживает возможности тестирования 
 'check solutions' - тестирование всех решений, описанных в default.package
 
 'check solution @solution_name' - тестирование решения @solution_name, где @solution_name - путь к решению из корня задачи, @solution_name описано в default.package
+
+Когда Вы делаете команду 'check solution ...', информация про expected_verdicts никак не отображается. Для того, чтобы проверять эти вердикты, пользуйтесь командой 'generate html report'.
+Пример сгенерированного репорта (expected_verdicts = WA)   
+{{{
+tests	solutions\solution.cpp
+1	OK
+2	OK
+3	OK
+4	OK
+5	OK
+6	OK
+7	OK
+8	OK
+9	OK
+10	OK
+11	OK
+12	OK
+13	OK
+14	OK
+15	OK
+16	OK
+17	OK
+18	OK
+19	OK
+20	OK
+expected but not met: WA
+}}}
