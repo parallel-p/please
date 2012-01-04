@@ -40,13 +40,13 @@ class Matcher:
         function_found = None
         function_found_in_not_acc = False
         _inst_logger.debug ("Matching...")
-        for template, function, has_access in self.__handlers:  
-            function_args = template.corresponds(args)          
-            if function_args != None:         
+        for template, function, has_access in self.__handlers:
+            function_args = template.corresponds(args)
+            if function_args != None:
                 # Make sure only one function corresponds to the arguments passed
                 if has_access == True:
-                    if function_found != None:         
-                        raise MatcherException("More than 1 functions match the template entered")             
+                    if function_found != None:
+                        raise MatcherException("More than 1 functions match the template entered")
                     function_found, function_args_found = function, function_args
                 else:
                     function_found_in_not_acc = True
@@ -64,3 +64,4 @@ class Matcher:
 
 class MatcherException(Exception):
     pass
+
