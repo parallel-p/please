@@ -48,6 +48,13 @@ solution = {
     output = stdout #опционально; выходной файл, приоритетнее указанного в default.package для всей задачи
 }
 }}}
+
+Уточнение по поводу expected_verdicts/possible_verdicts:
+please проверяет, что
+1) вердикты на всех тестах либо лежат в expected_verdicts, либо в possible_verdicts (possible_verdicts не обязательно содержит expected_verdicts).
+2) для любого вердикта из expected_verdicts существует тест, на котором это решение получает такой вердикт.
+
+
 Значения по умолчанию:
 input, output устанавливаются в значения, указанные в default.package
 
@@ -63,12 +70,24 @@ RE - run-time error
 TL - time limit
 ML - memory limit
 PE - presentation error
+(в вердиктах используются заглавные буквы)
+
+В конфиге вердикты записываются через запятую:
+{{{
+expected_verdicts = WA, OK, TL
+}}}
 
 Кроме того можно добавить решение, используя команды please:
-1) 'add solution #path expected: @expected_list possible: @possible_list', где #path - путь до решения из корня. @expected_list - те вердикты, которые окажутся в expected_verdicts. @possible_list - те вердикты, которые окажутся в possible_verdicts.
+1) 
+{{{
+'add solution #path expected: @expected_list possible: @possible_list', где #path - путь до решения из корня. @expected_list - те вердикты, которые окажутся в expected_verdicts. @possible_list - те вердикты, которые окажутся в possible_verdicts.
 2) 'add solution #path with @expected_list'
+}}}
 Изменить поля input, output не исправляя руками конфиг пока что нельзя.
-
+Используя команды please множества вердиктов нужно перечислять через пробел:
+{{{
+please add solution expected: OK WA TL possible: ML PE
+}}}
 Если Вы добавили уже находящееся в конфиг файле решение, то please может повести себя непредсказуемо.
 
 3) Удалить решение
