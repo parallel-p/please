@@ -24,7 +24,7 @@ please check solution @solution_name - тестирование решения @
 solution = {
     sourse = solutions/sol.cpp #обязательно; путь к задаче, совпадающий с её именем
     expected_verdicts = WA #опционально; какие вердикты программа должна получать хотя бы на одном тесте
-    optional_verdicts = OK, WA, RE #опционально; какие вердикты программа может получать на тестах
+    possible_verdicts = OK, WA, RE #опционально; какие вердикты программа может получать на тестах
     input = input.txt #опционально; входной файл, приоритетнее указанного в default.package для всей задачи
     output = stdout #опционально; выходной файл, приоритетнее указанного в default.package для всей задачи
 }
