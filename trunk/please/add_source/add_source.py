@@ -24,6 +24,8 @@ def add_main_solution (path):
     log.info("Main solution %s was set successfully", path)
     
 def add_solution_with_config (package_config, path, expected_list = [], possible_list = []):
+    if not os.path.exists(path):
+        raise AddSourceError("There is no such file")
     if not os.getcwd() in os.path.abspath(path):
         raise AddSourceError("Solution isn't in problem folder!")
     config_file = config.Config("")
@@ -46,6 +48,8 @@ def add_solution_with_expected(path, expected_list = []):
     add_solution(path, expected_list)
 
 def add_checker_with_config (package_config, path):
+    if not os.path.exists(path):
+        raise AddSourceError("There is no such file")
     if not os.getcwd() in os.path.abspath(path):
         raise AddSourceError("Checker isn't in problem folder!")
     package_config['checker'] = os.path.relpath(path)
@@ -58,6 +62,8 @@ def add_checker (path):
     log.info("Checker %s was set successfully", path)
     
 def add_validator_with_config (package_config, path):
+    if not os.path.exists(path):
+        raise AddSourceError("There is no such file")
     if not os.getcwd() in os.path.abspath(path):
         raise AddSourceError("Validator isn't in problem folder!")
     package_config['validator'] = os.path.relpath(path)
