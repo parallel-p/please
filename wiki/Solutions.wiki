@@ -87,13 +87,11 @@ add solution $path expected: @expected_list possible: @possible_list
 add solution $path with @expected_list
 }}}
 $path - путь до решения из корня.
- 
 @expected_list - те вердикты, которые окажутся в expected_verdicts. 
-
 @possible_list - те вердикты, которые окажутся в possible_verdicts.
 
-Изменить поля input, output не исправляя руками конфиг пока что нельзя.
-Используя команды please множества вердиктов нужно перечислять через пробел:
+Изменить поля input, output, не исправляя руками конфиг, пока что нельзя.
+Используя команды please, множества вердиктов нужно перечислять через пробел:
 {{{
 please add solution expected: OK WA TL possible: ML PE
 }}}
