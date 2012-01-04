@@ -53,7 +53,7 @@ solution = {
 please проверяет, что:
 
   # вердикты на всех тестах либо лежат в expected_verdicts, либо в possible_verdicts (possible_verdicts не обязательно содержит expected_verdicts).
-  # для любого вердикта из expected_verdicts существует тест, на котором это решение получает такой вердикт.
+  # каждый вердикт из expected_verdicts должен быть получен хотя бы на одном тесте.
 
 
 
