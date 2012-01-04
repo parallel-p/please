@@ -49,7 +49,7 @@ def main():
     matcher.add_handler(Template(["import", "polygon", "package", "#package"]), import_polygon_package, True)
     # If we are inside folder with  the problem, we have more handlers
     package_config = package_config.PackageConfig.get_config()
-    in_problem_folder = (package_config != False)
+    in_problem_folder = (package_config is not None)
     globalconfig.in_problem_folder = in_problem_folder
     #matcher.add_handler(Template(["well", "done"]), well_done.WellDoneCheck().all, in_problem_folder)
     #matcher.add_handler(Template(["delete", "problem", "#shortname"]), svn.delete_problem, in_problem_folder)

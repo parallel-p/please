@@ -17,6 +17,7 @@ class GenericExporter:
             os.chdir(problem)
             generate_tests()
             conf = PackageConfig.get_config()
+            # TODO: check if conf is None
             #with open('default.package', 'r') as f:
             #    conf = Config(f.read())
             self.archiver.add(conf['checker'], os.path.join(problem, os.path.split(conf['checker'])[-1]))

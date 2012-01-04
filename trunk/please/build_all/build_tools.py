@@ -7,6 +7,8 @@ from ..latex import latex_tools
 
 def build_all () :
     opened_config = package_config.PackageConfig.get_config()
+    # TODO: check if opened_config is None
+    # opened_config is unused here, remove it
 
     #run todo
     TodoGenerator.get_todo()
@@ -19,3 +21,4 @@ def build_all () :
 
     #run check soltuion
     check_multiple_solution()
+

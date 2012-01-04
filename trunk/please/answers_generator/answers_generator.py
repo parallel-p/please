@@ -37,6 +37,7 @@ class AnswersGenerator :
     @staticmethod
     def generate (tests=None, source_path=None, args=None, solution_config=None, execution_limits = globalconfig.default_limits) :
         config = package_config.PackageConfig.get_config()
+        # TODO: check if config is None
         result = []
         tests = tests or utests.get_tests()
         source_path = source_path or config['main_solution']

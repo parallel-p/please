@@ -24,6 +24,7 @@ def generate_html_for_solution(config, solution, expected_verdicts = ["OK"], pos
 
 def generate_html_report():
     config = PackageConfig.get_config()
+    # TODO: check if config is None
     solution = config["main_solution"]
 
     html = generate_html_for_solution(config, solution)

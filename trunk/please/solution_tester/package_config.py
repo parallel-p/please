@@ -19,6 +19,7 @@ class PackageConfig:
     config = PackageConfig.get_config("default.package", dir=".", package_name="default.package")
     output: instace of a Config class
     example: time_limit = config["time_limit"]
+    returns None if config wasn't found
     """
 
     # We store all configs associated with packages.
@@ -28,12 +29,9 @@ class PackageConfig:
 
     @staticmethod
     def get_config(dir = ".", package_name = globalconfig.default_package, ignore_cache = False):
-        #logger = logging.getLogger("please_logger.check_solution")
-        #logging.basicConfig(level=logging.INFO)
         package_path = os.path.abspath(os.path.join(dir, package_name))
         if not os.path.exists(package_path):
-            #logger.debug("Package dir '" + dir + "' does not exist")
-            return False#raise PackageConfigNotFoundException("Package dir '" + dir + "' does not exist")
+            return None
 
         if package_path in PackageConfig.configs_dict and not ignore_cache:
             # This congfig is already registered, return it without extra re-parsing

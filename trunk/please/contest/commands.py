@@ -91,6 +91,7 @@ def command_generate_statement(name):
     problems = []
     for problem in current_contest.config['problem']:
         config = package_config.PackageConfig.get_config(problem['path'])
+        # TODO: check if config is None
         config['id'] = problem['id']
         print(config['id'])
         problems.append(problem['path'])
@@ -104,6 +105,7 @@ def command_export(name, where, contest):
     problems = []
     for problem in current_contest.config['problem']:
         config = package_config.PackageConfig.get_config(problem['path'])
+        # TODO: check if config is None
         config['id'] = problem['id']
         problems.append(problem['path'])
     exporter.export(where, contest, problems)

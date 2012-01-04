@@ -29,6 +29,7 @@ def get_test_results_from_solution(solution, config = None):
 
     if config is None:
         config = PackageConfig.get_config()
+        # TODO: check if config is still None
   
     new_config = solution_config_utils.make_config(solution, config)
 
@@ -113,7 +114,7 @@ def print_results(test_all_results):
         
     printc("\nTotal:  %s" % (ok_count + fail_count), Fore.YELLOW)
     printc("Failed: %s" % fail_count,                Fore.RED)
-    printc("Passed: %s" % ok_count,                  Fore.GREEN)    
+    printc("Passed: %s" % ok_count,                  Fore.GREEN)
 
 def check_solutions(paths, config = None, print_table = True):
     """
@@ -122,6 +123,7 @@ def check_solutions(paths, config = None, print_table = True):
 
     if config is None:
         config = PackageConfig.get_config()
+        # TODO: check if config is still None
     
     test_all_results = []
     
@@ -134,6 +136,7 @@ def check_solutions(paths, config = None, print_table = True):
 def check_multiple_solution():
     """ Calls check_solution with different solution paths from config file including main solution """
     config = PackageConfig.get_config()
+    # TODO: check if config is None
     
     # Add main solution
     main_solution = config["main_solution"]
@@ -153,9 +156,16 @@ def check_multiple_solution():
     
 def check_main_solution():
     config = PackageConfig.get_config()
+    # TODO: check if config is None
+    # method check_solutions retrieves config from PackageConfig itself
+    # remove it from here
     check_solutions([config["main_solution"]], config = config)
     
 # Separate method for command line matcher
 def check_solution(path):
     config = PackageConfig.get_config()
+    # TODO: check if config is None
+    # method check_solutions retrieves config from PackageConfig itself
+    # remove it from here
     check_solutions([path], config = config)
+
