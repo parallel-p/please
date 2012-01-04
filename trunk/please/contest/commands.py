@@ -1,13 +1,18 @@
 import os.path
-import logging
 from . import contest
 from .contest import ProblemNotFoundException
 from ..latex import latex_tools
 from ..exporter import exporter
 from ..solution_tester import package_config
-from ..log import logger
 
 CONTEST_FILE = "%s.contest"
+
+class ProblemIdCountMismatch(Exception):
+    def __init__(self, problems_count, ids_count):
+        self.__problems_count = problems_count
+        self.__ids_count = ids_count
+    def __str__(self):
+        return "Problems count (%d) does not match IDs count (%d)" % (self.__problems_count, self.__ids_count)
 
 def get_contest_config(name, path = '.'):
     return os.path.join(path, CONTEST_FILE % name)
@@ -24,7 +29,7 @@ def add_problems_to_contest(contest, problems):
         ids = problems[-1].split(',')
         problems = problems[:-2]
         if len(problems) != len(ids):
-            raise Exception("Cannot assign %d ids to %d problems" % (len(ids), len(problems)))
+            raise ProblemIdCountMismatch(len(problems), len(ids))
         problems = zip(problems, ids)
     else:
         problems = zip(problems, [False] * len(problems))
@@ -75,7 +80,7 @@ def command_generate_statement(name):
     template_vars = {}
     for ind, val in current_contest.config['statement'].items():
         template_vars[ind] = val
-    latex_tools.generate_contest(problems, template_vars['template'], template_vars)
+    latex_tools.generate_contest(problems, template_vars['template'], template_vars, file = name)
 
 def command_export(name, where, contest):
     current_contest = get_contest(name)
