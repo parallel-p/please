@@ -20,10 +20,11 @@ class SolutionTesterTest(unittest.TestCase):
     
     def q(self, verdict):
         return ResultInfo(verdict, 0, 0, 0, 0)
-    
+
+    #TODO: add tests with solution config
+
     def test_SimpleExpectedWA(self):
         config = {}
-        config["solution_config"] = None
         config["solution_args"] = None
         config["checker"] = os.path.join("testdata", "checker.cpp")
         config["tests_dir"] = ".tests"

@@ -54,8 +54,7 @@ def run_solution(config):
             
             if config.solution_config['output'] != 'stdout':
                 try:
-                    shutil.copy(config.solution_config['output'], config.solution_output_file)
-                    os.remove(config.solution_config['output'])
+                    shutil.move(config.solution_config['output'], config.solution_output_file)
                 except:
                     pass
             else:
