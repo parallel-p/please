@@ -116,7 +116,7 @@ def main():
         except tests_answer_generator.ValidatorError as ex:
             logger.error("ValidatorError: " + str(ex))
         except Exception as ex:
-            logger.error("Exception: " + str(ex))
+            logger.error("Error: " + str(ex))
             raise ex
 
 if __name__ == "__main__":

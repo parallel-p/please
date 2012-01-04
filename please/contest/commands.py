@@ -1,6 +1,7 @@
 import os.path
 import logging
 from . import contest
+from .contest import ProblemNotFoundException
 from ..latex import latex_tools
 from ..exporter import exporter
 from ..solution_tester import package_config
@@ -21,7 +22,9 @@ def add_problems_to_contest(contest, problems):
     """
     if len(problems) >= 3 and problems[-2] == "as":
         ids = problems[-1].split(',')
-        # TODO: assert len(problems) == len(ids)
+        problems = problems[:-2]
+        if len(problems) != len(ids):
+            raise Exception("Cannot assign %d ids to %d problems" % (len(ids), len(problems)))
         problems = zip(problems, ids)
     else:
         problems = zip(problems, [False] * len(problems))
@@ -35,7 +38,8 @@ def remove_problems_from_contest(contest, problems):
             contest.problem_remove(problem)
         elif contest.problem_find(problem) is not None:
             contest.problem_remove(contest.problem_find(problem))
-        # TODO else raise somthing
+        else:
+            raise ProblemNotFoundException(problem)
 
 def write_contest(name, contest):
     """ Saves contest to its .contest file """
