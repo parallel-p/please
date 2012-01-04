@@ -66,7 +66,7 @@ def run_solution(config):
             return (run_info, stdout, stderr)
         except OSError as e:
             if (e.errno == 13):
-                log.info('catched OSError 13/32, trying again...')
+                log.warning('catched OSError 13/32, trying again...')
                 continue
             raise e
 
