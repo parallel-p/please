@@ -39,7 +39,7 @@ def compile(path, limits=globalconfig.default_limits):
         raise CompileError("Couldn't detect source language for file " + path)
     DO_NOTHING_RESULT = (invoker.ResultInfo("OK", 0, 0, 0, 0) , "", "")
     if already_compiled(path, configurator.get_binary_name(path)):
-        log.info("File %s was already compiled" % path)
+        #log.info("File %s was already compiled" % path)
         return DO_NOTHING_RESULT
 
     command = configurator.get_compile_command(path)
