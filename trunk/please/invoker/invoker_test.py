@@ -54,7 +54,8 @@ class TestInvoker(unittest.TestCase):
         self.assertEqual(ret.verdict, "RE")
 
     def test_invoker_java_run_re(self):
-        process = psutil.Popen(["java", "a"], stderr = subprocess.PIPE)
+        process = psutil.Popen(["java", "a"],
+            stderr = subprocess.PIPE)
         limits = ExecutionLimits(real_time = 1, cpu_time = 1, memory = 50)  
         ret = invoke(process, limits)
         self.assertEqual(ret.verdict, "RE")
