@@ -26,15 +26,15 @@ main_solution здесь - путь до главного решения. Гла
 Чтобы утилита please могла использовать различные (в том числе и неправильные) решения в автоматическом режиме, их необходимо добавить. На данный момент проще всего решения править непосредственно в конфигурационном файле. default.package:
 
 
-...
 {{{
+...
 solution = {
     source = solutions/solution_wrong.cpp
     expected_verdicts = OK, RE, WA
     possible_verdicts = ML, TL
 }
-}}}
 ...
+}}}
 
 Вставлять подобные фрагменты можно в любое место конфигурационного файла.
 
@@ -74,15 +74,17 @@ PE - presentation error
 3) Удалить решение
 
 Удалить решение какой-то командой в please нельзя. Для этого нужно руками удалить строки
-...
+
 {{{
+...
 solution = {
     source = solutions/solution_wrong.cpp
     expected_verdicts = OK, RE, WA
     possible_verdicts = ML, TL
 }
-}}}
 ...
+}}}
+
 из default.package.
 
 4)Check_solution. Описание тестирования решений.
