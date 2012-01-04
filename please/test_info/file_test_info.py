@@ -3,6 +3,8 @@ import tempfile
 import shutil
 import glob
 from ..well_done import well_done
+import re
+
 class FileTestInfo(test_info.TestInfo):
     def __init__(self, mask, tags={}, well_done=None, comment = ''):
         self.__mask = mask
@@ -12,7 +14,11 @@ class FileTestInfo(test_info.TestInfo):
     def tests(self):
         result = []
         desc = []
+        exclude = self.get_tags().get('exclude')
         for file in glob.iglob(self.__mask):
+            if exclude is not None:
+                if re.match(exclude, file) is not None:
+                    continue
             if self.__well_done is not None:
                 self.__well_done.check(file)
             temp = tempfile.NamedTemporaryFile(delete = False)
