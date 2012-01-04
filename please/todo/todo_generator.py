@@ -5,9 +5,9 @@ from ..todo import painter
 from .. import globalconfig
 from ..template import info_generator
 
-class TodoGenerator: 
+class TodoGenerator:
     @staticmethod
-    def get_todo(root_path = '.'): 
+    def get_todo(root_path = '.'):
         md5path = os.path.join(root_path, '.please', 'md5.config')
         if not os.path.exists(md5path):
             info_generator.create_md5_file(root_path)
@@ -19,7 +19,8 @@ class TodoGenerator:
                 md5value[resource] = md5
                     
         config = package_config.PackageConfig.get_config()
-        items = ["statement", "checker", "description", "analysis", "validator", "main_solution"]        
+        # TODO: check if config is None
+        items = ["statement", "checker", "description", "analysis", "validator", "main_solution"]
         for item in items:
             TodoGenerator.print_to_console(TodoGenerator.__get_item_status(config, md5value, item), item)
         tests_description_path = globalconfig.default_tests_config
@@ -46,7 +47,7 @@ class TodoGenerator:
         3) ok - the file exists, it's path is written in config file, or it's path is default,
         and this file is not default(it's modification time is greater, than problem generation time)
         """
-        if (path != None):    
+        if (path != None):
             item_path = path
         else:
             if (item in config):
@@ -63,3 +64,4 @@ class TodoGenerator:
                 return "warning"
         else:
             return "error"
+

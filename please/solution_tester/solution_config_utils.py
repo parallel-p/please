@@ -38,6 +38,7 @@ def make_config_with_solution_config(config, solution_config):
 def make_config(solution, config = None):
     if config == None:
         config = PackageConfig.get_config()
+        # TODO: check if config is sill None
         
     solution_config = None
     for cur_solution_config in config["solution"]:

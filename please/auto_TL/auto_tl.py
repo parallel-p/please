@@ -10,6 +10,7 @@ logger = logging.getLogger("please_logger.auto_TL.auto_tl")
 def compute_exec_times():
     logger.warning("Remember: TL is setting by execution results of main solution, so it should be the slowest solution")
     opened_config = PackageConfig.get_config()
+    # TODO: check if opened_config is None
     solution = opened_config["main_solution"]
     opened_config["time_limit"] = globalconfig.default_limits.cpu_time
     result_dictionary = get_test_results_from_solution(solution, opened_config)[2]

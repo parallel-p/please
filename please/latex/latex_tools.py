@@ -23,6 +23,7 @@ def generate_contest(problem_names = ['.'], template = None, template_vars = glo
     for problem in problem_names:
         os.chdir(problem)
         package_conf = package_config.PackageConfig.get_config()
+        # TODO: check if package_conf is None
         problem = SingleProblemCreator(config = package_conf)
         contest.add_problem(problem)
         if not single_problem:

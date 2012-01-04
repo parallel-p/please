@@ -18,6 +18,7 @@ def add_main_solution_with_config(package_config, path):
 
 def add_main_solution (path):
     package_config = PackageConfig.get_config()
+    # TODO: check if config is None
     add_main_solution_with_config(package_config, path)
     package_text = package_config.get_text()
     writepackage(package_text)
@@ -38,6 +39,7 @@ def add_solution_with_config (package_config, path, expected_list = [], possible
 
 def add_solution (path, expected_list = [], possible_list = []):
     package_config = PackageConfig.get_config()
+    # TODO: check if config is None
     add_solution_with_config(package_config, path, expected_list, possible_list)
     package_text = package_config.get_text()
     writepackage(package_text)
@@ -56,6 +58,7 @@ def add_checker_with_config (package_config, path):
 
 def add_checker (path):
     package_config = PackageConfig.get_config()
+    # TODO: check if config is None
     add_checker_with_config(package_config, path)
     package_text = package_config.get_text()
     writepackage(package_text)
@@ -70,6 +73,7 @@ def add_validator_with_config (package_config, path):
 
 def add_validator (path):
     package_config = PackageConfig.get_config()
+    # TODO: check if config is None
     add_validator_with_config(package_config, path)
     package_text = package_config.get_text()
     writepackage(package_text)

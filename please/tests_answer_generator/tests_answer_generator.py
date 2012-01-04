@@ -35,6 +35,7 @@ class TestsAndAnswersGenerator:
     """
     def validate(self, tests=None):
         config = package_config.PackageConfig.get_config()
+        # TODO: check if config is None
         count_errors = 0
         tests = tests or utests.get_tests()
         if 'validator' in config and config['validator'] not in ["", None]:
@@ -67,6 +68,7 @@ class TestsAndAnswersGenerator:
     def __generate_answers (self, tests):
         self.validate(tests)
         config = package_config.PackageConfig.get_config()
+        # TODO: check if config is None
         return answers_generator.AnswersGenerator().generate(tests, config["main_solution"], [], config)
     
     def generate_all(self):
@@ -80,4 +82,6 @@ class TestsAndAnswersGenerator:
         return zip(tests, answers)
     
     def __create_well_done(self, key):
-        return well_done.WellDone(package_config.PackageConfig.get_config()[key])      
+        # TODO: check if config returned by package_config.PackageConfig.get_config is None
+        return well_done.WellDone(package_config.PackageConfig.get_config()[key])
+
