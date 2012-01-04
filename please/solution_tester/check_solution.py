@@ -7,6 +7,7 @@ from ..utils.platform_detector import get_platform
 from ..solution_tester.package_config import PackageConfig
 from ..invoker import invoker
 from .. import globalconfig
+from . import solution_config_utils
 
 colorama.init()
 
@@ -25,7 +26,11 @@ def chunks(l, n):
         yield l[i:i+n]
         
 def get_test_results_from_solution(solution, config = None):
-    new_config = PackageConfig.get_config()
+
+    if config is None:
+        config = PackageConfig.get_config()
+  
+    new_config = solution_config_utils.make_config(solution, config)
 
     test_solution = TestSolution(new_config)
     met_not_expected, expected_not_met, testing_result = test_solution.test_solution(solution)
