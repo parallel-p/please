@@ -15,7 +15,8 @@ class JavaLinuxConfigurator:
 
     def get_compile_command(self, source):
         source_dir = self.__source_dir(source)
-        return ["javac", "-d", COMPILE_DIR, "-cp", ".;%s" % source_dir, source]
+        if source_dir: source_dir = ';' + source_dir
+        return ["javac", "-d", COMPILE_DIR, "-cp", ".%s" % source_dir, source]
 
     def get_run_command(self, source):
         class_file = self.__class_file(source)
@@ -31,7 +32,7 @@ class JavaLinuxConfigurator:
         return binaries
  
     def is_compile_garbage(self, source):
-        return source.endswith(".class") 
+        return False
 
     def is_run_garbage(self, source):
         return False

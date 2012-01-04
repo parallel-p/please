@@ -61,6 +61,13 @@ class ExecutionLimits:
         self.memory = float(self.memory)
         self.cpu_time = float(self.cpu_time)
 
+    def __str__(self):
+        return "cpu_time=%s, memory=%sMb, real_time=%s" % (
+                self.cpu_time, self.memory, self.real_time)
+
+    def __repr__(self):
+        return self.__str__()
+
 '''
 This function controls the execution of the program.
 It looks after memory limit, time limit (cpu and real),
@@ -98,10 +105,10 @@ def invoke(handler, limits):
     start_time = time.time()
     real_time = 0
     pid = handler.pid
-    return_code = handler.poll()
-    while (handler.is_running()):
+    return_code = None 
+    while return_code is None:
         #wait some time before checking process information,
-        #because in darwin it is access denied raised inf first
+        #because in darwin it is access denied raised in first moment
         try:
             return_code = handler.wait(CHECK_PERIOD)
         except psutil.TimeoutExpired:
@@ -142,7 +149,7 @@ def invoke(handler, limits):
             handler.kill()
             verdict = "ML"
             return_code = None
-        
+
     real_time = time.time() - start_time
     if real_time > limits.real_time:
         verdict = "real TL"

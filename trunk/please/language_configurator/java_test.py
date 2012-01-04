@@ -6,7 +6,7 @@ class JavaTest(unittest.TestCase):
     def test_win_compile(self):
         java = javaconf.JavaWindowsConfigurator()
         out = java.get_compile_command("test.java")
-        self.assertEqual(out, ["javac", "-d", ".please", "-cp", ".;", "test.java"])
+        self.assertEqual(out, ["javac", "-d", ".please", "-cp", ".", "test.java"])
         
     def test_win_run1(self):
         java = javaconf.JavaWindowsConfigurator()
@@ -21,7 +21,7 @@ class JavaTest(unittest.TestCase):
     def test_linux_compile(self):
         java = javaconf.JavaLinuxConfigurator()
         out = java.get_compile_command("test.java")
-        self.assertEqual(out, ["javac" ,"-d", ".please", "-cp", ".;", "test.java"])
+        self.assertEqual(out, ["javac" ,"-d", ".please", "-cp", ".", "test.java"])
         
     def test_linux_run(self):
         java = javaconf.JavaLinuxConfigurator()
