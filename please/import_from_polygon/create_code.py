@@ -10,8 +10,9 @@ polygon2please_verdicts = {
     'time-limit-exceeded': (['TL'], ['OK', 'WA', 'ML', 'RE', 'PE']),
     'wrong-answer': (['WA'], ['OK', 'ML', 'TL', 'RE', 'PE']),
     'presentation-error': (['PE'], ['OK', 'WA', 'ML', 'TL', 'RE']),
-    'rejected': ([], ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']), #WARNING: uncorrect line
-    'failed': (['CF'], ['OK', 'WA', 'ML', 'TL', 'RE', 'PE'])
+    'rejected': ([], ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']), #WARNING: incorrect line
+#    'failed': (['CF'], ['OK', 'WA', 'ML', 'TL', 'RE', 'PE'])
+    'failed': ([], ['OK', 'WA', 'ML', 'TL', 'RE', 'PE'])
     }
 
 def __push_back(line, data):

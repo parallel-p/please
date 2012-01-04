@@ -16,10 +16,11 @@ import logging
 class PolygonImporter:
     def unzip(self, name, directory):
         """
-        This method unzips polygon package and creates problem in please format.
+        This method unzips polygon package.
         Problems are created in main Please directory. Method takes sole argument:
-        package - path to polygon package to be imported
+        package - path to polygon package to be extracted
         """
+        prev_dir = os.getcwd()
         zf = zipfile.ZipFile(name)
         zf.extractall(directory)
         os.chdir(directory)
@@ -34,6 +35,7 @@ class PolygonImporter:
                     if (e.errno != 17):
                         raise e
                 shutil.move(_file, file)
+        os.chdir(prev_dir)
 
     """def parse_statements(self):
         self.default_package['statement'] = ''
@@ -167,11 +169,61 @@ class PolygonImporter:
         tags = [tag.get('value') for tag in self.tree.xpath('/problem/tags/tag')]
 
         self.default_package = create_stub.create_stub(name, tl, ml, in_file, out_file, tags, self.cwd)
+        
+    def import_with_tree(self, directory, problem_path):
+        name = self.tree.xpath('/problem')[0].get('name')
+
+        self.create_default_package(name)
+
+        problem_path = os.path.join(self.cwd, name)
+        self.cwd = os.path.join(self.cwd, self.default_package['shortname']) #wtf? do we use name or shortname?
+
+        self.parse_statements()
+
+        self.make_to_extension()
+
+        tests = self.make_tests()
+
+        self.write_tests(tests)
+
+        self.copy_files()
+
+        self.make_code()
+
+        create_stub.commit_config_file(self.default_package, self.cwd)
+
+        #self.fix_creation_time()
+
+    
+    def import_from_dir(self, directory, problem_path):
+        self.cwd = problem_path
+        os.chdir(directory)
+        
+        self.tree = etree.parse('problem.xml')
+        problem = self.tree.xpath('/problem')[0]
+
+        # stub
+        name = self.tree.xpath('/problem')[0].get('name')
+        
+        imported = False
+        
+        if not os.path.exists(os.path.join(problem_path, name)):
+            self.import_with_tree(directory, problem_path)
+            imported = True
+        else:
+            self.logger.error("Import error: %s already exists" % name)
+        
+        os.chdir('..')
+
+        if imported:
+            self.logger.warning('Imported polygon package %s' % name)
+        
+        
 
     def create_problem(self, package):
-        logger = logging.getLogger("please_logger.import_from_polygon.create_problem")
+        self.logger = logging.getLogger("please_logger.import_from_polygon.create_problem")
 
-        self.cwd = os.getcwd()
+        prev_dir = os.getcwd()
 
         path, file_name = os.path.split(package)
 
@@ -180,43 +232,12 @@ class PolygonImporter:
 
         directory = '.' + os.path.splitext(file_name)[0]
         self.unzip(file_name, directory)
-
-        self.tree = etree.parse('problem.xml')
-        problem = self.tree.xpath('/problem')[0]
-
-        # stub
-        name = self.tree.xpath('/problem')[0].get('name')
-
-        if not os.path.exists(os.path.join(self.cwd, name)):
-            self.create_default_package(name)
-
-            problem_path = os.path.join(self.cwd, name)
-            self.cwd = os.path.join(self.cwd, self.default_package['shortname'])
-
-            self.parse_statements()
-
-            self.make_to_extension()
-
-            tests = self.make_tests()
-
-            self.write_tests(tests)
-
-            self.copy_files()
-
-            self.make_code()
-
-            create_stub.commit_config_file(self.default_package, self.cwd)
-
-            #self.fix_creation_time()
-
-        else:
-
-            logger.error("Import error: %s already exists" % name)
-
-        os.chdir('..')
+        
+        self.import_from_dir(directory, prev_dir)
+        
         shutil.rmtree(directory)
 
-        os.chdir(os.path.join(self.cwd, '..'))
+        os.chdir(prev_dir)
 
 
     def __init__(self):
