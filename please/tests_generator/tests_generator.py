@@ -54,7 +54,7 @@ class TestsGenerator:
                 for file_name in file_names:
                     generated.append(file_name)
                 logger.info('Test series #{0} generated'.format(i + 1))
-        
+        print(generated)
         return generated
         
     def generate_all(self):
