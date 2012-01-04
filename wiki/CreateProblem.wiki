@@ -97,10 +97,11 @@ FAIL Expected EOLN (stdin)
 Допустим, что мы уже прописали в конфиге все решения, и сгенерировали все тесты. Тогда мы можем проверять различные решения, например, главное:
 {{{
 ~/cubes$ please check main solution
-cubes(INFO) [00:47:15]: Testing solutions/solution.py on .tests/1
-cubes(INFO) [00:47:15]: Testing solutions/solution.py on .tests/2
+cubes(INFO) [00:47:15]: Testing solutions/solution.py on test #1
+cubes(INFO) [00:47:15]: Compiling checker.cpp
+cubes(INFO) [00:47:15]: Testing solutions/solution.py on test #2
 ...
-cubes(INFO) [00:47:29]: Testing solutions/solution.py on .tests/21
+cubes(INFO) [00:47:29]: Testing solutions/solution.py on test #21
 
 ----------------------------------
 | Test # | solutions/solution.py | 
@@ -121,13 +122,12 @@ Passed: 21
 Какое-нибудь конкретное:
 {{{
 /cubes$ please check solution solutions/solution_wrong.cpp
-cubes(INFO) [00:49:20]: Testing solutions/solution_wrong.cpp on .tests/1
-cubes(INFO) [00:49:20]: Testing solutions/solution_wrong.cpp on .tests/2
+cubes(INFO) [10:36:53]: Testing solutions/solution_wrong.cpp on test #1
+cubes(INFO) [10:36:53]: Compiling solutions/solution_wrong.cpp
+cubes(INFO) [10:36:54]: Testing solutions/solution_wrong.cpp on test #2
 ...
-cubes(INFO) [00:49:23]: Testing solutions/solution_wrong.cpp on .tests/21
-cubes(INFO) [00:49:24]: 
-STDERR:
-
+cubes(INFO) [10:36:57]: Testing solutions/solution_wrong.cpp on test #21
+cubes(ERROR) [10:36:57]: Solution has had RE with exit code: 11
 
 -----------------------------------------
 | Test # | solutions/solution_wrong.cpp | 
