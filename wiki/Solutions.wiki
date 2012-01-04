@@ -55,12 +55,14 @@ please проверяет, что:
   # вердикты на всех тестах либо лежат в expected_verdicts, либо в possible_verdicts (possible_verdicts не обязательно содержит expected_verdicts).
   # каждый вердикт из expected_verdicts должен быть получен хотя бы на одном тесте.
 
-
+input может быть равен stdin - это означает, что в задаче используется стандартный входной поток (аналогично с output-stdout)
 
 
 Значения по умолчанию.
 
-input, output устанавливаются равными значениям, указанным в default.package
+input устанавливается равным значению полю input, указанному в default.package
+
+output устанавливается равным значению полю output, указанному в default.package
 
 expected_verdicts по умолчанию устанавливается равным пустому множеству
 
