@@ -61,11 +61,11 @@ please проверяет, что:
 
 Значения по умолчанию.
 
-input, output устанавливаются в значения, указанные в default.package
+input, output устанавливаются равными значениям, указанным в default.package
 
-expected_verdicts по умолчанию устанавливается в пустое множество
+expected_verdicts по умолчанию устанавливается равным пустому множеству
 
-possible_verdicts по умолчанию устанавливается в OK, WA, TL, ML, RE, PE
+possible_verdicts по умолчанию устанавливается равным множеству OK, WA, TL, ML, RE, PE
 
 Список возможных вердиктов:
 
