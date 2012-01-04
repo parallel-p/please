@@ -8,10 +8,14 @@ from ..executors import runner
 from ..tests_generator.tests_generator import TestsGenerator
 from ..language_configurator.language_configurator_utils import is_windows
 from ..tests_answer_generator.tests_answer_generator import TestsAndAnswersGenerator
+from ..utils import form_error_output
 import re
 import logging
 
 log = logging.getLogger("please_logger.latex.latex_tools")
+
+class LatexError(runner.RunnerError):
+    pass
 
 def generate_contest(problem_names = ['.'], template = None, template_vars = globalconfig.default_template_vars, file = None):
     problem_template_path = get_template_full_path(globalconfig.default_template_contest)
@@ -212,11 +216,14 @@ class Latex2Pdf:
             os.putenv("TEXINPUTS", get_template_full_path('') + ":.:")
         for i in range(2):
             # necessary two iterations for pages counting
-            result_info, stdout, stderr = runner.run(path_to_tex_file, encoding = encoding)
-            if (result_info.verdict == 'None'):
-                raise Exception("Are You sure, that latex has been installed on your computer?")
-            if (result_info.return_code != 0 and result_info.return_code != 1):
-                raise Exception("Couldn't generate pdf from tex; return code - " + str(result_info.return_code))
+            invoke_info, stdout, stderr = runner.run(path_to_tex_file, encoding = encoding)
+            print(invoke_info)
+            if invoke_info.return_code != 0:
+                    raise LatexError(form_error_output.process_err_exit(
+                        "Couldn't generate pdf from tex %s" % path_to_tex_file,
+                        invoke_info.verdict,
+                        invoke_info.return_code,
+                        stdout, stderr))
 
 def get_time_string(time):
     #TODO: fix for multilang
