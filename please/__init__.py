@@ -34,6 +34,7 @@ def main():
     import os
     from please.import_from_polygon.import_problem_from_polygon import import_problem_from_polygon
     from please.import_from_polygon.create_problem import create_problem as import_polygon_package
+    from please.import_from_polygon.create_contest import create_contest as import_polygon_contest
     from please.answers_generator.answers_generator import AnswersGenerator
     from please.tests_answer_generator import tests_answer_generator
     from please.reports import generate_html_report
@@ -93,6 +94,7 @@ def main():
     matcher.add_handler(Template(["generate", "statement", "for", "#name"]), contest_commands.command_generate_statement, True)
     matcher.add_handler(Template(["export", "#name", "to", "#where", "contest", "#contest"]), contest_commands.command_export, True)
     matcher.add_handler(Template(["set", "contest", "#name", "#key", "#value"]), contest_commands.command_set_parameter, True)
+    matcher.add_handler(Template(["import", "polygon", "contest", "#name"]), import_polygon_contest, True)
 
     if len(sys.argv) == 1:
         print_lite_help()

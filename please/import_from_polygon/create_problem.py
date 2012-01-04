@@ -1,42 +1,19 @@
 from ..import_from_polygon import create_stub
 from ..import_from_polygon import create_statements
 from ..import_from_polygon import create_code
-
+from ..import_from_polygon import polygon_unzip
 from ..test_info import cmd_gen_test_info, file_test_info
 
 from ..package import config
 
-import zipfile
 from lxml import etree
 import os
 import shutil
 import math
 import logging
+from .lang_choice import make_language_choice
 
-class PolygonImporter:
-    def unzip(self, name, directory):
-        """
-        This method unzips polygon package.
-        Problems are created in main Please directory. Method takes sole argument:
-        package - path to polygon package to be extracted
-        """
-        prev_dir = os.getcwd()
-        zf = zipfile.ZipFile(name)
-        zf.extractall(directory)
-        os.chdir(directory)
-        for file in os.listdir('.'):
-            if (file.find('\\') != -1):
-                _file = file
-                file = file.replace('\\', '/')
-                path, who = os.path.split(file)
-                try:
-                    os.mkdir(path)
-                except OSError as e:
-                    if (e.errno != 17):
-                        raise e
-                shutil.move(_file, file)
-        os.chdir(prev_dir)
-
+class PolygonProblemImporter:
     """def parse_statements(self):
         self.default_package['statement'] = ''
         for statement in self.tree.xpath('/problem/statements/statement'):
@@ -51,13 +28,12 @@ class PolygonImporter:
         statements = self.tree.xpath('/problem/statements/statement')
         for statement in statements:
             language = statement.get('language')
-            if language != 'russian' and statement != statements[-1]:
-                continue
             path = statement.get('path')
             with open(path, 'r', encoding='UTF-8') as f:
                 content = f.read()
             create_statements.add_statement(self.default_package, language, content, self.cwd)
-            return
+        to_get = make_language_choice(statements)
+        self.default_package['statement'] = "statements/statement."+to_get.get('language')+".tex"
 
     def make_to_extension(self):
         # making file -> file.ext dictionary
@@ -170,7 +146,7 @@ class PolygonImporter:
 
         self.default_package = create_stub.create_stub(name, tl, ml, in_file, out_file, tags, self.cwd)
         
-    def import_with_tree(self, directory, problem_path):
+    def import_with_tree(self):
         name = self.tree.xpath('/problem')[0].get('name')
 
         self.create_default_package(name)
@@ -197,6 +173,7 @@ class PolygonImporter:
     
     def import_from_dir(self, directory, problem_path):
         self.cwd = problem_path
+        prev_dir = os.getcwd()
         os.chdir(directory)
         
         self.tree = etree.parse('problem.xml')
@@ -208,21 +185,17 @@ class PolygonImporter:
         imported = False
         
         if not os.path.exists(os.path.join(problem_path, name)):
-            self.import_with_tree(directory, problem_path)
+            self.import_with_tree()
             imported = True
         else:
             self.logger.error("Import error: %s already exists" % name)
         
-        os.chdir('..')
+        os.chdir(prev_dir)
 
         if imported:
             self.logger.warning('Imported polygon package %s' % name)
-        
-        
 
     def create_problem(self, package):
-        self.logger = logging.getLogger("please_logger.import_from_polygon.create_problem")
-
         prev_dir = os.getcwd()
 
         path, file_name = os.path.split(package)
@@ -231,7 +204,7 @@ class PolygonImporter:
             os.chdir(path)
 
         directory = '.' + os.path.splitext(file_name)[0]
-        self.unzip(file_name, directory)
+        polygon_unzip.unzip(file_name, directory)
         
         self.import_from_dir(directory, prev_dir)
         
@@ -241,8 +214,9 @@ class PolygonImporter:
 
 
     def __init__(self):
-        pass
+        self.logger = logging.getLogger("please_logger.import_from_polygon.create_problem")
+
 
 def create_problem(package):
-    importer = PolygonImporter()
+    importer = PolygonProblemImporter()
     importer.create_problem(package)
