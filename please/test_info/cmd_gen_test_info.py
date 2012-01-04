@@ -3,6 +3,7 @@ import tempfile
 from ..executors import runner, compiler
 from ..diff_test_finder.diff_test_finder import DiffTestFinder
 from ..directory_diff import snapshot
+from ..utils.form_error_output import process_err_exit
 import os
 
 class CmdOrGenTestInfo(test_info.TestInfo):
@@ -25,7 +26,14 @@ class CmdOrGenTestInfo(test_info.TestInfo):
         compiler.compile(self.__executor)
 
         snapshot_before = snapshot.Snapshot(problem_dir)
-        runner.run(self.__executor, self.__args, stdout_fh = stdout)       
+        invoker_result, retstdout, reterror = runner.run(
+                self.__executor, self.__args, stdout_fh = stdout)
+        if invoker_result.verdict != "OK":
+            raise runner.RunnerError(
+                process_err_exit("Generator %s with args %s crashed with"
+                    % (self.__executor, " ".join(self.__args)),
+                    invoker_result.verdict, invoker_result.return_code,
+                    retstdout, reterror))
         snapshot_after = snapshot.Snapshot(problem_dir, files_to_ignore = [stdout.name])
         
         diff = snapshot.get_changes(snapshot_before, snapshot_after)

@@ -11,7 +11,18 @@ import os
 
 class CompileError(Exception):
     pass
-        
+
+def already_compiled(src, need_binaries):
+    for binary in need_binaries:
+        if not os.path.exists(binary):
+            return False
+        source_file_modification_time = os.path.getmtime(src)
+        expected_binary_modification_time = os.path.getmtime(binary)
+        if (source_file_modification_time >= expected_binary_modification_time):
+            return False
+
+    return True
+
 def compile(path, limits=globalconfig.default_limits):
     '''
         Description: compile given source, if success, 
@@ -19,45 +30,28 @@ def compile(path, limits=globalconfig.default_limits):
     '''
     log = logging.getLogger("please_logger.executors.compiler.compile")
     
-    cur_folder = os.path.split(path)[0]
+    cur_folder = os.path.dirname(path)
     if cur_folder == "":
         cur_folder = "."
     old_folder_state = snapshot.Snapshot(cur_folder)
     configurator = get_language_configurator(path)
-    if(configurator is None):
+    if configurator is None:
         raise CompileError("Couldn't detect source language for file " + path)
-    #
-    #search for already created binary
-    expected_binary_full_path = configurator.get_binary_name(path)
-    expected_binary = os.path.basename(expected_binary_full_path[0])
-    if expected_binary != "":
-        log.debug("Searching for binary: "+expected_binary)
-        file_list=os.listdir(cur_folder)
-        if expected_binary in file_list:
-            log.debug("Found expected binary")
-            source_file_modification_time = os.path.getmtime(path)
-            log.debug("||Source file last modified:" + str(source_file_modification_time)+ " ||")
-            expected_binary_modification_time = os.path.getmtime(expected_binary_full_path[0])
-            log.debug("||Binary last modified:" + str(expected_binary_modification_time)+" ||")
-            if (source_file_modification_time < expected_binary_modification_time):
-                log.debug("We shouldn't recompile")
-                #log.info("Found already compiled binary, shouldn't recompile")
-                return (invoker.ResultInfo("OK", 0, 0, 0, 0) , "", "")   
-            else:
-                log.debug("Source file was modified, we should recompile")
-    #
+    DO_NOTHING_RESULT = (invoker.ResultInfo("OK", 0, 0, 0, 0) , "", "")
+    if already_compiled(path, configurator.get_binary_name(path)):
+        log.info("File %s was already compiled" % path)
+        return DO_NOTHING_RESULT
+
     command = configurator.get_compile_command(path)
-    if(command == [""]):
-        return (invoker.ResultInfo("OK", 0, 0, 0, 0) , "", "")
-    log.debug("Compiling: path:%s, limits:%s", str(path), str(str(limits)))
+    if command is None or command == [""]:
+        return DO_NOTHING_RESULT
     log.info("Compiling: path:%s",str(path))
-    log.debug("Compiler.py: running " + str(command))
+    log.debug("Compiler.py: running %s with limits %s" % (command, limits))
     try:
         handler = psutil.Popen(command, \
                                stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     except OSError:
-        log.error("There is no compiler for file '" + path + "'")
-        raise CompileError()
+        raise CompileError("There is no compiler for file '%s'" % path)
     result = invoker.invoke(handler, limits)
     stdout, stderr = handler.communicate()
     new_folder_state = snapshot.Snapshot(cur_folder)
