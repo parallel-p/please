@@ -26,12 +26,13 @@ def add_main_solution (path):
 def del_solution(path):
     config = PackageConfig.get_config()
     abspath = os.path.abspath(path)
-    for num, solve in enumerate(config["solution"]):
-        if os.path.abspath(solve["source"]) == abspath:
-            config.delete("solution", num)
-            log.info("Solution has been deleted")
-            writepackage(config.get_text())
-            return
+    if config["solution"] is not None:
+        for num, solve in enumerate(config["solution"]):
+            if os.path.abspath(solve["source"]) == abspath:
+                config.delete("solution", num)
+                log.info("Solution has been deleted")
+                writepackage(config.get_text())
+                return
     raise AddSourceError("There is no such solution")
     
     
@@ -41,9 +42,10 @@ def add_solution_with_config (package_config, path, expected_list = [], possible
     if not os.getcwd() in os.path.abspath(path):
         raise AddSourceError("Solution isn't in problem folder!")
     abspath = os.path.abspath(path)
-    for solve in package_config["solution"]:
-        if os.path.abspath(solve["source"]) == abspath:
-            raise AddSourceError("There is already such solution")
+    if package_config["solution"] is not None:
+        for solve in package_config["solution"]:
+            if os.path.abspath(solve["source"]) == abspath:
+                raise AddSourceError("There is already such solution")
     config_file = config.Config("")
     config_file["source"] = os.path.relpath(path)
     if expected_list != []:
