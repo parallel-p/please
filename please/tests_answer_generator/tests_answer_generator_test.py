@@ -56,7 +56,8 @@ class Tester (unittest.TestCase):
         package_config.PackageConfig.get_config().MultipleTimes().AndReturn(dic)
         
         self.mox.StubOutWithMock(validator_runner, "validate")
-        validator_runner.validate(mox.IgnoreArg(), mox.IgnoreArg()).AndReturn((val_res, []))
+        validator_runner.validate(mox.IgnoreArg(), mox.IgnoreArg()).AndReturn(
+                (val_res, 'stdout', 'stderr'))
         
         answers_gen = self.mox.CreateMock(answers_generator.AnswersGenerator)
         answers_gen.generate(['.tests/1'], 'ms', [], 
