@@ -32,7 +32,7 @@ def del_solution(path):
             log.info("Solution has been deleted")
             writepackage(config.get_text())
             return
-    log.error("There is no such solution")
+    raise AddSourceError("There is no such solution")
     
     
 def add_solution_with_config (package_config, path, expected_list = [], possible_list = []):
@@ -60,8 +60,9 @@ def add_solution (path, expected_list = [], possible_list = []):
     log.info("Solution %s has been being added successfully", path)
     log.debug("Solution %s with expected: %s and possible: %s has been added", path, str(expected_list), str(possible_list))
 
-def add_solution_with_expected(path, expected_list = []):
-    add_solution(path, expected_list)
+def change_solution (path, expected_list = [], possible_list = []):
+    del_solution(path)
+    add_solution(path, expected_list, possible_list)
 
 def add_checker_with_config (package_config, path):
     if not os.path.exists(path):
@@ -69,7 +70,7 @@ def add_checker_with_config (package_config, path):
     if not os.getcwd() in os.path.abspath(path):
         raise AddSourceError("Checker isn't in problem folder!")
     package_config['checker'] = os.path.relpath(path)
-
+    
 def add_checker (path):
     package_config = PackageConfig.get_config()
     add_checker_with_config(package_config, path)
