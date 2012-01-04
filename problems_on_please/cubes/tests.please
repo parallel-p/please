@@ -1,4 +1,4 @@
-[sample]tests/[1-2]
+tests/[1-2] #samples
 tests/[3-4]
 generator_random.cpp 3
 generator_random.cpp 4
