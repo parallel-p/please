@@ -9,18 +9,17 @@ int main()
     n = inf.readInt(0, 100000);
     inf.readChar(' ');
     m = inf.readInt(0, 100000);
-    inf.nextLine();
+    inf.readEoln();
     for(int i = 0; i < n; i++)
     {
         inf.readInt(0, 1000000000);
-        inf.nextLine();
+        inf.readEoln();
     }
     for(int i = 0; i < m; i++)
     {
         inf.readInt(0, 1000000000);
-        inf.nextLine();
+        inf.readEoln();
     }
-    inf.readEoln();
     inf.readEof();
 
     return 0;

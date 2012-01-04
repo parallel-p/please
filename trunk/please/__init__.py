@@ -3,6 +3,7 @@
 
 def main():
     from please.contest import commands as contest_commands
+    from please.add_source.add_source import AddSourceError
     from please.log import logger
     from please.package import config
     from please.cleaner import cleaner
@@ -115,6 +116,8 @@ def main():
             logger.error("EnvironmentError: " + str(ex))
         except tests_answer_generator.ValidatorError as ex:
             logger.error("ValidatorError: " + str(ex))
+        except AddSourceError as ex:
+            logger.error("AddSourceError: " + str(ex))
         except Exception as ex:
             logger.error("Error: " + str(ex))
             raise ex
