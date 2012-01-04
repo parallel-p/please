@@ -11,12 +11,12 @@
 =Создание=
 Переместимся в директорию, в которой хотим создать задачу. Теперь создадим пустой макет для нашей задачи.
 {{{
-~$ please create problem test
-Untitle(INFO) [12:34:13]: Problem test has been being created successfully
+~$ please create problem cubes
+Untitle(INFO) [12:34:13]: Problem cubes has been being created successfully
 }}}
 Зайдём в папку с задачей и посмотрим, что внутри.
 {{{
-~$ cd test
+~$ cd cubes
 ~/test$ ll
 drwxrwxr-x 6 dubov94 dubov94  4096 2012-01-03 12:34 ./
 drwxrwxr-x 7 dubov94 dubov94  4096 2012-01-03 12:34 ../
@@ -42,20 +42,57 @@ drwxrwxr-x 2 dubov94 dubov94  4096 2012-01-03 12:34 tests/
 =После конфигурирования=
 Предварительно необходимо сгенерировать тесты. Генерируются они следующей командой:
 {{{
-~/test$ please generate tests
+~/cubes$ please generate tests
+cubes(INFO) [10:28:18]: Generating 19 tests series
+cubes(INFO) [10:28:18]: Test #1 'tests/1' is generated
+cubes(INFO) [10:28:18]: Test #2 'tests/2' is generated
+cubes(INFO) [10:28:18]: Test series #1 generated
+cubes(INFO) [10:28:18]: Test #3 'tests/3' is generated
+cubes(INFO) [10:28:18]: Test #4 'tests/4' is generated
+cubes(INFO) [10:28:18]: Test series #2 generated
+cubes(INFO) [10:28:18]: Compiling generator_random.cpp
+cubes(INFO) [10:28:19]: Test #5 'standard generator output' is generated
+cubes(INFO) [10:28:19]: Test series #3 generated
+cubes(INFO) [10:28:19]: Test #6 'standard generator output' is generated
+cubes(INFO) [10:28:19]: Test series #4 generated
+...
+cubes(INFO) [10:28:21]: Test #19 'standard generator output' is generated
+cubes(INFO) [10:28:21]: Test series #17 generated
+cubes(INFO) [10:28:21]: Compiling generator_max.cpp
+cubes(INFO) [10:28:21]: Test #20 'standard generator output' is generated
+cubes(INFO) [10:28:21]: Test series #18 generated
+cubes(INFO) [10:28:22]: Test #21 'standard generator output' is generated
+cubes(INFO) [10:28:22]: Test series #19 generated
+cubes(INFO) [10:28:22]: Start validator on test #1
+cubes(INFO) [10:28:22]: Compiling validator.cpp
+cubes(INFO) [10:28:24]: Validator said OK
+cubes(INFO) [10:28:24]: Start validator on test #2
+cubes(INFO) [10:28:24]: Validator said OK
+...
+cubes(INFO) [10:28:25]: Start validator on test #20
+cubes(INFO) [10:28:25]: Validator said OK
+cubes(INFO) [10:28:25]: Start validator on test #21
+cubes(INFO) [10:28:26]: Validator said OK
+cubes(INFO) [10:28:26]: Generating answer for test #1 by solutions/solution.py
+cubes(INFO) [10:28:26]: Generating answer for test #2 by solutions/solution.py
+...
+cubes(INFO) [10:28:35]: Generating answer for test #20 by solutions/solution.py
+cubes(INFO) [10:28:36]: Generating answer for test #21 by solutions/solution.py
 }}}
 Заметим, что они заодно провалидировались и ответы к ним (по main solution) составились.
 Ещё можно задать теги (please generate tests with tag`[s]` ...), тогда будут браться тесты только с заданными тегами. Смотрите please help.
 <br><br>
-Теперь у нас есть некий набор тестов, который хранится в .tests. Да-да, у нас появилась новая папка. Так вот, представим, что мы заметили ошибку в валидаторе, и хотим заново провалидировать уже готовые тесты. Тогда сделаем так:
+Теперь у нас есть некий набор тестов, который хранится в новой папке .tests. Допустим, что мы заметили ошибку в валидаторе, и хотим заново провалидировать уже готовые тесты. Тогда сделаем так:
 {{{
-~/test$ please validate tests=
+~/cubes$ please validate tests
 }}}
 Если что-то пойдёт не так, нас ждёт сюрприз:
 {{{
-cubes(ERROR) [02:13:16]: Validator executions has had RE
+cubes(ERROR) [10:33:21]: ValidatorError: Validator executions has had RE with exit code: 3
+		STDOUT:
+FAIL Expected EOLN (stdin)
 }}}
-Также можно перегенерировать ответы, please generate answers.
+Также можно перегенерировать ответы с помощью please generate answers.
 =Проверка решений=
 Допустим, что мы уже прописали в конфиге все решения, и сгенерировали все тесты. Тогда мы можем проверять различные решения, например, главное:
 {{{
