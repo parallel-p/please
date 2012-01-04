@@ -4,6 +4,7 @@ from .contest import ProblemNotFoundException
 from ..latex import latex_tools
 from ..exporter import exporter
 from ..solution_tester import package_config
+from ..log import logger
 
 CONTEST_FILE = "%s.contest"
 
