@@ -119,17 +119,15 @@ def invoke(handler, limits):
             real_time = time.time() - start_time
             used_memory = max(used_memory, __get_memory_info(handler))
         except psutil.error.NoSuchProcess as e:
-            if handler.is_running():
-                raise e
+            logger.warning("Couldn't check limits: NoSuchProcess")
+            continue#sometimes it happens for unknown reasons
         except psutil.error.AccessDenied as e:
             try:#wait some time, in darwin process is steel running, but already not exists
                 return_code = handler.wait(CHECK_PERIOD)
             except psutil.TimeoutExpired:
                 pass
-            #if handler is steel running we wait, while it will be finished
-            if handler.is_running():
-                logger.warning("Couldn't check limits: AccessDenied")
-                raise e
+            logger.warning("Couldn't check limits: AccessDenied")
+            continue#sometimes it happens for unknown reasons
 
         if real_time > limits.real_time:
             handler.kill()
