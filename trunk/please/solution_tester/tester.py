@@ -45,7 +45,9 @@ class TestSolution:
         self.expected_verdicts = config.get("expected_verdicts") or []
         self.optional_verdicts = config.get("optional_verdicts") or ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']
         self.execution_limits = config.get("execution_limits") or globalconfig.default_limits
-        self.solution_config = config.get("solution_config") or {'input': 'stdin', 'output':'stdout'}
+        self.solution_config = config.get("solution_config") or {
+            'input': config.get('input'),
+            'output':config.get('output')}
         self.solution_args = config.get("solution_args") or []
         
     def one_test(self, solution, test, answer, program_out):
