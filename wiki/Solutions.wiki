@@ -27,16 +27,19 @@ main_solution здесь - путь до главного решения. Гла
 
 
 ...
+{{{
 solution = {
     source = solutions/solution_wrong.cpp
     expected_verdicts = OK, RE, WA
     possible_verdicts = ML, TL
 }
+}}}
 ...
 
 Вставлять подобные фрагменты можно в любое место конфигурационного файла.
 
 Описание решения в default.package
+{{{
 solution = {
     sourse = solutions/sol.cpp #обязательно; путь к задаче из корня
     expected_verdicts = WA #опционально; какие вердикты программа должна получать хотя бы на одном тесте
@@ -44,7 +47,7 @@ solution = {
     input = input.txt #опционально; входной файл, приоритетнее указанного в default.package для всей задачи
     output = stdout #опционально; выходной файл, приоритетнее указанного в default.package для всей задачи
 }
-
+}}}
 Значения по умолчанию:
 input, output устанавливаются в значения, указанные в default.package
 
@@ -72,11 +75,13 @@ PE - presentation error
 
 Удалить решение какой-то командой в please нельзя. Для этого нужно руками удалить строки
 ...
+{{{
 solution = {
     source = solutions/solution_wrong.cpp
     expected_verdicts = OK, RE, WA
     possible_verdicts = ML, TL
 }
+}}}
 ...
 из default.package.
 
