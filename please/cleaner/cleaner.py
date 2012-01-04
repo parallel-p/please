@@ -30,6 +30,7 @@ class Cleaner:
         if os.path.exists(globalconfig.temp_tests_dir):
             shutil.rmtree(globalconfig.temp_tests_dir)
         config = package_config.PackageConfig.get_config()
+        # TODO: check if config is None
         self.__clean_binary(config["validator"])
         self.__clean_binary(config["checker"])
         self.__clean_binary(config["main_solution"])
@@ -45,7 +46,7 @@ class Cleaner:
         if os.path.exists("report.html"):
             logger.info("Removing report.html")
             os.remove("report.html")
-        else: 
+        else:
             logger.info("There is no report.html")
         trash_remover.remove_logs_in_depth()
 

@@ -13,6 +13,8 @@ class AddStandartCheckerError (Exception) :
 
 def print_standard_checkers():
     opened_config = package_config.PackageConfig.get_config()
+    # TODO: check if opened_config is None
+    # opened_config is unused here, remove it
     checkers_dir = os.path.join(globalconfig.root, globalconfig.checkers_dir)
     dirList=os.listdir(checkers_dir)
     filelist = []
@@ -28,6 +30,8 @@ def add_standard_checker_to_solution (checker):
        will write the global path to the checker into config file.
     """
     opened_config = package_config.PackageConfig.get_config()
+    # TODO: check if opened_config is None
+    # opened_config is unused here, remove it
     if not checker.endswith('.cpp'):
         checker_name = checker + ".cpp"
     else:
@@ -42,3 +46,4 @@ def add_standard_checker_to_solution (checker):
         if not os.path.exists('testlib.h') :
             shutil.copy(os.path.join(globalconfig.root, globalconfig.checkers_dir, 'testlib.h'), 'testlib.h')
         add_checker(checker_name)
+

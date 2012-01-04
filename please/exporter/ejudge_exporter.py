@@ -29,6 +29,7 @@ class EjudgeExporter(GenericExporter):
     def create_archive(self):
         for problem in self.problems:
             conf = PackageConfig.get_config(dir = problem)
+            # TODO: check if conf is None
             #with open(problem + os.path.sep + 'default.package', 'r') as configfile:
             #    conf = config.Config(configfile.read())
             config.create_simple_config(problem + os.path.sep + 'default.simple', conf)
@@ -41,4 +42,5 @@ class EjudgeExporter(GenericExporter):
         plpt = self.network['destination']+'/'+self.contest_id+'/'
         #self.connector.run_command('rm -rf ' + plpt + 'please_tmp; mkdir ' + plpt)
         self.connector.upload_file(self.archiver.path, plpt+'/'+os.path.split(self.archiver.path)[-1])
-        self.run_script() 
+        self.run_script()
+

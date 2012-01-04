@@ -84,7 +84,7 @@ class Contest:
 
     def problem_add( self, path, id = False ):
         problem_config = PackageConfig.get_config(path)
-        if problem_config is False or problem_config is None:
+        if problem_config is None:
             raise ProblemNotFoundException(path)
         if not id:
             id = self.__id_method(self.__dict, problem_config['shortname'])
