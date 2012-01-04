@@ -1,7 +1,8 @@
 [http://code.google.com/p/please/w/list All Wiki pages]
 ----
 User documentation
+  * [Install]
   * [CreateProblem]
   * [ProblemConfig]
   * [TestsConfig]
-  * [Install]
+  * [Contest]
