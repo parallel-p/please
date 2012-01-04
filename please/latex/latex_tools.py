@@ -13,7 +13,7 @@ import logging
 
 log = logging.getLogger("please_logger.latex.latex_tools")
 
-def generate_contest(problem_names = ['.'], template = None, template_vars = globalconfig.default_template_vars):
+def generate_contest(problem_names = ['.'], template = None, template_vars = globalconfig.default_template_vars, file = None):
     problem_template_path = get_template_full_path(globalconfig.default_template_contest)
 
     with open(problem_template_path, "r", encoding = "UTF8") as template:
@@ -33,7 +33,9 @@ def generate_contest(problem_names = ['.'], template = None, template_vars = glo
 
     os.chdir(globalconfig.temp_statements_dir)
 
-    if single_problem:
+    if file is not None:
+        new_tex_name = file + ".tex"
+    elif single_problem:
         new_tex_name = os.path.basename(package_conf["statement"])
     else:
         new_tex_name = "_".join(problem_names) + ".tex"
@@ -45,7 +47,10 @@ def generate_contest(problem_names = ['.'], template = None, template_vars = glo
 
     os.chdir("..")
 
-    pdf_out_name = os.path.join(globalconfig.temp_statements_dir, os.path.splitext(new_tex_name)[0] + ".pdf")
+    if file is not None:
+        pdf_out_name = os.path.join(globalconfig.temp_statements_dir, file + ".pdf")
+    else:
+        pdf_out_name = os.path.join(globalconfig.temp_statements_dir, os.path.splitext(new_tex_name)[0] + ".pdf")
     if single_problem:
         shutil.copy(pdf_out_name, os.path.join(globalconfig.statements_dir, os.path.splitext(new_tex_name)[0] + ".pdf"))
     else:
