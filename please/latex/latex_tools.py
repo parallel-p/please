@@ -217,9 +217,7 @@ class Latex2Pdf:
         for i in range(2):
             # necessary two iterations for pages counting
             invoke_info, stdout, stderr = runner.run(path_to_tex_file, encoding = encoding)
-            print(invoke_info)
-            # TODO: разобраться, почему может возвращаться 1
-            if invoke_info.return_code not in [0, 1]:
+            if invoke_info.return_code != 0:
                     raise LatexError(form_error_output.process_err_exit(
                         "Couldn't generate pdf from tex %s" % path_to_tex_file,
                         invoke_info.verdict,
