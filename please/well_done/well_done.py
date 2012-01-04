@@ -47,7 +47,7 @@ class WellDone:
     def endswith_EOLN(self):
         if len(self.__content) == 0 or self.__content[-1] != '\n':
             self.__content += '\n'
-            logger.error("There was no \"\\n\" in the end of file %s", self.__path, exc_info = 0)
+            logger.warning("FIXED : There was no \"\\n\" in the end of file %s", self.__path, exc_info = 0)
             return FIXED        
         else:
             return OK
@@ -61,7 +61,7 @@ class WellDone:
             result = FIXED
             self.__content = re.sub(r'\n\ *', '\n', self.__content)
         if result == FIXED:
-            logger.error("There were excess spaces in line beginnings in file %s", self.__path, exc_info = 0)
+            logger.warning("FIXED : There were excess spaces in line beginnings in file %s", self.__path, exc_info = 0)
         return result
 
     def no_right_space(self):
@@ -73,7 +73,7 @@ class WellDone:
             result = FIXED
             self.__content = re.sub(r'\ *\n', '\n', self.__content)
         if result == FIXED:
-            logger.error("There were excess spaces in line ends in file %s", self.__path, exc_info = 0)        
+            logger.warning("FIXED : There were excess spaces in line ends in file %s", self.__path, exc_info = 0)        
         return result
 
     def no_left_right_space(self):
@@ -90,7 +90,7 @@ class WellDone:
     def no_double_space(self):
         if re.search(r'\ \ ', self.__content):
             self.__content = re.sub(r'\ \ +', r' ', self.__content)
-            logger.error("There were double spaces in file %s", self.__path, exc_info = 0)
+            logger.warning("FIXED : There were double spaces in file %s", self.__path, exc_info = 0)
             return FIXED
         else:
             return OK
@@ -100,7 +100,7 @@ class WellDone:
         if re.search(r'^\n', self.__content):
             result = FIXED
             self.__content = re.sub(r'^\n+', '', self.__content)
-            logger.error("There was an empty line in top of file %s", self.__path, exc_info = 0)            
+            logger.warning("FIXED : There was an empty line in top of file %s", self.__path, exc_info = 0)            
         return result
 
     def no_bottom_emptyline(self):
@@ -108,7 +108,7 @@ class WellDone:
         if re.search(r'\n\n$', self.__content):
             result = FIXED
             self.__content = re.sub(r'\n\n+$', '\n', self.__content)
-            logger.error("There was an empty line in bottom of file %s", self.__path, exc_info = 0)
+            logger.warning("FIXED : There was an empty line in bottom of file %s", self.__path, exc_info = 0)
         return result
 
     def no_top_bottom_emptyline(self):
@@ -131,7 +131,7 @@ class WellDone:
             result = FIXED
             self.__content = re.sub(r'\n\n+', '\n', self.__content)
         if result == FIXED:
-            logger.error("There was an empty line in file %s", self.__path, exc_info = 0)
+            logger.warning("FIXED : There was an empty line in file %s", self.__path, exc_info = 0)
         return result
 
     def __rewrite(self):
