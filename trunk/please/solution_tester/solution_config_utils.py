@@ -21,7 +21,7 @@ def make_config_with_solution_config(config, solution_config):
     if solution_config is not None:
         #print("SOLUTION FOUND: " + sol_found["source"])               
         new_config["expected_verdicts"] = solution_config.get("expected_verdicts")
-        new_config["optional_verdicts"] = solution_config.get("possible_verdicts")
+        new_config["possible_verdicts"] = solution_config.get("possible_verdicts")
         if "input" in solution_config:
             new_config["solution_config"]["input"]  = solution_config["input"]
         if "output" in solution_config:
@@ -32,7 +32,7 @@ def make_config_with_solution_config(config, solution_config):
 #        raise SolutionNotFoundException(solution + ' not found in config')
 
     new_config["expected_verdicts"] = new_config.get("expected_verdicts") or default_expected_verdicts
-    new_config["optional_verdicts"] = new_config.get("optional_verdicts") or default_possible_verdicts
+    new_config["possible_verdicts"] = new_config.get("possible_verdicts") or default_possible_verdicts
     return new_config
         
 def make_config(solution, config = None):

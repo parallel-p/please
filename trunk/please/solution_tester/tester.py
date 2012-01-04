@@ -17,7 +17,7 @@ class TestSolution:
             config["checker"] = "checker.cpp"
             config["tests_dir"] = ".tests"
             config["expected_verdicts"] = ["OK", "ML"]
-            config["optional_verdicts"] = ["TL"]
+            config["possible_verdicts"] = ["TL"]
             config["execution_limits"] = ExecutionLimits()
             config["solution_config"] = ... (nobody knows now :-))
             config["solution_args"] = ["-p", "-f"]
@@ -43,7 +43,7 @@ class TestSolution:
         self.checker = config["checker"]
         self.tests_dir = globalconfig.temp_tests_dir#config["tests_dir"]
         self.expected_verdicts = config.get("expected_verdicts") or []
-        self.optional_verdicts = config.get("optional_verdicts") or ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']
+        self.possible_verdicts = config.get("possible_verdicts") or ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']
         self.execution_limits = config.get("execution_limits") or globalconfig.default_limits
         self.solution_config = config.get("solution_config") or {
             'input': config.get('input'),
@@ -96,7 +96,7 @@ class TestSolution:
             result = self.one_test(solution, test, answer, program_out)
             if result[0].verdict in verdicts:
                 verdicts[result[0].verdict] += 1
-            elif result[0].verdict not in self.optional_verdicts:
+            elif result[0].verdict not in self.possible_verdicts:
                 met_not_expected.setdefault(result[0].verdict, []).append(test) 
                 #{"PE":[".tests/1", ".tests/4"]}
             testing_result[test] = result
