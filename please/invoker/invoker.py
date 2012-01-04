@@ -159,7 +159,4 @@ def invoke(handler, limits):
 __current_platform = platform_detector.get_platform()
 
 def __get_memory_info(handler):
-    if __current_platform[0]=='Darwin':
-        return handler.get_memory_info()[0]
-    else:
-        return handler.get_memory_info()[1]        
+    return handler.get_memory_info()[0]        
