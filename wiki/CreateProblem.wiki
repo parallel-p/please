@@ -206,7 +206,7 @@ cubes(ERROR) [10:43:34]: Solution solutions/solution_wrong.cpp failed to run
 cubes(ERROR) [10:43:34]: Test failed
 }}}
 =Условия=
-please generate statement создаст pdf на основе tex'овского файла условий, указанного в default.package, и тестов, помеченных sample.
+please generate statement создаст pdf на основе tex'овского файла условий, указанного в default.package, и тестов, помеченных тегом sample в tests.please.
 =Всё сразу=
 please build all <=>
   * please generate tests
