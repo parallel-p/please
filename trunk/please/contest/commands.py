@@ -4,6 +4,7 @@ from . import contest
 from ..latex import latex_tools
 from ..exporter import exporter
 from ..solution_tester import package_config
+from ..log import logger
 
 CONTEST_FILE = "%s.contest"
 
@@ -20,6 +21,7 @@ def add_problems_to_contest(contest, problems):
     """
     if len(problems) >= 3 and problems[-2] == "as":
         ids = problems[-1].split(',')
+        # TODO: assert len(problems) == len(ids)
         problems = zip(problems, ids)
     else:
         problems = zip(problems, [False] * len(problems))
@@ -33,6 +35,7 @@ def remove_problems_from_contest(contest, problems):
             contest.problem_remove(problem)
         elif contest.problem_find(problem) is not None:
             contest.problem_remove(contest.problem_find(problem))
+        # TODO else raise somthing
 
 def write_contest(name, contest):
     """ Saves contest to its .contest file """

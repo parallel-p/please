@@ -5,6 +5,12 @@ import errno, os
 from ..package.config import Config
 from ..solution_tester.package_config import PackageConfig
 
+class ProblemNotFoundException(Exception):
+    def __init__( self, path ):
+        self.__path = path
+    def __str__( self ):
+        return "Problem not found: %s" % self.__path
+
 class IdMethod:
 
     class IdException(Exception):
@@ -20,7 +26,7 @@ class IdMethod:
     def default( ids, short ):
         if short not in ids:
             return short
-        raise IdException(short)
+        raise IdMethod.IdException(short)
 
     @classmethod
     def alpha( self, ids, short ):
@@ -29,7 +35,7 @@ class IdMethod:
         for x in map(chr, range(ord('A'), ord('Z') + 1)):
             if x not in ids:
                 return x
-        raise IdException()
+        raise IdMethod.IdException()
 
     @classmethod
     def numeric( self, ids, short ):
@@ -64,6 +70,7 @@ class Contest:
                 statement_config['name'] = ""
                 statement_config['location'] = ""
                 statement_config['date'] = ""
+                statement_config['template'] = "contest.tex"
                 self.config['statement'] = statement_config
             else:
                 raise e
@@ -77,6 +84,8 @@ class Contest:
 
     def problem_add( self, path, id = False ):
         problem_config = PackageConfig.get_config(path)
+        if problem_config is False or problem_config is None:
+            raise ProblemNotFoundException(path)
         if not id:
             id = self.__id_method(self.__dict, problem_config['shortname'])
         config = Config("")
