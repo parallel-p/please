@@ -119,7 +119,7 @@ def invoke(handler, limits):
             real_time = time.time() - start_time
             used_memory = max(used_memory, __get_memory_info(handler))
         except psutil.error.NoSuchProcess as e:
-            if psutil.pid_exists(handler.pid) or handler.is_running():
+            if handler.is_running():
                 raise e
         except psutil.error.AccessDenied as e:
             try:#wait some time, in darwin process is steel running, but already not exists
