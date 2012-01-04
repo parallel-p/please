@@ -8,6 +8,12 @@ logger = logging.getLogger("please_logger.reports.generate_html_report")
 
 def generate_html_for_solution(config, solution, expected_verdicts = ["OK"], possible_verdicts = []):
     ''' Generates <div> block with tabled report for given solution  '''
+    # TODO: разобраться
+    if expected_verdicts is None:
+        expected_verdicts = []
+    if possible_verdicts is None:
+        possible_verdicts = []
+
     report = get_test_results_from_solution(solution, config)
     html_reporter = HtmlReporter()
 
