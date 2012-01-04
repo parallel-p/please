@@ -12,7 +12,7 @@
 
 *Все действия с задачей выполняются из корня папки с задачей!*
 =Создание=
-Переместимся в директорию, в которой хотим создать задачу. Теперь создадим пустой макет для нашей задачи.
+Переместимся в директорию, в которой хотим создать задачу. Теперь создадим пустой макет для нашей задачи с помощью команды *please create problem PROBLEM_NAME*.
 {{{
 ~$ please create problem cubes
 Untitle(INFO) [12:34:13]: Problem cubes has been being created successfully
@@ -43,7 +43,7 @@ drwxrwxr-x 2 dubov94 dubov94  4096 2012-01-03 12:34 tests/
   * default.package - см. [ProblemConfig конфигурирование параметров]
   * tests.please - см. [TestsConfig конфигурирование тестов]
 =После конфигурирования=
-Предварительно необходимо сгенерировать тесты. Генерируются они следующей командой:
+Предварительно необходимо сгенерировать тесты. Генерируются они командой *please generate tests*:
 {{{
 ~/cubes$ please generate tests
 cubes(INFO) [10:28:18]: Generating 19 tests series
@@ -83,9 +83,9 @@ cubes(INFO) [10:28:35]: Generating answer for test #20 by solutions/solution.py
 cubes(INFO) [10:28:36]: Generating answer for test #21 by solutions/solution.py
 }}}
 Заметим, что они заодно провалидировались и ответы к ним (по main solution) составились.
-Ещё можно задать теги (please generate tests with tag`[s]` ...), тогда будут браться тесты только с заданными тегами. Смотрите please help.
+Ещё можно задать теги (*please generate tests with tag`[s]` ...*), тогда будут браться тесты только с заданными тегами. Смотрите please help.
 <br><br>
-Теперь у нас есть некий набор тестов, который хранится в новой папке .tests. Допустим, что мы заметили ошибку в валидаторе, и хотим заново провалидировать уже готовые тесты. Тогда сделаем так:
+Теперь у нас есть некий набор тестов, который хранится в новой папке .tests. Допустим, что мы заметили ошибку в валидаторе, и хотим заново провалидировать уже готовые тесты. Это можно сделать командой *please validate tests*:
 {{{
 ~/cubes$ please validate tests
 }}}
@@ -95,9 +95,9 @@ cubes(ERROR) [10:33:21]: ValidatorError: Validator executions has had RE with ex
 		STDOUT:
 FAIL Expected EOLN (stdin)
 }}}
-Также можно перегенерировать ответы с помощью please generate answers.
+Также можно перегенерировать ответы с помощью *please generate answers*.
 =Проверка решений=
-Допустим, что мы уже прописали в конфиге все решения, и сгенерировали все тесты. Тогда мы можем проверять различные решения, например, главное:
+Допустим, что мы уже прописали в конфиге все решения, и сгенерировали все тесты. Тогда мы можем проверять различные решения, например, главное командой *please check main solution*:
 {{{
 ~/cubes$ please check main solution
 cubes(INFO) [00:47:15]: Testing solutions/solution.py on test #1
@@ -122,7 +122,7 @@ Total:  21
 Failed: 0
 Passed: 21
 }}}
-Какое-нибудь конкретное:
+Какое-нибудь конкретное командой *please check solution SOLUTION_PATH*:
 {{{
 ~/cubes$ please check solution solutions/solution_wrong.cpp
 cubes(INFO) [10:36:53]: Testing solutions/solution_wrong.cpp on test #1
@@ -148,11 +148,11 @@ Total:  21
 Failed: 5
 Passed: 16
 }}}
-Или же все вместе командой please check solutions.
+Или же все вместе командой *please check solutions*.
 =Ожидаемые вердикты=
-Если в конфиге указаны ожидаемые и возможные вердикты, проверить, насколько это соответствует действительности на текущих тестах можно, выполнив команду please generate html report. Будет создан файл report.html с количеством таблиц, соответствующим количеству решений, в таблице каждая строчка - результат на очередном тесте, под таблицей, в случае каких-либо несоответствий, будет указаны "expected but not met" и "not expected but met" вердикты.
+Если в конфиге указаны ожидаемые и возможные вердикты, проверить, насколько это соответствует действительности на текущих тестах можно, выполнив команду *please generate html report*. Будет создан файл report.html в корне задачи с количеством таблиц, соответствующим количеству решений, в таблице каждая строчка - результат на очередном тесте, под таблицей, в случае каких-либо несоответствий, будет указаны "expected but not met" и "not expected but met" вердикты.
 =Автоконфигурирование TL=
-Также можно автоматически выставлять TL в конфиг: будет протестировано главное решение и прописано удвоенное максимальное время выполнения. Вывод:
+Также можно автоматически выставлять TL в конфиг: будет протестировано главное решение и прописано удвоенное максимальное время выполнения. Вывод команды *please compute TL*:
 {{{
 ~/cubes$ please compute TL
 cubes(WARNING) [10:39:08]: Remember: TL is setting by execution results of main solution, so it should be the slowest solution
@@ -171,7 +171,7 @@ time_limit = 2.3
 memory_limit = 256
 ...
 }}}
-Ещё есть возможность записать то же самое число, но округлённое вверх. Делается это командой please compute integer TL. Содержимое default.package после этого:
+Ещё есть возможность записать то же самое число, но округлённое вверх. Делается это командой *please compute integer TL*. Содержимое default.package после этого:
 {{{
 ...
 output = stdout
@@ -184,7 +184,7 @@ memory_limit = 256
   # Написать генератор, который создаёт различные тесты в зависимости от первого переданного в main значения
   # Написать верное решение
   # Написать любое другое решение
-  # Выполнить команду please stress test SOLUTION [CORRECT_SOLUTION] GENERATOR, полагаю, переменные ясны. Если верное решение прописано как главное в конфиге задачи, параметр CORRECT_SOLUTION можно опустить.
+  # Выполнить команду *`please stress test SOLUTION [CORRECT_SOLUTION] GENERATOR`*, полагаю, переменные ясны. Если верное решение прописано как главное в конфиге задачи, параметр CORRECT_SOLUTION можно опустить.
 
 Пример:
 {{{
@@ -209,11 +209,11 @@ cubes(ERROR) [10:43:34]: Solution solutions/solution_wrong.cpp failed to run
 cubes(ERROR) [10:43:34]: Test failed
 }}}
 =Условия=
-please generate statement создаст pdf на основе tex'овского файла условий, указанного в default.package, и тестов, помеченных тегом sample в tests.please.
+*please generate statement* создаст pdf на основе tex'овского файла условий, указанного в default.package, и тестов, помеченных тегом sample в tests.please.
 =Всё сразу=
 please build all <=>
   * please generate tests
   * please generate statement
   * please check solutions
 =Очистить от мусора=
-please clean удалит логи исполняемые файлы, прописанные в default.package и tests.please и pdf.
+*please clean* удалит логи исполняемые файлы, прописанные в default.package и tests.please и pdf.
