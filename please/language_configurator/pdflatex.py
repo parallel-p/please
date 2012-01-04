@@ -9,7 +9,8 @@ def is_compilation_garbage(source):
 
 class PDFLatexConfigurator:
     def get_run_command(self, source):
-        return ["pdflatex", "-output-format=pdf", "-interaction=nonstopmode", source]
+        return ["pdflatex", "-output-format=pdf",
+            "-interaction=nonstopmode", "-halt-on-error", source]
     def is_compile_garbage (self, source):
         #return is_compilation_garbage(source)
         return False

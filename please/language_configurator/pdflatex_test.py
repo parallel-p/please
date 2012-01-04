@@ -22,7 +22,8 @@ class PDFLatexConfiguratorTest(unittest.TestCase):
                                      
     def test_get_run_command(self) :
         pdflatex_configurator = PDFLatexConfigurator()
-        self.assertEqual(["pdflatex", "-output-format=pdf", "-interaction=nonstopmode", \
+        self.assertEqual(["pdflatex", "-output-format=pdf", "-interaction=nonstopmode",
+                          "-halt-on-error",
                           "project.tex"], pdflatex_configurator.get_run_command("project.tex"))
                 
 if __name__ == '__main__':
