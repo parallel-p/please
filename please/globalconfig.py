@@ -50,13 +50,6 @@ checker_return_codes = {0:"OK", 1:"WA", 2:"PE"}
 #temporary solution output file
 temp_solution_out_file = ".out"
 
-#information about ejudge server (protocol pscp)
-ejudge_host = "192.168.16.37"
-ejudge_port = "22"
-ejudge_login = "ejudge"
-ejudge_password = "ejudge"
-ejudge_contests_dir = "/home/judges/"
-
 #information about polygon
 access = {'login': 'makhmedov', "password": "lzlzfbr"}
 polygon_url = "http://codecenter.sgu.ru:8081/polygon"
