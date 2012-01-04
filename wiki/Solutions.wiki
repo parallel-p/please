@@ -93,9 +93,9 @@ Please поддерживает возможности тестирования 
 
 Примеры:
 
-please check main solution - тестирование основного решения
+'check main solution' - тестирование основного решения.
 @Главное решение должно быть описано в default.package
 
-please check solutions - тестирование всех решений, описанных в default.package
+'check solutions' - тестирование всех решений, описанных в default.package
 
-please check solution @solution_name - тестирование решения @solution_name, где @solution_name - путь к решению из корня задачи, @solution_name описано в default.package
+'check solution @solution_name' - тестирование решения @solution_name, где @solution_name - путь к решению из корня задачи, @solution_name описано в default.package
