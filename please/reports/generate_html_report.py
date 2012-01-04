@@ -10,7 +10,7 @@ def generate_html_for_solution(config, solution, expected_verdicts = ["OK"], pos
     ''' Generates <div> block with tabled report for given solution  '''
     report = get_test_results_from_solution(solution, config)
     html_reporter = HtmlReporter()
-    
+
     for test, checker_verdict in sorted(report[2].items(), key = lambda x: int(os.path.basename(x[0]))):
         html_reporter.add_test(solution, os.path.basename(test), checker_verdict[0])
 
@@ -20,11 +20,12 @@ def generate_html_for_solution(config, solution, expected_verdicts = ["OK"], pos
     if len(report[1]) > 0:
         footer += "expected but not met: <b>%s</b><br />" % "</b>,<b> ".join(report[1])
 
-    return "<div style='display: inline; float: left; margin: 5px; font-family: monospace'>" + html_reporter.str() + footer + "</div>"
+    return "<div style='display: inline; float: left; margin: 5px; font-family: monospace'>" + html_reporter.get_str(expected_verdicts + possible_verdicts, fail = len(report[0]) + len(report[1]) > 0) + footer + "</div>"
 
 def generate_html_report():
     config = PackageConfig.get_config()
-    # TODO: check if config is None
+    if config is None:
+        raise Exception("Problem config was not found")
     solution = config["main_solution"]
 
     html = generate_html_for_solution(config, solution)
@@ -39,6 +40,5 @@ def generate_html_report():
     html = "<div style='width: 10000px'>" + html + "</div>"
     with open("report.html", "w", encoding = "utf-8") as output:
         output.write(html)
-    
-    logger.warning("HTML report is generated and saved as 'report.html' in the root directory of current problem")
-    
+
+    logger.info("HTML report is generated and saved as 'report.html' in the root directory of current problem")
