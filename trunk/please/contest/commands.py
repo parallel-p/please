@@ -25,6 +25,7 @@ def add_problems_to_contest(contest, problems):
         Adds some problems to contest, where <problems> is list returned by matcher
         for example, problems: ['sloniki', 'grader', 'as', 'A,B']
     """
+    r = []
     if len(problems) >= 3 and problems[-2] == "as":
         ids = problems[-1].split(',')
         problems = problems[:-2]
@@ -36,15 +37,22 @@ def add_problems_to_contest(contest, problems):
 
     for problem, id in problems:
         contest.problem_add(problem, id)
+        r.append(problem)
+
+    return r
 
 def remove_problems_from_contest(contest, problems):
+    r = [] # cannot use yield becase all problems must be removed before other actions
     for problem in problems:
         if problem in contest:
             contest.problem_remove(problem)
         elif contest.problem_find(problem) is not None:
-            contest.problem_remove(contest.problem_find(problem))
+            problem = contest.problem_find(problem)
+            contest.problem_remove(problem)
         else:
             raise ProblemNotFoundException(problem)
+        r.append(problem)
+    return r
 
 def write_contest(name, contest):
     """ Saves contest to its .contest file """
@@ -58,16 +66,25 @@ def command_create_contest(name, problems):
     new_contest = get_contest(name, True)
     add_problems_to_contest(new_contest, problems)
     write_contest(name, new_contest)
+    logger.info("created contest %s with %d problems" % (name, len(problems)))
 
 def command_add_problems(name, problems, problems_as = []):
     current_contest = get_contest(name)
-    add_problems_to_contest(current_contest, problems + problems_as)
+    r = add_problems_to_contest(current_contest, problems + problems_as)
     write_contest(name, current_contest)
+    if len(r) == 1:
+        logger.info("added problem %s to contest" % r[0])
+    else:
+        logger.info("added %s problems to contest: %s" % (len(r), ','.join(r)))
 
 def command_remove_problems(name, problems):
     current_contest = get_contest(name)
-    remove_problems_from_contest(current_contest, problems)
+    r = remove_problems_from_contest(current_contest, problems)
     write_contest(name, current_contest)
+    if len(r) == 1:
+        logger.info("removed problem %s from contest" % r[0])
+    else:
+        logger.info("removed %d problems from contest: %s" % (len(r), ','.join(r)))
 
 def command_generate_statement(name):
     current_contest = get_contest(name)
@@ -90,3 +107,16 @@ def command_export(name, where, contest):
         config['id'] = problem['id']
         problems.append(problem['path'])
     exporter.export(where, contest, problems)
+
+def command_set_parameter( name, key, value ):
+    if key not in ('name', 'id_method', 'statement.name', 'statement.date', 'statement.location', 'statement.template'):
+        raise Exception("Unknown contest parameter: %s" % key)
+    key = key.split('.')
+    contest = get_contest(name)
+    config = contest.config
+    for x in key[:-1]:
+        config = config[x]
+    config[key[-1]] = value
+    write_contest(name, contest)
+    logger.info("Modified %s in contest \"%s\"" % (' '.join(key), name))
+

@@ -103,9 +103,9 @@ class Contest:
 
     def problem_remove( self, id ):
         i = self.__dict[id]
+        self.config.delete('problem', i)
         del self.__problems[i]
         self.__dict = {problem['id'] : i for i, problem in enumerate(self.__problems)}
-        self.config.delete('problem', i)
 
     def __contains__( self, id ):
         return id in self.__dict
