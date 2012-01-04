@@ -121,9 +121,6 @@ def invoke(handler, limits):
         except psutil.error.NoSuchProcess as e:
             if psutil.pid_exists(handler.pid) or handler.is_running():
                 raise e
-            else:
-                #process just finished, so exit while
-                break
         except psutil.error.AccessDenied as e:
             try:#wait some time, in darwin process is steel running, but already not exists
                 return_code = handler.wait(CHECK_PERIOD)
@@ -133,23 +130,24 @@ def invoke(handler, limits):
             if handler.is_running():
                 logger.warning("Couldn't check limits: AccessDenied")
                 raise e
-            else:
-                #process just finished, so exit while
-                break
 
         if real_time > limits.real_time:
             handler.kill()
             verdict = "real TL"
             return_code = None
+            break
         elif cpu_time > limits.cpu_time:
             handler.kill()
             verdict = "TL"
             return_code = None
+            break
         elif used_memory > MEGABYTE * limits.memory:
             handler.kill()
             verdict = "ML"
             return_code = None
+            break
 
+    
     real_time = time.time() - start_time
     if real_time > limits.real_time:
         verdict = "real TL"
