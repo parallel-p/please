@@ -31,7 +31,6 @@ def main():
     from please.todo import todo_generator
     from please.build_all.build_tools import build_all
     from please.solution_tester import package_config
-    from please.export2ejudge.export import export2ejudge
     import os
     from please.import_from_polygon.import_problem_from_polygon import import_problem_from_polygon
     from please.import_from_polygon.create_problem import create_problem as import_polygon_package
