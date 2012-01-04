@@ -90,6 +90,7 @@ def main():
     matcher.add_handler(Template(["remove", "@problems", "from", "#name"]), contest_commands.command_remove_problems, True)
     matcher.add_handler(Template(["generate", "statement", "for", "#name"]), contest_commands.command_generate_statement, True)
     matcher.add_handler(Template(["export", "#name", "to", "#where", "contest", "#contest"]), contest_commands.command_export, True)
+    matcher.add_handler(Template(["set", "contest", "#name", "#key", "#value"]), contest_commands.command_set_parameter, True)
 
     if len(sys.argv) == 1:
         print_lite_help()
