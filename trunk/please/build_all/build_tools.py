@@ -23,4 +23,4 @@ def build_all () :
     #run check soltuion
     check_multiple_solution()
 
-    generate_html_report.generate_html_report()
+    #generate_html_report.generate_html_report()
