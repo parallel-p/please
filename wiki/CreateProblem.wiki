@@ -124,7 +124,7 @@ Failed: 0
 Passed: 21
 cubes(INFO) [00:47:29]: HTML report is generated and saved as 'report.html' in the root directory of current problem
 }}}
-Заметим, что заодно создался HTML отчёт по проведённому тестированию.
+Заметим, что заодно создался HTML отчёт по проведённому тестированию, включающий в себя отчёт о соответствии ожидаемым и возможным вердиктам, прописанным в соответствующем конфиге (default.package).
 Можно протестировать какое-нибудь конкретное командой *please check solution SOLUTION_PATH*:
 {{{
 ~/cubes$ please check solution solutions/solution_wrong.cpp
@@ -153,8 +153,6 @@ Passed: 16
 cubes(INFO) [10:36:58]: HTML report is generated and saved as 'report.html' in the root directory of current problem
 }}}
 Или же все вместе командой *please check solutions*.
-=Ожидаемые вердикты=
-Если в конфиге указаны ожидаемые и возможные вердикты, проверить, насколько это соответствует действительности на текущих тестах можно, выполнив команду *please generate html report*. Будет создан файл report.html в корне задачи с количеством таблиц, соответствующим количеству решений, в таблице каждая строчка - результат на очередном тесте, под таблицей, в случае каких-либо несоответствий, будет указаны "expected but not met" и "not expected but met" вердикты.
 =Автоконфигурирование TL=
 Также можно автоматически выставлять TL в конфиг: будет протестировано главное решение и прописано удвоенное максимальное время выполнения. Вывод команды *please compute TL*:
 {{{
