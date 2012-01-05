@@ -5,4 +5,5 @@ User documentation
   * [CreateProblem]
   * [ProblemConfig]
   * [TestsConfig]
+  * [Validator]
   * [Contest]
