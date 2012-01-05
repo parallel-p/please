@@ -20,7 +20,8 @@ class GenericExporter:
             # TODO: check if conf is None
             #with open('default.package', 'r') as f:
             #    conf = Config(f.read())
-            self.archiver.add(conf['checker'], os.path.join(problem, os.path.split(conf['checker'])[-1]))
+            if self.archiver:
+                self.archiver.add(conf['checker'], os.path.join(problem, os.path.split(conf['checker'])[-1]))
             #if not os.path.exists(conf['checker']):
             #    print(conf['checker'])
             #    print(-1/0)
