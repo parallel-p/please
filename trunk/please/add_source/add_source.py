@@ -61,7 +61,9 @@ def get_dict_from_args(args, changing=False):
         raise AddSourceError("Keyword '" + last_item + "' has no assignment")
     return result
 
-def add_solution (path, args):
+def add_solution (args):
+    path = args[0]
+    args = args[1:len(args)]
     if not os.path.exists(path):
         raise AddSourceError("There is no such file")
     if not os.getcwd() in os.path.abspath(path):
@@ -84,7 +86,9 @@ def add_solution (path, args):
     writepackage(package_config.get_text())
     log.info("Solution %s has been being added successfully", path)
     
-def change_solution (path, args):
+def change_solution (args):
+    path = args[0]
+    args = args[1:len(args)]
     config = PackageConfig.get_config()
     abspath = os.path.abspath(path)
     if config["solution"] is not None:
@@ -98,7 +102,9 @@ def change_solution (path, args):
                 return
     raise AddSourceError("There is no such solution")
 
-def del_props(path, args):
+def del_props(args):
+    path = args[0]
+    args = args[1:len(args)]
     config = PackageConfig.get_config()
     abspath = os.path.abspath(path)
     if config["solution"] is not None:
