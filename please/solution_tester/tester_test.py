@@ -164,7 +164,7 @@ class SolutionTesterTest(unittest.TestCase):
         self.mox.ReplayAll()
         testing = tester.TestSolution(config)
         self.assertEqual(testing.test_solution(""),
-                         ({"WA":[self.a(".tests","1")]}, [], {self.a(".tests","1"):\
+                         ({"WA":[self.a(".tests","1")]}, ['OK'], {self.a(".tests","1"):\
                         [self.q("WA"), "stdout", "stderr"]}))
     
     def test_DifficultExpectedMLUnexpectedTLandOK(self):
