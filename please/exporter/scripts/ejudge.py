@@ -39,10 +39,9 @@ class EjudgeContest:
             ej_problem = EjudgeProblem(problem_config['problem'], problem)
             if ej_problem.abstract:
                 self.__abstract_name = ej_problem.short_name
-            if ej_problem.internal_name is None:
-                self.__problems_byname[ej_problem.short_name] = ej_problem
-            else:
-                self.__problems_byname[ej_problem.internal_name] = ej_problem
+            if ej_problem.internal_name is False:
+                ej_problem.internal_name = ej_problem.short_name
+            self.__problems_byname[ej_problem.internal_name] = ej_problem
             self.__problems.append(ej_problem)
             self.__max_problem_id = max(self.__max_problem_id, ej_problem.id)
 
