@@ -28,8 +28,8 @@ class SolutionTesterTest(unittest.TestCase):
         config["solution_args"] = None
         config["checker"] = os.path.join("testdata", "checker.cpp")
         config["tests_dir"] = ".tests"
-        config["expected_verdicts"] = ["OK", "WA"]
-        config["possible_verdicts"] = ["TL"]
+        config["expected"] = ["OK", "WA"]
+        config["possible"] = ["TL"]
         config["execution_limits"] = None
         
         self.mox.StubOutWithMock(os.path, "exists")
@@ -63,8 +63,8 @@ class SolutionTesterTest(unittest.TestCase):
         config["solution_args"] = None
         config["checker"] = os.path.join("testdata", "checker.cpp")
         config["tests_dir"] = ".tests"
-        config["expected_verdicts"] = ["OK"]
-        config["possible_verdicts"] = ["TL"]
+        config["expected"] = ["OK"]
+        config["possible"] = ["TL"]
         config["execution_limits"] = None
         
         self.mox.StubOutWithMock(os.path, "exists")
@@ -98,8 +98,8 @@ class SolutionTesterTest(unittest.TestCase):
         config["solution_args"] = None
         config["checker"] = os.path.join("testdata", "checker.cpp")
         config["tests_dir"] = ".tests"
-        config["expected_verdicts"] = ["OK", "WA"]
-        config["possible_verdicts"] = ["TL"]
+        config["expected"] = ["OK", "WA"]
+        config["possible"] = ["TL"]
         config["execution_limits"] = None
         self.mox.StubOutWithMock(os.path, "exists")
         self.mox.StubOutWithMock(tester, "run_solution")
@@ -139,8 +139,8 @@ class SolutionTesterTest(unittest.TestCase):
         config["solution_args"] = None
         config["checker"] = os.path.join("testdata", "checker.cpp")
         config["tests_dir"] = ".tests"
-        config["expected_verdicts"] = []
-        config["possible_verdicts"] = ["TL"]
+        config["expected"] = []
+        config["possible"] = ["TL"]
         config["execution_limits"] = None
         self.mox.StubOutWithMock(os.path, "exists")
         self.mox.StubOutWithMock(tester, "run_solution")
@@ -173,8 +173,8 @@ class SolutionTesterTest(unittest.TestCase):
         config["solution_args"] = None
         config["checker"] = os.path.join("testdata", "checker.cpp")
         config["tests_dir"] = ".tests"
-        config["expected_verdicts"] = ["ML"]
-        config["possible_verdicts"] = ["WA"]
+        config["expected"] = ["ML"]
+        config["possible"] = ["WA"]
         config["execution_limits"] = None
         self.mox.StubOutWithMock(os.path, "exists")
         self.mox.StubOutWithMock(tester, "run_solution")

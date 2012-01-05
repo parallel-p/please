@@ -34,7 +34,7 @@ class Config:
         self.__settings = {}
         self.__source = []
         self.repeating_keywords = ["solution", "problem"]
-        self.list_keywords = ["expected_verdicts", "possible_verdicts", "well_done_test", \
+        self.list_keywords = ["expected", "possible", "well_done_test", \
                               "well_done_answer"]
         for key in self.repeating_keywords:
             if key in self.list_keywords:

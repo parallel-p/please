@@ -324,15 +324,15 @@ P = {
         conf = Config("""
 config = {
     solution = {
-    expected_verdicts = TL, OK
+    expected = TL, OK
     }
     solution = {
-    possible_verdicts = WA, ML
+    possible = WA, ML
     }
 }
 """)
-        self.assertEqual(conf["config"]["solution"][0]["expected_verdicts"], ["TL", "OK"])
-        self.assertEqual(conf["config"]["solution"][1]["possible_verdicts"], ["WA", "ML"])
+        self.assertEqual(conf["config"]["solution"][0]["expected"], ["TL", "OK"])
+        self.assertEqual(conf["config"]["solution"][1]["possible"], ["WA", "ML"])
         
     def test_get_text_difficult(self):
         conf = Config("""
@@ -340,10 +340,10 @@ config = { # first comment
     hello # second
     #to be
     solution = { # i'm
-        expected_verdicts = ML, TL #lovin'
+        expected = ML, TL #lovin'
         } # it
     solution = { # masha
-    possible_verdicts = A, B, C, D #why?
+    possible = A, B, C, D #why?
     #to be
     } # pasha
     #or
@@ -355,11 +355,11 @@ config = { # first comment
     hello # second
     #to be
     solution = { # i'm
-        expected_verdicts = ML, TL #lovin'
+        expected = ML, TL #lovin'
         # it
     }
     solution = { # masha
-        possible_verdicts = A, B, C, D #why?
+        possible = A, B, C, D #why?
         #to be
         # pasha
     }
@@ -377,8 +377,8 @@ config = { # first comment
             
             solution = { #it's
                 #so
-                expected_verdicts = ML, TL #unexpected
-                possible_verdicts = OK # cute
+                expected = ML, TL #unexpected
+                possible = OK # cute
                 el3 = WA # opa c
                 
             }#bye
@@ -400,25 +400,25 @@ config = {
 input = a.in
 output = a.out
 """)
-        conf2 = Config("""expected_verdicts = ML, TL
-possible_verdicts = OK""")
+        conf2 = Config("""expected = ML, TL
+possible = OK""")
         conf["solution"] = [conf2,]
         self.assertEqual(conf.get_text(), """please = 0.1
 input = a.in
 output = a.out
 solution = {
-    expected_verdicts = ML, TL
-    possible_verdicts = OK
+    expected = ML, TL
+    possible = OK
 }
 """)
     def test_set(self):
         conf = Config("""
 conf = {
 solution = {
-    expected_verdicts = ML, TL #cmo
+    expected = ML, TL #cmo
     }
 solution = {#abc
-    possible_verdicts = OK
+    possible = OK
     }#avb
 solution = {
     input = "peen"
@@ -427,19 +427,19 @@ solution = {
 }""")
         conf["conf"].delete("solution", 1)
         conf2 = Config("")
-        conf2["expected_verdicts"] = ["ML", "OK"]
+        conf2["expected"] = ["ML", "OK"]
         conf["conf"].set("solution", conf2, None, True)
         self.assertEqual(conf.get_text(), """
 conf = {
     solution = {
-        expected_verdicts = ML, TL #cmo
+        expected = ML, TL #cmo
     }
     solution = {
         input = "peen"
     }
     
     solution = {
-        expected_verdicts = ML, OK
+        expected = ML, OK
     }
 }
 """)
@@ -449,35 +449,35 @@ my_sister = Liza""")
         for basename in range(5):
             config_file  = Config("")
             config_file ["source"] = "solutions." + str(basename)
-            config_file ["expected_verdicts"] = ["OK"]  
-            config_file ["possible_verdicts"] = ["ML"]
+            config_file ["expected"] = ["OK"]  
+            config_file ["possible"] = ["ML"]
             package_config.set("solution", config_file, None, True)
         self.assertEqual(package_config.get_text(), """please_version = 0.1
 my_sister = Liza
 solution = {
     source = solutions.0
-    expected_verdicts = OK
-    possible_verdicts = ML
+    expected = OK
+    possible = ML
 }
 solution = {
     source = solutions.1
-    expected_verdicts = OK
-    possible_verdicts = ML
+    expected = OK
+    possible = ML
 }
 solution = {
     source = solutions.2
-    expected_verdicts = OK
-    possible_verdicts = ML
+    expected = OK
+    possible = ML
 }
 solution = {
     source = solutions.3
-    expected_verdicts = OK
-    possible_verdicts = ML
+    expected = OK
+    possible = ML
 }
 solution = {
     source = solutions.4
-    expected_verdicts = OK
-    possible_verdicts = ML
+    expected = OK
+    possible = ML
 }
 """)
         

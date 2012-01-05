@@ -6,14 +6,13 @@ import os.path
 
 logger = logging.getLogger("please_logger.reports.generate_html_report")
 
-def generate_html_for_solution(config, solution, expected_verdicts = [], possible_verdicts = []):
+def generate_html_for_solution(config, solution, expected = [], possible = []):
     ''' Generates <div> block with tabled report for given solution  '''
     report = get_test_results_from_solution(solution, config)
     html_reporter = HtmlReporter()
     
-    expected_verdicts = expected_verdicts or ['OK']
-    possible_verdicts = possible_verdicts or expected_verdicts
-
+    expected = expected or ['OK']
+    
     for test, checker_verdict in sorted(report[2].items(), key = lambda x: int(os.path.basename(x[0]))):
         html_reporter.add_test(solution, os.path.basename(test), checker_verdict[0])
 
@@ -23,7 +22,7 @@ def generate_html_for_solution(config, solution, expected_verdicts = [], possibl
     if len(report[1]) > 0:
         footer += "expected but not met: <b>%s</b><br />" % "</b>,<b> ".join(report[1])
 
-    return "<div style='display: inline; float: left; margin: 5px; font-family: monospace'>" + html_reporter.get_str(expected_verdicts + possible_verdicts, fail = len(report[0]) + len(report[1]) > 0) + footer + "</div>"
+    return "<div style='display: inline; float: left; margin: 5px; font-family: monospace'>" + html_reporter.get_str(expected + possible, fail = len(report[0]) + len(report[1]) > 0) + footer + "</div>"
 
 def generate_html_report():
     config = PackageConfig.get_config()
@@ -37,7 +36,7 @@ def generate_html_report():
 
     for solve in config["solution"]:
         if not solve["source"] in generated:
-            html += generate_html_for_solution(config, solve["source"], solve["expected_verdicts"], solve["possible_verdicts"])
+            html += generate_html_for_solution(config, solve["source"], solve["expected"], solve["possible"])
             generated.add(solve["source"])
 
     html = "<div style='width: 10000px'>" + html + "</div>"
