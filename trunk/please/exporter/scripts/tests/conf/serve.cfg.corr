@@ -88,6 +88,7 @@ arch = linux-shared
 [problem]
 abstract
 short_name = "Generic"
+internal_name = "Generic"
 use_stdin
 use_stdout
 time_limit = 1
@@ -108,6 +109,7 @@ id = 1
 super = "Generic"
 short_name = "A"
 long_name = "Sum 1"
+internal_name = "A"
 standard_checker = "cmp_int"
 
 
