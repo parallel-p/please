@@ -20,9 +20,17 @@ class NewEjudgeFormatter(EjudgeFormatter):
         if not os.path.isdir(os.path.join(path_to_problem, '.tests')):
             os.mkdir(os.path.join(path_to_problem, '.tests'))
         shutil.copytree(os.path.join(path_to_problem, '.tests'), os.path.join(target_path_to_problem, 'tests'))        
-    
+
     def __put_checker(self, path_to_problem, target_path_to_problem, name_of_checker):
-        shutil.copyfile(os.path.join(path_to_problem, name_of_checker), os.path.join(target_path_to_problem, name_of_checker))
+        if os.path.splitext(name_of_checker)[1] in ['.cpp', '.c', '.c++', '.cxx']:
+            checker = ""
+            with open(os.path.join(path_to_problem, name_of_checker)) as f:
+                checker = f.read()
+            checker = "#define EJUDGE\n" + checker
+            with open(os.path.join(target_path_to_problem, name_of_checker), 'w', encoding = 'utf-8') as f:
+                f.write(checker)
+        else:
+            shutil.copyfile(os.path.join(path_to_problem, name_of_checker), os.path.join(target_path_to_problem, name_of_checker))
 
     def put_all(self):
         target_path_to_problems = os.path.join('..', 'problems')
