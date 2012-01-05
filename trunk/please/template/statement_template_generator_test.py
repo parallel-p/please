@@ -8,7 +8,8 @@ import unittest
 
 class TestStatementDescriptionGenerator(unittest.TestCase):
     def setUpClass():
-        mkdir("test")
+        if not os.path.exists("test"):
+           mkdir("test")
         
     def tearDownClass():
         if exists("test"):
