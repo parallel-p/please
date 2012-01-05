@@ -35,11 +35,11 @@ class HtmlReporter:
             'real TL':   'windows'
         }
         verdicts_set = set(verdicts)
-        if "OK" not in verdicts_set:
-            verdict_to_color["OK"] = "red"
-        for index in verdict_to_color:
-            if index in verdicts_set:
-                verdict_to_color[index] = "lime"
+        #if "OK" not in verdicts_set:
+        #    verdict_to_color["OK"] = "red"
+        #for index in verdict_to_color:
+        #    if index in verdicts_set:
+        #        verdict_to_color[index] = "lime"
 
         for test in self.__tests:
             row = [HTML.TableCell(test, bgcolor = 'grey')]
