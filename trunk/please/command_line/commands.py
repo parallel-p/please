@@ -139,7 +139,7 @@ Commands available inside problem's folder:
     
   {26}:
     Changes given solution properties
-    example: change properties expected_verdicts OK RE input input.txt
+    example: change properties expected OK RE input input.txt
     
   {27}:
     Deletes given solution properties

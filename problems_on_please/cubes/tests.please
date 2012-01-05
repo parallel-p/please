@@ -1,5 +1,5 @@
-tests/[1-2] #samples
-tests/[3-4]
+[sample]tests/[1-2]
+[exclude=tests/3]tests/[3-4]
 generator_random.cpp 3
 generator_random.cpp 4
 generator_random.cpp 17

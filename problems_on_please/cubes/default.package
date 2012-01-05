@@ -27,5 +27,8 @@ solution = {
 }
 solution = {
     source = solutions/solution_wrong.cpp
-    expected_verdicts = OK, RE, WA
+    input = stdin
+    possible_verdicts = TL, WA
+    expected_verdicts = OK, RE
+    output = stdout
 }
