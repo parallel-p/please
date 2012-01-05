@@ -38,8 +38,8 @@ problem_commands = ["generate statement",
              "validate tests",
              "well done",
              "del[ete] solution PATH_TO_SOLUTION",
-             "change solution PATH_TO_SOLUTION expected: EXPECTED_VERDICTS_LIST possible: POSSIBLE_VERDICTS_LIST",
-             "change solution PATH_TO_SOLUTION with EXPECTED_VERDICTS_LIST",
+             "change prop[erties] PATH_TO_SOLUTION [ARG VALUES...]",
+             "del[ete] prop[erties] PATH_TO_SOLUTION ARGS"
              ]
 
 def print_lite_help():
@@ -137,9 +137,13 @@ Commands available inside problem's folder:
   {25}:
     Deletes solution from default.package
     
-  {26},
+  {26}:
+    Changes given solution properties
+    example: change properties expected_verdicts OK RE input input.txt
+    
   {27}:
-    Changes solution from default.package
+    Deletes given solution properties
+    example: delete properties input output
 
   {11}:
     Sets main solution (solution that should pass all tests). Copies specified file in /solutions and edits default.package

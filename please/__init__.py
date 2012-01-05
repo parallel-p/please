@@ -13,7 +13,7 @@ def main():
     from please.executors.compiler import CompileError
     from please.executors.runner import RunnerError
     from please.template import problem_template_generator as problem_gen
-    from please.add_source.add_source import del_solution, add_solution, add_main_solution, add_checker, add_validator, change_solution
+    from please.add_source.add_source import del_props, del_solution, add_solution, add_main_solution, add_checker, add_validator, change_solution
     from please import tags
     from please.solution_tester import check_solution
     from please.well_done import well_done
@@ -63,7 +63,8 @@ def main():
     matcher.add_handler(Template(["set", "standard", "checker"]), print_standard_checkers, in_problem_folder)
     matcher.add_handler(Template(["add", "solution", "#path", "@args"]), add_solution, in_problem_folder)
     matcher.add_handler(Template(["delete|del", "solution", "#path"]), del_solution, in_problem_folder)
-    matcher.add_handler(Template(["change", "solution", "#path", "@args"]),change_solution, in_problem_folder)
+    matcher.add_handler(Template(["change", "prop|properties", "#path", "@args"]),change_solution, in_problem_folder)
+    matcher.add_handler(Template(["delete|del", "prop|properties", "#path", "@args"]),del_props, in_problem_folder)
     matcher.add_handler(Template(["set", "checker", "#path"]), add_checker, in_problem_folder)
     matcher.add_handler(Template(["set", "main", "solution", "#path"]), add_main_solution, in_problem_folder)
     matcher.add_handler(Template(["set", "validator", "#path"]), add_validator, in_problem_folder)
