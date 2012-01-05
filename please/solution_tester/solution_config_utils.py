@@ -5,8 +5,8 @@ from ..invoker import invoker
 
 
 def make_config_with_solution_config(config, solution_config):
-    default_expected = []
-    default_possible = ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']
+    default_expected = ['OK']
+    default_possible = []
     
     # Get results from test_solution, create a config file to send.
     # Find all attributes from config's root or embedded solution's config        
