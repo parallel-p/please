@@ -42,5 +42,4 @@ class EjudgeExporter(GenericExporter):
         plpt = self.network['destination']+'/'+self.contest_id+'/'
         #self.connector.run_command('rm -rf ' + plpt + 'please_tmp; mkdir ' + plpt)
         self.connector.upload_file(self.archiver.path, plpt+'/'+os.path.split(self.archiver.path)[-1])
-        self.run_script()
 
