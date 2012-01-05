@@ -31,7 +31,7 @@ problem_commands = ["generate statement",
              "stress test SOLUTION [CORRECT_SOLUTION] GENERATOR",
              "compute TL",
              "compute integer TL",
-             "generate html report",
+             "",
              "set problem name NAME",
              "check main solution",
              "clean",
@@ -177,10 +177,7 @@ Commands available inside problem's folder:
 
   {18}
     Computes adequate integer TL of current problem as doubled maximum running time of main solution
-
-  {19}
-    Generates html file report.html. This file contains tables with results of working of all solutions.
-
+    {19}
   {20}
     Sets current problem name
 
