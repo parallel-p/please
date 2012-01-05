@@ -1,3 +1,4 @@
+#summary Годные статьи
 [http://code.google.com/p/please/w/list All Wiki pages]
 ----
 User documentation
