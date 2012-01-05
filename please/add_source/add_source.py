@@ -38,7 +38,7 @@ def del_solution(path):
 def get_dict_from_args(args, changing=False):
     result = {}
     last_item = None
-    list_items = ["expected_verdicts", "possible_verdicts"]
+    list_items = ["expected", "possible"]
     simple_items = ["input", "output"]
     assigned = True
     for item in args:
@@ -144,12 +144,12 @@ def add_validator (path):
     writepackage(package_text)
     log.info("Validator %s has been being set successfully", path)
 
-def add_solution_with_config (package_config, path, expected_list = [], possible_list = []):
+def add_solution_with_config (package_config, path, expected= [], possible = []):
     #TODO: kill it. needed for correct import_from_polygon module work.
     config_file = config.Config("")
     config_file["source"] = os.path.relpath(path)
-    if expected_list != []:
-        config_file ["expected_verdicts"] = expected_list
-    if possible_list != []:
-        config_file ["possible_verdicts"] = possible_list
+    if expected != []:
+        config_file ["expected"] = expected
+    if possible != []:
+        config_file ["possible"] = possible
     package_config.set("solution", config_file, None, True)

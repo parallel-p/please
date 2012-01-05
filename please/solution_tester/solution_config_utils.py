@@ -5,8 +5,8 @@ from ..invoker import invoker
 
 
 def make_config_with_solution_config(config, solution_config):
-    default_expected_verdicts = []
-    default_possible_verdicts = ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']
+    default_expected = []
+    default_possible = ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']
     
     # Get results from test_solution, create a config file to send.
     # Find all attributes from config's root or embedded solution's config        
@@ -20,8 +20,8 @@ def make_config_with_solution_config(config, solution_config):
     
     if solution_config is not None:
         #print("SOLUTION FOUND: " + sol_found["source"])               
-        new_config["expected_verdicts"] = solution_config.get("expected_verdicts")
-        new_config["possible_verdicts"] = solution_config.get("possible_verdicts")
+        new_config["expected"] = solution_config.get("expected")
+        new_config["possible"] = solution_config.get("possible")
         if "input" in solution_config:
             new_config["solution_config"]["input"]  = solution_config["input"]
         if "output" in solution_config:
@@ -31,8 +31,8 @@ def make_config_with_solution_config(config, solution_config):
         pass
 #        raise SolutionNotFoundException(solution + ' not found in config')
 
-    new_config["expected_verdicts"] = new_config.get("expected_verdicts") or default_expected_verdicts
-    new_config["possible_verdicts"] = new_config.get("possible_verdicts") or default_possible_verdicts
+    new_config["expected"] = new_config.get("expected") or default_expected
+    new_config["possible"] = new_config.get("possible") or default_possible
     return new_config
         
 def make_config(solution, config = None):
