@@ -49,6 +49,6 @@ Example:
 = Импорт контеста =
 
 Example:
-    please import polygon contest @path_to_zip_archive_with_contest
+    please import polygon contest home/user/contest-218.zip
 
 В текущей директории создает конфигурационный файл с контестом и папки со всеми задачами. Если задача с именем какой-нибудь из задач контеста уже существует, то она пропускается и подключается к контесту. Импорт задач работает как описано выше. В случае существования контеста работа прерывается и выводится "Import error: @problem_name already exists"
