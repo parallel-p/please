@@ -71,6 +71,8 @@ def add_solution (args):
     
     package_config = PackageConfig.get_config()
     abspath = os.path.abspath(path)
+    if abspath == os.path.abspath(package_config["main_solution"]):
+        raise AddSourceError("Adding solution must not be equal to main")
     if package_config["solution"] is not None:
         for solve in package_config["solution"]:
             if os.path.abspath(solve["source"]) == abspath:
