@@ -106,22 +106,7 @@ cubes(INFO) [00:47:15]: Compiling checker.cpp
 cubes(INFO) [00:47:15]: Testing solutions/solution.py on test #2
 ...
 cubes(INFO) [00:47:29]: Testing solutions/solution.py on test #21
-
-----------------------------------
-| Test # | solutions/solution.py | 
-----------------------------------
-|      1 | OK T=0.09s RT=0.10s   | 
-----------------------------------
-|      2 | OK T=0.09s RT=0.10s   | 
-----------------------------------
-...
-----------------------------------
-|     21 | OK T=1.11s RT=1.12s   | 
-----------------------------------
-
-Total:  21
-Failed: 0
-Passed: 21
+cubes(INFO) [00:47:30]: HTML report is generated and saved as 'report.html' in the root directory of current problem
 }}}
 Какое-нибудь конкретное командой *please check solution SOLUTION_PATH*:
 {{{
@@ -132,22 +117,7 @@ cubes(INFO) [10:36:54]: Testing solutions/solution_wrong.cpp on test #2
 ...
 cubes(INFO) [10:36:57]: Testing solutions/solution_wrong.cpp on test #21
 cubes(ERROR) [10:36:57]: Solution has had RE with exit code: 11
-
------------------------------------------
-| Test # | solutions/solution_wrong.cpp | 
------------------------------------------
-|      1 | OK T=0.00s RT=0.00s          | 
------------------------------------------
-|      2 | OK T=0.00s RT=0.00s          | 
------------------------------------------
-...
------------------------------------------
-|     21 | RE T=0.00s RT=0.00s          | 
------------------------------------------
-
-Total:  21
-Failed: 5
-Passed: 16
+cubes(INFO) [10:36:57]: HTML report is generated and saved as 'report.html' in the root directory of current problem
 }}}
 Или же все вместе командой *please check solutions*.
 =Ожидаемые вердикты=
