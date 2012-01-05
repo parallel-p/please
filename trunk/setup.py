@@ -22,7 +22,7 @@ modules = [
 # Папки, не содержащие код
 # Folders without
 package_data = {
-    'please': ['templates/*.*', 'checkers/*.*']
+    'please': ['templates/*.*', 'checkers/*.*','exporter/scripts/*.*','exporter/templates/*.*']
 }
 
 
