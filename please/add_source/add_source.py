@@ -105,6 +105,8 @@ def del_props(path, args):
         for solve in config["solution"]:
             if os.path.abspath(solve["source"]) == abspath:
                 for key in args:
+                    if key == "source":
+                        raise AddSourceError("Can't delete key 'source' from solution")
                     if key in solve:
                         del solve[key]
                     else:
