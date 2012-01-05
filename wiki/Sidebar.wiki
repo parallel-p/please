@@ -4,6 +4,7 @@ User documentation
   * [Install]
   * [CreateProblem]
   * [ProblemConfig]
+  * [GenerateStatement]
   * [TestsConfig]
   * [Validator]
   * [Contest]
