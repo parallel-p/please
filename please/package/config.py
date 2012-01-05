@@ -243,3 +243,7 @@ def create_simple_config(file_name, config):
         write('time_limit')
         write('memory_limit')
         file.write(os.path.split(config['checker'])[-1] + '\n')
+        if not 'id' in config:
+            write('shortname')
+        else:
+            write('id')
