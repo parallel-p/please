@@ -9,4 +9,3 @@ User documentation
   * [Validator]
   * [Contest]
   * [Export]
-  * [Import_from_polygon]
