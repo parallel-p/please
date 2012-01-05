@@ -92,7 +92,6 @@ class Tester(unittest.TestCase):
     def test_no_top_emptyline(self):
         self.__tests_runner('131', ['no_top_emptyline'],(OK, []))
         self.__tests_runner('132', ['no_top_emptyline'],(OK, []))
-        self.__tests_runner('133', ['no_top_emptyline'],(FIXED, ['no_top_emptyline']))
         self.__tests_runner('134', ['no_top_emptyline'],(FIXED, ['no_top_emptyline']))
         self.__tests_runner('135', ['no_top_emptyline'],(OK, []))
         self.__tests_runner('136', ['no_top_emptyline'],(FIXED, ['no_top_emptyline']))
@@ -108,7 +107,6 @@ class Tester(unittest.TestCase):
     def test_no_top_bottom_emptyline(self):
         self.__tests_runner('31', ['no_top_bottom_emptyline'],(OK, []))
         self.__tests_runner('32', ['no_top_bottom_emptyline'],(OK, []))
-        self.__tests_runner('33', ['no_top_bottom_emptyline'],(FIXED, ['no_top_bottom_emptyline']))
         self.__tests_runner('34', ['no_top_bottom_emptyline'],(FIXED, ['no_top_bottom_emptyline']))
         self.__tests_runner('35', ['no_top_bottom_emptyline'],(FIXED, ['no_top_bottom_emptyline']))
         self.__tests_runner('36', ['no_top_bottom_emptyline'],(FIXED, ['no_top_bottom_emptyline']))
