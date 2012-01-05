@@ -23,6 +23,9 @@ export_scripts = {
   'ejudge' : {
     'scripts' : [os.path.join('exporter','scripts',filename) for filename in ['ejudge.py', 'ejudge_formatter.py', 'backupper.py']],
     'run' : 'ejudge.py'
+  },
+  'pcms2': {
+    'problem_template' : os.path.join('exporter','templates','pcms2_template.xml')
   }
 }
 
