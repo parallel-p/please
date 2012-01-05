@@ -10,8 +10,9 @@ def generate_html_for_solution(config, solution, expected_verdicts = [], possibl
     ''' Generates <div> block with tabled report for given solution  '''
     report = get_test_results_from_solution(solution, config)
     html_reporter = HtmlReporter()
-
-    possible_verdicts = possible_verdicts or ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']
+    
+    expected_verdicts = expected_verdicts or ['OK']
+    possible_verdicts = possible_verdicts or expected_verdicts
 
     for test, checker_verdict in sorted(report[2].items(), key = lambda x: int(os.path.basename(x[0]))):
         html_reporter.add_test(solution, os.path.basename(test), checker_verdict[0])
