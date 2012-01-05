@@ -3,8 +3,6 @@ import re
 from .language_configurator_utils import is_windows
 import glob
 
-#TODO: get from global config
-COMPILE_DIR = ".please"
 
 class JavaLinuxConfigurator:
     def __class_file(self, source):
@@ -13,20 +11,32 @@ class JavaLinuxConfigurator:
     def __source_dir(self, source):
         return os.path.dirname(source)
 
+    def __compile_dir(self, source):
+        #TODO: move to global config
+        COMPILE_DIR = ".please"
+        return os.path.join(COMPILE_DIR, os.path.basename(source) + "_javac")
+
     def get_compile_command(self, source):
         source_dir = self.__source_dir(source)
         if source_dir: source_dir = ';' + source_dir
-        return ["javac", "-d", COMPILE_DIR, "-cp", ".%s" % source_dir, source]
+        compile_dir = self.__compile_dir(source)
+        #create directory for this java file
+        if not os.path.exists(compile_dir):
+            #TODO: think about where is better to create directory
+            os.makedirs(compile_dir)
+        return ["javac", "-d", compile_dir, "-cp", ".%s" % source_dir, source]
 
     def get_run_command(self, source):
         class_file = self.__class_file(source)
-        return ["java", "-cp", COMPILE_DIR, class_file]
+        return ["java", "-cp", self.__compile_dir(source), class_file]
 
     def get_binary_name(self, source):
         class_file = self.__class_file(source)
         binaries = set()
-        run_binary = os.path.join(COMPILE_DIR, "%s.class") % class_file
-        binaries = list(glob.glob(os.path.join(COMPILE_DIR, "*.class")))
+        #we return all .class files from 
+        compile_dir = self.__compile_dir(source)
+        run_binary = os.path.join(compile_dir, "%s.class") % class_file
+        binaries = list(glob.glob(os.path.join(compile_dir, "*.class")))
         if run_binary not in binaries:
             binaries += [run_binary]
         return binaries
