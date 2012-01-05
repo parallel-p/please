@@ -6,16 +6,36 @@ import logging
 import os
 from lxml import etree
 import shutil
-from . import lang_choice
+from .lang_choice import make_language_choice
+import re
+
+def get_name_and_location_and_date(statement):
+    regexp = r'.*\\contest.*{(?P<name>.*)}%.*{(?P<location>.*)}%.*{(?P<date>.*)}%'
+    matched = re.match(regexp, statement, re.MULTILINE | re.DOTALL)
+    name = matched.group('name')
+    location = matched.group('location')
+    date = matched.group('date')
+    return name, location, date
 
 def import_with_tree(tree, contest_path):
-    name = tree.xpath('names/name')[0].get('value') #bad, no multilanguage
     cur_dir = os.getcwd()
-    problems = tree.xpath('problems/problem')
+    
+    good_language_statement = make_language_choice(tree.xpath('names/name'))
+    name = good_language_statement.get('value')
+    language = good_language_statement.get('language')
+    
+    with open(os.path.join('statements', language, 'statements.tex'), 'r') as statement_file:
+        statement = statement_file.read()
     
     os.chdir(contest_path)
     contest = Contest(name, ok_if_not_exists = True)
+    name, date, location = get_name_and_location_and_date(statement)
+    contest.config['statement']['name'] = name or ''
+    contest.config['statement']['location'] = location or ''
+    contest.config['statement']['date'] = date or ''
+    
     importer = create_problem.PolygonProblemImporter()
+    problems = tree.xpath('problems/problem')
     for problem in problems:
         problem_index = problem.get('index')
         problem_name = problem.get('name')
@@ -34,11 +54,11 @@ def import_from_dir(directory, contest_path):
     
     tree = etree.parse('contest.xml').xpath('/contest')[0]
        
-    name = tree.xpath('names/name')[0].get('value') #bad, no multilanguage
+    name = make_language_choice(tree.xpath('names/name')).get('value')
     
     imported = False
     
-    if not os.path.exists(os.path.join(contest_path, name)):
+    if not os.path.exists(os.path.join(contest_path, name + ".contest")):
         import_with_tree(tree, contest_path)
         imported = True
     else:
