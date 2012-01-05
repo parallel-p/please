@@ -124,7 +124,8 @@ Failed: 0
 Passed: 21
 cubes(INFO) [00:47:29]: HTML report is generated and saved as 'report.html' in the root directory of current problem
 }}}
-Какое-нибудь конкретное командой *please check solution SOLUTION_PATH*:
+Заметим, что заодно создался HTML отчёт по проведённому тестированию.
+Можно протестировать какое-нибудь конкретное командой *please check solution SOLUTION_PATH*:
 {{{
 ~/cubes$ please check solution solutions/solution_wrong.cpp
 cubes(INFO) [10:36:53]: Testing solutions/solution_wrong.cpp on test #1
