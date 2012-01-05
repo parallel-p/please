@@ -23,7 +23,6 @@ analysis = statements/analysis.ru.tex
 
 solution = {
     source = solutions/solution.cpp
-    expected = OK
 }
 solution = {
     source = solutions/solution_wrong.cpp
