@@ -1,0 +1,5 @@
+[sample] tests/01
+[sample] tests/02
+gen_min.cpp
+gen_max.cpp
+
