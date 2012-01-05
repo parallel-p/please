@@ -35,7 +35,7 @@ def del_solution(path):
                 return
     raise AddSourceError("There is no such solution")
     
-def get_dict_from_args(args):
+def get_dict_from_args(args, changing=False):
     result = {}
     last_item = None
     list_items = ["expected_verdicts", "possible_verdicts"]
@@ -53,6 +53,8 @@ def get_dict_from_args(args):
             if last_item in list_items:
                 result.setdefault(last_item, []).append(item)
             else:
+                if assigned:
+                    raise AddSourceError("Value for keyword '" + last_item + "' is already assigned")
                 result[last_item] = item
             assigned = True
     if assigned == False:
@@ -86,17 +88,31 @@ def change_solution (path, args):
     config = PackageConfig.get_config()
     abspath = os.path.abspath(path)
     if config["solution"] is not None:
-        for num, solve in enumerate(config["solution"]):
+        for solve in config["solution"]:
             if os.path.abspath(solve["source"]) == abspath:
-                properties = get_dict_from_args(args)
+                properties = get_dict_from_args(args, True)
                 for key, value in properties.items():
                     solve[key] = value
-                log.info("Solution has been changed")
+                log.info("Properties have been changed")
                 writepackage(config.get_text())
                 return
     raise AddSourceError("There is no such solution")
-    
-    
+
+def del_props(path, args):
+    config = PackageConfig.get_config()
+    abspath = os.path.abspath(path)
+    if config["solution"] is not None:
+        for solve in config["solution"]:
+            if os.path.abspath(solve["source"]) == abspath:
+                for key in args:
+                    if key in solve:
+                        del solve[key]
+                    else:
+                        log.warning("There is no key '" + key + "' in solution")
+                writepackage(config.get_text())
+                log.info("Properties have been deleted")
+                return
+    raise AddSourceError("There is no such solution")
 
 def add_checker_with_config (package_config, path):
     if not os.path.exists(path):
