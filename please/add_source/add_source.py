@@ -14,6 +14,10 @@ class AddSourceError(Exception):
 def add_main_solution_with_config(package_config, path):
     if not os.getcwd() in os.path.abspath(path):
         raise AddSourceError("Main solution isn't in problem folder!")
+    abspath = os.path.abspath(path)
+    for solve in package_config["solution"]:
+        if abspath == os.path.abspath(solve["source"]):
+            raise AddSourceError("This solution is already in config. Firstly delete config for this solution")
     package_config['main_solution'] = os.path.relpath(path)
 
 def add_main_solution (path):
