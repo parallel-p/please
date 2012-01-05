@@ -24,7 +24,6 @@ class PolygonProblemImporter:
             create_statements.add_statement(self.default_package, language, content, self.cwd)
     """
     def parse_statements(self):
-        self.default_package['statement'] = ''
         statements = self.tree.xpath('/problem/statements/statement')
         for statement in statements:
             language = statement.get('language')
@@ -33,7 +32,10 @@ class PolygonProblemImporter:
                 content = f.read()
             create_statements.add_statement(self.default_package, language, content, self.cwd)
         to_get = make_language_choice(statements)
-        self.default_package['statement'] = "statements/statement."+to_get.get('language')+".tex"
+        if to_get is not None:
+            self.default_package['statement'] = "statements/statement."+to_get.get('language')+".tex"
+        else:
+            self.logger.error('There is no statements in problem, please used default statements!')
 
     def make_to_extension(self):
         # making file -> file.ext dictionary
