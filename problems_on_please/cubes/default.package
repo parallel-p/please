@@ -23,12 +23,10 @@ analysis = statements/analysis.ru.tex
 
 solution = {
     source = solutions/solution.cpp
-    expected_verdicts = OK
+    expected = OK
 }
 solution = {
     source = solutions/solution_wrong.cpp
-    input = stdin
-    possible_verdicts = TL, WA
-    expected_verdicts = OK, RE
-    output = stdout
+    possible = TL, WA
+    expected = OK, RE
 }

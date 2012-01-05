@@ -14,6 +14,6 @@ statement = statements/default.ru.tex
 description = statements/description.ru.tex
 solution = {
     source = solutions/sec_sol.dpr
-    expected_verdicts = TL, WA, PE
-    possible_verdicts = OK
+    expected = TL, WA, PE
+    possible = OK
 }

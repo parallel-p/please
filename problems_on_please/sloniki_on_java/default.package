@@ -22,5 +22,5 @@ well_done_answer = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_do
 analysis = statements/analysis.ru.tex
 solution = {
     source = solutions/sol.cpp
-    expected_verdicts = ok
+    expected = ok
 }

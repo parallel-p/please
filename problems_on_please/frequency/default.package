@@ -14,11 +14,11 @@ statement = statements/default.ru.tex
 description = statements/description.ru.tex
 solution = {
     source = solutions/solution.dpr
-    expected_verdicts = OK
-    possible_verdicts = OK
+    expected = OK
+    possible = OK
 }
 solution = {
     source = solutions/solution_TL.dpr
-    expected_verdicts = TL
-    possible_verdicts = OK
+    expected = TL
+    possible = OK
 }

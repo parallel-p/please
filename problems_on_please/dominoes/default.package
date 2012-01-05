@@ -15,6 +15,6 @@ description = statements/description.ru.tex
 
 solution = {
     source = solutions\dominoes_af3.java
-    expected_verdicts = OK
-    possible_verdicts = OK
+    expected = OK
+    possible = OK
 }
