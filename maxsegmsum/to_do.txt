@@ -1,0 +1,30 @@
+please create problem maxsegmsum
+пишем условие (делаем багу - не ставим $$)
+заходим в default.package
+пишем тесты 01, 02
+записываем их в tests.please
+пишем validator.cpp
+пишем solution_ok.cpp
+please set main solution solutions/solution_ok.cpp
+please generate statement
+ОШИБКА!
+добавляем $$
+please generate statement
+открываем условие и --- радуемся!
+
+пишем checker.cpp
+
+пишем генераторы gen_min, gen_max
+please generate tests
+
+пишем solution(nlogn).cpp
+please add solution solutions/solution(nlogn).cpp
+пишем solution(n2ML).cpp
+please add solution solutions/solution(n2ML).cpp expected: ML possible: OK
+пишем solution(n2TL).cpp
+please add solution solutions/solution(n2TL).cpp expected: TL possible: OK
+пишем solution_wa(n2).cpp
+please add solution solutions/solution_wa.cpp expected: WA possible: OK
+please build all
+
+
