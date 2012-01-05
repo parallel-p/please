@@ -7,8 +7,10 @@ import os.path
 
 logger = logging.getLogger("please_logger.reports.generate_html_report")
 
-def generate_html_for_solution(config, solution, expected = globalconfig.default_expected, possible = globalconfig.default_possible):
+def generate_html_for_solution(config, solution, expected = [], possible = []):
     ''' Generates <div> block with tabled report for given solution  '''
+    expected = expected or globalconfig.default_expected
+    possible = possible or globalconfig.default_possible
     report = get_test_results_from_solution(solution, config)
     html_reporter = HtmlReporter()
     
