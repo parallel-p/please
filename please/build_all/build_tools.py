@@ -3,6 +3,7 @@ from ..solution_tester.check_solution import check_multiple_solution
 from ..solution_tester import package_config
 from ..command_line.generate_tests import generate_tests
 from ..latex import latex_tools
+from ..reports import generate_html_report
 #from ..utils import cleanup
 
 def build_all () :
@@ -22,3 +23,4 @@ def build_all () :
     #run check soltuion
     check_multiple_solution()
 
+    generate_html_report.generate_html_report()
