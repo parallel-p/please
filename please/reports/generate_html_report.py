@@ -1,17 +1,16 @@
 from ..solution_tester.check_solution import get_test_results_from_solution
 from ..solution_tester.package_config import PackageConfig
+from .. import globalconfig
 from .html_report import HtmlReporter
 import logging
 import os.path
 
 logger = logging.getLogger("please_logger.reports.generate_html_report")
 
-def generate_html_for_solution(config, solution, expected = [], possible = []):
+def generate_html_for_solution(config, solution, expected = globalconfig.default_expected, possible = globalconfig.default_possible):
     ''' Generates <div> block with tabled report for given solution  '''
     report = get_test_results_from_solution(solution, config)
     html_reporter = HtmlReporter()
-    
-    expected = expected or ['OK']
     
     for test, checker_verdict in sorted(report[2].items(), key = lambda x: int(os.path.basename(x[0]))):
         html_reporter.add_test(solution, os.path.basename(test), checker_verdict[0])
