@@ -13,6 +13,7 @@ please generate statement
 открываем условие и --- радуемся!
 
 пишем checker.cpp
+please set standart checker fcmp
 
 пишем генераторы gen_min, gen_max
 please generate tests
