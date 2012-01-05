@@ -144,3 +144,12 @@ def add_validator (path):
     writepackage(package_text)
     log.info("Validator %s has been being set successfully", path)
 
+def add_solution_with_config (package_config, path, expected_list = [], possible_list = []):
+    #TODO: kill it. needed for correct import_from_polygon module work.
+    config_file = config.Config("")
+    config_file["source"] = os.path.relpath(path)
+    if expected_list != []:
+        config_file ["expected_verdicts"] = expected_list
+    if possible_list != []:
+        config_file ["possible_verdicts"] = possible_list
+    package_config.set("solution", config_file, None, True)
