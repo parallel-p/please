@@ -47,6 +47,9 @@ console_logging_lvl = INFO
 checkers_dir = "checkers"
 logs = ["detailed.log", "please.log"]
 
+default_expected = ['OK']
+default_possible = []
+
 # checker return codes -> verdicts
 checker_return_codes = {0:"OK", 1:"WA", 2:"PE"}
 

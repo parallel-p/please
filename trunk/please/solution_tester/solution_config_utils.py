@@ -5,9 +5,6 @@ from ..invoker import invoker
 
 
 def make_config_with_solution_config(config, solution_config):
-    default_expected = ['OK']
-    default_possible = []
-    
     # Get results from test_solution, create a config file to send.
     # Find all attributes from config's root or embedded solution's config        
     new_config = {}
@@ -31,8 +28,8 @@ def make_config_with_solution_config(config, solution_config):
         pass
 #        raise SolutionNotFoundException(solution + ' not found in config')
 
-    new_config["expected"] = new_config.get("expected") or default_expected
-    new_config["possible"] = new_config.get("possible") or default_possible
+    new_config["expected"] = new_config.get("expected") or globalconfig.default_expected
+    new_config["possible"] = new_config.get("possible") or globalconfig.default_possible
     return new_config
         
 def make_config(solution, config = None):

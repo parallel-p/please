@@ -42,8 +42,8 @@ class TestSolution:
         #all necessary parameters in config are below:
         self.checker = config["checker"]
         self.tests_dir = globalconfig.temp_tests_dir#config["tests_dir"]
-        self.expected = config.get("expected") or []
-        self.possible = config.get("possible") or ['OK', 'WA', 'ML', 'TL', 'RE', 'PE']
+        self.expected = config.get("expected") or globalconfig.default_expected
+        self.possible = config.get("possible") or globalconfig.default_possible
         self.execution_limits = config.get("execution_limits") or globalconfig.default_limits
         self.solution_config = config.get("solution_config") or {
             'input': config.get('input'),
