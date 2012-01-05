@@ -5,6 +5,7 @@ from ..diff_test_finder.diff_test_finder import DiffTestFinder
 from ..directory_diff import snapshot
 from ..utils.form_error_output import process_err_exit
 import os
+import re
 
 class CmdOrGenTestInfo(test_info.TestInfo):
     def __init__(self, executor, args, tags={}, comment=''):
@@ -43,9 +44,16 @@ class CmdOrGenTestInfo(test_info.TestInfo):
         exclude = self.get_tags().get('exclude')
         diff_test_finder = DiffTestFinder(exe_dir, mask, exclude)
         tests = diff_test_finder.tests(diff, stdout.name)
+        desc = diff_test_finder.get_desc()
         
-        self.set_desc(diff_test_finder.get_desc())
-        
+        zipped = list(zip(tests, desc))
+        zipped.sort(key = lambda x : re.split(r'(\D{1,})', x[0]))
+        for i in range(len(zipped)):
+            tests[i] = zipped[i][0]
+            desc[i] = zipped[i][1]
+            
+        self.set_desc(desc)        
+                
         #remove trash
         for file in diff[1]:
             if os.path.relpath(file, exe_dir) not in tests:
