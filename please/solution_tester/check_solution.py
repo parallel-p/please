@@ -1,7 +1,6 @@
 import os.path
 import logging
 import colorama
-from colorama import Fore
 from ..utils.platform_detector import get_platform
 from ..solution_tester.package_config import PackageConfig
 from ..invoker import invoker
