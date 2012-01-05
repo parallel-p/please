@@ -215,7 +215,7 @@ def export(inp, out):
     contest.add_problems(new_problems)
     to_copy = []
     for problem in new_problems:
-        to_copy.append(EjudgeProblemToCopy(no_quotes(problem.internal_name), no_quotes(problem.short_name), problem.checker_ext))
+        to_copy.append(EjudgeProblemToCopy(no_quotes(problem.internal_name), no_quotes(problem.internal_name), problem.checker_ext))
 
     if contest.get_version() == 0:
         formatter = ejudge_formatter.EjudgeFormatter(to_copy)
