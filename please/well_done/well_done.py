@@ -97,6 +97,9 @@ class WellDone:
      
     def no_top_emptyline(self):
         result = OK
+        lines_list = self.__content.split("\n")
+        if len(lines_list) == 2 and lines_list[1] == "":
+            return result
         if re.search(r'^\n', self.__content):
             result = FIXED
             self.__content = re.sub(r'^\n+', '', self.__content)
@@ -105,6 +108,9 @@ class WellDone:
 
     def no_bottom_emptyline(self):
         result = OK
+        lines_list = self.__content.split("\n")
+        if len(lines_list) == 2 and lines_list[1] == "":
+            return result
         if re.search(r'\n\n$', self.__content):
             result = FIXED
             self.__content = re.sub(r'\n\n+$', '\n', self.__content)
