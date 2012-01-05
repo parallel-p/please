@@ -35,6 +35,6 @@ solution = {
 }
 solution = {
     source = solutions\solution_wa.cpp
-    expected: WA
-    possible: OK
+    expected = WA
+    possible = OK
 }
