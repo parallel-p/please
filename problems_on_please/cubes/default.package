@@ -26,6 +26,6 @@ solution = {
 }
 solution = {
     source = solutions/solution_wrong.cpp
-    possible = TL, WA
     expected = OK, RE
+    possible = TL, WA
 }
