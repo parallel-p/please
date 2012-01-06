@@ -125,7 +125,7 @@ def generate_html_for_solution(config, solution, expected = [], possible = []):
     if len(report[1]) > 0:
         footer += "expected but not met: <b>%s</b><br />" % "</b>,<b> ".join(report[1])
 
-    return ["<div style='display: inline; float: left; margin: 5px; font-family: monospace'>" + html_reporter.get_str(expected + possible, fail = len(report[0]) + len(report[1]) > 0) + footer + "</div>", report]
+    return ["<div style='display: inline; float: left; margin: 5px; font-family: monospace'>" + html_reporter.get_str(fail = len(report[0]) + len(report[1]) > 0) + footer + "</div>", report]
 
 def generate_html_report(solves, add_main=False):
     html = ''
