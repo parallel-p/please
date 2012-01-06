@@ -19,6 +19,7 @@ def main():
     from please.solution_tester import check_solution
     from please.well_done import well_done
     from please import globalconfig
+    from please.executors import trash_remover
     import sys
     import logging
     from please.test_config_parser import parser
