@@ -12,7 +12,7 @@ def add_statement (default, lang, statement, path):
        Function doesn't return anything and creates file with problem statement in please format (semi-tex)
     """
 
-    regexp = r"\\begin{problem}{(?P<name>.+?)}.+?$(?P<statement>.+?)\\Example(?P<examples>.+?)(^\\Note(?P<note>.+?))?^\\end{problem}"
+    regexp = r"\\begin{problem}{(?P<name>.+?)}.+?$(?P<statement>.+?)\\Examples(?P<examples>.+?)(^\\Note(?P<note>.+?))?^\\end{problem}"
     # fix for {XX megabytes} on second line
     lines = statement.splitlines()
     if re.match("^{[^{]*}$", lines[1]):
@@ -21,7 +21,10 @@ def add_statement (default, lang, statement, path):
 
     matched = re.match(regexp, fixed_statement, re.MULTILINE | re.DOTALL)
     problem_statement = matched.group("statement")
+    #problem_examples = matched.group("examples")
     problem_note = matched.group("note")
+    #if problem_examples is not None:
+    #    problem_statement += "\n \\Example \n" + problem_examples
     if problem_note is not None:
         problem_statement += "\n \\Note \n" + problem_note
     with open( os.path.join(path,"statements","statement."+lang+".tex"),"w", encoding = "UTF8") as out_file:
