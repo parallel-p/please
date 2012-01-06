@@ -53,7 +53,6 @@ class PolygonProblemImporter:
             shutil.copy(os.path.join(tag, test_id), \
                         os.path.join(self.cwd, 'tests', new_test_id))
             # cross-platform
-            tags["sample"] = None
             return file_test_info.FileTestInfo('tests/' + new_test_id, tags)
         else:
             cmd = test.get('cmd').split()
