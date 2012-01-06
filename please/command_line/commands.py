@@ -1,4 +1,3 @@
-from ..executors import trash_remover
 from .. import globalconfig
 
 PLEASE_VERSION = globalconfig.please_version
