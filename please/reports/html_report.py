@@ -14,7 +14,7 @@ class HtmlReporter:
             self.__tests.append(test)
         self.__reports[(solution, test)] = outcome
 
-    def get_str(self, verdicts = [], fail = False):
+    def get_str(self, fail = False):
         row = [HTML.TableCell("tests", bgcolor = 'grey')]
         for solution in self.__solutions:
             row.append(HTML.TableCell(solution, bgcolor = "red" if fail else ""))
@@ -34,12 +34,6 @@ class HtmlReporter:
             'CF':   'olive',
             'real TL':   'windows'
         }
-        verdicts_set = set(verdicts)
-        #if "OK" not in verdicts_set:
-        #    verdict_to_color["OK"] = "red"
-        #for index in verdict_to_color:
-        #    if index in verdicts_set:
-        #        verdict_to_color[index] = "lime"
 
         for test in self.__tests:
             row = [HTML.TableCell(test, bgcolor = 'grey')]
