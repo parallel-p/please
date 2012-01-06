@@ -128,7 +128,9 @@ def main():
         except Exception as ex:
             logger.error("Unknown error: " + str(ex))
             raise ex
-
+    
+    if(not globalconfig.in_problem_folder):
+        trash_remover.remove_logs_in_depth(out=False, depth=False)
 if __name__ == "__main__":
     main()
 
