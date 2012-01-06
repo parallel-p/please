@@ -5,6 +5,8 @@ Requires python 3.2 and modules:
   # *colorama*
   # *HTML*
  
+At `*`buntu you must firstly type *sudo apt-get install python3-dev python3-lxml*!
+
 To run the tests needs module *Mox*. To generate html_report needs module *HTML*.
 To export problems to ejudge using Windows needs modules: *pscp*, *plink*
 (for example, these files are contained in library *putty*).
