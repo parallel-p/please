@@ -1,22 +1,15 @@
-===Dependencies===
-----
-Requires python 3.2 and modules: 
-  # *psutil* 
-  # *colorama*
-  # *HTML*
- 
-At `*`buntu you must firstly type *sudo apt-get install python3-dev python3-lxml*!
+==Linux==
+  # скачать из раздела Downloads необходимый архив, распаковать
+  # установить пакеты python3-dev python3-lxml
+  # выполнить sudo python3 setup.py install
 
-To run the tests needs module *Mox*. To generate html_report needs module *HTML*.
-To export problems to ejudge using Windows needs modules: *pscp*, *plink*
-(for example, these files are contained in library *putty*).
+==Windows==
+  # скачать из раздела Downloads необходимый архив, распаковать
+  # скачать и установить psutil и lxml (там есть exeшники для инсталляции, или их можно найти, сделав checkout)
+  # выполнить python setup.py install
 
-===Installation===
-----
-  # Install Python 3.2 _*(3.1 is not enough!)*_ from <br><br> http://python.org/download/<br><br>
-  # If it's need, install [CppCompiler gcc/g++ compiler], [DprCompiler pascal compiler], Java Development Kit
-  # Install MIKTEX (you need *pdflatex* command to create statements)
-  # Download please distributive from here: <br><br>http://code.google.com/p/please/downloads/list<br><br> and unzip it the temporary folder.
-  # Install please module, running command <br><br>_>>> python setup.py install_<br><br> in your temporary folder. It will use internet to download dependencies.
-  # Reboot the computer to activate new PATH environment variable
-  # run command <br><br>_>>> please_<br><br> from command-line or from FAR to check that all works (you'll see list of please command). Run <br><br>_>>> please help_<br><br>for more help.
+==Текущая версия==
+  # сделать checkout code.google.com/p/please/svn
+  # установить необходимые библиотеки (см. выше Linux или Windows)
+  # установить pymox (находится в third_party), распаковав архив и выполнив ...setup.py install
+  # выполнить ...setup.py develop
