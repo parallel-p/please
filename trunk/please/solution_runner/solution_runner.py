@@ -53,13 +53,8 @@ def run_solution(config):
                 os.remove(config.solution_config['input'])
             
             if config.solution_config['output'] != 'stdout':
-                try:
-                    shutil.move(config.solution_config['output'], config.solution_output_file)
-                except:
-                    pass
-            else:
-                pass
-        
+                shutil.move(config.solution_config['output'], config.solution_output_file)
+            
             if run_info.verdict == 'OK':
                 with open(config.solution_output_file, 'r') as ouf:
                     stdout = ouf.read().encode()

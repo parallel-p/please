@@ -15,10 +15,11 @@ def add_main_solution_with_config(package_config, path):
     if not os.getcwd() in os.path.abspath(path):
         raise AddSourceError("Main solution isn't in problem folder!")
     abspath = os.path.abspath(path)
-    for solve in package_config["solution"]:
+    for num, solve in enumerate(package_config["solution"]):
         if abspath == os.path.abspath(solve["source"]):
-            log.warning("Solution's config hasn't been set, because main solution must have no config")
-            return
+            package_config.delete("solution", num)
+            log.warning("Main solution must have no config, so we firstly deleted this existing config")
+            break
     package_config['main_solution'] = os.path.relpath(path)
 
 def add_main_solution (path):
@@ -36,7 +37,7 @@ def del_solution(path):
             if os.path.abspath(solve["source"]) == abspath:
                 config.delete("solution", num)
                 writepackage(config.get_text())
-                log.info("Solution has been deleted")
+                log.info("Solution config has been deleted")
                 return
     raise AddSourceError("There is no such solution")
     
