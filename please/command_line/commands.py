@@ -49,8 +49,6 @@ def print_lite_help():
     print(*sorted(global_commands), sep = "\n")
     print("\nCommands inside problem folder:\n")
     print(*sorted(problem_commands), sep = "\n")
-    if(not globalconfig.in_problem_folder):
-        trash_remover.remove_logs_in_depth(out=False, depth=False)
 
 def print_help():
     print("""
@@ -195,8 +193,6 @@ Commands available inside problem's folder:
     Validates all generated tests
 
 """.format(*problem_commands))
-    if(not globalconfig.in_problem_folder):
-        trash_remover.remove_logs_in_depth(out=False, depth=False)
 
 
 

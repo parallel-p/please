@@ -17,8 +17,8 @@ def add_main_solution_with_config(package_config, path):
     abspath = os.path.abspath(path)
     for solve in package_config["solution"]:
         if abspath == os.path.abspath(solve["source"]):
-            log.warning("This solution is already in config")
-            break
+            log.warning("Solution's config hasn't been set, because main solution must have no config")
+            return
     package_config['main_solution'] = os.path.relpath(path)
 
 def add_main_solution (path):
