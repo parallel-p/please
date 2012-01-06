@@ -166,7 +166,7 @@ Commands available inside problem's folder:
     
   {16}:
     Performs a stress test of current solution
-    example: stress test solutions/wrong.cpp "tests/gen.cpp 10 5"
+    example: stress test solutions/wrong.cpp tests/gen.cpp 10 5
              stress test solutions/wrong.cpp solutions/aa.cpp tests/gen.cpp
 
   {17}
