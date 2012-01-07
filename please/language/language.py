@@ -25,6 +25,7 @@ class Language:
         if not ext:
             return 'command'
         dct = { ".c" : "c",
+                ".cc" : "c++",
                 ".cpp" : "c++",
                 ".c++" : "c++",
                 ".cs" : "c#",
