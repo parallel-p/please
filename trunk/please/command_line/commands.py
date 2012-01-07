@@ -35,7 +35,7 @@ problem_commands = ["generate statement",
              "check main solution",
              "clean",
              "validate tests",
-             "well done",
+             "",
              "del[ete] solution PATH_TO_SOLUTION",
              "change prop[erties] PATH_TO_SOLUTION [ARG VALUES...]",
              "del[ete] prop[erties] PATH_TO_SOLUTION ARGS"
@@ -177,11 +177,7 @@ Commands available inside problem's folder:
     {19}
   {20}
     Sets current problem name
-
-  {24}
-    Corrects manual tests and inform you if generators are to be corrected according
-    to well-done test description in problem config
-
+    {24}
   {21}:
     Checks main solution, specified in default.package
     
