@@ -54,7 +54,7 @@ config = package_config.PackageConfig.get_config()
 if config:
     shortname = config['shortname']
 else:
-    shortname = "Untitled"
+    shortname = ""
 
 file_fmt = Formatter('%(asctime)s - ' + shortname + ' - %(name)s(%(levelname)s) %(message)s',datefmt='%d.%m.%Y[%H:%M:%S]', colored=False)
 console_fmt = Formatter(shortname + '(%(levelname)s) [%(asctime)s]: %(message)s',datefmt='%H:%M:%S', colored=True)
