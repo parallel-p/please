@@ -1,8 +1,14 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+class Sorry(Exception):
+    def __init__( self, message ):
+        self.__message = message
+    def __str__( self ):
+        return "sorry: %s" % self.__message
+
 def main():
-    try: 
+    try:
         from please.contest import commands as contest_commands
         from please.solution_tester.check_solution import SolutionNotFoundException
         from please.add_source.add_source import AddSourceError
@@ -127,6 +133,8 @@ def main():
                 logger.error("AddSourceError: " + str(ex))
             except SolutionNotFoundException as ex:
                 logger.error("SolutionNotFoundException: " + str(ex))
+            except Sorry as sorry:
+                logger.error(str(sorry))
             except Exception as ex:
                 logger.error("Unknown error: " + str(ex))
                 raise ex
