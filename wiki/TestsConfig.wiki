@@ -5,7 +5,7 @@
   * echo PARAMS (echo 1 2 3)
   * PATH_TO_GENERATOR PARAMS (generator.cpp 100500, может быть *мультигенератором*)
   * MASK_OF_TEST_FILE_NAME (tests/test[0-9].?, ручные тесты, задаются с помощью маски python'овского glob)
-  * python PYTHON_CODE_STRING ( 'ab' `*` 10, выражение, вычислимое с помощью python'овского eval())
+  * python PYTHON_CODE_STRING ( 'ab' `*` 10, выражение, вычислимое с помощью python'овского eval()). Можно использовать функции из модуля random: "5\n" + " ".join(map(str, [randint(1,3444) for i in range(5)])
 
 Также возможны теги вначале каждой строки в квадратных скобках, например `[tag1, tag2=132, tag3=cat, tag4]`. Теги нужны, чтобы генерировать конкретные виды тестов посредством команды please generate tests with tag`[s]` TAGS_LIST.
 
