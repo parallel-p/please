@@ -1,5 +1,9 @@
+from random import *
 from . import test_info
 import tempfile
+
+seed(42)
+
 class PythonTestInfo(test_info.TestInfo):
     def __init__(self, code, tags={}, comment = ''):
         self.__code = code
