@@ -5,6 +5,7 @@ from ..latex import latex_tools
 from ..exporter import exporter
 from ..solution_tester import package_config
 from ..log import logger
+from .. import Sorry
 
 CONTEST_FILE = "%s.contest"
 
@@ -113,7 +114,7 @@ def command_export(name, where, contest):
 
 def command_set_parameter( name, key, value ):
     if key not in ('name', 'id_method', 'statement.name', 'statement.date', 'statement.location', 'statement.template'):
-        raise Exception("Unknown contest parameter: %s" % key)
+        raise Sorry("unknown contest parameter: %s" % key)
     key = key.split('.')
     contest = get_contest(name)
     config = contest.config
