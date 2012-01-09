@@ -13,7 +13,11 @@ class PythonTestInfo(test_info.TestInfo):
         temp = tempfile.NamedTemporaryFile(delete = False)
         try:
             with open(temp.name, 'w') as f:
-                f.write(str(eval(self.__code)))
+                content = str(eval(self.__code))
+                if content.endswith('\n'):
+                    f.write(content)
+                else:
+                    f.write(content + '\n')
         except Exception as e:
             raise EnvironmentError(str(e))
         self.set_desc( ['python output'] )
