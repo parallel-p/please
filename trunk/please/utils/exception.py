@@ -1,0 +1,2 @@
+class PleaseException(Exception):
+    pass

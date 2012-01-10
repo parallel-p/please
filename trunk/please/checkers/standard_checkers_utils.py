@@ -5,10 +5,11 @@ from .. import globalconfig
 from ..solution_tester import package_config
 from ..utils.writepackage import writepackage
 from ..add_source.add_source import add_checker
+from ..utils.exception import PleaseException
 
 log = logging.getLogger("please_logger.checkers.standard_checker_utils")
 
-class AddStandartCheckerError (Exception) :
+class AddStandardCheckerError (PleaseException):
     pass
 
 def print_standard_checkers():
@@ -21,7 +22,7 @@ def print_standard_checkers():
     for fname in dirList:
         if fname.endswith('.cpp'):
            filelist += [fname[:-4]]
-    log.warning('standart checkers available: ' + ', '.join(filelist))
+    log.warning('standard checkers available: ' + ', '.join(filelist))
 
 def add_standard_checker_to_solution (checker):
     """
@@ -40,10 +41,11 @@ def add_standard_checker_to_solution (checker):
     
     if not os.path.exists(checker_global_path) :
         print_standard_checkers()
-        raise AddStandartCheckerError("Standart checker " + checker_name + " not found!")
+        raise AddStandardCheckerError("Standard checker " + checker_name + " not found!")
     else:
         shutil.copy(checker_global_path, checker_name)
         if not os.path.exists('testlib.h') :
-            shutil.copy(os.path.join(globalconfig.root, globalconfig.checkers_dir, 'testlib.h'), 'testlib.h')
+            shutil.copy(os.path.join(globalconfig.root, globalconfig.checkers_dir, 'testlib.h'),
+                    'testlib.h')
         add_checker(checker_name)
 

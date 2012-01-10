@@ -106,14 +106,17 @@ class WordTemplateTest(unittest.TestCase):
 
         template = "solution|create|add|megalongword|problem|gets|task"
         word_template = WordTemplate(template)
-        self.assertTrue(word_template.mistake_corresponds("ad"))
-        self.assertTrue(word_template.mistake_corresponds("adb"))
+        #We don't look for mistakes in words with len less, than 3 symbols
+        self.assertFalse(word_template.mistake_corresponds("ad"))
+        self.assertFalse(word_template.mistake_corresponds("adb"))
+        self.assertFalse(word_template.mistake_corresponds("get"))
+        self.assertFalse(word_template.mistake_corresponds("abb"))
+
         self.assertFalse(word_template.mistake_corresponds("adddddddd"))
         self.assertTrue(word_template.mistake_corresponds("tasc"))
-        self.assertTrue(word_template.mistake_corresponds("get"))
         self.assertFalse(word_template.mistake_corresponds("soluti"))
         self.assertTrue(word_template.mistake_corresponds("creat"))
-        self.assertFalse(word_template.mistake_corresponds("abb"))
+        self.assertTrue(word_template.mistake_corresponds("gets"))
         self.assertFalse(word_template.mistake_corresponds("megalongwo"))
         self.assertFalse(word_template.mistake_corresponds("ssprbolem"))
 
