@@ -1,7 +1,8 @@
 from ..executors import compiler
 from ..executors import runner
+from ..utils.exception import Sorry
 
-class CheckerCompileError(Exception):
+class CheckerCompileError(Sorry):
     pass
 
 class CheckerInfo:

@@ -1,4 +1,5 @@
 import logging
+from ..utils.exception import Sorry
 
 mod_logger = logging.getLogger ("please_logger.matcher")
 
@@ -62,6 +63,6 @@ class Matcher:
         
         return function_found(**function_args_found)
 
-class MatcherException(Exception):
+class MatcherException(Sorry):
     pass
 

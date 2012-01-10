@@ -5,11 +5,12 @@ from .. import globalconfig
 from ..directory_diff import snapshot
 from . import trash_remover
 from ..utils import form_error_output
+from ..utils.exception import Sorry
 import psutil
 import subprocess
 import os
 
-class CompileError(Exception):
+class CompileError(Sorry):
     pass
 
 def already_compiled(src, need_binaries):
