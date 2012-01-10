@@ -1,7 +1,8 @@
 import os.path
 from .. import globalconfig
+from ..utils.exception import Sorry
 
-class ConfigException(Exception):
+class ConfigException(Sorry):
     pass
 
 class Config:

@@ -1,2 +1,2 @@
-class PleaseException(Exception):
+class Sorry(Exception):
     pass
