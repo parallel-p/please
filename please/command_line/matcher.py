@@ -44,7 +44,7 @@ class Matcher:
             function_args = template.corresponds(args)
             if function_args != None:
                 # Make sure only one function corresponds to the arguments passed
-                if has_access == True:
+                if has_access:
                     if function_found != None:
                         raise MatcherException("More than 1 functions match the template entered")
                     function_found, function_args_found = function, function_args
@@ -58,7 +58,7 @@ class Matcher:
             else:
                 raise MatcherException("No functions match the template entered")
         
-        _inst_logger.debug ("Run function: " + function_found.__name__ + ". Matching completed")
+        _inst_logger.debug ("Run function: " + str(function_found) + ". Matching completed")
         
         return function_found(**function_args_found)
 

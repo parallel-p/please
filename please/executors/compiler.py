@@ -18,7 +18,7 @@ def already_compiled(src, need_binaries):
             return False
         source_file_modification_time = os.path.getmtime(src)
         expected_binary_modification_time = os.path.getmtime(binary)
-        if (source_file_modification_time >= expected_binary_modification_time):
+        if source_file_modification_time >= expected_binary_modification_time:
             return False
 
     return True
@@ -38,7 +38,8 @@ def compile(path, limits=globalconfig.default_limits):
     if configurator is None:
         raise CompileError("Couldn't detect source language for file " + path)
     DO_NOTHING_RESULT = (invoker.ResultInfo("OK", 0, 0, 0, 0) , "", "")
-    if already_compiled(path, configurator.get_binary_name(path)):
+    need_binaries = configurator.get_binary_name(path)
+    if already_compiled(path, need_binaries):
         #log.info("File %s was already compiled" % path)
         return DO_NOTHING_RESULT
 
