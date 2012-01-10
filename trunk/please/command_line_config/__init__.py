@@ -9,6 +9,7 @@ from .help import *
 from .solutions import *
 from .package import *
 from .execute import *
+from .easter_eggs import *
     
 def add_creation_operations(matcher, active):
     from please.contest import commands as contest_commands
