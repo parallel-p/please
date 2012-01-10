@@ -8,20 +8,21 @@ from ..test_info import cmd_gen_test_info
 from ..tests_generator.tests_generator import TestsGenerator
 from ..checker_runner import checker_runner
 from ..executors.compiler import CompileError
+from ..utils.exception import Sorry
 import logging
 import shutil
 import io
 
-class StressCheckException(Exception):
+class StressCheckException(Sorry):
     pass
 
-class StressCheckMatchException(Exception):
+class StressCheckMatchException(Sorry):
     pass
 
-class StressCheckFail(Exception):
+class StressCheckFail(Sorry):
     pass
 
-class StressRunException(Exception):
+class StressRunException(Sorry):
     pass
 
 class StressTester():

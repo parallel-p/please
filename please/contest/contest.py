@@ -4,8 +4,9 @@
 import errno, os
 from ..package.config import Config
 from ..solution_tester.package_config import PackageConfig
+from ..utils.exception import Sorry
 
-class ProblemNotFoundException(Exception):
+class ProblemNotFoundException(Sorry):
     def __init__( self, path ):
         self.__path = path
     def __str__( self ):
@@ -13,7 +14,7 @@ class ProblemNotFoundException(Exception):
 
 class IdMethod:
 
-    class IdException(Exception):
+    class IdException(Sorry):
         def __init__( self, id=None ):
             self.__id = id
         def __str__( self ):

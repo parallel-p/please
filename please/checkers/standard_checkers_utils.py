@@ -5,11 +5,11 @@ from .. import globalconfig
 from ..solution_tester import package_config
 from ..utils.writepackage import writepackage
 from ..add_source.add_source import add_checker
-from ..utils.exception import PleaseException
+from ..utils.exception import Sorry
 
 log = logging.getLogger("please_logger.checkers.standard_checker_utils")
 
-class AddStandardCheckerError (PleaseException):
+class AddStandardCheckerError (Sorry):
     pass
 
 def print_standard_checkers():

@@ -5,12 +5,13 @@ from .. import log
 from .. import globalconfig
 from ..solution_tester import package_config
 from ..utils.utests import get_tests
+from ..utils.exception import Sorry
 
 OK, FIXED, CRASH = 0, 1, 2
 
 logger = logging.getLogger("please_logger.well_done")
 
-class WellDoneError(Exception):
+class WellDoneError(Sorry):
     pass
 
 class WellDone:

@@ -5,11 +5,11 @@ from ..package import config
 from .. import globalconfig
 from ..solution_tester.package_config import PackageConfig
 from ..utils.writepackage import writepackage
-from ..utils.exception import PleaseException
+from ..utils.exception import Sorry
 
 log = logging.getLogger("please_logger.add_source")
 
-class AddSourceError(PleaseException):
+class AddSourceError(Sorry):
     pass
 
 def add_main_solution_with_config(package_config, path):

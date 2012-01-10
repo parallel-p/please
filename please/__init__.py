@@ -11,7 +11,7 @@ from please.executors.runner import RunnerError
 from please.executors import trash_remover
 from please import command_line_config
 from please.tests_answer_generator import tests_answer_generator
-from please.utils.exception import PleaseException
+from please.utils.exception import Sorry
 import sys
 import logging
 
@@ -105,7 +105,7 @@ def main():
                 logger.error("AddSourceError: " + str(ex))
             except SolutionNotFoundException as ex:
                 logger.error("SolutionNotFoundException: " + str(ex))
-            except PleaseException as ex:
+            except Sorry as ex:
                 logger.error("Please error: %s" % str(ex))
             except Exception as ex:
                 logger.error("Unknown error: " + str(ex))

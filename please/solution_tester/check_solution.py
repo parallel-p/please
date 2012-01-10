@@ -6,12 +6,13 @@ from ..solution_tester.package_config import PackageConfig
 from ..invoker import invoker
 from .. import globalconfig
 from ..reports import generate_html_report
+from ..utils.exception import Sorry
 
 colorama.init()
 
 logger = logging.getLogger("please_logger.check_solution")
 
-class SolutionNotFoundException(Exception):
+class SolutionNotFoundException(Sorry):
     pass
         
 def check_multiple_solution():
