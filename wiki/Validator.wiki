@@ -29,6 +29,10 @@
  <code>TestProblem(ERROR) [11:26:49]: AddSourceError: Validator isn't in problem folder!</code>
 ==2) Запуск валидатора==
  <code>please validate tests</code>
+или
+ <code>please val tests
+ please validate</code>
+
 После чего, если валидатор выходит с кодом возврата 0, вы увидите
  <code>TestProblem(INFO) [11:35:06]: Start validator on test #20
 TestProblem(INFO) [11:35:06]: Compiling validator.java
