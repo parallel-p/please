@@ -66,7 +66,11 @@ class WordTemplate :
         """
         if self.corresponds(word) :
             return True
-        else :
+        else:
+            #we don't fix mistakes in small words
+            #for have possibility use small words as tl, ml etc...
+            if len(word) <= 3:
+                return False
             for command in self.command_list :
                 if WordMistake.one_change_letter(word, command):
                     return True

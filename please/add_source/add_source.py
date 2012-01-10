@@ -5,10 +5,11 @@ from ..package import config
 from .. import globalconfig
 from ..solution_tester.package_config import PackageConfig
 from ..utils.writepackage import writepackage
+from ..utils.exception import PleaseException
 
 log = logging.getLogger("please_logger.add_source")
 
-class AddSourceError(Exception):
+class AddSourceError(PleaseException):
     pass
 
 def add_main_solution_with_config(package_config, path):
@@ -133,6 +134,7 @@ def del_props(args):
 def add_checker_with_config (package_config, path):
     if not os.path.exists(path):
         raise AddSourceError("There is no such file")
+    #TODO: use relpath
     if not os.getcwd() in os.path.abspath(path):
         raise AddSourceError("Checker isn't in problem folder!")
     package_config['checker'] = os.path.relpath(path)
