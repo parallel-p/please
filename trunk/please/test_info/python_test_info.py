@@ -13,7 +13,7 @@ class PythonTestInfo(test_info.TestInfo):
         temp = tempfile.NamedTemporaryFile(delete = False)
         try:
             with open(temp.name, 'w') as f:
-                content = str(eval(self.__code))
+                content = (lambda x : x if type(x) == str else '\n'.join(x))(eval(self.__code))
                 if content.endswith('\n'):
                     f.write(content)
                 else:
