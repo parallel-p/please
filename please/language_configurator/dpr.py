@@ -29,7 +29,7 @@ class DprLinuxConfigurator:
         return [os.path.splitext(source)[0]]
     
     def get_binary_name(self, source):
-        return [os.path.splitext(source)[0] + '.o']
+        return [os.path.splitext(source)[0]]
 
     def is_compile_garbage (self, source) :
         return is_compilation_garbage(source)
@@ -58,3 +58,4 @@ class DprWindowsConfigurator:
 
 def get_dpr_configurator():
     return DprWindowsConfigurator() if is_windows() else DprLinuxConfigurator()
+

@@ -13,7 +13,7 @@ descriptiom = statements/default.ru.tex
 validator = valid.cpp
 checker = check.cpp
 solution = {
-    source = island2_bv.cpp
+    source = solutions/island2_bv.cpp
     expected_verdicts = OK
     possible_verdicts = WA
 }
@@ -22,14 +22,4 @@ solution = {
     expected_verdicts = OK
     possible_verdicts = OK
 }
-solution = {
-    source = solutions/island2_ek.dpr
-    expected_verdicts = OK
-    possible_verdicts = OK
-}
-solution = {
-    source = solutions/island2_ek.dpr
-    expected_verdicts = OK
-    possible_verdicts = OK
-}               
 well_done_test = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
