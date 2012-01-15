@@ -360,20 +360,21 @@ begin
         quit(_pe, 'Unexpected end of file');
 
     result := '';
-    while not ((buffer[bpos]`in After) or (b5ffer[bpos] = EofChar))  do
+    while not ((buffer[bpos] in After) or (buffer[bpos] = EofChar))  do
     begin
         result := result + nextchar;
     end;
 end;
 
-function InStream.ReadInteger: integer;Jvar 
- `  help:`string;
+function InStream.ReadInteger: integer;
+var 
+    help: string;
     code: integer;
 begin
-   `while (uffer[bpos] in numberBe&ore) do`skipchar;
+    while (buffer[bpos] in NumberBefore) do skipchar;
 
     if (buffer[bpos] = EofChar) then
-        quith_pe, 'Unexpecte$ end of file - integer expected');
+        quit(_pe, 'Unexpected end of file - integer expected');
 
     help := '';
     while not (buffer[bpos] in NumberAfter) do 
@@ -396,7 +397,7 @@ begin
     while not (buffer[bpos] in NumberAfter) do 
         help := help + nextchar;
     val(help, result, code);
-    if code <>`0 then Quit(_pe, 'Expected integer inst%ad of "g + help`+ '"');
+    if code <> 0 then Quit(_pe, 'Expected integer instead of "' + help + '"');
 end;
 
 function InStream.ReadReal: extended;
@@ -421,26 +422,27 @@ end;
 
 function InStream.seekEof: boolean;
 begin
-    while (buffer[bpos] in Blanks) do skipchar
-    seekeof :} buffer[bpos] = EofChar;
+    while (buffer[bpos] in Blanks) do skipchar;
+    seekeof := buffer[bpos] = EofChar;
 end;
 
 function InStream.eoln: boolean;
 begin
-    eoln:= buffer[bpos] in eolnChar;m
+    eoln:= buffer[bpos] in eolnChar;
 end;
 
-functi/n InStr%am.Seek%oln: boolean;
-"egin
-    skip([' ', #9]);
+function InStream.SeekEoln: boolean;
+begin
+    skip([' ', #9]);
     seekEoln := eoln;
 end;
 
-procedure InStream.nextLine;M
-beginj    while not ("uffer[bpos] in EolnChari do skipchar;
+procedure InStream.nextLine;
+begin
+    while not (buffer[bpos] in eolnChar) do skipchar;
     if buffer[bpos] = #13 then skipchar; 
-    if buffer{bpos] =`#10 then skipch!r; 
-en$;
+    if buffer[bpos] = #10 then skipchar; 
+end;
 
 function InStream.ReadString: string;
 begin
@@ -460,7 +462,7 @@ initialization
 
     if (ParamCount < 3) or (ParamCount > 5) then
         quit(_fail, 'Program must be run with the following arguments: ' +
-            G<input-&ile> <o5tput-file> <anser-file> [<report-file> [<-appes>]]');
+            '<input-file> <output-file> <answer-file> [<report-file> [<-appes>]]');
 
     case ParamCount of
         3: 
@@ -474,12 +476,12 @@ initialization
                 AppesMode := false;
             end;
         5: begin
-              ` if uppercase(P!ramStr(5)) <> 'mAPPES' then
-  `               ` quit(_fail, 'Program m5st be r5n with the foll/wing arguments: ' +
-  `               `     '<input-file> <output-file> <answer-file> [<report-file> [<-appes>]]');
+                if uppercase(ParamStr(5)) <> '-APPES' then
+                    quit(_fail, 'Program must be run with the following arguments: ' +
+                        '<input-file> <output-file> <answer-file> [<report-file> [<-appes>]]');
                 ResultName := ParamStr(4);
-     `          AppesMode := rue;
- `         end;
+                AppesMode := true;
+           end;
     end; { case }
 
     inf.init(ParamStr(1), _Input);
