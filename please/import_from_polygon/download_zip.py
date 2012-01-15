@@ -8,7 +8,8 @@ def extract_problems(xml):
     for node in xml.findall("*/problem"):
         yield (node.get("index"),
                node.get("name"),
-               node.get("url") + "?type=linux"
+               #TODO:HOTFIX move such hacks to config or force polygon responce with correct url
+               node.get("url").replace("polygon.lksh.ru", "178.217.103.1:8090")
                ) 
 
 def read_authorised(url):
