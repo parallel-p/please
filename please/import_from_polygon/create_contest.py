@@ -1,4 +1,4 @@
-from . import create_problem
+from .create_problem import PolygonProblemImporter
 from . import polygon_unzip
 from ..contest.contest import Contest
 from ..contest import commands
@@ -34,7 +34,7 @@ def import_with_tree(tree, contest_path):
     contest.config['statement']['location'] = location or ''
     contest.config['statement']['date'] = date or ''
     
-    importer = create_problem.PolygonProblemImporter()
+    importer = PolygonProblemImporter()
     problems = tree.xpath('problems/problem')
     for problem in problems:
         problem_index = problem.get('index')
