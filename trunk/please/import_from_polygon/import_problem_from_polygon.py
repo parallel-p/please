@@ -7,4 +7,5 @@ def import_problem_from_polygon(contest_id, problem_letter):
     print("__________________________________")
     print(str(problem_name) + ".zip")
     print("__________________________________")
-    create_problem.create_problem(problem_name + ".zip")
+    create_problem(problem_name + ".zip")
+

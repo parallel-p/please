@@ -58,8 +58,8 @@ class Language:
         else:
             return None
 
-
     def get(self, path):
+        """Returns None if no language supported"""
         res_by_ext = self.__by_ext(path)
         if (res_by_ext is None):
             return None
@@ -69,4 +69,9 @@ class Language:
             raise OSError("There is no file " + path)
         res_by_content = self.__by_contents(path, res_by_ext)
         return res_by_content
+
+def is_source_code(path):
+    detector = Language()
+    lang = detector.get(path)
+    return lang is not None and lang != "command"
 
