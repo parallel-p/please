@@ -6,6 +6,7 @@ from ..solution_runner import solution_runner
 from ..invoker.invoker import ExecutionLimits
 from ..tests_generator import tests_generator
 from ..test_config_parser import parser
+from ..well_done import well_done
 from ..solution_tester import package_config
 import unittest
 import os
@@ -17,12 +18,12 @@ class Tester (unittest.TestCase):
         
     def tearDown(self):
         self.mox.UnsetStubs()
-        self.mox.VerifyAll()
+
     class WellDoneMock():
         def __init__(self, key):
             self.__key = key
-        def check(self, file):
-            return 0        
+        def check(self, file, fix_inplace):
+            return (well_done.OK, [])
     
     def test_generate (self):
         generator = tests_answer_generator.TestsAndAnswersGenerator()
@@ -38,7 +39,8 @@ class Tester (unittest.TestCase):
         well_done = self.WellDoneMock("key")
         f = self.mox.CreateMockAnything()
         generator._TestsAndAnswersGenerator__create_well_done = f
-        f(generator, "key").AndReturn(well_done)              
+        f(generator, "well_done_test").AndReturn(well_done)              
+        f(generator, "well_done_test").AndReturn(well_done)              
         
         ftcp = self.mox.CreateMock(parser.FileTestConfigParser)
         ftcp.get_test_info_objects().AndReturn(test_list)
@@ -73,6 +75,8 @@ class Tester (unittest.TestCase):
         
         for t, p in generator.generate_all():
             self.assertEqual((t, p), (".tests/1", ".tests/1.a"))
+        
+        self.mox.VerifyAll()
         
 if __name__ == '__main__':
     unittest.main()

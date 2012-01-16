@@ -146,7 +146,7 @@ class WellDone:
         with open(self.__path, 'w', encoding = "utf-8") as f:
             f.write(self.__content)
 
-    def check(self, path):
+    def check(self, path, fix_inplace=True):
         with open(path, encoding = 'utf-8') as file:
             self.__content = file.read()
         self.__path = path
@@ -167,7 +167,8 @@ class WellDone:
             elif result == FIXED:
                 self.__fixes += [function_name]
         if self.__fixes:
-            self.__rewrite()
+            if fix_inplace:
+                self.__rewrite()
             return (FIXED, self.__fixes)
         else:
             return (OK, [])
