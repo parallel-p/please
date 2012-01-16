@@ -34,8 +34,6 @@ class WellDoneWithValidator:
         if self.__validator:
             invoke_info, stdout, stderr = validator_runner.validate(
                     self.__validator, test_filename)
-            if invoke_info.return_code != 0:
-                count_errors += 1
             if invoke_info.verdict == "FNF":
                 raise ValidatorError("Validator %s isn't found" % validator_src)
             if invoke_info.verdict == "OK":
@@ -60,7 +58,6 @@ class TestsAndAnswersGenerator:
     def validate(self, tests=None):
         config = package_config.PackageConfig.get_config()
         # TODO: check if config is None
-        count_errors = 0
         well_test = self.__create_well_done("well_done_test")
 
         if tests is None:
