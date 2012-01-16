@@ -20,6 +20,35 @@ class ValidatorError(runner.RunnerError):
 def get_file_name(testinfo):
     return testinfo
 
+class WellDoneWithValidator:
+    def __init__(self, validator = None, well_done = None):
+        self.__validator = validator
+        self.__well_done = well_done
+
+    def validate(self, test_filename):
+        logger.info("Start validator on test #%s" % os.path.basename(test_filename))
+        if self.__well_done:
+            outcome, errors = self.__well_done.check(test_filename, fix_inplace=False)
+            if outcome != well_done.OK:
+                raise ValidatorError("Well done test failed on %s" % " ".join(errors))
+        if self.__validator:
+            invoke_info, stdout, stderr = validator_runner.validate(
+                    self.__validator, test_filename)
+            if invoke_info.return_code != 0:
+                count_errors += 1
+            if invoke_info.verdict == "FNF":
+                raise ValidatorError("Validator %s isn't found" % validator_src)
+            if invoke_info.verdict == "OK":
+                logger.info("Validator said OK")
+            else:
+                raise ValidatorError(
+                    form_error_output.process_err_exit(
+                        "Validator was crashed",
+                        invoke_info.verdict,
+                        invoke_info.return_code,
+                        stdout,
+                        stderr))
+
 class TestsAndAnswersGenerator:
     """
     function generate_all() generates all the tests of file tests.please
@@ -32,29 +61,22 @@ class TestsAndAnswersGenerator:
         config = package_config.PackageConfig.get_config()
         # TODO: check if config is None
         count_errors = 0
-        if tests is None: tests = utests.get_tests()
+        well_test = self.__create_well_done("well_done_test")
+
+        if tests is None:
+            tests = utests.get_tests()
         if 'validator' in config and config['validator'] not in ["", None]:
             validator_src = config["validator"]
-            for num, test_filename in enumerate(tests):
-                logger.info("Start validator on test #" + str(num+1))
-                invoke_info, stdout, stderr = validator_runner.validate(
-                        validator_src, test_filename)
-                if invoke_info.return_code != 0:
-                    count_errors += 1
-                if invoke_info.verdict == "FNF":
-                    raise ValidatorError("Validator %s isn't found" % validator_src)
-                if invoke_info.verdict == "OK":
-                    logger.info("Validator said OK")
-                else:
-                    raise ValidatorError(
-                        form_error_output.process_err_exit(
-                            "Validator was crashed",
-                            invoke_info.verdict,
-                            invoke_info.return_code,
-                            stdout,
-                            stderr))
         else:
+            validator_src = None
             logger.warning("Validator is empty")
+
+        well_done_with_validator = WellDoneWithValidator(
+                validator=validator_src, well_done=well_test)
+        for test in tests:
+            well_done_with_validator.validate(test)
+
+
 
     def __get_admit (self, tags):
         def admit(attr):
@@ -72,12 +94,20 @@ class TestsAndAnswersGenerator:
         return answers_generator.AnswersGenerator().generate(tests, config["main_solution"], [], config)
     
     def generate_all(self):
-        tests = tests_generator.TestsGenerator(parser.FileTestConfigParser(self.__create_well_done("well_done_test") ).get_test_info_objects()).generate_all()
+        tests = tests_generator.TestsGenerator(
+                parser.FileTestConfigParser(self.__create_well_done("well_done_test")
+                ).get_test_info_objects()
+            ).generate_all()
         answers = self.__generate_answers(tests)
         return zip(tests, answers)
         
     def generate (self,tags, prefix = "", delete_folder=True):
-        tests = tests_generator.TestsGenerator(parser.FileTestConfigParser(self.__create_well_done("well_done_test")  ).get_test_info_objects(), prefix).generate( self.__get_admit ( tags ), delete_folder )
+        tests = tests_generator.TestsGenerator(
+                parser.FileTestConfigParser(
+                    self.__create_well_done("well_done_test")
+                ).get_test_info_objects(), prefix).generate(
+                    self.__get_admit ( tags ), delete_folder
+                )
         answers = self.__generate_answers(tests)
         return zip(tests, answers)
     
