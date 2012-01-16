@@ -137,7 +137,8 @@ def generate_html_report(solves, add_main=False):
         all_results.append((config["main_solution"], gen[1]))
         
     for solve in solves:
-        gen = generate_html_for_solution(config, solve["source"], solve["expected"], solve["possible"])
+        gen = generate_html_for_solution(config, solve["source"],
+                solve.get("expected", []), solve.get("possible", []))
         html += gen[0]
         all_results.append((solve["source"], gen[1]))
         

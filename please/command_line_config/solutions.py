@@ -22,14 +22,14 @@ def add_checking_solution_operations(matcher, active):
     for tpl in [["run|check", "solutions|sols|all"], "check|run all solutions|sols".split()]:
         matcher.add_handler(
                 Template(tpl),
-                check_solution.check_multiple_solution,
+                check_solution.check_all_solutions,
                 active)
 
     #TODO:support checking several but not all solutions
 
     #TODO:support "check #path" in current implementation it is
     #conflict with "check main|all|sols|solutions"
-    for tpl in [["check|run", "solution|sol", "#path"]]:
+    for tpl in [["check|run", "solution|sol|solutions|sols", "#substr"]]:
         matcher.add_handler(
             Template(tpl),
             check_solution.check_solution,
