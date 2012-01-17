@@ -1,3 +1,4 @@
+from ..executors import runner
 from . import test_info
 import tempfile
 
@@ -21,7 +22,8 @@ class PythonTestInfo(test_info.TestInfo):
                     content = self.__modificator(content)
                 f.write(content)
         except Exception as e:
-            raise EnvironmentError(str(e))
+            raise runner.RunnerError(
+                "python test generator `%s` failed with exception: `%s`" % (self.__code, e))
         self.set_desc( ['python output'] )
         return [ temp.name ]
     

@@ -2,7 +2,6 @@
 from please import globalconfig
 from please.package import config
 from please.export2ejudge.connect_to_server import Connector
-from please.latex.latex_tools import generate_contest
 import os
 import re
 import shutil
