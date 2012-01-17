@@ -38,7 +38,7 @@ class TestObjectFactory:
             return echo_test_info.EchoTestInfo(' '.join(others), attr, comment)
         elif TokenSpecificator.is_python(first_token):
             modificator = None
-            if "endswith_EOLN" in well_done.check_functions_list():
+            if well_done and "endswith_EOLN" in well_done.check_functions_list():
                 modificator = add_eoln_modificator
             return python_test_info.PythonTestInfo(' '.join(others), modificator, attr, comment)
         elif TokenSpecificator.is_generator(first_token):
