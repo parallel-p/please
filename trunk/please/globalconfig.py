@@ -78,7 +78,7 @@ svn = {     'type': '', #personal',
 
 # Default latex template vars: used for generating one problem
 default_template_vars = {
-    "name": "Contest name",
+    "name": "Problem",
     "location": "",
-    "date": time.strftime("%A, %d %B")
+    "date": time.strftime("%d.%m.%Y")
 }

@@ -129,7 +129,7 @@ class PleaseTest(unittest.TestCase):
         if os.path.exists(os.path.join("statements", "default.ru.pdf")):
             os.remove(os.path.join("statements", "default.ru.pdf"))
         
-        self.__matcher.add_handler(Template(["generate", "statement"]), latex_tools.generate_contest, True)
+        self.__matcher.add_handler(Template(["generate", "statement"]), latex_tools.generate_problem, True)
         self.__matcher.matches("generate statement".split())
         
         os.chdir(start_dir)

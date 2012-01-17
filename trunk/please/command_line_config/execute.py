@@ -12,7 +12,7 @@ def add_generate_operations(matcher, active):
                 generate_tests, active)
         matcher.add_handler(Template(
                 ["generate|gen", "statement|pdf"]),
-                latex_tools.generate_contest, active)
+                latex_tools.generate_problem, active)
         matcher.add_handler(Template(
                 ["generate|gen", "answers|ans"]),
                 AnswersGenerator.generate, active)
