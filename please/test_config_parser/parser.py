@@ -29,10 +29,18 @@ class TokenSpecificator:
 class TestObjectFactory:    
     @staticmethod
     def create(well_done, line_number, first_token, others=[], attr={}, comment = ''):
+        def add_eoln_modificator(str):
+            if not str.endswith("\n"):
+                str += "\n"
+            return str
+
         if TokenSpecificator.is_echo(first_token):
             return echo_test_info.EchoTestInfo(' '.join(others), attr, comment)
         elif TokenSpecificator.is_python(first_token):
-            return python_test_info.PythonTestInfo(' '.join(others), attr, comment)
+            modificator = None
+            if "endswith_EOLN" in well_done.check_functions_list():
+                modificator = add_eoln_modificator
+            return python_test_info.PythonTestInfo(' '.join(others), modificator, attr, comment)
         elif TokenSpecificator.is_generator(first_token):
             return cmd_gen_test_info.CmdOrGenTestInfo(first_token, others, attr, comment)
         elif len(others) > 0: 
