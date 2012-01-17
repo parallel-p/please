@@ -15,7 +15,7 @@ def build_all () :
     TodoGenerator.get_todo()
 
     #statement generation
-    latex_tools.generate_contest()
+    latex_tools.generate_problem()
 
     #run Tests And Answers Generator
     generate_tests()

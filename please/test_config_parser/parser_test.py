@@ -1,6 +1,7 @@
 import unittest
 import mox
 from ..test_config_parser import parser
+from ..executors import runner
 from ..test_info import file_test_info, cmd_gen_test_info, echo_test_info, python_test_info
 import os
 import glob
@@ -66,7 +67,7 @@ class TestObjectFactoryTest(unittest.TestCase):
     def test_python(self):
         a = parser.TestConfigParser("python hi")
         b = a.get_test_info_objects()
-        with self.assertRaises(EnvironmentError) as ex:  
+        with self.assertRaises(runner.RunnerError) as ex:  
             t = b[0].tests()
     def tearDown(self):
         self.mox.VerifyAll()
