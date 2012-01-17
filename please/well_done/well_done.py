@@ -45,6 +45,9 @@ class WellDone:
             check_functions_list = []
         self.__check_functions_list = check_functions_list
 
+    def check_functions_list(self):
+        return self.__check_functions_list
+
     def endswith_EOLN(self):
         if len(self.__content) == 0 or self.__content[-1] != '\n':
             self.__content += '\n'
