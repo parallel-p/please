@@ -35,12 +35,16 @@ def run_solution(config):
         try:  # TODO: resolve this to something good in future
             stream_in = None
             stream_out = None
-            if config.solution_config['input'] != 'stdin':
-                shutil.copy(config.solution_input_file, config.solution_config['input'])
+
+            solution_input = config.solution_config['input']
+            solution_output = config.solution_config['output']
+
+            if solution_input != 'stdin':
+                shutil.copy(config.solution_input_file, solution_input)
             else:
                 #TODO:make accurate closing of this file
                 stream_in = open(config.solution_input_file, "r")
-            if config.solution_config['output'] == 'stdout':
+            if solution_output == 'stdout':
                 stream_out = open(config.solution_output_file, 'w')
                 
             compiler.compile(config.source_path)
@@ -49,11 +53,11 @@ def run_solution(config):
             
             if stream_in:
                 stream_in.close()
-            if config.solution_config['input'] != 'stdin':
-                os.remove(config.solution_config['input'])
+            if solution_input != 'stdin':
+                os.remove(solution_input)
             
-            if config.solution_config['output'] != 'stdout':
-                shutil.move(config.solution_config['output'], config.solution_output_file)
+            if solution_output != 'stdout' and os.path.isfile(solution_output):
+                shutil.move(solution_output, config.solution_output_file)
             
             if run_info.verdict == 'OK':
                 with open(config.solution_output_file, 'r') as ouf:
