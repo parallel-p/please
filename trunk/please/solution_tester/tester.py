@@ -61,8 +61,9 @@ class TestSolution:
             stderr = ""
             if solution_run_result[0].verdict != "OK":
                 if solution_run_result[0].verdict == "RE":
-                    logger.error(form_error_output.process_err_exit("Solution has had", solution_run_result[0].verdict, solution_run_result[0].return_code, 
-                                                       solution_run_result[1].decode(), solution_run_result[2].decode()))
+                    logger.error(form_error_output.process_err_exit("Solution %s is failed" % solution,
+                                solution_run_result[0].verdict, solution_run_result[0].return_code, 
+                                solution_run_result[1].decode(), solution_run_result[2].decode()))
                 result = solution_run_result[0].verdict
             else:
                 checker_info = checker_runner.CheckerInfo(self.checker, test, answer, program_out)
@@ -74,6 +75,7 @@ class TestSolution:
                     result = "CF"
                 stdout = check_result[1]
                 stderr = check_result[2]
+
             #take return code + realtime
             result_info = solution_run_result[0]
             result_info.verdict = result
@@ -94,10 +96,11 @@ class TestSolution:
             #.tests/1.a, .tests/2.a ...
             logger.info('Testing {0} on test #{1}'.format(solution, str(num+1)))
             result = self.one_test(solution, test, answer, program_out)
-            if result[0].verdict in verdicts:
-                verdicts[result[0].verdict] += 1
-            elif result[0].verdict not in self.possible:
-                met_not_expected.setdefault(result[0].verdict, []).append(test) 
+            verdict = result[0].verdict
+            if verdict in verdicts:
+                verdicts[verdict] += 1
+            elif verdict not in self.possible:
+                met_not_expected.setdefault(verdict, []).append(test) 
                 #{"PE":[".tests/1", ".tests/4"]}
             testing_result[test] = result
             #{".tests/1":[ResultInfo,stdout,stderr], ".tests/2":[ResultInfo,stdout,stderr]}
