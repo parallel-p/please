@@ -47,9 +47,6 @@ def main():
         command_line_config.add_tags_operations(matcher,
             active=in_problem_folder)
 
-        command_line_config.add_tags_operations(matcher,
-            active=in_problem_folder)
-
         command_line_config.add_generate_operations(matcher,
             active=in_problem_folder)
 
