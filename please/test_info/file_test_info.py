@@ -1,9 +1,11 @@
 from . import test_info
+from . import test_file_sort
 import tempfile
 import shutil
 import glob
 from ..well_done import well_done
 import re
+
 
 class FileTestInfo(test_info.TestInfo):
     def __init__(self, mask, tags={}, well_done=None, comment = ''):
@@ -15,7 +17,7 @@ class FileTestInfo(test_info.TestInfo):
         result = []
         desc = []
         exclude = self.get_tags().get('exclude')
-        for file in glob.iglob(self.__mask):
+        for file in sorted(glob.iglob(self.__mask), key = test_file_sort.sorting_key):
             if exclude is not None:
                 if re.match(exclude, file) is not None:
                     continue
