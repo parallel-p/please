@@ -2,7 +2,7 @@ def decode_to_string(buf):
     if isinstance(buf, str):
         return buf
     if isinstance(buf, bytes):
-        return buf.decode()
+        return buf.decode(errors='replace') 
     return str(buf)
 
 def form_err_string_by_std(stdout, stderr):
