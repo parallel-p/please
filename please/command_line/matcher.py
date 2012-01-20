@@ -47,7 +47,8 @@ class Matcher:
                 # Make sure only one function corresponds to the arguments passed
                 if has_access:
                     if function_found != None:
-                        raise MatcherException("More than 1 functions match the template entered")
+                        raise MatcherException("More than 1 functions match the template entered %s and %s"
+                                % (function_found, function))
                     function_found, function_args_found = function, function_args
                 else:
                     function_found_in_not_acc = True
