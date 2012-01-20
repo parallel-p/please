@@ -1,4 +1,5 @@
 from . import test_info
+from . import test_file_sort
 import tempfile
 from ..executors import runner, compiler
 from ..diff_test_finder.diff_test_finder import DiffTestFinder
@@ -47,7 +48,7 @@ class CmdOrGenTestInfo(test_info.TestInfo):
         desc = diff_test_finder.get_desc()
         
         zipped = list(zip(tests, desc))
-        zipped.sort(key = lambda x : re.split(r'(\D{1,})', x[0]))
+        zipped.sort(key = lambda x : test_file_sort.sorting_key(x[0]))
         for i in range(len(zipped)):
             tests[i] = zipped[i][0]
             desc[i] = zipped[i][1]
