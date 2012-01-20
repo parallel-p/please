@@ -22,7 +22,6 @@ def generate_problem():
     template_vars = copy.copy(globalconfig.default_template_vars)
     problem_full_name = package_config.PackageConfig.get_config()['name']
     template_vars['name'] = '%s' % problem_full_name
-    print(template_vars)
     generate_contest(['.'], None, template_vars)
 
 def generate_contest(problem_names = ['.'], template = None, template_vars = globalconfig.default_template_vars, file = None):
