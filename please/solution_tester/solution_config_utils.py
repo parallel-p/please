@@ -19,6 +19,8 @@ def make_config_with_solution_config(config, solution_config):
         #print("SOLUTION FOUND: " + sol_found["source"])               
         new_config["expected"] = solution_config.get("expected")
         new_config["possible"] = solution_config.get("possible")
+        if "OK" not in new_config["expected"] and "OK" not in new_config["possible"]:
+            new_config["possible"] += ["OK"]
         if "input" in solution_config:
             new_config["solution_config"]["input"]  = solution_config["input"]
         if "output" in solution_config:
