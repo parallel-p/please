@@ -2,6 +2,8 @@ from please.command_line.template import Template
 import sys
 import time
 
+import random
+
 def take_over_the_world():
     sys.stdout.write("In progress.")
     while True:
@@ -21,6 +23,10 @@ def add_easter_eggs_operations(matcher):
     matcher.add_handler(
         Template("make me @food".split()),
         lambda food: print("Try: sudo make me " + " ".join(food)),
+        True)
+    matcher.add_handler(
+        Template(["smile"]),
+        lambda: print(random.Random().choice([":-)", "(^ ^)", ":-D"])),
         True)
 
 
