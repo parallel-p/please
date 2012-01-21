@@ -68,6 +68,15 @@ def get_dict_from_args(args, changing=False):
         raise AddSourceError("Keyword '" + last_item + "' has no assignment")
     return result
 
+def fix_args_user_mistakes(properties):
+    for arg in ["expected", "possible"]:
+        if arg in properties:
+            responces = set([x.upper() for x in properties[arg]])
+            for responce in responces:
+                if responce not in ["OK", "WA", "RE", "TL", "ML"]:
+                    raise AddSourceError("Incorrect verdict %s=%s" % (arg, responce))
+            properties[arg] = list(responces)
+
 def add_solution (args):
     path = args[0]
     args = args[1:len(args)]
@@ -83,9 +92,11 @@ def add_solution (args):
     if package_config["solution"] is not None:
         for solve in package_config["solution"]:
             if os.path.abspath(solve["source"]) == abspath:
-                raise AddSourceError("There is already such solution")
+                raise AddSourceError("There is already exist such solution")
             
     properties = get_dict_from_args(args)
+    fix_args_user_mistakes(properties)
+
     new_config = config.Config("")
     new_config["source"] = os.path.relpath(path)
     for key, value in properties.items():
@@ -104,6 +115,7 @@ def change_solution (args):
         for solve in config["solution"]:
             if os.path.abspath(solve["source"]) == abspath:
                 properties = get_dict_from_args(args, True)
+                fix_args_user_mistakes(properties)
                 for key, value in properties.items():
                     solve[key] = value
                 log.info("Properties have been changed")
