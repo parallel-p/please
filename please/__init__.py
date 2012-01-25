@@ -68,6 +68,9 @@ def main():
         command_line_config.add_stress_test_operations(matcher,
             active=in_problem_folder)
 
+        command_line_config.add_contest_operations(matcher,
+            active=not in_problem_folder)
+
         command_line_config.add_aggregate_operations(matcher,
             active=in_problem_folder)
 
