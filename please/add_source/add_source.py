@@ -76,6 +76,8 @@ def fix_args_user_mistakes(properties):
                 if responce not in ["OK", "WA", "RE", "TL", "ML"]:
                     raise AddSourceError("Incorrect verdict %s=%s" % (arg, responce))
             properties[arg] = list(responces)
+    if "expected" not in properties and "possible" not in properties:
+        properties["expected"] = ["OK"]
 
 def add_solution (args):
     path = args[0]

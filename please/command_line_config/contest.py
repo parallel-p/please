@@ -14,7 +14,7 @@ def add_contest_operations(matcher, active):
                 contest_commands.command_remove_problems,
                 active)
         matcher.add_handler(Template(
-                ["generate", "statement|pdf", "for", "#name"]),
+                ["generate|gen", "statement|pdf", "for", "#name"]),
                 contest_commands.command_generate_statement,
                 active)
         matcher.add_handler(
