@@ -13,25 +13,20 @@ def make_config_with_solution_config(config, solution_config):
     new_config["execution_limits"]  = invoker.ExecutionLimits(float(config["time_limit"]), float(config["memory_limit"]))
     new_config["solution_config"] = {"input":config["input"], "output":config["output"]}
     new_config["solution_args"] = [] #looks like solution needs no argument
-#    new_config["solution_args"] = config.get("solution_args") or []
     
     if solution_config is not None:
-        #print("SOLUTION FOUND: " + sol_found["source"])               
-        new_config["expected"] = solution_config.get("expected")
-        new_config["possible"] = solution_config.get("possible")
+        new_config["expected"] = solution_config.get("expected") or globalconfig.default_expected
+        new_config["possible"] = solution_config.get("possible") or globalconfig.default_possible
         if "OK" not in new_config["expected"] and "OK" not in new_config["possible"]:
             new_config["possible"] += ["OK"]
         if "input" in solution_config:
             new_config["solution_config"]["input"]  = solution_config["input"]
         if "output" in solution_config:
             new_config["solution_config"]["output"] = solution_config["output"]
-#        solution = os.path.abspath(sol_found["source"])
     else:
-        pass
-#        raise SolutionNotFoundException(solution + ' not found in config')
+        new_config["expected"] = globalconfig.default_expected
+        new_config["possible"] = globalconfig.default_possible
 
-    new_config["expected"] = new_config.get("expected") or globalconfig.default_expected
-    new_config["possible"] = new_config.get("possible") or globalconfig.default_possible
     return new_config
         
 def make_config(solution, config = None):
