@@ -4,7 +4,8 @@ import os
 class CppLinuxConfigurator:
     def get_compile_command(self, source):
         return ["g++", "-lm", "-s", "-x", "c++",
-        "-O2", "-o", os.path.splitext(source)[0], source]
+        "-O2", "-Wl,-stack_size,0x10000000",
+        "-o", os.path.splitext(source)[0], source]
 
     def get_run_command(self, source):
         if "/" not in source:
@@ -23,7 +24,8 @@ class CppLinuxConfigurator:
 class CppWindowsConfigurator:
     def get_compile_command(self, source):
         return ["g++", "-lm", "-s", "-x", "c++",
-        "-O2", "-o", os.path.splitext(source)[0] + ".exe",  source]    
+        "-O2", "-Wl,-stack_size,0x10000000",
+        "-o", os.path.splitext(source)[0] + ".exe",  source]    
     
     def get_run_command(self, source):
         return [os.path.splitext(source)[0] + ".exe"]
