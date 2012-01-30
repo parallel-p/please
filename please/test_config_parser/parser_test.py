@@ -58,13 +58,21 @@ class TestObjectFactoryTest(unittest.TestCase):
         t = b[1].tests()
         with open(t[0]) as f:
             self.assertEqual(f.read(), "happy new year ")
+
+    def test_difficult_tags_parse(self):
+        parserObject = parser.TestConfigParser("[exclude=tests/0[1-2]]echo 1")
+        test_infos = parserObject.get_test_info_objects()
+        self.assertEqual(len(test_infos), 1)
+        self.assertEqual(test_infos[0].get_tags(), {"exclude" : "tests/0[1-2]"})
+
     def test_python(self):
         a = parser.TestConfigParser("python 'ab'*  5")
         b = a.get_test_info_objects()
         t = b[0].tests()
         with open(t[0]) as f:
             self.assertEqual(f.read(), "ababababab")
-    def test_python(self):
+
+    def test_python_error(self):
         a = parser.TestConfigParser("python hi")
         b = a.get_test_info_objects()
         with self.assertRaises(runner.RunnerError) as ex:  
