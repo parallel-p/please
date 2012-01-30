@@ -72,7 +72,17 @@ class TestConfigParser:
         for item in self.__parsed:
             result.append(TestObjectFactory.create(self.__well_done, *item))
         return result
-    
+   
+    def __find_closed_bracket(self, line):
+        balans = 0
+        for idx, c in enumerate(line):
+            if c == "[": balans += 1
+            if c == "]":
+                balans -= 1
+                if balans == 0:
+                    return idx
+        return -1
+
     def __parse_line(self, line_number, line):
         """
         takes line number & stripped line
@@ -80,10 +90,11 @@ class TestConfigParser:
         """
         attribs = {}
         if line[0] == '[':
-            if line.find(']') == -1:
+            closed_bracket = self.__find_closed_bracket(line)
+            if closed_bracket == -1:
                 raise EnvironmentError("Tests config parser: Line %d: wrong format, ']' expected" % (line_number))
                                    
-            attributes_str = line[1 : line.find(']')]
+            attributes_str = line[1 : closed_bracket]
             attributes_list = attributes_str.split(',')
         
             for attribute in attributes_list:
@@ -95,7 +106,7 @@ class TestConfigParser:
                     key = attribute.strip()
                     value = None
                 attribs[key] = value
-            new_line = line[line.find(']') + 1 : ]
+            new_line = line[closed_bracket + 1 : ]
         else:
             new_line = line
         comment = ''
