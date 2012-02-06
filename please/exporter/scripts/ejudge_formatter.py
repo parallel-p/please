@@ -52,8 +52,8 @@ class NewEjudgeFormatter(EjudgeFormatter):
                         
 
 class OldEjudgeFormatter(EjudgeFormatter):
-    def __init__(self):
-        raise NotImplementedError
+    def __init__(self, problems):
+        raise NotImplementedError("old ejudge formatter not implemented, use new format for contest")
     def put_all(self):
         raise NotImplementedError
 
