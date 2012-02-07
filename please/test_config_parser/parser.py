@@ -58,7 +58,9 @@ class TestConfigParser:
         for line_number, line in enumerate(self.__test_config.split('\n')):
             if (line.strip() == ''):  #empty line
                 continue
-            self.__parsed.append(self.__parse_line(line_number + 1, line.strip()))
+            parsed_line = self.__parse_line(line_number + 1, line.strip())
+            if parsed_line is not None: 
+                self.__parsed.append(parsed_line)
     
     def get_binaries(self):
         result = []
@@ -86,7 +88,7 @@ class TestConfigParser:
     def __parse_line(self, line_number, line):
         """
         takes line number & stripped line
-        returns list like [line_number, first_token, [other_tokens], {attributes}, comment]
+        returns list like [line_number, first_token, [other_tokens], {attributes}, comment] or None, if it's an empty line
         """
         attribs = {}
         if line[0] == '[':
@@ -115,7 +117,7 @@ class TestConfigParser:
         new_line.strip()
         tokens = new_line.split()
         if tokens == []:
-            raise EnvironmentError("Tests config parser: Line %d: no operator" % (line_number))
+            return None
         tokens[0] = self.__do_normal_path(tokens[0])
         return [line_number, tokens[0], tokens[1 : len(tokens)], attribs, comment]
     
