@@ -17,7 +17,11 @@ class FileTestInfo(test_info.TestInfo):
         result = []
         desc = []
         exclude = self.get_tags().get('exclude')
-        for file in sorted(glob.iglob(self.__mask), key = test_file_sort.sorting_key):
+        files = []
+        for file in glob.iglob(self.__mask):
+            files.append(file)
+            
+        for file in sorted(files, key = test_file_sort.sorting_key):
             if exclude is not None:
                 if re.match(exclude, file) is not None:
                     continue
