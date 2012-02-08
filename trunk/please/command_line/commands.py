@@ -9,6 +9,7 @@ global_commands = ["create problem PROBLEM_NAME",
              "[show] todo PATH_TO_PROBLEM",
              "import polygon package PATH_TO_POLYGON_PACKAGE",
              "import polygon problem PROBLEM_LETTER from contest CONTEST_ID",
+             "commands"
              ]
 
 problem_commands = ["generate statement",
@@ -20,8 +21,8 @@ problem_commands = ["generate statement",
              "add tag[s] TAGS_LIST",
              "show tags",
              "clear tags",
-             "add solution PATH_TO_SOLUTION expected: EXPECTED_VERDICTS_LIST possible: POSSIBLE_VERDICTS_LIST",
-             "add solution PATH_TO_SOLUTION with EXPECTED_VERDICTS_LIST",
+             "add solution PATH_TO_SOLUTION [input PATH_OR_STDIN] [output PATH_OR_STDOUT] [possible POSS_VERDICTS_LIST] [expected EXP_VERDICTS_LIST]",
+             "",
              "set main solution PATH_TO_MAIN_SOLUTION",
              "set checker PATH_TO_CHECKER",
              "set validator PATH_TO_VALIDATOR",
@@ -45,9 +46,9 @@ def print_lite_help():
     print("Usage: please [command]")
     print("Commands available (try 'please help' for more information):\n")
     print("Global commands:\n")
-    print(*sorted(global_commands), sep = "\n")
+    print(*[command for command in sorted(global_commands) if command != ""], sep = "\n")
     print("\nCommands inside problem folder:\n")
-    print(*sorted(problem_commands), sep = "\n")
+    print(*[command for command in sorted(problem_commands) if command != ""], sep = "\n")
 
 def print_help():
     print("""
@@ -82,6 +83,9 @@ Global commands available:
 
   {7}:
     Imports given Polygon problem from given contest
+    
+  {8}:
+    Shows all please commands
     
 """.format(PLEASE_VERSION, *global_commands))
     print("""
@@ -124,12 +128,8 @@ Commands available inside problem's folder:
     Removes all tags associated with current problem
 
   {9}:
-    Adds solution with some expected and possible verdicts
-    example: add solution ../../sources/solution_tl_ml.cpp expected: TL,ML possible: OK,RE
-
-  {10}:
-    Adds solution with some expected verdicts and OK possible verdict
-    example: add solution ../sources/solution_wa.cpp with WA
+    Adds solution with specified properties
+    example: add solution solutions/solution_slow.cpp input stdin output test.out expected OK TL 
     
   {25}:
     Deletes solution from default.package
