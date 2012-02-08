@@ -7,6 +7,7 @@ from ..directory_diff import snapshot
 from ..utils.form_error_output import process_err_exit
 import os
 import re
+from ..utils.exceptions import PleaseException
 
 class CmdOrGenTestInfo(test_info.TestInfo):
     def __init__(self, executor, args, tags={}, comment=''):
@@ -31,7 +32,7 @@ class CmdOrGenTestInfo(test_info.TestInfo):
         invoker_result, retstdout, reterror = runner.run(
                 self.__executor, self.__args, stdout_fh = stdout)
         if invoker_result.verdict != "OK":
-            raise runner.RunnerError(
+            raise PleaseException(
                 process_err_exit("Generator %s with args %s crashed with"
                     % (self.__executor, " ".join(self.__args)),
                     invoker_result.verdict, invoker_result.return_code,

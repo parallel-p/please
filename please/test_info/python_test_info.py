@@ -1,6 +1,7 @@
 from ..executors import runner
 from . import test_info
 import tempfile
+from ..utils.exceptions import PleaseException
 
 def convert_content_to_string(content):
     if type(content) == list:
@@ -22,8 +23,8 @@ class PythonTestInfo(test_info.TestInfo):
                     content = self.__modificator(content)
                 f.write(content)
         except Exception as e:
-            raise runner.RunnerError(
-                "python test generator `%s` failed with exception: `%s`" % (self.__code, e))
+            raise PleaseException(
+                "Python test generator `%s` failed with exception: `%s`" % (self.__code, e))
         self.set_desc( ['python output'] )
         return [ temp.name ]
     

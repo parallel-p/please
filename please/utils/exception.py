@@ -1,2 +1,0 @@
-class Sorry(Exception):
-    pass

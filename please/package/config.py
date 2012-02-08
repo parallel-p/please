@@ -1,9 +1,6 @@
 import os.path
 from .. import globalconfig
-from ..utils.exception import Sorry
-
-class ConfigException(Sorry):
-    pass
+from ..utils.exceptions import PleaseException
 
 class Config:
     """
@@ -39,7 +36,7 @@ class Config:
                               "well_done_answer"]
         for key in self.repeating_keywords:
             if key in self.list_keywords:
-                raise ConfigException("Key '" + key + "' is in repeating_keywords and list_keywords at the same time")     
+                raise PleaseException("Key '" + key + "' is in repeating_keywords and list_keywords at the same time")     
         if(type(text) == str):
             text = text.splitlines()
         while self.__counter < len(text):
@@ -47,12 +44,12 @@ class Config:
             new_value = None
             if (key != ''):
                 if (key in self.__settings and key not in self.repeating_keywords):
-                    raise ConfigException("Key '" + key + "' already in dictionary")
+                    raise PleaseException("Key '" + key + "' already in dictionary")
                 if (key == "}"):
                     if(depth == 0):
-                        raise ConfigException("Incorrect brackets sequence: depth = 0, but met '}'\nLine: " + str(self.__counter))
+                        raise PleaseException("Incorrect brackets sequence: depth = 0, but met '}'\nLine: " + str(self.__counter))
                     if(value != None):
-                        raise ConfigException("Assigning to '}'\nLine: " + str(self.__counter))
+                        raise PleaseException("Assigning to '}'\nLine: " + str(self.__counter))
                     if comment is not None: self.__source.append(["", comment, True])
                     break
                 if (value == "{"):
@@ -65,7 +62,7 @@ class Config:
                         new_value = list(map(str.strip, new_value.split(",")))
                         self.__settings.setdefault(key, []).extend(new_value)
                     else:
-                        raise ConfigException("'list_keyword''s elements values must be strings")
+                        raise PleaseException("'list_keyword''s elements values must be strings")
                 elif (key in self.repeating_keywords):
                     self.__settings.setdefault(key, []).append(new_value)
                 else:
@@ -73,7 +70,7 @@ class Config:
             self.__source.append([key, comment, True])
             self.__counter += 1      
         if(depth != 0 and self.__counter >= len(text)):
-            raise ConfigException("Incorrect brackets sequence: depth = " + str(depth) +
+            raise PleaseException("Incorrect brackets sequence: depth = " + str(depth) +
                                   ", but not met '}'\nLine: " + str(self.__counter))
 
     def __get_config_string(self, key, value, comment, depth, indent, paste_fin_bracket):
@@ -170,7 +167,7 @@ class Config:
                             killed = True
                             break
                 if not killed:
-                    raise ConfigException("Can't find by iterator = " + str(iterator))
+                    raise PleaseException("Can't find by iterator = " + str(iterator))
         else:
             deltype = type(self.__settings[item])
             del self.__settings[item]

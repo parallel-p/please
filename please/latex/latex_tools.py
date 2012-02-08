@@ -9,14 +9,12 @@ from ..tests_generator.tests_generator import TestsGenerator
 from ..language_configurator.language_configurator_utils import is_windows
 from ..tests_answer_generator.tests_answer_generator import TestsAndAnswersGenerator
 from ..utils import form_error_output
+from ..utils.exceptions import PleaseException
 import re
 import logging
 import copy
 
 log = logging.getLogger("please_logger.latex.latex_tools")
-
-class LatexError(runner.RunnerError):
-    pass
 
 def generate_problem():
     template_vars = copy.copy(globalconfig.default_template_vars)
@@ -225,8 +223,8 @@ class Latex2Pdf:
             # necessary two iterations for pages counting
             invoke_info, stdout, stderr = runner.run(path_to_tex_file, encoding = encoding)
             if invoke_info.return_code != 0:
-                    raise LatexError(form_error_output.process_err_exit(
-                        "Couldn't generate pdf from tex %s" % path_to_tex_file,
+                    raise PleaseException(form_error_output.process_err_exit(
+                        "Can't generate pdf from tex %s" % path_to_tex_file,
                         invoke_info.verdict,
                         invoke_info.return_code,
                         stdout, stderr))

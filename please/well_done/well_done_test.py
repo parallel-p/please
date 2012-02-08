@@ -6,6 +6,7 @@ import mox
 import logging
 
 import unittest
+from please.utils.exceptions import PleaseException
 from please.well_done.well_done import *
 
 class Tester(unittest.TestCase):
@@ -145,7 +146,7 @@ class Tester(unittest.TestCase):
                  (FIXED, ['no_left_right_space', 'no_top_bottom_emptyline', 
                   'endswith_EOLN']))
         self.__tests_runner('41', [], (OK, []))
-        with self.assertRaises(EnvironmentError):
+        with self.assertRaises(PleaseException):
             self.__tests_runner('41', ['no_symbols_less_32', 
                  'no_left_right_space', 'no_such_function', 
                  'no_top_bottom_emptyline', 'endswith_EOLN'], 

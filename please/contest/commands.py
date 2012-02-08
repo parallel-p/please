@@ -1,20 +1,12 @@
 import os.path
 from . import contest
-from .contest import ProblemNotFoundException
 from ..latex import latex_tools
 from ..exporter import exporter
 from ..solution_tester import package_config
 from ..log import logger
-from ..utils.exception import Sorry
+from ..utils.exceptions import PleaseException
 
 CONTEST_FILE = "%s.contest"
-
-class ProblemIdCountMismatch(Sorry):
-    def __init__(self, problems_count, ids_count):
-        self.__problems_count = problems_count
-        self.__ids_count = ids_count
-    def __str__(self):
-        return "Problems count (%d) does not match IDs count (%d)" % (self.__problems_count, self.__ids_count)
 
 def get_contest_config(name, path = '.'):
     return os.path.join(path, CONTEST_FILE % name)
@@ -32,7 +24,7 @@ def add_problems_to_contest(contest, problems):
         ids = problems[-1].split(',')
         problems = problems[:-2]
         if len(problems) != len(ids):
-            raise ProblemIdCountMismatch(len(problems), len(ids))
+            raise PleaseException("Problems count (%d) does not match IDs count (%d)" % (len(problems), len(ids)))
         problems = zip(problems, ids)
     else:
         problems = zip(problems, [False] * len(problems))
@@ -52,7 +44,7 @@ def remove_problems_from_contest(contest, problems):
             problem = contest.problem_find(problem)
             contest.problem_remove(problem)
         else:
-            raise ProblemNotFoundException(problem)
+            raise PleaseException("Problem %s is not found" % problem)
         r.append(problem)
     return r
 
@@ -114,7 +106,7 @@ def command_export(name, where, contest):
 
 def command_set_parameter( name, key, value ):
     if key not in ('name', 'id_method', 'statement.name', 'statement.date', 'statement.location', 'statement.template'):
-        raise Sorry("unknown contest parameter: %s" % key)
+        raise PleaseException("An unknown contest parameter: %s" % key)
     key = key.split('.')
     contest = get_contest(name)
     config = contest.config

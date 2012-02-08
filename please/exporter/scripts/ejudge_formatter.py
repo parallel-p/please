@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 import os, shutil
+from ...utils.exceptions import PleaseException
     
 class EjudgeFormatter:
     def __init__(self):
         pass
     def put_all():
-        raise NotImplementedError
+        raise NotImplementedError()
         
 class NewEjudgeFormatter(EjudgeFormatter):
     def __init__(self, problems):
@@ -40,8 +41,7 @@ class NewEjudgeFormatter(EjudgeFormatter):
         for problem in self.__problems:                     
             path_to_problem = os.path.join('.', problem.problem_from)
             if not os.path.isdir(path_to_problem):
-                print(path_to_problem)
-                raise FileNotFoundException
+                raise PleaseException("File %s is not found" % path_to_problem)
                 
             target_path_to_problem = os.path.join(target_path_to_problems, problem.problem_to)
             if os.path.exists(target_path_to_problem):
@@ -53,7 +53,7 @@ class NewEjudgeFormatter(EjudgeFormatter):
 
 class OldEjudgeFormatter(EjudgeFormatter):
     def __init__(self, problems):
-        raise NotImplementedError("old ejudge formatter not implemented, use new format for contest")
+        raise NotImplementedError("An old ejudge formatter is not implemented, use a new format for a contest")
     def put_all(self):
         raise NotImplementedError
 

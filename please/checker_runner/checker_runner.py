@@ -1,9 +1,5 @@
 from ..executors import compiler
 from ..executors import runner
-from ..utils.exception import Sorry
-
-class CheckerCompileError(Sorry):
-    pass
 
 class CheckerInfo:
     def __init__(self, source_path, input_file, correct_output, program_output):

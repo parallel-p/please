@@ -6,13 +6,10 @@ from .. import globalconfig
 from ..solution_tester import package_config
 from ..utils.writepackage import writepackage
 from ..add_source.add_source import add_checker
-from ..utils.exception import Sorry
+from ..utils.exceptions import PleaseException
 from ..todo.todo_generator import TodoGenerator
 
 log = logging.getLogger("please_logger.checkers.standard_checker_utils")
-
-class AddStandardCheckerError (Sorry):
-    pass
 
 def print_standard_checkers():
     opened_config = package_config.PackageConfig.get_config()
@@ -65,7 +62,7 @@ def add_standard_checker_to_solution (checker):
     
     if not os.path.exists(checker_global_path) :
         print_standard_checkers()
-        raise AddStandardCheckerError("Standard checker " + checker_name + " not found!")
+        raise PleaseException("Standard checker " + checker_name + " not found!")
     else:
         clear_old_default_checker(config)
         shutil.copy(checker_global_path, checker_name)

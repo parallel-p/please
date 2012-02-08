@@ -38,7 +38,7 @@ class Template:
 
     def __init__(self, template):
         if self.__check_correct(template):
-            raise Exception ("The template contains @@ or @# !!!")
+            raise Exception ("The template contains @@ or @#")
         self.__template = template + ["$$$"]
 
     def corresponds (self, args):
