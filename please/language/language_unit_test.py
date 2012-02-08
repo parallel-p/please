@@ -2,7 +2,7 @@ import unittest
 import os
 
 from please.language.language import Language
-
+from please.utils.exceptions import PleaseException
 class TestLanguageDetection(unittest.TestCase):
     
     def __basename(self, str):
@@ -39,7 +39,7 @@ class TestLanguageDetection(unittest.TestCase):
         f = False
         try:
             lang.get("random.py")
-        except OSError:
+        except PleaseException:
             f = True
         self.assertTrue(f)
         

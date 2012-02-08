@@ -4,6 +4,7 @@ import glob
 from ..language.language import Language
 from please import globalconfig
 from ..test_info import file_test_info, cmd_gen_test_info, echo_test_info, python_test_info
+from ..utils.exceptions import PleaseException
 
 class TokenSpecificator:    
     @staticmethod
@@ -44,11 +45,11 @@ class TestObjectFactory:
         elif TokenSpecificator.is_generator(first_token):
             return cmd_gen_test_info.CmdOrGenTestInfo(first_token, others, attr, comment)
         elif len(others) > 0: 
-            raise EnvironmentError("Tests config parser: Line %d: expected 1 argument, more found" % (line_number))
+            raise PleaseException("Tests config parser: Line %d: expected 1 argument, more found" % (line_number))
         elif TokenSpecificator.is_file(first_token):
             return file_test_info.FileTestInfo(first_token, attr, well_done, comment)
         else:
-            raise EnvironmentError("Tests config parser: Line %d cannot be parsed (maybe there is no such file?)" % (line_number))
+            raise PleaseException("Tests config parser: Line %d cannot be parsed (maybe there is no such file?)" % (line_number))
         
 class TestConfigParser:
     def __init__(self, config, well_done=None):
@@ -94,7 +95,7 @@ class TestConfigParser:
         if line[0] == '[':
             closed_bracket = self.__find_closed_bracket(line)
             if closed_bracket == -1:
-                raise EnvironmentError("Tests config parser: Line %d: wrong format, ']' expected" % (line_number))
+                raise PleaseException("Tests config parser: Line %d: wrong format, ']' expected" % (line_number))
                                    
             attributes_str = line[1 : closed_bracket]
             attributes_list = attributes_str.split(',')

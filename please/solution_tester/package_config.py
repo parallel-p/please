@@ -3,10 +3,6 @@ import os.path
 import io
 import logging
 from .. import globalconfig
-from ..utils.exception import Sorry
-
-class PackageConfigNotFoundException(Sorry):
-    pass
 
 #TODO:move it to another directory
 class PackageConfig:

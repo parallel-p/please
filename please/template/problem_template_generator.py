@@ -4,17 +4,12 @@ import os.path
 from ..log import logger
 import shutil
 from .. import globalconfig
+from ..utils.exceptions import PleaseException
 from .template_utils import get_template_full_path
 from .statement_template_generator import generate_description, generate_analysis, generate_statement
 from .source_code_file_generator import generate_checker, generate_solution, generate_validator
 from ..package.config import Config as package_config
 from . import info_generator
-
-class ProblemExistsError(IOError):
-    def __init__(self, shortname):
-        self.__shortname=shortname
-    def __str__(self):
-        return "%s already exists" % self.__shortname
 
 def generate_package(name, replaces, shortname):
     ''' Generates {default}.package file '''
@@ -36,7 +31,7 @@ def generate_package(name, replaces, shortname):
 def generate_problem_advanced(shortname, human_language, programming_language):
     ''' Generates file structure of problem (templates (checker, validator, etc) and default.package) '''
     if exists(shortname):
-        raise ProblemExistsError(shortname)
+        raise PleaseException("%s already exists" % shortname)
 
     mkdir(shortname)
 

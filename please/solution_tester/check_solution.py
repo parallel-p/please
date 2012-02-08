@@ -6,15 +6,12 @@ from ..solution_tester.package_config import PackageConfig
 from ..invoker import invoker
 from .. import globalconfig
 from ..reports import generate_html_report
-from ..utils.exception import Sorry
+from ..utils.exceptions import PleaseException
 from ..language import language
 
 colorama.init()
 
 logger = logging.getLogger("please_logger.check_solution")
-
-class SolutionNotFoundException(Sorry):
-    pass
         
 def check_all_solutions():
     """ Calls check_solution with different solution paths from config file including main solution """
@@ -55,7 +52,7 @@ def check_solution(substr):
             if is_cooresponded_solution(solve["source"], substr):
                 solutions_for_testing.append(solve)
         if not add_main and len(solutions_for_testing) == 0:
-            raise SolutionNotFoundException("There is no such solution")
+            raise PleaseException("There is no such solution")
     generate_html_report.generate_html_report(solutions_for_testing, add_main)
     
 

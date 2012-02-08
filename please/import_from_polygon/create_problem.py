@@ -12,6 +12,7 @@ import shutil
 import math
 import logging
 from .lang_choice import make_language_choice
+from ..utils.exceptions import PleaseException
 
 class PolygonProblemImporter:
     """def parse_statements(self):
@@ -128,7 +129,7 @@ class PolygonProblemImporter:
             time = float(f.read())
 
         if (time is None):
-            raise Exception("time.config not found")
+            raise PleaseException("time.config not found")
         time = time - 100
 
         with open(os.path.join(self.cwd, '.please', 'time.config'), 'w', encoding='UTF-8') as f:

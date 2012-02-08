@@ -6,14 +6,11 @@ import tempfile
 from subprocess import PIPE
 from .. import globalconfig
 from . import trash_remover
-from ..utils.exception import Sorry
+from ..utils.exceptions import PleaseException
 import threading
 from please.log import logger
 import random
 import os
-
-class RunnerError(Sorry):
-    pass
 
 class ExecutionControl:
     def __init__(self, stdin_fh, stdout_fh, stderr_fh, process):

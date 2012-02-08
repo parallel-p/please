@@ -1,6 +1,7 @@
 #/bin/python3
 import os
 import logging
+from ..utils.exceptions import PleaseException
 
 #"" is for commands
 langs = ["c", "c++", "c#", "pascal", "delphi", "python2", "python3", "java", ""]
@@ -66,7 +67,7 @@ class Language:
         if (res_by_ext[0] != '?'):
             return res_by_ext
         if (not os.path.isfile(path)):
-            raise OSError("There is no file " + path)
+            raise PleaseException("There is no file " + path)
         res_by_content = self.__by_contents(path, res_by_ext)
         return res_by_content
 

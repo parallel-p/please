@@ -5,14 +5,11 @@ from .. import log
 from .. import globalconfig
 from ..solution_tester import package_config
 from ..utils.utests import get_tests
-from ..utils.exception import Sorry
+from ..utils.exceptions import PleaseException
 
 OK, FIXED, CRASH = 0, 1, 2
 
 logger = logging.getLogger("please_logger.well_done")
-
-class WellDoneError(Sorry):
-    pass
 
 class WellDone:
     '''
@@ -163,7 +160,7 @@ class WellDone:
                 result = getattr(self, function_name)()
             except AttributeError:
                 print(self.__check_functions_list)
-                raise EnvironmentError("There is no validating function " + function_name + 
+                raise PleaseException("There is no validating function " + function_name + 
                                        ", check default.package properties (well_done_test, well_done_answer)")
             if result == CRASH:
                 return (CRASH, [function_name])

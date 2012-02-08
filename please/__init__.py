@@ -1,17 +1,13 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 from please import globalconfig
-from please.solution_tester.check_solution import SolutionNotFoundException
-from please.add_source.add_source import AddSourceError
 from please.log import logger
 from please.package import config
-from please.command_line.matcher import Matcher, MatcherException
-from please.executors.compiler import CompileError
-from please.executors.runner import RunnerError
+from please.command_line.matcher import Matcher
 from please.executors import trash_remover
 from please import command_line_config
 from please.tests_answer_generator import tests_answer_generator
-from please.utils.exception import Sorry
+from please.utils.exceptions import PleaseException, MatcherException
 import sys
 import logging
 
@@ -89,31 +85,16 @@ def main():
             except MatcherException as ex:
                 logger.error("MatcherException: " + str(ex))
                 logger.info("Type 'please commands' to show all available commands or 'please help' to show them with detailed description")
-            except RunnerError as ex:
-                logger.error("RunnerError: " + str(ex))
-            except CompileError as ex:
-                logger.error("CompileError: " + str(ex))
-            except OSError as ex:
-                logger.error("OSError: " + str(ex))
-            except config.ConfigException as ex:
-                logger.error("ConfigError: " + str(ex))
             except IOError as ex:
                 logger.error("IOError: " + str(ex))
-            except EnvironmentError as ex:
-                logger.error("EnvironmentError: " + str(ex))
-            except tests_answer_generator.ValidatorError as ex:
-                logger.error("ValidatorError: " + str(ex))
-            except AddSourceError as ex:
-                logger.error("AddSourceError: " + str(ex))
-            except SolutionNotFoundException as ex:
-                logger.error("SolutionNotFoundException: " + str(ex))
-            except Sorry as ex:
+            except PleaseException as ex:
                 logger.error("Please error: %s" % str(ex))
             except Exception as ex:
                 logger.error("Unknown error: " + str(ex))
                 raise ex
        
-        #TODO: why we delete logs in this case? 
+        #TODO: why we delete logs in this case?
+        #because we didn't do anything useful 
         if(not globalconfig.in_problem_folder):
             trash_remover.remove_logs_in_depth(out=False, depth=False)
     

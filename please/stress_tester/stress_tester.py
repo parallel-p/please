@@ -7,22 +7,21 @@ from ..invoker.invoker import ExecutionLimits
 from ..test_info import cmd_gen_test_info
 from ..tests_generator.tests_generator import TestsGenerator
 from ..checker_runner import checker_runner
-from ..executors.compiler import CompileError
-from ..utils.exception import Sorry
+from ..utils.exceptions import PleaseException
 import logging
 import shutil
 import io
 
-class StressCheckException(Sorry):
+class StressCheckException(PleaseException):
     pass
 
-class StressCheckMatchException(Sorry):
+class StressCheckMatchException(PleaseException):
     pass
 
-class StressCheckFail(Sorry):
+class StressCheckFail(PleaseException):
     pass
 
-class StressRunException(Sorry):
+class StressRunException(PleaseException):
     pass
 
 class StressTester():
