@@ -4,24 +4,18 @@
 import errno, os
 from ..package.config import Config
 from ..solution_tester.package_config import PackageConfig
-from ..utils.exception import Sorry
-
-class ProblemNotFoundException(Sorry):
-    def __init__( self, path ):
-        self.__path = path
-    def __str__( self ):
-        return "Problem not found: %s" % self.__path
+from ..utils.exceptions import PleaseException
 
 class IdMethod:
 
-    class IdException(Sorry):
+    class IdException(PleaseException):
         def __init__( self, id=None ):
             self.__id = id
         def __str__( self ):
             if self.__id is None:
-                return "cannot assign id to new problem"
+                return "Can't assign id to new problem"
             else:
-                return "problem with id '%s' already in contest" % id
+                return "Problem with id '%s' is already in contest" % id
 
     @staticmethod
     def default( ids, short ):
@@ -86,7 +80,7 @@ class Contest:
     def problem_add( self, path, id = False ):
         problem_config = PackageConfig.get_config(path)
         if problem_config is None:
-            raise ProblemNotFoundException(path)
+            raise PleaseException("Problem %s is not found" % path)
         if not id:
             id = self.__id_method(self.__dict, problem_config['shortname'])
         config = Config("")

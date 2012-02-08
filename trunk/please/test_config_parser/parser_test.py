@@ -4,6 +4,7 @@ from ..test_config_parser import parser
 from ..executors import runner
 from ..test_info import file_test_info, cmd_gen_test_info, echo_test_info, python_test_info
 import os
+from please.utils.exceptions import PleaseException
 import glob
 
 class TestObjectFactoryTest(unittest.TestCase):
@@ -31,7 +32,7 @@ class TestObjectFactoryTest(unittest.TestCase):
             parser.TestObjectFactory.create(well_done, 1, "gen.cpp", ["17", "42", "100500"]), cmd_gen_test_info.CmdOrGenTestInfo)
     def test_nonexist_file(self):
         well_done = self.WellDoneMock("key")
-        with self.assertRaises(EnvironmentError):
+        with self.assertRaises(PleaseException):
             parser.TestObjectFactory.create(well_done, 1, "iwasbreaking.awindow", [])
             
     def test_exist_file(self):
@@ -75,7 +76,7 @@ class TestObjectFactoryTest(unittest.TestCase):
     def test_python_error(self):
         a = parser.TestConfigParser("python hi")
         b = a.get_test_info_objects()
-        with self.assertRaises(runner.RunnerError) as ex:  
+        with self.assertRaises(PleaseException) as ex:  
             t = b[0].tests()
     def tearDown(self):
         self.mox.VerifyAll()

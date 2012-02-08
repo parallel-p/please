@@ -5,21 +5,18 @@ from ..package import config
 from .. import globalconfig
 from ..solution_tester.package_config import PackageConfig
 from ..utils.writepackage import writepackage
-from ..utils.exception import Sorry
+from ..utils.exceptions import PleaseException
 
 log = logging.getLogger("please_logger.add_source")
 
-class AddSourceError(Sorry):
-    pass
-
 def add_main_solution_with_config(package_config, path):
     if not os.getcwd() in os.path.abspath(path):
-        raise AddSourceError("Main solution isn't in problem folder!")
+        raise PleaseException("Main solution isn't in problem folder!")
     abspath = os.path.abspath(path)
     for num, solve in enumerate(package_config["solution"]):
         if abspath == os.path.abspath(solve["source"]):
             package_config.delete("solution", num)
-            log.warning("Main solution must have no config, so we firstly deleted this existing config")
+            log.warning("Main solution must have no config, so we firstly delete this existing config")
             break
     package_config['main_solution'] = os.path.relpath(path)
 
@@ -28,7 +25,7 @@ def add_main_solution (path):
     add_main_solution_with_config(package_config, path)
     package_text = package_config.get_text()
     writepackage(package_text)
-    log.info("Main solution %s has been being set successfully", path)
+    log.info("Main solution %s has bee set successfully", path)
 
 def del_solution(path):
     config = PackageConfig.get_config()
@@ -40,7 +37,7 @@ def del_solution(path):
                 writepackage(config.get_text())
                 log.info("Solution config has been deleted")
                 return
-    raise AddSourceError("There is no such solution")
+    raise PleaseException("There is no such solution")
     
 def get_dict_from_args(args, changing=False):
     result = {}
@@ -51,21 +48,21 @@ def get_dict_from_args(args, changing=False):
     for item in args:
         if item in simple_items or item in list_items:
             if assigned == False:
-                raise AddSourceError("Keyword '" + last_item + "' has no assignment")
+                raise PleaseException("Keyword '" + last_item + "' has no assignment")
             last_item = item
             assigned = False
         elif last_item is None:
-            raise AddSourceError("First argument is not a solution keyword")
+            raise PleaseException("First argument is not a solution keyword")
         else:
             if last_item in list_items:
                 result.setdefault(last_item, []).append(item)
             else:
                 if assigned:
-                    raise AddSourceError("Value for keyword '" + last_item + "' is already assigned")
+                    raise PleaseException("Value for keyword '" + last_item + "' is already assigned")
                 result[last_item] = item
             assigned = True
     if assigned == False:
-        raise AddSourceError("Keyword '" + last_item + "' has no assignment")
+        raise PleaseException("Keyword '" + last_item + "' has no assignment")
     return result
 
 def fix_args_user_mistakes(properties):
@@ -74,7 +71,7 @@ def fix_args_user_mistakes(properties):
             responces = set([x.upper() for x in properties[arg]])
             for responce in responces:
                 if responce not in ["OK", "WA", "RE", "TL", "ML"]:
-                    raise AddSourceError("Incorrect verdict %s=%s" % (arg, responce))
+                    raise PleaseException("Incorrect verdict %s=%s" % (arg, responce))
             properties[arg] = list(responces)
     if "expected" not in properties and "possible" not in properties:
         properties["expected"] = ["OK"]
@@ -83,18 +80,18 @@ def add_solution (args):
     path = args[0]
     args = args[1:len(args)]
     if not os.path.exists(path):
-        raise AddSourceError("There is no such file")
+        raise PleaseException("There is no such file")
     if not os.getcwd() in os.path.abspath(path):
-        raise AddSourceError("Solution isn't in problem folder!")
+        raise PleaseException("Solution isn't in problem folder!")
     
     package_config = PackageConfig.get_config()
     abspath = os.path.abspath(path)
     if abspath == os.path.abspath(package_config["main_solution"]):
-        raise AddSourceError("Adding solution must not be equal to main")
+        raise PleaseException("Adding solution must not be equal to main")
     if package_config["solution"] is not None:
         for solve in package_config["solution"]:
             if os.path.abspath(solve["source"]) == abspath:
-                raise AddSourceError("There is already exist such solution")
+                raise PleaseException("There is already exist such solution")
             
     properties = get_dict_from_args(args)
     fix_args_user_mistakes(properties)
@@ -106,7 +103,7 @@ def add_solution (args):
         
     package_config.set("solution", new_config, None, True)
     writepackage(package_config.get_text())
-    log.info("Solution %s has been being added successfully", path)
+    log.info("Solution %s has been added successfully", path)
     
 def change_solution (args):
     path = args[0]
@@ -123,7 +120,7 @@ def change_solution (args):
                 log.info("Properties have been changed")
                 writepackage(config.get_text())
                 return
-    raise AddSourceError("There is no such solution")
+    raise PleaseException("There is no such solution")
 
 def del_props(args):
     path = args[0]
@@ -135,7 +132,7 @@ def del_props(args):
             if os.path.abspath(solve["source"]) == abspath:
                 for key in args:
                     if key == "source":
-                        raise AddSourceError("Can't delete key 'source' from solution")
+                        raise PleaseException("Can't delete key 'source' from solution")
                     if key in solve:
                         del solve[key]
                     else:
@@ -143,14 +140,14 @@ def del_props(args):
                 writepackage(config.get_text())
                 log.info("Properties have been deleted")
                 return
-    raise AddSourceError("There is no such solution")
+    raise PleaseException("There is no such solution")
 
 def add_checker_with_config (package_config, path):
     if not os.path.exists(path):
-        raise AddSourceError("There is no such file")
+        raise PleaseException("There is no such file")
     #TODO: use relpath
     if not os.getcwd() in os.path.abspath(path):
-        raise AddSourceError("Checker isn't in problem folder!")
+        raise PleaseException("Checker isn't in problem folder!")
     package_config['checker'] = os.path.relpath(path)
     
 def add_checker (path):
@@ -158,13 +155,13 @@ def add_checker (path):
     add_checker_with_config(package_config, path)
     package_text = package_config.get_text()
     writepackage(package_text)
-    log.info("Checker %s has been being set successfully", path)
+    log.info("Checker %s has been set successfully", path)
     
 def add_validator_with_config (package_config, path):
     if not os.path.exists(path):
-        raise AddSourceError("There is no such file")
+        raise PleaseException("There is no such file")
     if not os.getcwd() in os.path.abspath(path):
-        raise AddSourceError("Validator isn't in problem folder!")
+        raise PleaseException("Validator isn't in problem folder!")
     package_config['validator'] = os.path.relpath(path)
 
 def add_validator (path):
@@ -172,7 +169,7 @@ def add_validator (path):
     add_validator_with_config(package_config, path)
     package_text = package_config.get_text()
     writepackage(package_text)
-    log.info("Validator %s has been being set successfully", path)
+    log.info("Validator %s has been set successfully", path)
 
 def add_solution_with_config (package_config, path, expected= [], possible = []):
     #TODO: kill it. needed for correct import_from_polygon module work.

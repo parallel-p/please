@@ -1,7 +1,7 @@
 from ..solution_runner.solution_runner import SolutionInfo, run_solution
 from .. import globalconfig
 import os
-from ..executors.runner import RunnerError
+from ..utils.exceptions import PleaseException
 from ..invoker.invoker import ExecutionLimits 
 from ..solution_tester import package_config
 from ..utils import utests
@@ -30,7 +30,7 @@ class AnswersGenerator :
     def check_correct_finished(solution_result, solution_src):
         invoker_result = solution_result[0]
         if invoker_result.verdict != "OK":
-            raise RunnerError(process_err_exit("Solution %s crashed with"
+            raise PleaseException(process_err_exit("Solution %s crashed with"
                     % (solution_src), invoker_result.verdict, invoker_result.return_code,
                     *solution_result[1:3]))
         

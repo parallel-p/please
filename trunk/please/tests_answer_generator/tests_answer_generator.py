@@ -10,12 +10,10 @@ from ..solution_tester import package_config
 from ..executors import runner
 import logging
 from ..utils import utests
+from ..utils.exceptions import PleaseException
 from ..well_done import well_done
 from please.log import logger
 from ..utils import form_error_output
-
-class ValidatorError(runner.RunnerError):
-    pass
 
 def get_file_name(testinfo):
     return testinfo
@@ -30,16 +28,16 @@ class WellDoneWithValidator:
         if self.__well_done:
             outcome, errors = self.__well_done.check(test_filename, fix_inplace=False)
             if outcome != well_done.OK:
-                raise ValidatorError("Well done test failed on %s" % " ".join(errors))
+                raise PleaseException("Well done test failed on %s" % " ".join(errors))
         if self.__validator:
             invoke_info, stdout, stderr = validator_runner.validate(
                     self.__validator, test_filename)
             if invoke_info.verdict == "FNF":
-                raise ValidatorError("Validator %s isn't found" % validator_src)
+                raise PleaseException("Validator %s isn't found" % validator_src)
             if invoke_info.verdict == "OK":
                 logger.info("Validator said OK")
             else:
-                raise ValidatorError(
+                raise PleaseException(
                     form_error_output.process_err_exit(
                         "Validator was crashed",
                         invoke_info.verdict,
