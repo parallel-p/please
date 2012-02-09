@@ -17,14 +17,14 @@ class PSLatexConfigurator:
         bat_name = os.path.join("..", temp_statements_dir, 'maketex')
         if is_windows():
             bat_name = bat_name + '.bat'
-        remark = 'REM' if is_windows() else '#'
+        remark = 'REM ' if is_windows() else '#'
         if not os.path.isfile(bat_name):
             batfile = open(bat_name, "w")
             if not is_windows():
                 batfile.write('#!/bin/sh\nexport TEXINPUTS="' + get_template_full_path('') + ':.:"\n')
             batfile.write(remark + "===USING png/jpg/jpeg/pdf PICTURES IN TEX===\n\n")
             for _ in range(2): #always run latex two times to get page numbers etc
-                batfile.write(remark + "pdflatex -output-format=pdf -interaction=nonstopmode -halt-on-error " + source + "\n")
+                batfile.write(remark + "pdflatex -include-directory=" + get_template_full_path('') + " -output-format=pdf -interaction=nonstopmode -halt-on-error " + source + "\n")
             batfile.write("\n\n" + remark + "===USING eps PICTURES OR NO PICTURES IN TEX===\n\n")
             for _ in range(2): #always run latex two times to get page numbers etc
                 batfile.write("latex -include-directory=" + get_template_full_path('') + " " + source + "\n")
