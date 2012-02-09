@@ -8,7 +8,7 @@ def add_solution_modifications(matcher, active):
                 Template(["add", "solution|sol", "@args"]),
                 add_solution, active)
         matcher.add_handler(
-                Template(["delete|del", "solution|sol", "$path"]),
+                Template(["delete|del", "solution|sol", "#path"]),
                 del_solution, active)
         matcher.add_handler(
                 Template(["change", "prop|properties", "@args"]),
