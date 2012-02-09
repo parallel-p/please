@@ -36,7 +36,7 @@ def add_checker_operations(matcher, active):
             print_standard_checkers,
             active)
     matcher.add_handler(
-            Template(["set", "checker", "#path"]),
+            Template(["set", "checker", "$path"]),
             add_checker,
             active)
 
