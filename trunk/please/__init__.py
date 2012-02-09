@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
+import os
+import sys
+import logging
+
 from please import globalconfig
 from please.log import logger
 from please.package import config
@@ -8,16 +11,20 @@ from please.executors import trash_remover
 from please import command_line_config
 from please.tests_answer_generator import tests_answer_generator
 from please.utils.exceptions import PleaseException, MatcherException
-import sys
-import logging
 
 def determinate_location():
     """
         Returns True is location is root of the problem
     """
-    # If we are inside folder with  the problem, we have more handlers
     from please.solution_tester import package_config
+    current_dir = os.getcwd()
+    prev_dir = '?'
     pkg = package_config.PackageConfig.get_config()
+    while current_dir != prev_dir and pkg is None:
+        prev_dir = current_dir
+        os.chdir('..')
+        current_dir = os.getcwd()
+        pkg = package_config.PackageConfig.get_config()
     in_problem_folder = (pkg is not None)
     globalconfig.in_problem_folder = in_problem_folder
     return in_problem_folder
