@@ -15,22 +15,18 @@ class TestLanguageDetection(unittest.TestCase):
     def test_on_test_files(self):
         root = os.path.join(".", "please", "language", "test_files")
         lang = Language()
-        #print(os.listdir(root))
         for file in os.listdir(root):
-            #print(file)
-            if not os.path.isfile(root + file):
-                continue
+            if not os.path.isfile(os.path.join(root, file)):
+               continue
             ansfile = file + ".ans"
-            if not os.path.isfile(root + ansfile):
+            if not os.path.isfile(os.path.join(root, ansfile)):
                 continue
             
-            with open(root + ansfile, "r") as f:
+            with open(os.path.join(root, ansfile), "r") as f:
                 ans = f.readline()    
-                result = lang.get(root + file)
-                #print(result)
-                #print(ans)
+                result = lang.get(os.path.join(root, file))
                 if (ans != "undefined"):
-                    self.assertEqual(ans,result, file + " was not determined correctly\n")
+                    self.assertEqual(ans, result, file + " was not determined correctly\n")
                 else:
                     self.assertIsNone(result, file + " was not determined correctly\n")
                     
