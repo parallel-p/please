@@ -5,6 +5,7 @@ import os
 from ..template.template_utils import get_template_full_path, make_statement_name
 import shutil
 from ..executors import runner
+from ..executors import compiler
 from ..tests_generator.tests_generator import TestsGenerator
 from ..language_configurator.language_configurator_utils import is_windows
 from ..tests_answer_generator.tests_answer_generator import TestsAndAnswersGenerator
@@ -219,15 +220,13 @@ class Latex2Pdf:
             encoding = "1251"
         else:
             os.putenv("TEXINPUTS", get_template_full_path('') + ":.:")
-        for i in range(2):
-            # necessary two iterations for pages counting
-            invoke_info, stdout, stderr = runner.run(path_to_tex_file, encoding = encoding)
-            if invoke_info.return_code != 0:
-                    raise PleaseException(form_error_output.process_err_exit(
-                        "Can't generate pdf from tex %s" % path_to_tex_file,
-                        invoke_info.verdict,
-                        invoke_info.return_code,
-                        stdout, stderr))
+        invoke_info, stdout, stderr = runner.run(path_to_tex_file, encoding = encoding)
+        if invoke_info.return_code != 0:
+            raise PleaseException(form_error_output.process_err_exit(
+                "Can't generate pdf from tex %s" % path_to_tex_file,
+                invoke_info.verdict,
+                invoke_info.return_code,
+                stdout, stderr))
 
 def get_time_string(time):
     #TODO: fix for multilang

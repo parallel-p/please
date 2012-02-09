@@ -4,6 +4,7 @@ from .cpp import get_cpp_configurator
 from .dpr import get_dpr_configurator
 from .java import get_java_configurator
 from .pdflatex import get_pdflatex_configurator
+from .pslatex import get_pslatex_configurator
 from .command import get_command_configurator
 
 def get_language_configurator(file_name):
@@ -19,8 +20,10 @@ def get_language_configurator(file_name):
         return get_python_configurator()
     elif lang == "python3":
         return get_python3_configurator()
-    elif lang in ["latex", "tex", "pdflatex"]:
+    elif lang in ["latex_pdf", "latex", "tex", "pdflatex"]:
         return get_pdflatex_configurator()
+    elif lang == "latex_ps":
+        return get_pslatex_configurator()
     elif lang in ["command"]:
         return get_command_configurator()
     else:

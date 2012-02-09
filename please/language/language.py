@@ -1,6 +1,7 @@
 #/bin/python3
 import os
 import logging
+import re
 from ..utils.exceptions import PleaseException
 
 #"" is for commands
@@ -34,7 +35,7 @@ class Language:
                 ".java" : "java",
                 ".py" : "?python",
                 ".dpr" : "delphi",
-                ".tex" : "latex"
+                ".tex" : "?latex"
                  }
         if (ext in dct):
             return dct[ext]
@@ -53,9 +54,19 @@ class Language:
             log.warning("Assuming " + path + " is python2 file. \nIf you want to translate it with python3, insert 'python3' in the comment in the first line of this file")
             return "python2"
 
+    def __proceed_latex(self, path):
+        with open(path, 'r') as f:
+            content = f.read()
+        if re.compile('\\includegraphics[^{]*\{[^}]*\.(png)|(jpg)|(jpeg)|(pdf)\}').search(content):
+            return "latex_pdf"
+        else:
+            return "latex_ps"
+
     def __by_contents(self, path, info):
         if (info[1:] == "python"):
             return self.__proceed_python(path)
+        if (info[1:] == "latex"):
+            return self.__proceed_latex(path)
         else:
             return None
 
