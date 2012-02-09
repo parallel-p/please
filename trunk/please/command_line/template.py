@@ -22,8 +22,11 @@ class Template:
     def __is_argument(self, word):
         return word.startswith("#")
 
+    def __is_path(self, word):
+        return word.startswith("$")
+
     def __is_regular(self, word):
-        return not self.__is_args_list(word) and not self.__is_argument(word)
+        return not self.__is_args_list(word) and not self.__is_argument(word) and not self.__is_path(word)
 
     def __match(self, template, arg):
         return WordTemplate(template).mistake_corresponds(arg)
@@ -39,7 +42,7 @@ class Template:
     def __init__(self, template):
         if self.__check_correct(template):
             raise Exception ("The template contains @@ or @#")
-        self.__template = template + ["$$$"]
+        self.__template = template + ["^^^"]
 
     def corresponds (self, args):
         """
@@ -56,7 +59,7 @@ class Template:
         
         args_idx = 0
         res_dict = { }
-        args = args + ["$$$"]
+        args = args + ["^^^"]
         for template_idx, template_entry in enumerate(self.__template):
             if args_idx == len(args):
                 _inst_logger.debug("No coincidence")
@@ -68,6 +71,9 @@ class Template:
                     _inst_logger.debug("No coincidence")
                     return None
             elif self.__is_argument(template_entry):
+                res_dict[template_entry[1:]] = args[args_idx]
+                args_idx += 1
+            elif self.__is_path(template_entry):
                 res_dict[template_entry[1:]] = args[args_idx]
                 args_idx += 1
             else:
