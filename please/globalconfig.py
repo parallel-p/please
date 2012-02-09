@@ -62,15 +62,6 @@ polygon_url = "http://codecenter.sgu.ru:8081/polygon"
 polygon_url = 'http://178.217.103.1:8090'
 access = {'login': 'tigvarts_oivanov', "password": "51234"}
 
-#information about problems' svn-repository
-#set 'url' to '' (empty string) if you don't want to work with svn,
-#but do not delete neither this dictionary, nor any key in it!
-#type: personal (you control your repository) / public
-svn = {     'type': '', #personal',
-             'url': '', #https://please-svn.googlecode.com/svn/problems/',
-        'username': '', #gurovic@gmail.com', 
-        'password': ''}#ez9NP2Hz5BD5'}
-
 #exports = {
 #    'lksh': export.Ejudge('ssh://ejudge@ejudge.lksh.ru'),
 #    'spbsu': export.Testsys('/mnt/server/D/problems/'),
