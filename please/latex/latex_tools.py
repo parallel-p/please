@@ -217,7 +217,7 @@ class Latex2Pdf:
         encoding = "utf8"
         if is_windows():
             os.putenv("TEXINPUTS", get_template_full_path(''))
-            encoding = "1251"
+            encoding = "utf8"
         else:
             os.putenv("TEXINPUTS", get_template_full_path('') + ":.:")
         invoke_info, stdout, stderr = runner.run(path_to_tex_file, encoding = encoding)
