@@ -24,7 +24,7 @@ class PDFLatexConfigurator:
                 batfile.write('#!/bin/sh\nexport TEXINPUTS="' + get_template_full_path('') + ':.:"\n')
             batfile.write(remark + "===USING png/jpg/jpeg/pdf PICTURES IN TEX===\n\n")
             for _ in range(2): #always run latex two times to get page numbers etc
-                batfile.write("pdflatex -output-format=pdf -interaction=nonstopmode -halt-on-error " + source + "\n")
+                batfile.write("pdflatex -include-directory=" + get_template_full_path('') + " -output-format=pdf -interaction=nonstopmode -halt-on-error " + source + "\n")
             batfile.write("\n\n" + remark + "===USING eps PICTURES OR NO PICTURES IN TEX===\n\n")
             for _ in range(2): #always run latex two times to get page numbers etc
                 batfile.write(remark + "latex -include-directory=" + get_template_full_path('') + " " + source + "\n")
