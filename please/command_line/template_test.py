@@ -5,7 +5,7 @@ class Tester(unittest.TestCase):
 
         def __tests_runner(self,template,args,right_ans):
                 self.assertEqual(
-                        Template(template.split()).corresponds(args.split()),
+                        Template(template.split()).corresponds('.', args.split()),
                         right_ans)
 
         def test_template (self):

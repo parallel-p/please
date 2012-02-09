@@ -17,7 +17,7 @@ def determinate_location():
         Returns True is location is root of the problem
     """
     from please.solution_tester import package_config
-    current_dir = os.getcwd()
+    startdir = current_dir = os.getcwd()
     prev_dir = '?'
     pkg = package_config.PackageConfig.get_config()
     while current_dir != prev_dir and pkg is None:
@@ -27,12 +27,13 @@ def determinate_location():
         pkg = package_config.PackageConfig.get_config()
     in_problem_folder = (pkg is not None)
     globalconfig.in_problem_folder = in_problem_folder
-    return in_problem_folder
+    return in_problem_folder, startdir
 
 def main():
     try:
-        in_problem_folder = determinate_location()
+        in_problem_folder, startdir = determinate_location()
         matcher = Matcher()
+        matcher.startdir = startdir
         command_line_config.add_help_commands(matcher)
 
         command_line_config.add_creation_operations(matcher,
