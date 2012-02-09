@@ -26,7 +26,7 @@ def add_validate_operations(matcher, active):
             tests_answer_generator.TestsAndAnswersGenerator().validate,
             active)
     matcher.add_handler(
-        Template(["set", "validator|val", "#path"]),
+        Template(["set", "validator|val", "$path"]),
         add_validator,
         active)
 

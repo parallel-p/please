@@ -31,15 +31,15 @@ class MatcherTest(unittest.TestCase):
         return "const_call"
 
 class ExceptionTemplate:
-    def corresponds(self, args):
+    def corresponds(self, startdir, args):
         return
 
 class NoneTemplate:
-    def corresponds(self, args):
+    def corresponds(self, startdir, args):
         return None;
 
 class ConstTemplate:
-    def corresponds(self, args):
+    def corresponds(self, startdir, args):
         return {"a" : [1,2,3], "b" : "123"};
 
 if __name__ == "__main__":

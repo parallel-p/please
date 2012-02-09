@@ -22,6 +22,7 @@ class PleaseTest(unittest.TestCase):
     def setUp(self):
         self.ifed()
         self.__matcher = Matcher()
+        self.__matcher.startdir = '.'
         self.__matcher.add_handler(Template(["create", "problem", "#shortname"]), problem_gen.generate_problem, True)
         self.__matcher.matches("create problem problem_test".split())
         

@@ -22,6 +22,8 @@ class Matcher:
 
     def __init__(self):
         self.__handlers = []
+        self.startdir = '.'
+
 
     def add_handler(self, template, function, has_access):
         """
@@ -45,7 +47,7 @@ class Matcher:
         function_found_in_not_acc = False
         _inst_logger.debug ("Matching...")
         for template, function, has_access in self.__handlers:
-            function_args = template.corresponds(args)
+            function_args = template.corresponds(self.startdir, args)
             if function_args != None:
                 # Make sure only one function corresponds to the arguments passed
                 if has_access:

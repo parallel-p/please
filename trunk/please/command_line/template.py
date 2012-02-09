@@ -1,5 +1,8 @@
-from please.command_line.word_template import WordTemplate
 import logging
+import os
+
+
+from please.command_line.word_template import WordTemplate
 
 mod_logger = logging.getLogger ("please_logger.template")
 
@@ -8,7 +11,7 @@ class Template:
         Description....
 
         t = Template(["add", "@types", "sol", "#file"])
-        dict = t.corresponds(["add", "wa", "tl", "sol", "sol.cpp"])
+        dict = t.corresponds('.', ["add", "wa", "tl", "sol", "sol.cpp"])
         for k, v in dict.items():
             print(k, v)
         output:
@@ -44,7 +47,7 @@ class Template:
             raise Exception ("The template contains @@ or @#")
         self.__template = template + ["^^^"]
 
-    def corresponds (self, args):
+    def corresponds (self, startdir, args):
         """
             Returns dictionary {argument : value} for each not regular element
             (starts with @ or #).
@@ -74,7 +77,7 @@ class Template:
                 res_dict[template_entry[1:]] = args[args_idx]
                 args_idx += 1
             elif self.__is_path(template_entry):
-                res_dict[template_entry[1:]] = args[args_idx]
+                res_dict[template_entry[1:]] = os.path.abspath(os.path.join(startdir,args[args_idx]))
                 args_idx += 1
             else:
                 next_template = self.__template[template_idx + 1]
