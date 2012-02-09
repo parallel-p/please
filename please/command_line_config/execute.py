@@ -40,11 +40,11 @@ def add_stress_test_operations(matcher, active):
         ["stresstest"], ["stress-test"]]
     for alias in STRESS_TEST_ALIASES:
         matcher.add_handler(
-            Template(alias + ["#solution", "#generator"]),
+            Template(alias + ["$solution", "$generator"]),
             stresser, 
             active)
         matcher.add_handler(
-            Template(alias + ["#solution", "#correct_solution", "#generator"]),
+            Template(alias + ["$solution", "$correct_solution", "$generator"]),
             stresser,
             active)
     

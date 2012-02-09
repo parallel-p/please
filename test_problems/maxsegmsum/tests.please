@@ -1,5 +1,7 @@
 [sample] tests/01
 [sample] tests/02
+python "5\n" + " ".join(map(str, [randint(1,3444) for i in range(5)]))+"\n"
+python "5\n" + " ".join(map(str, [randint(1,3444) for i in range(5)]))+"\n"
 gen_min.cpp
 gen_max.cpp
 

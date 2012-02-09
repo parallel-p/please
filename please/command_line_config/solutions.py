@@ -3,12 +3,12 @@ def add_solution_modifications(matcher, active):
         from please.add_source.add_source import del_props, del_solution,\
                                                  add_solution, add_main_solution,\
                                                  change_solution
-        matcher.add_handler(Template(["set", "main", "solution", "#path"]), add_main_solution, active)
+        matcher.add_handler(Template(["set", "main", "solution", "$path"]), add_main_solution, active)
         matcher.add_handler(
                 Template(["add", "solution|sol", "@args"]),
                 add_solution, active)
         matcher.add_handler(
-                Template(["delete|del", "solution|sol", "#path"]),
+                Template(["delete|del", "solution|sol", "$path"]),
                 del_solution, active)
         matcher.add_handler(
                 Template(["change", "prop|properties", "@args"]),
