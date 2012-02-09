@@ -24,7 +24,7 @@ def already_compiled(src, need_binaries):
 def compile(path, limits=globalconfig.default_limits):
     '''
         Description: compile given source, if success, 
-            returns tuple (RESULT_INFO, STDOUT, STDERR)
+                     returns tuple (RESULT_INFO, STDOUT, STDERR)
     '''
     log = logging.getLogger("please_logger.executors.compiler.compile")
     
