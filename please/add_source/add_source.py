@@ -76,9 +76,9 @@ def fix_args_user_mistakes(properties):
     if "expected" not in properties and "possible" not in properties:
         properties["expected"] = ["OK"]
 
-def add_solution (args):
-    path = args[0]
-    args = args[1:len(args)]
+def add_solution (path, args = None):
+    if not args:
+        args = []
     if not os.path.exists(path):
         raise PleaseException("There is no such file")
     if not os.getcwd() in os.path.abspath(path):
