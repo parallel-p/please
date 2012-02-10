@@ -34,7 +34,7 @@ class Template:
     def __match(self, template, arg):
         return WordTemplate(template).mistake_corresponds(arg)
 
-    def __check_uncorrect(self, template):
+    def __check_incorrect(self, template):
         """Checks, that there are no two @ consequent or @#"""
         for i, cur_word in enumerate(template[:-1]):
             next_word = template[i + 1]
@@ -43,7 +43,7 @@ class Template:
         return False
 
     def __init__(self, template):
-        if self.__check_uncorrect(template):
+        if self.__check_incorrect(template):
             raise Exception ("The template contains @@ or @#")
         self.__template = template + ["^^^"]
 
