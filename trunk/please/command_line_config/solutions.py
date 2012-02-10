@@ -5,7 +5,10 @@ def add_solution_modifications(matcher, active):
                                                  change_solution
         matcher.add_handler(Template(["set", "main", "solution", "$path"]), add_main_solution, active)
         matcher.add_handler(
-                Template(["add", "solution|sol", "@args"]),
+                Template(["add", "solution|sol", "$path"]),
+                add_solution, active)
+        matcher.add_handler(
+                Template(["add", "solution|sol", "$path", "@args"]),
                 add_solution, active)
         matcher.add_handler(
                 Template(["delete|del", "solution|sol", "#path"]),
