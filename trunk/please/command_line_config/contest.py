@@ -10,7 +10,7 @@ def add_contest_operations(matcher, active):
                 contest_commands.command_add_problems,
                 active)
         matcher.add_handler(
-                Template(["remove|del", "problem|problems", "@problems", "from", "#name"]),
+                Template(["del|delete", "problem|problems", "@problems", "from", "#name"]),
                 contest_commands.command_remove_problems,
                 active)
         matcher.add_handler(Template(
@@ -21,7 +21,7 @@ def add_contest_operations(matcher, active):
                 Template(["export", "#name", "to", "#where", "as", "#contest"]),
                 contest_commands.command_export,
                 active)
-        matcher.add_handler(Template(["change", "contest", "#name", "properties|prop|property" "#key", "#value"]),
+        matcher.add_handler(Template(["change", "contest", "#name", "properties|prop" "#key", "#value"]),
                 contest_commands.command_set_parameter,
                 active)
 
