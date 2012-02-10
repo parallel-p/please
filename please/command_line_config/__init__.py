@@ -16,7 +16,7 @@ def add_creation_operations(matcher, active):
     from please.template import problem_template_generator
     matcher.add_handler(Template(["create", "problem", "#shortname"]),
             problem_template_generator.generate_problem, active)
-    matcher.add_handler(Template(["create", "contest", "#name", "problems", "@problems"]),
+    matcher.add_handler(Template(["create", "contest", "#name", "of", "@problems"]),
             contest_commands.command_create_contest, active)
 
 def add_aggregate_operations(matcher, active):

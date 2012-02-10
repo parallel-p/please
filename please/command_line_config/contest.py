@@ -2,26 +2,26 @@ from please.command_line.template import Template
 from please.contest import commands as contest_commands
 def add_contest_operations(matcher, active):
         matcher.add_handler(
-                Template(["add", "@problems", "to", "#name", "@problems_as"]),
+                Template(["add", "problem|problems", "@problems", "to", "#name", "as", "@problems_as"]),
                 contest_commands.command_add_problems,
                 active)
         matcher.add_handler(
-                Template(["add", "@problems", "to", "#name"]),
+                Template(["add", "problem|problems", "@problems", "to", "#name"]),
                 contest_commands.command_add_problems,
                 active)
         matcher.add_handler(
-                Template(["remove|del", "@problems", "from", "#name"]),
+                Template(["remove|del", "problem|problems", "@problems", "from", "#name"]),
                 contest_commands.command_remove_problems,
                 active)
         matcher.add_handler(Template(
-                ["generate|gen", "statement|pdf", "for", "#name"]),
+                ["generate|gen", "contest", "#name", "statement|pdf"]),
                 contest_commands.command_generate_statement,
                 active)
         matcher.add_handler(
-                Template(["export", "#name", "to", "#where", "contest", "#contest"]),
+                Template(["export", "#name", "to", "#where", "as", "#contest"]),
                 contest_commands.command_export,
                 active)
-        matcher.add_handler(Template(["set", "contest", "#name", "#key", "#value"]),
+        matcher.add_handler(Template(["change", "contest", "#name", "properties|prop|property" "#key", "#value"]),
                 contest_commands.command_set_parameter,
                 active)
 
