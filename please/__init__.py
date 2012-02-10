@@ -21,6 +21,7 @@ def determinate_location():
     prev_dir = '?'
     pkg = package_config.PackageConfig.get_config()
     while current_dir != prev_dir and pkg is None:
+        print('*************')
         prev_dir = current_dir
         os.chdir('..')
         current_dir = os.getcwd()
