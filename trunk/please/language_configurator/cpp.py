@@ -23,7 +23,7 @@ class CppLinuxConfigurator:
 class CppWindowsConfigurator:
     def get_compile_command(self, source):
         return ["g++", "-lm", "-s", "-x", "c++",
-        "-O2", "-Wl,-stack_size,0x10000000",
+        "-O2",
         "-o", os.path.splitext(source)[0] + ".exe",  source]
     
     def get_run_command(self, source):
