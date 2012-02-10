@@ -9,8 +9,15 @@ global_commands = ["create problem PROBLEM_NAME",
              "[show] todo PATH_TO_PROBLEM",
              "import polygon package PATH_TO_POLYGON_PACKAGE",
              "import polygon problem PROBLEM_LETTER from contest CONTEST_ID",
-             "commands"
+             "commands",
+             "create contest CONTEST_NAME of PROBLEMS",
              ]
+
+contest_commands = ["add problem[s] PROBLEMS to CONTEST [as ALIASES]",
+                    "del[ete] problems PROBLEMS from CONTEST",
+                    "gen[erate] contest CONTEST statement|pdf",
+                    "export CONTEST to SYSTEM as ID",
+                    "change contest CONTEST prop[erties] KEY VALUE"]
 
 problem_commands = ["generate statement",
              "generate tests [with tag[s] TAGS_LIST]",
@@ -42,14 +49,17 @@ problem_commands = ["generate statement",
              "del[ete] prop[erties] PATH_TO_SOLUTION ARGS"
              ]
 
+def print_desc_and_commands(desc, commands):
+    print('\n%s\n' % desc)
+    print(*[command for command in sorted(commands) if command != ''], sep = '\n')
+    
 def print_lite_help():
     print("Usage: please [command]")
-    print("Commands available (try 'please help' for more information):\n")
-    print("Global commands:\n")
-    print(*[command for command in sorted(global_commands) if command != ""], sep = "\n")
-    print("\nCommands inside problem folder:\n")
-    print(*[command for command in sorted(problem_commands) if command != ""], sep = "\n")
-
+    print("Commands available (try 'please help' for more information):")
+    print_desc_and_commands("Global commands:", global_commands)
+    print_desc_and_commands("Problem editing commands:", problem_commands)
+    print_desc_and_commands("Contest editing commands:", contest_commands)
+    
 def print_help():
     print("""
 Please version: {0}
@@ -81,12 +91,16 @@ Global commands available:
     Imports Polygon package (in .zip format) to please package
     example: import polygon package centroid.zip
 
+  {9}:
+    Creates new contest of given problems
+    example: create contest ioi of ../dynamic/cubes children
+    (will create ioi.contest)
+
   {7}:
     Imports given Polygon problem from given contest
     
   {8}:
     Shows all please commands
-    
 """.format(PLEASE_VERSION, *global_commands))
     print("""
 Commands available inside problem's folder:
@@ -166,8 +180,8 @@ Commands available inside problem's folder:
     
   {16}:
     Performs a stress test of current solution
-    example: stress test solutions/wrong.cpp tests/gen.cpp 10 5
-             stress test solutions/wrong.cpp solutions/aa.cpp tests/gen.cpp
+    examples: stress test solutions/wrong.cpp tests/gen.cpp 10 5
+              stress test solutions/wrong.cpp solutions/aa.cpp tests/gen.cpp
 
   {17}
     Computes adequate TL of current problem as ceiled doubled maximum running time of main solution
@@ -186,15 +200,31 @@ Commands available inside problem's folder:
 
   {23}:
     Validates all generated tests
-
 """.format(*problem_commands))
+    print("""
+Commands available for contest editing:
 
-
-
-
-
-
-
-
+  {0}:
+    Adds chosen problems in existing contest
+    example: add problems A ../B to roi
+    (will add to roi.contest)
+    
+  {1}:
+    Deletes chosen problems in existing contest
+    example: del problems A B C from roi
+    (will delete from roi.contest)
+    
+  {2}:
+    Generates combined pdf statement
+    example: generate contest IOI statement
+    (will generate pdf for IOI.contest)
+  
+  {3}:
+    Description will be added later
+    
+  {4}:
+    Changes chosen parameter of given contest
+    example: change contest ioi prop name "International Olympiad in Informatics"
+""".format(*contest_commands))
 
 
