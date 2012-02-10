@@ -32,7 +32,7 @@ def generate_problem_advanced(shortname, human_language, programming_language):
     ''' Generates file structure of problem (templates (checker, validator, etc) and default.package) '''
     if exists(shortname):
         raise PleaseException("%s already exists" % shortname)
-
+    
     mkdir(shortname)
 
     statement_path = os.path.join(shortname, globalconfig.statements_dir)
