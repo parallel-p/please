@@ -31,7 +31,7 @@ class PSLatexConfigurator:
             batfile.write("dvips " + os.path.splitext(source)[0] + ".dvi" + "\n")
             batfile.write("ps2pdf " + os.path.splitext(source)[0] + ".ps" + "\n")
             batfile.close()
-            os.chmod(bat_name, 755)
+            os.chmod(bat_name, 0o755)
         if is_windows():
             return ["maketex.bat", ]
         else:
