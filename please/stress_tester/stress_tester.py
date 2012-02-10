@@ -25,7 +25,6 @@ class StressRunException(PleaseException):
     pass
 
 class StressTester():
-    ''' This class created just to pass default.package config to __init__ (hack for matcher) '''
 
     __name__ = "StressTester"
 
@@ -40,21 +39,16 @@ class StressTester():
 
     def __run_solution(self, solution, test_path):
         ''' Returns output [if invoker says OK] '''
-        try:
-            res = solution_runner.run_solution(solution_runner.SolutionInfo(
-                source_path = solution,
-                args = [],
-                execution_limits = ExecutionLimits(float(self.__config["time_limit"]), float(self.__config["memory_limit"])),
-                solution_config = self.__config,
-                solution_input_file = test_path,
-                solution_output_file = test_path + ".out"))
+        res = solution_runner.run_solution(solution_runner.SolutionInfo(
+            source_path = solution,
+            args = [],
+            execution_limits = ExecutionLimits(float(self.__config["time_limit"]), float(self.__config["memory_limit"])),
+            solution_config = self.__config,
+            solution_input_file = test_path,
+            solution_output_file = test_path + ".out"))
 
-            if res[0].verdict != 'OK':
-                self.logger.error("Run exception: %s is not OK, invoker returned %s, return code %s" % (solution, res[0].verdict, res[0].return_code))
-                raise StressRunException()
-        except CompileError:
-            # TODO: add runerror
-            self.logger.error("%s failed to compile" % solution)
+        if res[0].verdict != 'OK':
+            self.logger.error("Run exception: %s is not OK, invoker returned %s, return code %s" % (solution, res[0].verdict, res[0].return_code))
             raise StressRunException()
 
         output_path = test_path + ".out"
@@ -137,11 +131,9 @@ class StressTester():
                     self.__check_solutions(solution, correct_solution, self.__config["checker"], test_path)
                     self.logger.info("Test passed")
                 except (StressCheckMatchException, StressCheckException):
-                    self.logger.error("Test failed")  
-                    break
+                    raise PleaseException("Test failed")
                 except StressCheckFail:
-                    self.logger.error("Check failed")
-                    break
+                    raise PleaseException("Check failed")
                 finally:
                     if os.path.exists(test_path):
                         os.remove(test_path)

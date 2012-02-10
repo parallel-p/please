@@ -50,9 +50,12 @@ class TestStressTester(unittest.TestCase):
             tester(os.path.join('tests', 'generator.cpp'),
                    os.path.join('solutions', 'solution_wrong.cpp'),
                    os.path.join('solutions', 'solution.cpp'))
+        except please.utils.exceptions.PleaseException as ex:
+            print(ex)
         finally:
             os.chdir(current_dir)
         self.assertRaises(please.stress_tester.stress_tester.StressCheckMatchException)
+        self.assertRaises(please.utils.exceptions.PleaseException)
 
 if __name__ == "__main__":
     unittest.main()
