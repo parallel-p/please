@@ -25,6 +25,8 @@ def determinate_location():
         os.chdir('..')
         current_dir = os.getcwd()
         pkg = package_config.PackageConfig.get_config()
+    if pkg is None:
+        os.chdir(startdir)
     in_problem_folder = (pkg is not None)
     globalconfig.in_problem_folder = in_problem_folder
     return in_problem_folder, startdir
