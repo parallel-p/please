@@ -70,11 +70,8 @@ def generate_problem_advanced(shortname, human_language, programming_language):
         shutil.copy(testlib_pas, os.path.join(shortname, 'testlib.pas'))
 
 def generate_problem(shortname, handle_exception=True):
-    try:
         generate_problem_advanced(shortname,
                               globalconfig.default_human_language,
                               globalconfig.default_programming_language)
         info_generator.create_md5_file(shortname)
         logger.info("Problem %s has been created successfully", str(shortname))
-    except ProblemExistsError as Error:
-        logger.error(str(Error))
