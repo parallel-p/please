@@ -6,7 +6,7 @@ class CppTest(unittest.TestCase):
     def test_win_compile(self):
         cpp = lng_cpp.CppWindowsConfigurator()
         out = cpp.get_compile_command("test.cpp")
-        self.assertEqual(out, ["g++", "-lm", "-s", "-x", "c++", "-O2", "-Wl,-stack_size,0x10000000", "-o", "test.exe", "test.cpp"])
+        self.assertEqual(out, ["g++", "-lm", "-s", "-x", "c++", "-O2", "-o", "test.exe", "test.cpp"])
         
     def test_win_run(self):
         cpp = lng_cpp.CppWindowsConfigurator()
