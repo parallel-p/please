@@ -21,7 +21,6 @@ class TestLanguageDetection(unittest.TestCase):
             ansfile = file + ".ans"
             if not os.path.isfile(os.path.join(root, ansfile)):
                 continue
-            print(file)
             with open(os.path.join(root, ansfile), "r") as f:
                 ans = f.readline()    
                 result = lang.get(os.path.join(root, file))
