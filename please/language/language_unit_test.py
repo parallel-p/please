@@ -13,7 +13,7 @@ class TestLanguageDetection(unittest.TestCase):
             return str[:pos]
     
     def test_on_test_files(self):
-        root = os.path.join(".", "please", "language", "test_files")
+        root = os.path.join(os.path.dirname(__file__), 'test_files')
         lang = Language()
         for file in os.listdir(root):
             if not os.path.isfile(os.path.join(root, file)):
@@ -21,7 +21,7 @@ class TestLanguageDetection(unittest.TestCase):
             ansfile = file + ".ans"
             if not os.path.isfile(os.path.join(root, ansfile)):
                 continue
-            
+            print(file)
             with open(os.path.join(root, ansfile), "r") as f:
                 ans = f.readline()    
                 result = lang.get(os.path.join(root, file))

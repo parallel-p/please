@@ -57,7 +57,7 @@ class Language:
     def __proceed_latex(self, path):
         with open(path, 'r') as f:
             content = f.read()
-        if re.compile('\\includegraphics[^{]*\{[^}]*\.(png)|(jpg)|(jpeg)|(pdf)\}').search(content):
+        if re.compile('\\includegraphics[^{]*\{[^}]*\.(?:png|jpe?g|pdf)\}').search(content):
             return "latex_pdf"
         else:
             return "latex_ps"
