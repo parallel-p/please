@@ -22,7 +22,7 @@ class TestLanguageDetection(unittest.TestCase):
             if not os.path.isfile(os.path.join(root, ansfile)):
                 continue
             with open(os.path.join(root, ansfile), "r") as f:
-                ans = f.readline()    
+                ans = f.readline().strip()
                 result = lang.get(os.path.join(root, file))
                 if (ans != "undefined"):
                     self.assertEqual(ans, result, file + " was not determined correctly\n")
