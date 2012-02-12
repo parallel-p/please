@@ -35,16 +35,12 @@ def add_stress_test_operations(matcher, active):
     from please.solution_tester import package_config
     pkg = package_config.PackageConfig.get_config()
     stresser = stress_tester.StressTester(config = pkg)
+    matcher.add_handler(
+        Template(["stress", "$solution", "$generator"]),
+        stresser, 
+        active)
+    matcher.add_handler(
+        Template(["stress", "$solution", "$correct_solution", "$generator"]),
+        stresser,
+        active)
 
-    STRESS_TEST_ALIASES = [["stress", "test"], ["stress"],
-        ["stresstest"], ["stress-test"]]
-    for alias in STRESS_TEST_ALIASES:
-        matcher.add_handler(
-            Template(alias + ["$solution", "$generator"]),
-            stresser, 
-            active)
-        matcher.add_handler(
-            Template(alias + ["$solution", "$correct_solution", "$generator"]),
-            stresser,
-            active)
-    
