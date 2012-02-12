@@ -35,7 +35,7 @@ problem_commands = ["generate statement",
              "set validator PATH_TO_VALIDATOR",
              "check solution PATH_TO_SOLUTION",
              "check solutions",
-             "stress test SOLUTION [CORRECT_SOLUTION] GENERATOR",
+             "stress SOLUTION [CORRECT_SOLUTION] GENERATOR",
              "compute TL",
              "compute integer TL",
              "",
@@ -179,9 +179,9 @@ Commands available inside problem's folder:
     Checks main solution, specified in default.package
     
   {16}:
-    Performs a stress test of current solution
-    examples: stress test solutions/wrong.cpp tests/gen.cpp 10 5
-              stress test solutions/wrong.cpp solutions/aa.cpp tests/gen.cpp
+    Performs a stress testing of current solution
+    examples: stress solutions/wrong.cpp tests/gen.cpp 10 5
+              stress solutions/wrong.cpp solutions/aa.cpp tests/gen.cpp
 
   {17}
     Computes adequate TL of current problem as ceiled doubled maximum running time of main solution
