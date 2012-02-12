@@ -186,11 +186,11 @@ memory_limit = 256
   # Написать генератор, который создаёт различные тесты в зависимости от первого переданного в main значения
   # Написать верное решение
   # Написать любое другое решение
-  # Выполнить команду *`please stress test SOLUTION [CORRECT_SOLUTION] GENERATOR`*, полагаю, переменные ясны. Если верное решение прописано как главное в конфиге задачи, параметр CORRECT_SOLUTION можно опустить.
+  # Выполнить команду *`please stress SOLUTION [CORRECT_SOLUTION] GENERATOR`*, полагаю, переменные ясны. Если верное решение прописано как главное в конфиге задачи, параметр CORRECT_SOLUTION можно опустить.
 
 Пример:
 {{{
-~/cubes$ please stress test solutions/solution_wrong.cpp solutions/solution.cpp generator_random.cpp
+~/cubes$ please stress solutions/solution_wrong.cpp solutions/solution.cpp generator_random.cpp
 cubes(WARNING) [10:43:27]: Random number for generator is: 753588
 cubes(INFO) [10:43:27]: Generating 1 tests series
 cubes(INFO) [10:43:27]: Test #1 'standard generator output' is generated
