@@ -7,6 +7,74 @@ from ..utils.exceptions import PleaseException
 #"" is for commands
 langs = ["c", "c++", "c#", "pascal", "delphi", "python2", "python3", "java", ""]
 
+
+# Trying to access libmagic.
+# libmagic is a library distributed with file(1) and commonly found on
+# Linux distributions; it guesses type or MIME-type of file with searching
+# of certain byte sequences within it.
+
+try:
+    from . import magic
+
+    _mresolv = magic.open(magic.MIME)
+    if _mresolv.load():
+        raise OSError
+except (OSError, AttributeError): # when library is not loaded, ctypes raises
+                                  # AttributeError
+    def magic_guess(filename):
+        return None
+else:
+    def magic_guess(filename):
+        s = _mresolv.file(filename.encode())
+        if s:
+            return s.decode().split(';', 1)[0]
+        return None
+
+import mimetypes
+mimetypes.init()
+
+def ensure_type_defined(mime, *exts):
+    for ext in exts:
+        if ext not in mimetypes.types_map:
+            mimetypes.add_type(mime, ext)
+
+# On some systems, C# is not known, and Delphi is not known on even more.
+ensure_type_defined('text/x-csharp', '.C#', '.c#', '.cs', '.csharp')
+ensure_type_defined('text/x-delphi', '.dpr')
+
+_mappings = { # mappings for some MIME synonyms
+    'x-csrc': 'x-c',
+    'x-chdr': 'x-c',
+    'x-c++src': 'x-c++',
+    'x-c++hdr': 'x-c++',
+}
+
+_known_mimes = { # all MIMES that we are interested in
+    'x-c': 'c', 
+    'x-c++': 'c++',
+    'x-csharp': 'c#',
+    'x-pascal': 'pascal',
+    'x-delphi': 'delphi',
+    'x-python': '?python',
+    'x-java': 'java',
+    'x-tex': '?latex',
+    'x-empty': None,
+}
+
+#_problematic_pairs = { # set of pairs (<possible wrong libmagic guess>, <true guess>)
+#    ('x-c', 'x-c++'),
+#    ('x-c', 'x-csharp'),
+#    ('x-c++', 'x-csharp'),
+#    ('x-pascal', 'x-delphi'),
+#}
+
+def _as_cat_guess(mimetype):
+    if not mimetype:
+        return None, ''
+    else:
+        cat, guess = mimetype.split('/', 1)
+        return cat, _mappings.get(guess, guess)
+
 class Language:
     '''
     This class determines in which programming language given
@@ -21,6 +89,35 @@ class Language:
     '''
     def __init__(self):
         pass
+
+    def __get_mime(self, fn):
+        catmagic, guessmagic = _as_cat_guess(magic_guess(fn))
+        catext, guessext = _as_cat_guess(mimetypes.guess_type(fn)[0])
+        # `cat' is for `category'
+        # Every source code undergoes MIME text/x-*; so,
+        # we prefer category `text' over others.
+        if catmagic == 'text':
+            if catext != 'text':
+                return guessmagic
+            else:
+                return guessext if guessext in _known_mimes else guessmagic
+                # It turns out that libmagic is sometimes really stupid about small
+                # code snippets.
+                # TODO: write fast L(1) approximations to grammars of all languages.
+                # Will be hard for TeX with changing character classes.
+        else:
+            # something is wrong here
+            if guessmagic == 'octet-stream':
+                # not even a text
+                return None
+            if catext == 'text':
+                return guessext
+            return None
+
+    def __by_mime(self, fn):
+        mime = self.__get_mime(fn)
+        return _known_mimes.get(mime, None)
+
 
     def __by_ext(self, fn):
         ext = os.path.splitext(fn)[1].lower()
@@ -45,9 +142,9 @@ class Language:
     def __proceed_python(self, path):
         with open(path, 'r') as f:
             line = f.readline()
-        if (line.find("python3") != -1):
+        if "python3" in line: # much faster, proven by python -m timeit
             return "python3"
-        elif (line.find("python2") != -1):
+        elif "python2" in line:
             return "python2"
         else:
             log = logging.getLogger("please_logger.language")
@@ -58,7 +155,7 @@ class Language:
         with open(path, 'r') as f:
             content = f.read()
         if not re.compile('\\includegraphics').search(content):
-            return "latex_pdf"
+            return "latex_ps"
         if re.compile('\\includegraphics[^{]*\{[^}]*\.(?:png|jpe?g|pdf)\}').search(content):
             return "latex_pdf"
         else:
@@ -74,18 +171,16 @@ class Language:
 
     def get(self, path):
         """Returns None if no language supported"""
-        res_by_ext = self.__by_ext(path)
-        if (res_by_ext is None):
-            return None
-        if (res_by_ext[0] != '?'):
-            return res_by_ext
-        if (not os.path.isfile(path)):
-            raise PleaseException("There is no file " + path)
-        res_by_content = self.__by_contents(path, res_by_ext)
+        res_by_mime = self.__by_mime(path)
+        if res_by_mime is None or res_by_mime[0] != '?':
+            return res_by_mime
+        if not os.path.isfile(path):
+            raise PleaseException("There is no file " + path) # XXX incorrect error message
+        res_by_content = self.__by_contents(path, res_by_mime)
         return res_by_content
 
 def is_source_code(path):
     detector = Language()
     lang = detector.get(path)
-    return lang is not None and lang != "command"
+    return lang is not None and lang in langs # hey, there is TeX!
 
