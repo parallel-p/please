@@ -2,6 +2,8 @@
 import os
 import logging
 import re
+import mimetypes
+
 from ..utils.exceptions import PleaseException
 
 #"" is for commands
@@ -15,41 +17,17 @@ langs = ["c", "c++", "c#", "pascal", "delphi", "python2", "python3", "java", ""]
 
 try:
     from . import magic
-    raise OSError
-    _mresolv = magic.open(magic.MIME)
-    if _mresolv.load():
-        raise OSError
 except (OSError, ImportError):
-    def magic_guess(filename):
-        return None
-else:
-    def magic_guess(filename):
-        s = _mresolv.file(filename.encode())
-        if s:
-            return s.decode().split(';', 1)[0]
-        return None
+    magic = None
 
-import mimetypes
-_mimedb = mimetypes.MimeTypes()
-fallback_path = os.path.join(os.path.dirname(__file__), 'mime.types')
-if os.path.isfile(fallback_path):
-    _mimedb.read(fallback_path)
-for file in mimetypes.knownfiles:
-    if os.path.isfile(file):
-        _mimedb.read(file)
-_mimedb.read_windows_registry()
-
-def mime_guess(url):
-    return _mimedb.guess_type(url)[0]
-
-_mappings = { # mappings for some MIME synonyms
+MAPPINGS = { # mappings for some MIME synonyms
     'x-csrc': 'x-c',
     'x-chdr': 'x-c',
     'x-c++src': 'x-c++',
     'x-c++hdr': 'x-c++',
 }
 
-_known_mimes = { # all MIMES that we are interested in
+KNOWN_MIMES = { # all MIMES that we are interested in
     'x-c': 'c', 
     'x-c++': 'c++',
     'x-csharp': 'c#',
@@ -61,19 +39,6 @@ _known_mimes = { # all MIMES that we are interested in
     'x-empty': None,
 }
 
-#_problematic_pairs = { # set of pairs (<possible wrong libmagic guess>, <true guess>)
-#    ('x-c', 'x-c++'),
-#    ('x-c', 'x-csharp'),
-#    ('x-c++', 'x-csharp'),
-#    ('x-pascal', 'x-delphi'),
-#}
-
-def _as_cat_guess(mimetype):
-    if not mimetype:
-        return None, ''
-    else:
-        cat, guess = mimetype.split('/', 1)
-        return cat, _mappings.get(guess, guess)
 
 class Language:
     '''
@@ -87,12 +52,44 @@ class Language:
     print(lang().get("test_files/helloworld.pas")) # outputs pascal
     print(lang().get("test_files/helloworld3.py")) # outputs python3
     '''
-    def __init__(self):
-        pass
+    FALLBACK_MIMETYPES = os.path.join(os.path.dirname(__file__), 'mime.types')
 
-    def __get_mime(self, fn):
-        catmagic, guessmagic = _as_cat_guess(magic_guess(fn))
-        catext, guessext = _as_cat_guess(mime_guess(fn))
+    def __init__(self):
+        self.mimedb = mimetypes.MimeTypes()
+        if os.path.isfile(self.FALLBACK_MIMETYPES):
+            self.mimedb.read(self.FALLBACK_MIMETYPES)
+        for filename in mimetypes.knownfiles:
+            if os.path.isfile(filename):
+                self.mimedb.read(filename)
+        self.mimedb.read_windows_registry()
+
+        if magic is not None:
+            self.magicdb = magic.open(magic.MIME_TYPE)
+            if self.magicdb.load() != 0:
+                self.magicdb = None
+        else:
+            self.magicdb = None
+
+        if self.magicdb is None:
+            self._get_mime_via_magic = lambda path: (None, '')
+    
+    @staticmethod
+    def _split_mime(mimetype):
+        if not mimetype:
+            return None, ''
+        else:
+            cat, guess = mimetype.split('/', 1)
+            return cat, MAPPINGS.get(guess, guess)
+
+    def _get_mime_from_url(self, path):
+        return self._split_mime(self.mimedb.guess_type(path)[0])
+
+    def _get_mime_via_magic(self, path): # Occasionally replaced by stub
+        return self._split_mime(self.magicdb.file(path))
+
+    def __get_mime(self, path):
+        catmagic, guessmagic = self._get_mime_via_magic(path)
+        catext, guessext = self._get_mime_from_url(path)
         # `cat' is for `category'
         # Every source code undergoes MIME text/x-*; so,
         # we prefer category `text' over others.
@@ -100,7 +97,7 @@ class Language:
             if catext != 'text':
                 return guessmagic
             else:
-                return guessext if guessext in _known_mimes else guessmagic
+                return guessext if guessext in KNOWN_MIMES else guessmagic
                 # It turns out that libmagic is sometimes really stupid about small
                 # code snippets.
                 # TODO: write fast L(1) approximations to grammars of all languages.
@@ -116,7 +113,7 @@ class Language:
 
     def __by_mime(self, fn):
         mime = self.__get_mime(fn)
-        return _known_mimes.get(mime, None)
+        return KNOWN_MIMES.get(mime, None)
 
 
     def __by_ext(self, fn):
@@ -142,9 +139,9 @@ class Language:
     def __proceed_python(self, path):
         with open(path, 'rb') as f:
             line = f.readline()
-        if b'python3' in line:
+        if b"python3" in line: # much faster, proven by python -m timeit
             return "python3"
-        elif b'python2' in line:
+        elif b"python2" in line:
             return "python2"
         else:
             log = logging.getLogger("please_logger.language")
@@ -177,8 +174,13 @@ class Language:
         res_by_content = self.__by_contents(path, res_by_mime)
         return res_by_content
 
+_lang = Language() # STOP INSTANTIATING IN EVERY FUNCTION CALL!
+
+def get(path):
+    '''Get a programming language for a file.'''
+    return _lang.get(path)
+
 def is_source_code(path):
-    detector = Language()
-    lang = detector.get(path)
+    lang = get(path)
     return lang is not None and lang in langs # hey, there is TeX!
 
