@@ -154,13 +154,19 @@ class Tester(unittest.TestCase):
                   'endswith_EOLN']))
 
     def test_nonunicode(self):
+        self.__tests_runner('non-unicode', ['no_symbols_less_32', 
+             'no_left_right_space',
+             'no_top_bottom_emptyline', 'endswith_EOLN'], 
+             (FIXED, ['no_left_right_space', 'no_top_bottom_emptyline', 
+              'endswith_EOLN']))
+
+    def test_unicode(self):
+        self.__tests_runner('unicode', ['no_symbols_less_32'],
+                            (OK, []))
+
+    def test_no_such_function(self):
         with self.assertRaises(PleaseException):
-            print('*')
-            self.__tests_runner('non-unicode', ['no_symbols_less_32', 
-                 'no_left_right_space', 'no_such_function', 
-                 'no_top_bottom_emptyline', 'endswith_EOLN'], 
-                 (FIXED, ['no_left_right_space', 'no_top_bottom_emptyline', 
-                  'endswith_EOLN']))
+            self.__tests_runner('1', ['no_such_function'], (OK, []))
 
     def setUp(self):
         self.mox = mox.Mox()
