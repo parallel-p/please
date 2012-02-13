@@ -41,7 +41,10 @@ def _init():
     Loads the shared library through ctypes and returns a library
     L{ctypes.CDLL} instance 
     """
-    return ctypes.cdll.LoadLibrary(find_library('magic'))
+    path = find_library('magic')
+    if not path:
+        raise ImportError('cannot find dynamic library magic')
+    return ctypes.cdll.LoadLibrary(path)
 
 _libraries = {}
 _libraries['magic'] = _init()
