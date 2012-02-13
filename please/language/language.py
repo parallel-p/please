@@ -30,16 +30,17 @@ else:
         return None
 
 import mimetypes
-mimetypes.init()
+_mimedb = mimetypes.MimeTypes()
+fallback_path = os.path.join(os.path.dirname(__file__), 'mime.types')
+if os.path.isfile(fallback_path):
+    _mimedb.read(fallback_path)
+for file in mimetypes.knownfiles:
+    if os.path.isfile(file):
+        _mimedb.read(file)
+_mimedb.read_windows_registry()
 
-def ensure_type_defined(mime, *exts):
-    for ext in exts:
-        if ext not in mimetypes.types_map:
-            mimetypes.add_type(mime, ext)
-
-# On some systems, C# is not known, and Delphi is not known on even more.
-ensure_type_defined('text/x-csharp', '.C#', '.c#', '.cs', '.csharp')
-ensure_type_defined('text/x-delphi', '.dpr')
+def mime_guess(url):
+    return _mimedb.guess_type(url)[0]
 
 _mappings = { # mappings for some MIME synonyms
     'x-csrc': 'x-c',
@@ -91,7 +92,7 @@ class Language:
 
     def __get_mime(self, fn):
         catmagic, guessmagic = _as_cat_guess(magic_guess(fn))
-        catext, guessext = _as_cat_guess(mimetypes.guess_type(fn)[0])
+        catext, guessext = _as_cat_guess(mime_guess(fn))
         # `cat' is for `category'
         # Every source code undergoes MIME text/x-*; so,
         # we prefer category `text' over others.
