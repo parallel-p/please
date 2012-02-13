@@ -11,6 +11,8 @@ OK, FIXED, CRASH = 0, 1, 2
 
 logger = logging.getLogger("please_logger.well_done")
 
+EOLN = ord('\n')
+
 class WellDone:
     '''
 
@@ -44,110 +46,95 @@ class WellDone:
 
     def check_functions_list(self):
         return self.__check_functions_list
+    
+    def _msg_FIXED(self, msg):
+        logger.warning("FIXED : %s %s", msg, self.__path)
+        return FIXED # for convenience
 
     def endswith_EOLN(self):
-        if len(self.__content) == 0 or self.__content[-1] != '\n':
-            self.__content += '\n'
-            logger.warning("FIXED : There was no \"\\n\" in the end of file %s", self.__path, exc_info = 0)
-            return FIXED        
+        if not self.__content.endswith(b'\n'):
+            self.__content += b'\n'
+            return self._msg_FIXED("There was no end of line in the end of file")
         else:
             return OK
 
+    def __regexp_based_fix(self, regexp, repl, message):
+        self.__content, repls = regexp.subn(repl, self.__content)
+        if repls:
+            return self._msg_FIXED(message)
+        return OK
+
+    _left_space_re = re.compile(b'^\\ +', re.MULTILINE)
+
     def no_left_space(self):
-        result = OK
-        if re.search(r'^\ ', self.__content):
-            result = FIXED
-            self.__content = re.sub(r'^\ +', '', self.__content)
-        if re.search(r'\n\ ', self.__content):
-            result = FIXED
-            self.__content = re.sub(r'\n\ *', '\n', self.__content)
-        if result == FIXED:
-            logger.warning("FIXED : There were excess spaces in line beginnings in file %s", self.__path, exc_info = 0)
-        return result
+        return self.__regexp_based_fix(self._left_space_re, b'',
+                                       "There were excess spaces in line beginnings in file")
+
+    _right_space_re = re.compile(b'\\ +$', re.MULTILINE)
 
     def no_right_space(self):
-        result = OK
-        if re.search(r'\ $', self.__content):
-            result = FIXED
-            self.__content = re.sub(r'\ +$', '', self.__content)
-        if re.search(r'\ \n', self.__content):
-            result = FIXED
-            self.__content = re.sub(r'\ *\n', '\n', self.__content)
-        if result == FIXED:
-            logger.warning("FIXED : There were excess spaces in line ends in file %s", self.__path, exc_info = 0)        
-        return result
+        return self.__regexp_based_fix(self._right_space_re, b'',
+                                       "There were excess spaces in line ends in file")
 
     def no_left_right_space(self):
         return max(self.no_left_space(), self.no_right_space())
 
     def no_symbols_less_32(self):
-        for c in self.__content:
-            code = ord(c)
-            if ord(c) < 32 and c != '\n':
-                logger.error("There are symbols with code less, than 32 in file %s", self.__path, exc_info = 0) 
+        for code in self.__content:
+            if code < 32 and code != EOLN:
+                logger.error("There are symbols with code less than 32 in file %s", self.__path, exc_info = 0) 
                 return CRASH
         return OK
 
+    _multispace_re = re.compile(b'\\ {2,}')
+
     def no_double_space(self):
-        if re.search(r'\ \ ', self.__content):
-            self.__content = re.sub(r'\ \ +', r' ', self.__content)
-            logger.warning("FIXED : There were double spaces in file %s", self.__path, exc_info = 0)
-            return FIXED
-        else:
-            return OK
+        return self.__regexp_based_fix(self._multispace_re, b' ',
+                                       "There were double spaces in file")
      
     def no_top_emptyline(self):
-        result = OK
-        lines_list = self.__content.split("\n")
-        if len(lines_list) == 2 and lines_list[1] == "":
-            return result
-        if re.search(r'^\n', self.__content):
-            result = FIXED
-            self.__content = re.sub(r'^\n+', '', self.__content)
-            logger.warning("FIXED : There was an empty line in top of file %s", self.__path, exc_info = 0)            
-        return result
+        if self.__content.startswith(b'\n'):
+            # One empty line case
+            if len(self.__content) == 1:
+                return OK
+            self.__content = self.__content.lstrip(b'\n')
+            return self._msg_FIXED("There was an empty line in top of file")
+        return OK
 
     def no_bottom_emptyline(self):
-        result = OK
-        lines_list = self.__content.split("\n")
-        if len(lines_list) == 2 and lines_list[1] == "":
-            return result
-        if re.search(r'\n\n$', self.__content):
-            result = FIXED
-            self.__content = re.sub(r'\n\n+$', '\n', self.__content)
-            logger.warning("FIXED : There was an empty line in bottom of file %s", self.__path, exc_info = 0)
-        return result
+        if self.__content.endswith(b'\n\n'):
+            self.__content = self.__content.rstrip(b'\n') + b'\n'
+            return self._msg_FIXED("There was an empty line in bottom of file")
+        return OK
 
     def no_top_bottom_emptyline(self):
         return max(self.no_top_emptyline(), self.no_bottom_emptyline())
 
     def not_empty(self):
         #check if file contains __non-space__ characters
-        if re.search(r'\S',self.__content) is None:
+        if not self.__content.strip():
             logger.error("There is no content in %s", self.__path, exc_info = 0)
             return CRASH
-        else:
-            return OK
+        return OK
+    
+    _emptyline_re = re.compile(b'\n{2,}') # I wish that could be written as b'^$', but
+                                          # some strange issue in re prevents it.
 
     def no_emptyline(self):
-        result = OK
-        if re.search(r'^\n', self.__content):
-            result = FIXED
-            self.__content = re.sub(r'^\n+', '', self.__content)
-        if re.search(r'\n\n', self.__content):
-            result = FIXED
-            self.__content = re.sub(r'\n\n+', '\n', self.__content)
-        if result == FIXED:
-            logger.warning("FIXED : There was an empty line in file %s", self.__path, exc_info = 0)
+        msg = "There was an empty line in file"
+        result = self.__regexp_based_fix(self._emptyline_re, b'\n', msg)
+        if self.__content.startswith(b'\n'):
+            self.__content = self.__content.lstrip(b'\n')
+            return self._msg_FIXED(msg)
         return result
 
     def __rewrite(self):
         #write down modified content of file
-        with open(self.__path, 'w', encoding = "utf-8") as f:
+        with open(self.__path, 'wb', newline = None) as f:
             f.write(self.__content)
 
     def check(self, path, fix_inplace=True):
-        with open(path, encoding = 'utf-8') as file:
+        with open(path, 'rb') as file:
             self.__content = file.read()
         self.__path = path
         self.__fixes = []
