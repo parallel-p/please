@@ -35,7 +35,7 @@ KNOWN_MIMES = { # all MIMES that we are interested in
     'x-delphi': 'delphi',
     'x-python': '?python',
     'x-java': 'java',
-    'x-tex': '?latex',
+    'x-tex': 'latex',
     'x-empty': None,
 }
 

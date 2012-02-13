@@ -44,20 +44,34 @@ def compile(path, limits=globalconfig.default_limits):
     command = configurator.get_compile_command(path)
     if command is None or command == [""]:
         return DO_NOTHING_RESULT
+    if isinstance(command, tuple):
+        commands = command
+    else:
+        commands = (command,)
     log.info("Compiling %s",str(path))
-    log.debug("Compiler.py: running %s with limits %s" % (command, limits))
-    try:
-        handler = psutil.Popen(command, \
-                               stdout = subprocess.PIPE, stderr = subprocess.PIPE)
-    except OSError:
-        raise PleaseException("There is no compiler for file '%s'" % path)
-    result = invoker.invoke(handler, limits)
-    stdout, stderr = handler.communicate()
+    stdout, stderr = [], []
+    error = None
+    for command in commands:
+        log.debug("Compiler.py: running %s with limits %s" % (command, limits))
+        try:
+            handler = psutil.Popen(command, \
+                                   stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+        except OSError:
+            error = PleaseException("There is no compiler for file '%s'" % path)
+            break
+        result = invoker.invoke(handler, limits)
+        out, err = handler.communicate()
+        stdout.append(out)
+        stderr.append(err)
+        if result.verdict != 'OK':
+            error = PleaseException(form_error_output.process_err_exit(
+                "Compilation %s failed with:" % path, result.verdict, \
+                result.return_code, out.decode(), err.decode()))
+            break
     new_folder_state = snapshot.Snapshot(cur_folder)
     trash_remover.remove_trash(snapshot.get_changes(old_folder_state, new_folder_state), configurator.is_compile_garbage)
-    if(result.verdict != "OK"):
-        raise PleaseException(form_error_output.process_err_exit("Compilation %s failed with:" % path, result.verdict, \
-                                                              result.return_code, stdout.decode(), stderr.decode()))
+    if error is not None:
+        raise error
     else:
         return (result, stdout, stderr)
     
