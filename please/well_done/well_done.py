@@ -12,6 +12,7 @@ OK, FIXED, CRASH = 0, 1, 2
 logger = logging.getLogger("please_logger.well_done")
 
 EOLN = ord('\n')
+LINESEP = os.linesep.encode()
 
 class WellDone:
     '''
@@ -131,11 +132,14 @@ class WellDone:
     def __rewrite(self):
         #write down modified content of file
         with open(self.__path, 'wb', newline = None) as f:
-            f.write(self.__content)
+            f.write(self.__content.replace(b'\n', LINESEP))
+
+    _universal_newline_re = re.compile(b'\r(?!\n)|\r\n|\n')
 
     def check(self, path, fix_inplace=True):
         with open(path, 'rb') as file:
-            self.__content = file.read()
+            content = file.read()
+            self.__content = self._universal_newline_re.sub(b'\n', content)
         self.__path = path
         self.__fixes = []
         #apply each checking function to the content of the file

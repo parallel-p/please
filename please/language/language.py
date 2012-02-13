@@ -15,7 +15,7 @@ langs = ["c", "c++", "c#", "pascal", "delphi", "python2", "python3", "java", ""]
 
 try:
     from . import magic
-
+    raise OSError
     _mresolv = magic.open(magic.MIME)
     if _mresolv.load():
         raise OSError
