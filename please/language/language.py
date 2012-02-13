@@ -19,8 +19,7 @@ try:
     _mresolv = magic.open(magic.MIME)
     if _mresolv.load():
         raise OSError
-except (OSError, AttributeError): # when library is not loaded, ctypes raises
-                                  # AttributeError
+except (OSError, ImportError):
     def magic_guess(filename):
         return None
 else:
