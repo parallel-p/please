@@ -4,7 +4,6 @@ import subprocess
 import os
 from ..template.template_utils import get_template_full_path, make_statement_name
 import shutil
-from ..executors import runner
 from ..executors import compiler
 from ..tests_generator.tests_generator import TestsGenerator
 from ..language_configurator.language_configurator_utils import is_windows
@@ -54,7 +53,7 @@ def generate_contest(problem_names = ['.'], template = None, template_vars = glo
     with open(new_tex_name, "w", encoding = "UTF8") as new_tex:
         new_tex.write(contest.construct())
 
-    converter = Latex2Pdf()
+    converter = Latex2PDF()
     converter.convert(new_tex_name)
 
     os.chdir(current_dir)
@@ -205,11 +204,11 @@ class LatexContestConstructor:
         constructed = constructed.replace("#{contest_problems}", self.__separator.join(self.__list))
         return constructed
 
-class Latex2Pdf:
+class Latex2PDF:
     """
         Description: convert given TeX-file to pdf and create pdf-file
         Usage:
-            converter = Latex2Pdf()
+            converter = Latex2PDF()
             converter.convert("MyFile.tex")
     """
     def convert(self, path_to_tex_file):
@@ -220,7 +219,7 @@ class Latex2Pdf:
             encoding = "utf8"
         else:
             os.putenv("TEXINPUTS", get_template_full_path('') + ":.:")
-        invoke_info, stdout, stderr = runner.run(path_to_tex_file, encoding = encoding)
+        invoke_info, stdout, stderr = compiler.compile(path_to_tex_file)
         if invoke_info.return_code != 0:
             raise PleaseException(form_error_output.process_err_exit(
                 "Can't generate pdf from tex %s" % path_to_tex_file,
