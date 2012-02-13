@@ -39,6 +39,7 @@ KNOWN_MIMES = { # all MIMES that we are interested in
     'x-empty': None,
 }
 
+logger = logging.getLogger("please_logger.language")
 
 class Language:
     '''
@@ -72,6 +73,7 @@ class Language:
 
         if self.magicdb is None:
             self._get_mime_via_magic = lambda path: (None, '')
+        self.py2warning = False
     
     @staticmethod
     def _split_mime(mimetype):
@@ -115,7 +117,6 @@ class Language:
         mime = self.__get_mime(fn)
         return KNOWN_MIMES.get(mime, None)
 
-
     def __by_ext(self, fn):
         ext = os.path.splitext(fn)[1].lower()
         if not ext:
@@ -143,24 +144,16 @@ class Language:
             return "python3"
         elif b"python2" in line:
             return "python2"
-        else:
-            log = logging.getLogger("please_logger.language")
-            log.warning("Assuming " + path + " is python2 file. \nIf you want to translate it with python3, insert 'python3' in the comment in the first line of this file")
+        elif self.py2warning:
             return "python2"
-
-    def __proceed_latex(self, path):
-        with open(path, 'rb') as f:
-            content = f.read()
-        if re.compile(b'\\includegraphics[^{]*\{[^}]*\.(?:png|jpe?g|pdf)\}').search(content):
-            return "latex_pdf"
         else:
-            return "latex_ps"
+            logger.warning("Assuming " + path + " is python2 file. \nIf you want to translate it with python3, insert 'python3' in the comment in the first line of this file")
+            self.py2warning = True
+            return "python2"
 
     def __by_contents(self, path, info):
         if (info[1:] == "python"):
             return self.__proceed_python(path)
-        if (info[1:] == "latex"):
-            return self.__proceed_latex(path)
         else:
             return None
 
