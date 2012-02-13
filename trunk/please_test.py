@@ -14,6 +14,7 @@ from please.solution_tester import package_config
 from please.tags import add_tags, show_tags, clear_tags
 from please.latex import latex_tools
 import please.globalconfig as globalconfig
+from io import StringIO
 
 class PleaseTest(unittest.TestCase):
     def ifed(self):
@@ -62,15 +63,15 @@ class PleaseTest(unittest.TestCase):
         
         self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags, True)
         self.__matcher.matches("add tags tag1 tag2 tag3 tag4".split())
+       
         
-        with open("temp.txt", "a+") as std_to_file:
-            saveout = sys.stdout
-            sys.stdout = std_to_file
-            
-            self.__matcher.add_handler(Template(["show", "tags"]), show_tags, True)
-            self.__matcher.matches("show tags".split())
-            
-            tags_from_std = std_to_file.read().split("\n")[0]
+        saveout = sys.stdout
+        sys.stdout = StringIO()
+        
+        self.__matcher.add_handler(Template(["show", "tags"]), show_tags, True)
+        self.__matcher.matches("show tags".split())
+
+        tags_from_std = sys.stdout.getvalue().split("\n", 1)[0]
         sys.stdout = saveout
         
         open_config = package_config.PackageConfig.get_config(ignore_cache = True)
@@ -89,15 +90,14 @@ class PleaseTest(unittest.TestCase):
         self.__matcher.add_handler(Template(["clear", "tags"]), clear_tags, True)
         self.__matcher.matches("clear tags".split())
         
-        with open("temp.txt", "a+") as std_to_file:
-            saveout = sys.stdout
-            sys.stdout = std_to_file
-            
-            self.__matcher.add_handler(Template(["show", "tags"]), show_tags, True)
-            self.__matcher.matches("show tags".split())
-            
-            ttt = std_to_file.read()
-            tags_from_std = ttt.split("\n")[0]
+        saveout = sys.stdout
+        sys.stdout = StringIO()
+        
+        self.__matcher.add_handler(Template(["show", "tags"]), show_tags, True)
+        self.__matcher.matches("show tags".split())
+        
+        ttt = sys.stdout.getvalue()
+        tags_from_std = ttt.split("\n")[0]
         sys.stdout = saveout
 
         open_config = package_config.PackageConfig.get_config(ignore_cache = True)
