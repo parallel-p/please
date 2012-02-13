@@ -140,11 +140,11 @@ class Language:
             return None
 
     def __proceed_python(self, path):
-        with open(path, 'r') as f:
+        with open(path, 'rb') as f:
             line = f.readline()
-        if "python3" in line: # much faster, proven by python -m timeit
+        if b'python3' in line:
             return "python3"
-        elif "python2" in line:
+        elif b'python2' in line:
             return "python2"
         else:
             log = logging.getLogger("please_logger.language")
@@ -152,11 +152,9 @@ class Language:
             return "python2"
 
     def __proceed_latex(self, path):
-        with open(path, 'r') as f:
+        with open(path, 'rb') as f:
             content = f.read()
-        if not re.compile('\\includegraphics').search(content):
-            return "latex_ps"
-        if re.compile('\\includegraphics[^{]*\{[^}]*\.(?:png|jpe?g|pdf)\}').search(content):
+        if re.compile(b'\\includegraphics[^{]*\{[^}]*\.(?:png|jpe?g|pdf)\}').search(content):
             return "latex_pdf"
         else:
             return "latex_ps"
