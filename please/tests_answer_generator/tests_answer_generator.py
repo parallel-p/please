@@ -30,7 +30,7 @@ class WellDoneWithValidator:
             invoke_info, stdout, stderr = validator_runner.validate(
                     self.__validator, test_filename)
             if invoke_info.verdict == "FNF":
-                raise PleaseException("Validator %s isn't found" % validator_src)
+                raise PleaseException("Validator %s not found" % validator_src)
             if invoke_info.verdict == "OK":
                 logger.info("Validator said OK")
             else:
