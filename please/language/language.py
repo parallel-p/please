@@ -58,6 +58,9 @@ class Language:
         self.mimedb = mimetypes.MimeTypes()
         if os.path.isfile(self.FALLBACK_MIMETYPES):
             self.mimedb.read(self.FALLBACK_MIMETYPES)
+        else:
+            logger.warning("Cannot load default detection settings from file %s."
+                           " Results can be unexpected.")
         for filename in mimetypes.knownfiles:
             if os.path.isfile(filename):
                 self.mimedb.read(filename)
