@@ -6,7 +6,10 @@ import mimetypes
 from ..utils.exceptions import PleaseException
 
 #"" is for commands
-langs = ["c", "c++", "c#", "pascal", "delphi", "python2", "python3", "java", ""]
+LANGS = ["c", "c++", "c#", "pascal", "delphi", "python2", "python3", "java", ""]
+
+# Damn Apple.
+USE_SYSTEM_SETTINGS = False
 
 
 # Trying to access libmagic.
@@ -35,6 +38,7 @@ KNOWN_MIMES = { # all MIMES that we are interested in
     'x-python': '?python',
     'x-java': 'java',
     'x-tex': 'latex',
+    'x-brainfuck': '?brainfuck',
     'x-empty': None,
 }
 
@@ -59,12 +63,12 @@ class Language:
         if os.path.isfile(self.FALLBACK_MIMETYPES):
             self.mimedb.read(self.FALLBACK_MIMETYPES)
         else:
-            logger.warning("Cannot load default detection settings from file %s."
-                           " Results can be unexpected.")
-        for filename in mimetypes.knownfiles:
-            if os.path.isfile(filename):
-                self.mimedb.read(filename)
-        self.mimedb.read_windows_registry()
+            raise PleaseException('Cannot load MIME types file')
+        if USE_SYSTEM_SETTINGS:
+            for filename in mimetypes.knownfiles:
+                if os.path.isfile(filename):
+                    self.mimedb.read(filename)
+            self.mimedb.read_windows_registry()
 
         if magic is not None:
             self.magicdb = magic.open(magic.MIME_TYPE)
@@ -139,7 +143,9 @@ class Language:
         else:
             return None
 
-    def __proceed_python(self, path):
+    # __proceed_* functions are NOT meant to be called as instancemethods.
+
+    def __proceed_python(path):
         with open(path, 'rb') as f:
             line = f.readline()
         if b"python3" in line: # much faster, proven by python -m timeit
@@ -153,9 +159,42 @@ class Language:
             self.py2warning = True
             return "python2"
 
+    def __proceed_brainfuck(path):
+        useable_bytes = set(b'<>[]+-')
+        total = 0
+        useable = 0
+        balance = 0
+        left = ord('[')
+        right = ord(']')
+        valid = True
+        with open(path, 'rb') as f:
+            while True:
+                chunk = tuple(f.read(1024))
+                if not chunk:
+                    break
+                total += len(chunk)
+                for byte in chunk:
+                    if byte in useable_bytes:
+                        useable += 1
+                        if byte == left:
+                            balance += 1
+                        elif byte == right:
+                            balance -= 1
+                            if balance < 0:
+                                valid = False
+                                break
+        if useable and (2 * useable >= total or 3 * useable >= total and valid):
+            return "brainfuck"
+        return None
+
+    handlers = {
+        'python': __proceed_python,
+        'brainfuck': __proceed_brainfuck,
+    }
+
     def __by_contents(self, path, info):
-        if (info[1:] == "python"):
-            return self.__proceed_python(path)
+        if info in self.handlers:
+            return self.handlers[info](path)
         else:
             return None
 
@@ -166,7 +205,7 @@ class Language:
             return res_by_mime
         if not os.path.isfile(path):
             raise PleaseException("There is no file " + path) # XXX incorrect error message
-        res_by_content = self.__by_contents(path, res_by_mime)
+        res_by_content = self.__by_contents(path, res_by_mime[1:])
         return res_by_content
 
 _lang = Language() # STOP INSTANTIATING IN EVERY FUNCTION CALL!
