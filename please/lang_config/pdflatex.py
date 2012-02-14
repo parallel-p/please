@@ -33,21 +33,25 @@ class TeXLiveConfig(BaseLaTeXConfig):
     def _get_environment(self, source):
         return {'TEXINPUTS': '.:{}:'.format(self.template_path)}
 
-class MikTeXConfig(BaseLaTeXConfig):
+class MiKTeXConfig(BaseLaTeXConfig):
     def _setup(self):
         self._command_prefix = (BaseLaTeXConfig._command_prefix +
                                 ['-include-directory', self.template_path])
+
+class UnknownVersionTeXConfig(BaseLaTeXConfig):
+    def __init__(self, source):
+        raise PleaseException('Your TeX version is unknown. Please contact us'
+                              ' at code.google.com/p/please')
 
 def get_config():
     try:
         version_info = subprocess.check_output(['tex', '-v'])
     except OSError:
         raise PleaseException('Cannot run TeX, check if it is installed')
-    if b'MikTeX' in version_info:
-        return MikTeXConfig
+    if b'MiKTeX' in version_info:
+        return MiKTeXConfig
     elif b'TeX Live' in version_info:
         return TeXLiveConfig
     else:
-        raise PleaseException('Your TeX version is unknown. Please contact us'
-                              ' at code.google.com/p/please')
+        return UnknownVersionTeXConfig
 
