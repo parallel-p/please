@@ -19,7 +19,7 @@ def get_language_configurator(file_name):
         return get_python_configurator()
     elif lang == "python3":
         return get_python3_configurator()
-    elif lang in ["latex_pdf", "latex", "tex", "pdflatex"]:
+    elif lang == "latex":
         return get_pdflatex_configurator()
     elif lang in ["command"]:
         return get_command_configurator()
