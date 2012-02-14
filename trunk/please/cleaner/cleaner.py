@@ -1,5 +1,5 @@
 from .. import globalconfig
-from ..language_configurator.lang_conf import get_language_configurator
+from ..lang_config import get_lang_config
 from ..solution_tester import package_config
 import os
 import shutil
@@ -12,16 +12,14 @@ logger = logging.getLogger("please_logger.cleaner.cleaner")
 class Cleaner:
     def __clean_binary(self, source):
         if source is not None:
-            lang_conf = get_language_configurator(source)
+            lang_conf = get_lang_config(source)
             if lang_conf is not None:
-                binaries = lang_conf.get_binary_name(source)
-                num_deletes = 0
+                binaries = lang_conf.binaries(source)
                 for binary in binaries:
                     if os.path.exists(binary):
                         logger.info("Removing " + binary)
                         os.remove(binary)
-                        num_deletes += 1
-                if num_deletes == 0:
+                if not binaries:
                     logger.info("There is no binary file for " + source)
                 
     def cleanup(self):
