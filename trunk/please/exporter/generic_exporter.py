@@ -1,10 +1,6 @@
-import shutil
 import os
-from ..package.config import Config
+
 from ..command_line.generate_tests import generate_tests
-from ..ssh_tools.connector import Connector
-from ..build_all.build_tools import build_all
-from please.checkers.standard_checkers_utils import add_standard_checker_to_solution
 from ..solution_tester.package_config import PackageConfig
 
 class GenericExporter:

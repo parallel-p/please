@@ -7,7 +7,7 @@ class CheckerInfo:
         self.args = [input_file, program_output, correct_output]
 
 def run_checker (config):
-    result = compiler.compile(config.source_path)
+    compiler.compile(config.source_path)
     run_result = runner.run(config.source_path, config.args)
     return run_result
 

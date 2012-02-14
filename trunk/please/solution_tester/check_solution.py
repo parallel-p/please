@@ -1,10 +1,7 @@
 import os.path
 import logging
 import colorama
-from ..utils.platform_detector import get_platform
 from ..solution_tester.package_config import PackageConfig
-from ..invoker import invoker
-from .. import globalconfig
 from ..reports import generate_html_report
 from ..utils.exceptions import PleaseException
 from ..language import language
@@ -20,7 +17,7 @@ def check_all_solutions():
     generate_html_report.generate_html_report(config["solution"], True)
     
 def check_main_solution():
-    config = PackageConfig.get_config()
+    #config = PackageConfig.get_config()
     # TODO: check if config is None
     # method check_solutions retrieves config from PackageConfig itself
     # remove it from here

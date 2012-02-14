@@ -1,11 +1,9 @@
 from .. import globalconfig
 from ..solution_tester import package_config
-import subprocess
 import os
-from ..template.template_utils import get_template_full_path, make_statement_name
+from ..template.template_utils import get_template_full_path
 import shutil
 from ..executors import compiler
-from ..tests_generator.tests_generator import TestsGenerator
 from ..language_configurator.language_configurator_utils import is_windows
 from ..tests_answer_generator.tests_answer_generator import TestsAndAnswersGenerator
 from ..utils import form_error_output
@@ -170,7 +168,6 @@ class LatexContestConstructor:
             contest_in_tex = contest.construct()
     """
     def __init__(self, template, template_vars = {}, separator="\n\\newpage\n"):
-        empty_str = ""
         self.__attributes = {}
         self.__list = []
         self.__template = str(template)
@@ -213,10 +210,8 @@ class Latex2PDF:
     """
     def convert(self, path_to_tex_file):
         log.info("Generating pdf from tex...")
-        encoding = "utf8"
         if is_windows():
             os.putenv("TEXINPUTS", get_template_full_path(''))
-            encoding = "utf8"
         else:
             os.putenv("TEXINPUTS", get_template_full_path('') + ":.:")
         invoke_info, stdout, stderr = compiler.compile(path_to_tex_file)

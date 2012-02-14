@@ -1,7 +1,7 @@
 from please.template.statement_template_generator import *
 from os.path import exists
 from os import mkdir, remove
-from shutil import rmtree, copytree
+from shutil import rmtree
 import os
 
 import unittest

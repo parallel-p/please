@@ -1,6 +1,5 @@
 from ..checker_runner import checker_runner
 from ..solution_runner.solution_runner import run_solution, SolutionInfo
-from ..invoker.invoker import ExecutionLimits
 from .. import globalconfig
 from ..utils import utests
 from ..utils.error_window import PreventErrorWindow

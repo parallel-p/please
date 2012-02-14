@@ -1,7 +1,6 @@
 import unittest
 import mox
 from ..test_config_parser import parser
-from ..executors import runner
 from ..test_info import file_test_info, cmd_gen_test_info, echo_test_info, python_test_info
 import os
 from please.utils.exceptions import PleaseException

@@ -20,7 +20,7 @@ def copy_or_create(source_path, destination_path):
             copy(source_path, destination_path)
         else:
             #creating empty file
-            with open(destination_path, 'w') as empty_file:
+            with open(destination_path, 'w'):
                 pass
     except:
         if source_path is not None:

@@ -212,7 +212,6 @@ class Config:
             self.__source.append([item, comment, True])
         else:
             if type(self.__settings[item]) == list and in_list == True:
-                index = len(self.__settings[item])
                 self.__source.append([item, comment, True])
                 self.__settings[item].append(value)
             else:

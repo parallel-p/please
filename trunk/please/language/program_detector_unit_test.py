@@ -1,6 +1,4 @@
 import unittest
-import os
-from please.language.language import Language
 from please.language import program_detector
 
 class TestLanguageDetection(unittest.TestCase):

@@ -1,4 +1,3 @@
-import os
 import os.path
 class ExeConfigurator:
     def get_run_command(self, source):

@@ -2,11 +2,9 @@
 
 from logging import Formatter as _Formatter, getLogger, DEBUG, StreamHandler, FileHandler
 import os.path
-import time
 from please import globalconfig
 from colorama import init, Fore, Back, Style
 from please.solution_tester import package_config
-import sys
 import inspect
 
 """

@@ -1,6 +1,5 @@
 from ..executors import compiler
 from ..executors.runner import run
-import sys
 import shutil
 import os
 import logging

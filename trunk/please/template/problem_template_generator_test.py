@@ -1,6 +1,4 @@
 from os.path import exists
-from os import mkdir, remove
-from shutil import rmtree, copytree
 import os
 import unittest
 

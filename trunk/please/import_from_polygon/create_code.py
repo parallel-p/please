@@ -1,6 +1,5 @@
 import os
 import shutil
-from ..package import config
 from ..add_source import add_source
 
 polygon2please_verdicts = {

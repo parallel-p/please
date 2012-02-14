@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
-import errno, os
+import errno
 from ..package.config import Config
 from ..solution_tester.package_config import PackageConfig
 from ..utils.exceptions import PleaseException
