@@ -20,7 +20,8 @@ def print_standard_checkers():
     for fname in dirList:
         if fname.endswith('.cpp'):
            filelist += [fname[:-4]]
-    log.warning('standard checkers available: ' + ', '.join(filelist))
+    log.warning('Standard checkers available: ' + ', '.join(filelist))
+    log.warning('For more detailed information look at wiki on http://code.google.com/p/please')
 
 def __checker_global_dir():
     return os.path.join(globalconfig.root, globalconfig.checkers_dir)
