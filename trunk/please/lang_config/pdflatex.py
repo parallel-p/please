@@ -45,7 +45,7 @@ class UnknownVersionTeXConfig(BaseLaTeXConfig):
 
 def get_config():
     try:
-        version_info = subprocess.check_output(['tex', '-v'])
+        version_info = subprocess.check_output(['tex', '--version'])
     except OSError:
         raise PleaseException('Cannot run TeX, check if it is installed')
     if b'MiKTeX' in version_info:
