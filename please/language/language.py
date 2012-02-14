@@ -143,9 +143,7 @@ class Language:
         else:
             return None
 
-    # __proceed_* functions are NOT meant to be called as instancemethods.
-
-    def __proceed_python(path):
+    def __proceed_python(self, path):
         with open(path, 'rb') as f:
             line = f.readline()
         if b"python3" in line: # much faster, proven by python -m timeit
@@ -159,7 +157,7 @@ class Language:
             self.py2warning = True
             return "python2"
 
-    def __proceed_brainfuck(path):
+    def __proceed_brainfuck(self, path):
         useable_bytes = set(b'<>[]+-')
         total = 0
         useable = 0
@@ -194,7 +192,7 @@ class Language:
 
     def __by_contents(self, path, info):
         if info in self.handlers:
-            return self.handlers[info](path)
+            return self.handlers[info](self, path)
         else:
             return None
 
