@@ -21,6 +21,7 @@ class RunTest(unittest.TestCase):
         process = self.mox.CreateMockAnything()
         psutil.Popen(["a.exe"], stdin = None, shell = False, stdout = mox.IgnoreArg(), stderr = mox.IgnoreArg(), env = None).AndReturn(process)
         process.__enter__()
+        process.communicate().AndReturn((b'', b''))
         process.__exit__(None, None, None)
 
         self.mox.StubOutWithMock(rn.invoker, "invoke")
@@ -28,11 +29,14 @@ class RunTest(unittest.TestCase):
         res_info.verdict = "OK"
         rn.invoker.invoke(process, rn.globalconfig.default_limits).AndReturn(res_info)
 
-        self.mox.StubOutWithMock(rn.snapshot, "Snapshot")
-        self.mox.StubOutWithMock(rn.snapshot, "get_changes")
-        rn.snapshot.Snapshot().AndReturn([])
-        rn.snapshot.Snapshot().AndReturn([])
-        rn.snapshot.get_changes([], [])
+        Snapshot = rn.Snapshot
+        self.mox.StubOutWithMock(rn, "Snapshot")
+        self.mox.StubOutWithMock(rn.Snapshot, "get_changes")
+        snap1 = self.mox.CreateMock(Snapshot)
+        rn.Snapshot().AndReturn(snap1)
+        snap2 = self.mox.CreateMock(Snapshot)
+        rn.Snapshot().AndReturn(snap2)
+        snap1.get_changes(snap2).AndReturn(None)
 
         m = self.mox.CreateMockAnything()
         self.mox.StubOutWithMock(rn, "get_language_configurator")
@@ -41,6 +45,7 @@ class RunTest(unittest.TestCase):
         m.is_compile_garbage = False
         self.mox.StubOutWithMock(rn.trash_remover, "remove_trash")
         rn.trash_remover.remove_trash(None, False)
+
 
         #ec = self.mox.CreateMockAnything()
         #self.mox.StubOutWithMock(rn, "ExecutionControl")

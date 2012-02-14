@@ -1,5 +1,6 @@
 import os
 
+_join = os.path.join
 
 class Snapshot:    
     
@@ -30,7 +31,8 @@ class Snapshot:
         if ".svn" not in dirs_to_ignore:
             dirs_to_ignore.append(".svn")
         
-        self.items_list = [[], []]
+        self.dirs = set()
+        self.files = set()
         
         if not recursive:
             self.__walk(False, dir, dirs_to_ignore, files_to_ignore)            
@@ -44,32 +46,21 @@ class Snapshot:
         for root, dirs, files in os.walk(dir, topdown):
                 for dr in dirs: 
                     if dr not in dirs_to_ignore:
-                        self.items_list[0].append(os.path.join(root, dr))
+                        self.dirs.add(_join(root, dr))
                 for file in files:
                     if file not in files_to_ignore:
-                        self.items_list[1].append(os.path.join(root, file)) 
+                        self.files.add(_join(root, file)) 
 
-def get_changes(old_snapshot, new_snapshot):
-    
-    """
-    This static method returns all the changes within files/directories that occurred in new snapshot
-    compared to old snapshot.
-    """
-    
-    # Get a set of all matching files
-    matches_files = set(old_snapshot.items_list[1]) & set(new_snapshot.items_list[1])
-    matches_dirs = set(old_snapshot.items_list[0]) & set(new_snapshot.items_list[0])
-    changes = [[], []]
-    
-    # Get files and dirs that have been added
-    
-    for element in new_snapshot.items_list[1]:
-        if element not in matches_files:
-            changes[1].append(element)    
-    
-    for element in new_snapshot.items_list[0]:
-        if element not in matches_dirs:
-            changes[0].append(element)
-    
-    return changes
+    def get_changes(old_snapshot, new_snapshot):
+        
+        """
+        This method returns all the changes within files/directories that occurred in new snapshot
+        compared to old snapshot.
+        Can be called as Snapshot.get_changes(old, new) or old.get_changes(new)
+        """
+        
+        diffiles = new_snapshot.files - old_snapshot.files
+        diffdirs = new_snapshot.dirs - old_snapshot.dirs
+        
+        return list(diffdirs), list(diffiles)
 

@@ -3,7 +3,7 @@ from . import test_file_sort
 import tempfile
 from ..executors import runner, compiler
 from ..diff_test_finder.diff_test_finder import DiffTestFinder
-from ..directory_diff import snapshot
+from ..directory_diff.snapshot import Snapshot
 from ..utils.form_error_output import process_err_exit
 import os
 import re
@@ -28,18 +28,18 @@ class CmdOrGenTestInfo(test_info.TestInfo):
         stdout = tempfile.NamedTemporaryFile(delete = False)
         compiler.compile(self.__executor)
 
-        snapshot_before = snapshot.Snapshot(problem_dir)
+        snapshot_before = Snapshot(problem_dir)
         invoker_result, retstdout, reterror = runner.run(
-                self.__executor, self.__args, stdout_fh = stdout)
+                self.__executor, self.__args, stdout = stdout)
         if invoker_result.verdict != "OK":
             raise PleaseException(
                 process_err_exit("Generator %s with args %s crashed with"
                     % (self.__executor, " ".join(self.__args)),
                     invoker_result.verdict, invoker_result.return_code,
                     retstdout, reterror))
-        snapshot_after = snapshot.Snapshot(problem_dir, files_to_ignore = [stdout.name])
+        snapshot_after = Snapshot(problem_dir, files_to_ignore = [stdout.name])
         
-        diff = snapshot.get_changes(snapshot_before, snapshot_after)
+        diff = snapshot_before.get_changes(snapshot_after)
         
         exe_dir = os.getcwd() #really?
         mask = self.get_tags().get('mask')
@@ -50,12 +50,9 @@ class CmdOrGenTestInfo(test_info.TestInfo):
         
         zipped = list(zip(tests, desc))
         zipped.sort(key = lambda x : test_file_sort.sorting_key(x[0]))
-        for i in range(len(zipped)):
-            tests[i] = zipped[i][0]
-            desc[i] = zipped[i][1]
-            
+        tests, desc = zip(*zipped)
         self.set_desc(desc)        
-                
+
         #remove trash
         for file in diff[1]:
             if os.path.relpath(file, exe_dir) not in tests:

@@ -1,7 +1,7 @@
 import os
 import time
 from .invoker.invoker import ExecutionLimits
-from logging import INFO,ERROR,CRITICAL,WARNING,DEBUG
+from logging import INFO, DEBUG
 please_version = 0.2
 root = os.path.split(__file__)[0]
 

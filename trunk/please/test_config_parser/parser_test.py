@@ -53,7 +53,7 @@ class TestObjectFactoryTest(unittest.TestCase):
         
         t = b[0].tests()
         with open(t[0]) as f:
-            self.assertEqual(f.read(), "1 2 3 ")
+            self.assertEqual(f.read()[:6], "1 2 3 ")
         
         self.assertEqual(b[1].to_please_format(), "[sample] " + os.path.join("test_problems", "generator", "main.cpp") + " happy new year #YAAAAZ!")
         t = b[1].tests()
