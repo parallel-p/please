@@ -1,7 +1,5 @@
 import os
 
-_join = os.path.join
-
 class Snapshot:    
     
     """
@@ -43,6 +41,7 @@ class Snapshot:
         return str('\n'.join(self.items_list))
     
     def __walk(self, topdown, dir, dirs_to_ignore, files_to_ignore):
+        _join = os.path.join
         for root, dirs, files in os.walk(dir, topdown):
                 for dr in dirs: 
                     if dr not in dirs_to_ignore:
