@@ -16,6 +16,8 @@ import copy
 
 log = logging.getLogger("please_logger.latex.latex_tools")
 
+print("Hi there!")
+
 def generate_problem():
     template_vars = copy.copy(globalconfig.default_template_vars)
     problem_full_name = package_config.PackageConfig.get_config()['name']
@@ -34,7 +36,7 @@ def generate_contest(problem_names = ['.'], template = None, template_vars = glo
         os.chdir(problem)
         package_conf = package_config.PackageConfig.get_config()
         # TODO: check if package_conf is None
-        problem = SingleProblemCreator(config = package_conf)
+        problem = SingleProblemCreator(config = package_conf, fakepath=problem + '/')
         contest.add_problem(problem)
         if not single_problem:
             os.chdir(current_dir)
@@ -99,7 +101,7 @@ class LatexConstructor:
         self.__input_example.append(input_example)
         self.__output_example.append(output_example)
 
-    def construct(self):
+    def construct(self, problem_path='' ):
         """
             returns string, which contains tex file.
             changes template word in this string (for example "#{time_limit}", ...) to the names.
@@ -112,7 +114,7 @@ class LatexConstructor:
             examples = "%s\n\\begin{%s}\n" % ('', self.__example_environment)
             count = 0
             for in_example, out_example in zip(self.__input_example, self.__output_example):
-                examples += "\\exmp{\n%s}{%s}%%\n" % (str(in_example), str(out_example))
+                examples += "\\exmp{\n\\verbatiminput{../%s%s}}{\n\\verbatiminput{../%s%s}}%%\n" % (problem_path, str(in_example), problem_path, str(out_example))
                 count += 1
             examples += "\\end{%s}\n" % (self.__example_environment)
             examples = ("\\Example\n" if count == 1 else "\\Examples\n") + examples
@@ -249,9 +251,10 @@ def get_memory_string(memory):
 class SingleProblemCreator():
     __name__ = "SingleProblemCreator"
 
-    def __init__(self, config = None, path = '.'):
+    def __init__(self, config = None, path = '.', fakepath=''):
         self.__config = config
         self.__path = path
+        self.__fakepath = fakepath
 
     def __call__(self):
         ''' Creates .PDF for problem '''
@@ -292,13 +295,14 @@ class SingleProblemCreator():
         testans = TestsAndAnswersGenerator().generate(["sample"], "sample", False)
 
         for test, ans in testans:
-            with open(os.path.join(test)) as f:
-                test_data = f.read()
-            with open(os.path.join(ans)) as f:
-                answer_data = f.read()
-            problem.add_example(test_data, answer_data)
-            os.remove(test)
-            os.remove(ans)
+            #with open(os.path.join(test)) as f:
+            #    test_data = f.read()
+            #with open(os.path.join(ans)) as f:
+            #    answer_data = f.read()
+            #problem.add_example(test_data, answer_data)
+            problem.add_example(test, ans)
+            #os.remove(test)
+            #os.remove(ans)
             
-        return (problem.construct())
+        return (problem.construct(problem_path=self.__fakepath))
 

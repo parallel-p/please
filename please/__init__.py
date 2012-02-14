@@ -112,5 +112,6 @@ def main():
         print("IOError: " + str(ex))
         
 if __name__ == "__main__":
+    print("develop")
     main()
 
