@@ -23,8 +23,8 @@ class WellDoneWithValidator:
         self.__validator = validator
         self.__well_done = well_done
 
-    def validate(self, test_filename):
-        logger.info("Start validator on test #%s" % os.path.basename(test_filename))
+    def validate(self, test_filename, test_num):
+        logger.info("Start validator on test #%d" % test_num)
         if self.__well_done:
             outcome, errors = self.__well_done.check(test_filename, fix_inplace=False)
             if outcome != well_done.OK:
@@ -68,8 +68,8 @@ class TestsAndAnswersGenerator:
 
         well_done_with_validator = WellDoneWithValidator(
                 validator=validator_src, well_done=well_test)
-        for test in tests:
-            well_done_with_validator.validate(test)
+        for num, test in enumerate(tests):
+            well_done_with_validator.validate(test, num+1)
 
 
 
