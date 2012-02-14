@@ -39,7 +39,7 @@ class WellDoneWithValidator:
             else:
                 raise PleaseException(
                     form_error_output.process_err_exit(
-                        "Validator was crashed",
+                        "Validator has crashed",
                         invoke_info.verdict,
                         invoke_info.return_code,
                         stdout,
