@@ -1,4 +1,6 @@
 from ..lang_config import get_lang_config
+from ..lang_config.utils import is_windows
+import tempfile
 import logging
 from ..invoker import invoker
 from .. import globalconfig
@@ -50,15 +52,28 @@ def compile(path, limits=globalconfig.default_limits):
     for command in commands:
         log.debug("Compiler.py: running %s with limits %s" % (command, limits))
         try:
+            if is_windows():
+                outf = tempfile.TemporaryFile()
+                errf = tempfile.TemporaryFile()
+            else:
+                outf = errf = subprocess.PIPE
             handler = psutil.Popen(command,
-                                   stdout = subprocess.PIPE,
-                                   stderr = subprocess.PIPE,
+                                   stdout = outf,
+                                   stderr = errf,
                                    env = env)
         except OSError:
             error = PleaseException("There is no compiler for file '%s'" % path)
             break
         result = invoker.invoke(handler, limits)
-        out, err = handler.communicate()
+        handler.wait()
+        if is_windows():
+            outf.seek(0)
+            out = outf.read()
+            errf.seek(0)
+            err = errf.read()
+        else:
+            out = handler.stdout.read()
+            err = handler.stderr.read()
         stdout.append(out)
         stderr.append(err)
         if result.verdict != 'OK':
