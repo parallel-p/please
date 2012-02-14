@@ -5,7 +5,7 @@ User documentation
   * [Install]
   * [CreateProblem]
   * [ProblemConfig]
-  * [StamdardCheckers]
+  * [StandardCheckers]
   * [GenerateStatement]
   * [TestsConfig]
   * [Validator]
