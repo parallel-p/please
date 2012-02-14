@@ -129,6 +129,7 @@ Commands available inside problem's folder:
                                 ncmp.cpp, rcmp4.cpp, rcmp6.cpp,
                                 rcmp9.cpp, rcmp.cpp, rncmp.cpp,
                                 wcmp.cpp, yesno.cpp
+    For more detailed information look at wiki on http://code.google.com/p/please
     example: add standard checker acmp
 
   {6}:
