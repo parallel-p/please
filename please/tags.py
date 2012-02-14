@@ -1,14 +1,5 @@
 #!/usr/bin/python3
-from please import log
 import logging
-from .command_line.matcher import Matcher
-from .command_line.template import Template
-from .latex import latex_tools
-from .template import problem_template_generator as problem_gen
-from .package import config
-import codecs
-import sys
-from . import globalconfig
 from .solution_tester.package_config import PackageConfig
 from .utils.writepackage import writepackage
 

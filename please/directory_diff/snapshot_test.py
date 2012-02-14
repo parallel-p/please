@@ -1,6 +1,6 @@
 import unittest
 from .snapshot import Snapshot
-from .snapshot import get_changes
+get_changes = Snapshot.get_changes
 import os
 import shutil
 
@@ -28,10 +28,10 @@ class TestSnapshot(unittest.TestCase):
         # Make a snapshot of directory after creating a new file
         snap2 = Snapshot("temp_files", [], False)
         
-        self.assertEqual(get_changes(snap1, snap2), [ [], [os.path.join(os.getcwd(), os.path.join("temp_files", "temp.py")) ] ])
+        self.assertEqual(get_changes(snap1, snap2), ([], [os.path.join(os.getcwd(), os.path.join("temp_files", "temp.py")) ]))
         
         # Clean up
-        os.remove("temp_files/temp.py")        
+        os.remove("temp_files/temp.py")
       
     def test_ignore_dir(self):
         # Make a snapshot of directory with a folder inside to ignore 
@@ -40,7 +40,7 @@ class TestSnapshot(unittest.TestCase):
         # Make a snapshot of directory without a folder inside to ignore 
         snap2 = Snapshot("temp_files", [], False)
         
-        self.assertEqual(get_changes(snap1, snap2), [[ os.path.join(os.getcwd(), os.path.join("temp_files", "to_ignore")) ],[]])
+        self.assertEqual(get_changes(snap1, snap2), ([os.path.join(os.getcwd(), os.path.join("temp_files", "to_ignore")) ],[]))
     
 if __name__ == '__main__':
     unittest.main()

@@ -2,7 +2,7 @@ from ..language_configurator.lang_conf import get_language_configurator
 import logging
 from ..invoker import invoker
 from .. import globalconfig
-from ..directory_diff import snapshot
+from ..directory_diff.snapshot import Snapshot
 from . import trash_remover
 from ..utils import form_error_output
 from ..utils.exceptions import PleaseException
@@ -31,7 +31,7 @@ def compile(path, limits=globalconfig.default_limits):
     cur_folder = os.path.dirname(path)
     if cur_folder == "":
         cur_folder = "."
-    old_folder_state = snapshot.Snapshot(cur_folder)
+    old_folder_state = Snapshot(cur_folder)
     configurator = get_language_configurator(path)
     if configurator is None:
         raise PleaseException("Couldn't detect source language for file " + path)
@@ -68,8 +68,8 @@ def compile(path, limits=globalconfig.default_limits):
                 "Compilation %s failed with:" % path, result.verdict, \
                 result.return_code, out.decode(), err.decode()))
             break
-    new_folder_state = snapshot.Snapshot(cur_folder)
-    trash_remover.remove_trash(snapshot.get_changes(old_folder_state, new_folder_state), configurator.is_compile_garbage)
+    new_folder_state = Snapshot(cur_folder)
+    trash_remover.remove_trash(old_folder_state.get_changes(new_folder_state), configurator.is_compile_garbage)
     if error is not None:
         raise error
     else:
