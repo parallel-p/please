@@ -4,7 +4,7 @@ import os
 from ..template.template_utils import get_template_full_path
 import shutil
 from ..executors import compiler
-from ..language_configurator.language_configurator_utils import is_windows
+from ..lang_config.utils import is_windows
 from ..tests_answer_generator.tests_answer_generator import TestsAndAnswersGenerator
 from ..utils import form_error_output
 from ..utils.exceptions import PleaseException
