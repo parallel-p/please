@@ -13,7 +13,7 @@ class Snapshot:
     (it returns list of absolute full paths from root to appeared files and directories )
     """
     
-    def __init__(self, dir=os.getcwd(), dirs_to_ignore=[], recursive=True, files_to_ignore=[]):
+    def __init__(self, dir=os.curdir, dirs_to_ignore=[], recursive=True, files_to_ignore=[]):
         
         """
         dirs_to_ignore - an optional parameter that allows to configure the directories that are ignored by
@@ -21,9 +21,8 @@ class Snapshot:
         
         recursive - an optional parameter that  defines whether Snapshot needs to be looking for files recursively.       
         """
-        
-        if not os.path.isabs(dir):
-            dir=os.path.join(os.getcwd(), dir)
+       
+        dir = os.path.abspath(dir)
         
         # This will probably be removed on 21.12.2012
         if ".svn" not in dirs_to_ignore:
@@ -36,9 +35,9 @@ class Snapshot:
             self.__walk(False, dir, dirs_to_ignore, files_to_ignore)            
         else:      
             self.__walk(True, dir, dirs_to_ignore, files_to_ignore)
-                    
+
     def __str__(self):
-        return str('\n'.join(self.items_list))
+        return '\n'.join(self.items_list)
     
     def __walk(self, topdown, dir, dirs_to_ignore, files_to_ignore):
         _join = os.path.join
