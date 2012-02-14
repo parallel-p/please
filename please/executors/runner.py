@@ -16,14 +16,14 @@ class ExecutionControl:
 
     def __enter__(self):
         for f in (self.stdin_fh, self.stdout_fh, self.stderr_fh, self.process):
-            if f not in [None, PIPE]:
+            if f is not None and f is not PIPE:
                 f.__enter__()
         return self
 
     def __exit__(self, type, value, traceback):
         result = True
         for f in (self.stdin_fh, self.stdout_fh, self.stderr_fh, self.process):
-            if f not in [None, PIPE] and not f.__exit__(type, value, traceback):
+            if f is not None and f is not PIPE and not f.__exit__(type, value, traceback):
                 result = False
         return result
 
