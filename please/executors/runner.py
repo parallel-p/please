@@ -1,7 +1,7 @@
 import psutil
 from ..directory_diff.snapshot import Snapshot
 from ..invoker import invoker
-from ..language_configurator.lang_conf import get_language_configurator
+from ..lang_config import get_lang_config
 from subprocess import PIPE
 from .. import globalconfig
 from . import trash_remover
@@ -49,9 +49,8 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin = None
 
     snapshot_before = Snapshot()
 
-    lang = get_language_configurator(source)
-    cmd = lang.get_run_command(source)
-    args = cmd + args_list
+    lang = get_lang_config(source)
+    args = lang.run_command + args_list
     logger.debug("Starting process: args:%s, stdout:%s, stdin:%s, "
                  "stderr:%s, env:%s", str(args), str(stdout), str(stdin),
                  str(stderr), str(env))
@@ -65,7 +64,7 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin = None
         snapshot_after = Snapshot()
 
         trash_remover.remove_trash(snapshot_before.get_changes(snapshot_after), \
-                           lang.is_compile_garbage)
+                           lang.is_run_garbage)
         out, err = process.communicate()
         out = out or b''
         err = err or b''

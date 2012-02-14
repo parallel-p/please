@@ -18,7 +18,6 @@ class RunTest(unittest.TestCase):
     def test_run(self) :
         self.mox.StubOutWithMock(psutil, "Popen")
         process = self.mox.CreateMockAnything()
-        psutil.Popen(["a.exe"], stdin = None, shell = False, stdout = mox.IgnoreArg(), stderr = mox.IgnoreArg(), env = None).AndReturn(process)
         process.__enter__()
         process.communicate().AndReturn((b'', b''))
         process.__exit__(None, None, None)
@@ -38,12 +37,16 @@ class RunTest(unittest.TestCase):
         snap1.get_changes(snap2).AndReturn(None)
 
         m = self.mox.CreateMockAnything()
-        self.mox.StubOutWithMock(rn, "get_language_configurator")
-        rn.get_language_configurator("a.cpp").AndReturn(m)
-        m.get_run_command("a.cpp").AndReturn(["a.exe"])
-        m.is_compile_garbage = False
+        self.mox.StubOutWithMock(rn, "get_lang_config")
+        rn.get_lang_config("a.cpp").AndReturn(m)
+        m.run_command = ['a.exe']
+        m.is_run_garbage = False
         self.mox.StubOutWithMock(rn.trash_remover, "remove_trash")
         rn.trash_remover.remove_trash(None, False)
+
+        psutil.Popen(m.run_command, stdin = None, shell = False,
+                     stdout = mox.IgnoreArg(), stderr = mox.IgnoreArg(),
+                     env = None).AndReturn(process)
 
 
         #ec = self.mox.CreateMockAnything()

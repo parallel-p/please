@@ -1,4 +1,4 @@
-from ..language_configurator.lang_conf import get_language_configurator
+from ..lang_config import get_lang_config
 import logging
 from ..invoker import invoker
 from .. import globalconfig
@@ -32,30 +32,28 @@ def compile(path, limits=globalconfig.default_limits):
     if cur_folder == "":
         cur_folder = "."
     old_folder_state = Snapshot(cur_folder)
-    configurator = get_language_configurator(path)
-    if configurator is None:
+    config = get_lang_config(path)
+    if config is None:
         raise PleaseException("Couldn't detect source language for file " + path)
     DO_NOTHING_RESULT = (invoker.ResultInfo("OK", 0, 0, 0, 0) , "", "")
-    need_binaries = configurator.get_binary_name(path)
+    need_binaries = config.binaries
     if already_compiled(path, need_binaries):
         #log.info("File %s was already compiled" % path)
         return DO_NOTHING_RESULT
 
-    command = configurator.get_compile_command(path)
-    if command is None or command == [""]:
-        return DO_NOTHING_RESULT
-    if isinstance(command, tuple):
-        commands = command
-    else:
-        commands = (command,)
+    commands = config.compile_commands
     log.info("Compiling %s",str(path))
     stdout, stderr = [], []
     error = None
+    env = dict(os.environ)
+    env.update(config.environment)
     for command in commands:
         log.debug("Compiler.py: running %s with limits %s" % (command, limits))
         try:
-            handler = psutil.Popen(command, \
-                                   stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+            handler = psutil.Popen(command,
+                                   stdout = subprocess.PIPE,
+                                   stderr = subprocess.PIPE,
+                                   env = env)
         except OSError:
             error = PleaseException("There is no compiler for file '%s'" % path)
             break
@@ -69,9 +67,8 @@ def compile(path, limits=globalconfig.default_limits):
                 result.return_code, out.decode(), err.decode()))
             break
     new_folder_state = Snapshot(cur_folder)
-    trash_remover.remove_trash(old_folder_state.get_changes(new_folder_state), configurator.is_compile_garbage)
+    trash_remover.remove_trash(old_folder_state.get_changes(new_folder_state), config.is_compile_garbage)
     if error is not None:
         raise error
     else:
         return (result, stdout, stderr)
-    
