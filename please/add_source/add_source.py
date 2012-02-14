@@ -1,8 +1,6 @@
 import os
-import shutil
 import logging
 from ..package import config
-from .. import globalconfig
 from ..solution_tester.package_config import PackageConfig
 from ..utils.writepackage import writepackage
 from ..utils.exceptions import PleaseException

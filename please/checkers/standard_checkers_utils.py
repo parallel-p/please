@@ -4,7 +4,6 @@ import shutil
 import filecmp
 from .. import globalconfig
 from ..solution_tester import package_config
-from ..utils.writepackage import writepackage
 from ..add_source.add_source import add_checker
 from ..utils.exceptions import PleaseException
 from ..todo.todo_generator import TodoGenerator
@@ -12,7 +11,7 @@ from ..todo.todo_generator import TodoGenerator
 log = logging.getLogger("please_logger.checkers.standard_checker_utils")
 
 def print_standard_checkers():
-    opened_config = package_config.PackageConfig.get_config()
+    #opened_config = package_config.PackageConfig.get_config()
     # TODO: check if opened_config is None
     # opened_config is unused here, remove it
     checkers_dir = os.path.join(globalconfig.root, globalconfig.checkers_dir)

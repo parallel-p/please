@@ -1,8 +1,6 @@
 from ..solution_runner.solution_runner import SolutionInfo, run_solution
 from .. import globalconfig
-import os
 from ..utils.exceptions import PleaseException
-from ..invoker.invoker import ExecutionLimits 
 from ..solution_tester import package_config
 from ..utils import utests
 from ..utils.form_error_output import process_err_exit

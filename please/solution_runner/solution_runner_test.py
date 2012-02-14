@@ -14,7 +14,7 @@ class SolutionRunnerTest (unittest.TestCase) :
                                   os.path.join(prefix, "test.in"),
                                   os.path.join(prefix, "test.out" ))
         
-        run_class = run_solution(info_class)
+        run_solution(info_class)
 
         with open(os.path.join(prefix, "test.out"), "r") as output_file: 
             with open(os.path.join(prefix, "test.in"), "r") as input_file: 
@@ -27,7 +27,7 @@ class SolutionRunnerTest (unittest.TestCase) :
                                    "output" : "stdout"}, 
                                   os.path.join(prefix, "test.in"),
                                   os.path.join(prefix, "test.out" ))
-        run_class = run_solution(info_class)
+        run_solution(info_class)
         with open(os.path.join(prefix, "test.out"), "r") as output_file: 
             with open(os.path.join(prefix, "test.in"), "r") as input_file: 
                 self.assertEqual(input_file.read(), output_file.read())

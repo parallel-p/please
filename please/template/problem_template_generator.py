@@ -58,7 +58,7 @@ def generate_problem_advanced(shortname, human_language, programming_language):
     generate_package(globalconfig.default_package, replaces, shortname)
 
     # generate empty tests.please
-    with open(os.path.join(shortname, globalconfig.default_tests_config), 'w') as tests_config:
+    with open(os.path.join(shortname, globalconfig.default_tests_config), 'w'):
         pass
 
     # copy testlib.h & testlib.pas

@@ -1,7 +1,5 @@
 from ..package.config import Config
 import os.path
-import io
-import logging
 from .. import globalconfig
 
 #TODO:move it to another directory

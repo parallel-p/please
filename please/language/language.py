@@ -1,7 +1,6 @@
 #/bin/python3
 import os
 import logging
-import re
 import mimetypes
 
 from ..utils.exceptions import PleaseException

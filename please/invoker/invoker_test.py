@@ -1,12 +1,11 @@
-from please.invoker.invoker import *
-from please.utils.platform_detector import get_platform
-from os.path import exists
-from os import mkdir, remove
 import unittest 
 import os
-from shutil import rmtree, copytree
-import psutil
 import subprocess 
+
+import psutil
+
+from please.invoker.invoker import *
+from please.utils.platform_detector import get_platform
 
 class TestInvoker(unittest.TestCase):
     

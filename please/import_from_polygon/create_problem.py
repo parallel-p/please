@@ -4,8 +4,6 @@ from ..import_from_polygon import create_code
 from ..import_from_polygon import polygon_unzip
 from ..test_info import cmd_gen_test_info, file_test_info
 
-from ..package import config
-
 from lxml import etree
 import os
 import shutil
@@ -154,7 +152,6 @@ class PolygonProblemImporter:
 
         self.create_default_package(name)
 
-        problem_path = os.path.join(self.cwd, name)
         self.cwd = os.path.join(self.cwd, self.default_package['shortname']) #wtf? do we use name or shortname?
 
         self.parse_statements()

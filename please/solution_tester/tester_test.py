@@ -1,11 +1,11 @@
-import unittest
-import mox
-from please.checker_runner import checker_runner
-from please.solution_runner.solution_runner import run_solution, SolutionInfo
-from please.invoker.invoker import ExecutionLimits, ResultInfo
 import os
-from please.solution_tester import tester
-import sys
+import unittest
+
+import mox
+
+from ..checker_runner import checker_runner
+from ..invoker.invoker import ResultInfo
+from ..solution_tester import tester
 
 class SolutionTesterTest(unittest.TestCase):
     def setUp(self):

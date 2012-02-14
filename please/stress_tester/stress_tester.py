@@ -10,7 +10,6 @@ from ..checker_runner import checker_runner
 from ..utils.exceptions import PleaseException
 import logging
 import shutil
-import io
 
 class StressCheckException(PleaseException):
     pass

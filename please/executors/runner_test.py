@@ -1,11 +1,10 @@
+import unittest
+
 import mox
 import psutil
-import subprocess
-import please.executors.runner as rn
-import unittest
-import os
 
-import tempfile
+import please.executors.runner as rn
+
 
 class RunTest(unittest.TestCase):
 

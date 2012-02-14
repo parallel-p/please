@@ -22,7 +22,7 @@ class TestSnapshot(unittest.TestCase):
         snap1 = Snapshot("temp_files", [], False) 
         
         # Create a new file
-        with open("temp_files/temp.py", "w") as empty:
+        with open("temp_files/temp.py", "w"):
             pass
         
         # Make a snapshot of directory after creating a new file

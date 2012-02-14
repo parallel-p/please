@@ -7,7 +7,6 @@ import re
 import shutil
 import zipfile
 import distutils.archive_util
-from please.log import logger
     
 serve_problem_template_name = os.path.join(globalconfig.root, 'export2ejudge', 'serve_problem_template.part')
 global test_sfx

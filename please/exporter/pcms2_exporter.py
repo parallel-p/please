@@ -1,7 +1,5 @@
 from .. import globalconfig
 from .generic_exporter import GenericExporter
-from ..package import config
-from ..template.template_utils import get_template_full_path
 from ..solution_tester.package_config import PackageConfig
 import shutil
 import os

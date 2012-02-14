@@ -1,8 +1,5 @@
-from please.solution_tester.package_config import PackageConfig
 import mox
 import unittest
-import io
-import os
 
 class PackageConfigTest(unittest.TestCase):
     
