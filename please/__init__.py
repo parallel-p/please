@@ -1,15 +1,12 @@
 #!/usr/bin/python3
 import os
 import sys
-import logging
 
 from please import globalconfig
 from please.log import logger
-from please.package import config
 from please.command_line.matcher import Matcher
 from please.executors import trash_remover
 from please import command_line_config
-from please.tests_answer_generator import tests_answer_generator
 from please.utils.exceptions import PleaseException, MatcherException
 
 def determinate_location():

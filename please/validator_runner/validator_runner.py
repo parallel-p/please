@@ -6,4 +6,4 @@ def validate(validator, test):
         log = logging.getLogger("please_logger.validator_runner.validate")
         with open(test, 'rb') as f:    
                 compiler.compile(validator)                         
-                return runner.run(validator, stdin_fh=f)
+                return runner.run(validator, stdin=f)
