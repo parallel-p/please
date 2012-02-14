@@ -11,8 +11,12 @@ def delay_choose():
     else:
         return random_delay * random.randint(2, 5)
 
-for c in sys.stdin.read():
-    sys.stdout.write(c)
-    sys.stdout.flush()
-    sleep((delay + delay_choose()) / 1000.0)
+while True:
+    buffer = sys.stdin.read(1024)
+    if not buffer:
+        break
+    for c in buffer:
+        sys.stdout.write(c)
+        sys.stdout.flush()
+        sleep((delay + delay_choose()) / 100000.0)
 
