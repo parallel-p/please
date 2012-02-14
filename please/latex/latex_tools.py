@@ -18,14 +18,14 @@ def generate_problem():
     template_vars = copy.copy(globalconfig.default_template_vars)
     problem_full_name = package_config.PackageConfig.get_config()['name']
     template_vars['name'] = '%s' % problem_full_name
-    generate_contest(['.'], None, template_vars)
+    generate_contest(template_vars=template_vars)
 
-def generate_contest(problem_names = ['.'], template = None, template_vars = globalconfig.default_template_vars, file = None):
+def generate_contest(problem_names = [os.curdir], template = None, template_vars = globalconfig.default_template_vars, file = None):
     problem_template_path = get_template_full_path(globalconfig.default_template_contest)
 
-    with open(problem_template_path, "r", encoding = "UTF8") as template:
+    with open(problem_template_path, "r", encoding = "utf-8") as template:
         contest = LatexContestConstructor(template.read(), template_vars)
-    single_problem = (problem_names == ["."])
+    single_problem = (problem_names == [os.curdir])
 
     current_dir = os.getcwd()
     for problem in problem_names:
@@ -56,6 +56,7 @@ def generate_contest(problem_names = ['.'], template = None, template_vars = glo
 
     os.chdir(current_dir)
 
+    destination = os.path.splitext(new_tex_name)[0] + ".pdf"
     if file is not None:
         pdf_out_name = os.path.join(globalconfig.temp_statements_dir, file + ".pdf")
     else:
@@ -107,7 +108,7 @@ class LatexConstructor:
             result = result.replace(tag, str(value))
 
         if self.__input_example: #if at least one sample test exists
-            examples = "%s\n\\begin{%s}\n" % ('', self.__example_environment)
+            examples = "\n\\begin{%s}\n" % self.__example_environment
             count = 0
             for in_example, out_example in zip(self.__input_example, self.__output_example):
                 examples += "\\exmp{\n%s}{%s}%%\n" % (str(in_example), str(out_example))
@@ -241,7 +242,7 @@ def get_memory_string(memory):
     else:
         return "мегабайт"
 
-class SingleProblemCreator():
+class SingleProblemCreator:
     __name__ = "SingleProblemCreator"
 
     def __init__(self, config = None, path = '.'):
@@ -258,7 +259,7 @@ class SingleProblemCreator():
         with open(statement_template_path, "r", encoding = "utf-8") as template_file:
             problem = LatexConstructor(template_file.read())
 
-        with open(statement_path, "r", encoding = "utf-8") as problem_file:
+        with open(statement_path, "r", encoding = "utf-8-sig") as problem_file:
             problem.set_text(problem_file.read())
 
         if self.__config['input'] == 'stdin':
