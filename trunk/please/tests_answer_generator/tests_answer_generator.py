@@ -15,9 +15,6 @@ from ..well_done import well_done
 from please.log import logger
 from ..utils import form_error_output
 
-def get_file_name(testinfo):
-    return testinfo
-
 class WellDoneWithValidator:
     def __init__(self, validator = None, well_done = None):
         self.__validator = validator
