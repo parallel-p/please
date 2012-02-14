@@ -1,8 +1,6 @@
 import unittest
 from please.language_configurator.dpr import DprLinuxConfigurator
 from please.language_configurator.dpr import DprWindowsConfigurator
-from please.language_configurator.dpr import get_dpr_configurator
-from please.language_configurator.dpr import is_compilation_garbage
 
 class DprLinuxConfiguratorTest(unittest.TestCase):
     def test_is_garbage(self):

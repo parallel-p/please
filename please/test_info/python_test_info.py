@@ -1,4 +1,3 @@
-from ..executors import runner
 from . import test_info
 import tempfile
 from ..utils.exceptions import PleaseException
@@ -29,4 +28,4 @@ class PythonTestInfo(test_info.TestInfo):
         return [ temp.name ]
     
     def to_please_format(self):
-        return ' '.join([seluf.get_prefix(), self.__code, self.get_suffix()]).strip()
+        return ' '.join([self.get_prefix(), self.__code, self.get_suffix()]).strip()

@@ -6,7 +6,6 @@ from ..diff_test_finder.diff_test_finder import DiffTestFinder
 from ..directory_diff.snapshot import Snapshot
 from ..utils.form_error_output import process_err_exit
 import os
-import re
 from ..utils.exceptions import PleaseException
 
 class CmdOrGenTestInfo(test_info.TestInfo):

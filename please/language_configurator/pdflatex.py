@@ -1,10 +1,6 @@
 import os
 import os.path
 
-from ..globalconfig import temp_statements_dir
-from ..template.template_utils import get_template_full_path
-from .language_configurator_utils import is_windows
-
 def is_compilation_garbage(source):
     if os.path.splitext(source)[1] == '':
         return False

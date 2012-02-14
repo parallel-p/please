@@ -1,4 +1,3 @@
-import inspect
 import unittest
 
 from please.language_configurator.dpr import DprLinuxConfigurator, DprWindowsConfigurator

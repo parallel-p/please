@@ -1,9 +1,7 @@
 import mox
 import unittest
-import os
 import please.checker_runner.checker_runner
-from please.executors.compiler import compile
-from please.executors.runner import run 
+
 class CheckerRunnerTest(unittest.TestCase):
     def setUp(self):
         self.mox = mox.Mox()

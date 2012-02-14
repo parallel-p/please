@@ -1,5 +1,4 @@
 import os
-import re
 from .language_configurator_utils import is_windows
 import glob
 

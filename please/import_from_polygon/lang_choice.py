@@ -1,5 +1,3 @@
-from lxml import etree
-
 def make_language_choice(elements):
     for element in elements:
         if element.get('language') == 'russian':

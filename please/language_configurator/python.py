@@ -1,4 +1,3 @@
-import os
 from .language_configurator_utils import is_windows
 
 class PythonConfigurator:
