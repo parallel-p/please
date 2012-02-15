@@ -19,13 +19,12 @@ class RunTest(unittest.TestCase):
         self.mox.StubOutWithMock(psutil, "Popen")
         process = self.mox.CreateMockAnything()
         process.__enter__()
-        process.communicate().AndReturn((b'', b''))
         process.__exit__(None, None, None)
 
         self.mox.StubOutWithMock(rn.invoker, "invoke")
         res_info = self.mox.CreateMock(rn.invoker.ResultInfo)
         res_info.verdict = "OK"
-        rn.invoker.invoke(process, rn.globalconfig.default_limits).AndReturn(res_info)
+        rn.invoker.invoke(process, rn.globalconfig.default_limits).AndReturn((res_info, b'', b''))
 
         Snapshot = rn.Snapshot
         self.mox.StubOutWithMock(rn, "Snapshot")
