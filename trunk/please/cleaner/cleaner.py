@@ -19,8 +19,8 @@ class Cleaner:
                     if os.path.exists(binary):
                         logger.info("Removing " + binary)
                         os.remove(binary)
-                if not binaries:
-                    logger.info("There is no binary file for " + source)
+                    else:
+                        logger.info("There is no binary file for " + source)
                 
     def cleanup(self):
         if os.path.exists(globalconfig.temp_statements_dir):

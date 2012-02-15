@@ -4,6 +4,7 @@ from ..solution_tester import package_config
 from ..todo import painter
 from .. import globalconfig
 from ..template import info_generator
+from ..utils import utests
 
 #TODO: make it nonstatic class
 class TodoGenerator:
@@ -37,9 +38,23 @@ class TodoGenerator:
                     TodoGenerator.__get_file_item_status(config, md5values, item), item)
         tests_description_path = globalconfig.default_tests_config
         TodoGenerator.print_to_console(TodoGenerator.__get_simple_item_status(config, "tags"), "tags", " is empty")
+        TodoGenerator.print_to_console(TodoGenerator.__get_simple_item_status(config, "name"), "name", " is empty")
         TodoGenerator.print_to_console(
                 TodoGenerator.__get_file_item_status(config, md5values,
                     "tests_description", tests_description_path), "tests description")
+        TodoGenerator.__get_tests_status()
+        
+    @staticmethod
+    def __get_tests_status():
+        count = 0
+        for i in utests.get_tests():
+            count += 1
+        msg = str(count) + " tests generated"
+        if count > 0:
+            print(painter.ok(msg))
+        else:
+            print(painter.warning(msg))
+    
     @staticmethod
     def __get_simple_item_status(config, item):
         if item in config:
