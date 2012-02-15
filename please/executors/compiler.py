@@ -10,6 +10,7 @@ from ..utils import form_error_output
 from ..utils.exceptions import PleaseException
 import psutil
 import subprocess
+from subprocess import PIPE
 import os
 
 def already_compiled(src, need_binaries):
@@ -52,28 +53,14 @@ def compile(path, limits=globalconfig.default_limits):
     for command in commands:
         log.debug("Compiler.py: running %s with limits %s" % (command, limits))
         try:
-            if is_windows():
-                outf = tempfile.TemporaryFile()
-                errf = tempfile.TemporaryFile()
-            else:
-                outf = errf = subprocess.PIPE
             handler = psutil.Popen(command,
-                                   stdout = outf,
-                                   stderr = errf,
+                                   stdout = PIPE,
+                                   stderr = PIPE,
                                    env = env)
         except OSError:
             error = PleaseException("There is no compiler for file '%s'" % path)
             break
-        result = invoker.invoke(handler, limits)
-        handler.wait()
-        if is_windows():
-            outf.seek(0)
-            out = outf.read()
-            errf.seek(0)
-            err = errf.read()
-        else:
-            out = handler.stdout.read()
-            err = handler.stderr.read()
+        result, out, err = invoker.invoke(handler, limits)
         stdout.append(out)
         stderr.append(err)
         if result.verdict != 'OK':

@@ -59,15 +59,11 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin = None
                            env = env, shell = shell)
     invoke_result = None
     with ExecutionControl(stdin, stdout, stderr, process):
-        invoke_result = invoker.invoke(process, limits)
+        invoke_result, out, err = invoker.invoke(process, limits)
 
-        snapshot_after = Snapshot()
+    snapshot_after = Snapshot()
 
-        trash_remover.remove_trash(snapshot_before.get_changes(snapshot_after), \
-                           lang.is_run_garbage)
-        out, err = process.communicate()
-        out = out or b''
-        err = err or b''
-
+    trash_remover.remove_trash(snapshot_before.get_changes(snapshot_after), \
+                       lang.is_run_garbage)
 
     return (invoke_result, out, err)
