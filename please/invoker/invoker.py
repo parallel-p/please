@@ -1,6 +1,35 @@
 import psutil
 import time
 from ..utils import platform_detector
+import sys
+import errno
+import os
+
+_on_windows = sys.platform.startswith('win')
+
+CHUNKSIZE = 4096
+
+if _on_windows:
+    import threading
+    def _read(file, list, event):
+        if file is None:
+            return
+        while True:
+            bs = file.read(CHUNKSIZE)
+            if not bs:
+                break
+            list.append(bs)
+            if event.isSet():
+                break
+    def _new_reading_thread(file, list):
+        event = threading.Event()
+        thread = threading.Thread(target=_read, args=(file, list, event))
+        thread.start()
+        return thread, event
+else:
+    import fcntl
+    import select
+    _use_poll = hasattr(select, 'poll')
 
 import logging
 logger = logging.getLogger("please_logger.invoker")
@@ -105,6 +134,28 @@ def invoke(handler, limits):
     start_time = time.time()
     real_time = 0
     return_code = None 
+    stdout = []
+    stderr = []
+    if _on_windows:
+        outthread, outstop = _new_reading_thread(handler.stdout, stdout)
+        errthread, errstop = _new_reading_thread(handler.stderr, stderr)
+    elif _use_poll:
+        poller = select.poll()
+        flags = select.POLLIN | select.POLLPRI
+        fds = {}
+        outs = {}
+        def _register(f, out):
+            if f is not None:
+                poller.register(f.fileno(), flags)
+                fds[f.fileno()] = f
+                outs[f.fileno()] = out
+                fcntl.fcntl(f.fileno(), fcntl.F_SETFL, os.O_NONBLOCK)
+        _register(handler.stdout, stdout)
+        _register(handler.stderr, stderr)
+    else:
+        write_set = [f for f in (handler.stdout, handler.stderr) if f is not None]
+        for f in write_set:
+            fcntl.fcntl(f.fileno(), fcntl.F_SETFL, os.O_NONBLOCK)
     while return_code is None:
         #wait some time before checking process information,
         #because in darwin it is access denied raised in first moment
@@ -144,14 +195,63 @@ def invoke(handler, limits):
             return_code = None
             break
 
-    
+        # Reading fun!
+        if not _on_windows:
+            if _use_poll:
+                if not fds:
+                    continue
+                try:
+                    events = poller.poll(0)
+                except OSError as e:
+                    if e.args[0] == errno.EINTR: # rewrite this for python 3.3
+                        continue
+                    raise
+                for fd, mode in events:
+                    if mode & flags: # actual message
+                        try:
+                            data = os.read(fd, CHUNKSIZE)
+                        except OSError as e:
+                            if e.args[0] == errno.EAGAIN:
+                                continue
+                            raise
+                        if not data:
+                            poller.unregister(fd)
+                            del fds[fd]
+                        outs[fd].append(data)
+                    else:
+                        poller.unregister(fd)
+                        del fds[fd]
+            else:
+                rlist, wlist, xlist = select.select([], write_set, [], 0)
+                if handler.stdout in wlist:
+                    try:
+                        data = handler.stdout.read(CHUNKSIZE)
+                    except OSError as e:
+                        if e.args[0] != errno.EAGAIN:
+                            raise
+                    else:
+                        stdout.append(data)
+                if handler.stderr in wlist:
+                    try:
+                        data = handler.stderr.read(CHUNKSIZE)
+                    except OSError as e:
+                        if e.args[0] != errno.EAGAIN:
+                            raise
+                    else:
+                        stderr.append(data)
+
+    if _on_windows:
+        outstop.set()
+        errstop.set()
+
     real_time = time.time() - start_time
     if real_time > limits.real_time:
         verdict = "real TL"
         return_code = None
 
     verdict = verdict or ("OK" if return_code == 0 else "RE")
-    return ResultInfo(verdict, return_code, real_time, cpu_time, used_memory / MEGABYTE)
+    return (ResultInfo(verdict, return_code, real_time, cpu_time, used_memory / MEGABYTE),
+            b''.join(stdout), b''.join(stderr))
 
 __current_platform = platform_detector.get_platform()
 
