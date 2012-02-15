@@ -50,10 +50,12 @@ def compile(path, limits=globalconfig.default_limits):
     error = None
     env = dict(os.environ)
     env.update(config.environment)
+    _null_device = open(os.devnull, 'rb')
     for command in commands:
         log.debug("Compiler.py: running %s with limits %s" % (command, limits))
         try:
             handler = psutil.Popen(command,
+                                   stdin = _null_device,
                                    stdout = PIPE,
                                    stderr = PIPE,
                                    env = env)
@@ -66,7 +68,7 @@ def compile(path, limits=globalconfig.default_limits):
         if result.verdict != 'OK':
             error = PleaseException(form_error_output.process_err_exit(
                 "Compilation %s failed with:" % path, result.verdict, \
-                result.return_code, out.decode(), err.decode()))
+                result.return_code, os.fsdecode(out), os.fsdecode(err)))
             break
     new_folder_state = Snapshot(cur_folder)
     trash_remover.remove_trash(old_folder_state.get_changes(new_folder_state), config.is_compile_garbage)
