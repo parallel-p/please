@@ -14,7 +14,7 @@ class Cleaner:
         if source is not None:
             lang_conf = get_lang_config(source)
             if lang_conf is not None:
-                binaries = lang_conf.binaries(source)
+                binaries = lang_conf._get_binaries(source)
                 for binary in binaries:
                     if os.path.exists(binary):
                         logger.info("Removing " + binary)
