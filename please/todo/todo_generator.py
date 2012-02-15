@@ -24,7 +24,7 @@ class TodoGenerator:
     @staticmethod
     def is_item_modified(item, config):
         md5values = TodoGenerator.__read_md5_values()
-        status = TodoGenerator.__get_item_status(config, md5values, item)
+        status = TodoGenerator.__get_file_item_status(config, md5values, item)
         return status == "ok"
 
     @staticmethod
@@ -34,24 +34,34 @@ class TodoGenerator:
         items = ["statement", "checker", "description", "analysis", "validator", "main_solution"]
         for item in items:
             TodoGenerator.print_to_console(
-                    TodoGenerator.__get_item_status(config, md5values, item), item)
+                    TodoGenerator.__get_file_item_status(config, md5values, item), item)
         tests_description_path = globalconfig.default_tests_config
+        TodoGenerator.print_to_console(TodoGenerator.__get_simple_item_status(config, "tags"), "tags", " is empty")
         TodoGenerator.print_to_console(
-                TodoGenerator.__get_item_status(config, md5values,
+                TodoGenerator.__get_file_item_status(config, md5values,
                     "tests_description", tests_description_path), "tests description")
-    
+    @staticmethod
+    def __get_simple_item_status(config, item):
+        if item in config:
+            if config[item].strip() != "":
+                return "ok"
+            else:
+                return "warning"
+        else:
+            return "error" 
+                    
     @staticmethod   
-    def print_to_console(status, text):
+    def print_to_console(status, text, warn_msg=" is default", err_msg = " does not exist"):
         """ prints message to please console. color depends on objective's status"""
         if (status == "ok"):
             print(painter.ok(text + " ok"))
         elif (status == "warning"):
-            print(painter.warning(text + " is default"))
+            print(painter.warning(text + warn_msg))
         else:
-            print(painter.error(text + " does not exist"))
-    
+            print(painter.error(text + err_msg))
+            
     @staticmethod
-    def __get_item_status(config, md5values, item=None, path=None):
+    def __get_file_item_status(config, md5values, item=None, path=None):
         """
         Description:
         this function returns one of three item statuses (types):
