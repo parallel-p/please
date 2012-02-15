@@ -1,7 +1,6 @@
 program solution;
 
 {$APPTYPE CONSOLE}
-{$MODE DELPHI}
 {$R+,Q+,S+,H+}
 uses
   SysUtils;
