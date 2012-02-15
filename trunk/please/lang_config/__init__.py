@@ -1,6 +1,6 @@
-'''Language configuation automatics.'''
+'''Language configuration automatics.'''
 
-from ..language import language
+from .. import language
 from importlib import import_module
 
 modules = ["cpp",

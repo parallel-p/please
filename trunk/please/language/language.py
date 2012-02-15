@@ -79,7 +79,7 @@ class Language:
 
         if self.magicdb is None:
             self._get_mime_via_magic = lambda path: (None, '')
-        self.py2warning = False
+        self.py2warning = set()
     
     @staticmethod
     def _split_mime(mimetype):
@@ -144,17 +144,18 @@ class Language:
             return None
 
     def __proceed_python(self, path):
+        path_handle = os.path.realpath(path)
         with open(path, 'rb') as f:
             line = f.readline()
         if b"python3" in line: # much faster, proven by python -m timeit
             return "python3"
         elif b"python2" in line:
             return "python2"
-        elif self.py2warning:
+        elif path_handle in self.py2warning:
             return "python2"
         else:
             logger.warning("Assuming " + path + " is python2 file. \nIf you want to translate it with python3, insert 'python3' in the comment in the first line of this file")
-            self.py2warning = True
+            self.py2warning.add(path_handle)
             return "python2"
 
     def __proceed_brainfuck(self, path):
@@ -205,14 +206,4 @@ class Language:
             raise PleaseException("There is no file " + path) # XXX incorrect error message
         res_by_content = self.__by_contents(path, res_by_mime[1:])
         return res_by_content
-
-_lang = Language() # STOP INSTANTIATING IN EVERY FUNCTION CALL!
-
-def get(path):
-    '''Get a programming language for a file.'''
-    return _lang.get(path)
-
-def is_source_code(path):
-    lang = get(path)
-    return lang is not None and lang in langs # hey, there is TeX!
 
