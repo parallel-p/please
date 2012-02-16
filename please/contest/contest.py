@@ -2,7 +2,7 @@
 # coding=utf-8
 
 import errno
-from ..package.config import Config
+from ..package.config import Config, ConfigFile
 from ..package.package_config import PackageConfig
 from ..utils.exceptions import PleaseException
 
@@ -52,23 +52,20 @@ class IdMethod:
 
 class Contest:
     def __init__( self, config_name, ok_if_not_exists = False ):
-        try:
-            with open(config_name, 'r') as config_file:
-                config_data = config_file.read()
-            self.config = Config(config_data)
-        except IOError as e:
-            if e.errno == errno.ENOENT and ok_if_not_exists:
-                self.config = Config("")
-                self.config["name"] = ""
-                self.config['id_method'] = 'default'
-                statement_config = Config('')
-                statement_config['name'] = ""
-                statement_config['location'] = ""
-                statement_config['date'] = ""
-                statement_config['template'] = "contest.tex"
-                self.config['statement'] = statement_config
-            else:
-                raise e
+        if os.path.exists(config_name):
+            self.config = ConfigFile(config_name)
+        elif ok_if_not_exists:
+            self.config = ConfigFile(config_name)
+            self.config["name"] = ""
+            self.config['id_method'] = 'default'
+            statement_config = Config('')
+            statement_config['name'] = ""
+            statement_config['location'] = ""
+            statement_config['date'] = ""
+            statement_config['template'] = "contest.tex"
+            self.config['statement'] = statement_config
+        else:
+            raise PleaseException('Config file {} does not exist'.format(config_name))
 
         self.__id_method = IdMethod.get(self.config['id_method'])
         if not isinstance(self.config['problem'], list):

@@ -14,15 +14,13 @@ def get_contest_config(name, path = '.'):
 def get_contest(name, ok_if_not_exists = False):
     return contest.Contest(get_contest_config(name), ok_if_not_exists)
 
-def add_problems_to_contest(contest, problems):
+def add_problems_to_contest(contest, problems, ids):
     """
         Adds some problems to contest, where <problems> is list returned by matcher
         for example, problems: ['sloniki', 'grader', 'as', 'A,B']
     """
     r = []
-    if len(problems) >= 3 and problems[-2] == "as":
-        ids = problems[-1].split(',')
-        problems = problems[:-2]
+    if ids:
         if len(problems) != len(ids):
             raise PleaseException("Problems count (%d) does not match IDs count (%d)" % (len(problems), len(ids)))
         problems = zip(problems, ids)
@@ -50,8 +48,7 @@ def remove_problems_from_contest(contest, problems):
 
 def write_contest(name, contest):
     """ Saves contest to its .contest file """
-    with open(get_contest_config(name), 'w') as f:
-        f.write(contest.config.get_text())
+    contest.config.write()
 
 def command_create_contest(name, problems):
     if os.path.exists(get_contest_config(name)):
@@ -64,7 +61,7 @@ def command_create_contest(name, problems):
 
 def command_add_problems(name, problems, problems_as = []):
     current_contest = get_contest(name)
-    r = add_problems_to_contest(current_contest, problems + problems_as)
+    r = add_problems_to_contest(current_contest, problems, problems_as)
     write_contest(name, current_contest)
     if len(r) == 1:
         logger.info("added problem %s to contest" % r[0])
