@@ -1,4 +1,4 @@
-please_version = 0.1
+please_version = 0.3
 # Название задачи
 name = а + б
 # Краткое название задачи
@@ -25,3 +25,7 @@ main_solution = solutions/solution.cpp
 statement = statements/default.ru.tex
 # Название файла с кратким описанием задачи
 description = statements/description.ru.tex
+solution = {
+    source = solutions/solution.cpp
+    expected = OK
+}
