@@ -72,14 +72,13 @@ setup_params = {
     'version'          : '0.2',
     'description'      : '***',
     'package_dir'      : {'please': 'please'},
-    'packages'         : ['please.' + x for x in find_packages('please')],
+    'packages'         : ['please.' + x for x in find_packages('please')] + ['please'],
     'package_data'     : package_data,
     'install_requires' : install_requires,
     'extras_require'   : extras_require,
     'dependency_links' : dependency_links,
     'entry_points'     : entry_points,
     'cmdclass'         : {'develop' : develop},
-    'include_package_data': False,
 }
 
 setup(**setup_params)
