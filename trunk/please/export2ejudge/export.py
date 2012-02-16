@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from please import globalconfig
 from please.package import config
+from please.package.package_config import PackageConfig
 from please.export2ejudge.connect_to_server import Connector
 import os
 import re
@@ -86,9 +87,7 @@ def recursive_zip(zipf, directory, folder=None):
                 recursive_zip(zipf, os.path.join(directory, item), os.path.join(folder, item))
     
 def export_problem2ejudge(contest_path, task, problem_id):
-    problem_package_name = os.path.join(task, 'default.package')
-    with open(problem_package_name, 'r') as package_file:
-        problem_config = config.Config(package_file.read())
+    problem_config = PackageConfig.get_config(task)
     with open(serve_problem_template_name, 'r') as serve_template_file:
         serve_problem_template = serve_template_file.readlines()
     

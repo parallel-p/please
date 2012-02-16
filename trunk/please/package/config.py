@@ -97,7 +97,7 @@ class Config:
             if ifcount == True:
                 if key in self.__settings:
                     value = self.__settings[key]
-                    if type(value) is Config:
+                    if isinstance(value, Config):
                         line += self.__get_config_string(key, value, comment, depth+1, indent, True)
                         lines.append(line)
                         continue
@@ -228,6 +228,20 @@ class Config:
             return self.__settings[item]
         else:
             return default
+
+class ConfigFile(Config):
+    def __init__(self, filename):
+        self.filename = filename
+        if os.path.isfile(filename):
+            with open(filename, 'r', encoding = 'utf-8-sig') as f:
+                text = f.read()
+        else:
+            text = ''
+        super().__init__(text)
+
+    def write(self):
+        with open(self.filename, 'w', encoding = 'utf-8') as f:
+            f.write(self.get_text())
 
 def create_simple_config(file_name, config):
     #print(config['shortname'])

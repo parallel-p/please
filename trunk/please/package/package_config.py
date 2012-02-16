@@ -1,5 +1,5 @@
 import os.path
-from .config import Config
+from .config import ConfigFile
 from .. import globalconfig
 from ..utils.writepackage import writepackage
 
@@ -35,11 +35,9 @@ class PackageConfig:
         else:
             # Find full path to the package
             # Parse and register the config
-            with open(package_path, encoding = "utf-8-sig") as package_file:
-                config_text = package_file.read()
-            PackageConfig.configs_dict[package_path] = Config(config_text)
-            PackageConfig.oldversion_fix(PackageConfig.configs_dict[package_path])
-            return PackageConfig.configs_dict[package_path]
+            PackageConfig.configs_dict[package_path] = pc = ConfigFile(package_path)
+            PackageConfig.oldversion_fix(pc)
+            return pc
 
     #############################################################
     # *.config fix if old please_version
@@ -55,7 +53,7 @@ class PackageConfig:
                 PackageConfig.main_solution_fix(conf)
 
             conf['please_version'] = str(globalconfig.please_version)
-            writepackage(conf.get_text())	
+            conf.write()
 
 
     @staticmethod
