@@ -1,5 +1,5 @@
 import os.path
-from ..solution_tester.package_config import PackageConfig
+from ..package.package_config import PackageConfig
 from .. import globalconfig
 from ..invoker import invoker
 

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import logging
-from .solution_tester.package_config import PackageConfig
+from .package.package_config import PackageConfig
 from .utils.writepackage import writepackage
 
 def add_tags (tags):

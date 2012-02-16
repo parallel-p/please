@@ -1,7 +1,7 @@
 import os
 import logging
 from ..package import config
-from ..solution_tester.package_config import PackageConfig
+from ..package.package_config import PackageConfig
 from ..utils.writepackage import writepackage
 from ..utils.exceptions import PleaseException
 

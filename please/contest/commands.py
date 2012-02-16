@@ -2,7 +2,7 @@ import os.path
 from . import contest
 from ..latex import latex_tools
 from ..exporter import exporter
-from ..solution_tester import package_config
+from ..package import package_config
 from ..log import logger
 from ..utils.exceptions import PleaseException
 

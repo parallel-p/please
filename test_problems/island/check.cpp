@@ -53,7 +53,7 @@ int main(int argc, char * argv[]) {
     for (int i = 1; i < k; ++i) {
         y = ouf.readInt() - 1;
         if (edge.count(make_pair(x, y)) == 0) quit(_wa, "such path does not exist");
-        if (mark[x] != mark[y]) {
+        if (mark[x+10000000] != mark[y]) {
             if (x & 1) t += 2; else t++;               
         }
         x = y;

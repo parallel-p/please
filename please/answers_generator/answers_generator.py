@@ -1,7 +1,7 @@
 from ..solution_runner.solution_runner import SolutionInfo, run_solution
 from .. import globalconfig
 from ..utils.exceptions import PleaseException
-from ..solution_tester import package_config
+from ..package import package_config
 from ..utils import utests
 from ..utils.form_error_output import process_err_exit
 import logging
