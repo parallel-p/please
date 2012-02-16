@@ -73,7 +73,7 @@ try:
 except ImportError as e:
     print('Error while importing develop extension: %s' % (str(e)))
 
-setup_params = { \
+setup_params = {
     'name'             : 'Please',
     'version'          : '0.2',
     'description'      : '***',
@@ -86,6 +86,7 @@ setup_params = { \
     'dependency_links' : dependency_links,
     'entry_points'     : entry_points,
     'cmdclass'         : {'develop' : develop},
+    'include_package_data': True,
 }
 
 setup(**setup_params)
