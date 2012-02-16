@@ -12,13 +12,6 @@ distribute_setup.use_setuptools(version="0.6.19")
 
 from setuptools import setup, find_packages
 
-modules = [
-    'please',
-    'please/tags',
-    'please/globalconfig',
-    'please/log',
-]
-
 # Папки, не содержащие код
 # Folders without
 package_data = {
@@ -78,9 +71,8 @@ setup_params = {
     'name'             : 'Please',
     'version'          : '0.2',
     'description'      : '***',
-    'py_modules'       : modules,
     'package_dir'      : {'please': 'please'},
-    'packages'         : find_packages(),
+    'packages'         : ['please.' + x for x in find_packages('please')],
     'package_data'     : package_data,
     'install_requires' : install_requires,
     'extras_require'   : extras_require,
