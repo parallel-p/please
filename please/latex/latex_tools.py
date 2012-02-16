@@ -20,8 +20,12 @@ def generate_problem():
     template_vars['name'] = '%s' % problem_full_name
     generate_contest(template_vars=template_vars)
 
-def generate_contest(problem_names = [os.curdir], template = None, template_vars = globalconfig.default_template_vars, file = None):
+def generate_contest(problem_names = [os.curdir], template = None, template_vars = None, file = None):
     problem_template_path = get_template_full_path(globalconfig.default_template_contest)
+    if template_vars is None:
+        template_vars = copy.copy(globalconfig.default_template_vars)
+    template_vars['statements_dir'] = os.path.join(os.path.abspath(globalconfig.statements_dir), '')
+
 
     with open(problem_template_path, "r", encoding = "utf-8") as template:
         contest = LatexContestConstructor(template.read(), template_vars)

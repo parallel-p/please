@@ -1,3 +1,16 @@
+'''Templates for mathing comandline commands.
+formal grammar:
+    template ::= token *
+    token ::= word | wordtail | wordalt | arg | path | list | option
+    option ::= '[' template ']'
+    word ::= "[a-z]+"
+    wordtail ::= word ++ "[" ++ word ++ "]"
+    wordalt ::= word ++ ( "|" ++ word ) *
+    arg ::= "$" ++ word
+    path ::= "/" ++ word
+    list ::= word ++ "..."
+in EBNF, where `++' means concatenation (no spaces between).'''
+
 from .word_matcher import contains
 import os.path
 
@@ -8,57 +21,82 @@ LIST = 3
 
 class Template:
     def __init__(self, definition):
-        tokens = definition.split()
-        tokens = [self._parse_token(s) for s in tokens]
-        self.__build_finite_automata(tokens)
+        stokens = self._split(definition)
+        self.__build_finite_automata(stokens)
+
+    def _split(self, definition):
+        stokens = []
+        for s in definition.split():
+            if s[0] == '[':
+                stokens.append('[')
+                s = s[1:]
+                if not s:
+                    continue
+
+            if s[-1] == ']' and '[' not in s:
+                s = s[:-1]
+                if s:
+                    stokens.append(s)
+                stokens.extend(']')
+            else:
+                stokens.append(s)
+        return stokens
+
 
     def _parse_token(self, token):
-        absent = False
-        if token.endswith('?'):
-            absent = True
-            token = token[:-1]
         if token.startswith('/'):
-            return PATH, token[1:], absent
+            return PATH, token[1:]
         elif token.startswith('$'):
-            return ARGUMENT, token[1:], absent
+            return ARGUMENT, token[1:]
         elif token.endswith('...'):
             token = token[:-3]
-            return LIST, token, absent
+            return LIST, token
         elif token.endswith(']'):
             before, after = token[:-1].split('[')
-            return WORD, [before, before + after], absent
+            return WORD, [before, before + after]
         elif '|' in token:
-            return WORD, token.split('|'), absent
+            return WORD, token.split('|')
         else:
-            return WORD, token, absent
+            return WORD, token
 
-    def __build_finite_automata(self, tokens):
-        epsilons = []
+    def __build_finite_automata(self, stokens):
+        tokens = []
+        eps_stack = []
+        epsilons = {}
+        pos = 0
+        for s in stokens:
+            if s == '[':
+                eps_stack.append(pos)
+            elif s == ']':
+                was = eps_stack.pop()
+                epsilons[was] = pos
+            else:
+                tokens.append(self._parse_token(s))
+                pos += 1
+
+        def _epsilon_chain(pos):
+            while pos in epsilons:
+                yield pos
+                pos = epsilons[pos]
+            yield pos
+
         l = len(tokens)
-        epsilons = [token[2] for token in tokens]
         automata = []
         for i, token in enumerate(tokens):
-            type, arg, eps = token
+            type, arg = token
             if type == WORD:
                 keys = arg
             else:
                 keys = None
-            values = [i + 1] if type != LIST else [i, i + 1]
-            if i + 1 < l:
-                for j in range(i + 1, l):
-                    if not epsilons[j]:
-                        break
-                values.extend(range(i + 2, j + 1))
+            values = [] if type != LIST else [i]
+            values.extend(_epsilon_chain(i + 1))
             automata.append((keys, values))
-        for i in range(l):
-            if not epsilons[i]:
-                break
 
-        self.starts = list(range(i + 1))
-        self.automata = automata
-        self.tokens = tokens
+        self.starts = tuple(_epsilon_chain(0))
+        self.automata = tuple(automata)
+        self.tokens = tuple(tokens)
 
-    def match(self, sequence, basepath):
+    def match(self, sequence):
         l = len(self.tokens)
         links = []
         states = {state: -1 for state in self.starts}
@@ -74,7 +112,7 @@ class Template:
             states = new_states
             links.append(states)
         if l not in links[-1]:
-            return {}
+            return None
         state = l
         results = {}
         for i in range(len(links) - 1, 0, -1): # yes, everything but first
@@ -83,7 +121,7 @@ class Template:
         
         result = {}
         for i, token in enumerate(self.tokens):
-            type, arg, _ = token
+            type, arg = token
             if type == WORD:
                 continue
             if i not in results:
@@ -91,8 +129,7 @@ class Template:
             elif type == ARGUMENT:
                 result[arg] = results[i][0]
             elif type == PATH:
-                result[arg] = os.path.normpath(os.path.join(basepath,
-                                                            results[i][0]))
+                result[arg] = os.path.normpath(results[i][0])
             elif type == LIST:
                 results[i].reverse()
                 result[arg] = results[i]
