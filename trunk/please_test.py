@@ -104,8 +104,6 @@ class PleaseTest(unittest.TestCase):
         os.chdir(start_dir)
         self.assertEqual(tags_from_std, "")
         
-        
-        
     def test_add_standard_checker(self):
         """ Checks command 'add standard checker checker_name' """
         start_dir = os.getcwd()
@@ -118,7 +116,6 @@ class PleaseTest(unittest.TestCase):
 
         os.chdir(start_dir)
         self.assertEqual(os.path.join(start_dir, "please", "checkers", "wcmp.cpp"), open_config["checker"])
-        
         
     def test_generate_statement(self):
         """ Checks command 'generate statement' """
