@@ -1,6 +1,7 @@
-from ..package.config import Config
 import os.path
+from .config import Config
 from .. import globalconfig
+from ..utils.writepackage import writepackage
 
 #TODO:move it to another directory
 class PackageConfig:
@@ -37,4 +38,32 @@ class PackageConfig:
             with open(package_path, encoding = "utf-8") as package_file:
                 config_text = package_file.read()
             PackageConfig.configs_dict[package_path] = Config(config_text)
+            PackageConfig.oldversion_fix(PackageConfig.configs_dict[package_path])
             return PackageConfig.configs_dict[package_path]
+
+    #############################################################
+    # *.config fix if old please_version
+    #############################################################
+
+    @staticmethod
+    def oldversion_fix(conf):
+        '''Fix *.config 
+           and rewrite please_version to current
+        '''
+        if float(conf['please_version']) < 0.25 and float(globalconfig.please_version) > 0.25:
+            PackageConfig.main_solution_fix(conf)
+
+        conf['please_version'] = str(globalconfig.please_version)
+        writepackage(conf.get_text())	
+
+
+    @staticmethod
+    def main_solution_fix(conf):
+        '''In please version <0.3 main_solution was not described
+           in solutions config. 
+        '''
+        new_config = Config("")
+        new_config["source"] = conf['main_solution']
+        new_config["expected"] = ["OK", ]
+        conf.set("solution", new_config, None, True)
+
