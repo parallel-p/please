@@ -1,6 +1,6 @@
 from .. import globalconfig
 from ..lang_config import get_lang_config
-from ..solution_tester import package_config
+from ..package import package_config
 import os
 import shutil
 from ..executors import trash_remover

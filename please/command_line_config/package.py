@@ -48,7 +48,7 @@ def add_problem_config_modification_operations(matcher, active):
         def __call__(self, value):
             log = logging.getLogger("please_logger.command_line_config")
             log.info("Set %s to %s in default.package" % (self.__arg_name, value))
-            from please.solution_tester import package_config
+            from please.package import package_config
             from please.utils.writepackage import writepackage
             opened_config = package_config.PackageConfig.get_config()
             opened_config[self.__arg_name] = value

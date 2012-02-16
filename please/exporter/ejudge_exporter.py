@@ -5,7 +5,7 @@ from ..archiver.ziparchiver import ZIPArchiver
 from ..ssh_tools.connector import Connector
 from .generic_exporter import GenericExporter
 from ..package import config
-from ..solution_tester.package_config import PackageConfig
+from ..package.package_config import PackageConfig
 
 class EjudgeExporter(GenericExporter):
     def __init__(self,network = {},libs = [],problems = []):

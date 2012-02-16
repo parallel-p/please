@@ -7,7 +7,7 @@ from ..invoker.invoker import ExecutionLimits
 from ..tests_generator import tests_generator
 from ..test_config_parser import parser
 from ..well_done import well_done
-from ..solution_tester import package_config
+from ..package import package_config
 import unittest
 import os
 import mox

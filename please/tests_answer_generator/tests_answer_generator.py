@@ -6,7 +6,7 @@ from ..tests_generator import tests_generator
 from ..invoker.invoker import ExecutionLimits
 from ..validator_runner import validator_runner
 from ..answers_generator import answers_generator
-from ..solution_tester import package_config
+from ..package import package_config
 from ..executors import runner
 import logging
 from ..utils import utests

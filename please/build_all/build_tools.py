@@ -1,6 +1,6 @@
 from ..todo.todo_generator import TodoGenerator
 from ..solution_tester.check_solution import check_all_solutions
-#from ..solution_tester import package_config
+#from ..package import package_config
 from ..command_line.generate_tests import generate_tests
 from ..latex import latex_tools
 #from ..utils import cleanup

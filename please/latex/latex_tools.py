@@ -1,5 +1,5 @@
 from .. import globalconfig
-from ..solution_tester import package_config
+from ..package import package_config
 import os
 from ..template.template_utils import get_template_full_path
 import shutil

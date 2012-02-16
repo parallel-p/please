@@ -13,7 +13,7 @@ def determinate_location():
     """
         Returns True is location is root of the problem
     """
-    from please.solution_tester import package_config
+    from please.package import package_config
     startdir = current_dir = os.getcwd()
     prev_dir = '?'
     pkg = package_config.PackageConfig.get_config()

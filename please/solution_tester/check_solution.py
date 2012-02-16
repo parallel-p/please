@@ -1,7 +1,7 @@
 import os.path
 import logging
 import colorama
-from ..solution_tester.package_config import PackageConfig
+from ..package.package_config import PackageConfig
 from ..reports import generate_html_report
 from ..utils.exceptions import PleaseException
 from ..language import language
