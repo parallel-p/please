@@ -127,14 +127,14 @@ def generate_html_for_solution(config, solution, expected = [], possible = []):
 
     return ["<div style='display: inline; float: left; margin: 5px; font-family: monospace'>" + html_reporter.get_str(fail = len(report[0]) + len(report[1]) > 0) + footer + "</div>", report]
 
-def generate_html_report(solves, add_main=False):
+def generate_html_report(solves): # , add_main=False):
     html = ''
     config = PackageConfig.get_config()
     all_results = []
-    if add_main:
-        gen = generate_html_for_solution(config, config["main_solution"])
-        html += gen[0]
-        all_results.append((config["main_solution"], gen[1]))
+    #if add_main:
+    #    gen = generate_html_for_solution(config, config["main_solution"])
+    #    html += gen[0]
+    #    all_results.append((config["main_solution"], gen[1]))
         
     for solve in solves:
         gen = generate_html_for_solution(config, solve["source"],
