@@ -64,24 +64,3 @@ logger.addHandler(fh)
 logger.addHandler(dfh)
 logger.addHandler(sh)
 
-logger.debug('Initialising name for logger')
-s = inspect.getouterframes(inspect.currentframe())[1][1]
-s = os.path.abspath(s)
-logger.debug('Ancestor file is %s', s)
-
-#TODO: try to understand what is this, and write normally
-s = s[:-2]
-s = s.replace('\\', '/')
-s = s.replace('.', '/')
-s = s.replace('/__init__', '')
-i = s.rfind('/please/')
-s = s[i:]
-s = s.replace('/', '.')
-if (s[-1] == '.'):
-    s = s[:-1]
-s = 'please_logger.' + s[8:]
-if (s[-1] == '.'):
-    s = s[:-1]
-
-logger.debug('Starting log(%s)', s)
-logger = getLogger(s)
