@@ -4,7 +4,7 @@ from logging import Formatter as _Formatter, getLogger, DEBUG, StreamHandler, Fi
 import os.path
 from please import globalconfig
 from colorama import init, Fore, Back, Style
-from please.solution_tester import package_config
+from please.package import package_config
 import inspect
 
 """

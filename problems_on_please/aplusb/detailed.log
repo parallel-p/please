@@ -607,3 +607,653 @@
 16.11.2011[16:59:40] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate html report $$$. String: build all
 16.11.2011[16:59:40] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
 16.11.2011[16:59:40] - aplusb - please_logger.matcher.Matcher.matches(DEBUG) Run function: build_all. Matching completed
+15.02.2012[14:10:22] - aplusb - please_logger(DEBUG) Initialising name for logger
+15.02.2012[14:10:22] - aplusb - please_logger(DEBUG) Ancestor file is c:\temp\_sis2011-jul\p\please\trunk\please\__init__.py
+15.02.2012[14:10:22] - aplusb - please_logger(DEBUG) Starting log(please_logger)
+15.02.2012[14:10:22] - aplusb - please_logger.matcher.Matcher.matches(DEBUG) Matching...
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: help ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: commands ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: create problem #shortname ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: create contest #name of @problems ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set main solution $path ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add solution|sol $path ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add solution|sol $path @args ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: delete|del solution|sol #path ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: change prop|properties @args ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: delete|del prop|properties @args ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon contest #name ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon problem #problem_letter from contest #contest_id ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon package #package ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: show todo ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: todo ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: show tags ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: tags ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: clear tags ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add tag|tags @tags ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen tests with tag|tags @tags ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen tests ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen statement|pdf ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen answers|ans ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: run|check solutions|sols|all ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run all solutions|sols ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run solution|sol|solutions|sols #substr ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run main solution|sol ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check main ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: compute TL|tl|time-limit|timelimit|time_limit ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: compute integer TL|tl|time-limit|timelimit|time_limit ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: validate|val tests ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: validate ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set validator|val $path ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set standard|std checker #checker ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set standard|std checker ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set checker $path ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set name #value ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set problem name #value ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set input #value ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set output #value ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set TL|tl|time-limit|timelimit|time_limit #value ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set ML|ml|memory-limit|memorylimit|memory_limit #value ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: stress $solution $generator ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: stress $solution $correct_solution $generator ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add problem|problems @problems to #name as @problems_as ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add problem|problems @problems to #name ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: del|delete problem|problems @problems from #name ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen contest #name statement|pdf ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: export #name to #where as #contest ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: change contest #name properties|prop#key #value ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: clean|clear ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: build all ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) Coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: build ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: export to #server_name contest #contest_id problem|problems @problems ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: take over the world ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: say @words ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: make me @food ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: sudo make me @food ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: smile ^^^. String: build all
+15.02.2012[14:10:22] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:10:22] - aplusb - please_logger.matcher.Matcher.matches(DEBUG) Run function: <function build_all at 0x00000000034E2AC8>. Matching completed
+15.02.2012[14:10:22] - aplusb - please_logger.TestsGenerator(INFO) Generating 0 tests series
+15.02.2012[14:10:22] - aplusb - please_logger.latex.latex_tools(INFO) Generating pdf from tex...
+15.02.2012[14:10:22] - aplusb - please_logger.executors.compiler.compile(INFO) Compiling default.ru.tex
+15.02.2012[14:10:22] - aplusb - please_logger.executors.compiler.compile(DEBUG) Compiler.py: running ['pdflatex', '-output-format', 'pdf', '-interaction', 'nonstopmode', '-include-directory', 'c:\\temp\\_sis2011-jul\\p\\please\\trunk\\please\\templates\\', '-draftmode', 'default.ru.tex'] with limits cpu_time=20.0, memory=3512.0Mb, real_time=100.0
+15.02.2012[14:10:23] - aplusb - please_logger.executors.compiler.compile(DEBUG) Compiler.py: running ['pdflatex', '-output-format', 'pdf', '-interaction', 'nonstopmode', '-include-directory', 'c:\\temp\\_sis2011-jul\\p\\please\\trunk\\please\\templates\\', 'default.ru.tex'] with limits cpu_time=20.0, memory=3512.0Mb, real_time=100.0
+15.02.2012[14:10:24] - aplusb - please_logger.latex.latex_tools(INFO) PDF default.ru.pdf was created successfully
+15.02.2012[14:10:24] - aplusb - please_logger(ERROR) Unknown error: [Error 5] Отказано в доступе: '.tests\\.svn\\all-wcprops'
+15.02.2012[14:16:31] - aplusb - please_logger(DEBUG) Initialising name for logger
+15.02.2012[14:16:31] - aplusb - please_logger(DEBUG) Ancestor file is c:\temp\_sis2011-jul\p\please\trunk\please\__init__.py
+15.02.2012[14:16:31] - aplusb - please_logger(DEBUG) Starting log(please_logger)
+15.02.2012[14:16:31] - aplusb - please_logger.matcher.Matcher.matches(DEBUG) Matching...
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: help ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: commands ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: create problem #shortname ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: create contest #name of @problems ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set main solution $path ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add solution|sol $path ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add solution|sol $path @args ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: delete|del solution|sol #path ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: change prop|properties @args ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: delete|del prop|properties @args ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon contest #name ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon problem #problem_letter from contest #contest_id ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon package #package ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: show todo ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: todo ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: show tags ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: tags ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: clear tags ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add tag|tags @tags ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen tests with tag|tags @tags ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen tests ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen statement|pdf ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen answers|ans ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: run|check solutions|sols|all ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run all solutions|sols ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run solution|sol|solutions|sols #substr ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run main solution|sol ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check main ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: compute TL|tl|time-limit|timelimit|time_limit ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: compute integer TL|tl|time-limit|timelimit|time_limit ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: validate|val tests ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: validate ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set validator|val $path ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set standard|std checker #checker ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set standard|std checker ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set checker $path ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set name #value ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set problem name #value ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set input #value ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set output #value ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set TL|tl|time-limit|timelimit|time_limit #value ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set ML|ml|memory-limit|memorylimit|memory_limit #value ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: stress $solution $generator ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: stress $solution $correct_solution $generator ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add problem|problems @problems to #name as @problems_as ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add problem|problems @problems to #name ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: del|delete problem|problems @problems from #name ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen contest #name statement|pdf ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: export #name to #where as #contest ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: change contest #name properties|prop#key #value ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: clean|clear ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: build all ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) Coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: build ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: export to #server_name contest #contest_id problem|problems @problems ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: take over the world ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: say @words ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: make me @food ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: sudo make me @food ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: smile ^^^. String: build all
+15.02.2012[14:16:31] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:31] - aplusb - please_logger.matcher.Matcher.matches(DEBUG) Run function: <function build_all at 0x0000000003482AC8>. Matching completed
+15.02.2012[14:16:31] - aplusb - please_logger.TestsGenerator(INFO) Generating 0 tests series
+15.02.2012[14:16:31] - aplusb - please_logger.latex.latex_tools(INFO) Generating pdf from tex...
+15.02.2012[14:16:31] - aplusb - please_logger.executors.compiler.compile(INFO) Compiling default.ru.tex
+15.02.2012[14:16:31] - aplusb - please_logger.executors.compiler.compile(DEBUG) Compiler.py: running ['pdflatex', '-output-format', 'pdf', '-interaction', 'nonstopmode', '-include-directory', 'c:\\temp\\_sis2011-jul\\p\\please\\trunk\\please\\templates\\', '-draftmode', 'default.ru.tex'] with limits cpu_time=20.0, memory=3512.0Mb, real_time=100.0
+15.02.2012[14:16:32] - aplusb - please_logger.executors.compiler.compile(DEBUG) Compiler.py: running ['pdflatex', '-output-format', 'pdf', '-interaction', 'nonstopmode', '-include-directory', 'c:\\temp\\_sis2011-jul\\p\\please\\trunk\\please\\templates\\', 'default.ru.tex'] with limits cpu_time=20.0, memory=3512.0Mb, real_time=100.0
+15.02.2012[14:16:32] - aplusb - please_logger.latex.latex_tools(INFO) PDF default.ru.pdf was created successfully
+15.02.2012[14:16:32] - aplusb - please_logger(ERROR) Unknown error: [Error 5] Отказано в доступе: '.tests\\.svn\\all-wcprops'
+15.02.2012[14:16:54] - aplusb - please_logger(DEBUG) Initialising name for logger
+15.02.2012[14:16:54] - aplusb - please_logger(DEBUG) Ancestor file is c:\temp\_sis2011-jul\p\please\trunk\please\__init__.py
+15.02.2012[14:16:54] - aplusb - please_logger(DEBUG) Starting log(please_logger)
+15.02.2012[14:16:54] - aplusb - please_logger.matcher.Matcher.matches(DEBUG) Matching...
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: help ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: commands ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: create problem #shortname ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: create contest #name of @problems ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set main solution $path ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add solution|sol $path ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add solution|sol $path @args ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: delete|del solution|sol #path ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: change prop|properties @args ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: delete|del prop|properties @args ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon contest #name ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon problem #problem_letter from contest #contest_id ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon package #package ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: show todo ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: todo ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: show tags ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: tags ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: clear tags ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add tag|tags @tags ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen tests with tag|tags @tags ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen tests ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen statement|pdf ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen answers|ans ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: run|check solutions|sols|all ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run all solutions|sols ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run solution|sol|solutions|sols #substr ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run main solution|sol ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check main ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: compute TL|tl|time-limit|timelimit|time_limit ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: compute integer TL|tl|time-limit|timelimit|time_limit ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: validate|val tests ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: validate ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set validator|val $path ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set standard|std checker #checker ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set standard|std checker ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set checker $path ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set name #value ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set problem name #value ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set input #value ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set output #value ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set TL|tl|time-limit|timelimit|time_limit #value ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set ML|ml|memory-limit|memorylimit|memory_limit #value ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: stress $solution $generator ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: stress $solution $correct_solution $generator ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add problem|problems @problems to #name as @problems_as ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add problem|problems @problems to #name ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: del|delete problem|problems @problems from #name ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen contest #name statement|pdf ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: export #name to #where as #contest ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: change contest #name properties|prop#key #value ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: clean|clear ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: build all ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) Coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: build ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: export to #server_name contest #contest_id problem|problems @problems ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: take over the world ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: say @words ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: make me @food ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: sudo make me @food ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: smile ^^^. String: build all
+15.02.2012[14:16:54] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:16:54] - aplusb - please_logger.matcher.Matcher.matches(DEBUG) Run function: <function build_all at 0x000000000363BAC8>. Matching completed
+15.02.2012[14:16:54] - aplusb - please_logger.TestsGenerator(INFO) Generating 0 tests series
+15.02.2012[14:16:54] - aplusb - please_logger.latex.latex_tools(INFO) Generating pdf from tex...
+15.02.2012[14:16:54] - aplusb - please_logger.executors.compiler.compile(INFO) Compiling default.ru.tex
+15.02.2012[14:16:54] - aplusb - please_logger.executors.compiler.compile(DEBUG) Compiler.py: running ['pdflatex', '-output-format', 'pdf', '-interaction', 'nonstopmode', '-include-directory', 'c:\\temp\\_sis2011-jul\\p\\please\\trunk\\please\\templates\\', '-draftmode', 'default.ru.tex'] with limits cpu_time=20.0, memory=3512.0Mb, real_time=100.0
+15.02.2012[14:16:55] - aplusb - please_logger.executors.compiler.compile(DEBUG) Compiler.py: running ['pdflatex', '-output-format', 'pdf', '-interaction', 'nonstopmode', '-include-directory', 'c:\\temp\\_sis2011-jul\\p\\please\\trunk\\please\\templates\\', 'default.ru.tex'] with limits cpu_time=20.0, memory=3512.0Mb, real_time=100.0
+15.02.2012[14:16:56] - aplusb - please_logger.latex.latex_tools(INFO) PDF default.ru.pdf was created successfully
+15.02.2012[14:16:56] - aplusb - please_logger(ERROR) Unknown error: [Error 5] Отказано в доступе: '.tests\\.svn\\all-wcprops'
+15.02.2012[14:23:50] - aplusb - please_logger(DEBUG) Initialising name for logger
+15.02.2012[14:23:50] - aplusb - please_logger(DEBUG) Ancestor file is c:\temp\_sis2011-jul\p\please\trunk\please\__init__.py
+15.02.2012[14:23:50] - aplusb - please_logger(DEBUG) Starting log(please_logger)
+15.02.2012[14:23:50] - aplusb - please_logger.matcher.Matcher.matches(DEBUG) Matching...
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: help ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: commands ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: create problem #shortname ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: create contest #name of @problems ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set main solution $path ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add solution|sol $path ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add solution|sol $path @args ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: delete|del solution|sol #path ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: change prop|properties @args ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: delete|del prop|properties @args ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon contest #name ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon problem #problem_letter from contest #contest_id ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon package #package ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: show todo ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: todo ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: show tags ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: tags ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: clear tags ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add tag|tags @tags ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen tests with tag|tags @tags ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen tests ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen statement|pdf ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen answers|ans ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: run|check solutions|sols|all ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run all solutions|sols ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run solution|sol|solutions|sols #substr ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run main solution|sol ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check main ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: compute TL|tl|time-limit|timelimit|time_limit ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: compute integer TL|tl|time-limit|timelimit|time_limit ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: validate|val tests ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: validate ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set validator|val $path ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set standard|std checker #checker ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set standard|std checker ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set checker $path ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set name #value ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set problem name #value ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set input #value ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set output #value ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set TL|tl|time-limit|timelimit|time_limit #value ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set ML|ml|memory-limit|memorylimit|memory_limit #value ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: stress $solution $generator ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: stress $solution $correct_solution $generator ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add problem|problems @problems to #name as @problems_as ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add problem|problems @problems to #name ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: del|delete problem|problems @problems from #name ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen contest #name statement|pdf ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: export #name to #where as #contest ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: change contest #name properties|prop#key #value ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: clean|clear ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: build all ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) Coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: build ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: export to #server_name contest #contest_id problem|problems @problems ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: take over the world ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: say @words ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: make me @food ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: sudo make me @food ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: smile ^^^. String: build all
+15.02.2012[14:23:50] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:23:50] - aplusb - please_logger.matcher.Matcher.matches(DEBUG) Run function: <function build_all at 0x00000000035A2AC8>. Matching completed
+15.02.2012[14:23:50] - aplusb - please_logger.TestsGenerator(INFO) Generating 0 tests series
+15.02.2012[14:23:50] - aplusb - please_logger.latex.latex_tools(INFO) Generating pdf from tex...
+15.02.2012[14:23:50] - aplusb - please_logger.executors.compiler.compile(INFO) Compiling default.ru.tex
+15.02.2012[14:23:50] - aplusb - please_logger.executors.compiler.compile(DEBUG) Compiler.py: running ['pdflatex', '-output-format', 'pdf', '-interaction', 'nonstopmode', '-include-directory', 'c:\\temp\\_sis2011-jul\\p\\please\\trunk\\please\\templates\\', '-draftmode', 'default.ru.tex'] with limits cpu_time=20.0, memory=3512.0Mb, real_time=100.0
+15.02.2012[14:23:51] - aplusb - please_logger.executors.compiler.compile(DEBUG) Compiler.py: running ['pdflatex', '-output-format', 'pdf', '-interaction', 'nonstopmode', '-include-directory', 'c:\\temp\\_sis2011-jul\\p\\please\\trunk\\please\\templates\\', 'default.ru.tex'] with limits cpu_time=20.0, memory=3512.0Mb, real_time=100.0
+15.02.2012[14:23:52] - aplusb - please_logger.latex.latex_tools(INFO) PDF default.ru.pdf was created successfully
+15.02.2012[14:23:52] - aplusb - please_logger(ERROR) Unknown error: [Error 5] Отказано в доступе: '.tests\\.svn\\all-wcprops'
+15.02.2012[14:26:04] - aplusb - please_logger(DEBUG) Initialising name for logger
+15.02.2012[14:26:04] - aplusb - please_logger(DEBUG) Ancestor file is c:\temp\_sis2011-jul\p\please\trunk\please\__init__.py
+15.02.2012[14:26:04] - aplusb - please_logger(DEBUG) Starting log(please_logger)
+15.02.2012[14:26:04] - aplusb - please_logger.matcher.Matcher.matches(DEBUG) Matching...
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: help ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: commands ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: create problem #shortname ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: create contest #name of @problems ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set main solution $path ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add solution|sol $path ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add solution|sol $path @args ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: delete|del solution|sol #path ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: change prop|properties @args ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: delete|del prop|properties @args ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon contest #name ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon problem #problem_letter from contest #contest_id ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: import polygon package #package ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: show todo ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: todo ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: show tags ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: tags ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: clear tags ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add tag|tags @tags ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen tests with tag|tags @tags ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen tests ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen statement|pdf ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen answers|ans ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: run|check solutions|sols|all ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run all solutions|sols ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run solution|sol|solutions|sols #substr ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check|run main solution|sol ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: check main ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: compute TL|tl|time-limit|timelimit|time_limit ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: compute integer TL|tl|time-limit|timelimit|time_limit ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: validate|val tests ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: validate ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set validator|val $path ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set standard|std checker #checker ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set standard|std checker ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set checker $path ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set name #value ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set problem name #value ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set input #value ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set output #value ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set TL|tl|time-limit|timelimit|time_limit #value ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: set ML|ml|memory-limit|memorylimit|memory_limit #value ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: stress $solution $generator ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: stress $solution $correct_solution $generator ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add problem|problems @problems to #name as @problems_as ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: add problem|problems @problems to #name ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: del|delete problem|problems @problems from #name ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: generate|gen contest #name statement|pdf ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: export #name to #where as #contest ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: change contest #name properties|prop#key #value ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: clean|clear ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: build all ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) Coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: build ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: export to #server_name contest #contest_id problem|problems @problems ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: take over the world ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: say @words ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: make me @food ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: sudo make me @food ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) checking for a match. Template: smile ^^^. String: build all
+15.02.2012[14:26:04] - aplusb - please_logger.template.Template.corresponds(DEBUG) No coincidence
+15.02.2012[14:26:04] - aplusb - please_logger.matcher.Matcher.matches(DEBUG) Run function: <function build_all at 0x000000000367BAC8>. Matching completed
+15.02.2012[14:26:04] - aplusb - please_logger.TestsGenerator(INFO) Generating 0 tests series
+15.02.2012[14:26:04] - aplusb - please_logger.latex.latex_tools(INFO) Generating pdf from tex...
+15.02.2012[14:26:04] - aplusb - please_logger.executors.compiler.compile(INFO) Compiling default.ru.tex
+15.02.2012[14:26:04] - aplusb - please_logger.executors.compiler.compile(DEBUG) Compiler.py: running ['pdflatex', '-output-format', 'pdf', '-interaction', 'nonstopmode', '-include-directory', 'c:\\temp\\_sis2011-jul\\p\\please\\trunk\\please\\templates\\', '-draftmode', 'default.ru.tex'] with limits cpu_time=20.0, memory=3512.0Mb, real_time=100.0
+15.02.2012[14:26:05] - aplusb - please_logger.executors.compiler.compile(DEBUG) Compiler.py: running ['pdflatex', '-output-format', 'pdf', '-interaction', 'nonstopmode', '-include-directory', 'c:\\temp\\_sis2011-jul\\p\\please\\trunk\\please\\templates\\', 'default.ru.tex'] with limits cpu_time=20.0, memory=3512.0Mb, real_time=100.0
+15.02.2012[14:26:05] - aplusb - please_logger.latex.latex_tools(INFO) PDF default.ru.pdf was created successfully
+15.02.2012[14:26:05] - aplusb - please_logger(ERROR) Unknown error: [Error 5] Отказано в доступе: '.tests\\.svn\\all-wcprops'

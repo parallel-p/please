@@ -3,7 +3,7 @@ import os
 import logging
 from .. import log
 from .. import globalconfig
-from ..solution_tester import package_config
+from ..package import package_config
 from ..utils.utests import get_tests
 from ..utils.exceptions import PleaseException
 

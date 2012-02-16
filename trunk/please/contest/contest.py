@@ -3,7 +3,7 @@
 
 import errno
 from ..package.config import Config
-from ..solution_tester.package_config import PackageConfig
+from ..package.package_config import PackageConfig
 from ..utils.exceptions import PleaseException
 
 class IdMethod:

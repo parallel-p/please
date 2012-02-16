@@ -11,3 +11,28 @@
 23.09.2011[01:44:19] - aplusb - please_logger(INFO) svn add --force *
 23.09.2011[01:44:19] - aplusb - please_logger(INFO) svn revert .tests .statements
 23.09.2011[01:44:20] - aplusb - please_logger(INFO) svn ci -m " "
+15.02.2012[14:10:22] - aplusb - please_logger.TestsGenerator(INFO) Generating 0 tests series
+15.02.2012[14:10:22] - aplusb - please_logger.latex.latex_tools(INFO) Generating pdf from tex...
+15.02.2012[14:10:22] - aplusb - please_logger.executors.compiler.compile(INFO) Compiling default.ru.tex
+15.02.2012[14:10:24] - aplusb - please_logger.latex.latex_tools(INFO) PDF default.ru.pdf was created successfully
+15.02.2012[14:10:24] - aplusb - please_logger(ERROR) Unknown error: [Error 5] Отказано в доступе: '.tests\\.svn\\all-wcprops'
+15.02.2012[14:16:31] - aplusb - please_logger.TestsGenerator(INFO) Generating 0 tests series
+15.02.2012[14:16:31] - aplusb - please_logger.latex.latex_tools(INFO) Generating pdf from tex...
+15.02.2012[14:16:31] - aplusb - please_logger.executors.compiler.compile(INFO) Compiling default.ru.tex
+15.02.2012[14:16:32] - aplusb - please_logger.latex.latex_tools(INFO) PDF default.ru.pdf was created successfully
+15.02.2012[14:16:32] - aplusb - please_logger(ERROR) Unknown error: [Error 5] Отказано в доступе: '.tests\\.svn\\all-wcprops'
+15.02.2012[14:16:54] - aplusb - please_logger.TestsGenerator(INFO) Generating 0 tests series
+15.02.2012[14:16:54] - aplusb - please_logger.latex.latex_tools(INFO) Generating pdf from tex...
+15.02.2012[14:16:54] - aplusb - please_logger.executors.compiler.compile(INFO) Compiling default.ru.tex
+15.02.2012[14:16:56] - aplusb - please_logger.latex.latex_tools(INFO) PDF default.ru.pdf was created successfully
+15.02.2012[14:16:56] - aplusb - please_logger(ERROR) Unknown error: [Error 5] Отказано в доступе: '.tests\\.svn\\all-wcprops'
+15.02.2012[14:23:50] - aplusb - please_logger.TestsGenerator(INFO) Generating 0 tests series
+15.02.2012[14:23:50] - aplusb - please_logger.latex.latex_tools(INFO) Generating pdf from tex...
+15.02.2012[14:23:50] - aplusb - please_logger.executors.compiler.compile(INFO) Compiling default.ru.tex
+15.02.2012[14:23:52] - aplusb - please_logger.latex.latex_tools(INFO) PDF default.ru.pdf was created successfully
+15.02.2012[14:23:52] - aplusb - please_logger(ERROR) Unknown error: [Error 5] Отказано в доступе: '.tests\\.svn\\all-wcprops'
+15.02.2012[14:26:04] - aplusb - please_logger.TestsGenerator(INFO) Generating 0 tests series
+15.02.2012[14:26:04] - aplusb - please_logger.latex.latex_tools(INFO) Generating pdf from tex...
+15.02.2012[14:26:04] - aplusb - please_logger.executors.compiler.compile(INFO) Compiling default.ru.tex
+15.02.2012[14:26:05] - aplusb - please_logger.latex.latex_tools(INFO) PDF default.ru.pdf was created successfully
+15.02.2012[14:26:05] - aplusb - please_logger(ERROR) Unknown error: [Error 5] Отказано в доступе: '.tests\\.svn\\all-wcprops'

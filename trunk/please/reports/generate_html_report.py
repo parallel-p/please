@@ -1,4 +1,4 @@
-from ..solution_tester.package_config import PackageConfig
+from ..package.package_config import PackageConfig
 from .. import globalconfig
 from .html_report import HtmlReporter
 import logging

@@ -1,7 +1,6 @@
 please_version = 0.2
 name = Кубики
 shortname = cubes
-tags = множества; сортировка
 type = 
 
 input = stdin

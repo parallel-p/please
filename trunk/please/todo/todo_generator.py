@@ -1,6 +1,6 @@
 import os
 import hashlib
-from ..solution_tester import package_config
+from ..package import package_config
 from ..todo import painter
 from .. import globalconfig
 from ..template import info_generator

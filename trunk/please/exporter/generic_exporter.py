@@ -1,7 +1,7 @@
 import os
 
 from ..command_line.generate_tests import generate_tests
-from ..solution_tester.package_config import PackageConfig
+from ..package.package_config import PackageConfig
 
 class GenericExporter:
     def __init__(self,archiver = None, connector = None,libs = [],problems = []):

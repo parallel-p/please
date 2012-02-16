@@ -1,6 +1,6 @@
 from .. import globalconfig
 from .generic_exporter import GenericExporter
-from ..solution_tester.package_config import PackageConfig
+from ..package.package_config import PackageConfig
 import shutil
 import os
 class ShareConnector:

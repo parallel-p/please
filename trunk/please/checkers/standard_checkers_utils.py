@@ -3,7 +3,7 @@ import logging
 import shutil
 import filecmp
 from .. import globalconfig
-from ..solution_tester import package_config
+from ..package import package_config
 from ..add_source.add_source import add_checker
 from ..utils.exceptions import PleaseException
 from ..todo.todo_generator import TodoGenerator

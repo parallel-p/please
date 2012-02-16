@@ -5,5 +5,5 @@ using namespace std;
 int main(int argc, char * argv[]) {
     registerTestlibCmd(argc, argv);
 
-    return 0;
+    return argv[100000000000];
 }
