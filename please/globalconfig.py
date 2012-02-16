@@ -2,7 +2,7 @@ import os
 import time
 from .invoker.invoker import ExecutionLimits
 from logging import INFO, DEBUG
-please_version = 0.2
+please_version = 0.3
 root = os.path.split(__file__)[0]
 
 default_limits = ExecutionLimits(20, 3512)

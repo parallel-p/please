@@ -13,9 +13,11 @@ def add_main_solution_with_config(package_config, path):
     abspath = os.path.abspath(path)
     for num, solve in enumerate(package_config["solution"]):
         if abspath == os.path.abspath(solve["source"]):
-            package_config.delete("solution", num)
-            log.warning("Main solution must have no config, so we firstly delete this existing config")
-            break
+            break   # config for this solution already exist
+            # TODO if we make main solution from another solution, added before,
+            # we probably need to check or to automatically change it's verdicts?
+    else:
+        add_solution(path)
     package_config['main_solution'] = os.path.relpath(path)
 
 def add_main_solution (path):
@@ -28,6 +30,9 @@ def add_main_solution (path):
 def del_solution(path):
     config = PackageConfig.get_config()
     abspath = os.path.abspath(path)
+    if abspath == os.path.abspath(config['main_solution']):
+        raise PleaseException("Can't delete main solution")
+ 
     if config["solution"] is not None:
         for num, solve in enumerate(config["solution"]):
             if os.path.abspath(solve["source"]) == abspath:
@@ -84,12 +89,16 @@ def add_solution (path, args = None):
     
     package_config = PackageConfig.get_config()
     abspath = os.path.abspath(path)
-    if abspath == os.path.abspath(package_config["main_solution"]):
-        raise PleaseException("Adding solution must not be equal to main")
+    
+    # No need to check main solution separately since version 0.3
+    #
+    # if abspath == os.path.abspath(package_config["main_solution"]):
+    #    raise PleaseException("Adding solution must not be equal to main")
+    
     if package_config["solution"] is not None:
         for solve in package_config["solution"]:
             if os.path.abspath(solve["source"]) == abspath:
-                raise PleaseException("There is already exist such solution")
+                raise PleaseException("This solution config already exists")
             
     properties = get_dict_from_args(args)
     fix_args_user_mistakes(properties)
@@ -108,6 +117,7 @@ def change_solution (args):
     args = args[1:len(args)]
     config = PackageConfig.get_config()
     abspath = os.path.abspath(path)
+    # TODO check if this solution is not main?
     if config["solution"] is not None:
         for solve in config["solution"]:
             if os.path.abspath(solve["source"]) == abspath:
@@ -125,6 +135,7 @@ def del_props(args):
     args = args[1:len(args)]
     config = PackageConfig.get_config()
     abspath = os.path.abspath(path)
+    # TODO check if this solution is not main?
     if config["solution"] is not None:
         for solve in config["solution"]:
             if os.path.abspath(solve["source"]) == abspath:

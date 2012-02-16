@@ -31,7 +31,10 @@ class Cleaner:
         # TODO: check if config is None
         self.__clean_binary(config["validator"])
         self.__clean_binary(config["checker"])
-        self.__clean_binary(config["main_solution"])
+
+        #no need to do it separately since version 0.3
+        #self.__clean_binary(config["main_solution"])
+
         self.__clean_binary(config["description"])
         self.__clean_binary(config["statement"])
         solutions = config["solution"]
