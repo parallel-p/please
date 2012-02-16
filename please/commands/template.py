@@ -11,7 +11,7 @@ formal grammar:
     list ::= word ++ "..."
 in EBNF, where `++' means concatenation (no spaces between).'''
 
-from .word_matcher import contains
+from .wordmatch import contains, similarity, CUTOFF
 import os.path
 
 WORD = 0
@@ -19,10 +19,19 @@ ARGUMENT = 1
 PATH = 2
 LIST = 3
 
+def _beautiful(token):
+    if isinstance(token, str):
+        return token
+    elif len(token) == 2 and token[1].startswith(token[0]):
+        return '{}[{}]'.format(token[0], token[1][len(token[0]):])
+    else:
+        return '|'.join(token)
+
 class Template:
-    def __init__(self, definition):
+    def __init__(self, definition, help = ''):
         stokens = self._split(definition)
         self.__build_finite_automata(stokens)
+        self.help = '{}\n{}'.format(self.string, help)
 
     def _split(self, definition):
         stokens = []
@@ -42,7 +51,6 @@ class Template:
                 stokens.append(s)
         return stokens
 
-
     def _parse_token(self, token):
         if token.startswith('/'):
             return PATH, token[1:]
@@ -57,22 +65,29 @@ class Template:
         elif '|' in token:
             return WORD, token.split('|')
         else:
-            return WORD, token
+            return WORD, (token,)
 
     def __build_finite_automata(self, stokens):
         tokens = []
+        fmtokens = []
         eps_stack = []
         epsilons = {}
         pos = 0
         for s in stokens:
             if s == '[':
                 eps_stack.append(pos)
+                fmtokens.append('[')
             elif s == ']':
                 was = eps_stack.pop()
                 epsilons[was] = pos
+                fmtokens.append(']')
             else:
-                tokens.append(self._parse_token(s))
+                token = self._parse_token(s)
+                tokens.append(token)
+                fmtokens.append(_beautiful(token[1]))
                 pos += 1
+
+        self.string = ' '.join(fmtokens).replace('[ ', '[').replace(' ]', ']')
 
         def _epsilon_chain(pos):
             while pos in epsilons:
@@ -96,7 +111,11 @@ class Template:
         self.automata = tuple(automata)
         self.tokens = tuple(tokens)
 
-    def match(self, sequence):
+    def match_ratio_states(self, sequence):
+        '''Matches sequence against itself.
+        Returns a dictionary if match is successful else None,
+        a `ratio' depicting how trustful match is,
+        and all possible end states (even if match is not complete).'''
         l = len(self.tokens)
         links = []
         states = {state: -1 for state in self.starts}
@@ -111,21 +130,27 @@ class Template:
                         new_states[val] = state
             states = new_states
             links.append(states)
+        states = list(states) # keys only
         if l not in links[-1]:
-            return None
+            return None, 0, states
         state = l
         results = {}
-        for i in range(len(links) - 1, 0, -1): # yes, everything but first
+        for i in range(len(links) - 1, -1, -1):
             state = links[i][state]
             results.setdefault(state, []).append(sequence[i])
         
         result = {}
+        howmuch = 0
+        ratio = 1
         for i, token in enumerate(self.tokens):
             type, arg = token
-            if type == WORD:
-                continue
             if i not in results:
                 continue
+            if type == WORD:
+                ratio = min(ratio,
+                            similarity(self.tokens[i][1],
+                                    results[i][0]))
+                howmuch += 1
             elif type == ARGUMENT:
                 result[arg] = results[i][0]
             elif type == PATH:
@@ -133,4 +158,17 @@ class Template:
             elif type == LIST:
                 results[i].reverse()
                 result[arg] = results[i]
-        return result
+        return result, (ratio - CUTOFF) * howmuch, states
+
+    def match(self, sequence):
+
+        return self.match_ratio_states(sequence)[0]
+
+    def match_ratio(self, sequence):
+
+        return self.match_ratio_states(sequence)[:2]
+
+    def __str__(self):
+        return 'Template({})'.format(self.string)
+
+    __repr__ = __str__
