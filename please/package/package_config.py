@@ -47,14 +47,15 @@ class PackageConfig:
 
     @staticmethod
     def oldversion_fix(conf):
-        '''Fix *.config 
+        '''Fix *.package 
            and rewrite please_version to current
         '''
-        if float(conf['please_version']) < 0.25 and float(globalconfig.please_version) > 0.25:
-            PackageConfig.main_solution_fix(conf)
+        if conf['please_version'] != globalconfig.please_version:
+            if float(conf['please_version']) < 0.25 and float(globalconfig.please_version) > 0.25:
+                PackageConfig.main_solution_fix(conf)
 
-        conf['please_version'] = str(globalconfig.please_version)
-        writepackage(conf.get_text())	
+            conf['please_version'] = str(globalconfig.please_version)
+            writepackage(conf.get_text())	
 
 
     @staticmethod
