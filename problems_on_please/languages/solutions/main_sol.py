@@ -1,3 +1,4 @@
+# python3
 n = int(input())
 
 d = {}

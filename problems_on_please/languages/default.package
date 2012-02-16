@@ -1,4 +1,4 @@
-﻿please_version = 0.1
+please_version = 0.3
 name = Полиглоты
 shortname = polyglots
 tags = 
@@ -16,4 +16,8 @@ solution = {
     source = solutions/sec_sol.dpr
     expected = TL, WA, PE
     possible = OK
+}
+solution = {
+    source = solutions/main_sol.py
+    expected = OK
 }
