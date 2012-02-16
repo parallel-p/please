@@ -3,9 +3,12 @@
 import logging
 import textwrap
 
+from . import template
 from .template import Template
 
 logger = logging.getLogger('please_logger.commands.Matcher')
+
+PATH = object()
 
 class Matcher:
     def __init__(self):
@@ -28,6 +31,8 @@ class Matcher:
             if d is not None:
                 if found:
                     logger.warning('Command-line is ambiguous')
+                else:
+                    found = True
                 if ratio > maxratio:
                     maxratio, maxhandler, maxdict = ratio, handler, d
         if maxratio >= 0:
@@ -57,4 +62,23 @@ class Matcher:
                 f = getattr(m, name)
                 if hasattr(f, '__call__'):
                     self.add_function(f)
+
+    def get_completion(self, seq, start):
+        '''Get a list of strings that can come after seq beginning with
+        start; if path can come, then special value PATH will be present
+        in the end of list.'''
+        path = False
+        answer = []
+        for template, _ in self.templates:
+            _, _, states = template.match_ratio_states(seq)
+            for state in states:
+                type, arg = template.tokens[state]
+                if type == template.PATH:
+                    path = True
+                elif type == template.WORD:
+                    # consider rewriting using generators and yield from
+                    answer.extend(word for word in arg if word.startswith(start))
+        if path:
+            answer.append(PATH)
+        return answer
 
