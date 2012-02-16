@@ -35,7 +35,7 @@ class PackageConfig:
         else:
             # Find full path to the package
             # Parse and register the config
-            with open(package_path, encoding = "utf-8") as package_file:
+            with open(package_path, encoding = "utf-8-sig") as package_file:
                 config_text = package_file.read()
             PackageConfig.configs_dict[package_path] = Config(config_text)
             PackageConfig.oldversion_fix(PackageConfig.configs_dict[package_path])
