@@ -8,25 +8,24 @@ from ..utils.exceptions import PleaseException
 from .template_utils import get_template_full_path
 from .statement_template_generator import generate_description, generate_analysis, generate_statement
 from .source_code_file_generator import generate_checker, generate_solution, generate_validator
-from ..package.config import Config as package_config
+from ..package.config import ConfigFile
 from . import info_generator
 
 def generate_package(name, replaces, shortname):
     ''' Generates {default}.package file '''
     # maybe we will have templates not only for default.package?
-    default_package_path = get_template_full_path(name) or get_template_full_path('default.package')
+    default_package_path = get_template_full_path(name) or get_template_full_path(globalconfig.defaultpackage)
 
+    new_path = os.path.join(shortname, name)
     if default_package_path:
-        with open(default_package_path, 'r', encoding = "UTF8") as default_package: 
-            package = package_config(default_package.read())
+        shutil.copy(default_package_path, new_path)
     else:
-        package = package_config("")
-
-
-    with open(os.path.join(shortname, name), 'w', encoding = 'UTF8') as new_package: 
-        for replace, data in replaces.items():
-            package[replace] = data
-        new_package.write(package.get_text())
+        with open(new_path, 'w') as empty:
+            pass
+    package = ConfigFile(new_path)
+    for replace, data in replaces.items():
+        package[replace] = data
+    package.write()
 
 def generate_problem_advanced(shortname, human_language, programming_language):
     ''' Generates file structure of problem (templates (checker, validator, etc) and default.package) '''

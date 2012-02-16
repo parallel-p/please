@@ -109,7 +109,7 @@ def add_solution (path, args = None):
         new_config[key] = value
         
     package_config.set("solution", new_config, None, True)
-    writepackage(package_config.get_text())
+    package_config.write()
     log.info("Solution %s has been added successfully", path)
     
 def change_solution (args):
