@@ -31,7 +31,7 @@ class BaseLaTeXConfig(BaseConfig):
 
 class TeXLiveConfig(BaseLaTeXConfig):
     def _get_environment(self, source):
-        return {'TEXINPUTS': '.:{}:'.format(self.template_path)}
+        return {'TEXINPUTS': os.pathsep.join(('', os.curdir, self.template_path))}
 
 class MiKTeXConfig(BaseLaTeXConfig):
     def _setup(self):

@@ -24,7 +24,10 @@ def generate_contest(problem_names = [os.curdir], template = None, template_vars
     problem_template_path = get_template_full_path(globalconfig.default_template_contest)
     if template_vars is None:
         template_vars = copy.copy(globalconfig.default_template_vars)
-    template_vars['statements_dir'] = os.path.join(os.path.abspath(globalconfig.statements_dir), '')
+    statements_dir = os.path.join(
+        os.path.relpath(globalconfig.statements_dir,
+                        globalconfig.temp_statements_dir), '').replace(os.sep, '/')
+    template_vars['statements_dir'] = statements_dir
 
 
     with open(problem_template_path, "r", encoding = "utf-8") as template:
