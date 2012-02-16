@@ -100,22 +100,6 @@ if (system == 'W'):
         log.info('\nTo apply changes, after the installation, please reboot the computer.')
 
 
-# Compile standart checkers
-
-from please.executors.compiler import compile
-from please.utils.form_error_output import form_err_string_by_std
-from please.utils.exceptions import PleaseException
-import please.log
-
-path = os.path.join(os.path.dirname(please.__file__), 'checkers')
-for file in os.listdir(path):
-    res,fout, err = None, None, None 
-    if os.path.splitext(file)[1] == '.cpp':
-        res, fout, err = compile(os.path.join(path, file))       
-        if res.verdict != 'OK':
-            print(form_err_string_by_std(fout, err))
-        
-log.info('\nInstallation finished!')
 
 
 
