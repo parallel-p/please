@@ -22,7 +22,9 @@ modules = [
 # Папки, не содержащие код
 # Folders without
 package_data = {
-    'please': ['templates/*.*', 'checkers/*.*','exporter/scripts/*.*','exporter/templates/*.*']
+    'please': ['templates/*.*', 'checkers/*.*'],
+    'please.exporter': ['templates/*.*'],
+    'please.language': ['mime.types'],
 }
 
 
@@ -72,7 +74,6 @@ try:
     from setup_extensions.develop import develop
 except ImportError as e:
     print('Error while importing develop extension: %s' % (str(e)))
-
 setup_params = {
     'name'             : 'Please',
     'version'          : '0.2',
@@ -86,7 +87,7 @@ setup_params = {
     'dependency_links' : dependency_links,
     'entry_points'     : entry_points,
     'cmdclass'         : {'develop' : develop},
-    'include_package_data': True,
+    'include_package_data': False,
 }
 
 setup(**setup_params)
