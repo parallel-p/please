@@ -44,6 +44,7 @@ def generate_problem_advanced(shortname, human_language, programming_language):
     mkdir(tests_path)
     mkdir(solutions_path)
 
+    mainsol = globalconfig.solutions_dir + '/' + generate_solution(solutions_path, programming_language)
     replaces = {'please_version': str(globalconfig.please_version),
                 'shortname': shortname,
                 'description': globalconfig.statements_dir + '/' + generate_description(statement_path, human_language),
@@ -51,7 +52,8 @@ def generate_problem_advanced(shortname, human_language, programming_language):
                 'statement': globalconfig.statements_dir + '/' + generate_statement(statement_path, human_language),
                 'validator': generate_validator(shortname, programming_language),
                 'checker': generate_checker(shortname, programming_language),
-                'main_solution': globalconfig.solutions_dir + '/' + generate_solution(solutions_path, programming_language),
+                'main_solution': mainsol,
+                'solution': '{\n    source = ' + mainsol + '\n    expected = OK\n}',
                 'well_done_test' : 'endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty',
                 'well_done_answer': 'endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty'}
 
