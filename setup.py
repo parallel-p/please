@@ -27,7 +27,7 @@ package_data = {
 
 
 entry_points = {
-    'console_scripts' : ['please = please:main']
+    'console_scripts' : ['please = please.launcher:main']
 }
 
 # python-библиотеки, обязательные к установке.
