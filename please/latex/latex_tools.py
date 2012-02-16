@@ -148,7 +148,7 @@ class LatexConstructor:
 
     def set_text(self, text):
         ''' Divides given text into 2 groups: text and notes. This is very useful if we want to put notes after examples  '''
-        matcher = re.compile(r"(.*)(\\Note.*)", re.DOTALL)
+        matcher = re.compile(r"^([^%\n]*)(\\Note.*)", re.DOTALL)
         matches = re.search(matcher, text)
         if matches is not None:
             self.set_new_replace("#{text}", matches.group(1))
