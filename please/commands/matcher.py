@@ -20,10 +20,10 @@ class Matcher:
         help is the help string for this template.'''
         self.templates.append((Template(template_string, help), handler))
 
-    def match(self, seq):
+    def match_template(self, seq):
         '''Match sequence against all templates until success,
-        and calls appropriate handler and returns True, if succeeded.
-        Otherwise, returns False.'''
+        and returns appropriate template, handler and args,
+        or None, None, None'''
         maxratio, maxhandler, maxdict = -1, None, None
         found = False
         for template, handler in self.templates:
@@ -34,9 +34,17 @@ class Matcher:
                 else:
                     found = True
                 if ratio > maxratio:
-                    maxratio, maxhandler, maxdict = ratio, handler, d
+                    maxratio, maxtpl, maxhandler, maxdict = ratio, template, handler, d
         if maxratio >= 0:
-            maxhandler(**maxdict)
+            return maxtpl, maxhandler, maxdict
+        return None, None, None
+
+    def call(self, seq):
+        '''Match against templates and call a handler.
+        If match succeeded, return True. Else, return False.'''
+        _, handler, args = self.match_template(seq)
+        if handler is not None:
+            handler(**args)
             return True
         return False
 

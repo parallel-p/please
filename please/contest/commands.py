@@ -5,11 +5,10 @@ from ..exporter import exporter
 from ..package import package_config
 from ..log import logger
 from ..utils.exceptions import PleaseException
-
-CONTEST_FILE = "%s.contest"
+from globalconfig import contest_template
 
 def get_contest_config(name, path = '.'):
-    return os.path.join(path, CONTEST_FILE % name)
+    return os.path.join(path, contest_template.format(name))
 
 def get_contest(name, ok_if_not_exists = False):
     return contest.Contest(get_contest_config(name), ok_if_not_exists)

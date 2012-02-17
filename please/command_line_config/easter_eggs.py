@@ -36,7 +36,7 @@ def add_easter_eggs_operations(matcher):
                  True)
     matcher.add_handler(
         Template(["smile"]),
-        lambda: print(random.Random().choice([":-)", "(^ ^)", ":-D"])),
+        lambda: print(random.choice([":-)", "(^ ^)", ":-D"])),
         True)
 
 

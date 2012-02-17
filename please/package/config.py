@@ -133,9 +133,14 @@ class Config:
     def __contains__(self, item):
         return item in self.__settings
 
+    def keys(self):
+        return self.__settings.keys()
+
+    def values(self):
+        return self.__settings.values()
+
     def items(self):
-        for x in self.__settings.items():
-            yield x
+        return self.__settings.items()
 
     def __delitem__(self, item):
         self.delete(item)
