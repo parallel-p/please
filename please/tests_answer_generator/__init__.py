@@ -1,6 +1,6 @@
 from .tests_answer_generator import TestsAndAnswersGenerator
 
-_tg = TestsAndAnswerGenerator()
+_tg = TestsAndAnswersGenerator()
 
 # these loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong names
 # and too many instances scare me
