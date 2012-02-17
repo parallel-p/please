@@ -5,7 +5,7 @@ from ..exporter import exporter
 from ..package import package_config
 from ..log import logger
 from ..utils.exceptions import PleaseException
-from globalconfig import contest_template
+from ..globalconfig import contest_template
 
 def get_contest_config(name, path = '.'):
     return os.path.join(path, contest_template.format(name))

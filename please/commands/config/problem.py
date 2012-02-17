@@ -36,7 +36,7 @@ def set_validator(path):
     from please.add_source import add_validator
     add_validator(path)
 
-def stress_test(solution, correct = None, generator):
+def stress_test(solution, generator, correct = None):
     '''stress $solution [against $correct] with $generator
     Stress a solution (possibly against correct one) using generator.'''
     # О-очень плохой calling convenience!
@@ -130,7 +130,7 @@ def check_solutions(solution):
         check_solution.check_solution(solution)
 
 
-def compute(type = 'float', limit):
+def compute(limit, type = 'float'):
     '''compute [$type] $limit
     Compute an execution limit for solutions.
     Supported types is integer and float.

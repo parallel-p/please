@@ -2,7 +2,7 @@ import unittest
 import mox
 import os.path
 
-from please.stress_tester import stress_tester
+from please import stress_tester
 from please.package import package_config
 from please.utils.exceptions import PleaseException
 #import please

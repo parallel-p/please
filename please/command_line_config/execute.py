@@ -31,7 +31,7 @@ def add_validate_operations(matcher, active):
         active)
 
 def add_stress_test_operations(matcher, active):
-    from please.stress_tester import stress_tester
+    from please import stress_tester
     from please.package import package_config
     pkg = package_config.PackageConfig.get_config()
     stresser = stress_tester.StressTester(config = pkg)
