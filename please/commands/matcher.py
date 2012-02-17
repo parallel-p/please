@@ -46,7 +46,7 @@ class Matcher:
         if handler is not None:
             handler(**args)
             return True
-        return Fals
+        return False
 
     # User-friendly tools for adding functions.
 
