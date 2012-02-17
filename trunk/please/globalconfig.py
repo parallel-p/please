@@ -73,3 +73,6 @@ default_template_vars = {
     "location": "",
     "date": time.strftime("%d.%m.%Y")
 }
+
+# contest information
+contest_template = '{}.contest'

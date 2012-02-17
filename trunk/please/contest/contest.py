@@ -51,7 +51,7 @@ class IdMethod:
 
 
 class Contest:
-    def __init__( self, config_name, ok_if_not_exists = False ):
+    def __init__(self, config_name, ok_if_not_exists = False):
         if os.path.exists(config_name):
             self.config = ConfigFile(config_name)
         elif ok_if_not_exists:
@@ -74,7 +74,7 @@ class Contest:
             self.__problems = self.config['problem'][:] # Скопипастить список. Педобир одобряет.
         self.__dict = {problem['id'] : i for i, problem in enumerate(self.__problems)}
 
-    def problem_add( self, path, id = False ):
+    def problem_add(self, path, id = False):
         problem_config = PackageConfig.get_config(path)
         if problem_config is None:
             raise PleaseException("Problem %s is not found" % path)
@@ -87,18 +87,21 @@ class Contest:
         self.__problems.append(config)
         self.config.set('problem', config, in_list=True)
 
-    def problem_find( self, path ):
+    def problem_find(self, path):
         for problem in self.__problems:
             if problem['path'] == path:
                 return problem['id']
         return None
 
-    def problem_remove( self, id ):
+    def problem_remove(self, id):
         i = self.__dict[id]
         self.config.delete('problem', i)
         del self.__problems[i]
         self.__dict = {problem['id'] : i for i, problem in enumerate(self.__problems)}
 
-    def __contains__( self, id ):
+    def __contains__(self, id):
         return id in self.__dict
+
+    def save(self):
+        self.config.write()
 

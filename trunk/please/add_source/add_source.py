@@ -20,7 +20,7 @@ def add_main_solution_with_config(package_config, path):
         add_solution(path)
     package_config['main_solution'] = os.path.relpath(path)
 
-def add_main_solution (path):
+def add_main_solution(path):
     package_config = PackageConfig.get_config()
     add_main_solution_with_config(package_config, path)
     package_text = package_config.get_text()
@@ -79,7 +79,7 @@ def fix_args_user_mistakes(properties):
     if "expected" not in properties and "possible" not in properties:
         properties["expected"] = ["OK"]
 
-def add_solution (path, args = None):
+def add_solution(path, args = None):
     if not args:
         args = []
     if not os.path.exists(path):
@@ -112,9 +112,12 @@ def add_solution (path, args = None):
     package_config.write()
     log.info("Solution %s has been added successfully", path)
     
-def change_solution (args):
+def change_solution(args):
     path = args[0]
     args = args[1:len(args)]
+    change_properties(path, args)
+
+def change_properties(path, args):
     config = PackageConfig.get_config()
     abspath = os.path.abspath(path)
     # TODO check if this solution is not main?
@@ -151,7 +154,7 @@ def del_props(args):
                 return
     raise PleaseException("There is no such solution")
 
-def add_checker_with_config (package_config, path):
+def add_checker_with_config(package_config, path):
     if not os.path.exists(path):
         raise PleaseException("There is no such file")
     #TODO: use relpath
@@ -159,7 +162,7 @@ def add_checker_with_config (package_config, path):
         raise PleaseException("Checker isn't in problem folder!")
     package_config['checker'] = os.path.relpath(path)
     
-def add_checker (path):
+def add_checker(path):
     package_config = PackageConfig.get_config()
     add_checker_with_config(package_config, path)
     package_text = package_config.get_text()
@@ -173,14 +176,14 @@ def add_validator_with_config (package_config, path):
         raise PleaseException("Validator isn't in problem folder!")
     package_config['validator'] = os.path.relpath(path)
 
-def add_validator (path):
+def add_validator(path):
     package_config = PackageConfig.get_config()
     add_validator_with_config(package_config, path)
     package_text = package_config.get_text()
     writepackage(package_text)
     log.info("Validator %s has been set successfully", path)
 
-def add_solution_with_config (package_config, path, expected= [], possible = []):
+def add_solution_with_config(package_config, path, expected= [], possible = []):
     #TODO: kill it. needed for correct import_from_polygon module work.
     config_file = config.Config("")
     config_file["source"] = os.path.relpath(path)

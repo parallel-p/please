@@ -13,42 +13,43 @@ in EBNF, where `++' means concatenation (no spaces between).'''
 
 from .wordmatch import contains, similarity, CUTOFF
 import os.path
+from collections import defaultdict, Counter
 
 WORD = 0
 ARGUMENT = 1
 PATH = 2
 LIST = 3
 
-def _beautiful(token):
-    if isinstance(token, str):
-        return token
-    elif len(token) == 2 and token[1].startswith(token[0]):
-        return '{}[{}]'.format(token[0], token[1][len(token[0]):])
-    else:
-        return '|'.join(token)
-
 class Template:
     def __init__(self, definition, help = ''):
         stokens = self._split(definition)
         self.__build_finite_automata(stokens)
-        self.help = '{}\n{}'.format(self.string, help)
+        self.help_text = help
 
     def _split(self, definition):
         stokens = []
         for s in definition.split():
-            if s[0] == '[':
-                stokens.append('[')
-                s = s[1:]
-                if not s:
-                    continue
-
-            if s[-1] == ']' and '[' not in s:
-                s = s[:-1]
-                if s:
-                    stokens.append(s)
-                stokens.extend(']')
-            else:
-                stokens.append(s)
+            i = 0
+            l = len(s)
+            j = l
+            while i < l and s[i] == '[':
+                i += 1
+            while j > 0 and s[j-1] == ']':
+                j -= 1
+            if s.find('[', i, j) >= 0:
+                j += 1
+            left = i
+            right = l - j
+            has = bool(left and right and i != j)
+            m = min(left, right)
+            left -= m
+            right -= m
+            left += has
+            right += has
+            stokens.extend(s[:left])
+            if i < j:
+                stokens.append(s[i:j])
+            stokens.extend(s[l - right:])
         return stokens
 
     def _parse_token(self, token):
@@ -71,7 +72,7 @@ class Template:
         tokens = []
         fmtokens = []
         eps_stack = []
-        epsilons = {}
+        epsilons = defaultdict(list)
         pos = 0
         for s in stokens:
             if s == '[':
@@ -79,21 +80,21 @@ class Template:
                 fmtokens.append('[')
             elif s == ']':
                 was = eps_stack.pop()
-                epsilons[was] = pos
+                epsilons[was].append(pos)
                 fmtokens.append(']')
             else:
                 token = self._parse_token(s)
                 tokens.append(token)
-                fmtokens.append(_beautiful(token[1]))
                 pos += 1
 
-        self.string = ' '.join(fmtokens).replace('[ ', '[').replace(' ]', ']')
-
         def _epsilon_chain(pos):
-            while pos in epsilons:
-                yield pos
-                pos = epsilons[pos]
             yield pos
+            for next in epsilons[pos]:
+                #yield from _epsilon_chain(next)
+                for there in _epsilon_chain(next):
+                    yield there
+
+        self.epsilons = epsilons
 
         l = len(tokens)
         automata = []
@@ -168,7 +169,45 @@ class Template:
 
         return self.match_ratio_states(sequence)[:2]
 
+    @staticmethod
+    def _beautiful(token):
+        if isinstance(token, str):
+            return token
+        elif len(token) == 2 and token[1].startswith(token[0]):
+            return '{}[{}]'.format(token[0], token[1][len(token[0]):])
+        else:
+            return '|'.join(token)
+
+    def format(self):
+        from colorama import Style
+        format = Style.BRIGHT + '{}' + Style.RESET_ALL
+        begins = []
+        ends = Counter()
+        beautiful = self._beautiful
+        for begin in range(len(self.tokens)):
+            they = self.epsilons[begin]
+            begins.append(len(they))
+            ends += Counter(they)
+        
+        ans = []
+        for i, token in enumerate(self.tokens):
+            type, arg = token
+            s = beautiful(arg)
+            if type == LIST:
+                s += '...'
+            if type == WORD:
+                s = format.format(s)
+            ans.append('[' * begins[i] + s + ']' * ends[i + 1])
+
+        return ' '.join(ans)
+
+    def help(self):
+        if not self.help_text.startswith('!suppress'):
+            return '{}\n{}'.format(self.format(), self.help_text)
+        else:
+            return None
+
     def __str__(self):
-        return 'Template({})'.format(self.string)
+        return 'Template({})'.format(self.format())
 
     __repr__ = __str__
