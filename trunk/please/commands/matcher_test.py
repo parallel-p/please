@@ -20,7 +20,7 @@ class MatcherTest(unittest.TestCase):
         m.add("rm /file", obj.rm)
         m.add("add /file", obj.add)
         m.add("mv /file1 /file2", obj.mv)
-        match = lambda s: m.match(s.split())
+        match = lambda s: m.call(s.split())
         self.assertTrue(match("add test_add"))
         #path normalization
         self.assertTrue(match("mv dir1/dir2/../../test_mv1 ./test_mv2"))
@@ -40,7 +40,7 @@ class MatcherTest(unittest.TestCase):
         m.add("ls files...", obj.ls)
         m.add("install packages...", obj.install)
 
-        match = lambda s: m.match(s.split())
+        match = lambda s: m.call(s.split())
         self.assertTrue(match("ls dir"))
         self.assertTrue(match("ld path1 path2 path3")) # here mistake in ls
 
