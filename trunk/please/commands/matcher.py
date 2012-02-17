@@ -46,7 +46,7 @@ class Matcher:
         if handler is not None:
             handler(**args)
             return True
-        return False
+        return Fals
 
     # User-friendly tools for adding functions.
 
@@ -66,7 +66,7 @@ class Matcher:
     def add_module(self, m):
         '''Adds every function in module if function name starts with 'handle'.'''
         for name in dir(m):
-            if name.startswith('handle_'):
+            if name[0].islower():
                 f = getattr(m, name)
                 if hasattr(f, '__call__'):
                     self.add_function(f)
