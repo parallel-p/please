@@ -37,7 +37,7 @@ def compile(path, limits=globalconfig.default_limits):
     old_folder_state = Snapshot(cur_folder)
     config = get_lang_config(path)
     if config is None:
-        raise PleaseException("Couldn't detect source language for file " + path)
+        raise PleaseException("Can't detect source language for file " + path)
     DO_NOTHING_RESULT = (invoker.ResultInfo("OK", 0, 0, 0, 0) , "", "")
     need_binaries = config.binaries
     if already_compiled(path, need_binaries):
@@ -65,10 +65,11 @@ def compile(path, limits=globalconfig.default_limits):
         result, out, err = invoker.invoke(handler, limits)
         stdout.append(out)
         stderr.append(err)
+        log.info("Compilation {0} succeded.".format(path) + form_error_output.form_err_string_by_std(out, err))
         if result.verdict != 'OK':
             error = PleaseException(form_error_output.process_err_exit(
                 "Compilation %s failed with:" % path, result.verdict, \
-                result.return_code, os.fsdecode(out), os.fsdecode(err)))
+                result.return_code, out, err))
             break
     new_folder_state = Snapshot(cur_folder)
     trash_remover.remove_trash(old_folder_state.get_changes(new_folder_state), config.is_compile_garbage)
