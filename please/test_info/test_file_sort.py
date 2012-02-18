@@ -1,11 +1,12 @@
 import re
 
-def sorting_key(file):
-    result = []
-    for item in re.split(r'(\D{1,})', file):
-        if item == "": continue
-        if item.isdigit():
-            item = int(item)
-        result.append(item)
+REGEXP = re.compile(r'(\D+)')
 
-    return result
+def testfile_sorting_key(testfile):
+    fname = getattr(testfile, 'filename', '')
+    return sorting_key(fname)
+
+def sorting_key(fname):
+    return tuple((int(item) if item.isdigit() else item)
+                 for item in REGEXP.split(fname) if item)
+

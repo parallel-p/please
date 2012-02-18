@@ -1,7 +1,7 @@
 from . import test_info
 from . import test_file_sort
-import tempfile
-import shutil
+from .test_file import FileTestFile
+import os.path
 import glob
 #from ..well_done import well_done
 import re
@@ -9,30 +9,28 @@ import re
 
 class FileTestInfo(test_info.TestInfo):
     def __init__(self, mask, tags={}, well_done=None, comment = ''):
-        self.__mask = mask
+        self.mask = mask
         self.__well_done = well_done
+        self.exclude = re.compile(tags.get('exclude') or '$^')
         super(FileTestInfo, self).__init__(tags, comment)
+
+    def __eq__(self, other):
+        return (self.mask == other.mask and
+                self.exclude.pattern == other.exclude.pattern)
+
+    def __hash__(self):
+        return hash(self.mask) ^ hash(self.exclude)
     
     def tests(self):
         result = []
         desc = []
         exclude = self.get_tags().get('exclude')
         files = []
-        for file in glob.iglob(self.__mask):
-            files.append(file)
-            
-        for file in sorted(files, key = test_file_sort.sorting_key):
-            if exclude is not None:
-                if re.match(exclude, file) is not None:
-                    continue
-            if self.__well_done is not None:
-                self.__well_done.check(file)
-            temp = tempfile.NamedTemporaryFile(delete = False)
-            shutil.copy(file, temp.name)
-            result.append(temp.name)
-            desc.append(file)
-        self.set_desc(desc)
-        return result
+        for file in glob.iglob(self.mask):
+            if not self.exclude.match(file):
+                files.append(FileTestFile(os.path.abspath(file), file))
+        files.sort(key = test_file_sort.testfile_sorting_key)
+        return files
     
     def to_please_format(self):
-        return ' '.join([self.get_prefix(), self.__mask, self.get_suffix()]).strip()
+        return ' '.join([self.get_prefix(), self.mask, self.get_suffix()]).strip()

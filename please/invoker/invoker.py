@@ -170,14 +170,14 @@ def invoke(handler, limits):
             used_memory = max(used_memory, __get_memory_info(handler))
         except psutil.error.NoSuchProcess:
             #logger.warning("Couldn't check limits: NoSuchProcess")
-            continue#sometimes it happens for unknown reasons
+            continue #sometimes it happens for unknown reasons
         except psutil.error.AccessDenied:
-            try:#wait some time, in darwin process is steel running, but already not exists
+            try: #wait some time, in darwin process is steel running, but already not exists
                 return_code = handler.wait(CHECK_PERIOD)
             except psutil.TimeoutExpired:
                 pass
             #logger.warning("Couldn't check limits: AccessDenied")
-            continue#sometimes it happens for unknown reasons
+            continue #sometimes it happens for unknown reasons
 
         if real_time > limits.real_time:
             handler.kill()
@@ -248,6 +248,18 @@ def invoke(handler, limits):
     if real_time > limits.real_time:
         verdict = "real TL"
         return_code = None
+
+    if handler.stdout is not None:
+        try:
+            stdout.append(handler.stdout.read())
+        except (OSError, IOError):
+            pass
+
+    if handler.stderr is not None:
+        try:
+            stderr.append(handler.stderr.read())
+        except (OSError, IOError):
+            pass
 
     verdict = verdict or ("OK" if return_code == 0 else "RE")
     return (ResultInfo(verdict, return_code, real_time, cpu_time, used_memory / MEGABYTE),

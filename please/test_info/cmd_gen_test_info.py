@@ -16,6 +16,9 @@ class CmdOrGenTestInfo(test_info.TestInfo):
         """
         self.__executor = executor
         self.__args = args
+        mask = tags.get('mask')
+        exclude = tags.get('exclude')
+        self.diff_test_finder = DiffTestFinder(mask, exclude)
         super(CmdOrGenTestInfo, self).__init__(tags, comment)
     
     def __eq__(self, other):
@@ -24,38 +27,34 @@ class CmdOrGenTestInfo(test_info.TestInfo):
     def tests(self):
         problem_dir = os.getcwd() #really?
         
-        stdout = tempfile.NamedTemporaryFile(delete = False)
-        compiler.compile(self.__executor)
+        #stdout = tempfile.NamedTemporaryFile(delete = False)
+        executor = os.path.abspath(self.__executor)
+        compiler.compile(executor)
 
-        snapshot_before = Snapshot(problem_dir)
-        invoker_result, retstdout, reterror = runner.run(
-                self.__executor, self.__args, stdout = stdout)
+        exe_dir = tempfile.mkdtemp()
+        os.chdir(exe_dir)
+        snapshot_before = Snapshot('.')
+        invoker_result, retstdout, reterror = runner.run(executor, self.__args)
         if invoker_result.verdict != "OK":
             raise PleaseException(
                 process_err_exit("Generator %s with args %s crashed with"
                     % (self.__executor, " ".join(self.__args)),
                     invoker_result.verdict, invoker_result.return_code,
                     retstdout, reterror))
-        snapshot_after = Snapshot(problem_dir, files_to_ignore = [stdout.name])
+        stdout = retstdout.decode()
+        snapshot_after = Snapshot('.')
+        os.chdir(problem_dir)
         
         diff = snapshot_before.get_changes(snapshot_after)
         
-        exe_dir = os.getcwd() #really?
         mask = self.get_tags().get('mask')
         exclude = self.get_tags().get('exclude')
-        diff_test_finder = DiffTestFinder(exe_dir, mask, exclude)
-        tests = diff_test_finder.tests(diff, stdout.name)
-        desc = diff_test_finder.get_desc()
+        tests, trash = self.diff_test_finder.tests(exe_dir, diff, stdout)
+        tests.sort(key = test_file_sort.testfile_sorting_key)
         
-        zipped = list(zip(tests, desc))
-        zipped.sort(key = lambda x : test_file_sort.sorting_key(x[0]))
-        tests, desc = zip(*zipped)
-        self.set_desc(desc)        
-
         #remove trash
-        for file in diff[1]:
-            if os.path.relpath(file, exe_dir) not in tests:
-                os.remove(os.path.join(exe_dir, file))
+        for file in trash:
+            os.remove(os.path.join(exe_dir, file))
         return tests
     
     def to_please_format(self):
