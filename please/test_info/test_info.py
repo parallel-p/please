@@ -15,12 +15,6 @@ class TestInfo:
     def set_tag(self, item, value):
         self.__tags[item] = value
         
-    def set_desc(self, desc):
-        self.__desc = desc
-        
-    def get_desc(self):
-        return self.__desc
-    
     def get_prefix(self):
         tags_list = []
         for key, value in sorted(self.__tags.items()):

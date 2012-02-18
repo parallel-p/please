@@ -100,7 +100,7 @@ class TestConfigParser:
             attributes_list = attributes_str.split(',')
         
             for attribute in attributes_list:
-                if attribute.find('=') > -1: #if attribute is '<key> = <value>'
+                if '=' in attribute: #if attribute is '<key> = <value>'
                     key_and_value = attribute.split('=')
                     key = key_and_value[0].strip()
                     value = key_and_value[1].strip()

@@ -10,10 +10,7 @@ class CmdOrGenTestInfo(unittest.TestCase):
         a = cmd_gen_test_info.CmdOrGenTestInfo("test_problems/generator/main.cpp", ["blue", "dog"])
         res = a.tests()
         
-        #TODO:what is res[0]?
-        with open(res[0]) as res_file:
-            self.assertEqual(res_file.read(), "blue dog ")
-        os.remove(res[0])
+        self.assertEqual(res[0].contents(), "blue dog ")
         
 if __name__ == '__main__':
     unittest.main()

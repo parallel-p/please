@@ -4,6 +4,7 @@ import os
 from please.tests_generator import tests_generator
 import io
 from please.utils import line_ending
+from please.test_info.test_file import FileTestFile
 
 TESTS_DIR = ".tests"
 
@@ -41,17 +42,15 @@ class Tester(unittest.TestCase):
             self.__tags = tags
             self.__new_filename = new_filename
             self.__desc = desc
-        def get_desc(self):
-            return [self.__desc]
         def get_tags(self):
             return self.__tags
         def tests(self):
-            return [self.__new_filename]
+            return [FileTestFile(self.__new_filename, self.__desc)]
             
 
     def test_file(self):
         
-        test_info = self.TestInfoMock("file_path", {}, "new_file_path", "file_path")
+        test_info = self.TestInfoMock("file_path", set(), "new_file_path", "file_path")
         test_info2 = self.TestInfoMock("file_path2", {"second group"}, "new_file_path2", "file_path2")
         
         self.mox.StubOutWithMock(os.path, "exists")
@@ -60,13 +59,13 @@ class Tester(unittest.TestCase):
         self.mox.StubOutWithMock(shutil, "rmtree")
         shutil.rmtree(os.path.join(TESTS_DIR)).MultipleTimes()
 
-        self.mox.StubOutWithMock(shutil, "move")
+        self.mox.StubOutWithMock(shutil, "copy")
         self.mox.StubOutWithMock(line_ending, "convert")
-        shutil.move("new_file_path2", os.path.join(TESTS_DIR, "1"))
+        shutil.copy("new_file_path2", os.path.join(TESTS_DIR, "1"))
         line_ending.convert(os.path.join(TESTS_DIR, "1"))
-        shutil.move("new_file_path", os.path.join(TESTS_DIR, "1"))
+        shutil.copy("new_file_path", os.path.join(TESTS_DIR, "1"))
         line_ending.convert(os.path.join(TESTS_DIR, "1"))
-        shutil.move("new_file_path2", os.path.join(TESTS_DIR, "2"))
+        shutil.copy("new_file_path2", os.path.join(TESTS_DIR, "2"))
         line_ending.convert(os.path.join(TESTS_DIR, "2"))
 
         self.mox.ReplayAll()
