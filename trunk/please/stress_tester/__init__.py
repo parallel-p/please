@@ -89,7 +89,7 @@ class StressTester:
 
         # if checkfail, raise exception
         if not res[0].verdict in ['OK', 'RE']:
-            self.logger.errror("Checkfail: Invoker returned %s, checker return code is %s, checker output %s" % (res[0].verdict, res[0].return_code, str(res[1])))
+            self.logger.error("Checkfail: Invoker returned %s, checker return code is %s, checker output %s" % (res[0].verdict, res[0].return_code, str(res[1])))
             raise StressCheckFail()
 
         # if return code == 0, solution accepted

@@ -10,10 +10,7 @@ class CmdOrGenTestInfo(unittest.TestCase):
         a = echo_test_info.EchoTestInfo("blue dog")
         res = a.tests()
         
-        #TODO:what is res[0]?
-        with open(res[0]) as res_file:
-            self.assertEqual(res_file.read(), "blue dog\n")
-        os.remove(res[0])
+        self.assertEqual(res[0].contents(), "blue dog\n")
         
 if __name__ == '__main__':
     unittest.main()

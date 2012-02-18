@@ -21,14 +21,13 @@ class TestObjectFactoryTest(unittest.TestCase):
         t = parser.TestObjectFactory.create(well_done, 1, "echo",  ["17",  "mama"])
         self.assertIsInstance(t, echo_test_info.EchoTestInfo)
         q = t.tests()
-        with open(q[0]) as test_file:
-            self.assertEqual(test_file.read(), '17 mama\n')
-        os.remove(q[0])
+        self.assertEqual(q[0].contents(), '17 mama\n')
         
     def test_stdgen(self):
         well_done = self.WellDoneMock("key")
         self.assertIsInstance(
             parser.TestObjectFactory.create(well_done, 1, "gen.cpp", ["17", "42", "100500"]), cmd_gen_test_info.CmdOrGenTestInfo)
+
     def test_nonexist_file(self):
         well_done = self.WellDoneMock("key")
         with self.assertRaises(PleaseException):
@@ -51,13 +50,11 @@ class TestObjectFactoryTest(unittest.TestCase):
         b = a.get_test_info_objects()
         
         t = b[0].tests()
-        with open(t[0]) as f:
-            self.assertEqual(f.read()[:6], "1 2 3 ")
+        self.assertEqual(t[0].contents()[:6], "1 2 3 ")
         
         self.assertEqual(b[1].to_please_format(), "[sample] " + os.path.join("test_problems", "generator", "main.cpp") + " happy new year #YAAAAZ!")
         t = b[1].tests()
-        with open(t[0]) as f:
-            self.assertEqual(f.read(), "happy new year ")
+        self.assertEqual(t[0].contents(), "happy new year ")
 
     def test_difficult_tags_parse(self):
         parserObject = parser.TestConfigParser("[exclude=tests/0[1-2]]echo 1")
@@ -69,8 +66,7 @@ class TestObjectFactoryTest(unittest.TestCase):
         a = parser.TestConfigParser("python 'ab'*  5")
         b = a.get_test_info_objects()
         t = b[0].tests()
-        with open(t[0]) as f:
-            self.assertEqual(f.read(), "ababababab")
+        self.assertEqual(t[0].contents(), "ababababab")
 
     def test_python_error(self):
         a = parser.TestConfigParser("python hi")
