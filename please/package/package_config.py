@@ -1,5 +1,5 @@
 import os.path
-from .config import ConfigFile
+from .config import ConfigFile, Config
 from .. import globalconfig
 from ..utils.writepackage import writepackage
 

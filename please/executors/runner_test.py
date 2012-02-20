@@ -2,6 +2,7 @@ import unittest
 
 import mox
 import psutil
+from subprocess import PIPE
 
 import please.executors.runner as rn
 
@@ -16,15 +17,9 @@ class RunTest(unittest.TestCase):
         self.mox.VerifyAll()
         
     def test_run(self) :
-        self.mox.StubOutWithMock(psutil, "Popen")
-        process = self.mox.CreateMockAnything()
-        process.__enter__()
-        process.__exit__(None, None, None)
-
-        self.mox.StubOutWithMock(rn.invoker, "invoke")
+        self.mox.StubOutWithMock(rn.invoker, "run_command")
         res_info = self.mox.CreateMock(rn.invoker.ResultInfo)
         res_info.verdict = "OK"
-        rn.invoker.invoke(process, rn.globalconfig.default_limits).AndReturn((res_info, b'', b''))
 
         Snapshot = rn.Snapshot
         self.mox.StubOutWithMock(rn, "Snapshot")
@@ -43,11 +38,9 @@ class RunTest(unittest.TestCase):
         self.mox.StubOutWithMock(rn.trash_remover, "remove_trash")
         rn.trash_remover.remove_trash(None, False)
 
-        psutil.Popen(m.run_command, stdin = None, shell = False,
-                     stdout = mox.IgnoreArg(), stderr = mox.IgnoreArg(),
-                     env = None).AndReturn(process)
-
-
+        rn.invoker.run_command(m.run_command, rn.globalconfig.default_limits,
+                               env = mox.IgnoreArg(), shell = False,
+                               stdin = None, stdout = PIPE, stderr=PIPE).AndReturn((res_info, b'', b''))
         #ec = self.mox.CreateMockAnything()
         #self.mox.StubOutWithMock(rn, "ExecutionControl")
         #rn.ExecutionControl(None, mox.IgnoreArg(), mox.IgnoreArg(), process).AndReturn(ec)

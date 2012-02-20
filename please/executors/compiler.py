@@ -50,19 +50,15 @@ def compile(path, limits=globalconfig.default_limits):
     error = None
     env = dict(os.environ)
     env.update(config.environment)
-    _null_device = open(os.devnull, 'rb')
+
     for command in commands:
         log.debug("Compiler.py: running %s with limits %s" % (command, limits))
         try:
-            handler = psutil.Popen(command,
-                                   stdin = _null_device,
-                                   stdout = PIPE,
-                                   stderr = PIPE,
-                                   env = env)
+            result, out, err = invoker.run_command(command, limits,
+                                                   env = env)
         except OSError:
             error = PleaseException("There is no compiler for file '%s'" % path)
             break
-        result, out, err = invoker.invoke(handler, limits)
         stdout.append(out)
         stderr.append(err)
         log.info("Compilation {0} succeded.".format(path) + form_error_output.form_err_string_by_std(out, err))

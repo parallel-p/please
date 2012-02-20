@@ -18,7 +18,7 @@ def generate_problem():
     template_vars = copy.copy(globalconfig.default_template_vars)
     problem_full_name = package_config.PackageConfig.get_config()['name']
     template_vars['name'] = '%s' % problem_full_name
-    generate_contest(template_vars=template_vars)
+    return generate_contest(template_vars=template_vars)
 
 def generate_contest(problem_names = [os.curdir], template = None, template_vars = None, file = None):
     problem_template_path = get_template_full_path(globalconfig.default_template_contest)
