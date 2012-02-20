@@ -4,6 +4,8 @@ from ..utils import platform_detector
 import sys
 import errno
 import os
+from subprocess import PIPE
+import tempfile
 
 _on_windows = sys.platform.startswith('win')
 
@@ -123,6 +125,27 @@ Example of using:
   else:
       raise Exception(":-(")
 '''
+
+def run_command(args, limits, stdin = None, stdout = PIPE, stderr = PIPE, **kw):
+    stdout_fh = stdout if stdout != PIPE else tempfile.TemporaryFile()
+    stderr_fh = stderr if stderr != PIPE else tempfile.TemporaryFile()
+
+    if stdin is None:
+        stdin = open(os.devnull, 'rb')
+
+    handler = psutil.Popen(args, stdin=stdin, stdout=stdout_fh, stderr=stderr_fh, **kw)
+    res, retstdout, retstderr = invoke(handler, limits)
+    if stdout == PIPE:
+        stdout_fh.seek(0)
+        retstdout = stdout_fh.read()
+        stdout_fh.close()
+    if stderr == PIPE:
+        stderr_fh.seek(0)
+        retstderr = stderr_fh.read()
+        stderr_fh.close()
+
+    return res, retstdout, retstderr
+
 def invoke(handler, limits):
     CHECK_PERIOD = 0.05
     MEGABYTE = 1 << 20

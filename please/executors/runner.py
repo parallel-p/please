@@ -55,11 +55,16 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin = None
                  "stderr:%s, env:%s", str(args), str(stdout), str(stdin),
                  str(stderr), str(env))
 
-    process = psutil.Popen(args, stdout = stdout, stdin = stdin, stderr = stderr,
-                           env = env, shell = shell)
-    invoke_result = None
-    with ExecutionControl(stdin, stdout, stderr, process):
-        invoke_result, out, err = invoker.invoke(process, limits)
+    #process = psutil.Popen(args, stdout = stdout, stdin = stdin, stderr = stderr,
+    #                       env = env, shell = shell)
+    #invoke_result = None
+    #with ExecutionControl(stdin, stdout, stderr, process):
+    invoke_result, out, err = invoker.run_command(args, limits,
+                                                  stdin = stdin,
+                                                  stdout = stdout,
+                                                  stderr = stderr,
+                                                  env = env,
+                                                  shell = shell)
 
     snapshot_after = Snapshot()
 

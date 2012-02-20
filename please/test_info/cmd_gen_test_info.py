@@ -27,7 +27,6 @@ class CmdOrGenTestInfo(test_info.TestInfo):
     def tests(self):
         problem_dir = os.getcwd() #really?
         
-        #stdout = tempfile.NamedTemporaryFile(delete = False)
         executor = os.path.abspath(self.__executor)
         compiler.compile(executor)
 
