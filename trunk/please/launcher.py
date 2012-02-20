@@ -68,6 +68,9 @@ def main():
         command_line_config.add_problem_config_modification_operations(matcher,
             active=in_problem_folder)
 
+        command_line_config.add_zip_operation(matcher,
+                                              active = in_problem_folder)
+
         command_line_config.add_stress_test_operations(matcher,
             active=in_problem_folder)
 
