@@ -76,6 +76,7 @@ _*Примечание:*_ желательно главным решением �
   * RE - run-time error
   * TL - time limit
   * ML - memory limit
+  * PE - presentation error
 
 Примеры:
   * please add solution solutions/solution_slow.cpp input stdin output test.out expected OK TL 
