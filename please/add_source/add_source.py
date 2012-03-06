@@ -25,7 +25,7 @@ def add_main_solution(path):
     add_main_solution_with_config(package_config, path)
     package_text = package_config.get_text()
     writepackage(package_text)
-    log.info("Main solution %s has bee set successfully", path)
+    log.info("Main solution %s has been set successfully", path)
 
 def del_solution(path):
     config = PackageConfig.get_config()

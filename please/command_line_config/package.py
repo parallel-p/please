@@ -1,5 +1,5 @@
 from please.command_line.template import Template
-from please.zip import generate_zipfile
+#from please.zip import generate_zipfile
 
 TL_ALIASES = "TL|tl|time-limit|timelimit|time_limit"
 ML_ALIASES = "ML|ml|memory-limit|memorylimit|memory_limit"
@@ -68,4 +68,5 @@ def add_problem_config_modification_operations(matcher, active):
             active)
 
 def add_zip_operation(matcher, active):
-    matcher.add_handler(Template(['zip']), generate_zipfile, active)
+    pass
+#    matcher.add_handler(Template(['zip']), generate_zipfile, active)
