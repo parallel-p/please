@@ -40,18 +40,17 @@ class TestsGenerator:
         if not os.path.exists(TESTS_DIR):
             os.makedirs(TESTS_DIR)
         generated = []
-        
-        logger.info('Generating {0} tests series'.format(len([test for test in self.__tests_info if admit(test.get_tags())])))
+        given = [test for test in self.__tests_info if admit(test.get_tags())]
+        logger.info('Generating {0} tests series'.format(len(given)))
         
         current_test_id = 0
-        for i, test in enumerate(self.__tests_info):
+        for i, test in enumerate(given):
             # TODO: this should be changed to generated_tests_count
-            if (admit(test.get_tags())):
-                file_names, tests_in_series_count = self.__generate_test(test, current_test_id)    
-                current_test_id += tests_in_series_count               
-                for file_name in file_names:
-                    generated.append(file_name)
-                logger.info('Test series #{0} generated'.format(i + 1))
+            file_names, tests_in_series_count = self.__generate_test(test, current_test_id)    
+            current_test_id += tests_in_series_count               
+            for file_name in file_names:
+                generated.append(file_name)
+            logger.info('Test series #{0} generated'.format(i + 1))
         return generated
         
     def generate_all(self):

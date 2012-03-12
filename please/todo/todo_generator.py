@@ -5,6 +5,7 @@ from ..todo import painter
 from .. import globalconfig
 from ..template import info_generator
 from ..utils import utests
+from ..test_config_parser import parser
 
 #TODO: make it nonstatic class
 class TodoGenerator:
@@ -34,27 +35,34 @@ class TodoGenerator:
         config = package_config.PackageConfig.get_config()
         items = ["statement", "checker", "description", "analysis", "validator", "main_solution"]
         for item in items:
-            TodoGenerator.print_to_console(
+            TodoGenerator.__simple_print(
                     TodoGenerator.__get_file_item_status(config, md5values, item), item)
         tests_description_path = globalconfig.default_tests_config
-        TodoGenerator.print_to_console(TodoGenerator.__get_simple_item_status(config, "tags"), "tags", " is empty")
-        TodoGenerator.print_to_console(TodoGenerator.__get_simple_item_status(config, "name"), "name", " is empty")
-        TodoGenerator.print_to_console(
+        TodoGenerator.__simple_print(TodoGenerator.__get_simple_item_status(config, "tags"), "tags", " is empty")
+        TodoGenerator.__simple_print(TodoGenerator.__get_simple_item_status(config, "name"), "name", " is empty")
+        TodoGenerator.__simple_print(
                 TodoGenerator.__get_file_item_status(config, md5values,
                     "tests_description", tests_description_path), "tests description")
         TodoGenerator.__get_tests_status()
         
     @staticmethod
-    def __get_tests_status():
+    def __get_tests_status(tag = None):
         count = 0
         for i in utests.get_tests():
             count += 1
-        msg = str(count) + " tests generated"
-        if count > 0:
-            print(painter.ok(msg))
+        TodoGenerator.__counter_print(count, ' tests generated')
+        TodoGenerator.__counter_print(parser.FileTestConfigParser().count_by_tag('sample'),
+                      ' samples in tests.config', False)
+        
+        
+    @staticmethod
+    def __counter_print(amount, text, error_when_0=True):
+        msg = str(amount) + text
+        if amount > 0: print(painter.ok(msg))
         else:
-            print(painter.warning(msg))
-    
+            if error_when_0: print(painter.error(msg))
+            else: print(painter.warning(msg))
+            
     @staticmethod
     def __get_simple_item_status(config, item):
         if item in config:
@@ -64,9 +72,9 @@ class TodoGenerator:
                 return "warning"
         else:
             return "error" 
-                    
+    
     @staticmethod   
-    def print_to_console(status, text, warn_msg=" is default", err_msg = " does not exist"):
+    def __simple_print(status, text, warn_msg=" is default", err_msg = " does not exist"):
         """ prints message to please console. color depends on objective's status"""
         if (status == "ok"):
             print(painter.ok(text + " ok"))
