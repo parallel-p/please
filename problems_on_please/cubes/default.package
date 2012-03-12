@@ -1,4 +1,4 @@
-please_version = 0.2
+please_version = 0.3
 name = Кубики
 shortname = cubes
 type = 
@@ -27,4 +27,8 @@ solution = {
     source = solutions/solution_wrong.cpp
     expected = OK, RE
     possible = TL, WA
+}
+solution = {
+    source = solutions/solution.py
+    expected = OK
 }
