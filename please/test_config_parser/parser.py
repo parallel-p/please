@@ -69,6 +69,13 @@ class TestConfigParser:
                 result.append(item[1])
         return result
     
+    def count_by_tag(self, tag):
+        amount = 0
+        for line in self.__parsed:
+            if tag in line[3]:
+                amount += 1
+        return amount
+    
     def get_test_info_objects(self):       
         result = []
         for item in self.__parsed:
