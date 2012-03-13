@@ -68,5 +68,4 @@ def add_problem_config_modification_operations(matcher, active):
             active)
 
 def add_zip_operation(matcher, active):
-    pass
-#    matcher.add_handler(Template(['zip']), generate_zipfile, active)
+    matcher.add_handler(Template(['zip']), generate_zipfile, active)
