@@ -68,16 +68,17 @@ class TestsAndAnswersGenerator:
         for num, test in enumerate(tests):
             well_done_with_validator.validate(test, num+1)
 
-
-
     def __get_admit (self, tags):
-        def admit(attr):
-            for tag in tags:
-                if not tag in attr:
-                    return False
-            return True
+        class Admit:
+            def __init__(self, tags):
+                self.tags = tags
+            def __call__(self, attr):
+                for tag in self.tags:
+                    if not tag in attr:
+                        return False
+                return True
 
-        return admit
+        return Admit(tags)
 
     def __generate_answers (self, tests):
         self.validate(tests)
