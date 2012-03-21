@@ -1,5 +1,5 @@
 from please.command_line.template import Template
-#from please.zip import generate_zipfile
+from please.zip import generate_zipfile
 
 TL_ALIASES = "TL|tl|time-limit|timelimit|time_limit"
 ML_ALIASES = "ML|ml|memory-limit|memorylimit|memory_limit"
