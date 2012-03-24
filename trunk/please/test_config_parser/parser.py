@@ -134,6 +134,8 @@ class TestConfigParser:
    
 class FileTestConfigParser(TestConfigParser):
     def __init__(self, well_done = None, path = globalconfig.default_tests_config):
+        if not os.path.exists(path):
+            raise PleaseException("There is no tests configuration file ({0})!".format(path))
         with open(path) as config_file:
             super(FileTestConfigParser, self).__init__(config_file.read(), well_done)
 

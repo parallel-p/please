@@ -7,7 +7,7 @@ class Config:
     Very cool multilevel config parser with possibility of set, delete, formatting data,
     and saving comments of source
     """
-    def __init__(self, text, counter=0, depth=0):
+    def __init__(self, text, counter=0, depth=0, file = os.path.join(os.getcwd(), globalconfig.default_package)):
         """
             conf = Config(text_of_config_file)
         """
@@ -31,6 +31,7 @@ class Config:
         self.__counter = counter
         self.__settings = {}
         self.__source = []
+        self.__file = file
         self.repeating_keywords = ["solution", "problem"]
         self.list_keywords = ["expected", "possible", "well_done_test", \
                               "well_done_answer"]
@@ -189,15 +190,46 @@ class Config:
         return os.path.join(*splitted)
 
     def __getitem__(self, item):
+        #if you don't need to check correctness of values, rewrite function get
         if item == "checker":
             # if local checker doesnt exists, return path to global checkers dir
             checker = self.__settings.get(item)
             checker_local_path = self.__convert_separators(checker)
             if not os.path.exists(checker_local_path):
-                return os.path.join(globalconfig.root, globalconfig.checkers_dir, checker_local_path)
+                checkers_dir = os.path.join(globalconfig.root, globalconfig.checkers_dir)
+                root_checker_path = os.path.join(checkers_dir, checker_local_path)
+                if not os.path.exists(root_checker_path) or not os.path.isfile(root_checker_path):
+                    raise PleaseException("There is no file '{0}' in current directory and in internal Please checkers directory (config {1})".format(checker, self.__file))
+                else:
+                    return root_checker_path
             return checker_local_path
-        elif item in ["source", "validator", "statement", "description", "main_solution"] and self.__settings.get(item) is not None and type(self.__settings.get(item)) is not Config:
-            return self.__convert_separators(self.__settings.get(item))
+        elif item in ["source", "validator", "statement", "description", "main_solution"]:
+            if item == "validator":
+                return self.__settings.get(item)
+            if self.__settings.get(item) is None:
+                raise PleaseException("There is no item '{0}' in config {1}".format(item, self.__file))
+            else:
+                path = self.__convert_separators(self.__settings.get(item))
+                full_path = os.path.join(os.path.split(self.__file)[0], path)
+                if not os.path.exists(full_path) or not os.path.isfile(full_path):
+                    raise PleaseException("There is no file '{1}' (item '{0}' in config {2})".format(item, full_path, self.__file))
+                return path
+        elif item in ["time_limit", "memory_limit"]:
+            if self.__settings.get(item) is None:
+                raise PleaseException("There is no item '{0}' in config {1}".format(item, self.__file))
+            else:            
+                limit = self.__settings.get(item)
+                try:
+                    value = float(limit)
+                    if not (value > 0):
+                        raise PleaseException("Limits in config {0} should be greater than 0".format(self.__file))
+                except ValueError as ex:                
+                    raise PleaseException("A problem occured while converting a value of item '{0}' in config {1} to float".format(item, self.__file))
+                return limit
+        elif item in ["input", "output", "shortname"]:
+            if self.__settings.get(item) in [None, ""]:
+                raise PleaseException("Items 'shortname', 'input' and 'output' in config {0} should be set".format(self.__file))
+            return self.__settings.get(item)
         if item not in self.__settings and item in self.repeating_keywords + self.list_keywords:
             return []
         return self.__settings.get(item)
@@ -242,7 +274,7 @@ class ConfigFile(Config):
                 text = f.read()
         else:
             text = ''
-        super().__init__(text)
+        super().__init__(text, file = filename)
 
     def write(self):
         with open(self.filename, 'w', encoding = 'utf-8') as f:

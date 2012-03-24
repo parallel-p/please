@@ -5,11 +5,11 @@ type =
 
 input = stdin
 output = stdout
-time_limit = 2.0
+time_limit = 2
 memory_limit = 256
 
 checker = checker.cpp
-validator = validator.cpp
+#validator =  #validator.cpp
 main_solution = solutions/solution.py
 
 statement = statements/default.ru.tex
