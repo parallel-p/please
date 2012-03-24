@@ -39,10 +39,6 @@ class PackageConfig:
             PackageConfig.oldversion_fix(pc)
             return pc
 
-    #############################################################
-    # *.config fix if old please_version
-    #############################################################
-
     @staticmethod
     def oldversion_fix(conf):
         '''Fix *.package 
