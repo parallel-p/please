@@ -2,6 +2,7 @@ import unittest
 import mox
 from please.package.config import Config
 import please.globalconfig as global_config
+from please.utils.exceptions import PleaseException
 import os.path
 
 class TestConfig(unittest.TestCase):
@@ -18,15 +19,15 @@ class TestConfig(unittest.TestCase):
 
         input =sloniki.in
         output = sloniki.out
-        time_limit = 1 sec
+        time_limit = 1 
 
         #randcomment
-        memory_limit = 64 mb
+        memory_limit = 64 
         """)
         self.assertEqual("sloniki", conf["name"])
         self.assertEqual("0.1", conf["please_version"])
-        self.assertEqual("64 mb", conf["memory_limit"])
-        self.assertEqual("1 sec", conf["time_limit"])
+        self.assertEqual("64", conf["memory_limit"])
+        self.assertEqual("1", conf["time_limit"])
 
     def test_contains(self):
         conf = Config("""
@@ -38,10 +39,10 @@ class TestConfig(unittest.TestCase):
 
         input =sloniki.in
         output = sloniki.out
-        time_limit = 1 sec
+        time_limit = 1 
 
         #randcomment
-        memory_limit = 64 mb
+        memory_limit = 64 
         """)
 
         self.assertTrue("output" in conf)
@@ -56,10 +57,10 @@ class TestConfig(unittest.TestCase):
 
         input =sloniki.in
         output = sloniki.out
-        time_limit = 1 sec
+        time_limit = 1 
 
         #randcomment
-        memory_limit = 64 mb
+        memory_limit = 64 
         """)
         
         conf["name"] = "slonik"
@@ -76,10 +77,10 @@ class TestConfig(unittest.TestCase):
 
         input =sloniki.in
         output = sloniki.out
-        time_limit = 1 sec
+        time_limit = 1 
 
         #randcomment
-        memory_limit = 64 mb
+        memory_limit = 64 
         """)
         
         conf["name"] = "slon"
@@ -96,10 +97,10 @@ class TestConfig(unittest.TestCase):
 
         input =sloniki.in
         output = sloniki.out
-        time_limit = 1 sec
+        time_limit = 1 
 
         #randcomment
-        memory_limit = 64 mb
+        memory_limit = 64 
         """)
         
         del conf["name"]
@@ -114,7 +115,7 @@ name = sloniki
 
 input = sloniki.in
 output = sloniki.out
-time_limit = 1 sec #
+time_limit = 1 #
 abacaba
 abacaba1 #
 abacaba2 #        23
@@ -123,7 +124,7 @@ abacaba2 #        23
 key = value # 23
 
 #randcomment
-memory_limit = 64 mb""")
+memory_limit = 64 """)
         
         conf["name"] = "slonik"
         text = """please_version = 0.1
@@ -133,7 +134,7 @@ name = slonik
 
 input = sloniki.in
 output = sloniki.out
-time_limit = 1 sec #
+time_limit = 1 #
 abacaba
 abacaba1 #
 abacaba2 #        23
@@ -142,7 +143,7 @@ abacaba2 #        23
 key = value # 23
 
 #randcomment
-memory_limit = 64 mb
+memory_limit = 64
 """
             
         self.assertEqual(conf.get_text(), text)
@@ -156,7 +157,7 @@ name = slonik
 
 input = sloniki.in
 output = sloniki.out
-time_limit = 1 sec #
+time_limit = 1 #
 abacaba
 abacaba1 #
 abacaba2 #        23
@@ -165,7 +166,7 @@ abacaba2 #        23
 key = value # 23
 
 #randcomment
-memory_limit = 64 mb
+memory_limit = 64
 schoolboy = extra stupid
 """
         self.assertEqual(conf.get_text(), text)
@@ -178,7 +179,7 @@ name = slonik
 
 input = sloniki.in
 output = sloniki.out
-time_limit = 1 sec #
+time_limit = 1 #
 abacaba
 abacaba1 #
 abacaba2 #        23
@@ -259,14 +260,14 @@ wazzzuuup
     def test_checker_global(self):
         self.mox.StubOutWithMock(os.path, "exists")
         os.path.exists("test_checker.cpp").AndReturn(False)
-        
+        os.path.exists(os.path.join(global_config.root, global_config.checkers_dir, "test_checker.cpp"))
         self.mox.ReplayAll()
         
         conf = Config("""
 please_version = 0.1
 checker = test_checker.cpp
 """)
-        self.assertEqual(conf["checker"], os.path.join(global_config.root, global_config.checkers_dir, "test_checker.cpp"))
+        self.assertRaises(PleaseException)
         self.mox.UnsetStubs()
         
     def test_checker_local(self):
@@ -282,7 +283,7 @@ checker = test_checker.cpp
         self.assertEqual(conf["checker"], "test_checker.cpp")
         self.mox.UnsetStubs()
         
-    def test_simple_embedded_config(self):
+    def test_simple_eedded_config(self):
         conf = Config("""
 name = Pavel #some info
 parameters = { #ololo
@@ -292,7 +293,7 @@ weight = 65 #normal
         self.assertEqual(conf["parameters"]["weight"], "65")
         self.assertEqual(conf["name"], "Pavel")
         
-    def test_difficult_embedded_config(self):
+    def test_difficult_eedded_config(self):
         conf = Config("""
 company = LKSH
 parallels = {
@@ -337,7 +338,7 @@ config = {
     def test_get_text_difficult(self):
         conf = Config("""
 config = { # first comment
-    hello # second
+    hello # ond
     #to be
     solution = { # i'm
         expected = ML, TL #lovin'
@@ -352,7 +353,7 @@ config = { # first comment
 """)
         self.assertEqual(conf.get_text(), """
 config = { # first comment
-    hello # second
+    hello # ond
     #to be
     solution = { # i'm
         expected = ML, TL #lovin'

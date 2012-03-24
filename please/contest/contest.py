@@ -65,13 +65,13 @@ class Contest:
             statement_config['template'] = "contest.tex"
             self.config['statement'] = statement_config
         else:
-            raise PleaseException('Config file {} does not exist'.format(config_name))
+            raise PleaseException('Config file {0} does not exist'.format(config_name))
 
         self.__id_method = IdMethod.get(self.config['id_method'])
         if not isinstance(self.config['problem'], list):
             self.__problems = []
         else:
-            self.__problems = self.config['problem'][:] # Скопипастить список. Педобир одобряет.
+            self.__problems = self.config['problem'][:] 
         self.__dict = {problem['id'] : i for i, problem in enumerate(self.__problems)}
 
     def problem_add(self, path, id = False):
