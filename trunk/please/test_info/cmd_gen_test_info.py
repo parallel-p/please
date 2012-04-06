@@ -25,7 +25,7 @@ class CmdOrGenTestInfo(test_info.TestInfo):
         return self.__executor == other.__executor and self.__args == other.__args
         
     def tests(self):
-        problem_dir = os.getcwd() #really?
+        cur_dir = os.getcwd()
         
         executor = os.path.abspath(self.__executor)
         compiler.compile(executor)
@@ -42,13 +42,13 @@ class CmdOrGenTestInfo(test_info.TestInfo):
                     retstdout, reterror))
         stdout = retstdout.decode()
         snapshot_after = Snapshot('.')
-        os.chdir(problem_dir)
+        os.chdir(cur_dir)
         
         diff = snapshot_before.get_changes(snapshot_after)
         
         mask = self.get_tags().get('mask')
         exclude = self.get_tags().get('exclude')
-        tests, trash = self.diff_test_finder.tests(exe_dir, diff, stdout)
+        tests, trash = self.diff_test_finder.tests(exe_dir, diff, stdout, self.__executor)
         tests.sort(key = test_file_sort.testfile_sorting_key)
         
         #remove trash

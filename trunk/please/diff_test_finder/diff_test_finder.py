@@ -32,7 +32,7 @@ class DiffTestFinder:
     #def get_desc(self):
     #    return self.__desc
     
-    def tests(self, exe_dir, diff, stdout=None):
+    def tests(self, exe_dir, diff, stdout=None, generator=None):
         """
         diff is a list of files, stdout - file of redirected stdout of generator,
         returns names of test files, if stdout == None and no files found returns []
@@ -49,7 +49,7 @@ class DiffTestFinder:
                 trash.append(file)
         
         if not new_diff and stdout is not None:
-            return [StrTestFile(stdout, 'standard generator output')], trash
+            return [StrTestFile(stdout, 'stdout of {0}'.format(generator or 'generator'))], trash
         else:
             return new_diff, trash
         
