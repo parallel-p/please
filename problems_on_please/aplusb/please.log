@@ -36,3 +36,132 @@
 15.02.2012[14:26:04] - aplusb - please_logger.executors.compiler.compile(INFO) Compiling default.ru.tex
 15.02.2012[14:26:05] - aplusb - please_logger.latex.latex_tools(INFO) PDF default.ru.pdf was created successfully
 15.02.2012[14:26:05] - aplusb - please_logger(ERROR) Unknown error: [Error 5] Отказано в доступе: '.tests\\.svn\\all-wcprops'
+07.04.2012[01:16:51] - aplusb - please_logger(INFO) Type 'please commands' to show all available commands or 'please help' to show them with detailed description
+07.04.2012[01:17:08] - aplusb - please_logger.TestsGenerator(INFO) Generating 0 tests series
+07.04.2012[01:17:08] - aplusb - please_logger.latex.latex_tools(INFO) Generating pdf from tex...
+07.04.2012[01:17:08] - aplusb - please_logger.executors.compiler.compile(INFO) Compiling default.ru.tex
+07.04.2012[01:17:08] - aplusb - please_logger.executors.compiler.compile(INFO) Compilation default.ru.tex succeded.
+		STDOUT:
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian)
+entering extended mode
+(./default.ru.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, bulgarian, ukrainian, russian, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size12.clo))
+(/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
+(/usr/share/texmf-texlive/tex/latex/cyrillic/t2aenc.def)
+(/usr/share/texmf-texlive/tex/latex/cyrillic/t2acmr.fd))
+(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
+(/usr/share/texmf-texlive/tex/latex/base/utf8.def
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/ot1enc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/omsenc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/t2aenc.dfu)))
+(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
+(/usr/share/texmf-texlive/tex/generic/babel/english.ldf
+(/usr/share/texmf-texlive/tex/generic/babel/babel.def))
+(/usr/share/texmf-texlive/tex/generic/babel/russianb.ldf))
+(/home/dubov94/please/trunk/please/templates/olymp.sty)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty)
+(/etc/texmf/tex/latex/config/graphics.cfg)
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def)))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty))
+(/usr/share/texmf-texlive/tex/latex/amscls/amsthm.sty)
+(/usr/share/texmf-texlive/tex/latex/graphics/epsfig.sty)
+(/usr/share/texmf-texlive/tex/latex/import/import.sty)
+(/usr/share/texmf-texlive/tex/latex/wrapfig/wrapfig.sty)
+(/usr/share/texmf-texlive/tex/latex/epigraph/epigraph.sty)
+No file default.ru.aux.
+(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texmf-texlive/tex/latex/cyrillic/t2acmss.fd)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd)
+(/usr/share/texmf-texlive/tex/latex/cyrillic/t2acmtt.fd)
+
+LaTeX Warning: Reference `LastPage' on page 1 undefined on input line 46.
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./default.ru.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
+pdfTeX warning: \pdfdraftmode enabled, not changing output pdf
+Transcript written on default.ru.log.
+
+07.04.2012[01:17:08] - aplusb - please_logger.executors.compiler.compile(INFO) Compilation default.ru.tex succeded.
+		STDOUT:
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian)
+entering extended mode
+(./default.ru.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, bulgarian, ukrainian, russian, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size12.clo))
+(/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
+(/usr/share/texmf-texlive/tex/latex/cyrillic/t2aenc.def)
+(/usr/share/texmf-texlive/tex/latex/cyrillic/t2acmr.fd))
+(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
+(/usr/share/texmf-texlive/tex/latex/base/utf8.def
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/ot1enc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/omsenc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/t2aenc.dfu)))
+(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
+(/usr/share/texmf-texlive/tex/generic/babel/english.ldf
+(/usr/share/texmf-texlive/tex/generic/babel/babel.def))
+(/usr/share/texmf-texlive/tex/generic/babel/russianb.ldf))
+(/home/dubov94/please/trunk/please/templates/olymp.sty)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty)
+(/etc/texmf/tex/latex/config/graphics.cfg)
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def)))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty))
+(/usr/share/texmf-texlive/tex/latex/amscls/amsthm.sty)
+(/usr/share/texmf-texlive/tex/latex/graphics/epsfig.sty)
+(/usr/share/texmf-texlive/tex/latex/import/import.sty)
+(/usr/share/texmf-texlive/tex/latex/wrapfig/wrapfig.sty)
+(/usr/share/texmf-texlive/tex/latex/epigraph/epigraph.sty) (./default.ru.aux)
+(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texmf-texlive/tex/latex/cyrillic/t2acmss.fd)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd)
+(/usr/share/texmf-texlive/tex/latex/cyrillic/t2acmtt.fd) [1{/var/lib/texmf/font
+s/map/pdftex/updmap/pdftex.map}] (./default.ru.aux) ) </home/dubov94/.texmf-var
+/fonts/pk/ljfour/lh/lh-t2a/lasx1200.600pk> </home/dubov94/.texmf-var/fonts/pk/l
+jfour/lh/lh-t2a/latt1000.600pk> </home/dubov94/.texmf-var/fonts/pk/ljfour/lh/lh
+-t2a/larm1000.600pk> </home/dubov94/.texmf-var/fonts/pk/ljfour/lh/lh-t2a/lasx14
+40.600pk> </home/dubov94/.texmf-var/fonts/pk/ljfour/lh/lh-t2a/lass1200.600pk>
+Output written on default.ru.pdf (1 page, 27252 bytes).
+Transcript written on default.ru.log.
+
+07.04.2012[01:17:08] - aplusb - please_logger.latex.latex_tools(INFO) PDF default.ru.pdf was created successfully
+07.04.2012[01:18:35] - aplusb - please_logger.TestsGenerator(INFO) Generating 0 tests series
