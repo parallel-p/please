@@ -55,17 +55,17 @@ cubes(INFO) [10:28:18]: Test #3 'tests/3' is generated
 cubes(INFO) [10:28:18]: Test #4 'tests/4' is generated
 cubes(INFO) [10:28:18]: Test series #2 generated
 cubes(INFO) [10:28:18]: Compiling generator_random.cpp
-cubes(INFO) [10:28:19]: Test #5 'standard generator output' is generated
+cubes(INFO) [10:28:19]: Test #5 'stdout of generator_random.cpp' is generated
 cubes(INFO) [10:28:19]: Test series #3 generated
-cubes(INFO) [10:28:19]: Test #6 'standard generator output' is generated
+cubes(INFO) [10:28:19]: Test #6 'stdout of generator_random.cpp' is generated
 cubes(INFO) [10:28:19]: Test series #4 generated
 ...
-cubes(INFO) [10:28:21]: Test #19 'standard generator output' is generated
+cubes(INFO) [10:28:21]: Test #19 'stdout of generator_random.cpp' is generated
 cubes(INFO) [10:28:21]: Test series #17 generated
 cubes(INFO) [10:28:21]: Compiling generator_max.cpp
-cubes(INFO) [10:28:21]: Test #20 'standard generator output' is generated
+cubes(INFO) [10:28:21]: Test #20 'stdout of generator_max.cpp' is generated
 cubes(INFO) [10:28:21]: Test series #18 generated
-cubes(INFO) [10:28:22]: Test #21 'standard generator output' is generated
+cubes(INFO) [10:28:22]: Test #21 'stdout of generator_max.cpp' is generated
 cubes(INFO) [10:28:22]: Test series #19 generated
 cubes(INFO) [10:28:22]: Start validator on test #1
 cubes(INFO) [10:28:22]: Compiling validator.cpp
