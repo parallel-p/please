@@ -90,6 +90,7 @@ def main():
             # Get the command line arguments (exclude the first one - it's program's name)
             args = sys.argv[1:]
             # Run the function that is matched to the arguments entered
+            
             try:
                 matcher.matches(args)
             except MatcherException as ex:
@@ -102,7 +103,7 @@ def main():
             except Exception as ex:
                 logger.error("Unknown error: " + str(ex))
                 raise ex
-       
+            
         #TODO: why we delete logs in this case?
         #because we didn't do anything useful 
         if(not globalconfig.in_problem_folder):
