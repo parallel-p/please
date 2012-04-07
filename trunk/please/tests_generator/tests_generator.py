@@ -3,8 +3,10 @@ import os
 from ..utils import line_ending
 from ..executors import compiler, runner
 from .. import globalconfig
+from ..package import package_config
 import io
 import logging
+from please import test_info
 
 logger = logging.getLogger('please_logger.TestsGenerator')
 
@@ -14,7 +16,26 @@ class TestsGenerator:
     def __init__(self, tests_info, prefix=""):
         self.__tests_info = tests_info
         self.__prefix = prefix
+        self.config = package_config.PackageConfig.get_config() or dict()
+        self.hand_answer_extension = self.config.get('hand_answer_extension', 'a')
     
+    def __copy_handfiles(self, testfile, file_name):
+        basename = os.path.splitext(testfile.desc)[0]
+        hand_ansfile = basename + '.' + self.hand_answer_extension
+        if os.path.exists(hand_ansfile):
+            shutil.copy(hand_ansfile, file_name + '.ha')
+            logger.info("    Hand answer file '%s'" % hand_ansfile)
+
+        tex_testfile = basename + '.tex'
+        if os.path.exists(tex_testfile):
+            shutil.copy(tex_testfile, file_name + '.tex')
+            logger.info("    Tex test '%s'" % tex_testfile)
+
+        tex_ansfile = basename + '.a.tex'
+        if os.path.exists(tex_ansfile):
+            shutil.copy(tex_ansfile, file_name + '.a.tex')
+            logger.info("    Tex answer '%s'" % tex_ansfile)
+
     def __generate_test(self, test, first_test_id):
         test_files = test.tests()
         file_names = []
@@ -27,7 +48,9 @@ class TestsGenerator:
             file_names.append(file_name)
             line_ending.convert(file_name)
             logger.info("Test #%d '%s' is generated" % (num, testfile.desc))
-        
+
+            if type(testfile) == test_info.test_file.FileTestFile:
+                self.__copy_handfiles(testfile, file_name)
         return file_names, num - first_test_id
     
     def generate(self, admit, delete_folder=True):
@@ -41,7 +64,7 @@ class TestsGenerator:
             os.makedirs(TESTS_DIR)
         generated = []
         given = [test for test in self.__tests_info if admit(test.get_tags())]
-        logger.info('Generating {0} tests series'.format(len(given)))
+        logger.info('Generating {0} tests series:\n'.format(len(given)))
         
         current_test_id = 0
         for i, test in enumerate(given):
@@ -50,7 +73,7 @@ class TestsGenerator:
             current_test_id += tests_in_series_count               
             for file_name in file_names:
                 generated.append(file_name)
-            logger.info('Test series #{0} generated'.format(i + 1))
+            logger.info('Test series #{0} generated\n'.format(i + 1))
         return generated
         
     def generate_all(self):

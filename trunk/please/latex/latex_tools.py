@@ -295,13 +295,29 @@ class SingleProblemCreator:
         testans = TestsAndAnswersGenerator().generate(["sample"], "sample", False)
 
         for test, ans in testans:
-            with open(os.path.join(test)) as f:
-                test_data = f.read()
-            with open(os.path.join(ans)) as f:
-                answer_data = f.read()
-            problem.add_example(test_data, answer_data)
+            print(test, ans)
+            if os.path.exists(test + '.tex'):
+                with open(os.path.join(test + '.tex')) as f:
+                    test_data = f.read()
+                os.remove(test + '.tex')
+            else:
+                with open(os.path.join(test)) as f:
+                    test_data = f.read()
             os.remove(test)
+
+            if os.path.exists(ans + '.tex'):
+                with open(os.path.join(ans + '.tex')) as f:
+                    answer_data = f.read()
+                os.remove(ans + '.tex')
+            else:
+                with open(os.path.join(ans)) as f:
+                    answer_data = f.read()
             os.remove(ans)
+
+            if os.path.exists(test + '.ha'):
+                os.remove(test + '.ha')
+
+            problem.add_example(test_data, answer_data)
             
         return (problem.construct())
 
