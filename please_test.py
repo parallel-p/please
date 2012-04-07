@@ -112,8 +112,8 @@ class PleaseTest(unittest.TestCase):
         open_config = package_config.PackageConfig.get_config()
         self.__matcher.add_handler(Template(["add", "standard", "checker", "#checker"]), add_standard_checker_to_solution, True)
         self.__matcher.matches("add standard checker wcmp".split())
+        os.remove("wcmp.cpp")
         
-
         os.chdir(start_dir)
         self.assertEqual(os.path.join(start_dir, "please", "checkers", "wcmp.cpp"), open_config["checker"])
         
