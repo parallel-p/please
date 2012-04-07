@@ -21,7 +21,7 @@ class WellDoneWithValidator:
         self.__well_done = well_done
 
     def validate(self, test_filename, test_num):
-        logger.info("Start validator on test #%d" % test_num)
+        logger.info("Start validation on test #%d" % test_num)
         if self.__well_done:
             outcome, errors = self.__well_done.check(test_filename, fix_inplace=False)
             if outcome != well_done.OK:
