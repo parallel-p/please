@@ -5,6 +5,8 @@ from ..package import package_config
 from ..utils import utests
 from ..utils.form_error_output import process_err_exit
 import logging
+import os
+import shutil
     
 logger = logging.getLogger("please_logger.answers_generator")
 
@@ -39,13 +41,20 @@ class AnswersGenerator :
         result = []
         if tests is None:
             tests = utests.get_tests()
-        source_path = source_path or config['main_solution']
+        source_path = source_path or config.get('main_solution', None)
         args = args or (config['args'] if 'args' in config else [])
         solution_config = solution_config or {"input" : config['input'], "output" : config['output']}
         for num, test in enumerate(tests):
-            logger.info('Generating answer for test #{0} by {1}'.format(str(num+1), str(source_path)))
-            AnswersGenerator.check_correct_finished(
-                run_solution ((SolutionInfo (source_path, args, execution_limits,
+            if os.path.exists(test + '.ha'):
+                logger.info("Copying answer for test #{0} from '{1}'".format(str(num+1), test + '.ha'))
+                shutil.copy(test + '.ha', test + '.a')
+            else:
+                if source_path is None:
+                    raise PleaseException("Can't generate answer for test #{0}: main_solution is not set".format(str(num+1)))
+                else:
+                    logger.info("Generating answer for test #{0} with '{1}'".format(str(num+1), source_path))
+                    AnswersGenerator.check_correct_finished(
+                    run_solution ((SolutionInfo (source_path, args, execution_limits,
                                          solution_config, test, test + ".a"))), source_path)
             result.append(test + '.a')
         return result

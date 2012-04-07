@@ -98,7 +98,7 @@ class TodoGenerator:
             item_path = path
         else:
             if (item in config):
-                item_path = config[item]
+                item_path = config.get(item, '')
             else:
                 return "error"
         if (os.path.exists(item_path)):
