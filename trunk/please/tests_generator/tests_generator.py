@@ -17,7 +17,7 @@ class TestsGenerator:
         self.__tests_info = tests_info
         self.__prefix = prefix
         self.config = package_config.PackageConfig.get_config() or dict()
-        self.hand_answer_extension = self.config.get('hand_answer_extension', 'a')
+        self.hand_answer_extension = self.config.get('hand_answer_extension', 'a') or 'a'
     
     def __copy_handfiles(self, testfile, file_name):
         basename = os.path.splitext(testfile.desc)[0]
