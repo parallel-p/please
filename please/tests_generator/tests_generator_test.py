@@ -53,9 +53,6 @@ class Tester(unittest.TestCase):
         test_info = self.TestInfoMock("file_path", set(), "new_file_path", "file_path")
         test_info2 = self.TestInfoMock("file_path2", {"second group"}, "new_file_path2", "file_path2")
         
-        self.mox.StubOutWithMock(os.path, "exists")
-        os.path.exists(TESTS_DIR).MultipleTimes().AndReturn(True)
-
         self.mox.StubOutWithMock(shutil, "rmtree")
         shutil.rmtree(os.path.join(TESTS_DIR)).MultipleTimes()
 

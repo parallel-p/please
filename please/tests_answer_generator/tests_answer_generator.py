@@ -84,7 +84,7 @@ class TestsAndAnswersGenerator:
         self.validate(tests)
         config = package_config.PackageConfig.get_config()
         # TODO: check if config is None
-        return answers_generator.AnswersGenerator().generate(tests, config["main_solution"], [], config)
+        return answers_generator.AnswersGenerator().generate(tests, config.get("main_solution", None), [], config)
     
     def generate_all(self):
         tests = tests_generator.TestsGenerator(
