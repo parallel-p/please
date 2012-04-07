@@ -62,6 +62,8 @@ class TestsAndAnswersGenerator:
         else:
             validator_src = None
             logger.warning("Validator is empty")
+            
+        logger.warning("General validator (well_done) is on")
 
         well_done_with_validator = WellDoneWithValidator(
                 validator=validator_src, well_done=well_test)
