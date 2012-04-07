@@ -5,7 +5,7 @@ from logging import INFO, DEBUG
 please_version = 0.3
 root = os.path.split(__file__)[0]
 
-DEBUG_MODE = True
+DEBUG_MODE = False
 
 default_limits = ExecutionLimits(20, 3512)
 stress_up = 1000000
