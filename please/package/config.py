@@ -4,14 +4,15 @@ from ..utils.exceptions import PleaseException
 
 class Config:
     """
-    Very cool multilevel config parser with possibility of set, delete, formatting data,
+    Multilevel config parser with possibility of set, delete, formatting data,
     and saving comments of source
     """
-    def __init__(self, text, counter=0, depth=0, file = os.path.join(os.getcwd(), globalconfig.default_package)):
+    def __init__(self, text, counter=0, depth=0, file = None):
         """
             conf = Config(text_of_config_file)
         """
 #        print(text)
+
         def strict_divide(string, number_of_parts, delim):
             parts = string.split(delim, number_of_parts - 1)
             n = string.count(delim)
@@ -26,7 +27,8 @@ class Config:
             if (value != None):
                 value = value.strip()
             return (key, value, comment)
-
+        
+        file = file or os.path.join(os.getcwd(), globalconfig.default_package)
         self.__changed = False
         self.__counter = counter
         self.__settings = {}
@@ -54,7 +56,7 @@ class Config:
                     if comment is not None: self.__source.append(["", comment, True])
                     break
                 if (value == "{"):
-                    new_value = Config(text, self.__counter + 1, depth + 1)
+                    new_value = Config(text, self.__counter + 1, depth + 1, file)
                     self.__counter = new_value.get_finally_counter()
                 else:
                     new_value = value
@@ -133,7 +135,7 @@ class Config:
 
     def __contains__(self, item):
         return item in self.__settings
-
+    
     def keys(self):
         return self.__settings.keys()
 
@@ -211,6 +213,7 @@ class Config:
             else:
                 path = self.__convert_separators(self.__settings.get(item))
                 full_path = os.path.join(os.path.split(self.__file)[0], path)
+                #print(self.__file)
                 if not os.path.exists(full_path) or not os.path.isfile(full_path):
                     raise PleaseException("There is no file '{1}' (item '{0}' in config {2})".format(item, full_path, self.__file))
                 return path
@@ -269,6 +272,7 @@ class Config:
 class ConfigFile(Config):
     def __init__(self, filename):
         self.filename = filename
+        #print(filename)
         if os.path.isfile(filename):
             with open(filename, 'r', encoding = 'utf-8-sig') as f:
                 text = f.read()
