@@ -259,7 +259,7 @@ wazzzuuup
 
     def test_checker_global(self):
         self.mox.StubOutWithMock(os.path, "exists")
-        os.path.exists("test_checker.cpp").AndReturn(False)
+        os.path.exists(os.path.join(os.getcwd(), "test_checker.cpp")).AndReturn(False)
         os.path.exists(os.path.join(global_config.root, global_config.checkers_dir, "test_checker.cpp"))
         self.mox.ReplayAll()
         
@@ -272,7 +272,7 @@ checker = test_checker.cpp
         
     def test_checker_local(self):
         self.mox.StubOutWithMock(os.path, "exists")
-        os.path.exists("test_checker.cpp").AndReturn(True)
+        os.path.exists(os.path.join(os.getcwd(), "test_checker.cpp")).AndReturn(True)
         
         self.mox.ReplayAll()
         
