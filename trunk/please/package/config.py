@@ -197,14 +197,15 @@ class Config:
             # if local checker doesnt exists, return path to global checkers dir
             checker = self.__settings.get(item)
             checker_local_path = self.__convert_separators(checker)
-            if not os.path.exists(checker_local_path):
+            checker_full_path = os.path.join(os.path.split(self.__file)[0], checker_local_path)
+            if not os.path.exists(checker_full_path):
                 checkers_dir = os.path.join(globalconfig.root, globalconfig.checkers_dir)
                 root_checker_path = os.path.join(checkers_dir, checker_local_path)
                 if not os.path.exists(root_checker_path) or not os.path.isfile(root_checker_path):
                     raise PleaseException("There is no file '{0}' in current directory and in internal Please checkers directory (config {1})".format(checker, self.__file))
                 else:
                     return root_checker_path
-            return checker_local_path
+            return checker_full_path
         elif item in ["source", "validator", "statement", "description", "main_solution"]:
             if item == "validator":
                 return self.__settings.get(item)
