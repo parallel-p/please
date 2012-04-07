@@ -24,7 +24,7 @@ class WellDoneWithValidator:
         logger.info("Start validation on test #%d" % test_num)
         if self.__well_done:
             outcome, errors = self.__well_done.check(test_filename, fix_inplace=False)
-            if outcome != well_done.OK:
+            if outcome == well_done.CRASH:
                 raise PleaseException("Well done test failed on %s" % " ".join(errors))
         if self.__validator:
             invoke_info, stdout, stderr = validator_runner.validate(
