@@ -292,7 +292,7 @@ class SingleProblemCreator:
         else:
             problem.set_id('')
 
-        testans = TestsAndAnswersGenerator().generate(["sample"], "sample", False)
+        testans = TestsAndAnswersGenerator().generate(["sample"], "sample", delete_folder=False)
 
         for test, ans in testans:
             print(test, ans)
