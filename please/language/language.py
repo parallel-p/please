@@ -33,7 +33,7 @@ KNOWN_MIMES = { # all MIMES that we are interested in
     'x-c': 'c', 
     'x-c++': 'c++',
     'x-csharp': 'c#',
-    'x-pascal': 'pascal',
+    'x-pascal': 'delphi',
     'x-delphi': 'delphi',
     'x-python': '?python',
     'x-java': 'java',
