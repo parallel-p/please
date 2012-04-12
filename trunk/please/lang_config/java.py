@@ -29,7 +29,7 @@ class JavaConfig(BaseConfig):
 
     def _get_run_command(self, source):
         class_file = self.__class_file(source)
-        return ["java", "-cp", self.__compile_dir(source), class_file]
+        return ["java", "-Xmx1G", "-Xss64M", "-cp", self.__compile_dir(source), class_file]
 
     def _get_binaries(self, source):
         class_file = self.__class_file(source)

@@ -27,13 +27,13 @@ class JavaTest(unittest.TestCase):
         
     def test_run(self):
         java = javaconf.JavaConfig('abacaba.java')
-        self.assertEqual(java.run_command, ["java" ,"-cp",
+        self.assertEqual(java.run_command, ["java", "-Xmx1G", "-Xss64M", "-cp",
                                             os.path.join(".please", "abacaba.java_javac"),
                                             "abacaba"])
         
     def test_run2(self):
         java = javaconf.JavaConfig('aba/caba.java')
-        self.assertEqual(java.run_command, ["java", "-cp",
+        self.assertEqual(java.run_command, ["java", "-Xmx1G", "-Xss64M", "-cp",
                                             os.path.join(".please", "caba.java_javac"),
                                             "caba"])
 
