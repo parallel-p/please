@@ -2,6 +2,7 @@ from . import test_info
 from . import test_file_sort
 import tempfile
 from ..executors import runner, compiler
+from .. import language
 from ..diff_test_finder.diff_test_finder import DiffTestFinder
 from ..directory_diff.snapshot import Snapshot
 from ..utils.form_error_output import process_err_exit
@@ -30,8 +31,12 @@ class CmdOrGenTestInfo(test_info.TestInfo):
         executor = os.path.abspath(self.__executor)
         compiler.compile(executor)
 
-        exe_dir = tempfile.mkdtemp()
-        os.chdir(exe_dir)
+        #TODO: fix this hack for java
+        if language.get(executor) != "java":
+            exe_dir = tempfile.mkdtemp()
+            os.chdir(exe_dir)
+        else:
+            exe_dir = cur_dir
         snapshot_before = Snapshot('.')
         invoker_result, retstdout, reterror = runner.run(executor, self.__args)
         if invoker_result.verdict != "OK":
