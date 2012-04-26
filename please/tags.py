@@ -3,7 +3,7 @@ import logging
 from .package.package_config import PackageConfig
 from .utils.writepackage import writepackage
 
-def add_tags (tags):
+def add_tags(tags):
     opened_config = PackageConfig.get_config()
     # TODO: check if opened_config is None
     
@@ -21,7 +21,7 @@ def add_tags (tags):
     config_file = opened_config.get_text()
     writepackage(config_file)
     
-def clear_tags ():
+def clear_tags():
     opened_config = PackageConfig.get_config()
     # TODO: check if opened_config is None
     if not "tags" in opened_config:
@@ -30,7 +30,7 @@ def clear_tags ():
     config_file = opened_config.get_text()
     writepackage(config_file)
     
-def show_tags ():
+def show_tags():
     _inst_logger= logging.getLogger ("please_logger.tags.show_tags")
     _inst_logger.debug("Output Tags")
     opened_config = PackageConfig.get_config()

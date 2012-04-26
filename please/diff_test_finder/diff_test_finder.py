@@ -22,26 +22,20 @@ class DiffTestFinder:
     """
     # TODO: probably it's better to use fnmatch?
     def __init__(self, mask=None, exclude=None):
-        #mask and exclude is a string, execute_dir - string, directory, in which generator worked
+        #mask and exclude is a string
         self.mask = re.compile(mask or '')
         self.exclude = re.compile(exclude or '$^')
         
-    #def match(self, file, mask):
-    #    return re.match(mask, file) is not None
-    
-    #def get_desc(self):
-    #    return self.__desc
-    
     def tests(self, exe_dir, diff, stdout=None, generator=None):
         """
-        diff is a list of files, stdout - file of redirected stdout of generator,
+        diff is a list of files, stdout - redirected stdout of generator,
         returns names of test files, if stdout == None and no files found returns []
         """
-        cur_diff=diff[1][:] #diff[0] is new dirs, diff[1] is new files
+        cur_diff=diff[1][:] # diff[0] is new dirs, diff[1] is new files
         new_diff = []
         trash = []
         
-        for file in cur_diff: #make paths relative from execute_dir
+        for file in cur_diff: # make paths relative from execute_dir
             relpath = os.path.relpath(file, exe_dir)
             if self.mask.match(relpath) and not self.exclude.match(relpath):
                 new_diff.append(FileTestFile(file, relpath))
@@ -52,4 +46,3 @@ class DiffTestFinder:
             return [StrTestFile(stdout, 'stdout of {0}'.format(generator or 'generator'))], trash
         else:
             return new_diff, trash
-        

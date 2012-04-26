@@ -31,6 +31,9 @@ class Matcher:
             if d is not None:
                 if found:
                     logger.warning('Command-line is ambiguous')
+                    print(seq)
+                    print(maxtpl, maxdict, maxratio)
+                    print(template, d, ratio)
                 else:
                     found = True
                 if ratio > maxratio:
@@ -42,7 +45,7 @@ class Matcher:
     def call(self, seq):
         '''Match against templates and call a handler.
         If match succeeded, return True. Else, return False.'''
-        _, handler, args = self.match_template(seq)
+        tpl, handler, args = self.match_template(seq)
         if handler is not None:
             handler(**args)
             return True
