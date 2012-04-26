@@ -272,7 +272,8 @@ checker = test_checker.cpp
         
     def test_checker_local(self):
         self.mox.StubOutWithMock(os.path, "exists")
-        os.path.exists(os.path.join(os.getcwd(), "test_checker.cpp")).AndReturn(True)
+        fullpath = os.path.join(os.getcwd(), "test_checker.cpp")
+        os.path.exists(fullpath).AndReturn(True)
         
         self.mox.ReplayAll()
         
@@ -280,7 +281,7 @@ checker = test_checker.cpp
 please_version = 0.1
 checker = test_checker.cpp
 """)
-        self.assertEqual(conf["checker"], "test_checker.cpp")
+        self.assertEqual(conf["checker"], fullpath)
         self.mox.UnsetStubs()
         
     def test_simple_eedded_config(self):

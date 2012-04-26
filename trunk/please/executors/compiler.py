@@ -50,6 +50,11 @@ def compile(path, limits=globalconfig.default_limits):
     error = None
     env = dict(os.environ)
     env.update(config.environment)
+    
+    if not commands:
+        result, out, err = DO_NOTHING_RESULT
+        stdout.append(out)
+        stderr.append(err)
 
     for command in commands:
         log.debug("Compiler.py: running %s with limits %s" % (command, limits))

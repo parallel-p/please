@@ -48,7 +48,7 @@ class StressTester:
 
         if res[0].verdict != 'OK':
             self.logger.error("Run exception: %s is not OK, invoker returned %s, return code %s" % (solution, res[0].verdict, res[0].return_code))
-            raise StressRunException()
+            raise StressRunException("")
 
         output_path = test_path + ".out"
 
@@ -101,20 +101,20 @@ class StressTester:
             output = self.__run_solution(solution, test_path)
         except StressRunException:
             self.logger.error("Solution %s failed to run" % solution)
-            raise StressCheckException()
+            raise StressCheckException("")
 
         try:
             correct = self.__run_solution(correct_solution, test_path)
         except StressRunException:
             self.logger.error("Correct solution %s failed to run" % correct_solution)
-            raise StressCheckException()
+            raise StressCheckException("")
         if not self.__compare_outputs(test_path, correct, output, checker):
             self.logger.error("Answers do not match, correct answer saved to %s, incorrect to %s, test saved to %s"
                 %  (os.path.join(self.PLEASE_TEMP, self.CORRECT_OUT),
                     os.path.join(self.PLEASE_TEMP, self.INCORRECT_OUT),
                     os.path.join(self.PLEASE_TEMP, self.INPUT_TEST)))
             shutil.copy(test_path, os.path.join(self.PLEASE_TEMP, self.INPUT_TEST))
-            raise StressCheckMatchException()
+            raise StressCheckMatchException("")
 
     def __call__(self, generator, solution, correct_solution = None):
         ''' Runs all process '''

@@ -41,9 +41,11 @@ def stress_test(solution, generator, correct = None):
     Stress a solution (possibly against correct one) using generator.'''
     # О-очень плохой calling convenience!
     # Я думал, гораздо лучше будет это всё.
-    # Non-native, do not worry, it's knda untranslatable joke.
-    from please.stress_test.stress_test import StressTester
-    StressTester()(solution, generator, correct)
+    # Non-native Russians, do not worry, it's kinda untranslatable joke.
+    from please.stress_tester import StressTester
+    from please.package import package_config
+    pkg = package_config.PackageConfig.get_config()
+    StressTester(config = pkg)(generator, solution, correct)
 
 def set_param(parameter, value):
     '''set problem $parameter to $value

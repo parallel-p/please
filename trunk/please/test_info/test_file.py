@@ -26,6 +26,9 @@ class StrTestFile(BaseTestFile):
     def __hash__(self):
         return hash(self.str)
 
+    def __repr__(self):
+        return 'StrTestFile({!r}, {})'.format(self.str, self.desc)
+
 class FileTestFile(BaseTestFile):
     import shutil
 

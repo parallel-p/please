@@ -1,4 +1,5 @@
 """Base class for language configurators."""
+from . import utils # sane assumptions
 
 class BaseConfig:
     '''Class that provides common config for handling a filetype.'''
@@ -14,15 +15,15 @@ class BaseConfig:
         '''Acquire information about outer space.'''
         pass
 
-    def _get_compile_commands(self, source) -> [list]:
+    def _get_compile_commands(self, source) -> (list,):
         '''Returns a sequence of commands represented by lists that
         need to be executed to compile a file.'''
         return ()
 
     def _get_run_command(self, source) -> list:
         '''Returns a command that runs a source or its compilation result.'''
-        return []
-
+        return [utils.run_command(source)]
+    
     def _get_environment(self, source) -> dict:
         '''Return an environment variables that need to be set to compile/run
         a file.'''
@@ -39,4 +40,4 @@ class BaseConfig:
     def _get_binaries(self, source) -> list:
         '''Returns a list of paths that will be (were) made as results
         of compiling source.'''
-        return []
+        return [utils.run_command(source)]
