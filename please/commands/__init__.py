@@ -4,7 +4,7 @@ _matchers = {}
 def get_matcher(name):
     if name not in _matchers:
         _matchers[name] = Matcher() # some day will be more sophisticated
-    return matcher[name]
+    return _matchers[name]
 
 def init_please_matcher():
     m = get_matcher('please')

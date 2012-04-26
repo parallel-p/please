@@ -80,7 +80,7 @@ def sudo(args):
     logger.warning('Results can be unexpected.')
     from please.commands import get_matcher
     m = get_matcher('please')
-    handler, args = m.match(args)
+    tpl, handler, args = m.match_template(args)
     if handler is None:
         logger.error('I really cannot do this!')
         logger.error('Why you are forcing me?')

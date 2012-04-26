@@ -33,7 +33,7 @@ KNOWN_MIMES = { # all MIMES that we are interested in
     'x-c': 'c', 
     'x-c++': 'c++',
     'x-csharp': 'c#',
-    'x-pascal': 'delphi',
+    'x-pascal': 'pascal',
     'x-delphi': 'delphi',
     'x-python': '?python',
     'x-java': 'java',
@@ -182,7 +182,8 @@ class Language:
                             if balance < 0:
                                 valid = False
                                 break
-        if useable and (2 * useable >= total or 3 * useable >= total and valid):
+        valid &= (balance == 0)
+        if useable and (10 * useable >= 9 * total or 2 * useable >= total and valid):
             return "brainfuck"
         return None
 
