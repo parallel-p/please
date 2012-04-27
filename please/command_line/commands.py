@@ -158,8 +158,9 @@ Commands available inside problem's folder:
     example: delete properties input output
 
   {11}:
-    Sets main solution (solution that should pass all tests). Copies specified file in /solutions and edits default.package
-    example: add main solution ../../sources/solution_ok.cpp
+    Sets main solution (solution that should pass all tests) as a relative path via editing default.package.
+    Main soultion must be in problem folder.
+    example: set main solution ./sources/solution_ok.cpp
 
   {12}:
     Sets checker. Copies specified file to the problem directory and edits default.package
