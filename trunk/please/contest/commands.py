@@ -13,7 +13,7 @@ def get_contest_config(name, path = '.'):
 def get_contest(name, ok_if_not_exists = False):
     return contest.Contest(get_contest_config(name), ok_if_not_exists)
 
-def add_problems_to_contest(contest, problems, ids):
+def add_problems_to_contest(contest, problems, ids = None):
     """
         Adds some problems to contest, where <problems> is list returned by matcher
         for example, problems: ['sloniki', 'grader', 'as', 'A,B']

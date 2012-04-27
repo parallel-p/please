@@ -5,9 +5,15 @@ ML = ['ML', 'ml', 'memorylimit', 'memory-limit', 'memory_limit']
 def generate_tests(tags = []):
     '''gen[erate] tests [with tag[s] tags...]
     Generate tests for a problem, either everything or just with certain tags.'''
-    from please.tests_answers_generator import generate, generate_all
+    from please.tests_answers_generator import generate, generate_all, AdmitAny, AdmitAll
     if tags:
-        generate(tags)
+        commax = ' '.join(tags)
+        if ',' in commax:
+            tags = [tag.strip() for tag in commax.split(',')]
+            admit = AdmitAny
+        else:
+            admit = AdmitAll
+        generate(tags, admit=admit)
     else:
         generate_all()
 
