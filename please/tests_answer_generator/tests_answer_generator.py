@@ -15,6 +15,26 @@ from ..well_done import well_done
 from please.log import logger
 from ..utils import form_error_output
 
+class AdmitAll:
+    def __init__(self, tags):
+        self.tags = tags
+
+    def __call__(self, attr):
+        for tag in self.tags:
+            if not tag in attr:
+                return False
+        return True
+
+class AdmitAny:
+    def __init__(self, tags):
+        self.tags = set(tags)
+
+    def __call__(self, attr):
+        for tag in attr:
+            if tag in self.tags:
+                return True
+        return False
+
 class WellDoneWithValidator:
     def __init__(self, validator = None, well_done = None):
         self.__validator = validator
@@ -70,18 +90,6 @@ class TestsAndAnswersGenerator:
         for num, test in enumerate(tests):
             well_done_with_validator.validate(test, num+1)
 
-    def __get_admit (self, tags):
-        class Admit:
-            def __init__(self, tags):
-                self.tags = tags
-            def __call__(self, attr):
-                for tag in self.tags:
-                    if not tag in attr:
-                        return False
-                return True
-
-        return Admit(tags)
-
     def __generate_answers (self, tests):
         self.validate(tests)
         config = package_config.PackageConfig.get_config()
@@ -96,12 +104,12 @@ class TestsAndAnswersGenerator:
         answers = self.__generate_answers(tests)
         return zip(tests, answers)
         
-    def generate (self,tags, prefix = "", delete_folder=True):
+    def generate (self, tags, prefix = "", delete_folder=True, admit = AdmitAll):
         tests = tests_generator.TestsGenerator(
                 parser.FileTestConfigParser(
                     self.__create_well_done("well_done_test")
                 ).get_test_info_objects(), prefix).generate(
-                    self.__get_admit ( tags ), delete_folder
+                    admit(tags), delete_folder
                 )
         answers = self.__generate_answers(tests)
         return zip(tests, answers)
