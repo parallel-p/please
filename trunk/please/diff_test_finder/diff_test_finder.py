@@ -1,6 +1,7 @@
 import os
 import re
 from ..test_info.test_file import FileTestFile, StrTestFile
+import fnmatch
 
 class DiffTestFinder:
     """
@@ -13,18 +14,16 @@ class DiffTestFinder:
     Returns list of test relative paths from execute_dir.
     
     Example:
-    test_finder = DiffTestFinder('directory_where_generator_executed', '.*\\.in$', '\\.\\./trash.*\\.in$')
+    test_finder = DiffTestFinder('directory_where_generator_executed', '*.in', '../trash*.in')
     (mask in cmd or bash corresponds with *.in, exclude corresponds with ../trash*.in)
     tests = test_finder.tests(diff, 'generator_stdout.out')
     tests == ['../01.in', '../02.in', '03.in', 'tests/100500.in']
     
-    Warning: read python re syntax carefully before use!
     """
-    # TODO: probably it's better to use fnmatch?
     def __init__(self, mask=None, exclude=None):
         #mask and exclude is a string
-        self.mask = re.compile(mask or '')
-        self.exclude = re.compile(exclude or '$^')
+        self.mask = re.compile(fnmatch.translate(mask) if mask else '')
+        self.exclude = re.compile(fnmatch.translate(exclude) if exclude else '$^')
         
     def tests(self, exe_dir, diff, stdout=None, generator=None):
         """
