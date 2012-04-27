@@ -1,4 +1,5 @@
 from .tests_answer_generator import TestsAndAnswersGenerator
+from .tests_answer_generator import AdmitAny, AdmitAll
 
 _tg = TestsAndAnswersGenerator()
 

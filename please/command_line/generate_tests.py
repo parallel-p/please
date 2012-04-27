@@ -1,9 +1,13 @@
-from ..tests_answer_generator.tests_answer_generator import TestsAndAnswersGenerator
-
-test_generator = TestsAndAnswersGenerator()
+from ..tests_answer_generator import generate, generate_all, AdmitAny, AdmitAll
 
 def generate_tests_with_tags(tags):
-    test_generator.generate(tags)
+    stags = ' '.join(tags)
+    if ',' in tags:
+        tags = [x.strip() for x in stags.split(',')]
+        admit = AdmitAny
+    else:
+        admit = AdmitAll
+    generate(tags, admit=admit)
 
 def generate_tests():
-    test_generator.generate_all()						
+    generate_all()						
