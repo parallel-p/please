@@ -6,10 +6,12 @@ def get_matcher(name):
         _matchers[name] = Matcher() # some day will be more sophisticated
     return _matchers[name]
 
-def init_please_matcher():
+def get_please_matcher():
     m = get_matcher('please')
-    from . import config
-    for mod in config.modules:
-        m.add_module(mod)
+    if not hasattr(m, '_loaded'):
+        from . import config
+        for mod in config.modules:
+            m.add_module(mod)
+        m._loaded = True
     return m
 
