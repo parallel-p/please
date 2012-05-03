@@ -1,6 +1,13 @@
-
+from please.utils.exceptions import PleaseException
 TL = ['TL', 'tl', 'timelimit', 'time-limit', 'time_limit']
 ML = ['ML', 'ml', 'memorylimit', 'memory-limit', 'memory_limit']
+
+def create_problem(shortname):
+    '''create problem $shortname
+    Creates a folder named `shortname' and fills it with basic
+    template files.'''
+    from please.template.problem_template_generator import generate_problem
+    generate_problem(shortname)
 
 def generate_tests(tags = []):
     '''gen[erate] tests [with tag[s] tags...]
@@ -155,3 +162,25 @@ def compute(limit, type = 'float'):
             auto_tl.set_integer_tl()
     else:
         raise PleaseException('I am sophisticated, but is not able to compute everything!')
+
+def add_tags(tags):
+    '''add tag[s] tags...
+    Adds tags to the current problem.'''
+    from please.package.package_config import PackageConfig
+    opened_config = PackageConfig.get_config()
+    extags = opened_config.get("tags", '').split('; ')
+    if '' in extags:
+        extags.remove('')
+    for tag in tags:
+        if tag not in extags:
+            extags.append(tag)
+    opened_config['tags'] = '; '.join(extags)
+    opened_config.write()
+
+def show_tags():
+    '''show tag[s]
+    Shows tags assigned to the current problem.'''
+    from please.package.package_config import PackageConfig
+    opened_config = PackageConfig.get_config()
+    if 'tags' in opened_config:
+        print(opened_config['tags'])

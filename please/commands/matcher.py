@@ -28,18 +28,17 @@ class Matcher:
         found = False
         for template, handler in self.templates:
             d, ratio = template.match_ratio(seq)
-            if d is not None:
+            if d is not None and ratio >= 0.9:
                 if found:
-                    logger.warning('Command-line is ambiguous')
-                    print(seq)
-                    print(maxtpl, maxdict, maxratio)
-                    print(template, d, ratio)
+                    if maxratio - ratio < 0.1:
+                        logger.warning('Command-line is ambiguous')
                 else:
                     found = True
                 if ratio > maxratio:
                     maxratio, maxtpl, maxhandler, maxdict = ratio, template, handler, d
-        if maxratio >= 0:
+        if maxratio != -1:
             return maxtpl, maxhandler, maxdict
+
         return None, None, None
 
     def call(self, seq):
