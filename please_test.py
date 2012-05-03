@@ -13,6 +13,7 @@ from please.template import problem_template_generator as problem_gen
 from please.package import package_config
 from please.tags import add_tags, show_tags, clear_tags
 from please.latex import latex_tools
+from please.commands import get_please_matcher
 import please.globalconfig as globalconfig
 from io import StringIO
 
@@ -24,11 +25,16 @@ class PleaseTest(unittest.TestCase):
         self.ifed()
         self.__matcher = Matcher()
         self.__matcher.startdir = '.'
-        self.__matcher.add_handler(Template(["create", "problem", "#shortname"]), problem_gen.generate_problem, True)
-        self.__matcher.matches("create problem problem_test".split())
+        #self.__matcher.add_handler(Template(["create", "problem", "#shortname"]), problem_gen.generate_problem, True)
+        #self.__matcher.matches("create problem problem_test".split())
+        self.please_matcher = get_please_matcher()
+        self.please_matcher.call(['create', 'problem', 'problem_test'])
         
     def tearDown(self):
         self.ifed()
+
+    def call(self, s):
+        self.assertTrue(self.please_matcher.call(s.split()))
         
     def test_problem_creation(self):
         """ Checks command 'create problem problem_name' """
@@ -44,8 +50,9 @@ class PleaseTest(unittest.TestCase):
         start_dir = os.getcwd()
         os.chdir("problem_test")
         #package_config.PackageConfig.configs_dict = {}
-        self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags, True)
-        self.__matcher.matches("add tags tag1 tag2 tag3 tag4".split())
+        #self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags, True)
+        #self.__matcher.matches("add tags tag1 tag2 tag3 tag4".split())
+        self.call('add tags tag1 tag2 tag3 tag4')
               
         open_config = package_config.PackageConfig.get_config(ignore_cache = True)
         
@@ -54,22 +61,23 @@ class PleaseTest(unittest.TestCase):
         
         self.assertEqual(open_config["tags"], "tag1; tag2; tag3; tag4")
         
-        
     def test_show_tags(self):
         """ Checks command 'show tags' """
         
         start_dir = os.getcwd()
         os.chdir("problem_test")
         
-        self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags, True)
-        self.__matcher.matches("add tags tag1 tag2 tag3 tag4".split())
+        #self.__matcher.add_handler(Template(["add", "tag|tags", "@tags"]), add_tags, True)
+        #self.__matcher.matches("add tags tag1 tag2 tag3 tag4".split())
+        self.call("add tags tag1 tag2 tag3 tag4")
        
         
         saveout = sys.stdout
         sys.stdout = StringIO()
         
-        self.__matcher.add_handler(Template(["show", "tags"]), show_tags, True)
-        self.__matcher.matches("show tags".split())
+        #self.__matcher.add_handler(Template(["show", "tags"]), show_tags, True)
+        print('######################################', file=saveout)
+        self.call("show tags")
 
         tags_from_std = sys.stdout.getvalue().split("\n", 1)[0]
         sys.stdout = saveout

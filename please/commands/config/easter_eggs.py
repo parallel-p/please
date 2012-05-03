@@ -78,8 +78,8 @@ def sudo(args):
     from please.log import logger
     logger.warning('sudo is not very polite command.')
     logger.warning('Results can be unexpected.')
-    from please.commands import get_matcher
-    m = get_matcher('please')
+    from please.commands import get_please_matcher
+    m = get_please_matcher()
     tpl, handler, args = m.match_template(args)
     if handler is None:
         logger.error('I really cannot do this!')
