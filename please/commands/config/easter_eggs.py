@@ -43,7 +43,7 @@ def take_over_the_world(sudo = False):
     ]
     howmuch = random.randint(10, 12)
     l = len(random_junk)
-    idx = random.randrange(l)
+    idx = idx2 = random.randrange(l)
     for i in range(howmuch):
         logger.info(random_junk[idx])
         doit = True
@@ -52,9 +52,9 @@ def take_over_the_world(sudo = False):
             doit = random.random() < 0.05
             if doit:
                 logger.warning('... taking longer than expected ...')
-        idx = idx2
         while idx == idx2 or idx2 < idx - 1 or idx2 > idx + 4:
-            idx2 = random.randrange(l)
+            idx2 = random.randrange(- l, 2 * l)
+        idx = idx2 % l
     if not sudo:
         logger.error('Not enough permissions to save data.')
         logger.error('Failed.')
@@ -65,12 +65,16 @@ def take_over_the_world(sudo = False):
         time.sleep(1)
         logger.info('Finishing will require 1 + 1/2 + 1/4 + ... seconds.')
         logger.info('Please wait...')
-        t = 1.0
-        while True:
-            stdout.write('.')
-            stdout.flush()
-            time.sleep(t)
-            t /= 2
+        try:
+            t = 1.0
+            while True:
+                stdout.write('.')
+                stdout.flush()
+                time.sleep(t)
+                t /= 2
+        except KeyboardInterrupt:
+            print()
+            logger.error('Not enough patience.')
 
 def sudo(args):
     '''sudo args...

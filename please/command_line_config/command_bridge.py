@@ -1,8 +1,8 @@
 from please.command_line.template import Template
-from please.commands import init_please_matcher
+from please.commands import get_please_matcher
 from please.log import logger
 
-pm = init_please_matcher()
+pm = get_please_matcher()
 
 def call(args):
     res = pm.call(args)

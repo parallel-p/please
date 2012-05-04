@@ -82,11 +82,11 @@ def set_param(parameter, value):
         raise PleaseException('problem package not found')
     cfg[parameter] = value
         
-def set_standard_checker(checker = None):
-    '''set standard|std checker [/path]
+def add_standard_checker(checker = None):
+    '''add standard|std checker [/checker]
     Set a standard checker to be a checker for a problem
     (or print available ones).'''
-    from please.checkers.standard_checker_utils import (add_standard_checker_to_solution,
+    from please.checkers.standard_checkers_utils import (add_standard_checker_to_solution,
                                                         print_standard_checkers)
     if checker is None:
         print_standard_checkers()
@@ -178,9 +178,18 @@ def add_tags(tags):
     opened_config.write()
 
 def show_tags():
-    '''show tag[s]
+    '''show tags
     Shows tags assigned to the current problem.'''
     from please.package.package_config import PackageConfig
     opened_config = PackageConfig.get_config()
     if 'tags' in opened_config:
         print(opened_config['tags'])
+
+def clear_tags():
+    '''clear tags
+    Clear all tags assigned to a current problem.'''
+    from please.package.package_config import PackageConfig
+    opened_config = PackageConfig.get_config()
+    if 'tags' in opened_config:
+        opened_config['tags'] = ''
+    opened_config.write()

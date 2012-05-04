@@ -78,3 +78,6 @@ default_template_vars = {
 
 # contest information
 contest_template = '{}.contest'
+
+
+problem_folder = None
