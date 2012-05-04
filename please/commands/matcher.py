@@ -9,6 +9,8 @@ from .template import Template
 logger = logging.getLogger('please_logger.commands.Matcher')
 
 PATH = object()
+CUTOFF = 0.5
+EPSILON = 0.1
 
 class Matcher:
     def __init__(self):
@@ -28,15 +30,15 @@ class Matcher:
         found = False
         for template, handler in self.templates:
             d, ratio = template.match_ratio(seq)
-            if d is not None and ratio >= 0.9:
+            if d is not None:
                 if found:
-                    if maxratio - ratio < 0.1:
+                    if abs(maxratio - ratio) < EPSILON:
                         logger.warning('Command-line is ambiguous')
                 else:
                     found = True
                 if ratio > maxratio:
                     maxratio, maxtpl, maxhandler, maxdict = ratio, template, handler, d
-        if maxratio != -1:
+        if maxratio >= CUTOFF:
             return maxtpl, maxhandler, maxdict
 
         return None, None, None

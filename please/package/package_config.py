@@ -24,13 +24,17 @@ class PackageConfig:
     configs_dict = {}
 
     @staticmethod
-    def get_config(dir = ".", package_name = globalconfig.default_package, ignore_cache = False):
+    def get_config(dir = None, package_name = globalconfig.default_package, ignore_cache = False):
+        if dir is None:
+            dir = globalconfig.problem_folder
+        if dir is None:
+            dir = '.'
         package_path = os.path.abspath(os.path.join(dir, package_name))
         if not os.path.exists(package_path):
             return None
 
         if package_path in PackageConfig.configs_dict and not ignore_cache:
-            # This congfig is already registered, return it without extra re-parsing
+            # This config is already registered, return it without extra re-parsing
             return PackageConfig.configs_dict[package_path]
         else:
             # Find full path to the package
