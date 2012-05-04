@@ -48,7 +48,8 @@ class TemplateTest(unittest.TestCase):
                    files = 'file1 file2 file3'.split())
 
     def _test_unmatch(self, template, args):
-        self.assertEqual(Template(template).match(args.split()), None)
+        m, r = Template(template).match_ratio(args.split())
+        self.assertEqual(m, None, r)
 
     def test_incorrect(self):
         self._test_unmatch("and now for", "something completely different")

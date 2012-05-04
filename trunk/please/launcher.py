@@ -9,6 +9,7 @@ from .executors import trash_remover
 from . import command_line_config
 from .utils.exceptions import PleaseException, MatcherException
 from .package import package_config
+from .commands import get_please_matcher
 
 def determinate_location():
     """
@@ -26,9 +27,11 @@ def determinate_location():
         os.chdir(startdir)
     in_problem_folder = (pkg is not None)
     globalconfig.in_problem_folder = in_problem_folder
+    if in_problem_folder:
+        globalconfig.problem_folder = current_dir
     return in_problem_folder, startdir
 
-def main():
+def legacy_main():
     try:
         in_problem_folder, startdir = determinate_location()
         matcher = Matcher()
@@ -113,7 +116,48 @@ def main():
     
     except IOError as ex:
         print("IOError: " + str(ex))
-        
-if __name__ == "__main__":
-    main()
 
+
+def please_excepthook(exc_type, exc_value, exc_tb):
+    if issubclass(exc_type, PleaseException):
+        logger.error('Please error: {}'.format(exc_value))
+    elif issubclass(exc_type, IOError):
+        logger.error('I/O error: {}'.format(exc_value))
+    else:
+        logger.error('Unknown error: {}: {}'.format(exc_type.__name__, exc_value))
+    if globalconfig.DEBUG_MODE:
+        traceback.print_exception(exc_type, exc_value, exc_tb)
+    sys.exit(1)
+
+def main():
+    # searching for package directory
+    curdir = os.getcwd()
+    lastdir = None
+    while lastdir != curdir:
+        config = package_config.PackageConfig.get_config(curdir)
+        if config is not None:
+            break
+        lastdir = curdir
+        curdir = os.path.dirname(curdir)
+    if config is not None:
+        globalconfig.problem_folder = curdir
+   
+    sys.excepthook = please_excepthook
+    args = sys.argv[1:]
+    if not args:
+        logger.info("type `please help' for list of commands")
+        sys.exit(2)
+    else:
+        matcher = get_please_matcher()
+        if not matcher.call(args):
+            logger.error('command not recognized')
+            logger.error("try `please help'")
+            sys.exit(2)
+        else:
+            sys.exit(0)
+
+if __name__ == "__main__":
+    #legacy_main()
+    #sys.exit()
+    main()
+    
