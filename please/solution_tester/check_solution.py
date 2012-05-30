@@ -14,7 +14,7 @@ def check_all_solutions():
     """ Calls check_solution with different solution paths from config file including main solution """
     config = PackageConfig.get_config()
     # TODO: check if config is None
-    generate_html_report.generate_html_report(config["solution"]) #, True)
+    generate_html_report.generate_html_report(["solution"]) #, True)
     
 def check_main_solution():
     config = PackageConfig.get_config()
@@ -22,7 +22,7 @@ def check_main_solution():
     # method check_solutions retrieves config from PackageConfig itself
     # remove it from here
     #generate_html_report.generate_html_report([]), True)
-    check_solution(config['main_solution'])
+    check_solution(config.get_path('main_solution'))
     
 def is_cooresponded_solution(sol_path, substr):
     basename = os.path.basename(sol_path)

@@ -30,6 +30,9 @@ class BaseLaTeXConfig(BaseConfig):
         return [os.path.splitext(source)[0] + ".pdf"]
 
 class TeXLiveConfig(BaseLaTeXConfig):
+    def _setup(self):
+        self._command_prefix = (BaseLaTeXConfig._command_prefix +
+                                ['-shell-escape'])
     def _get_environment(self, source):
         return {'TEXINPUTS': os.pathsep.join(('', os.curdir, self.template_path))}
 
