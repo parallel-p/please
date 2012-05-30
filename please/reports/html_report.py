@@ -8,9 +8,9 @@ class HtmlReporter:
         pass
 
     def add_test(self, solution, test, outcome):
-        if (not (solution in self.__solutions)):
+        if solution not in self.__solutions:
             self.__solutions.append(solution)
-        if (not (test in self.__tests)):
+        if test not in self.__tests:
             self.__tests.append(test)
         self.__reports[(solution, test)] = outcome
 

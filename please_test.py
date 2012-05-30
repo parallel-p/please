@@ -124,9 +124,11 @@ class PleaseTest(unittest.TestCase):
         if os.path.exists(os.path.join("statements", "default.ru.pdf")):
             os.remove(os.path.join("statements", "default.ru.pdf"))
         
-        self.call("generate statement")
+        try:
+            self.call("generate statement")
+        finally:
+            os.chdir(start_dir)
         
-        os.chdir(start_dir)
         self.assertTrue(os.path.exists(os.path.join(test_problem_dir, "statements", "default.ru.pdf")))
         
     def test_help(self):

@@ -4,21 +4,21 @@ from ..package import config
 from ..package.package_config import PackageConfig
 from ..utils.writepackage import writepackage
 from ..utils.exceptions import PleaseException
+from .. import globalconfig
 
 log = logging.getLogger("please_logger.add_source")
 
 def add_main_solution_with_config(package_config, path):
-    if not os.getcwd() in os.path.abspath(path):
-        raise PleaseException("Main solution isn't in problem folder!")
+    path = os.path.abspath(path)
     abspath = os.path.abspath(path)
     for num, solve in enumerate(package_config["solution"]):
-        if abspath == os.path.abspath(solve["source"]):
+        if abspath == os.path.abspath(solve.get_path("source")):
             break   # config for this solution already exist
             # TODO if we make main solution from another solution, added before,
             # we probably need to check or to automatically change it's verdicts?
     else:
-        add_solution(path)
-    package_config['main_solution'] = os.path.relpath(path)
+        solve = add_solution_with_config(path)
+    package_config['main_solution'] = solve["source"]
 
 def add_main_solution(path):
     package_config = PackageConfig.get_config()
@@ -84,7 +84,8 @@ def add_solution(path, args = None):
         args = []
     if not os.path.exists(path):
         raise PleaseException("There is no such file")
-    if not os.getcwd() in os.path.abspath(path):
+    basedir = globalconfig.problem_dir
+    if os.path.commonprefix([path, basedir]) != basedir:
         raise PleaseException("Solution isn't in problem folder!")
     
     package_config = PackageConfig.get_config()
@@ -104,13 +105,15 @@ def add_solution(path, args = None):
     fix_args_user_mistakes(properties)
 
     new_config = config.Config("")
-    new_config["source"] = os.path.relpath(path)
+    relpath = os.path.relpath(path, basedir)
+    new_config.set_path("source", relpath)
     for key, value in properties.items():
         new_config[key] = value
         
     package_config.set("solution", new_config, None, True)
     package_config.write()
     log.info("Solution %s has been added successfully", path)
+    return new_config
     
 def change_solution(args):
     path = args[0]
