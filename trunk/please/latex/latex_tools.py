@@ -58,10 +58,11 @@ def generate_contest(problem_names = [os.curdir], template = None, template_vars
     with open(new_tex_name, "w", encoding = "UTF8") as new_tex:
         new_tex.write(contest.construct())
 
-    converter = Latex2PDF()
-    converter.convert(new_tex_name)
-
-    os.chdir(current_dir)
+    try:
+        converter = Latex2PDF()
+        converter.convert(new_tex_name)
+    finally:
+        os.chdir(current_dir)
 
     destination = os.path.splitext(new_tex_name)[0] + ".pdf"
     if file is not None:

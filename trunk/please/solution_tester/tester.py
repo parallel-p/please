@@ -51,7 +51,7 @@ class TestSolution:
         
     def one_test(self, solution, test, answer, program_out):
         with PreventErrorWindow():
-#        error_window(hide = True)
+            #error_window(hide = True)
             solution_info = SolutionInfo(solution, self.solution_args, self.execution_limits, \
                                                              self.solution_config, test, program_out)
             solution_run_result = run_solution(solution_info)
