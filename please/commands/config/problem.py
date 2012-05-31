@@ -12,7 +12,7 @@ def create_problem(shortname):
 def generate_tests(tags = []):
     '''gen[erate] tests [with tag[s] tags...]
     Generate tests for a problem, either everything or just with certain tags.'''
-    from please.test_answers_generator import generate, generate_all, AdmitAny, AdmitAll
+    from please.tests_answer_generator import generate, generate_all, AdmitAny, AdmitAll
     if tags:
         commax = ' '.join(tags)
         if ',' in commax:
@@ -39,7 +39,7 @@ def generate_answers():
 def validate_tests():
     '''val[idate] [tests]
     Validate all tests for a problem.'''
-    from please.test_answers_generator import validate
+    from please.tests_answer_generator import validate
     tg = TestsAndAnswersGenerator()
     tg.validate()
 

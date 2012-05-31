@@ -96,14 +96,15 @@ def print_results(test_all_results):
     printc("Failed: %s" % fail_count,                Fore.RED)
     printc("Passed: %s" % ok_count,                  Fore.GREEN)
 
-def get_test_results_from_solution(solution_config):
+def get_test_results_from_solution(config, solution_config):
 
-    new_config = solution_config_utils.make_config(solution_config)
+    new_config = solution_config_utils.make_config_with_solution_config(
+        config, solution_config)
 
     test_solution = TestSolution(new_config)
 
-    actual_path = os.path.join(globalconfig.problem_dir,
-                               solution_config.get_path(source))
+    actual_path = os.path.join(globalconfig.problem_folder,
+                               solution_config.get_path("source"))
 
     (met_not_expected,
      expected_not_met,
@@ -113,7 +114,7 @@ def get_test_results_from_solution(solution_config):
 
 def generate_html_for_solution(config, solution_config):
     ''' Generates <div> block with tabled report for given solution  '''
-    report = get_test_results_from_solution(solution_config)
+    report = get_test_results_from_solution(config, solution_config)
     solution = solution_config["source"]
     html_reporter = HtmlReporter()
     
