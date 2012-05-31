@@ -282,9 +282,8 @@ class Config:
         else:
             return default
 
-    _ossep = os.sep
-    get_path = getter(lambda path: path.replace('/', _ossep))
-    set_path = setter(lambda path: path.replace(_ossep, '/'))
+    get_path = getter(lambda path, _ossep = os.sep: path.replace('/', _ossep))
+    set_path = setter(lambda path, _ossep = os.sep: path.replace(_ossep, '/'))
 
 class ConfigFile(Config):
     def __init__(self, filename):
