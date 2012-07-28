@@ -1,4 +1,4 @@
-from . import contest, todo, help, polygon, problem, easter_eggs
+from . import contest, todo, help, polygon, problem, easter_eggs, oneclick
 
 modules = [
     help,
@@ -7,4 +7,5 @@ modules = [
     contest,
     polygon,
     easter_eggs,
+    oneclick
 ]
