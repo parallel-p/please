@@ -202,7 +202,7 @@ class Config:
                 checkers_dir = os.path.join(globalconfig.root, globalconfig.checkers_dir)
                 root_checker_path = os.path.join(checkers_dir, checker_local_path)
                 if not os.path.exists(root_checker_path) or not os.path.isfile(root_checker_path):
-                    raise PleaseException("There is no file '{0}' in current directory and in internal Please checkers directory (config {1})".format(checker, self.__file))
+                    raise PleaseException("There is no file '{0}' in current directory and in intpleaernal Please checkers directory (config {1})".format(checker, self.__file))
                 else:
                     return root_checker_path
             return checker_full_path
@@ -214,9 +214,8 @@ class Config:
             else:
                 if item == 'statement':
                     return self.__settings.get(item)
-                path = self.__convert_separators(self.__settings.get(item))
+                path = self.__convert_separators(self.__settings.get(item))       
                 full_path = os.path.join(os.path.split(self.__file)[0], path)
-                #print(self.__file)
                 if not os.path.exists(full_path) or not os.path.isfile(full_path):
                     raise PleaseException("There is no file '{1}' (item '{0}' in config {2})".format(item, full_path, self.__file))
                 return path
