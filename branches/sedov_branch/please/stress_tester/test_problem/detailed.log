@@ -1,0 +1,357 @@
+2011-07-20 13:41:06,036 - test_problem - please_logger - DEBUG - The Please is running
+2011-07-20 13:41:06,036 - test_problem - please_logger - DEBUG - Logger was created
+2011-07-20 13:41:06,151 - test_problem - please_logger.matcher.Matcher.matches - DEBUG - Matching...
+2011-07-20 13:41:06,151 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: create problem #shortname $$$. String: stress solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:06,151 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:06,151 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: export to ejudge contest #contest_id task|tasks @tasks $$$. String: stress solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:06,153 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:06,153 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: help $$$. String: stress solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:06,153 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:06,153 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: add tag|tags @tags $$$. String: stress solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:06,153 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:06,153 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show tags $$$. String: stress solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:06,153 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:06,154 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: clear tags $$$. String: stress solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:06,154 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:06,154 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate tests with @tags $$$. String: stress solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:06,154 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:06,154 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate tests $$$. String: stress solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:06,154 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:06,154 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate statement $$$. String: stress solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:06,154 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:06,154 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: stress test #solution #generator $$$. String: stress solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:06,154 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:25,362 - test_problem - please_logger - DEBUG - The Please is running
+2011-07-20 13:41:25,362 - test_problem - please_logger - DEBUG - Logger was created
+2011-07-20 13:41:25,453 - test_problem - please_logger.matcher.Matcher.matches - DEBUG - Matching...
+2011-07-20 13:41:25,453 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: create problem #shortname $$$. String: stress test solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:25,454 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:25,454 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: export to ejudge contest #contest_id task|tasks @tasks $$$. String: stress test solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:25,454 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:25,454 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: help $$$. String: stress test solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:25,456 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:25,456 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: add tag|tags @tags $$$. String: stress test solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:25,456 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:25,456 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show tags $$$. String: stress test solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:25,456 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:25,456 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: clear tags $$$. String: stress test solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:25,457 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:25,457 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate tests with @tags $$$. String: stress test solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:25,457 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:25,457 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate tests $$$. String: stress test solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:25,457 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:25,457 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate statement $$$. String: stress test solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:25,457 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-20 13:41:25,457 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: stress test #solution #generator $$$. String: stress test solutions\solution_wrong.cpp tests\generator.cpp
+2011-07-20 13:41:25,457 - test_problem - please_logger.template.Template.corresponds - DEBUG - Coincidence
+2011-07-20 13:41:25,457 - test_problem - please_logger.matcher.Matcher.matches - INFO - Run function: StressTester. Matching completed
+2011-07-25 13:30:32,638 - test_problem - please_logger - DEBUG - The Please is running
+2011-07-25 13:30:32,638 - test_problem - please_logger - DEBUG - Logger was created
+2011-07-25 13:30:32,717 - test_problem - please_logger.matcher.Matcher.matches - DEBUG - Matching...
+2011-07-25 13:30:32,717 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: create problem #shortname $$$. String: generate statenent
+2011-07-25 13:30:32,717 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,717 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: help $$$. String: generate statenent
+2011-07-25 13:30:32,717 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,717 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show todo #root_path $$$. String: generate statenent
+2011-07-25 13:30:32,717 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,717 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: todo #root_path $$$. String: generate statenent
+2011-07-25 13:30:32,717 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,717 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: import polygon package #package $$$. String: generate statenent
+2011-07-25 13:30:32,717 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,717 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show todo $$$. String: generate statenent
+2011-07-25 13:30:32,719 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,719 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: todo $$$. String: generate statenent
+2011-07-25 13:30:32,719 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,719 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: add tag|tags @tags $$$. String: generate statenent
+2011-07-25 13:30:32,719 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,719 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: add standard checker #checker $$$. String: generate statenent
+2011-07-25 13:30:32,719 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,719 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: build all $$$. String: generate statenent
+2011-07-25 13:30:32,719 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show tags $$$. String: generate statenent
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: clear tags $$$. String: generate statenent
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate tests with @tags $$$. String: generate statenent
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate tests $$$. String: generate statenent
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate statement $$$. String: generate statenent
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - Coincidence
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: stress test #solution #generator $$$. String: generate statenent
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: stress test #solution #correct_solution #generator $$$. String: generate statenent
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: check solutions $$$. String: generate statenent
+2011-07-25 13:30:32,720 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,721 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: check solution #path $$$. String: generate statenent
+2011-07-25 13:30:32,721 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:30:32,721 - test_problem - please_logger.matcher.Matcher.matches - INFO - Run function: SingleProblemCreator. Matching completed
+2011-07-25 13:31:12,397 - test_problem - please_logger - DEBUG - The Please is running
+2011-07-25 13:31:12,397 - test_problem - please_logger - DEBUG - Logger was created
+2011-07-25 13:31:12,473 - test_problem - please_logger.matcher.Matcher.matches - DEBUG - Matching...
+2011-07-25 13:31:12,473 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: create problem #shortname $$$. String: generate statenent
+2011-07-25 13:31:12,473 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,473 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: help $$$. String: generate statenent
+2011-07-25 13:31:12,473 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,473 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show todo #root_path $$$. String: generate statenent
+2011-07-25 13:31:12,474 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,474 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: todo #root_path $$$. String: generate statenent
+2011-07-25 13:31:12,474 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,474 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: import polygon package #package $$$. String: generate statenent
+2011-07-25 13:31:12,474 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,474 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show todo $$$. String: generate statenent
+2011-07-25 13:31:12,474 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,474 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: todo $$$. String: generate statenent
+2011-07-25 13:31:12,474 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: add tag|tags @tags $$$. String: generate statenent
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: add standard checker #checker $$$. String: generate statenent
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: build all $$$. String: generate statenent
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show tags $$$. String: generate statenent
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: clear tags $$$. String: generate statenent
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate tests with @tags $$$. String: generate statenent
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate tests $$$. String: generate statenent
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate statement $$$. String: generate statenent
+2011-07-25 13:31:12,476 - test_problem - please_logger.template.Template.corresponds - DEBUG - Coincidence
+2011-07-25 13:31:12,477 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: stress test #solution #generator $$$. String: generate statenent
+2011-07-25 13:31:12,477 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,477 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: stress test #solution #correct_solution #generator $$$. String: generate statenent
+2011-07-25 13:31:12,477 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,477 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: check solutions $$$. String: generate statenent
+2011-07-25 13:31:12,477 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,477 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: check solution #path $$$. String: generate statenent
+2011-07-25 13:31:12,477 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:31:12,477 - test_problem - please_logger.matcher.Matcher.matches - INFO - Run function: SingleProblemCreator. Matching completed
+2011-07-25 13:31:12,480 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:35,086 - test_problem - please_logger - DEBUG - The Please is running
+2011-07-25 13:33:35,088 - test_problem - please_logger - DEBUG - Logger was created
+2011-07-25 13:33:35,167 - test_problem - please_logger.matcher.Matcher.matches - DEBUG - Matching...
+2011-07-25 13:33:35,167 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: create problem #shortname $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,167 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,167 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: help $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,167 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,167 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show todo #root_path $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,168 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,168 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: todo #root_path $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,168 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,168 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: import polygon package #package $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,168 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,168 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show todo $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,168 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,168 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: todo $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,170 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,170 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: add tag|tags @tags $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,170 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,170 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: add standard checker #checker $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,170 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,170 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: build all $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,170 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,170 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show tags $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: clear tags $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate tests with @tags $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate tests $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate statement $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: stress test #solution #generator $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - Coincidence
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: stress test #solution #correct_solution #generator $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: check solutions $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,171 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: check solution #path $$$. String: stress test solutions/solution.cpp tests/generator.cpp
+2011-07-25 13:33:35,173 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:33:35,173 - test_problem - please_logger.matcher.Matcher.matches - INFO - Run function: StressTester. Matching completed
+2011-07-25 13:33:35,174 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:35,180 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\generator.exe', '687483'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,270 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,272 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:35,283 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,336 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,342 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,361 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,367 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\checker.exe', '.tests\\01', '.please\\incorrect.a', '.please\\correct.a'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,447 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,448 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Test passed
+2011-07-25 13:33:35,450 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:35,460 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\generator.exe', '313890'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,486 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,486 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:35,493 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,516 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,523 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,542 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,546 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\checker.exe', '.tests\\01', '.please\\incorrect.a', '.please\\correct.a'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,562 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,563 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Test passed
+2011-07-25 13:33:35,565 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:35,569 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\generator.exe', '940759'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,594 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,594 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:35,601 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,621 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,628 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,645 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,653 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\checker.exe', '.tests\\01', '.please\\incorrect.a', '.please\\correct.a'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,671 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,671 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Test passed
+2011-07-25 13:33:35,673 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:35,677 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\generator.exe', '663473'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,701 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,703 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:35,707 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,733 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,740 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,760 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,766 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\checker.exe', '.tests\\01', '.please\\incorrect.a', '.please\\correct.a'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,782 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,782 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Test passed
+2011-07-25 13:33:35,783 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:35,788 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\generator.exe', '739813'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,806 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,806 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:35,812 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,835 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,842 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,861 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,867 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\checker.exe', '.tests\\01', '.please\\incorrect.a', '.please\\correct.a'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,907 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,908 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Test passed
+2011-07-25 13:33:35,910 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:35,915 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\generator.exe', '746081'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,936 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,937 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:35,943 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,970 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,976 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:35,993 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:35,999 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\checker.exe', '.tests\\01', '.please\\incorrect.a', '.please\\correct.a'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:36,015 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:36,015 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Test passed
+2011-07-25 13:33:36,016 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:36,020 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\generator.exe', '193866'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:36,042 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:36,042 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:36,046 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:36,069 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:36,075 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:36,095 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:36,101 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\checker.exe', '.tests\\01', '.please\\incorrect.a', '.please\\correct.a'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:36,119 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:36,121 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Test passed
+2011-07-25 13:33:36,121 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:36,125 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\generator.exe', '751943'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:36,144 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:33:36,145 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:36,153 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:33:36,174 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Interrupted
+2011-07-25 13:34:05,105 - test_problem - please_logger - DEBUG - The Please is running
+2011-07-25 13:34:05,105 - test_problem - please_logger - DEBUG - Logger was created
+2011-07-25 13:34:05,180 - test_problem - please_logger.matcher.Matcher.matches - DEBUG - Matching...
+2011-07-25 13:34:05,180 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: create problem #shortname $$$. String: generate statement
+2011-07-25 13:34:05,180 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,180 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: help $$$. String: generate statement
+2011-07-25 13:34:05,180 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,180 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show todo #root_path $$$. String: generate statement
+2011-07-25 13:34:05,180 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,180 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: todo #root_path $$$. String: generate statement
+2011-07-25 13:34:05,180 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,180 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: import polygon package #package $$$. String: generate statement
+2011-07-25 13:34:05,180 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,180 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show todo $$$. String: generate statement
+2011-07-25 13:34:05,180 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,180 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: todo $$$. String: generate statement
+2011-07-25 13:34:05,180 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,181 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: add tag|tags @tags $$$. String: generate statement
+2011-07-25 13:34:05,181 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,181 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: add standard checker #checker $$$. String: generate statement
+2011-07-25 13:34:05,181 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,181 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: build all $$$. String: generate statement
+2011-07-25 13:34:05,181 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,181 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show tags $$$. String: generate statement
+2011-07-25 13:34:05,181 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,183 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: clear tags $$$. String: generate statement
+2011-07-25 13:34:05,183 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,183 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate tests with @tags $$$. String: generate statement
+2011-07-25 13:34:05,183 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,183 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate tests $$$. String: generate statement
+2011-07-25 13:34:05,183 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,183 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate statement $$$. String: generate statement
+2011-07-25 13:34:05,183 - test_problem - please_logger.template.Template.corresponds - DEBUG - Coincidence
+2011-07-25 13:34:05,184 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: stress test #solution #generator $$$. String: generate statement
+2011-07-25 13:34:05,184 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,184 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: stress test #solution #correct_solution #generator $$$. String: generate statement
+2011-07-25 13:34:05,184 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,184 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: check solutions $$$. String: generate statement
+2011-07-25 13:34:05,184 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,184 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: check solution #path $$$. String: generate statement
+2011-07-25 13:34:05,184 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:34:05,184 - test_problem - please_logger.matcher.Matcher.matches - INFO - Run function: SingleProblemCreator. Matching completed
+2011-07-25 13:34:05,210 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:34:05,216 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\generator.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:34:05,239 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:34:05,239 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:34:05,243 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests/validator.exe', '.tests\\01'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:34:05,263 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:34:05,269 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:34:05,286 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:36:07,164 - test_problem - please_logger - DEBUG - The Please is running
+2011-07-25 13:36:07,164 - test_problem - please_logger - DEBUG - Logger was created
+2011-07-25 13:36:07,230 - test_problem - please_logger.matcher.Matcher.matches - DEBUG - Matching...
+2011-07-25 13:36:07,230 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: create problem #shortname $$$. String: generate statement
+2011-07-25 13:36:07,230 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,230 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: help $$$. String: generate statement
+2011-07-25 13:36:07,230 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,230 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show todo #root_path $$$. String: generate statement
+2011-07-25 13:36:07,230 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,230 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: todo #root_path $$$. String: generate statement
+2011-07-25 13:36:07,230 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,230 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: import polygon package #package $$$. String: generate statement
+2011-07-25 13:36:07,232 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,232 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show todo $$$. String: generate statement
+2011-07-25 13:36:07,232 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,232 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: todo $$$. String: generate statement
+2011-07-25 13:36:07,232 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,232 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: add tag|tags @tags $$$. String: generate statement
+2011-07-25 13:36:07,232 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,232 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: add standard checker #checker $$$. String: generate statement
+2011-07-25 13:36:07,232 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: build all $$$. String: generate statement
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: show tags $$$. String: generate statement
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: clear tags $$$. String: generate statement
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate tests with @tags $$$. String: generate statement
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate tests $$$. String: generate statement
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: generate statement $$$. String: generate statement
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - Coincidence
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: stress test #solution #generator $$$. String: generate statement
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: stress test #solution #correct_solution #generator $$$. String: generate statement
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,233 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: check solutions $$$. String: generate statement
+2011-07-25 13:36:07,234 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,234 - test_problem - please_logger.template.Template.corresponds - DEBUG - checking for a match. Template: check solution #path $$$. String: generate statement
+2011-07-25 13:36:07,234 - test_problem - please_logger.template.Template.corresponds - DEBUG - No coincidence
+2011-07-25 13:36:07,234 - test_problem - please_logger.matcher.Matcher.matches - INFO - Run function: SingleProblemCreator. Matching completed
+2011-07-25 13:36:07,236 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:36:07,240 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests\\generator.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:36:07,259 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:36:07,259 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:36:07,265 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['tests/validator.exe', '.tests\\01'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:36:07,285 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...
+2011-07-25 13:36:07,289 - test_problem - please_logger.executors.runner.run - DEBUG - Starting process: args:['solutions/solution.exe'], stdout:-1, stdin:None, stderr:-1, env:None
+2011-07-25 13:36:07,308 - test_problem - please_logger.executors.runner.run - DEBUG - Removing trash created...

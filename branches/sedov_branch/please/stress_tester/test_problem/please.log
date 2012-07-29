@@ -1,0 +1,35 @@
+2011-07-20 13:41:25,457 - test_problem - please_logger.matcher.Matcher.matches - INFO - Run function: StressTester. Matching completed
+2011-07-25 13:30:32,721 - test_problem - please_logger.matcher.Matcher.matches - INFO - Run function: SingleProblemCreator. Matching completed
+2011-07-25 13:31:12,477 - test_problem - please_logger.matcher.Matcher.matches - INFO - Run function: SingleProblemCreator. Matching completed
+2011-07-25 13:31:12,480 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:35,173 - test_problem - please_logger.matcher.Matcher.matches - INFO - Run function: StressTester. Matching completed
+2011-07-25 13:33:35,174 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:35,272 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:35,448 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Test passed
+2011-07-25 13:33:35,450 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:35,486 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:35,563 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Test passed
+2011-07-25 13:33:35,565 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:35,594 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:35,671 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Test passed
+2011-07-25 13:33:35,673 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:35,703 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:35,782 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Test passed
+2011-07-25 13:33:35,783 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:35,806 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:35,908 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Test passed
+2011-07-25 13:33:35,910 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:35,937 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:36,015 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Test passed
+2011-07-25 13:33:36,016 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:36,042 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:36,121 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Test passed
+2011-07-25 13:33:36,121 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:33:36,145 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:33:36,174 - test_problem - please_logger.stress_tester.StressTester.test - INFO - Interrupted
+2011-07-25 13:34:05,184 - test_problem - please_logger.matcher.Matcher.matches - INFO - Run function: SingleProblemCreator. Matching completed
+2011-07-25 13:34:05,210 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:34:05,239 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
+2011-07-25 13:36:07,234 - test_problem - please_logger.matcher.Matcher.matches - INFO - Run function: SingleProblemCreator. Matching completed
+2011-07-25 13:36:07,236 - test_problem - please_logger.TestsGenerator - INFO - Generating 1 tests
+2011-07-25 13:36:07,259 - test_problem - please_logger.TestsGenerator - INFO - Test #1 generated
