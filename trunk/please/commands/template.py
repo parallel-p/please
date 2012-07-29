@@ -11,7 +11,7 @@ formal grammar:
     list ::= word ++ "..."
 in EBNF, where `++' means concatenation (no spaces between).'''
 
-from .wordmatch import contains, similarity
+from .wordmatch import contains, similarity, CUTOFF
 import os.path
 from collections import defaultdict, Counter
 
@@ -66,7 +66,7 @@ class Template:
         elif '|' in token:
             return WORD, token.split('|')
         else:
-            return WORD, [token]
+            return WORD, (token,)
 
     def __build_finite_automata(self, stokens):
         tokens = []
@@ -141,13 +141,17 @@ class Template:
             results.setdefault(state, []).append(sequence[i])
         
         result = {}
-        total = 0
+        howmuch = 0
+        ratio = 1
         for i, token in enumerate(self.tokens):
             type, arg = token
             if i not in results:
                 continue
             if type == WORD:
-                total += similarity(arg, results[i][0]) ** 2
+                ratio = min(ratio,
+                            similarity(self.tokens[i][1],
+                                    results[i][0]))
+                howmuch += 1
             elif type == ARGUMENT:
                 result[arg] = results[i][0]
             elif type == PATH:
@@ -155,7 +159,7 @@ class Template:
             elif type == LIST:
                 results[i].reverse()
                 result[arg] = results[i]
-        return result, total, states
+        return result, (ratio - CUTOFF) * howmuch, states
 
     def match(self, sequence):
 
@@ -176,8 +180,6 @@ class Template:
 
     def format(self):
         from colorama import Style
-        if self.help_text.startswith('!suppress'):
-            return None
         format = Style.BRIGHT + '{}' + Style.RESET_ALL
         begins = []
         ends = Counter()

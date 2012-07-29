@@ -13,6 +13,7 @@ class FileTestInfoTest(unittest.TestCase):
     def test_one_big(self):
         well_done = self.WellDoneMock(['no_symbols_less_32', 'no_left_right_space'])
         myfilename = "my.txt"
+        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA", os.getcwd())
         with open(myfilename, "w") as pig:
             pig.write("test")
         

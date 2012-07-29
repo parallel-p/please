@@ -1,4 +1,4 @@
-please_version = 0.3
+please_version = 0.2
 name = Сумма на отрезке
 shortname = maxsegmsum
 tags = 
@@ -11,7 +11,7 @@ memory_limit = 256
 
 checker = fcmp.cpp
 validator = validator.cpp
-main_solution = solutions/solution_ok.cpp
+main_solution = solutions\solution_ok.cpp
 
 statement = statements/default.ru.tex
 description = statements/description.ru.tex
@@ -24,21 +24,17 @@ solution = {
     source = solutions/solution(nlogn).cpp
 }
 solution = {
-    source = solutions/solution(n2ML).cpp
+    source = solutions\solution(n2ML).cpp
     expected = ML
     possible = OK
 }
 solution = {
-    source = solutions/solution(n2TL).cpp
+    source = solutions\solution(n2TL).cpp
     expected = TL
     possible = OK
 }
 solution = {
-    source = solutions/solution_wa.cpp
+    source = solutions\solution_wa.cpp
     expected = WA
     possible = OK
-}
-solution = {
-    source = solutions/solution_ok.cpp
-    expected = OK
 }

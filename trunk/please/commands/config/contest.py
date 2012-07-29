@@ -23,7 +23,7 @@ class MonkeyPatch:
             config['id'] = config_id
 
 def _get_contest_config(name):
-    if globalconfig.problem_folder != None:
+    if globalconfig.in_problem_folder:
         raise PleaseException('Cannot work with contests in problem folder')
     return globalconfig.contest_template.format(name)
 
