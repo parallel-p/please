@@ -60,8 +60,7 @@ temp_solution_out_file = ".out"
 
 #information about polygon
 access = {'login': 'makhmedov', "password": "lzlzfbr"}
-polygon_url = "http://codecenter.sgu.ru:8081/polygon"
-polygon_url = 'http://178.217.103.1:8090'
+polygon_url = 'http://polygon.lksh.ru'
 access = {'login': 'tigvarts_oivanov', "password": "51234"}
 
 #exports = {
