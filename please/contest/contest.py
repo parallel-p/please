@@ -5,6 +5,7 @@ import errno
 from ..package.config import Config, ConfigFile
 from ..package.package_config import PackageConfig
 from ..utils.exceptions import PleaseException
+import os
 
 class IdMethod:
 
