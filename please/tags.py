@@ -18,7 +18,8 @@ def add_tags(tags):
             current_tags.append(tag)
 
     opened_config["tags"] = "; ".join(current_tags)
-    opened_config.write()
+    config_file = opened_config.get_text()
+    writepackage(config_file)
     
 def clear_tags():
     opened_config = PackageConfig.get_config()
@@ -26,7 +27,8 @@ def clear_tags():
     if not "tags" in opened_config:
         pass
     opened_config["tags"] = " "
-    opened_config.write()
+    config_file = opened_config.get_text()
+    writepackage(config_file)
     
 def show_tags():
     _inst_logger= logging.getLogger ("please_logger.tags.show_tags")

@@ -1,11 +1,7 @@
 #!/usr/bin/env python3
 import os, shutil
-#from utils.exceptions import PleaseException
- 
-class PleaseException(Exception):
-    def __init__(s):
-        pass
-
+from ...utils.exceptions import PleaseException
+    
 class EjudgeFormatter:
     def __init__(self):
         pass
@@ -36,8 +32,6 @@ class NewEjudgeFormatter(EjudgeFormatter):
                 f.write(checker)
         else:
             shutil.copyfile(os.path.join(path_to_problem, name_of_checker), os.path.join(target_path_to_problem, name_of_checker))
-        for testlib in ['testlib.pas', 'testlib.h']:
-            shutil.copyfile(os.path.join(path_to_problem, testlib), os.path.join(target_path_to_problem, testlib))
 
     def put_all(self):
         target_path_to_problems = os.path.join('..', 'problems')

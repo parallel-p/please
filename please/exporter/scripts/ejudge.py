@@ -3,7 +3,7 @@ import configparser, os, io
 
 # run_tests.py will run ejudge_formatter test correct only with relative imports
 try:
-    import ejudge_formatter, backupper
+    from . import ejudge_formatter, backupper
 except ImportError:
     import please.exporter.scripts.ejudge_formatter as ejudge_formatter
     import please.exporter.scripts.backupper as backupper

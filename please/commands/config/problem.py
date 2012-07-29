@@ -1,18 +1,11 @@
-from please.utils.exceptions import PleaseException
+
 TL = ['TL', 'tl', 'timelimit', 'time-limit', 'time_limit']
 ML = ['ML', 'ml', 'memorylimit', 'memory-limit', 'memory_limit']
-
-def create_problem(shortname):
-    '''create problem $shortname
-    Creates a folder named `shortname' and fills it with basic
-    template files.'''
-    from please.template.problem_template_generator import generate_problem
-    generate_problem(shortname)
 
 def generate_tests(tags = []):
     '''gen[erate] tests [with tag[s] tags...]
     Generate tests for a problem, either everything or just with certain tags.'''
-    from please.tests_answer_generator import generate, generate_all, AdmitAny, AdmitAll
+    from please.tests_answers_generator import generate, generate_all, AdmitAny, AdmitAll
     if tags:
         commax = ' '.join(tags)
         if ',' in commax:
@@ -39,7 +32,7 @@ def generate_answers():
 def validate_tests():
     '''val[idate] [tests]
     Validate all tests for a problem.'''
-    from please.tests_answer_generator import validate
+    from please.tests_answers_generator import validate
     tg = TestsAndAnswersGenerator()
     tg.validate()
 
@@ -82,11 +75,11 @@ def set_param(parameter, value):
         raise PleaseException('problem package not found')
     cfg[parameter] = value
         
-def add_standard_checker(checker = None):
-    '''add standard|std checker [/checker]
+def set_standard_checker(checker = None):
+    '''set standard|std checker [/path]
     Set a standard checker to be a checker for a problem
     (or print available ones).'''
-    from please.checkers.standard_checkers_utils import (add_standard_checker_to_solution,
+    from please.checkers.standard_checker_utils import (add_standard_checker_to_solution,
                                                         print_standard_checkers)
     if checker is None:
         print_standard_checkers()
@@ -162,34 +155,3 @@ def compute(limit, type = 'float'):
             auto_tl.set_integer_tl()
     else:
         raise PleaseException('I am sophisticated, but is not able to compute everything!')
-
-def add_tags(tags):
-    '''add tag[s] tags...
-    Adds tags to the current problem.'''
-    from please.package.package_config import PackageConfig
-    opened_config = PackageConfig.get_config()
-    extags = opened_config.get("tags", '').split('; ')
-    if '' in extags:
-        extags.remove('')
-    for tag in tags:
-        if tag not in extags:
-            extags.append(tag)
-    opened_config['tags'] = '; '.join(extags)
-    opened_config.write()
-
-def show_tags():
-    '''show tags
-    Shows tags assigned to the current problem.'''
-    from please.package.package_config import PackageConfig
-    opened_config = PackageConfig.get_config()
-    if 'tags' in opened_config:
-        print(opened_config['tags'])
-
-def clear_tags():
-    '''clear tags
-    Clear all tags assigned to a current problem.'''
-    from please.package.package_config import PackageConfig
-    opened_config = PackageConfig.get_config()
-    if 'tags' in opened_config:
-        opened_config['tags'] = ''
-    opened_config.write()

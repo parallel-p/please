@@ -32,7 +32,7 @@ class MatcherTest(unittest.TestCase):
         obj = self.mox.CreateMockAnything()
         m = Matcher()
         obj.ls(files = ['dir'])
-        #obj.ls(files = ['path1', 'path2', 'path3'])
+        obj.ls(files = ['path1', 'path2', 'path3'])
         obj.ld(files = ['path1', 'path2', 'path3'])
         obj.install(packages = ['python-please'])
         obj.install(packages = ['python3.2'])
@@ -42,7 +42,7 @@ class MatcherTest(unittest.TestCase):
 
         match = lambda s: m.call(s.split())
         self.assertTrue(match("ls dir"))
-        #self.assertTrue(match("ld path1 path2 path3")) # here mistake in ls, but too severe
+        self.assertTrue(match("ld path1 path2 path3")) # here mistake in ls
 
         m.add("ld files...", obj.ld)
         self.assertTrue(match("ld path1 path2 path3")) # and here is command

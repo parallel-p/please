@@ -96,26 +96,24 @@ def print_results(test_all_results):
     printc("Failed: %s" % fail_count,                Fore.RED)
     printc("Passed: %s" % ok_count,                  Fore.GREEN)
 
-def get_test_results_from_solution(config, solution_config):
+def get_test_results_from_solution(solution, config = None):
 
-    new_config = solution_config_utils.make_config_with_solution_config(
-        config, solution_config)
+    if config is None:
+        config = PackageConfig.get_config()
+        # TODO: check if config is still None
+  
+    new_config = solution_config_utils.make_config(solution, config)
 
     test_solution = TestSolution(new_config)
-
-    actual_path = os.path.join(globalconfig.problem_folder,
-                               solution_config.get_path("source"))
-
-    (met_not_expected,
-     expected_not_met,
-     testing_result) = test_solution.test_solution(actual_path)
+    met_not_expected, expected_not_met, testing_result = test_solution.test_solution(solution)
     
     return (met_not_expected, expected_not_met, testing_result)
 
-def generate_html_for_solution(config, solution_config):
+def generate_html_for_solution(config, solution, expected = [], possible = []):
     ''' Generates <div> block with tabled report for given solution  '''
-    report = get_test_results_from_solution(config, solution_config)
-    solution = solution_config["source"]
+    expected = expected or globalconfig.default_expected
+    possible = possible or globalconfig.default_possible
+    report = get_test_results_from_solution(solution, config)
     html_reporter = HtmlReporter()
     
     for test, checker_verdict in sorted(report[2].items(), key = lambda x: int(os.path.basename(x[0]))):
@@ -123,7 +121,7 @@ def generate_html_for_solution(config, solution_config):
 
     footer = ""
     if len(report[0]) > 0:
-        footer += "unexpected but met: <b>%s</b><br />" % "</b>,<b> ".join(report[0])
+        footer += "unexpected but met: <b>%s</b><br />" % "</b>,<b> ".join(report[0].keys())
     if len(report[1]) > 0:
         footer += "expected but not met: <b>%s</b><br />" % "</b>,<b> ".join(report[1])
 
@@ -139,7 +137,8 @@ def generate_html_report(solves): # , add_main=False):
     #    all_results.append((config["main_solution"], gen[1]))
         
     for solve in solves:
-        gen = generate_html_for_solution(config, solve)
+        gen = generate_html_for_solution(config, solve["source"],
+                solve.get("expected", []), solve.get("possible", []))
         html += gen[0]
         all_results.append((solve["source"], gen[1]))
         

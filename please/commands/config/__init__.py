@@ -1,11 +1,2 @@
-from . import contest, todo, help, polygon, problem, easter_eggs, oneclick
-
-modules = [
-    help,
-    problem,
-    todo,
-    contest,
-    polygon,
-    easter_eggs,
-    oneclick
-]
+from . import contest, easter_eggs, help, polygon, problem, todo
+modules = [contest, easter_eggs, help, polygon, problem, todo]
