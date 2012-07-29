@@ -2,18 +2,6 @@ import os.path
 from .. import globalconfig
 from ..utils.exceptions import PleaseException
 
-def getter(func):
-    def get_wrapped(self, key, default = None):
-        if key in self:
-            return func(self[key])
-        return default
-    return get_wrapped
-
-def setter(func):
-    def set_wrapped(self, key, value):
-        self.key = func(value)
-    return set_wrapped
-
 class Config:
     """
     Multilevel config parser with possibility of set, delete, formatting data,
@@ -281,9 +269,6 @@ class Config:
             return self.__settings[item]
         else:
             return default
-
-    get_path = getter(lambda path, _ossep = os.sep: path.replace('/', _ossep))
-    set_path = setter(lambda path, _ossep = os.sep: path.replace(_ossep, '/'))
 
 class ConfigFile(Config):
     def __init__(self, filename):
