@@ -124,7 +124,7 @@ class PolygonProblemImporter:
             name = self.tree.xpath('/problem')[0].get('name')
             if name is None:
                 name = self.tree.xpath('/problem')[0].get('short-name')
-            path = os.path.join(name, path)
+            path = os.path.join("."+name, os.path.split(path))
             create_code.copy_solution(self.default_package, self.cwd, path, tag)
 
     def fix_creation_time(self):
