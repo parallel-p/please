@@ -43,7 +43,8 @@ class PolygonProblemImporter:
         for exe in self.tree.xpath('/problem/files/executables/executable'):
             if(len(exe.xpath('source/file')) > 0):
                 source = exe.xpath('source/file')[0].get('path')
-            source = exe.xpath('source')[0].get('path')
+            else:
+                source = exe.xpath('source')[0].get('path')
             without_ext = source[6:source.rfind('.')]           
             self.to_extension[without_ext] = source[6:]
 
@@ -116,6 +117,8 @@ class PolygonProblemImporter:
 
         for source in self.tree.xpath('/problem/files/executables/executable/source/file'):
             create_code.copy_source(self.default_package, self.cwd, source.get('path'))
+        for source in self.tree.xpath('/problem/files/executables/executable/source'):
+            create_code.copy_source(self.default_package, self.cwd, source.get('path'))        
 
         for solution in self.tree.xpath('/problem/assets/solutions/solution'):
             tag = solution.get('tag')
@@ -124,7 +127,7 @@ class PolygonProblemImporter:
             name = self.tree.xpath('/problem')[0].get('name')
             if name is None:
                 name = self.tree.xpath('/problem')[0].get('short-name')
-            path = os.path.join("."+name, os.path.split(path))
+        #    path = os.path.join("."+name, *os.path.split(path))
             create_code.copy_solution(self.default_package, self.cwd, path, tag)
 
     def fix_creation_time(self):
@@ -167,7 +170,7 @@ class PolygonProblemImporter:
         self.make_to_extension()
 
         tests = self.make_tests()
-
+        help(tests[0])
         self.write_tests(tests)
 
         self.copy_files()

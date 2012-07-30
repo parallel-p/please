@@ -24,7 +24,7 @@ def create_stub(short_task_name, time_limit=None, memory_limit=None, file_in=Non
                                                                        as config_file:
         config_data=config_file.read()
         
-    problem_config = config.Config(config_data)
+    problem_config = config.Config(config_data, file=os.path.join(short_task_name, 'default.package'))
     
     if (file_in == ''):
         file_in = 'stdin'
