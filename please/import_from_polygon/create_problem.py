@@ -120,7 +120,8 @@ class PolygonProblemImporter:
         for source in self.tree.xpath('/problem/files/executables/executable/source/file'):
             create_code.copy_source(self.default_package, self.cwd, source.get('path'))
         for source in self.tree.xpath('/problem/files/executables/executable/source'):
-            create_code.copy_source(self.default_package, self.cwd, source.get('path'))        
+            if not source.get('path') is None:
+                create_code.copy_source(self.default_package, self.cwd, source.get('path'))        
 
         for solution in self.tree.xpath('/problem/assets/solutions/solution'):
             tag = solution.get('tag')
