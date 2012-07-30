@@ -59,7 +59,6 @@ checker_return_codes = {0:"OK", 1:"WA", 2:"PE"}
 temp_solution_out_file = ".out"
 
 #information about polygon
-access = {'login': 'makhmedov', "password": "lzlzfbr"}
 polygon_url = 'http://polygon.lksh.ru'
 access = {'login': 'tigvarts_oivanov', "password": "51234"}
 
