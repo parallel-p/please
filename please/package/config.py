@@ -212,7 +212,7 @@ class Config:
             if self.__settings.get(item) is None:
                 raise PleaseException("There is no item '{0}' in config {1}".format(item, self.__file))
             else:
-                if item == 'statement':
+                if not isinstance(self.__settings.get(item), str):
                     return self.__settings.get(item)
                 path = self.__convert_separators(self.__settings.get(item))       
                 full_path = os.path.join(os.path.split(self.__file)[0], path)
