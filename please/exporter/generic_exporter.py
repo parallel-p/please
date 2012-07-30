@@ -18,6 +18,8 @@ class GenericExporter:
             #    conf = Config(f.read())
             if self.archiver:
                 self.archiver.add(conf['checker'], os.path.join(problem, os.path.split(conf['checker'])[-1]))
+            for testlib in ["testlib.h", "testlib.pas"]:
+                self.archiver.add(os.path.join(problem, testlib))
             #if not os.path.exists(conf['checker']):
             #    print(conf['checker'])
             #    print(-1/0)
