@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 import os, shutil
-from ...utils.exceptions import PleaseException
-    
+
+class PleaseException(Exception):
+    def __init__(self, s):
+        pass
+
 class EjudgeFormatter:
     def __init__(self):
         pass
