@@ -22,6 +22,7 @@ def __push_back(line, data):
        
 def copy_something(problem_config, problem_path, something_in_problem_path, \
                    something_path, something_name):
+    print(problem_path, something_in_problem_path, something_path, something_name)
     shutil.copy(something_path, os.path.join(problem_path, something_in_problem_path))
     if not something_name is None:
         problem_config[something_name] = __push_back(problem_config[something_name], \
