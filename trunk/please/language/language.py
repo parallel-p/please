@@ -33,7 +33,7 @@ KNOWN_MIMES = { # all MIMES that we are interested in
     'x-c': 'c', 
     'x-c++': 'c++',
     'x-csharp': 'c#',
-    'x-pascal': 'pascal',
+    'x-pascal': 'delphi',
     'x-delphi': 'delphi',
     'x-python': '?python',
     'x-java': 'java',
@@ -125,7 +125,7 @@ class Language:
 
     def __by_ext(self, fn):
         ext = os.path.splitext(fn)[1].lower()
-        if not ext:
+        if not ext:             
             return 'command'
         dct = { ".c" : "c",
                 ".cc" : "c++",
