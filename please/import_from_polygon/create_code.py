@@ -58,6 +58,7 @@ def copy_solution(problem_config, problem_path, solution_path, tag):
                                         polygon2please_verdicts[tag][1]) #possible values
     if tag == 'main':
         add_source.add_main_solution_with_config(problem_config, new_solution_path)
+        add_source.del_solution_with_config(problem_config, 'solutions/solution.cpp')
     os.chdir(cur_dir)
 
 def copy_source(problem_config, problem_path, sources_path):
