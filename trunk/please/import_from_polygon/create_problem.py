@@ -27,7 +27,7 @@ class PolygonProblemImporter:
         for statement in statements:
             language = statement.get('language')
             path = statement.get('path')
-            if str(statement.get('type')) == "application/x-tex":   
+            if str(statement.get('type')) == "application/x-tex" or str(statement.get('format')) == 'tex':   
                 with open(path, 'r', encoding='UTF-8') as f:
                     content = f.read()
                 create_statements.add_statement(self.default_package, language, content, self.cwd)
