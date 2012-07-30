@@ -26,6 +26,8 @@ class NewEjudgeFormatter(EjudgeFormatter):
         shutil.copytree(os.path.join(path_to_problem, '.tests'), os.path.join(target_path_to_problem, 'tests'))        
 
     def __put_checker(self, path_to_problem, target_path_to_problem, name_of_checker):
+        for testlib in ['testlib.h', 'testlib.pas']:
+            shutil.copyfile(os.path.join(path_to_problem, testlib), os.path.join(target_path_to_problem, testlib))
         if os.path.splitext(name_of_checker)[1] in ['.cpp', '.c', '.c++', '.cxx']:
             checker = ""
             with open(os.path.join(path_to_problem, name_of_checker)) as f:
