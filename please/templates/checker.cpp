@@ -4,6 +4,5 @@ using namespace std;
 
 int main(int argc, char * argv[]) {
     registerTestlibCmd(argc, argv);
-
-    return 0;
+    quit(_fail, "Checker is not implemented yet!");
 }
