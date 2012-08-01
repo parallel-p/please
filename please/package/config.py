@@ -187,7 +187,7 @@ class Config:
                     break
 
     def __convert_separators(self, path):
-        splitted = path.split('/')
+        splitted = sum([x.split('\\') for x in path.split('/')], [])
         return os.path.join(*splitted)
 
     def __getitem__(self, item):
@@ -205,7 +205,7 @@ class Config:
                 #else:
                 return root_checker_path
             return checker_full_path
-        elif item in ["source", "validator", "statement", "description", "main_solution"]:
+        elif item in ["source", "validator", "statement", "description", "main_solution", "solution"]:
             if item == "validator":
                 return self.__settings.get(item)
 #            if self.__settings.get(item) is None:
@@ -265,10 +265,15 @@ class Config:
         return self.__changed
 
     def get(self, item, default = None):
-        if item in self.__settings and self.__settings[item] is not None:
-            return self.__settings[item]
+        ret = self.__getitem__(item)
+        if ret is not None:
+            return ret
         else:
             return default
+        #if item in self.__settings and self.__settings[item] is not None:
+        #    return self.__settings[item]
+        #else:
+        #    return default
 
 class ConfigFile(Config):
     def __init__(self, filename):
