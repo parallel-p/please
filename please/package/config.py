@@ -11,7 +11,6 @@ class Config:
         """
             conf = Config(text_of_config_file)
         """
-#        print(text)
 
         def strict_divide(string, number_of_parts, delim):
             parts = string.split(delim, number_of_parts - 1)
@@ -274,7 +273,6 @@ class Config:
 class ConfigFile(Config):
     def __init__(self, filename):
         self.filename = filename
-        #print(filename)
         if os.path.isfile(filename):
             with open(filename, 'r', encoding = 'utf-8-sig') as f:
                 text = f.read()
@@ -287,7 +285,6 @@ class ConfigFile(Config):
             f.write(self.get_text())
 
 def create_simple_config(file_name, config):
-    #print(config['shortname'])
     with open(file_name, 'w') as file:
         write = lambda x: file.write(config[x] + '\n')
         write('shortname')
@@ -296,7 +293,6 @@ def create_simple_config(file_name, config):
         write('output')
         write('time_limit')
         write('memory_limit')
-        print(config['checker'])
         file.write(os.path.split(config['checker'])[-1] + '\n')
         if not 'id' in config:
             write('shortname')
