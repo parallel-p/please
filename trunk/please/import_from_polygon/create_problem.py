@@ -71,7 +71,6 @@ class PolygonProblemImporter:
         for testset in self.tree.xpath('/problem/judging/testset'):
             tag = testset.get('name')
             for i, test in enumerate(testset.xpath('tests/test')):
-                print(i, test)
                 raw_tests.append(self.make_TestInfo(i, test, tag))
         
         #optimize multigenerators
@@ -98,7 +97,6 @@ class PolygonProblemImporter:
         return tests
 
     def write_tests(self, tests):
-        print(len(tests))
         with open(os.path.join(self.cwd, "tests.please"), 'w') as f:
             for test in tests:
                 f.write(test.to_please_format() + '\n')
