@@ -2,7 +2,8 @@ import os
 
 def is_program_detect(path):
     if "." in path:
-        programm_suffix = [".c", 
+        programm_suffix = [".pl",
+                ".c", 
                 ".cpp",
                 ".c++",
                 ".cs",

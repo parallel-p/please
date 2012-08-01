@@ -10,6 +10,7 @@ modules = ["cpp",
            "pdflatex",
            "python2",
            "python3",
+           "perl",
           ]
 
 configs = {}

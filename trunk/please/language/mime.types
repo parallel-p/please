@@ -10,3 +10,4 @@ text/x-tex					tex ltx sty cls
 text/x-csharp               c# C# cs csharp
 text/x-delphi               dpr 
 text/x-brainfuck            b bf
+text/x-perl            pl
