@@ -6,7 +6,7 @@ import mimetypes
 from ..utils.exceptions import PleaseException
 
 #"" is for commands
-LANGS = ["c", "c++", "c#", "pascal", "delphi", "python2", "python3", "java", ""]
+LANGS = ["c", "c++", "c#", "pascal", "delphi", "python2", "python3", "java", "perl", ""]
 
 # Damn Apple.
 USE_SYSTEM_SETTINGS = False
@@ -39,7 +39,9 @@ KNOWN_MIMES = { # all MIMES that we are interested in
     'x-java': 'java',
     'x-tex': 'latex',
     'x-brainfuck': '?brainfuck',
+    'x-perl': 'perl',
     'x-empty': None,
+
 }
 
 logger = logging.getLogger("please_logger.language")
@@ -134,6 +136,7 @@ class Language:
                 ".cs" : "c#",
                 ".pas" : "pascal",
                 ".java" : "java",
+                ".pl" : "perl",
                 ".py" : "?python",
                 ".dpr" : "delphi",
                 ".tex" : "?latex"
@@ -157,6 +160,7 @@ class Language:
             logger.warning("Assuming " + path + " is python2 file. \nIf you want to translate it with python3, insert 'python3' in the comment in the first line of this file")
             self.py2warning.add(path_handle)
             return "python2"
+
 
     def __proceed_brainfuck(self, path):
         useable_bytes = set(b'<>[]+-')
