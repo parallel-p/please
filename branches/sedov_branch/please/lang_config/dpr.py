@@ -4,6 +4,8 @@ from . import utils
 from .base import BaseConfig
 
 LANGUAGE = "delphi"
+MIMES = ["x-delphi"]
+EXTENSIONS = [".dpr"]
 
 class DprBaseConfig(BaseConfig):
     def is_compile_garbage(self, source):

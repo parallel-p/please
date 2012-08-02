@@ -6,6 +6,8 @@ from ..utils.exceptions import PleaseException
 import subprocess
 
 LANGUAGE = "latex"
+MIMES = ["x-tex"]
+EXTENSIONS = ["tex", "ltx", "sty", "cls",]
 
 def is_compilation_garbage(source):
     if os.path.splitext(source)[1] == '':

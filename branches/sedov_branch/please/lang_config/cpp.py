@@ -3,6 +3,9 @@ from . import utils
 from .base import BaseConfig
 
 LANGUAGE = "c++"
+MIMES = ["x-c++", "x-c++hdr", "x-c++src"]
+EXTENSIONS = [".c++", ".cpp", ".cxx", ".cc",
+              ".h++", ".hpp", ".hxx", ".hh"]
 
 class CppNixConfig(BaseConfig):
     def _get_compile_commands(self, source):
