@@ -76,6 +76,10 @@ def generate_contest(problem_names = [os.curdir], template = None, template_vars
     log.info("PDF %s was created successfully", os.path.splitext(new_tex_name)[0] + ".pdf")
     return pdf_out_name
 
+def make_good(txt):
+    t = txt.split('\n')
+    return '\n'.join(['~' if x == '' and i != len(t) - 1 else x for i, x in enumerate(t)])
+
 class LatexConstructor:
     """
     Creates string contains tex file with problem statement
@@ -105,6 +109,7 @@ class LatexConstructor:
         self.__input_example.append(input_example)
         self.__output_example.append(output_example)
 
+
     def construct(self):
         """
             returns string, which contains tex file.
@@ -118,7 +123,7 @@ class LatexConstructor:
             examples = "\n\\begin{%s}\n" % self.__example_environment
             count = 0
             for in_example, out_example in zip(self.__input_example, self.__output_example):
-                examples += "\\exmp{\n%s}{%s}%%\n" % (str(in_example), str(out_example))
+                examples += "\\exmp{\n%s}{%s}%%\n" % (make_good(str(in_example)), make_good(str(out_example)))
                 count += 1
             examples += "\\end{%s}\n" % (self.__example_environment)
             examples = ("\\Example\n" if count == 1 else "\\Examples\n") + examples
