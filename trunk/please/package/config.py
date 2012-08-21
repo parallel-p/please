@@ -290,7 +290,7 @@ class ConfigFile(Config):
             f.write(self.get_text())
 
 def create_simple_config(file_name, config):
-    with open(file_name, 'w') as file:
+    with open(file_name, 'w', encoding='utf-8') as file:
         write = lambda x: file.write(config[x] + '\n')
         write('shortname')
         write('name')
