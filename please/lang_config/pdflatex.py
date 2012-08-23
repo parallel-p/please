@@ -4,12 +4,15 @@ from ..template.template_utils import get_template_full_path
 from .base import BaseConfig
 from ..utils.exceptions import PleaseException
 import subprocess
+import logging
+
+logger = logging.getLogger('please_logger.lang_config.pdflatex')
 
 LANGUAGE = "latex"
+MIMES = ["text/x-tex"]
+EXTENSIONS = [".tex", ".ltx", ".sty", ".cls",]
 
 def is_compilation_garbage(source):
-    if os.path.splitext(source)[1] == '':
-        return False
     extension = os.path.splitext(source)[1]
     return extension.lower() in {'aux'}
 
@@ -30,13 +33,13 @@ class BaseLaTeXConfig(BaseConfig):
         return [os.path.splitext(source)[0] + ".pdf"]
 
 class TeXLiveConfig(BaseLaTeXConfig):
+    _command_prefix = BaseLaTeXConfig._command_prefix + ['-shell-escape']
     def _get_environment(self, source):
         return {'TEXINPUTS': os.pathsep.join(('', os.curdir, self.template_path))}
 
 class MiKTeXConfig(BaseLaTeXConfig):
-    def _setup(self):
-        self._command_prefix = (BaseLaTeXConfig._command_prefix +
-                                ['-include-directory', self.template_path])
+    _command_prefix = BaseLaTeXConfig._command_prefix + ['-include-directory',
+                      BaseLaTeXConfig.template_path]
 
 class UnknownVersionTeXConfig(BaseLaTeXConfig):
     def __init__(self, source):
@@ -53,5 +56,7 @@ def get_config():
     elif b'TeX Live' in version_info:
         return TeXLiveConfig
     else:
-        return UnknownVersionTeXConfig
+        logger.warning('TeX version cannot be determined, assuming TeX Live')
+        return TeXLiveConfig
+        #return UnknownVersionTeXConfig
 

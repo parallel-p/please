@@ -4,7 +4,11 @@ import colorama
 from ..package.package_config import PackageConfig
 from ..reports import generate_html_report
 from ..utils.exceptions import PleaseException
-from ..language.program_detector import is_program_detect
+from .. import lang_config
+
+def is_program(path):
+    return lang_config.get_language(path) is not None
+
 
 colorama.init()
 
