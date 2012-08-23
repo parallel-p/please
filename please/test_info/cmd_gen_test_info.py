@@ -2,7 +2,7 @@ from . import test_info
 from . import test_file_sort
 import tempfile
 from ..executors import runner, compiler
-from .. import language
+from .. import lang_config
 from ..diff_test_finder.diff_test_finder import DiffTestFinder
 from ..directory_diff.snapshot import Snapshot
 from ..utils.form_error_output import process_err_exit
@@ -32,7 +32,7 @@ class CmdOrGenTestInfo(test_info.TestInfo):
         compiler.compile(executor)
 
         #TODO: fix this hack for java
-        if language.get(executor) != "java":
+        if lang_config.get_language(executor) != "java":
             exe_dir = tempfile.mkdtemp()
             os.chdir(exe_dir)
         else:
