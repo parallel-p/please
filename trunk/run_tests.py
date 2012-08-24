@@ -1,10 +1,7 @@
 import unittest
 import sys
-from please import log
-from please import globalconfig
 
-#do not use svn during tests; commen this line to work with svn
-#globalconfig.svn['url'] = ''
+
 
 def analysis(infile):
      strings = infile.read().split("\n")
@@ -28,7 +25,7 @@ def analysis(infile):
           print ("FAILS = " + str(count))
           print("")
           print ("Details in file test.log")
-
+     return(count)
 
 def run_tests(directory):
      print("Adding tests")
@@ -44,7 +41,7 @@ def run_tests(directory):
      
 def run_consol_test(directory):
      suite.addTests(loader.discover(directory,"*_test.py"))
-     unittest.TextTestRunner(verbosity = 2).run(suite)
+     return len(unittest.TextTestRunner(verbosity = 2).run(suite).errors)
 
 args = sys.argv
 loader = unittest.TestLoader()
@@ -55,5 +52,5 @@ if len(args) >= 2 and args[1] == 'short':
     run = run_tests
     args = args[1:]
 
-run('.' if len(args) != 2 else args[1])
+sys.exit(run('.' if len(args) != 2 else args[1]))
 
