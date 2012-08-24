@@ -12,6 +12,16 @@ servers = {
     },
     libs = []
   ),
+  'informatics' : EjudgeExporter(
+    network = {
+      'host' : 'informatics.mccme.ru',
+      'port' : '22',
+      'login' : 'ejudge',
+      'password' : '1QaZsE4',
+      'destination' : '/home/judges/'
+    },
+    libs = []
+  ),
   'mingalev_pcms2' : PCMS2Exporter(
     network = {
       'host' : r'Z:\problems'
