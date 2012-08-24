@@ -180,7 +180,7 @@ class LatexContestConstructor:
             contest.set_date("20.12.2012")
             contest_in_tex = contest.construct()
     """
-    def __init__(self, template, template_vars = {}, separator="\n\\newpage\n"):
+    def __init__(self, template, template_vars = {}, separator="\n\\bigskip\\bigskip\n"):
         self.__attributes = {}
         self.__list = []
         self.__template = str(template)
