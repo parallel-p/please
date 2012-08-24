@@ -1,4 +1,6 @@
 from .MAGIC_H import *
+import builtins
+
 
 _BINARY = 'application/octet-stream'
 _TEXT = 'text/plain'
@@ -18,7 +20,7 @@ class Trickery:
 
     def file(self, path):
         try:
-            with open(path, 'rb') as fp:
+            with builtins.open(path, 'rb') as fp:
                 chunk = fp.read(_CHUNK)
         except (IOError, OSError):
             return ''
