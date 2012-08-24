@@ -3,6 +3,7 @@ import os.path
 from ..template.template_utils import get_template_full_path
 from .base import BaseConfig
 from ..utils.exceptions import PleaseException
+from .utils import NoConfigFound
 import subprocess
 import logging
 
@@ -50,7 +51,8 @@ def get_config():
     try:
         version_info = subprocess.check_output(['tex', '--version'])
     except OSError:
-        raise PleaseException('Cannot run TeX, check if it is installed')
+        #raise PleaseException('Cannot run TeX, check if it is installed')
+        raise NoConfigFound()
     if b'MiKTeX' in version_info:
         return MiKTeXConfig
     elif b'TeX Live' in version_info:
