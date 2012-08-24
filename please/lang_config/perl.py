@@ -9,3 +9,6 @@ class PerlConfig(BaseConfig):
 
 def get_config():
     return PerlConfig
+
+MIMES = ["text/x-perl"]
+EXTENSIONS = [".pl", ".pm"]
