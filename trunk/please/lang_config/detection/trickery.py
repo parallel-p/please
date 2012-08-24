@@ -1,5 +1,9 @@
 from .MAGIC_H import *
 
+_BINARY = 'application/octet-stream'
+_TEXT = 'text/plain'
+_CHUNK = 4096
+
 class Trickery:
     '''A non-magic magic stub.'''
     def __init__(self):
@@ -13,7 +17,15 @@ class Trickery:
         pass
 
     def file(self, path):
-        return 'application/octet-stream'
+        try:
+            with open(path, 'rb') as fp:
+                chunk = fp.read(_CHUNK)
+        except (IOError, OSError):
+            return ''
+        if 0 in chunk:
+            return _BINARY
+        else:
+            return _TEXT
 
 def open(flags):
     return Trickery()
