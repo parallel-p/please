@@ -2,6 +2,7 @@
 
 from importlib import import_module
 from .detection import LanguageDetector
+from .utils import NoConfigFound, create_error_config
 
 _detector = LanguageDetector()
 
@@ -21,7 +22,10 @@ modules = ["cpp",
 for modname in modules:
     module = import_module('.' + modname, __name__)
     _detector._add_module(module)
-    _configs[module.LANGUAGE] = module.get_config()
+    try:
+        _configs[module.LANGUAGE] = module.get_config()
+    except NoConfigFound:
+        _configs[module.LANGUAGE] = create_error_config(module.LANGUAGE)
 
 def get_language(path):
     return _detector.get_name(path)
