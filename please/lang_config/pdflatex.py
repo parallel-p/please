@@ -23,7 +23,7 @@ class BaseLaTeXConfig(BaseConfig):
 
     def _get_compile_commands(self, source):
         prefix = self._command_prefix
-        return (prefix + ['-draftmode', source],
+        return (prefix + ['-draftmode', '-quiet', source],
                 prefix + [source])
 
     def is_compile_garbage (self, source):
