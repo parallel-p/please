@@ -28,10 +28,6 @@ _file = _libmagic.magic_file
 _file.restype = ctypes.c_char_p
 _file.argtypes = [magic_t, ctypes.c_char_p]
 
-_setflags = _libmagic.magic_setflags
-_setflags.restype = ctypes.c_char_p
-_setflags.argtypes = [magic_t, ctypes.c_int]
-
 _load = _libmagic.magic_load
 _load.restype = ctypes.c_int
 _load.argtypes = [magic_t, ctypes.c_char_p]
@@ -39,8 +35,6 @@ _load.argtypes = [magic_t, ctypes.c_char_p]
 class Magic:
     def __init__(self, ms):
         self.handle = ms
-        # MAGIC_ERROR & MAGIC_MIME flags
-        _setflags(self.handle, 0x000210) 
 
 
     def load(self, file = None):
@@ -59,4 +53,4 @@ class Magic:
 
 
 def open(flags):
-    return Magic(_open(flags))
+    return Magic(_open(flags | MAGIC_ERROR))
