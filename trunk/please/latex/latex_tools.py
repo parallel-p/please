@@ -39,7 +39,7 @@ def generate_contest(problem_names = [os.curdir], template = None, template_vars
         os.chdir(problem)
         package_conf = package_config.PackageConfig.get_config()
         # TODO: check if package_conf is None
-        problem = SingleProblemCreator(config = package_conf)
+        problem = SingleProblemCreator(config = package_conf, old_path = problem)
         contest.add_problem(problem)
         if not single_problem:
             os.chdir(current_dir)
@@ -138,6 +138,9 @@ class LatexConstructor:
 
     def set_time_limit(self, time_limit):
         self.set_new_replace("#{time_limit}", time_limit)
+
+    def set_path(self, path):
+        self.set_new_replace("#{path}", path)
 
     def set_memory_limit(self, memory_limit):
         self.set_new_replace("#{memory_limit}", memory_limit)
@@ -257,9 +260,11 @@ def get_memory_string(memory):
 class SingleProblemCreator:
     __name__ = "SingleProblemCreator"
 
-    def __init__(self, config = None, path = '.'):
+    def __init__(self, config = None, path = '.', old_path = '.'):
         self.__config = config
         self.__path = path
+        # old_path is path to problem, needed to find images
+        self.__old_path = old_path
 
     def __call__(self):
         ''' Creates .PDF for problem '''
@@ -292,6 +297,7 @@ class SingleProblemCreator:
         problem.set_memory_limit(self.__config['memory_limit'] + ' ' + get_memory_string(float(self.__config["memory_limit"])))
         problem.set_time_limit(self.__config['time_limit'] + ' ' + get_time_string(float(self.__config["time_limit"])))
         problem.set_title(self.__config['name'])
+        problem.set_path(self.__old_path)
         if 'id' in self.__config:
             problem.set_id(self.__config['id'])
         else:
