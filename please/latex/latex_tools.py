@@ -161,12 +161,10 @@ class LatexConstructor:
         ''' Divides given text into 2 groups: text and notes. This is very useful if we want to put notes after examples  '''
         matcher = re.compile(r"^(.*)(\\Note.*)", re.DOTALL)
         matches = re.search(matcher, text)
-        print(text, matches)
         if matches is not None:
             self.set_new_replace("#{text}", matches.group(1))
             self.set_new_replace("#{notes}", matches.group(2))
         else:
-            print('***************************')
             self.set_new_replace("#{text}", text)
             self.set_new_replace("#{notes}", "")
 
