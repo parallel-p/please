@@ -15,6 +15,7 @@ try:
 except (OSError, ImportError):
     from . import trickery as magic
 from . import trickery
+MAGIC_FLAGS = magic.MIME_TYPE | magic.ERROR
 
 class LanguageDetector:
     '''
@@ -37,10 +38,10 @@ class LanguageDetector:
                     self._mimedb.read(filename)
             self.mimedb.read_windows_registry()
 
-        self._magicdb = magic.open(magic.MIME_TYPE)
+        self._magicdb = magic.open(MAGIC_FLAGS)
         if self._magicdb.load() != 0:
             self._magicdb.close()
-            self._magicdb = trickery.open(trickery.MIME_TYPE)
+            self._magicdb = trickery.open(MAGIC_FLAGS)
             self._magicdb.load()
 
         self._mimes = {}
