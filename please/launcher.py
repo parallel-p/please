@@ -84,7 +84,6 @@ def main():
     
         command_line_config.add_easter_eggs_operations(matcher)
 
-        command_line_config.add_simple_bridge(matcher)
     
         if len(sys.argv) == 1:
             logger.info("Type 'please commands' to show all available commands or 'please help' to show them with detailed description")
