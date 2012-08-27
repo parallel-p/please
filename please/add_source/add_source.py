@@ -29,12 +29,10 @@ def add_main_solution(path):
 
 def del_solution_with_config(config, path):
     abspath = os.path.abspath(path)
-    print(os.path.abspath(config['main_solution']))
     if abspath == os.path.abspath(config['main_solution']):
         raise PleaseException("Can't delete main solution")
  
     if config["solution"] is not None:
-        print(config["solution"][0].__dict__)
         for num, solve in enumerate(config["solution"]):
             if os.path.abspath(solve["source"]) == abspath:
                 config.delete("solution", num)
@@ -44,8 +42,8 @@ def del_solution_with_config(config, path):
    
 def del_solution(path): 
     config = PackageConfig.get_config()
+    del_solution_with_config(config, path)
     writepackage(config.get_text())
-
 
 def get_dict_from_args(args, changing=False):
     result = {}
