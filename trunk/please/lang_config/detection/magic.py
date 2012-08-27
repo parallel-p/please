@@ -53,4 +53,4 @@ class Magic:
 
 
 def open(flags):
-    return Magic(_open(flags | ERROR))
+    return Magic(_open(flags))
