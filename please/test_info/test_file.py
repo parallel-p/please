@@ -15,7 +15,8 @@ class StrTestFile(BaseTestFile):
 
     def write(self, filename):
         with open(filename, 'w') as f:
-            f.write(self.str)
+            f.write(self.str.replace(chr(13),''))
+
 
     def contents(self):
         return self.str

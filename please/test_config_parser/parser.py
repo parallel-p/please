@@ -1,7 +1,7 @@
 import os
 import re
 import glob
-from .. import language
+from .. import lang_config
 from please import globalconfig
 from ..test_info import file_test_info, cmd_gen_test_info, echo_test_info, python_test_info
 from ..utils.exceptions import PleaseException
@@ -23,7 +23,7 @@ class TokenSpecificator:
     @staticmethod
     def is_generator(token):
         #if we can determine the programming language of file token, it is generator
-        check = language.get(token)
+        check = lang_config.get_language(token)
         return check is not None and check != 'command'
     
 class TestObjectFactory:    

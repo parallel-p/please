@@ -1,5 +1,17 @@
 import sys
 import os
+from ..utils.exceptions import PleaseException
+
+def create_error_config(name):
+    class ErrConfig:
+        def __init__(self, source):
+            raise PleaseException('no config found for language ' + name)
+    ErrConfig.__name__ = name.title() + 'ErrConfig'
+    return ErrConfig
+
+class NoConfigFound(Exception):
+    def __init__(self):
+        pass
 
 def is_windows():
     return sys.platform.startswith('win')
@@ -32,4 +44,5 @@ def choose(*classes):
     for class_ in classes:
         if class_.requirements:
             return class_
-    raise OSError('No alternatives found')
+    else:
+        raise NoConfigFound()

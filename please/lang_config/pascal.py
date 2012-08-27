@@ -4,6 +4,8 @@ from . import utils
 from .base import BaseConfig
 
 LANGUAGE = "pascal"
+MIMES = ["text/x-pascal"]
+EXTENSIONS = [".pas", ".pp"]
 
 class FPCConfig(BaseConfig):
     requirements = utils.exists('fpc')

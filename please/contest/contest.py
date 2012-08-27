@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
+import os
 import errno
 from ..package.config import Config, ConfigFile
 from ..package.package_config import PackageConfig
 from ..utils.exceptions import PleaseException
+import os
 
 class IdMethod:
 

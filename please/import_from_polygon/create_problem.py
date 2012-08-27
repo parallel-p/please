@@ -27,9 +27,10 @@ class PolygonProblemImporter:
         for statement in statements:
             language = statement.get('language')
             path = statement.get('path')
-            with open(path, 'r', encoding='UTF-8') as f:
-                content = f.read()
-            create_statements.add_statement(self.default_package, language, content, self.cwd)
+            if str(statement.get('type')) == "application/x-tex" or str(statement.get('format')) == 'tex':   
+                with open(path, 'r', encoding='UTF-8') as f:
+                    content = f.read()
+                create_statements.add_statement(self.default_package, language, content, self.cwd)
         to_get = make_language_choice(statements)
         if to_get is not None:
             self.default_package['statement'] = "statements/statement."+to_get.get('language')+".tex"
@@ -40,7 +41,10 @@ class PolygonProblemImporter:
         # making file -> file.ext dictionary
         self.to_extension = {}
         for exe in self.tree.xpath('/problem/files/executables/executable'):
-            source = exe.xpath('source/file')[0].get('path')
+            if(len(exe.xpath('source/file')) > 0):
+                source = exe.xpath('source/file')[0].get('path')
+            else:
+                source = exe.xpath('source')[0].get('path')
             without_ext = source[6:source.rfind('.')]           
             self.to_extension[without_ext] = source[6:]
 
@@ -113,11 +117,18 @@ class PolygonProblemImporter:
 
         for source in self.tree.xpath('/problem/files/executables/executable/source/file'):
             create_code.copy_source(self.default_package, self.cwd, source.get('path'))
+        for source in self.tree.xpath('/problem/files/executables/executable/source'):
+            if not source.get('path') is None:
+                create_code.copy_source(self.default_package, self.cwd, source.get('path'))        
 
         for solution in self.tree.xpath('/problem/assets/solutions/solution'):
             tag = solution.get('tag')
             source = solution.xpath('source')[0]
             path = source.get('path')
+            name = self.tree.xpath('/problem')[0].get('name')
+            if name is None:
+                name = self.tree.xpath('/problem')[0].get('short-name')
+        #    path = os.path.join("."+name, *os.path.split(path))
             create_code.copy_solution(self.default_package, self.cwd, path, tag)
 
     def fix_creation_time(self):
@@ -144,12 +155,13 @@ class PolygonProblemImporter:
         ml = judging.xpath('testset/memory-limit')[0].text
         ml = math.ceil(float(ml) / (1 << 20))
         tags = [tag.get('value') for tag in self.tree.xpath('/problem/tags/tag')]
-
         self.default_package = create_stub.create_stub(name, tl, ml, in_file, out_file, tags, self.cwd)
         
     def import_with_tree(self):
         name = self.tree.xpath('/problem')[0].get('name')
-
+        if name is None:
+            name = self.tree.xpath('/problem')[0].get('short-name')
+        
         self.create_default_package(name)
 
         self.cwd = os.path.join(self.cwd, self.default_package['shortname']) #wtf? do we use name or shortname?
@@ -159,7 +171,7 @@ class PolygonProblemImporter:
         self.make_to_extension()
 
         tests = self.make_tests()
-
+        
         self.write_tests(tests)
 
         self.copy_files()
@@ -181,9 +193,10 @@ class PolygonProblemImporter:
 
         # stub
         name = self.tree.xpath('/problem')[0].get('name')
+        if name is None:
+            name = self.tree.xpath('/problem')[0].get('short-name')
         
         imported = False
-        
         if not os.path.exists(os.path.join(problem_path, name)):
             self.import_with_tree()
             imported = True
