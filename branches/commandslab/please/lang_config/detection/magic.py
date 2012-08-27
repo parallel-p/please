@@ -36,6 +36,7 @@ class Magic:
     def __init__(self, ms):
         self.handle = ms
 
+
     def load(self, file = None):
         if file is not None:
             file = file.encode()

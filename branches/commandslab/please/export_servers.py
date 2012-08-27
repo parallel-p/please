@@ -2,12 +2,12 @@ from .exporter.ejudge_exporter import EjudgeExporter
 from .exporter.pcms2_exporter import PCMS2Exporter
 
 servers = {
-  'zhuravlev_ejudge' : EjudgeExporter(
+  'ejudge' : EjudgeExporter(
     network = {
-      'host' : '192.168.16.35',
+      'host' : 'ejudge.lksh.ru',
       'port' : '22',
       'login' : 'ejudge',
-      'password' : 'ejudge',
+      'password' : 'axeiraod',
       'destination' : '/home/judges/'
     },
     libs = []

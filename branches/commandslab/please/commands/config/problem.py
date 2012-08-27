@@ -139,7 +139,7 @@ def check_solutions(solution):
     from please.solution_tester import check_solution
     if solution == 'main':
         check_solution.check_main_solution()
-    elif solution == 'all':
+    elif solution in {'all', 'solutions'}:
         check_solution.check_all_solutions()
     else:
         check_solution.check_solution(solution)

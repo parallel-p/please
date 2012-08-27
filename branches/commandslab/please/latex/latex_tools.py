@@ -39,7 +39,7 @@ def generate_contest(problem_names = [os.curdir], template = None, template_vars
         os.chdir(problem)
         package_conf = package_config.PackageConfig.get_config()
         # TODO: check if package_conf is None
-        problem = SingleProblemCreator(config = package_conf)
+        problem = SingleProblemCreator(config = package_conf, old_path = problem)
         contest.add_problem(problem)
         if not single_problem:
             os.chdir(current_dir)
@@ -77,6 +77,10 @@ def generate_contest(problem_names = [os.curdir], template = None, template_vars
     log.info("PDF %s was created successfully", os.path.splitext(new_tex_name)[0] + ".pdf")
     return pdf_out_name
 
+def make_good(txt):
+    t = txt.split('\n')
+    return '\n'.join(['~' if x == '' and i != len(t) - 1 else x for i, x in enumerate(t)])
+
 class LatexConstructor:
     """
     Creates string contains tex file with problem statement
@@ -106,6 +110,7 @@ class LatexConstructor:
         self.__input_example.append(input_example)
         self.__output_example.append(output_example)
 
+
     def construct(self):
         """
             returns string, which contains tex file.
@@ -119,7 +124,7 @@ class LatexConstructor:
             examples = "\n\\begin{%s}\n" % self.__example_environment
             count = 0
             for in_example, out_example in zip(self.__input_example, self.__output_example):
-                examples += "\\exmp{\n%s}{%s}%%\n" % (str(in_example), str(out_example))
+                examples += "\\exmp{\n%s}{%s}%%\n" % (make_good(str(in_example)), make_good(str(out_example)))
                 count += 1
             examples += "\\end{%s}\n" % (self.__example_environment)
             examples = ("\\Example\n" if count == 1 else "\\Examples\n") + examples
@@ -134,6 +139,9 @@ class LatexConstructor:
 
     def set_time_limit(self, time_limit):
         self.set_new_replace("#{time_limit}", time_limit)
+
+    def set_path(self, path):
+        self.set_new_replace("#{path}", path)
 
     def set_memory_limit(self, memory_limit):
         self.set_new_replace("#{memory_limit}", memory_limit)
@@ -152,7 +160,7 @@ class LatexConstructor:
 
     def set_text(self, text):
         ''' Divides given text into 2 groups: text and notes. This is very useful if we want to put notes after examples  '''
-        matcher = re.compile(r"^([^%\n]*)(\\Note.*)", re.DOTALL)
+        matcher = re.compile(r"^(.*)(\\Note.*)", re.DOTALL)
         matches = re.search(matcher, text)
         if matches is not None:
             self.set_new_replace("#{text}", matches.group(1))
@@ -176,7 +184,7 @@ class LatexContestConstructor:
             contest.set_date("20.12.2012")
             contest_in_tex = contest.construct()
     """
-    def __init__(self, template, template_vars = {}, separator="\n\\newpage\n"):
+    def __init__(self, template, template_vars = {}, separator="\n\\bigskip\\bigskip\n"):
         self.__attributes = {}
         self.__list = []
         self.__template = str(template)
@@ -253,9 +261,11 @@ def get_memory_string(memory):
 class SingleProblemCreator:
     __name__ = "SingleProblemCreator"
 
-    def __init__(self, config = None, path = '.'):
+    def __init__(self, config = None, path = '.', old_path = '.'):
         self.__config = config
         self.__path = path
+        # old_path is path to problem, needed to find images
+        self.__old_path = old_path
 
     def __call__(self):
         ''' Creates .PDF for problem '''
@@ -288,6 +298,7 @@ class SingleProblemCreator:
         problem.set_memory_limit(self.__config['memory_limit'] + ' ' + get_memory_string(float(self.__config["memory_limit"])))
         problem.set_time_limit(self.__config['time_limit'] + ' ' + get_time_string(float(self.__config["time_limit"])))
         problem.set_title(self.__config['name'])
+        problem.set_path(self.__old_path)
         if 'id' in self.__config:
             problem.set_id(self.__config['id'])
         else:

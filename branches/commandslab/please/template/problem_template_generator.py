@@ -11,6 +11,9 @@ from .source_code_file_generator import generate_checker, generate_solution, gen
 from ..package.config import ConfigFile
 from . import info_generator
 
+class ProblemExistsError(PleaseException):
+    pass
+
 def generate_package(name, replaces, shortname):
     ''' Generates {default}.package file '''
     # maybe we will have templates not only for default.package?

@@ -4,6 +4,8 @@ import glob
 from .base import BaseConfig
 
 LANGUAGE = "java"
+MIMES = ["text/x-java"]
+EXTENSIONS = [".java"]
 
 class JavaConfig(BaseConfig):
     def __class_file(self, source):

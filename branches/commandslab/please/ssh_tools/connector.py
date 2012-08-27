@@ -93,7 +93,7 @@ class LinuxConnector:
         if need_to_extract_zip:
             splitted = destination.split(".")
             new_dir = os.path.split(destination)[0] + '/' + 'please_tmp/'
-            handler = psutil.Popen(["ssh", "-p", self.__port, "-l", self.__login, self.__host, "rm -rf", new_dir, "; unzip", 
+            handler = psutil.Popen(["ssh", "-p", self.__port, "-l", self.__login, self.__host, "rm -rf", new_dir, "; unzip", " -o ", 
                 destination,"-d", new_dir, ";rm", destination])
             result = invoke(handler, limits)
         
