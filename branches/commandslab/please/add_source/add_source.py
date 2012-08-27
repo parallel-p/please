@@ -88,6 +88,7 @@ def add_solution(path, args = None):
     if not os.path.exists(path):
         raise PleaseException("There is no such file")
     basedir = globalconfig.problem_folder
+    path = os.path.abspath(path)
     if os.path.commonprefix([path, basedir]) != basedir:
         raise PleaseException("Solution isn't in problem folder!")
     

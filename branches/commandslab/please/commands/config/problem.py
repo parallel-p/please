@@ -108,8 +108,8 @@ def set_main_solution(path):
     from please.add_source import add_main_solution
     add_main_solution(path)
 
-def add_solution(path, args):
-    '''add sol[ution] /path args...
+def add_solution(path, args=[]):
+    '''add sol[ution] /path [args...]
     Add a solution to a problem.'''
     from please.add_source import add_solution
     add_solution(path, args)
