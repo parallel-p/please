@@ -1,0 +1,10 @@
+Testing solution ololo/
+Met, but not expected:
+OK in test 1
+OK in test 3
+OK in test 5
+RE in test 2
+RE in test 4
+Expected, but not met:
+TL
+ML

@@ -1,0 +1,29 @@
+please_version = 0.1
+name = A + B
+shortname = aplusb-public-test
+tags = 
+type = 
+
+input = stdin
+output = stdout
+time_limit = 2
+memory_limit = 64
+
+checker = checker.dpr
+validator = validator.cpp
+main_solution = solutions/aplusb_pk.dpr
+
+statement = statements/default.ru.tex
+description = statements/description.ru.tex
+
+well_done_test = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
+well_done_answer = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
+
+solution = {
+    source = solutions/aplusb_pk.dpr
+    expected_verdicts = OK
+}
+solution = {
+    source = solutions/aplusb_pk_wrong.dpr
+    expected_verdicts = OK
+}

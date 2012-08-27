@@ -1,0 +1,31 @@
+please_version = 0.3
+# Название задачи
+name = а + б
+# Краткое название задачи
+shortname = test_problem
+# Теги, разделяются запятой
+tags = 
+# Тип задачи (output_only, ...)
+type = 
+# Файл с входными данными или stdin
+input = aplusb.in
+# Файл с выходными данными или stdout
+output = aplusb.out
+# Максимальное время выполнения задачи - в секундах
+time_limit = 10
+# Ограничение по памяти - в мебибайтах
+memory_limit = 31
+# Имя файла с чекером (по умолчанию доступны ..., ..., ...)
+checker = tests/checker.cpp
+# Имя файла с валидатором (доступны ..., ..., ...)
+validator = tests/validator.cpp
+# Имя файла с правильным решением
+main_solution = solutions/solution.cpp
+# Название файла с полным описанием задачи
+statement = statements/default.ru.tex
+# Название файла с кратким описанием задачи
+description = statements/description.ru.tex
+solution = {
+    source = solutions/solution.cpp
+    expected = OK
+}
