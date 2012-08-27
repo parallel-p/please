@@ -16,7 +16,6 @@ modules = ["cpp",
            "pdflatex",
            "python",
            "perl",
-           "perl",
           ]
 
 for modname in modules:

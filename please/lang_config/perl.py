@@ -5,6 +5,9 @@ LANGUAGE = "perl"
 class PerlConfig(BaseConfig):
     def _get_run_command(self, source):
         return ["perl", source]
+
+    def _get_binaries(self, source):
+        return []
     
 
 def get_config():
