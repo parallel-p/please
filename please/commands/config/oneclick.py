@@ -3,7 +3,7 @@ def clean():
        Cleans all temporary files
     '''
     from please.cleaner import cleaner
-    cleaner.Cleaner().cleanup
+    cleaner.Cleaner().cleanup()
 
 def build():
     '''build [all]
