@@ -7,8 +7,9 @@ import os
 def extract_problems(xml):
     for node in xml.findall("*/problem"):
         yield (node.get("index"),
-               (node.get("name")  if node.get("name") is not None else node.get("url").split("/")[-1]),
-               node.get("url")
+               node.get("name"),
+               #TODO:HOTFIX move such hacks to config or force polygon responce with correct url
+               node.get("url").replace("polygon.lksh.ru", "178.217.103.1:8090")
                ) 
 
 def read_authorised(url):

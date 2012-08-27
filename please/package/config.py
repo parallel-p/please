@@ -2,6 +2,18 @@ import os.path
 from .. import globalconfig
 from ..utils.exceptions import PleaseException
 
+def getter(func):
+    def get_wrapped(self, key, default = None):
+        if key in self:
+            return func(self[key])
+        return default
+    return get_wrapped
+
+def setter(func):
+    def set_wrapped(self, key, value):
+        self.key = func(value)
+    return set_wrapped
+
 class Config:
     """
     Multilevel config parser with possibility of set, delete, formatting data,
@@ -11,6 +23,7 @@ class Config:
         """
             conf = Config(text_of_config_file)
         """
+#        print(text)
 
         def strict_divide(string, number_of_parts, delim):
             parts = string.split(delim, number_of_parts - 1)
@@ -187,7 +200,7 @@ class Config:
                     break
 
     def __convert_separators(self, path):
-        splitted = sum([x.split('\\') for x in path.split('/')], [])
+        splitted = path.split('/')
         return os.path.join(*splitted)
 
     def __getitem__(self, item):
@@ -200,23 +213,22 @@ class Config:
             if not os.path.exists(checker_full_path):
                 checkers_dir = os.path.join(globalconfig.root, globalconfig.checkers_dir)
                 root_checker_path = os.path.join(checkers_dir, checker_local_path)
-                #if not os.path.exists(root_checker_path) or not os.path.isfile(root_checker_path):
-                #    raise PleaseException("There is no file '{0}' in current directory and in intpleaernal Please checkers directory (config {1})".format(checker, self.__file))
-                #else:
-                return root_checker_path
+                if not os.path.exists(root_checker_path) or not os.path.isfile(root_checker_path):
+                    raise PleaseException("There is no file '{0}' in current directory and in internal Please checkers directory (config {1})".format(checker, self.__file))
+                else:
+                    return root_checker_path
             return checker_full_path
-        elif item in ["source", "validator", "statement", "description", "main_solution", "solution"]:
+        elif item in ["source", "validator", "statement", "description", "main_solution"]:
             if item == "validator":
                 return self.__settings.get(item)
-#            if self.__settings.get(item) is None:
-#                raise PleaseException("There is no item '{0}' in config {1}".format(item, self.__file))
+            if self.__settings.get(item) is None:
+                raise PleaseException("There is no item '{0}' in config {1}".format(item, self.__file))
             else:
-                if not isinstance(self.__settings.get(item), str):
-                    return self.__settings.get(item)
-                path = self.__convert_separators(self.__settings.get(item))       
+                path = self.__convert_separators(self.__settings.get(item))
                 full_path = os.path.join(os.path.split(self.__file)[0], path)
-                #if not os.path.exists(full_path) or not os.path.isfile(full_path):
-                #    raise PleaseException("There is no file '{1}' (item '{0}' in config {2})".format(item, full_path, self.__file))
+                #print(self.__file)
+                if not os.path.exists(full_path) or not os.path.isfile(full_path):
+                    raise PleaseException("There is no file '{1}' (item '{0}' in config {2})".format(item, full_path, self.__file))
                 return path
         elif item in ["time_limit", "memory_limit"]:
             if self.__settings.get(item) is None:
@@ -265,19 +277,18 @@ class Config:
         return self.__changed
 
     def get(self, item, default = None):
-        ret = self.__getitem__(item)
-        if ret is not None:
-            return ret
+        if item in self.__settings and self.__settings[item] is not None:
+            return self.__settings[item]
         else:
             return default
-        #if item in self.__settings and self.__settings[item] is not None:
-        #    return self.__settings[item]
-        #else:
-        #    return default
+
+    get_path = getter(lambda path, _ossep = os.sep: path.replace('/', _ossep))
+    set_path = setter(lambda path, _ossep = os.sep: path.replace(_ossep, '/'))
 
 class ConfigFile(Config):
     def __init__(self, filename):
         self.filename = filename
+        #print(filename)
         if os.path.isfile(filename):
             with open(filename, 'r', encoding = 'utf-8-sig') as f:
                 text = f.read()
@@ -290,7 +301,8 @@ class ConfigFile(Config):
             f.write(self.get_text())
 
 def create_simple_config(file_name, config):
-    with open(file_name, 'w', encoding='utf-8') as file:
+    #print(config['shortname'])
+    with open(file_name, 'w') as file:
         write = lambda x: file.write(config[x] + '\n')
         write('shortname')
         write('name')

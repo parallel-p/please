@@ -48,8 +48,8 @@ def copy_resource(problem_config, problem_path, resources_path):
 
 def copy_solution(problem_config, problem_path, solution_path, tag):
     solution_name = os.path.basename(solution_path)
-    new_solution_path = os.path.join(problem_path, 'solutions', solution_name)
-    shutil.copy(solution_path, new_solution_path)
+    new_solution_path = os.path.join('solutions', solution_name)
+    shutil.copy(solution_path, os.path.join(problem_path, new_solution_path))
     cur_dir = os.getcwd()
     os.chdir(problem_path)
     add_source.add_solution_with_config(problem_config, new_solution_path,
@@ -57,7 +57,6 @@ def copy_solution(problem_config, problem_path, solution_path, tag):
                                         polygon2please_verdicts[tag][1]) #possible values
     if tag == 'main':
         add_source.add_main_solution_with_config(problem_config, new_solution_path)
-        add_source.del_solution_with_config(problem_config, 'solutions/solution.cpp')
     os.chdir(cur_dir)
 
 def copy_source(problem_config, problem_path, sources_path):

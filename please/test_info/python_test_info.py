@@ -15,7 +15,9 @@ class PythonTestInfo(test_info.TestInfo):
 
     def tests(self):
         try:
-            content = convert_content_to_string(eval(self.__code, {}, {}))
+            eenv = {}
+            exec('from random import *', eenv)
+            content = convert_content_to_string(eval(self.__code, eenv, eenv))
             if self.__modificator:
                 content = self.__modificator(content)
             return [StrTestFile(content, 'python output')]

@@ -1,7 +1,7 @@
 import unittest
 import os
 
-from please.lang_config import get_language
+from please.language.language import Language
 from please.utils.exceptions import PleaseException
 class TestLanguageDetection(unittest.TestCase):
     
@@ -13,7 +13,8 @@ class TestLanguageDetection(unittest.TestCase):
             return str[:pos]
     
     def test_on_test_files(self):
-        root = os.path.join(os.path.dirname(__file__), 'detection_test_files')
+        root = os.path.join(os.path.dirname(__file__), 'test_files')
+        lang = Language()
         for file in os.listdir(root):
             if not os.path.isfile(os.path.join(root, file)):
                continue
@@ -22,16 +23,20 @@ class TestLanguageDetection(unittest.TestCase):
                 continue
             with open(os.path.join(root, ansfile), "r") as f:
                 ans = f.readline().strip()
-                result = get_language(os.path.join(root, file))
+                result = lang.get(os.path.join(root, file))
                 if (ans != "undefined"):
                     self.assertEqual(ans, result, file + " was not determined correctly\n")
                 else:
                     self.assertIsNone(result, file + " was not determined correctly\n")
-
-    @unittest.skip("actually, this is delayed to config creation")
+                    
     def test_non_exist(self):
-        with self.assertRaises(PleaseException):
-            get_language("random.py")
+        lang = Language()
+        f = False
+        try:
+            lang.get("random.py")
+        except PleaseException:
+            f = True
+        self.assertTrue(f)
         
 if __name__ == "__main__":
     unittest.main()

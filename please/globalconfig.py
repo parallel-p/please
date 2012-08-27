@@ -5,7 +5,7 @@ from logging import INFO, DEBUG
 please_version = 0.3
 root = os.path.split(__file__)[0]
 
-DEBUG_MODE = False
+DEBUG_MODE = True
 
 default_limits = ExecutionLimits(20, 3512)
 stress_up = 1000000
@@ -59,7 +59,9 @@ checker_return_codes = {0:"OK", 1:"WA", 2:"PE"}
 temp_solution_out_file = ".out"
 
 #information about polygon
-polygon_url = 'http://polygon.lksh.ru'
+access = {'login': 'makhmedov', "password": "lzlzfbr"}
+polygon_url = "http://codecenter.sgu.ru:8081/polygon"
+polygon_url = 'http://178.217.103.1:8090'
 access = {'login': 'tigvarts_oivanov', "password": "51234"}
 
 #exports = {
@@ -76,3 +78,6 @@ default_template_vars = {
 
 # contest information
 contest_template = '{}.contest'
+
+
+problem_folder = None

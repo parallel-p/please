@@ -9,8 +9,5 @@ class Python2Config(BaseConfig):
     def is_run_garbage(self, path):
         return path.endswith(".pyc")
 
-    def _get_binaries(self, source):
-        return []
-
 def get_config():
     return Python2Config
