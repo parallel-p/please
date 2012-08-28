@@ -1,13 +1,14 @@
+import logging
+import os
+import shutil
+import re
+from lxml import etree
+from .lang_choice import make_language_choice
 from .create_problem import PolygonProblemImporter
 from . import polygon_unzip
 from ..contest.contest import Contest
 from ..contest import commands
-import logging
-import os
-from lxml import etree
-import shutil
-from .lang_choice import make_language_choice
-import re
+from .. import globalconfig
 
 def get_name_and_location_and_date(statement):
     regexp = r'.*\\contest.*{(?P<name>.*)}%.*{(?P<location>.*)}%.*{(?P<date>.*)}%'
@@ -28,7 +29,7 @@ def import_with_tree(tree, contest_path):
         statement = statement_file.read()
     
     os.chdir(contest_path)
-    contest = Contest(name, ok_if_not_exists = True)
+    contest = Contest(commands.get_contest_config(name), ok_if_not_exists = True)
     name, date, location = get_name_and_location_and_date(statement)
     contest.config['statement']['name'] = name or ''
     contest.config['statement']['location'] = location or ''
@@ -38,12 +39,12 @@ def import_with_tree(tree, contest_path):
     problems = tree.xpath('problems/problem')
     for problem in problems:
         problem_index = problem.get('index')
-        problem_name = problem.get('name')
+        problem_name = problem.get('url').split('/')[-1]
         importer.import_from_dir(os.path.join(cur_dir, 'problems', problem_name), contest_path)
         contest.problem_add(problem_name, problem_index)
     
     contest.config['name'] = name
-    commands.write_contest(name, contest)
+    commands.write_contest(commands.get_contest_config(name), contest)
     os.chdir(cur_dir)
 
 def import_from_dir(directory, contest_path):
@@ -58,7 +59,7 @@ def import_from_dir(directory, contest_path):
     
     imported = False
     
-    if not os.path.exists(os.path.join(contest_path, name + ".contest")):
+    if not os.path.exists(os.path.join(contest_path, commands.get_contest_config(name))):
         import_with_tree(tree, contest_path)
         imported = True
     else:

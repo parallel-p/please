@@ -4,33 +4,27 @@ from ..import_from_polygon import create_code
 from ..import_from_polygon import polygon_unzip
 from ..test_info import cmd_gen_test_info, file_test_info
 
-from lxml import etree
 import os
 import shutil
 import math
 import logging
+from xml.etree.ElementTree import ElementTree
 from .lang_choice import make_language_choice
 from ..utils.exceptions import PleaseException
 
 class PolygonProblemImporter:
-    """def parse_statements(self):
-        self.default_package['statement'] = ''
-        for statement in self.tree.xpath('/problem/statements/statement'):
-            language = statement.get('language')
-            path = statement.get('path')
-            with open(path, 'r', encoding='UTF-8') as f:
-                content = f.read()
-            create_statements.add_statement(self.default_package, language, content, self.cwd)
-    """
     def parse_statements(self):
-        statements = self.tree.xpath('/problem/statements/statement')
+        statements = self.problem.findall('statements/statement')
         for statement in statements:
             language = statement.get('language')
             path = statement.get('path')
             if str(statement.get('type')) == "application/x-tex" or str(statement.get('format')) == 'tex':   
-                with open(path, 'r', encoding='UTF-8') as f:
-                    content = f.read()
-                create_statements.add_statement(self.default_package, language, content, self.cwd)
+                try:
+                    with open(path, 'r', encoding='UTF-8') as f:
+                        content = f.read()
+                    create_statements.add_statement(self.default_package, language, content, self.cwd)
+                except UnicodeDecodeError:
+                    pass
         to_get = make_language_choice(statements)
         if to_get is not None:
             self.default_package['statement'] = "statements/statement."+to_get.get('language')+".tex"
@@ -40,11 +34,11 @@ class PolygonProblemImporter:
     def make_to_extension(self):
         # making file -> file.ext dictionary
         self.to_extension = {}
-        for exe in self.tree.xpath('/problem/files/executables/executable'):
-            if(len(exe.xpath('source/file')) > 0):
-                source = exe.xpath('source/file')[0].get('path')
+        for exe in self.problem.findall('files/executables/executable'):
+            if(len(exe.findall('source/file')) > 0):
+                source = exe.find('source/file').attrib['path']
             else:
-                source = exe.xpath('source')[0].get('path')
+                source = exe.findtext('source/path')
             without_ext = source[6:source.rfind('.')]           
             self.to_extension[without_ext] = source[6:]
 
@@ -68,9 +62,9 @@ class PolygonProblemImporter:
 
     def make_tests(self):
         raw_tests = []
-        for testset in self.tree.xpath('/problem/judging/testset'):
+        for testset in self.problem.findall('judging/testset'):
             tag = testset.get('name')
-            for i, test in enumerate(testset.xpath('tests/test')):
+            for i, test in enumerate(testset.findall('tests/test')):
                 raw_tests.append(self.make_TestInfo(i, test, tag))
         
         #optimize multigenerators
@@ -102,37 +96,32 @@ class PolygonProblemImporter:
                 f.write(test.to_please_format() + '\n')
 
     def copy_files(self):
-        for resource in self.tree.xpath('/problem/files/resources/file'):
+        for resource in self.problem.findall('files/resources/file'):
             create_code.copy_resource(self.default_package, self.cwd, resource.get('path'))
 
     def make_code(self):
-        checker = self.tree.xpath('/problem/assets/checker/source')[0]
+        checker = self.problem.find('assets/checker/source')
         create_code.copy_checker(self.default_package, self.cwd, checker.get('path'))
 
-        validator = self.tree.xpath('/problem/assets/validator/source')
+        validator = self.problem.findall('assets/validator/source')
         # we may have no validators
         if len(validator) > 0:
             validator = validator[0]
             create_code.copy_validator(self.default_package, self.cwd, validator.get('path'))
 
-        for source in self.tree.xpath('/problem/files/executables/executable/source/file'):
+        for source in self.problem.findall('files/executables/executable/source/file'):
             create_code.copy_source(self.default_package, self.cwd, source.get('path'))
-        for source in self.tree.xpath('/problem/files/executables/executable/source'):
+        for source in self.problem.findall('files/executables/executable/source'):
             if not source.get('path') is None:
                 create_code.copy_source(self.default_package, self.cwd, source.get('path'))        
 
-        for solution in self.tree.xpath('/problem/assets/solutions/solution'):
+        for solution in self.problem.findall('assets/solutions/solution'):
             tag = solution.get('tag')
-            source = solution.xpath('source')[0]
+            source = solution.find('source')
             path = source.get('path')
-            name = self.tree.xpath('/problem')[0].get('name')
-            if name is None:
-                name = self.tree.xpath('/problem')[0].get('short-name')
-        #    path = os.path.join("."+name, *os.path.split(path))
             create_code.copy_solution(self.default_package, self.cwd, path, tag)
 
     def fix_creation_time(self):
-        # fixing creation time
         time = None
         with open(os.path.join(self.cwd, '.please', 'time.config'), 'r', encoding='UTF-8') as f:
             time = float(f.read())
@@ -144,27 +133,21 @@ class PolygonProblemImporter:
         with open(os.path.join(self.cwd, '.please', 'time.config'), 'w', encoding='UTF-8') as f:
             f.write(str(time))
 
-        # fixed
-
     def create_default_package(self, name):
-        judging = self.tree.xpath('/problem/judging')[0]
+        judging = self.problem.find('judging')
         in_file = judging.get('input-file')
         out_file = judging.get('output-file')
-        tl = judging.xpath('testset/time-limit')[0].text
+        tl = judging.findtext('testset/time-limit')
         tl = math.ceil(float(tl) / 1000)
-        ml = judging.xpath('testset/memory-limit')[0].text
+        ml = judging.findtext('testset/memory-limit')
         ml = math.ceil(float(ml) / (1 << 20))
-        tags = [tag.get('value') for tag in self.tree.xpath('/problem/tags/tag')]
+        tags = [tag.get('value') for tag in self.problem.findall('tags/tag')]
         self.default_package = create_stub.create_stub(name, tl, ml, in_file, out_file, tags, self.cwd)
         
     def import_with_tree(self):
-        name = self.tree.xpath('/problem')[0].get('name')
-        if name is None:
-            name = self.tree.xpath('/problem')[0].get('short-name')
-        
-        self.create_default_package(name)
+        self.create_default_package(self.name)
 
-        self.cwd = os.path.join(self.cwd, self.default_package['shortname']) #wtf? do we use name or shortname?
+        self.cwd = os.path.join(self.cwd, self.default_package["shortname"])
 
         self.parse_statements()
 
@@ -188,25 +171,22 @@ class PolygonProblemImporter:
         prev_dir = os.getcwd()
         os.chdir(directory)
         
-        self.tree = etree.parse('problem.xml')
-        problem = self.tree.xpath('/problem')[0]
+        self.problem = ElementTree().parse('problem.xml')
+        self.name = self.problem.attrib['name'] if 'name' in self.problem.attrib.keys() else self.problem.attrib['short-name']
+        
 
         # stub
-        name = self.tree.xpath('/problem')[0].get('name')
-        if name is None:
-            name = self.tree.xpath('/problem')[0].get('short-name')
-        
         imported = False
-        if not os.path.exists(os.path.join(problem_path, name)):
+        if not os.path.exists(os.path.join(problem_path, self.name)):
             self.import_with_tree()
             imported = True
         else:
-            self.logger.error("Import error: %s already exists" % name)
+            self.logger.error("Import error: %s already exists" % self.name)
         
         os.chdir(prev_dir)
 
         if imported:
-            self.logger.warning('Imported polygon package %s' % name)
+            self.logger.warning('Imported polygon package %s' % self.name)
 
     def create_problem(self, package):
         prev_dir = os.getcwd()
@@ -218,7 +198,6 @@ class PolygonProblemImporter:
 
         directory = '.' + os.path.splitext(file_name)[0]
         polygon_unzip.unzip(file_name, directory)
-        
         self.import_from_dir(directory, prev_dir)
         
         shutil.rmtree(directory)
