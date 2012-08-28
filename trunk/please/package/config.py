@@ -286,7 +286,7 @@ class ConfigFile(Config):
         super().__init__(text, file = filename)
 
     def write(self):
-        with open(self.filename, 'w', encoding = 'utf-8') as f:
+        with open(self.filename, 'w', encoding='utf-8') as f:
             f.write(self.get_text())
 
 def create_simple_config(file_name, config):
