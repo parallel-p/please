@@ -1,16 +1,18 @@
 from .base import BaseConfig
+import sys
 
-LANGUAGE = "python2"
+LANGUAGE = "python3"
 
-class Python2Config(BaseConfig):
+class Python3Config(BaseConfig):
     def _get_run_command(self, source):
-        return ["c:\python27\python", "-O", source]
-    
+        return ['python', '-O', source]
+
     def is_run_garbage(self, path):
-        return path.endswith(".pyc")
+        return path.endswith('.pyc')
 
     def _get_binaries(self, source):
         return []
 
 def get_config():
-    return Python2Config
+    return Python3Config
+
