@@ -2,16 +2,15 @@ import logging
 import os
 import shutil
 import re
-from lxml import etree
 from .lang_choice import make_language_choice
 from .create_problem import PolygonProblemImporter
 from . import polygon_unzip
 from ..contest.contest import Contest
 from ..contest import commands
-from .. import globalconfig
+from xml.etree.ElementTree import ElementTree
 
 def get_name_and_location_and_date(statement):
-    regexp = r'.*\\contest.*{(?P<name>.*)}%.*{(?P<location>.*)}%.*{(?P<date>.*)}%'
+    regexp = r'.*\\contest.*{(?P<name>.*)}%.*{(?P<date>.*)}%.*{(?P<location>.*)}%'
     matched = re.match(regexp, statement, re.MULTILINE | re.DOTALL)
     name = matched.group('name')
     location = matched.group('location')
@@ -20,12 +19,11 @@ def get_name_and_location_and_date(statement):
 
 def import_with_tree(tree, contest_path):
     cur_dir = os.getcwd()
-    
-    good_language_statement = make_language_choice(tree.xpath('names/name'))
+    good_language_statement = make_language_choice(tree.findall('names/name'))
     name = good_language_statement.get('value')
     language = good_language_statement.get('language')
     
-    with open(os.path.join('statements', language, 'statements.tex'), 'r') as statement_file:
+    with open(os.path.join('statements', language, 'statements.tex'), 'r', encoding = 'utf-8') as statement_file:
         statement = statement_file.read()
     
     os.chdir(contest_path)
@@ -36,7 +34,7 @@ def import_with_tree(tree, contest_path):
     contest.config['statement']['date'] = date or ''
     
     importer = PolygonProblemImporter()
-    problems = tree.xpath('problems/problem')
+    problems = tree.findall('problems/problem')
     for problem in problems:
         problem_index = problem.get('index')
         problem_name = problem.get('url').split('/')[-1]
@@ -53,9 +51,9 @@ def import_from_dir(directory, contest_path):
     prev_dir = os.getcwd()
     os.chdir(directory)
     
-    tree = etree.parse('contest.xml').xpath('/contest')[0]
+    tree = ElementTree().parse('contest.xml')
        
-    name = make_language_choice(tree.xpath('names/name')).get('value')
+    name = make_language_choice(tree.findall('names/name')).get('value')
     
     imported = False
     
