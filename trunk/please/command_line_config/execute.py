@@ -43,4 +43,12 @@ def add_stress_test_operations(matcher, active):
         Template(["stress", "$solution", "$correct_solution", "$generator"]),
         stresser,
         active)
-
+    matcher.add_handler(
+        Template(["stress", "$solution", "$generator", "with", "arg|args", "@args"]),
+        stresser,
+        active)
+    matcher.add_handler(
+        Template(["stress", "$solution", "$correct_solution", "$generator", "with", "arg|args", "@args"]),
+        stresser,
+        active)
+ 
