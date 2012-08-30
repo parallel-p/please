@@ -12,4 +12,5 @@
   # сделать checkout code.google.com/p/please/svn
   # установить необходимые библиотеки (см. выше Linux или Windows)
   # установить pymox (находится в third_party), распаковав архив и выполнив ...setup.py install
+  # установить mock (easy-install mock; только для python3.2 - в python3.3 она стала стандартной)
   # выполнить ...setup.py develop
