@@ -9,10 +9,6 @@ def create_error_config(name):
     ErrConfig.__name__ = name.title() + 'ErrConfig'
     return ErrConfig
 
-class NoConfigFound(Exception):
-    def __init__(self):
-        pass
-
 def is_windows():
     return sys.platform.startswith('win')
 
@@ -45,4 +41,4 @@ def choose(*classes):
         if class_.requirements:
             return class_
     else:
-        raise NoConfigFound()
+        return None
