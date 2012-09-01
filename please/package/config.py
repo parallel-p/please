@@ -156,8 +156,8 @@ class Config:
         self.__changed = True
         if type(self.__settings[item]) == list:
             if iterator is None:
-                for i in range(len(self.__settings[item]), 0, -1):
-                    self.delete(item, i - 1)
+                for i in range(len(self.__settings[item]) - 1, -1, -1):
+                    self.delete(item, i)
             else:
                 numerator = -1
                 killed = False
