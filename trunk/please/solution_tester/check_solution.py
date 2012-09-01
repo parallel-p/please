@@ -35,7 +35,7 @@ def is_cooresponded_solution(sol_path, substr):
     return substr in basename or sol_path.endswith(substr)
 
 def is_standalone_solution(substr):
-    return os.path.isfile(substr) and is_program_detect(substr) 
+    return os.path.isfile(substr) and is_program(substr) 
 
 def check_solution(substr):
     config = PackageConfig.get_config()

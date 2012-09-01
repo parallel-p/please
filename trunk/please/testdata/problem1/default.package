@@ -31,7 +31,7 @@ solution = {
     expected = OK
 }
 solution = {
-    source = solutions\wrong.dpr
+    source = solutions/wrong.dpr
+    expected = OK, WA
     possible = TL
-    expected = WA, OK
 }
