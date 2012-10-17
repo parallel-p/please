@@ -61,10 +61,12 @@ class StressTester:
         return ""
 
 
-    def __generate_test(self, generator):
+    def __generate_test(self, generator, args = None):
         ''' Creates random test '''
+        if args is None:
+            args = []
         newrand = random.randint(0, globalconfig.stress_up)
-        test_info = cmd_gen_test_info.CmdOrGenTestInfo(generator, [str(newrand)])
+        test_info = cmd_gen_test_info.CmdOrGenTestInfo(generator, args + [str(newrand)])
         self.logger.warning("Random number for generator is: %s" % newrand)
         # generate ONE random test using given generator
         return TestsGenerator([test_info], "stress").generate(lambda x: True, False)[0]
@@ -116,15 +118,17 @@ class StressTester:
             shutil.copy(test_path, os.path.join(self.PLEASE_TEMP, self.INPUT_TEST))
             raise StressCheckMatchException("")
 
-    def __call__(self, generator, solution, correct_solution = None):
+    def __call__(self, generator, solution, correct_solution = None, args = None):
         ''' Runs all process '''
         self.logger = logging.getLogger("please_logger.stress_tester.StressTester.test")
 
         if correct_solution is None:
             correct_solution = self.__config["main_solution"]
+        if args is None:
+            args = []
         try:
             while True:
-                test_path = self.__generate_test(generator)
+                test_path = self.__generate_test(generator, args)
                 try:
                     # solution is our [wrong] solution, correct_solution is 100% correct solution (it may be taken from config is not specified)
                     self.__check_solutions(solution, correct_solution, self.__config["checker"], test_path)

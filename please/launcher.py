@@ -10,6 +10,7 @@ from . import command_line_config
 from .utils.exceptions import PleaseException, MatcherException
 from .package import package_config
 from .commands import get_please_matcher
+import traceback
 
 def determinate_location():
     """
@@ -145,19 +146,23 @@ def main():
     sys.excepthook = please_excepthook
     args = sys.argv[1:]
     if not args:
-        logger.info("type `please help' for list of commands")
-        sys.exit(2)
+        logger.info("type `please help' for list of commands, or `please help <command>' to get help on a command")
+        return 2
     else:
         matcher = get_please_matcher()
-        if not matcher.call(args):
+        try:
+            success = matcher.call(args)
+        except SystemExit as ex:
+            return ex.code
+        if not success:
             logger.error('command not recognized')
             logger.error("try `please help'")
-            sys.exit(2)
+            return 2
         else:
-            sys.exit(0)
+            return 0
 
 if __name__ == "__main__":
     #legacy_main()
     #sys.exit()
-    main()
+    sys.exit(main())
     

@@ -40,8 +40,7 @@ def validate_tests():
     '''val[idate] [tests]
     Validate all tests for a problem.'''
     from please.tests_answer_generator import validate
-    tg = TestsAndAnswersGenerator()
-    tg.validate()
+    validate()
 
 def set_validator(path):
     '''set val[idator] /path
@@ -49,8 +48,8 @@ def set_validator(path):
     from please.add_source import add_validator
     add_validator(path)
 
-def stress_test(solution, generator, correct = None):
-    '''stress $solution [against $correct] with $generator
+def stress_test(solution, generator, correct = None, args = None):
+    '''stress $solution [against $correct] with $generator [args...]
     Stress a solution (possibly against correct one) using generator.'''
     # О-очень плохой calling convenience!
     # Я думал, гораздо лучше будет это всё.
@@ -58,7 +57,7 @@ def stress_test(solution, generator, correct = None):
     from please.stress_tester import StressTester
     from please.package import package_config
     pkg = package_config.PackageConfig.get_config()
-    StressTester(config = pkg)(generator, solution, correct)
+    StressTester(config = pkg)(generator, solution, correct, args)
 
 def set_param(parameter, value):
     '''set problem $parameter to $value
@@ -82,8 +81,8 @@ def set_param(parameter, value):
         raise PleaseException('problem package not found')
     cfg[parameter] = value
         
-def add_standard_checker(checker = None):
-    '''add standard|std checker [/checker]
+def set_standard_checker(checker = None):
+    '''set standard|std checker [/checker]
     Set a standard checker to be a checker for a problem
     (or print available ones).'''
     from please.checkers.standard_checkers_utils import (add_standard_checker_to_solution,
@@ -111,6 +110,8 @@ def set_main_solution(path):
 def add_solution(path, args=[]):
     '''add sol[ution] /path [args...]
     Add a solution to a problem.'''
+    import please
+    print('*********+>>>>', please.__file__)
     from please.add_source import add_solution
     add_solution(path, args)
 
@@ -178,7 +179,7 @@ def add_tags(tags):
     opened_config.write()
 
 def show_tags():
-    '''show tags
+    '''[show] tags
     Shows tags assigned to the current problem.'''
     from please.package.package_config import PackageConfig
     opened_config = PackageConfig.get_config()
@@ -193,3 +194,24 @@ def clear_tags():
     if 'tags' in opened_config:
         opened_config['tags'] = ''
     opened_config.write()
+
+def set_prop(prop, value):
+    '''set $prop $value
+    where value is one of 'name', 'input', 'output',
+    or time-|memory-limit.
+    Set problem property to a value in order.'''
+
+    if prop in {'name', 'input', 'output'}:
+        pass
+    elif prop in TL:
+        prop = 'time-limit'
+    elif prop in ML:
+        prop = 'memory-limit'
+    else:
+        raise PleaseException('problem property {} is not recognized'.format(prop))
+
+    from please.package.package_config import PackageConfig
+    conf = PackageConfig.get_config()
+    conf[prop] = value
+    conf.write()
+

@@ -11,7 +11,7 @@ formal grammar:
     list ::= word ++ "..."
 in EBNF, where `++' means concatenation (no spaces between).'''
 
-from .wordmatch import contains, similarity
+from .wordmatch import similarity
 import os.path
 from collections import defaultdict, Counter
 
@@ -19,6 +19,8 @@ WORD = 0
 ARGUMENT = 1
 PATH = 2
 LIST = 3
+
+CUTOFF = 0.8
 
 class Template:
     def __init__(self, definition, help = ''):
@@ -116,24 +118,34 @@ class Template:
         '''Matches sequence against itself.
         Returns a dictionary if match is successful else None,
         a `ratio' depicting how trustful match is,
-        and all possible end states (even if match is not complete).'''
+        and all possible end states (even if match is not complete),
+        as keys in a dictionary whose values are ratios.'''
         l = len(self.tokens)
         links = []
         states = {state: -1 for state in self.starts}
+        ratios = {state: 0 for state in self.starts}
         for element in sequence:
             new_states = {}
+            new_ratios = {}
             for state in states:
+                ratio = ratios[state]
                 if state == l:
                     continue # past end there is Nihil
                 keys, vals = self.automata[state]
-                if keys is None or contains(keys, element):
-                    for val in vals:
+                if keys is not None:
+                    delta = similarity(keys, element)
+                    if delta < CUTOFF:
+                        continue
+                    ratio += delta
+                for val in vals:
+                    if new_ratios.get(val, -1) < ratio:
                         new_states[val] = state
+                        new_ratios[val] = ratio
             states = new_states
+            ratios = new_ratios
             links.append(states)
-        states = list(states) # keys only
         if l not in links[-1]:
-            return None, 0, states
+            return None, max(ratios.values()) if ratios else 0, ratios
         state = l
         results = {}
         for i in range(len(links) - 1, -1, -1):
@@ -146,23 +158,19 @@ class Template:
             type, arg = token
             if i not in results:
                 continue
-            if type == WORD:
-                total += similarity(arg, results[i][0]) ** 2
-            elif type == ARGUMENT:
+            if type == ARGUMENT:
                 result[arg] = results[i][0]
             elif type == PATH:
                 result[arg] = os.path.normpath(results[i][0])
             elif type == LIST:
                 results[i].reverse()
                 result[arg] = results[i]
-        return result, total, states
+        return result, ratios[l], ratios
 
     def match(self, sequence):
-
         return self.match_ratio_states(sequence)[0]
 
     def match_ratio(self, sequence):
-
         return self.match_ratio_states(sequence)[:2]
 
     @staticmethod

@@ -1,0 +1,6 @@
+[tests, sample] tests/tests_1
+[tests] tests/tests_2
+[tests] tests/tests_3
+[tests] gen.dpr 4 9860
+[tests] gen_forward.dpr 10
+[tests] gen.dpr 7777 100000

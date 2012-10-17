@@ -296,7 +296,7 @@ class SingleProblemCreator:
             else:
                 problem.set_output_file(self.__config['output'])
         problem.set_memory_limit(self.__config['memory_limit'] + ' ' + get_memory_string(float(self.__config["memory_limit"])))
-        problem.set_time_limit(self.__config['time_limit'] + ' ' + get_time_string(float(self.__config["time_limit"])))
+        problem.set_time_limit(str(self.__config['time_limit']) + ' ' + get_time_string(float(self.__config["time_limit"])))
         problem.set_title(self.__config['name'])
         problem.set_path(self.__old_path)
         if 'id' in self.__config:

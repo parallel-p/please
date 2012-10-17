@@ -12,8 +12,5 @@ def similarity(list, word):
             ratio = s.ratio()
             if ratio > maxratio:
                 maxratio = ratio
-    return maxratio
-
-def contains(list, word):
-    return similarity(list, word) > 0.4
+    return maxratio ** .5
 
