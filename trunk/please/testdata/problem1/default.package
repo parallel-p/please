@@ -11,7 +11,7 @@ memory_limit = 128
 
 checker = check.cpp
 validator = val.cpp
-main_solution = solutions\prev_st.dpr
+main_solution = solutions/prev_st.dpr
 
 statement = statements/statement.russian.tex
 description = statements/description.ru.tex
@@ -29,9 +29,4 @@ solution = {
 solution = {
     source = solutions\prev_ni.py
     expected = OK
-}
-solution = {
-    source = solutions/wrong.dpr
-    expected = OK, WA
-    possible = TL
 }
