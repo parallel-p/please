@@ -168,8 +168,8 @@ class Config:
         self.__changed = True
         if type(self.__settings[item]) == list:
             if iterator is None:
-                for i in range(len(self.__settings[item]), 0, -1):
-                    self.delete(item, i - 1)
+                for i in range(len(self.__settings[item]) - 1, -1, -1):
+                    self.delete(item, i)
             else:
                 numerator = -1
                 killed = False
@@ -301,7 +301,7 @@ class ConfigFile(Config):
         super().__init__(text, file = filename)
 
     def write(self):
-        with open(self.filename, 'w', encoding = 'utf-8') as f:
+        with open(self.filename, 'w', encoding='utf-8') as f:
             f.write(self.get_text())
 
 def create_simple_config(file_name, config):

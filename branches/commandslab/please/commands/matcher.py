@@ -31,7 +31,7 @@ class Matcher:
         for template, handler in self.templates:
             d, ratio = template.match_ratio(seq)
             if d is not None:
-                print(template, ratio)
+                #print(template, ratio)
                 if found:
                     if abs(maxratio - ratio) < EPSILON:
                         logger.warning('Command-line is ambiguous')

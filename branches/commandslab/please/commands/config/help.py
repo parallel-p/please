@@ -1,4 +1,7 @@
 import os
+from logging import getLogger
+
+logger = getLogger('please_logger.commands.help')
 
 def help(command = None):
     '''help [command...]
@@ -15,9 +18,23 @@ def help(command = None):
         print('Nice try, but I do not know path to Gensokyo.')
         print('Neither Eirin am I.')
     else:
-        tpl = m.match_template(command)[0]
-        if tpl is None or tpl.help() is None:
-            print("I don't know how to " + ' '.join(command))
+        matches = []
+        exact_matches = []
+        for tpl, handler in m.templates: # TODO encaps maybe
+            helptext = tpl.help()
+            if helptext is None:
+                continue
+            match, ratio, states = tpl.match_ratio_states(command)
+            if match is not None:
+                exact_matches.append((ratio, helptext))
+            elif states:
+                matches.append((ratio, helptext))
+        if exact_matches:
+            print(max(exact_matches)[1])
+        elif matches:
+            print(max(matches)[1])
+        else:
+            logger.error("I don't know how to " + ' '.join(command))
 
 def determine_location():
     """

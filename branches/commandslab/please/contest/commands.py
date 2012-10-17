@@ -83,7 +83,6 @@ def command_generate_statement(name):
         config = package_config.PackageConfig.get_config(problem['path'])
         # TODO: check if config is None
         config['id'] = problem['id']
-        print(config['id'])
         problems.append(problem['path'])
     template_vars = {}
     for ind, val in current_contest.config['statement'].items():

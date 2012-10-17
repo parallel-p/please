@@ -59,8 +59,8 @@ checker_return_codes = {0:"OK", 1:"WA", 2:"PE"}
 temp_solution_out_file = ".out"
 
 #information about polygon
-polygon_url = 'http://polygon.lksh.ru'
-access = {'login': 'tigvarts_oivanov', "password": "51234"}
+polygon_url = 'http://codecenter.sgu.ru/polygon/'
+access = {'login': 'gurovic', "password": "********"}
 
 #exports = {
 #    'lksh': export.Ejudge('ssh://ejudge@ejudge.lksh.ru'),

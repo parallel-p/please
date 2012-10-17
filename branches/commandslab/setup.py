@@ -6,6 +6,8 @@ from distutils.core import Command
 import os
 
 
+import please
+import please.utils
 from please.executors.compiler import compile
 from please.utils.form_error_output import form_err_string_by_std
 from please.utils.exceptions import PleaseException
@@ -49,7 +51,6 @@ entry_points = {
 # ссылку на страницу, где перечислены варианты дистрибутивов этой библиотеки
 # со ссылками - он сам повыдёргивает, откуда скачать.
 install_requires = [
-    'lxml',
     'psutil',
     'colorama',
     'HTML.py ==0.04',
