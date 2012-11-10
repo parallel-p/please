@@ -20,7 +20,7 @@ def _find_py2_install_win():
         except WindowsError:
             return []
         versions = []
-        for index in intertools.count():
+        for index in itertools.count():
             try:
                 keyname = winreg.EnumKey(regkey, index)
             except WindowsError:
