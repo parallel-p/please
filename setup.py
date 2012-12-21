@@ -5,7 +5,7 @@ from distutils import log as log
 from distutils.core import Command
 import os
 
-q
+
 import please
 import please.utils
 from please.executors.compiler import compile
