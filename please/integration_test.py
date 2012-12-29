@@ -84,16 +84,20 @@ class CommandsTestWithContest(unittest.TestCase):
     def test_add_delete_from_contest(self):
         sys.argv = ['please', 'create', 'contest', 'test', 'of', 'problem1', 'problem2']
         launcher.main()
-        self.assertEqual(log.logger.error.call_count, 0) 
+        self.assertEqual(log.logger.error.call_count, 0)
+
         sys.argv = ['please', 'delete', 'problem', 'problem2', 'from', 'test']
         launcher.main()
         self.assertEqual(log.logger.error.call_count, 0) 
+
         sys.argv = ['please', 'add', 'problem', 'problem2', 'to', 'test']
         launcher.main()
-        self.assertEqual(log.logger.error.call_count, 0) 
+        self.assertEqual(log.logger.error.call_count, 0)
+
         sys.argv = ['please', 'del', 'problem', 'problem1', 'from', 'test']
         launcher.main()
-        self.assertEqual(log.logger.error.call_count, 0) 
+        self.assertEqual(log.logger.error.call_count, 0)
+
         sys.argv = ['please', 'add', 'problems', 'problem1', 'to', 'test']
         launcher.main()
         self.assertEqual(log.logger.error.call_count, 0) 
@@ -102,12 +106,15 @@ class CommandsTestWithContest(unittest.TestCase):
         sys.argv = ['please', 'create', 'contest', 'test', 'of', 'problem1', 'problem2']
         launcher.main()
         self.assertEqual(log.logger.error.call_count, 0) 
+
         sys.argv = ['please', 'gen', 'contest', 'test', 'statements']
         launcher.main()
         self.assertEqual(log.logger.error.call_count, 0) 
+
         sys.argv = ['please', 'generate', 'contest', 'test', 'pdf']
         launcher.main()
         self.assertEqual(log.logger.error.call_count, 0) 
+
         shutil.rmtree('.statements')
         os.remove('test.pdf')
 
@@ -206,9 +213,11 @@ class CommandsTestInsideProblem1(unittest.TestCase):
         self.assertEqual(log.logger.error.call_count, 0) 
 
     def test_set_validator(self):
-        sys.argv = ['please', 'set', 'validator', 'validator.cpp']
-        launcher.main()
         sys.argv = ['please', 'set', 'validator', 'val.cpp']
+        launcher.main()
+        self.assertEqual(log.logger.error.call_count, 0) 
+
+        sys.argv = ['please', 'set', 'val', 'val.cpp']
         launcher.main()
         self.assertEqual(log.logger.error.call_count, 0) 
 
@@ -314,27 +323,47 @@ class CommandsTestInsideProblem1(unittest.TestCase):
     def test_solutions(self):
         sys.argv = ['please', 'check', 'solution']
         launcher.main()
-        sys.argv = ['please', 'run', 'sol']
+        self.assertEqual(log.logger.error.call_count, 0)
+
+        sys.argv = ['please', 'run', 'sols']
         launcher.main()
+        self.assertEqual(log.logger.error.call_count, 0)
+
         sys.argv = ['please', 'check', 'all']
         launcher.main()
+        self.assertEqual(log.logger.error.call_count, 0)
+
         sys.argv = ['please', 'run', 'all', 'sols']
         launcher.main()
+        self.assertEqual(log.logger.error.call_count, 0)
+
         sys.argv = ['please', 'check', 'all', 'solutions']
         launcher.main()
+        self.assertEqual(log.logger.error.call_count, 0)
+
         sys.argv = ['please', 'check', 'sol', 'prev_ni.py']
         launcher.main()
+        self.assertEqual(log.logger.error.call_count, 0)
+
         sys.argv = ['please', 'check', 'sol', 'ni']
         launcher.main()
+        self.assertEqual(log.logger.error.call_count, 0)
+
         sys.argv = ['please', 'run', 'solution', 'solutions/prev_st.dpr']
         launcher.main()
+        self.assertEqual(log.logger.error.call_count, 0)
+
         sys.argv = ['please', 'check', 'main', 'solution']
         launcher.main()
+        self.assertEqual(log.logger.error.call_count, 0)
+
         sys.argv = ['please', 'run', 'main', 'sol']
         launcher.main()
+        self.assertEqual(log.logger.error.call_count, 0)
+
         sys.argv = ['please', 'check', 'main']
         launcher.main()
-        self.assertEqual(log.logger.error.call_count, 0) 
+        self.assertEqual(log.logger.error.call_count, 0)
 
     def test_set_main_solution(self):
         sys.argv = ['please', 'set', 'main', 'solution', 'solutions/prev_ni.py']
@@ -346,6 +375,8 @@ class CommandsTestInsideProblem1(unittest.TestCase):
     def test_add_delete_solution(self):
         sys.argv = ['please', 'add', 'solution', 'solutions/wrong.dpr']
         launcher.main()
+        self.assertEqual(log.logger.error.call_count, 0) 
+
         sys.argv = ['please', 'delete', 'solution', 'solutions/wrong.dpr']
         launcher.main()
         self.assertEqual(log.logger.error.call_count, 0) 
@@ -354,11 +385,17 @@ class CommandsTestInsideProblem1(unittest.TestCase):
         sys.argv = ['please', 'add', 'solution', 'solutions/wrong.dpr', 'expected', 'WA', 'TL', 'possible', 'OK']
         launcher.main()
         self.assertEqual(log.logger.error.call_count, 0) 
+
+        self.assertEqual(log.logger.error.call_count, 0) 
         sys.argv = ['please', 'change', 'prop', 'solutions/wrong.dpr', 'expected', 'WA', 'OK', 'possible', 'TL']
         launcher.main()
         self.assertEqual(log.logger.error.call_count, 0) 
+
+        self.assertEqual(log.logger.error.call_count, 0) 
         sys.argv = ['please', 'del', 'prop', 'solutions/wrong.dpr', 'expected']
         launcher.main()
+        self.assertEqual(log.logger.error.call_count, 0) 
+
         self.assertEqual(log.logger.error.call_count, 0) 
         sys.argv = ['please', 'delete', 'solution', 'solutions/wrong.dpr']
         launcher.main()
