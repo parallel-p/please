@@ -25,7 +25,7 @@
  * Copyright (c) 2005-2012
  */
 
-#define VERSION "0.7.3"
+#define VERSION "0.7.4"
 
 /* 
  * Mike Mirzayanov
@@ -57,6 +57,7 @@
  */
 
 const char* latestFeatures[] = {
+                          "Fixed to be compilable on Mac",  
                           "PC_BASE_EXIT_CODE=50 in case of defined TESTSYS",
                           "Fixed issues 19-21, added __attribute__ format printf",  
                           "Some bug fixes",  
@@ -109,10 +110,8 @@ const char* latestFeatures[] = {
 
 #include <fcntl.h>
 
-#if !defined(unix)
-#ifndef __APPLE__
+#if !defined(unix) && !defined(__APPLE__)
 #include <io.h>
-#endif
 #endif
 
 #if ( _WIN32 || __WIN32__ || _WIN64 || __WIN64__ )
@@ -1300,8 +1299,7 @@ void InStream::reset()
 
     opened = true;
 
-#if !defined(unix)
-#ifndef __APPLE__
+#if !defined(unix) && !defined(__APPLE__)
     if (NULL != file)
     {
 #ifdef _MSC_VER
@@ -1310,7 +1308,6 @@ void InStream::reset()
         setmode(fileno(file), O_BINARY);
 #endif
     }
-#endif
 #endif
 }
 

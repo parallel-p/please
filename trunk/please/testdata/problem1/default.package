@@ -30,3 +30,8 @@ solution = {
     source = solutions\prev_ni.py
     expected = OK
 }
+solution = {
+    source = solutions/wrong.dpr
+    expected = OK, WA
+    possible = TL
+}
