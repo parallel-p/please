@@ -1,10 +1,10 @@
-please_version = 0.2
+please_version = 0.3
 name = 
 shortname = aplusb_on_java
 tags = 
 type = 
 
-input = input.txt 
+input = input.txt
 output = output.txt
 time_limit = 2
 memory_limit = 64
@@ -23,4 +23,8 @@ analysis = statements/analysis.ru.tex
 solution = {
     source = solutions/sol.cpp
     expected = ok
+}
+solution = {
+    source = solutions/Sol.java
+    expected = OK
 }

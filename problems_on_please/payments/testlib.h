@@ -22,10 +22,10 @@
 #define _TESTLIB_H_
 
 /*
- * Copyright (c) 2005-2011                                
+ * Copyright (c) 2005-2012
  */
 
-#define VERSION "0.7.1"
+#define VERSION "0.7.4"
 
 /* 
  * Mike Mirzayanov
@@ -57,6 +57,10 @@
  */
 
 const char* latestFeatures[] = {
+                          "Fixed to be compilable on Mac",  
+                          "PC_BASE_EXIT_CODE=50 in case of defined TESTSYS",
+                          "Fixed issues 19-21, added __attribute__ format printf",  
+                          "Some bug fixes",  
                           "ouf.readInt(1, 100) and similar calls return WA",  
                           "Modified random_t to avoid integer overflow",  
                           "Truncated checker output [patch by Stepan Gatilov]",  
@@ -106,7 +110,7 @@ const char* latestFeatures[] = {
 
 #include <fcntl.h>
 
-#if !defined(unix)
+#if !defined(unix) && !defined(__APPLE__)
 #include <io.h>
 #endif
 
@@ -143,6 +147,11 @@ const char* latestFeatures[] = {
 #define FAIL_EXIT_CODE 6
 #define DIRT_EXIT_CODE 6
 #define PC_BASE_EXIT_CODE 0
+#endif
+
+#ifdef TESTSYS
+#undef PC_BASE_EXIT_CODE
+#define PC_BASE_EXIT_CODE 50
 #endif
 
 #define __TESTLIB_STATIC_ASSERT(condition) typedef void* __testlib_static_assert_type[((condition) != 0) * 2 - 1];
@@ -335,9 +344,9 @@ public:
     /* Random value in range [0, n-1]. */
     int next(unsigned long long n)
     {
-        if (n >= __TESTLIB_LONGLONG_MAX)
+        if (n >= (unsigned long long)(__TESTLIB_LONGLONG_MAX))
             __testlib_fail("random_t::next(unsigned long long n): n must be less LONGLONG_MAX");
-        return next((long long)(n));
+        return (int)next((long long)(n));
     }
 
     /* Returns random value in range [from,to]. */
@@ -384,6 +393,9 @@ public:
     }
 
     /* Random string value by given pattern (see pattern documentation). */
+#ifdef __GNUC__
+    __attribute__ ((format (printf, 2, 3)))
+#endif
     std::string next(const char* format, ...)
     {
         char* buffer = new char [MAX_FORMAT_BUFFER_SIZE];
@@ -606,7 +618,7 @@ static int __pattern_greedyMatch(const std::string& s, size_t pos, const std::ve
 
     while (pos < s.length())
     {
-        char c = __pattern_getChar(s, pos);
+        char c = s[pos++];
         if (!std::binary_search(chars.begin(), chars.end(), c))
             break;
         else
@@ -774,8 +786,9 @@ static std::vector<char> __pattern_scanCharSet(const std::string& s, size_t& pos
                 if (prev > next)
                     __testlib_fail("pattern: Illegal pattern (or part) \"" + s + "\"");
 
-                for (char c = prev; c <= next; c++)
+                for (char c = prev; c != next; c++)
                     result.push_back(c);
+                result.push_back(next);
 
                 prev = 0;
             }
@@ -909,7 +922,7 @@ enum TResult
     _ok, _wa, _pe, _fail, _dirt, _partially
 };
 
-#define _pc(exitCode) (TResult(_partially + exitCode))
+#define _pc(exitCode) (TResult(_partially + (exitCode)))
 
 const std::string outcomes[] =
     {"accepted", "wrong-answer", "presentation-error", "fail", "fail", "partially-correct"};
@@ -1286,7 +1299,7 @@ void InStream::reset()
 
     opened = true;
 
-#if !defined(unix)
+#if !defined(unix) && !defined(__APPLE__)
     if (NULL != file)
     {
 #ifdef _MSC_VER
@@ -1841,6 +1854,9 @@ void quit(TResult result, const char * msg)
     ouf.quit(result, msg);
 }
 
+#ifdef __GNUC__
+__attribute__ ((format (printf, 2, 3)))
+#endif
 void quitf(TResult result, const char * format, ...)
 {
     char * buffer = new char [MAX_FORMAT_BUFFER_SIZE];
@@ -1873,7 +1889,7 @@ void registerTestlibCmd(int argc, char * argv[])
     {
         InStream::textColor(InStream::LightCyan);
         std::printf("TESTLIB %s, http://code.google.com/p/testlib/ ", VERSION);
-        std::printf("by Mike Mirzayanov, copyright(c) 2005-2011\n");
+        std::printf("by Mike Mirzayanov, copyright(c) 2005-2012\n");
         std::printf("Checker name: \"%s\"\n", checkerName.c_str());
         InStream::textColor(InStream::LightGray);
 
@@ -1993,7 +2009,7 @@ bool doubleCompare(double expected, double result, double MAX_DOUBLE_ERROR)
                     return false;
                 }
                 else 
-                if(__testlib_abs(result - expected) < MAX_DOUBLE_ERROR)
+                if(__testlib_abs(result - expected) <= MAX_DOUBLE_ERROR + 1E-15)
                 {
                     return true;
                 }
@@ -2003,7 +2019,7 @@ bool doubleCompare(double expected, double result, double MAX_DOUBLE_ERROR)
                                  expected * (1.0 + MAX_DOUBLE_ERROR));
                     double maxv = __testlib_max(expected * (1.0 - MAX_DOUBLE_ERROR),
                                   expected * (1.0 + MAX_DOUBLE_ERROR));
-                    return result > minv && result < maxv;
+                    return result + 1E-15 >= minv && result <= maxv + 1E-15;
                 }
 }
 
@@ -2023,11 +2039,14 @@ double doubleDelta(double expected, double result)
 static void __testlib_ensure(bool cond, const std::string msg)
 {
     if (!cond)
-        quitf(_fail, msg.c_str());
+        quit(_fail, msg.c_str());
 }
 
 #define ensure(cond) __testlib_ensure(cond, std::string("Condition failed: \"") + #cond + "\"")
 
+#ifdef __GNUC__
+__attribute__ ((format (printf, 2, 3)))
+#endif
 void ensuref(bool cond, const char* format, ...)
 {
     if (!cond)
@@ -2046,6 +2065,9 @@ void ensuref(bool cond, const char* format, ...)
     }
 }
 
+#ifdef __GNUC__
+__attribute__ ((format (printf, 1, 2)))
+#endif
 void setName(const char* format, ...)
 {
     char * buffer = new char [MAX_FORMAT_BUFFER_SIZE];
@@ -2091,9 +2113,8 @@ int rand()
 
 void srand(unsigned int seed)
 {
-    seed = 0; // to remove warning.
     quitf(_fail, "Don't use srand(), you should use " 
-        "'registerGen(argc, argv);' to initialize generator seed");
+        "'registerGen(argc, argv);' to initialize generator seed [seed=%d ignored]", seed);
 }
 
 void startTest(int test)

@@ -25,7 +25,7 @@
  * Copyright (c) 2005-2012
  */
 
-#define VERSION "0.7.3"
+#define VERSION "0.7.4"
 
 /* 
  * Mike Mirzayanov
@@ -57,6 +57,7 @@
  */
 
 const char* latestFeatures[] = {
+                          "Fixed to be compilable on Mac",  
                           "PC_BASE_EXIT_CODE=50 in case of defined TESTSYS",
                           "Fixed issues 19-21, added __attribute__ format printf",  
                           "Some bug fixes",  
