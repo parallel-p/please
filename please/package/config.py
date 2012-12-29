@@ -154,37 +154,37 @@ class Config:
             conf.delete("item", 2)
         """
         self.__changed = True
+
+        idxs = []
+        for i in range(len(self.__source)):
+            if self.__source[i][0] == item:
+                idxs.append(i)
+
+        if len(idxs) == 0 or (iterator is not None and iterator >= len(idxs)):
+            raise Exception("Can't find by item = " + str(item))
+
+        if iterator is not None:
+            idx = idxs[iterator]
+        full_delete = False
         if type(self.__settings[item]) == list:
             if iterator is None:
-                for i in range(len(self.__settings[item]) - 1, -1, -1):
-                    self.delete(item, i)
+                del self.__settings[item]
+                full_delete = True
             else:
-                numerator = -1
-                killed = False
-                for i in range(len(self.__source)):
-                    if self.__source[i][0] == item and self.__source[i][2] == True:
-                        numerator += 1
-                        if numerator == iterator:
-                            deltype = type(self.__settings[item][iterator])
-                            del self.__settings[item][iterator]
-                            if self.__source[i][1] is None or deltype == Config:
-                                del self.__source[i]
-                            else:
-                                self.__source[i][2] = False
-                            killed = True
-                            break
-                if not killed:
-                    raise PleaseException("Can't find by iterator = " + str(iterator))
+                full_delete = type(self.__settings[item][iterator]) == Config
+                del self.__settings[item][iterator]
+                self.__source[idx][2] = False
         else:
-            deltype = type(self.__settings[item])
+            assert iterator is None
+            full_delete = type(self.__settings[item]) == Config
             del self.__settings[item]
-            for i in range(len(self.__source)):
-                if self.__source[i][0] == item:
-                    if deltype == Config:
-                        del self.__source[i]
-                    else:
-                        self.__source[i][2] = False
-                    break
+
+        idxs_to_delete = [idx] if iterator is not None else idxs
+        for cur_idx in idxs_to_delete:
+            if full_delete:
+                del self.__source[cur_idx]
+            else:
+                self.__source[cur_idx][2] = False
 
     def __convert_separators(self, path):
         splitted = sum([x.split('\\') for x in path.split('/')], [])
