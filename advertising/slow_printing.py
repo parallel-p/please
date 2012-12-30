@@ -2,6 +2,7 @@ import sys
 from time import sleep
 import random
 
+
 delay = float(sys.argv[1])
 random_delay = float(sys.argv[2])
 
