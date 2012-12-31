@@ -1,7 +1,6 @@
-from ..package.config import Config, ConfigFile
-from ..package.package_config import get_config
-from .. import globalconfig
-from ..add_source.add_source import add_solution
+from ...package.package_config import get_config
+from ... import globalconfig
+from ...add_source.add_source import add_solution
 import os
 
 
@@ -32,7 +31,9 @@ def import_from_database(model, path=None, name=globalconfig.default_package):
 		if solution.path_or_stdout:
 			args += ['output', str(solution.path_or_stdout)]
 		if solution.possible_verdicts.count() != 0:
-			args += ['possible'] + list(map(str, solution.possible_verdicts.all()))
+			args += ['possible'] +
+			        list(map(str, solution.possible_verdicts.all()))
 		if solution.expected_verdicts.count() != 0:
-			args += ['expected'] + list(map(str, solution.expected_verdicts.all()))
+			args += ['expected'] +
+			        list(map(str, solution.expected_verdicts.all()))
 		add_solution(str(solution.filename), args)
