@@ -1,5 +1,7 @@
 from django.contrib import admin
-from problem.models import Tag, Solution, Verdict
+from problem.models import *
 
-for cls in (Tag, Solution, Verdict):
-	admin.site.register(cls)
+
+for model in (RunErrorDescription, TestGeneratorError, TestError, TestGeneratorTag, TestGenerator, Test, Tag, Solution, Verdict):
+	admin.site.register(model)
+
