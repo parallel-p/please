@@ -12,13 +12,14 @@ class User:
 
 
 def rel_posix_path(destination, dirpath, filename):
-	#change directory separator to posix '/'
-	#else in Windows git incorrectly adds files
-	return '/'.join(
-		os.path.relpath( #path from the root of git repo
-			os.path.join(dirpath, filename), destination
-		).split(os.sep)
-	)
+    # change directory separator to posix '/'
+    # else in Windows git incorrectly adds files
+    return '/'.join(
+        os.path.relpath(  # path from the root of git repo
+           os.path.join(dirpath, filename), destination
+        ).split(os.sep)
+    )
+
 
 def create_repository_from_dir(source, destination, user):
     shutil.copytree(source, destination)
@@ -26,7 +27,7 @@ def create_repository_from_dir(source, destination, user):
     author = pygit2.Signature(user.name, user.email)
     committer = pygit2.Signature('webserver', 'admin@webserver')
     for dirpath, dirnames, filenames in os.walk(destination):
-        if dirpath == destination: #don't add to repo ".git" directory
+        if dirpath == destination:  # don't add to repo ".git" directory
             dirnames.remove(".git")
         for filename in filenames:
             repo.index.add(rel_posix_path(destination, dirpath, filename))
