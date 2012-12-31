@@ -12,17 +12,17 @@ class Problem(models.Model):
 
     checker = models.CharField(max_length = 100)
     validator = models.CharField(max_length = 100)
-    main_solution = models.CharField(max_length = 100)
+    main_solution_path = models.CharField(max_length = 100)
 
-    statement = models.CharField(max_length = 100)
-    description = models.CharField(max_length = 100)
+    statement_path = models.CharField(max_length = 100)
+    description_path = models.CharField(max_length = 100)
 
     hand_answer_extension = models.CharField(max_length = 100)
 
     well_done_test = models.CharField(max_length = 100)
     well_done_answers = models.CharField(max_length = 100)
 
-    analysis = models.CharField(max_length = 100)
+    analysis_path = models.CharField(max_length = 100)
 
     def __str__(self):
         return "Problem {}".format(self.name)
