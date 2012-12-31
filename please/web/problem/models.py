@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Problem(models.Model):
     name = models.CharField(max_length = 100)
     short_name = models.CharField(max_length = 100)
