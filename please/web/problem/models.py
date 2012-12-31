@@ -17,5 +17,5 @@ class Solution(models.Model):
 	possible_verdicts = models.ManyToManyField(Verdict)
 	problem = models.ForeignKey(Problem)
 	fname = models.CharField(max_length=256)
-	path_or_stdin = models.BooleanField()
-	path_or_stdout = models.BooleanField()
+	path_or_stdin = models.CharField(max_length=64)
+	path_or_stdout = models.CharField(max_length=64)
