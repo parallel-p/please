@@ -1,6 +1,32 @@
 from django.db import models
 
 
+class Problem(models.Model):
+    name = models.CharField(max_length = 100)
+    short_name = models.CharField(max_length = 100)
+
+    input = models.CharField(max_length = 100)
+    output = models.CharField(max_length = 100)
+    time_limit = models.FloatField()
+    memory_limit = models.IntegerField()
+
+    checker = models.CharField(max_length = 100)
+    validator = models.CharField(max_length = 100)
+    main_solution = models.CharField(max_length = 100)
+
+    statement = models.CharField(max_length = 100)
+    description = models.CharField(max_length = 100)
+
+    hand_answer_extension = models.CharField(max_length = 100)
+
+    well_done_test = models.CharField(max_length = 100)
+    well_done_answers = models.CharField(max_length = 100)
+
+    analysis = models.CharField(max_length = 100)
+
+    def __str__(self):
+        return "Problem {}".format(self.name)
+
 class RunErrorDescription(models.Model):
 	stdout = models.TextField(blank=True)
 	stderr = models.TextField(blank=True)
