@@ -55,12 +55,13 @@ def set_password(username, password):
 
 
 def register_user(username):
-    add_directory()
-    if username not in read_users('/etc/passwd'):
-        exitcode = os.system('useradd -m -g users -G {} -s /bin/bash {}'.format(WEBPLEASE_GROUP,
-                                                                                username))
-        if exitcode:
-            raise UserError('Exit code: ' + str(exitcode))
+    if username:
+        add_directory()
+        if username not in read_users('/etc/passwd'):
+            exitcode = os.system('useradd -m -g users -G {} -s /bin/bash {}'.format(WEBPLEASE_GROUP,
+                                                                                    username))
+            if exitcode:
+                raise UserError('Exit code: ' + str(exitcode))
 
 if __name__ == '__main__':
     register_user(input('Enter username: '))
