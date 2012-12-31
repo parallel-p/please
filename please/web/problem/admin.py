@@ -1,7 +1,7 @@
 from django.contrib import admin
-from problem.models import RunErrorDescription, TestGeneratorError,
+from problem.models import (RunErrorDescription, TestGeneratorError,
                            TestError, TestGeneratorTag, TestGenerator, Test,
-                           Tag, Solution, Verdict
+                           Tag, Solution, Verdict, Problem)
 
 admin.site.register(RunErrorDescription)
 admin.site.register(TestGeneratorError)
