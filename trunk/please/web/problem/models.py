@@ -19,3 +19,6 @@ class Solution(models.Model):
 	fname = models.CharField(max_length=256)
 	path_or_stdin = models.CharField(max_length=64)
 	path_or_stdout = models.CharField(max_length=64)
+
+	def __str__(self):
+		return str(self.problem) + ': solution ' + str(self.fname)
