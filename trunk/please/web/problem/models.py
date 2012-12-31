@@ -19,6 +19,7 @@ class Problem(models.Model):
 
     hand_answer_extension = models.CharField(max_length = 100)
 
+    # TODO: Well done tests should me ManyToManyField's, not strings.
     well_done_test = models.CharField(max_length = 100)
     well_done_answers = models.CharField(max_length = 100)
 
