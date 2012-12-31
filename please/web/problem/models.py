@@ -58,7 +58,7 @@ class Verdict(models.Model):
 
 class Solution(models.Model):
 	expected_verdicts = models.ManyToManyField(Verdict)
-	possible_verdicts = models.ManyToManyField(Verdict)
+	possible_verdicts = models.ManyToManyField(Verdict, related_name='+')
 	problem = models.ForeignKey('Problem')
 	fname = models.CharField(max_length=256)
 	path_or_stdin = models.CharField(max_length=64)
@@ -66,4 +66,3 @@ class Solution(models.Model):
 
 	def __str__(self):
 		return str(self.problem) + ': solution ' + str(self.fname)
-
