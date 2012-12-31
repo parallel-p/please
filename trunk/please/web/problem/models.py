@@ -15,7 +15,7 @@ class Verdict(models.Model):
 class Solution(models.Model):
 	expected_verdicts = models.ManyToManyField(Verdict)
 	possible_verdicts = models.ManyToManyField(Verdict)
-	problem = models.ForeignKey(Problem)
+	problem = models.ForeignKey('Problem')
 	fname = models.CharField(max_length=256)
 	path_or_stdin = models.CharField(max_length=64)
 	path_or_stdout = models.CharField(max_length=64)
