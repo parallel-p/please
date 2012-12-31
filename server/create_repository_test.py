@@ -3,7 +3,7 @@ import subprocess
 import stat
 import shutil
 import unittest
-from create_repository_from_dir import *
+from create_repository import *
 
 
 class CreateRepositoryFromDir_test(unittest.TestCase):
