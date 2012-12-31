@@ -11,6 +11,10 @@ WEBPLEASE_GROUP = 'webplease'
 WEBPLEASE_OWNER = 'root'
 
 
+def pwgen(count):
+    return ''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(count))
+
+
 class GroupError(Exception):
     pass
 
@@ -40,17 +44,23 @@ def add_directory():
         os.chmod(WEBPLEASE_PATH, mode=(stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR | stat.S_IRGRP | stat.S_IXGRP | stat.S_ISVTX))
 
 
-def register_user(username, password):
+def set_password(username, password):
+    if username in read_users('/etc/passwd'):
+        salt = pwgen(8)
+        hashed_password = crypt.crypt(password, salt)
+        exitcode = os.system('usermod -p {} {}'.format(hashed_password,
+                                                       username))
+        if exitcode:
+            raise UserError('Can not change password - exit code: ' + str(exitcode))
+
+
+def register_user(username):
     add_directory()
     if username not in read_users('/etc/passwd'):
-        salt = ''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(8))
-        password = crypt.crypt(password, salt)
-        exitcode = os.system('useradd -m -g users -G {} -s /bin/bash -p {} {}'.format(WEBPLEASE_GROUP,
-                                                                                      password,
-                                                                                      username))
+        exitcode = os.system('useradd -m -g users -G {} -s /bin/bash {}'.format(WEBPLEASE_GROUP,
+                                                                                username))
         if exitcode:
             raise UserError('Exit code: ' + str(exitcode))
 
 if __name__ == '__main__':
-    import getpass
-    register_user(input('Enter username: '), getpass.getpass())
+    register_user(input('Enter username: '))
