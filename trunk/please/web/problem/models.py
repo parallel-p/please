@@ -38,9 +38,12 @@ class TestGenerator(models.Model):
 
 
 class Test(models.Model):
+	number = models.IntegerField()
 	generator = models.ForeignKey(TestGenerator, null=False)
 	error = models.ForeignKey(TestError, blank=True, null=True)
 
+	def __str__(self):
+		return str(number)
 
 class Tag(models.Model):
 	name = models.CharField(max_length=64)
