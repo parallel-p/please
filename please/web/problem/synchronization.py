@@ -1,7 +1,8 @@
-from config import Config
+from please.package.config import Config
 import os
 
-class Synchronizator:
-    conf = Config()
+def import_to_database(path):
+    os.chdir(path)
+    config = Config(open("default.package", "r").read())
 
-def import_from_database(model, path):
+    return config
