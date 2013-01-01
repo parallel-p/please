@@ -19,7 +19,7 @@ class Problem(models.Model):
 
     hand_answer_extension = models.CharField(max_length = 100)
 
-    # TODO: Well done tests should me ManyToManyField's, not strings.
+    # TODO: Well done tests should be ManyToManyField's, not strings.
     well_done_test = models.CharField(max_length = 100)
     well_done_answers = models.CharField(max_length = 100)
 
@@ -95,8 +95,8 @@ class Solution(models.Model):
 	possible_verdicts = models.ManyToManyField(Verdict, related_name='-')
 	problem = models.ForeignKey('Problem')
 	filename = models.CharField(max_length=256)
-	path_or_stdin = models.CharField(max_length=64)
-	path_or_stdout = models.CharField(max_length=64)
+	path_or_stdin = models.CharField(max_length=64, null=True)
+	path_or_stdout = models.CharField(max_length=64, null=True)
 
 	def __str__(self):
 		return str(self.problem) + ': solution ' + str(self.fname)
