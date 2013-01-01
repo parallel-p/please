@@ -16,9 +16,12 @@ class WellDone(models.Model):
 
 
 class Problem(models.Model):
-    name = models.CharField(max_length=64)
-    short_name = models.CharField(max_length=64)
-    tags = models.ManyToManyField(ProblemTag, blank=True)
+    path = models.CharField(max_length=256)
+    # TODO: Edit synchronization.py!
+
+    name = models.CharField(max_length = 100)
+    short_name = models.CharField(max_length = 100)
+    tags = models.ManyToManyField('Tag')
 
     input = models.CharField(max_length=64)
     output = models.CharField(max_length=64)

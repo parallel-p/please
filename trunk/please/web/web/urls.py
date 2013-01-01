@@ -6,4 +6,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^problem/edit/materials$', 'problem.views.edit_problem_materials'),
+    url(r'^problem/edit/materials/(?P<id>\d+)$', 'problem.views.edit_problem_materials'),
 )
