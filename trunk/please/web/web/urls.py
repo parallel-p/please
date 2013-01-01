@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^problem/edit/materials$', 'problem.views.edit_problem_materials'),
     url(r'^problem/edit/materials/(?P<id>\d+)$', 'problem.views.edit_problem_materials'),
+    url(r'^problems$', 'problem.views.list_problems')
 )
