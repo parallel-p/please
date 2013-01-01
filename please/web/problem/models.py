@@ -20,7 +20,7 @@ class Problem(models.Model):
 
     name = models.CharField(max_length=64)
     short_name = models.CharField(max_length=64)
-    tags = models.ManyToManyField(ProblemTag)
+    tags = models.ManyToManyField(ProblemTag, blank=True)
 
     input = models.CharField(max_length=64)
     output = models.CharField(max_length=64)
