@@ -29,7 +29,8 @@ class Problem(models.Model):
 
     checker_path = models.CharField(max_length=256)
     validator_path = models.CharField(max_length=256)
-    main_solution = models.OneToOneField('Solution', related_name='problem+', blank=True, null=True)
+
+    # TODO: main solution field
 
     statement_path = models.CharField(max_length=256)
     description_path = models.CharField(max_length=256)
