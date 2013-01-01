@@ -18,6 +18,8 @@ from django.template import RequestContext
 #			'form': Form,
 #		})# Create your views here.
 
-def list_problems(request, problem_list=Problem.objects.all()):
+def list_problems(request, problem_list=None):
+    if problem_list is None:
+        problem_list = Problem.objects.all()
     return render_to_response('list_problems.html', {'problems' : problem_list},
         context_instance=RequestContext(request))
