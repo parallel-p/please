@@ -1,8 +1,6 @@
 import pygit2
 import shutil
-import glob
 import os
-import re
 
 
 class User:
