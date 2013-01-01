@@ -1,0 +1,17 @@
+<table>
+    <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td></td>
+    <tr>
+    {% for problem in problems %}
+        <tr>
+            <td>{{problem.id}}</td>
+            <td>{{problem.name}}</td>
+            <td><a href="../problem/edit/materials/{{problem.id}}">
+                <!-- Refer to please/web/web/urls.py -->
+                <button type="button">Edit...</button>
+            </a></td>
+        <tr/>
+    {% endfor %}
+</table>
