@@ -1,5 +1,6 @@
 {% if user.is_authenticated %}
 <p>OLOLOLOOLO, I see you, {{ user.username }}</p>
+<p><a href="/logout">Logout</a></p>
 {% else %}
 <p><a href="/login">Login</a>, please.</p>
 {% endif %}
