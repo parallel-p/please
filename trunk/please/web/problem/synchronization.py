@@ -24,9 +24,8 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
 
     model.hand_answer_extension = conf["hand_answer_extension"]
 
-    #TODO: well_done tests and answers should be ManyToMany, not strings
-    model.well_done_test = ", ".join(conf["well_done_test"])
-    model.well_done_answer = ", ".join(conf["well_done_answer"])
+    model.well_done_test = conf["well_done_test"]
+    model.well_done_answer = conf["well_done_answer"]
                                    
     model.analysis = conf["analysis"]
 
