@@ -12,8 +12,8 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
     
     model.input = conf["input"]
     model.output = conf["output"]
-    model.time_limit = conf["time_limit"]
-    model.memory_limit = conf["memory_limit"]
+    model.time_limit = float(conf["time_limit"])
+    model.memory_limit = int(conf["memory_limit"])
 
     model.checker = conf["checker"]
     model.validator = conf["validator"]
