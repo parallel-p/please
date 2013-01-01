@@ -1,102 +1,109 @@
 from django.db import models
 
-class Problem(models.Model):
-    name = models.CharField(max_length = 100)
-    short_name = models.CharField(max_length = 100)
-    tags = models.ManyToManyField('Tag')
 
-    input = models.CharField(max_length = 100)
-    output = models.CharField(max_length = 100)
+class ProblemTag(models.Model):
+    name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return str(self.name)
+
+
+class WellDone(models.Model):
+    name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return str(self.name)
+
+
+class Problem(models.Model):
+    name = models.CharField(max_length=64)
+    short_name = models.CharField(max_length=64)
+    tags = models.ManyToManyField(ProblemTag, blank=True)
+
+    input = models.CharField(max_length=64)
+    output = models.CharField(max_length=64)
     time_limit = models.FloatField()
     memory_limit = models.IntegerField()
 
-    checker = models.CharField(max_length = 100)
-    validator = models.CharField(max_length = 100)
-    main_solution_path = models.CharField(max_length = 100)
+    checker_path = models.CharField(max_length=256)
+    validator_path = models.CharField(max_length=256)
 
-    statement_path = models.CharField(max_length = 100)
-    description_path = models.CharField(max_length = 100)
+    # TODO: main solution field
 
-    hand_answer_extension = models.CharField(max_length = 100)
+    statement_path = models.CharField(max_length=256)
+    description_path = models.CharField(max_length=256)
+    analysis_path = models.CharField(max_length=256)
 
-    # TODO: Well done tests should be ManyToManyField's, not strings.
-    well_done_test = models.CharField(max_length = 100)
-    well_done_answers = models.CharField(max_length = 100)
+    hand_answer_extension = models.CharField(max_length=64)
 
-    analysis_path = models.CharField(max_length = 100)
+    well_done_test = models.ManyToManyField(WellDone, related_name='well_done_test+', blank=True)
+    well_done_answer = models.ManyToManyField(WellDone, related_name='well_done_answer+', blank=True)
 
     def __str__(self):
-        return "Problem {}".format(self.name)
+        return str(self.name)
 
 
 class RunErrorDescription(models.Model):
-	stdout = models.TextField(blank=True)
-	stderr = models.TextField(blank=True)
-	exit_code = models.IntegerField()
+    stdout = models.TextField(blank=True)
+    stderr = models.TextField(blank=True)
+    exit_code = models.IntegerField()
 
 
 class TestGeneratorError(models.Model):
-	description = models.ForeignKey(RunErrorDescription)
+    description = models.ForeignKey(RunErrorDescription)
 
 
 class TestError(models.Model):
-	PROGRAM_TYPES = (
-		('v', 'validator'),
-		('c', 'checker'),
-	)
-	program_type = models.CharField(max_length=1, choices=PROGRAM_TYPES)
-	command_line = models.CharField(max_length=500)
-	description = models.ForeignKey(RunErrorDescription)
+    PROGRAM_TYPES = (
+        ('v', 'validator'),
+        ('c', 'checker'),
+    )
+    program_type = models.CharField(max_length=1, choices=PROGRAM_TYPES)
+    command_line = models.CharField(max_length=500)
+    description = models.ForeignKey(RunErrorDescription)
 
 
 class TestGeneratorTag(models.Model):
-	name = models.CharField(max_length=50)
-	value = models.CharField(max_length=50, blank=True)
+    name = models.CharField(max_length=50)
+    value = models.CharField(max_length=50, blank=True)
 
-	def __str__(self):
-		return self.name
+    def __str__(self):
+        return '{}={}'.format(self.name, self.value) if self.value else str(self.name)
 
 
 class TestGenerator(models.Model):
-	number = models.IntegerField()
-	tags = models.ManyToManyField(TestGeneratorTag, related_name='+', blank=True)
-	script = models.CharField(max_length=500)
-	error = models.ForeignKey(TestGeneratorError, blank=True, null=True)
+    line_number = models.IntegerField()
+    tags = models.ManyToManyField(TestGeneratorTag, blank=True)
+    script = models.CharField(max_length=500)
+    error = models.ForeignKey(TestGeneratorError, blank=True, null=True)
 
-	def __str__(self):
-		return self.script
+    def __str__(self):
+        return str(self.script)
 
 
 class Test(models.Model):
-	number = models.IntegerField()
-	generator = models.ForeignKey(TestGenerator)
-	error = models.ForeignKey(TestError, blank=True, null=True)
+    test_number = models.IntegerField()
+    generator = models.ForeignKey(TestGenerator)
+    error = models.ForeignKey(TestError, blank=True, null=True)
 
-	def __str__(self):
-		return str(number)
-
-
-class Tag(models.Model):
-	name = models.CharField(max_length=64)
-
-	def __str__(self):
-		return str(self.name)
+    def __str__(self):
+        return str(self.test_number)
 
 
 class Verdict(models.Model):
-	name = models.CharField(max_length=2)
+    name = models.CharField(max_length=2)
 
-	def __str__(self):
-		return str(self.name)
+    def __str__(self):
+        return str(self.name)
 
 
 class Solution(models.Model):
-	expected_verdicts = models.ManyToManyField(Verdict, related_name='+')
-	possible_verdicts = models.ManyToManyField(Verdict, related_name='-')
-	problem = models.ForeignKey('Problem')
-	filename = models.CharField(max_length=256)
-	path_or_stdin = models.CharField(max_length=64, null=True)
-	path_or_stdout = models.CharField(max_length=64, null=True)
+    expected_verdicts = models.ManyToManyField(Verdict, related_name='expected_verdicts+')
+    possible_verdicts = models.ManyToManyField(Verdict, related_name='possible_verdicts+', blank=True)
+    problem = models.ForeignKey(Problem)
+    path = models.CharField(max_length=256)
+    input = models.CharField(max_length=64, blank=True, null=True)
+    output = models.CharField(max_length=64, blank=True, null=True)
 
-	def __str__(self):
-		return str(self.problem) + ': solution ' + str(self.fname)
+    def __str__(self):
+        return '{}@{}'.format(self.path, self.problem)
