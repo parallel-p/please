@@ -1,0 +1,38 @@
+﻿<html>
+<body>
+<h1>Страница поиска</h1>
+<form action="" method="GET">
+{{form}}
+<input type="submit" value="Submit" />
+</form>
+
+<style>
+table{border-collapse: collapse;}
+th, td{border: 1px solid black;}
+</style>
+<table border="0" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Tags</th>
+        <th>Materials</th>
+    <tr>
+    {% for problem in problems %}
+        <tr>
+            <td>{{problem.id}}</td>
+            <td>{{problem.name}}</td>
+            <td>{% for tag in problem.tags.all %}
+                {{tag.name}}
+                {% endfor %}
+            </td>
+            <td><a href="/problem/{{problem.id}}/materials/edit">
+                <!-- Refer to please/web/web/urls.py -->
+                Edit
+            </a></td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+</body>
+</html>
