@@ -2,9 +2,11 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from problem.forms import ProblemEditMaterialsForm
 from problem.models import Problem
+from problem.helpers import problem_sync
 import os
 
 
+@problem_sync(read=True, write=False)
 def edit(request, id):
     model = Problem.objects.get(id=id)
     statement_abspath = os.path.join(str(model.path), str(model.statement_path))
