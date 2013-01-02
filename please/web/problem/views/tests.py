@@ -21,4 +21,5 @@ def show(request, id):
 
     return render_to_response("tests.html", {
         "form": form,
+        'problem_id': id,
     }, RequestContext(request))

@@ -52,5 +52,6 @@ def edit(request, id):
             'analysis': vals[1]
         })
     return render_to_response('edit_problem_materials.html', {
-            'form': form
+            'form': form,
+            'problem_id': id,
         }, RequestContext(request))

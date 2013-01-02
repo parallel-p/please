@@ -13,10 +13,9 @@
                 {{tag.name}}
                 {% endfor %}
             </td>
-            <td><a href="/problems/{{problem.id}}/materials/edit">
-                <!-- Refer to please/web/web/urls.py -->
-                Edit
-            </a></td>
+            <td>
+                <a href="{% url 'problem.views.materials.edit' id=problem.id %}">Edit</a>
+            </td>
         </tr>
     {% endfor %}
 </table>
