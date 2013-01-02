@@ -16,5 +16,6 @@ urlpatterns = patterns('',
     url(r'^problems/confirmation/$', TemplateView.as_view(template_name='problem_edit_success.html')),
     url(r'^problems/create/$', 'problem.views.problems.create'),
     url(r'^problems/$', 'problem.views.problems.search_by_tag', name="problem-list"),
+    url(r'^problems/(?P<id>\d+)/tests/manual/upload/$', 'problem.views.tests.upload', name='upload_tests'),
     url(r'^$', 'problem.views.problems.search_by_tag'),   
 )

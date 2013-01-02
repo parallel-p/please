@@ -6,14 +6,20 @@ from problem.models import ProblemTag, WellDone, Solution, Verdict
 def import_to_database(model, path=None, name=globalconfig.default_package):
     conf = PackageConfig.get_config(path or str(model.path), name)
 
-    print(model)
-    print(conf)
+    def get_or_create(modeltype, **kwargs):
+        try:
+            return modeltype.objects.get(**kwargs)
+        except modeltype.DoesNotExist:
+            model = modeltype(**kwargs)
+            model.save()
+            return model
+
     model.name = conf["name"]
     model.short_name = conf["shortname"]
 
     model.tags.clear()
-    for entry in map(lambda tag: tag.strip(), conf.get('tags', '').split(';')):
-        model.tags.add(ProblemTag.get_or_create(entry))
+    for entry in conf['tags'].split(';'):
+        model.tags.add(get_or_create(ProblemTag, name=entry.split()))
 
     model.input = conf["input"]
     model.output = conf["output"]
@@ -28,34 +34,26 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
     model.analysis_path = conf["analysis"]
 
     model.hand_answer_extension = conf["hand_answer_extension"]
+    print(model.hand_answer_extension)
 
     model.well_done_test.clear()
     for entry in conf['well_done_test']:
-        model.well_done_test.add(WellDone.get_or_create(entry))
+        model.well_done_test.add(get_or_create(WellDone, name=entry))
     
     model.well_done_answer.clear()
     for entry in conf['well_done_answer']:
-        model.well_done_answer.add(WellDone.get_or_create(entry))
+        model.well_done_answer.add(get_or_create(WellDone, name=entry))
 
     for solution in conf["solution"]:
-        try:
-            sol = Solution.objects.get(path=solution['source'], problem=model)
-            sol.input = solution.get('input')
-            sol.output = solution.get('output')
-            sol.expected_verdicts.clear()
-            sol.possible_verdicts.clear()
-        except Solution.DoesNotExist:
-            sol = Solution(
-                path=solution['source'],
-                problem=model,
-                input=solution.get('input'),
-                output=solution.get('output'),
-            )
-            sol.save()
+        sol = get_or_create(Solution, path=solution['source'], problem=model)
+        sol.input = solution.get('input')
+        sol.output = solution.get('output')
+        sol.expected_verdicts.clear()
+        sol.possible_verdicts.clear()
         for verdict in solution['expected']:
-            sol.expected_verdicts.add(Verdict.get_or_create(verdict))
+            sol.expected_verdicts.add(get_or_create(Verdict, name=verdict))
         for verdict in solution.get('possible'):
-            sol.possible_verdicts.add(Verdict.get_or_create(verdict))
+            sol.possible_verdicts.add(get_or_create(Verdict, name=verdict))
         if solution['source'] == conf['main_solution']:
             model.main_solution = sol
         sol.save()
@@ -96,4 +94,4 @@ def export_from_database(model, name=globalconfig.default_package):
         if solution.expected_verdicts.count() != 0:
             args += (['expected'] +
                     list(map(str, solution.expected_verdicts.all())))
-        add_solution(str(solution.path), args, root_dir=model.path)
+        add_solution(str(solution.path), args, root_dir=str(model.path))
