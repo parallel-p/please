@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'^home/$', 'userex.views.home'),
     url(r'^$', 'userex.views.index'),
+    url(r'^linux_pass$', 'userex.views.linux_pass'),
 )

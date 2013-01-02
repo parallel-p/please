@@ -1,6 +1,7 @@
 {% if user.is_authenticated %}
 <p>OLOLOLOOLO, I see you, {{ user.username }}</p>
 <p><a href="/logout">Logout</a></p>
+<p><a href="/linux_pass">Generate</a> password for SSH access right now!</p>
 {% else %}
 <p><a href="/login">Login</a>, please.</p>
 {% endif %}
