@@ -1,0 +1,19 @@
+<table>
+{% for item, status in status_description %}
+    <tr>
+        <td>{{ item }}</td>
+        <td>{{ status }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+<table>
+    <tr>
+        <td>generated tests</td>
+        <td>{{ tests_count }}</td>
+    </tr>
+    <tr>
+        <td>generated samples</td>
+        <td>{{ samples_count }}</td>
+    </tr>
+</table>
