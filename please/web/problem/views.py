@@ -9,6 +9,7 @@ from problem.forms import (
     SolutionAddForm,
     TestsForm
 )
+import problem
 from problem.models import Problem
 from please.template.problem_template_generator import *
 from problem.synchronization import *
@@ -44,6 +45,7 @@ def create_problem(request):
     return render_to_response('create_problem.html', {
             'form': form
         }, RequestContext(request))
+
 
 def add_problem_files(request, id):
     model = Problem.objects.get(id=id)
@@ -156,14 +158,14 @@ def add_solution(request, id):
 
 
 def tests(request, id):
-    problem = get_object_or_404(Problem.objects,id=id)
-    if request.method=='POST':
+    problem = get_object_or_404(Problem.objects, id=id)
+    if request.method == 'POST':
         form = TestsForm(request.POST)
         if form.is_valid():
-            with open(os.path.join(problem.path,"tests.please"),"w") as tp_file:
+            with open(os.path.join(problem.path, "tests.please"), "w") as tp_file:
                 tp_file.write(form.cleaned_data["tests_please_content"])
     else:
-        with open(os.path.join(problem.path,"tests.please"),"r") as tp_file:
+        with open(os.path.join(problem.path, "tests.please"), "r") as tp_file:
             content = tp_file.read()
         form = TestsForm(initial={"tests_please_content": content})
 
@@ -173,4 +175,4 @@ def tests(request, id):
 
 
 def upload_additional():
-    pass
+    form = problem.forms.AdditonalUpload()
