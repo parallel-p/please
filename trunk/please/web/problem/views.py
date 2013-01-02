@@ -82,6 +82,7 @@ def problems_search_by_tag(request):
 def add_solution(request, id):
     if request.method == 'POST':
         form = SolutionAddForm(request.POST)
+        form.problem = Problem.objects.get(id=id)
         if form.is_valid():
             form.save()
             return redirect('/problems/{}/'.format(id))
