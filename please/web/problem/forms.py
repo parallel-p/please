@@ -15,3 +15,4 @@ class ProblemEditMaterialsForm(forms.Form):
 class SolutionAddForm(forms.ModelForm):
     class Meta:
         model = Solution
+        exclude = ('problem',)
