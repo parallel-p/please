@@ -1,11 +1,19 @@
-﻿# Create your views here.
-from django.shortcuts import render_to_response, redirect
+from django.http import HttpResponse
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from problem.forms import ProblemEditMaterialsForm
 from problem.models import Problem
+from please.todo.todo_generator import TodoGenerator
 import os
 from problem.forms import ProblemSearch
 
+def todo(request, id):
+    problem = get_object_or_404(Problem, id=id)
+    return render_to_response('todo.html', {
+        'status_description': TodoGenerator.get_status_description(problem.path),
+        'tests_count': TodoGenerator.generated_tests_count(problem.path),
+        'samples_count': TodoGenerator.generated_sample_tests_count(problem.path),
+    })
 
 def edit_problem_materials(request, id):
     model = Problem.objects.get(id=id)
@@ -67,3 +75,4 @@ def problems_search(request):
         "problems": Problem.objects.filter(tags__name__in = \
                     form.cleaned_data["tags"].split(" ")).distinct()
     })
+
