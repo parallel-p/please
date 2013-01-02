@@ -82,15 +82,17 @@ def fix_args_user_mistakes(properties):
     if "expected" not in properties and "possible" not in properties:
         properties["expected"] = ["OK"]
 
-def add_solution(path, args = None):
+def add_solution(path, args = None, root_dir='.'):
     if not args:
         args = []
+    if root_dir is not None:
+        path = os.path.join(root_dir, path)
     if not os.path.exists(path):
         raise PleaseException("There is no such file")
-    if not os.getcwd() in os.path.abspath(path):
+    if not os.getcwd() in os.path.abspath(path) and root_dir == '.':
         raise PleaseException("Solution isn't in problem folder!")
     
-    package_config = PackageConfig.get_config()
+    package_config = PackageConfig.get_config(dir=root_dir)
     abspath = os.path.abspath(path)
     
     # No need to check main solution separately since version 0.3
