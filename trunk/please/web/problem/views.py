@@ -1,12 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
-from problem.forms import ProblemEditMaterialsForm
+from problem.forms import ProblemEditMaterialsForm, ProblemSearch
 from problem.models import Problem
 from please.todo.todo_generator import TodoGenerator
 import os
-from problem.forms import ProblemSearch
-from problem.forms import SolutionAdd
+from problem.forms import SolutionAddForm
 
 def todo(request, id):
     problem = get_object_or_404(Problem, id=id)
@@ -65,17 +64,20 @@ def edit_problem_materials(request, id):
         }, RequestContext(request))
 
 
-#TODO:
-#1. Регистронезависимый поиск.
-#2. Сейчас находятся задачи, имеющие хотя бы один тег из набора, а не все.
-def problems_search(request):
+def problems_list(problems):
+    return render_to_response("problems_list.html", {"problems": problems})
+
+def problems_search_by_tag(request):
     form = ProblemSearch(request.GET)
     form.is_valid()
-    return render_to_response("problems_search.html", {
-        "form": form,
-        "problems": Problem.objects.filter(tags__name__contains = \
-                    form.cleaned_data["tags"]).distinct()
-    })
+    if form.cleaned_data["tags"]=="":
+        return render_to_response("problems_search_by_tag.html", {
+            "form": form,
+            "problems": Problem.objects.all()
+        })
+    else:
+        return problems_list(Problem.objects.filter(tags__name__contains = \
+                             form.cleaned_data["tags"]).distinct())
 
 def add_solution(request, id):
     if request.method == 'POST':
