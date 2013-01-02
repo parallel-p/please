@@ -54,7 +54,7 @@ class ViewTest(django.test.TestCase):
         TodoGenerator = Mock()
         TodoGenerator.get_status_description.return_value = STATUS_DESCRIPTION
         TodoGenerator.generated_tests_count.return_value = TESTS_COUNT
-        TodoGenerator.generated_sample_tests_count.return_value = SAMPLES_COUNT
+        TodoGenerator.sample_tests_count.return_value = SAMPLES_COUNT
         
         response = self.client.get('/problem/1/todo/')
         self.assertEqual(response.status_code, 200)
