@@ -11,13 +11,8 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
     model.short_name = conf["shortname"]
 
     model.tags.clear()
-    for entry in conf['tags']:
-        try:
-            ctag = ProblemTag.objects.get(name=entry)
-        except ProblemTag.DoesNotExist:
-            ctag = ProblemTag(name=entry)
-            ctag.save()
-        model.tags.add(ctag)
+    for entry in map(lambda tag: tag.strip(), conf['tags'].split(';')):
+        model.tags.add(ProblemTag.get_or_create(entry))
 
     model.input = conf["input"]
     model.output = conf["output"]
@@ -48,7 +43,7 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
             sol.output = solution.get('output')
             sol.expected_verdicts.clear()
             sol.possible_verdicts.clear()
-        except Solution.DoesNotExist:  # Let us create this solution, then...
+        except Solution.DoesNotExist:
             sol = Solution(
                 path=solution['source'],
                 problem=model,
@@ -71,7 +66,7 @@ def export_from_database(model, name=globalconfig.default_package):
     conf = PackageConfig.get_config(str(model.path), name)
     conf['name'] = str(model.name)
     conf['shortname'] = str(model.short_name)
-    conf['tags'] = ', '.join(map(str, model.tags.all()))
+    conf['tags'] = '; '.join(map(str, model.tags.all()))
     conf['type'] = ''
     conf['input'] = str(model.input)
     conf['output'] = str(model.output)
