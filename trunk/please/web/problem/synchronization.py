@@ -8,26 +8,28 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
 
     model.name = conf["name"]
     model.short_name = conf["shortname"]
-    model.type = ''
+    # Tags!
+    model.tags.clear()
 
     model.input = conf["input"]
     model.output = conf["output"]
     model.time_limit = float(conf["time_limit"])
     model.memory_limit = int(conf["memory_limit"])
 
-    model.checker = conf["checker"]
-    model.validator = conf["validator"]
+    model.checker_path = conf["checker"]
+    model.validator_path = conf["validator"]
     model.main_solution = conf["main_solution"]
 
-    model.statement = conf["statement"]
-    model.description = conf["description"]
+    model.statement_path = conf["statement"]
+    model.description_path = conf["description"]
+    model.analysis_path = conf["analysis"]
 
     model.hand_answer_extension = conf["hand_answer_extension"]
 
-    model.well_done_test = conf["well_done_test"]
-    model.well_done_answer = conf["well_done_answer"]
+    # Well done tests!
 
-    model.analysis = conf["analysis"]
+    # Solutions!
+
 
 
 def export_from_database(model, name=globalconfig.default_package):
