@@ -6,8 +6,6 @@ from problem.models import ProblemTag, WellDone, Solution, Verdict
 def import_to_database(model, path=None, name=globalconfig.default_package):
     conf = PackageConfig.get_config(path or str(model.path), name)
 
-    print(model)
-    print(conf)
     model.name = conf["name"]
     model.short_name = conf["shortname"]
 
