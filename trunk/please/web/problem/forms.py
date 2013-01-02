@@ -27,3 +27,7 @@ class SolutionAddForm(forms.ModelForm):
     class Meta:
         model = Solution
         exclude = ('problem',)
+
+
+class AdditonalUpload(forms.Form):
+    file = forms.FileField(required=True, label='Select file')
