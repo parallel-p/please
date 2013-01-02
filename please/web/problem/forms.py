@@ -1,6 +1,8 @@
 from django import forms
 from problem.models import *
 
+class AddTestsForm(forms.Form):
+    test = forms.FileField(label='Specify a test file (or a zip archive with test files)')
 
 class ProblemEditForm(forms.ModelForm):
     class Meta:

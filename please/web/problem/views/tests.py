@@ -1,9 +1,10 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
-from problem.models import Problem
-from problem.forms import TestsForm
+from problem.models import Problem, Test
+from problem.forms import TestsForm, AddTestsForm
 from problem.helpers import problem_sync
-import os.path
+import os
+from zipfile import ZipFile
 
 
 @problem_sync(read=True, write=False)
@@ -23,3 +24,29 @@ def show(request, id):
         "form": form,
         'problem_id': id,
     }, RequestContext(request))
+
+def upload(request, id):
+    problem = get_object_or_404(Problem.objects, id=id)
+
+    def add_file(num, data):
+        open(os.path.join(str(problem.path), 'tests', num), 'wb').write(data)
+
+    if request.method == 'POST':
+        form = AddTestsForm(request.POST, request.FILES)
+        if form.is_valid():
+            path = os.path.join(str(problem.path), request.FILES['test'].name)
+            open(path, 'wb').write(request.FILES['test'].read())
+            if path.endswith('.zip'):
+                zfile = ZipFile(path)
+                for fname in zfile.namelist():
+                    add_file(fname, zfile.open(fname).read())
+            else:
+                add_file(request.FILES['test'].name, open(path, 'rb').read())
+            os.remove(path)
+            return redirect('/problems/confirmation/')
+    else:
+        form = AddTestsForm()
+    return render_to_response('add_manual_tests.html', {
+            'form': form,
+            'id': id
+        }, RequestContext(request))
