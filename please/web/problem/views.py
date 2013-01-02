@@ -5,13 +5,15 @@ from problem.forms import (
     ProblemSearch,
     ProblemUploadFilesForm,
     ProblemEditForm,
-    SolutionAddForm
+    SolutionAddForm,
+    TestsForm
 )
 from problem.models import Problem
 from please.template.problem_template_generator import *
 from problem.synchronization import *
 from please.todo.todo_generator import TodoGenerator
 import os
+import os.path
 from os import chdir
 
 
@@ -149,6 +151,23 @@ def add_solution(request, id):
         form = SolutionAddForm()
     return render_to_response('add_solution.html', {'form': form},
         context_instance=RequestContext(request))
+
+
+def tests(request, id):
+    problem = get_object_or_404(Problem.objects,id=id)
+    if request.method=='POST':
+        form = TestsForm(request.POST)
+        if form.is_valid():
+            with open(os.path.join(problem.path,"tests.please"),"w") as tp_file:
+                tp_file.write(form.cleaned_data["tests_please_content"])
+    else:
+        with open(os.path.join(problem.path,"tests.please"),"r") as tp_file:
+            content = tp_file.read()
+        form = TestsForm(initial={"tests_please_content": content})
+
+    return render_to_response("tests.html", {
+        "form": form,
+    }, RequestContext(request))
 
 
 def upload_additional():

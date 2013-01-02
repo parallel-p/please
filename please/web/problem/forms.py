@@ -29,5 +29,12 @@ class SolutionAddForm(forms.ModelForm):
         exclude = ('problem',)
 
 
+class TestsForm(forms.Form):
+    tests_please_content = forms.CharField(
+        widget=forms.Textarea(attrs={'cols': 80, 'rows': 20}),
+        required=False
+    )
+
+
 class AdditonalUpload(forms.Form):
     file = forms.FileField(required=True, label='Select file')
