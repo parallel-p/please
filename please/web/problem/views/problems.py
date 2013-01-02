@@ -16,7 +16,7 @@ def create(request):
             generate_problem(form.cleaned_data["name"])
             os.chdir(cur_path)
             model = form.save()
-            model.path += model.name
+            model.path = os.path.join(model.path, model.name)
             export_from_database(model)
             return redirect('/problems/confirmation/')
     else:
