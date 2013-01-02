@@ -128,3 +128,7 @@ def add_solution(request, id):
         form = SolutionAddForm()
     return render_to_response('add_solution.html', {'form': form},
         context_instance=RequestContext(request))
+
+
+def upload_additional():
+    pass

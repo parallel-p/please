@@ -1,0 +1,14 @@
+<!-- This is to show uploaded list -->
+<!--
+{% if files %}
+    <ul>
+    {% for file in files %}
+        <li>{{ document.docfile.name }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+ -->
+<form action="." method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+</form>

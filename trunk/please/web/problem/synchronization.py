@@ -31,7 +31,6 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
     # Solutions!
 
 
-
 def export_from_database(model, name=globalconfig.default_package):
     conf = PackageConfig.get_config(str(model.path), name)
     conf.name = str(model.name)
