@@ -5,14 +5,19 @@ from django.core.exceptions import FieldError
 
 
 def import_to_database(model, path=None, name=globalconfig.default_package):
-    conf = PackageConfig.get_config(path, name)
+    conf = PackageConfig.get_config(path or str(model.path), name)
 
     model.name = conf["name"]
     model.short_name = conf["shortname"]
 
     model.tags.clear()
     for entry in conf['tags']:
-    	model.tags.add(ProblemTag.objects.get(name=entry))
+    	try:
+    	    ctag = ProblemTag.objects.get(name=entry)
+    	except FieldError:
+    		ctag = ProblemTag(name=entry)
+    		ctag.save()
+    	model.tags.add(ctag)
 
     model.input = conf["input"]
     model.output = conf["output"]
@@ -58,9 +63,11 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
     			sol.expected_verdicts.add(Verdict.objects.get(name=verdict))
     		for verdict in solution['possible']:
     			sol.possible_verdicts.add(Verdict.objects.get(name=verdict))
-    		sol.save()
     	if solution['source'] == conf['main_solution']:
     		model.main_solution = sol
+    	sol.save()
+
+    model.save()
 
 
 def export_from_database(model, name=globalconfig.default_package):
@@ -73,8 +80,8 @@ def export_from_database(model, name=globalconfig.default_package):
     conf['output'] = str(model.output)
     conf['time_limit'] = str(model.time_limit)
     conf['memory_limit'] = str(model.memory_limit)
-    conf.['checker'] = str(model.checker_path)
-    conf.['validator'] = str(model.validator_path)
+    conf['checker'] = str(model.checker_path)
+    conf['validator'] = str(model.validator_path)
     if model.main_solution is not None:
         conf['main_solution'] = str(model.main_solution.path)
     conf['statement'] = str(model.statement_path)
