@@ -13,4 +13,5 @@ urlpatterns = patterns('',
     url(r'^problem/(?P<id>\d+)/files/upload/additional$', 'problem.views.add_user_files()'),
     url(r'^problem/(?P<id>\d+)/solutions/add/$', 'problem.views.add_solution'),
     url(r'^problem/confirmation$', TemplateView.as_view(template_name='problem_edit_success.html')),
+    url(r'^problem/create', 'problem.views.create_problem')
 )
