@@ -1,7 +1,7 @@
-<form action="{% url 'problem.views.solutions.add' %}" method="post">{% csrf_token %}
+<form action="{% url "solution-add" id %}" enctype="multipart/form-data" method=POST>{% csrf_token %}
     {% for field in form %}
         <p>{{ field.label_tag }}:<br />
-        {{ field }}</p>
+        {{field}} </p>
     {% endfor %}
 	<input type="submit" value="Submit" />
 </form>
