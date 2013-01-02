@@ -4,11 +4,15 @@ from problem.forms import (
     ProblemEditMaterialsForm,
     ProblemSearch,
     ProblemUploadFilesForm,
+    ProblemEditForm,
     SolutionAddForm
 )
 from problem.models import Problem
+from please.template.problem_template_generator import *
+from problem.synchronization import *
 from please.todo.todo_generator import TodoGenerator
 import os
+from os import chdir
 
 
 def todo(request, id):
@@ -19,6 +23,23 @@ def todo(request, id):
         'samples_count': TodoGenerator.generated_sample_tests_count(problem.path),
     })
 
+def create_problem(request):
+    if request.method == 'POST':
+        form = ProblemEditForm(request.POST)
+        if form.is_valid():
+            cur_path = os.getcwd()
+            chdir(form.cleaned_data["path"])
+            generate_problem(form.cleaned_data["name"])
+            chdir(cur_path)
+            model = form.save()
+            model.path += model.name
+            export_from_database(model)
+            return redirect('/problem/confirmation/')
+    else:
+        form = ProblemEditForm()
+    return render_to_response('create_problem.html', {
+            'form': form
+        }, RequestContext(request))
 
 def add_problem_files(request, id):
     model = Problem.objects.get(id=id)
