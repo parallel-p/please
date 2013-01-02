@@ -11,6 +11,9 @@ class ProblemEditMaterialsForm(forms.Form):
     description = forms.CharField(widget=forms.Textarea, required=False)
     analysis = forms.CharField(widget=forms.Textarea, required=False)
 
+class ProblemUploadFilesForm(forms.Form):
+    checker = forms.FileField(required=False)
+    validator = forms.FileField(required=False)
 
 class SolutionAddForm(forms.ModelForm):
     class Meta:

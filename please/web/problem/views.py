@@ -1,11 +1,16 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
-from problem.forms import ProblemEditMaterialsForm, ProblemSearch
+from problem.forms import (
+    ProblemEditMaterialsForm,
+    ProblemSearch,
+    ProblemUploadFilesForm,
+    SolutionAddForm
+)
 from problem.models import Problem
 from please.todo.todo_generator import TodoGenerator
 import os
-from problem.forms import SolutionAddForm
+
 
 def todo(request, id):
     problem = get_object_or_404(Problem, id=id)
@@ -14,6 +19,25 @@ def todo(request, id):
         'tests_count': TodoGenerator.generated_tests_count(problem.path),
         'samples_count': TodoGenerator.generated_sample_tests_count(problem.path),
     })
+
+def add_problem_files(request, id):
+    model = Problem.objects.get(id=id)
+    checker_abspath = os.path.join(str(model.path), str(model.checker_path))
+    validator_abspath = os.path.join(str(model.path), str(model.validator_path))
+    if request.method == 'POST':
+        form = ProblemUploadFilesForm(request.POST, request.FILES)
+        if form.is_valid() and len(request.FILES) > 0:
+            if 'checker' in request.FILES.keys():
+                open(checker_abspath, 'wb').write(request.FILES['checker'].read())
+            if 'validator' in request.FILES.keys():
+                open(validator_abspath, 'wb').write(request.FILES['validator'].read())
+            return redirect('/problem/confirmation/')
+    else:
+        form = ProblemUploadFilesForm()
+    return render_to_response('add_problem_files.html', {
+            'form': form,
+            'id': id
+        }, RequestContext(request))
 
 def edit_problem_materials(request, id):
     model = Problem.objects.get(id=id)
