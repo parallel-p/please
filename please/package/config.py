@@ -265,7 +265,10 @@ class Config:
         return self.__changed
 
     def get(self, item, default = None):
-        ret = self.__getitem__(item)
+        try:
+            ret = self.__getitem__(item)
+        except PleaseException:
+            return default
         if ret is not None:
             return ret
         else:

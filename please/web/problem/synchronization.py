@@ -3,7 +3,6 @@ from please import globalconfig
 from please.add_source.add_source import add_solution
 from problem.models import ProblemTag, WellDone, Solution, Verdict
 
-
 def import_to_database(model, path=None, name=globalconfig.default_package):
     conf = PackageConfig.get_config(path or str(model.path), name)
 
@@ -95,4 +94,4 @@ def export_from_database(model, name=globalconfig.default_package):
         if solution.expected_verdicts.count() != 0:
             args += (['expected'] +
                     list(map(str, solution.expected_verdicts.all())))
-        add_solution(str(solution.path), args)
+        add_solution(str(solution.path), args, root_dir=model.path)
