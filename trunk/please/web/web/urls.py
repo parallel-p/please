@@ -9,5 +9,6 @@ urlpatterns = patterns('',
     url(r'^problems/', 'problem.views.problems_search'),
     url(r'^problem/(?P<id>\d+)/todo/$', 'problem.views.todo'),
     url(r'^problem/(?P<id>\d+)/materials/edit/$', 'problem.views.edit_problem_materials'),
+    url(r'^problem/(?P<id>\d+)/solutions/add/$', 'problem.views.add_solution'),
     url(r'^problem/confirmation', TemplateView.as_view(template_name='problem_edit_success.html')),
 )
