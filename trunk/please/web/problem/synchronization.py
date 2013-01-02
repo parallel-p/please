@@ -41,7 +41,8 @@ def export_from_database(model, name=globalconfig.default_package):
 	conf.memory_limit = str(model.memory_limit)
 	conf.checker = str(model.checker_path)
 	conf.validator = str(model.validator_path)
-	conf.main_solution = str(model.main_solution.path)
+	if model.main_solution is not None:
+		conf.main_solution = str(model.main_solution.path)
 	conf.statement = str(model.statement_path)
 	conf.description = str(model.description_path)
 	conf.hand_answer_extension = str(model.hand_answer_extension)
