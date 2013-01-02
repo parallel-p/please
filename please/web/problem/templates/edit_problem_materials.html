@@ -1,11 +1,7 @@
-<html>
-<head><title>Edit problem materials</title></head>
-<body>
-	<form action="." method="post">{% csrf_token %}
-        {% for field in form %} 
-            <p>{{ field.label_tag }}:<br />
-            {{ field }}</p>
-        {% endfor %}
-		<input type="submit" value="Submit" />
-	</form>
-</body></html>
+<form action="." method="post">{% csrf_token %}
+    {% for field in form %} 
+        <p>{{ field.label_tag }}:<br />
+        {{ field }}</p>
+    {% endfor %}
+	<input type="submit" value="Submit" />
+</form>
