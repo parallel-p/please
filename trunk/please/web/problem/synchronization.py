@@ -2,6 +2,7 @@ from please.package.package_config import PackageConfig
 from please import globalconfig
 from please.add_source.add_source import add_solution
 from django.core.exceptions import FieldError
+from problem.models import ProblemTag, WellDone, Solution, Verdict
 
 
 def import_to_database(model, path=None, name=globalconfig.default_package):
@@ -12,12 +13,12 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
 
     model.tags.clear()
     for entry in conf['tags']:
-    	try:
-    	    ctag = ProblemTag.objects.get(name=entry)
-    	except FieldError:
-    		ctag = ProblemTag(name=entry)
-    		ctag.save()
-    	model.tags.add(ctag)
+        try:
+            ctag = ProblemTag.objects.get(name=entry)
+        except FieldError:
+            ctag = ProblemTag(name=entry)
+            ctag.save()
+        model.tags.add(ctag)
 
     model.input = conf["input"]
     model.output = conf["output"]
@@ -27,7 +28,7 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
     model.checker_path = conf["checker"]
     model.validator_path = conf["validator"]
 
-    model.statement_path = conf["statement"]s
+    model.statement_path = conf["statement"]
     model.description_path = conf["description"]
     model.analysis_path = conf["analysis"]
 
@@ -35,37 +36,37 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
 
     model.well_done_test.clear()
     for entry in conf['well_done_test'].split(', '):
-    	model.well_done_test.add(WellDone.objects.get(name=entry))
+        model.well_done_test.add(WellDone.objects.get(name=entry))
     
     model.well_done_answer.clear()
     for entry in conf['well_done_answer'].split(', '):
-    	model.well_done_answer.add(WellDone.objects.get(name=entry))
+        model.well_done_answer.add(WellDone.objects.get(name=entry))
 
     for solution in conf["solution"]:
-    	try:
-    		sol = Solution.objects.get(path=solution['source'], problem=model)
-    		sol.input = solution['input']
-    		sol.output = solution['output']
-    		sol.expected_verdicts.clear()
-    		for verdict in solution['expected']:
-    			sol.expected_verdicts.add(Verdict.objects.get(name=verdict))
-    		sol.possible_verdicts.clear()
-    		for verdict in solution['possible']:
-    			sol.possible_verdicts.add(Verdict.objects.get(name=verdict))
-    	except FieldError:  # Let us create this solution, then...
-    		sol = Solution(
-    			path=solution['source'],
-    			problem=model,
-    			input=solution['input'],
-    			output=solution['output']
-    		)
-    		for verdict in solution['expected']:
-    			sol.expected_verdicts.add(Verdict.objects.get(name=verdict))
-    		for verdict in solution['possible']:
-    			sol.possible_verdicts.add(Verdict.objects.get(name=verdict))
-    	if solution['source'] == conf['main_solution']:
-    		model.main_solution = sol
-    	sol.save()
+        try:
+            sol = Solution.objects.get(path=solution['source'], problem=model)
+            sol.input = solution['input']
+            sol.output = solution['output']
+            sol.expected_verdicts.clear()
+            for verdict in solution['expected']:
+                sol.expected_verdicts.add(Verdict.objects.get(name=verdict))
+            sol.possible_verdicts.clear()
+            for verdict in solution['possible']:
+                sol.possible_verdicts.add(Verdict.objects.get(name=verdict))
+        except FieldError:  # Let us create this solution, then...
+            sol = Solution(
+                path=solution['source'],
+                problem=model,
+                input=solution['input'],
+                output=solution['output']
+            )
+            for verdict in solution['expected']:
+                sol.expected_verdicts.add(Verdict.objects.get(name=verdict))
+            for verdict in solution['possible']:
+                sol.possible_verdicts.add(Verdict.objects.get(name=verdict))
+        if solution['source'] == conf['main_solution']:
+            model.main_solution = sol
+        sol.save()
 
     model.save()
 
