@@ -30,30 +30,52 @@ class TodoGenerator:
         return status == "ok"
 
     @staticmethod
-    def get_todo(root_path = '.'):
-        md5values = TodoGenerator.__read_md5_values()
-        config = package_config.PackageConfig.get_config()
-        items = ["statement", "checker", "description", "analysis", "validator", "main_solution"]
-        for item in items:
-            TodoGenerator.__simple_print(
-                    TodoGenerator.__get_file_item_status(config, md5values, item), item)
-        tests_description_path = globalconfig.default_tests_config
-        TodoGenerator.__simple_print(TodoGenerator.__get_simple_item_status(config, "tags"), "tags", " is empty")
-        TodoGenerator.__simple_print(TodoGenerator.__get_simple_item_status(config, "name"), "name", " is empty")
-        TodoGenerator.__simple_print(
-                TodoGenerator.__get_file_item_status(config, md5values,
-                    "tests_description", tests_description_path), "tests description")
-        TodoGenerator.__get_tests_status()
-        
-    @staticmethod
-    def __get_tests_status(tag = None):
-        count = 0
-        for i in utests.get_tests():
-            count += 1
-        TodoGenerator.__counter_print(count, ' tests generated')
-        TodoGenerator.__counter_print(parser.FileTestConfigParser().count_by_tag('sample'),
+    def get_todo(root_path='.'):
+        for item, (internal_status, external_status) in TodoGenerator.__get_internal_status_description():
+            print(painter.__dict__[internal_status]('{} is {}'.format(item, external_status)))
+        TodoGenerator.__counter_print(TodoGenerator.generated_tests_count(root_path), ' tests generated')
+        TodoGenerator.__counter_print(TodoGenerator.generated_sample_tests_count(root_path),
                       ' samples in tests.config', False)
-        
+
+    @staticmethod
+    def generated_tests_count(root_path='.'):
+        return len(list(utests.get_tests(os.path.join(root_path, globalconfig.temp_tests_dir))))
+
+    @staticmethod
+    def generated_sample_tests_count(root_path='.'):
+        return parser.FileTestConfigParser(path=os.path.join(root_path, globalconfig.default_tests_config)).count_by_tag('sample')
+
+    @staticmethod
+    def get_status_description(root_path='.'):
+        return [(item, external) for item, (internal, external) in TodoGenerator.__get_internal_status_description(root_path)]
+
+    @staticmethod
+    def __get_internal_status_description(root_path='.'):
+        FILE_ITEMS = ('statement', 'checker', 'description', 'analysis', 'validator', 'main_solution')
+        SIMPLE_ITEMS = ('tags', 'name')
+        FILE_ITEM_TRANSITION = {
+            'ok': 'ok',
+            'warning': 'default',
+            'error': 'does not exist',
+        }
+        SIMPLE_ITEM_TRANSITION = {
+            'ok': 'ok',
+            'warning': 'empty',
+            'error': 'does not exist',
+        }
+        md5values = TodoGenerator.__read_md5_values(root_path)
+        config = package_config.PackageConfig.get_config(root_path)
+        result = []
+        for item in FILE_ITEMS:
+            status = TodoGenerator.__get_file_item_status(config, md5values, item)
+            result.append((item, (status, FILE_ITEM_TRANSITION[status])))
+        for item in SIMPLE_ITEMS:
+            status = TodoGenerator.__get_simple_item_status(config, item)
+            result.append((item, (status, SIMPLE_ITEM_TRANSITION[status])))
+        tests_description_path = globalconfig.default_tests_config
+        tests_description_status = TodoGenerator.__get_file_item_status(config, md5values, 'tests_description', tests_description_path)
+        result.append(('tests description', (tests_description_status, FILE_ITEM_TRANSITION[tests_description_status])))
+        return result
         
     @staticmethod
     def __counter_print(amount, text, error_when_0=True):
