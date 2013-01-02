@@ -29,25 +29,25 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
                                    
     model.analysis = conf["analysis"]
 
-def import_from_database(model, path=None, name=globalconfig.default_package):
-	conf = PackageConfig.get_config(path, name)
+def export_from_database(model, name=globalconfig.default_package):
+	conf = PackageConfig.get_config(str(model.path), name)
 	conf.name = str(model.name)
 	conf.shortname = str(model.short_name)
-	conf.set('tags', list(map(str, model.tags.all())))
+	conf.tags = ', '.join(map(str, model.tags.all()))
 	conf.type = ''
 	conf.input = str(model.input)
 	conf.output = str(model.output)
 	conf.time_limit = str(model.time_limit)
 	conf.memory_limit = str(model.memory_limit)
-	conf.checker = str(model.checker)
-	conf.validator = str(model.validator)
-	conf.main_solution = str(model.main_solution)
-	conf.statement = str(model.statement)
-	conf.description = str(model.description)
+	conf.checker = str(model.checker_path)
+	conf.validator = str(model.validator_path)
+	conf.main_solution = str(model.main_solution.path)
+	conf.statement = str(model.statement_path)
+	conf.description = str(model.description_path)
 	conf.hand_answer_extension = str(model.hand_answer_extension)
 	conf.well_done_test = str(model.well_done_test)
-	conf.well_done_answer = str(model.well_done_answers)
-	conf.analysis = str(model.analysis)
+	conf.well_done_answer = str(model.well_done_answer)
+	conf.analysis = str(model.analysis_path)
 	conf.write()
 	for solution in model.solution_set.all():
 		args = []
