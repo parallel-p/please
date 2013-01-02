@@ -6,6 +6,7 @@ from problem.models import Problem
 from please.todo.todo_generator import TodoGenerator
 import os
 from problem.forms import ProblemSearch
+from problem.forms import SolutionAdd
 
 def todo(request, id):
     problem = get_object_or_404(Problem, id=id)
@@ -72,7 +73,16 @@ def problems_search(request):
     form.is_valid()
     return render_to_response("problems_search.html", {
         "form": form,
-        "problems": Problem.objects.filter(tags__name__in = \
-                    form.cleaned_data["tags"].split(" ")).distinct()
+        "problems": Problem.objects.filter(tags__name__contains = \
+                    form.cleaned_data["tags"]).distinct()
     })
 
+def add_solution(request, id):
+    if request.method == 'POST':
+        form = SolutionAddForm(request.POST)
+        if form.is_valid():
+            return redirect('/probles/{}/'.format(id))
+    else:
+        form = SolutionAddForm()
+    return render_to_response('add_solution.html', {'form' : form},
+        context_instance=RequestContext(request))
