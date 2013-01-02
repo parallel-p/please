@@ -19,28 +19,33 @@ class Problem(models.Model):
     path = models.CharField(max_length=256)  # TODO: Edit synchronization.py!
 
     name = models.CharField(max_length=64)
-    short_name = models.CharField(max_length=64)
+    short_name = models.CharField(max_length=64, default="")
     tags = models.ManyToManyField(ProblemTag, blank=True)
 
-    input = models.CharField(max_length=64)
-    output = models.CharField(max_length=64)
-    time_limit = models.FloatField()
-    memory_limit = models.IntegerField()
+    input = models.CharField(max_length=64, default="stdin")
+    output = models.CharField(max_length=64, default="stdout")
+    time_limit = models.FloatField(default=1.0)
+    memory_limit = models.IntegerField(default=128*1024*1024)
 
-    checker_path = models.CharField(max_length=256)
-    validator_path = models.CharField(max_length=256)
+    checker_path = models.CharField(max_length=256, default="")
+    validator_path = models.CharField(max_length=256, default="")
     main_solution = models.OneToOneField('Solution', related_name='problem+', blank=True, null=True)
 
-    statement_path = models.CharField(max_length=256)
-    description_path = models.CharField(max_length=256)
-    analysis_path = models.CharField(max_length=256)
+    statement_path = models.CharField(max_length=256, default="")
+    description_path = models.CharField(max_length=256, default="")
+    analysis_path = models.CharField(max_length=256, default="")
 
-    hand_answer_extension = models.CharField(max_length=64)
+    hand_answer_extension = models.CharField(max_length=64, default="")
 
     well_done_test = models.ManyToManyField(WellDone, related_name='well_done_test+', blank=True)
     well_done_answer = models.ManyToManyField(WellDone, related_name='well_done_answer+', blank=True)
 
     def __str__(self):
+        """
+        Human readable representainon.
+        >>> str(Problem(name="abc"))
+        'abc'
+        """
         return str(self.name)
 
 
@@ -48,6 +53,15 @@ class RunErrorDescription(models.Model):
     stdout = models.TextField(blank=True)
     stderr = models.TextField(blank=True)
     exit_code = models.IntegerField()
+
+    def is_ok(self):
+        """
+        >>> RunErrorDescription(exit_code=0).is_ok()
+        True
+        >>> RunErrorDescription(exit_code=1).is_ok()
+        False
+        """
+        return self.exit_code == 0
 
 
 class TestGeneratorError(models.Model):
@@ -69,6 +83,10 @@ class TestGeneratorTag(models.Model):
     value = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
+        """
+        >>> str(TestGeneratorTag(name="abc", value="abcd"))
+        'abc=abcd'
+        """
         return '{}={}'.format(self.name, self.value) if self.value else str(self.name)
 
 
