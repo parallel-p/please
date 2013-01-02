@@ -6,8 +6,6 @@ from problem.models import Problem
 import os
 from problem.forms import ProblemSearch
 
-def problem_edit_confirm(request):
-    return render_to_response('problem_edit_success.html')
 
 def edit_problem_materials(request, id):
     model = Problem.objects.get(id=id)
