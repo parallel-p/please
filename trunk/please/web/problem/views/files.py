@@ -2,9 +2,11 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from problem.models import Problem
 from problem.forms import ProblemUploadFilesForm, AdditonalUpload
+from problem.helpers import problem_sync
 import os.path
 
 
+@problem_sync(read=True, write=False)
 def upload_main(request, id):
     model = Problem.objects.get(id=id)
     if request.method == 'POST':

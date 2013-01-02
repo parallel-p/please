@@ -2,9 +2,11 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from problem.models import Problem
 from problem.forms import TestsForm
+from problem.helpers import problem_sync
 import os.path
 
 
+@problem_sync(read=True, write=False)
 def show(request, id):
     problem = get_object_or_404(Problem.objects, id=id)
     if request.method == 'POST':
