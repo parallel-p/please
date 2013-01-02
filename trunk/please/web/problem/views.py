@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
+from problem.helpers import problem_sync
 from problem.forms import (
     ProblemEditMaterialsForm,
     ProblemSearch,
@@ -17,6 +18,7 @@ import os.path
 from os import chdir
 
 
+@problem_sync(read=False, write=False)
 def todo(request, id):
     problem = get_object_or_404(Problem, id=id)
     return render_to_response('todo.html', {
