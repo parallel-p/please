@@ -15,7 +15,7 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
     for entry in conf['tags']:
         try:
             ctag = ProblemTag.objects.get(name=entry)
-        except FieldError:
+        except ProblemTag.DoesNotExist:
             ctag = ProblemTag(name=entry)
             ctag.save()
         model.tags.add(ctag)
@@ -35,11 +35,11 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
     model.hand_answer_extension = conf["hand_answer_extension"]
 
     model.well_done_test.clear()
-    for entry in conf['well_done_test'].split(', '):
+    for entry in conf['well_done_test']:
         model.well_done_test.add(WellDone.objects.get(name=entry))
     
     model.well_done_answer.clear()
-    for entry in conf['well_done_answer'].split(', '):
+    for entry in conf['well_done_answer']:
         model.well_done_answer.add(WellDone.objects.get(name=entry))
 
     for solution in conf["solution"]:
