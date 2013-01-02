@@ -10,10 +10,13 @@ class User:
 
 
 def rel_posix_path(destination, dirpath, filename):
-    # change directory separator to posix '/'
-    # else in Windows git incorrectly adds files
+    '''
+    Replace directory separator to posix '/'
+    (else in Windows git incorrectly adds files)
+    and make path from the root of git repository.
+    '''
     return '/'.join(
-        os.path.relpath(  # path from the root of git repo
+        os.path.relpath(
            os.path.join(dirpath, filename), destination
         ).split(os.sep)
     )
