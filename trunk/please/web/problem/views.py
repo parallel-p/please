@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from problem.forms import (
@@ -19,6 +18,7 @@ def todo(request, id):
         'tests_count': TodoGenerator.generated_tests_count(problem.path),
         'samples_count': TodoGenerator.generated_sample_tests_count(problem.path),
     })
+
 
 def add_problem_files(request, id):
     model = Problem.objects.get(id=id)
@@ -51,12 +51,13 @@ def add_problem_files(request, id):
             'id': id
         }, RequestContext(request))
 
+
 def edit_problem_materials(request, id):
     model = Problem.objects.get(id=id)
     statement_abspath = os.path.join(str(model.path), str(model.statement_path))
     description_abspath = os.path.join(str(model.path), str(model.description_path))
     analysis_abspath = os.path.join(str(model.path), str(model.analysis_path))
-    
+
     def load_files():
         exc_str = "Could not create {} file (wrong file path field?)"
         if not os.path.exists(statement_abspath):
@@ -76,7 +77,7 @@ def edit_problem_materials(request, id):
                 raise Exception(exc_str.format('analysis'))
         return (
             open(statement_abspath, 'r').read(),
-            open(analysis_abspath, 'r').read(), 
+            open(analysis_abspath, 'r').read(),
             open(description_abspath, 'r').read()
         )
 
@@ -103,17 +104,18 @@ def edit_problem_materials(request, id):
 def problems_list(problems):
     return render_to_response("problems_list.html", {"problems": problems})
 
+
 def problems_search_by_tag(request):
     form = ProblemSearch(request.GET)
     form.is_valid()
-    if form.cleaned_data["tags"]=="":
+    if form.cleaned_data["tags"] == "":
         return render_to_response("problems_search_by_tag.html", {
             "form": form,
             "problems": Problem.objects.all()
         })
     else:
-        return problems_list(Problem.objects.filter(tags__name__contains = \
-                             form.cleaned_data["tags"]).distinct())
+        return problems_list(Problem.objects.filter(tags__name__contains=form.cleaned_data["tags"]).distinct())
+
 
 def add_solution(request, id):
     if request.method == 'POST':
@@ -124,5 +126,5 @@ def add_solution(request, id):
             return redirect('/problems/{}/'.format(id))
     else:
         form = SolutionAddForm()
-    return render_to_response('add_solution.html', {'form' : form},
+    return render_to_response('add_solution.html', {'form': form},
         context_instance=RequestContext(request))

@@ -16,7 +16,7 @@ class WellDone(models.Model):
 
 
 class Problem(models.Model):
-    path = models.CharField(max_length=256) # TODO: Edit synchronization.py!
+    path = models.CharField(max_length=256)  # TODO: Edit synchronization.py!
 
     name = models.CharField(max_length=64)
     short_name = models.CharField(max_length=64)

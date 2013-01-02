@@ -1,8 +1,10 @@
 import unittest
 from synchronization import *
 
+
 class Model:
     pass
+
 
 class SynchronizationTest(unittest.TestCase):
     def test_import_to_database(self):
@@ -31,7 +33,7 @@ class SynchronizationTest(unittest.TestCase):
         print("Checker: ", model.checker)
         self.assertLess(len(model.validator), 256)
         print("Validator: ", model.validator)
-        print()                      
+        print()
 
         self.assertLess(len(model.statement), 256)
         print("Statement: ", model.statement)
@@ -52,9 +54,9 @@ class SynchronizationTest(unittest.TestCase):
         self.assertLessEqual(len(model.analysis), 256)
         print("Analysis: ", model.analysis)
         print()
-    
+
     def test_import_from_database(self):
         pass
-            
+
 if __name__ == "__main__":
     unittest.main()
