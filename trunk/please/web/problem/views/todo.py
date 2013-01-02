@@ -10,5 +10,5 @@ def show(request, id):
     return render_to_response('todo.html', {
         'status_description': TodoGenerator.get_status_description(problem.path),
         'tests_count': TodoGenerator.generated_tests_count(problem.path),
-        'samples_count': TodoGenerator.generated_sample_tests_count(problem.path),
+        'samples_count': TodoGenerator.sample_tests_count(problem.path),
     })

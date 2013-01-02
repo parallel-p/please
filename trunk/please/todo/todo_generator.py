@@ -34,7 +34,7 @@ class TodoGenerator:
         for item, (internal_status, external_status) in TodoGenerator.__get_internal_status_description():
             print(painter.__dict__[internal_status]('{} is {}'.format(item, external_status)))
         TodoGenerator.__counter_print(TodoGenerator.generated_tests_count(root_path), ' tests generated')
-        TodoGenerator.__counter_print(TodoGenerator.generated_sample_tests_count(root_path),
+        TodoGenerator.__counter_print(TodoGenerator.sample_tests_count(root_path),
                       ' samples in tests.config', False)
 
     @staticmethod
@@ -42,7 +42,7 @@ class TodoGenerator:
         return len(list(utests.get_tests(os.path.join(root_path, globalconfig.temp_tests_dir))))
 
     @staticmethod
-    def generated_sample_tests_count(root_path='.'):
+    def sample_tests_count(root_path='.'):
         return parser.FileTestConfigParser(path=os.path.join(root_path, globalconfig.default_tests_config)).count_by_tag('sample')
 
     @staticmethod
