@@ -14,6 +14,14 @@ class WellDone(models.Model):
     def __str__(self):
         return str(self.name)
 
+    def get_or_create(name):
+        try:
+            return WellDone.objects.get(name=name)
+        except WellDone.DoesNotExist:
+            well_done = WellDone(name=name)
+            well_done.save()
+            return well_done
+
 
 class Problem(models.Model):
     path = models.CharField(max_length=256)
@@ -114,6 +122,14 @@ class Verdict(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+    def get_or_create(name):
+        try:
+            return Verdict.objects.get(name=name)
+        except Verdict.DoesNotExist:
+            verdict = Verdict(name=name)
+            verdict.save()
+            return verdict
 
 
 class Solution(models.Model):
