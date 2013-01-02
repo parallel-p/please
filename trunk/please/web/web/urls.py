@@ -15,4 +15,5 @@ urlpatterns = patterns('',
     url(r'^problems/confirmation/$', TemplateView.as_view(template_name='problem_edit_success.html')),
     url(r'^problems/create/$', 'problem.views.problems.create'),
     url(r'^problems/$', 'problem.views.problems.search_by_tag'),
+    url(r'^$', 'problem.views.problems.search_by_tag'),   
 )
