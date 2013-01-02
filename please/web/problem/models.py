@@ -7,6 +7,14 @@ class ProblemTag(models.Model):
     def __str__(self):
         return str(self.name)
 
+    def get_or_create(name):
+        try:
+            return ProblemTag.objects.get(name=name)
+        except ProblemTag.DoesNotExist:
+            tag = ProblemTag(name=name)
+            tag.save()
+            return tag
+
 
 class WellDone(models.Model):
     name = models.CharField(max_length=64)
@@ -26,8 +34,8 @@ class WellDone(models.Model):
 class Problem(models.Model):
     path = models.CharField(max_length=256)
 
-    name = models.CharField(max_length=64)
-    short_name = models.CharField(max_length=64, default="")
+    name = models.CharField(max_length=64, blank=True)
+    short_name = models.CharField(max_length=64)
     tags = models.ManyToManyField(ProblemTag, blank=True)
 
     input = models.CharField(max_length=64, default="stdin")
@@ -51,10 +59,10 @@ class Problem(models.Model):
     def __str__(self):
         """
         Human readable representainon.
-        >>> str(Problem(name="abc"))
+        >>> str(Problem(short_name="abc"))
         'abc'
         """
-        return str(self.name)
+        return str(self.short_name)
 
 
 class RunErrorDescription(models.Model):
