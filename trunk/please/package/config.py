@@ -213,7 +213,7 @@ class Config:
             else:
                 if not isinstance(self.__settings.get(item), str):
                     return self.__settings.get(item)
-                path = self.__convert_separators(self.__settings.get(item))       
+                path = self.__convert_separators(self.__settings.get(item))
                 full_path = os.path.join(os.path.split(self.__file)[0], path)
                 #if not os.path.exists(full_path) or not os.path.isfile(full_path):
                 #    raise PleaseException("There is no file '{1}' (item '{0}' in config {2})".format(item, full_path, self.__file))
