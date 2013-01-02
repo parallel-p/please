@@ -4,7 +4,7 @@ from please.todo.todo_generator import TodoGenerator
 from problem.models import Problem
 
 
-@problem_sync(read=False, write=False)
+@problem_sync(read=True, write=False)
 def show(request, id):
     problem = get_object_or_404(Problem, id=id)
     return render_to_response('todo.html', {

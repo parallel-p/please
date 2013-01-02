@@ -1,7 +1,6 @@
 from please.package.package_config import PackageConfig
 from please import globalconfig
 from please.add_source.add_source import add_solution
-from django.core.exceptions import DoesNotExist
 from problem.models import ProblemTag, WellDone, Solution, Verdict
 
 
@@ -15,7 +14,7 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
     for entry in conf['tags']:
         try:
             ctag = ProblemTag.objects.get(name=entry)
-        except DoesNotExist:
+        except ProblemTag.DoesNotExist:
             ctag = ProblemTag(name=entry)
             ctag.save()
         model.tags.add(ctag)
@@ -36,34 +35,31 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
 
     model.well_done_test.clear()
     for entry in conf['well_done_test']:
-        model.well_done_test.add(WellDone.objects.get(name=entry))
+        model.well_done_test.add(WellDone.get_or_create(entry))
     
     model.well_done_answer.clear()
     for entry in conf['well_done_answer']:
-        model.well_done_answer.add(WellDone.objects.get(name=entry))
+        model.well_done_answer.add(WellDone.get_or_create(entry))
 
     for solution in conf["solution"]:
         try:
             sol = Solution.objects.get(path=solution['source'], problem=model)
-            sol.input = solution['input']
-            sol.output = solution['output']
+            sol.input = solution.get('input')
+            sol.output = solution.get('output')
             sol.expected_verdicts.clear()
-            for verdict in solution['expected']:
-                sol.expected_verdicts.add(Verdict.objects.get(name=verdict))
             sol.possible_verdicts.clear()
-            for verdict in solution['possible']:
-                sol.possible_verdicts.add(Verdict.objects.get(name=verdict))
-        except DoesNotExist:  # Let us create this solution, then...
+        except Solution.DoesNotExist:  # Let us create this solution, then...
             sol = Solution(
                 path=solution['source'],
                 problem=model,
-                input=solution['input'],
-                output=solution['output']
+                input=solution.get('input'),
+                output=solution.get('output'),
             )
-            for verdict in solution['expected']:
-                sol.expected_verdicts.add(Verdict.objects.get(name=verdict))
-            for verdict in solution['possible']:
-                sol.possible_verdicts.add(Verdict.objects.get(name=verdict))
+            sol.save()
+        for verdict in solution['expected']:
+            sol.expected_verdicts.add(Verdict.get_or_create(verdict))
+        for verdict in solution.get('possible'):
+            sol.possible_verdicts.add(Verdict.get_or_create(verdict))
         if solution['source'] == conf['main_solution']:
             model.main_solution = sol
         sol.save()
