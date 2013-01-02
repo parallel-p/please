@@ -1,7 +1,7 @@
 from please.package.package_config import PackageConfig
 from please import globalconfig
 from please.add_source.add_source import add_solution
-from django.core.exceptions import FieldError
+from django.core.exceptions import DoesNotExist
 from problem.models import ProblemTag, WellDone, Solution, Verdict
 
 
@@ -15,7 +15,7 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
     for entry in conf['tags']:
         try:
             ctag = ProblemTag.objects.get(name=entry)
-        except ProblemTag.DoesNotExist:
+        except DoesNotExist:
             ctag = ProblemTag(name=entry)
             ctag.save()
         model.tags.add(ctag)
@@ -53,7 +53,7 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
             sol.possible_verdicts.clear()
             for verdict in solution['possible']:
                 sol.possible_verdicts.add(Verdict.objects.get(name=verdict))
-        except FieldError:  # Let us create this solution, then...
+        except DoesNotExist:  # Let us create this solution, then...
             sol = Solution(
                 path=solution['source'],
                 problem=model,
