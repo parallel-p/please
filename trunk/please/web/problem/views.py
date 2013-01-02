@@ -81,7 +81,8 @@ def add_solution(request, id):
     if request.method == 'POST':
         form = SolutionAddForm(request.POST)
         if form.is_valid():
-            return redirect('/probles/{}/'.format(id))
+            form.save()
+            return redirect('/problems/{}/'.format(id))
     else:
         form = SolutionAddForm()
     return render_to_response('add_solution.html', {'form' : form},
