@@ -1,0 +1,28 @@
+please_version = 0.3
+name = cubes
+shortname = 
+tags = 
+type = 
+
+input = stdin
+output = stdout
+time_limit = 1.0
+memory_limit = 134217728
+
+checker = 
+validator = 
+main_solution = solutions/solution.cpp
+
+statement = 
+description = 
+
+hand_answer_extension = 
+
+well_done_test = <django.db.models.fields.related.create_many_related_manager.<locals>.ManyRelatedManager object at 0x7f3ecc0d11d0>
+well_done_answer = <django.db.models.fields.related.create_many_related_manager.<locals>.ManyRelatedManager object at 0x7f3ecc0d1910>
+
+solution = {
+    source = solutions/solution.cpp
+    expected = OK
+}
+analysis = 
