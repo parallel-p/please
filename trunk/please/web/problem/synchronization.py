@@ -70,8 +70,8 @@ def export_from_database(model, name=globalconfig.default_package):
     conf['statement'] = str(model.statement_path)
     conf['description'] = str(model.description_path)
     conf['hand_answer_extension'] = str(model.hand_answer_extension)
-    conf['well_done_test'] = map(lambda well_done: well_done.name, model.well_done_test.all())
-    conf['well_done_answer'] = map(lambda well_done: well_done.name, model.well_done_answer.all())
+    conf['well_done_test'] = list(map(lambda well_done: well_done.name, model.well_done_test.all()))
+    conf['well_done_answer'] = list(map(lambda well_done: well_done.name, model.well_done_answer.all()))
     conf['analysis'] = str(model.analysis_path)
     conf.write()
     for solution in model.solution_set.all():
