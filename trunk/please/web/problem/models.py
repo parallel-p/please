@@ -25,7 +25,7 @@ class Problem(models.Model):
     input = models.CharField(max_length=64, default="stdin")
     output = models.CharField(max_length=64, default="stdout")
     time_limit = models.FloatField(default=1.0)
-    memory_limit = models.IntegerField(default=128*1024*1024)
+    memory_limit = models.IntegerField(default=128 * 1024 * 1024)
 
     checker_path = models.CharField(max_length=256, default="")
     validator_path = models.CharField(max_length=256, default="")

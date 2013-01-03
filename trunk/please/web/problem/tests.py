@@ -55,11 +55,10 @@ class ViewTest(django.test.TestCase):
         TodoGenerator.get_status_description.return_value = STATUS_DESCRIPTION
         TodoGenerator.generated_tests_count.return_value = TESTS_COUNT
         TodoGenerator.sample_tests_count.return_value = SAMPLES_COUNT
-        
+
         response = self.client.get('/problem/1/todo/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['status_description'], STATUS_DESCRIPTION)
         self.assertEqual(response.context['tests_count'], TESTS_COUNT)
         self.assertEqual(response.context['samples_count'], SAMPLES_COUNT)
         self.assertTemplateUsed(response, 'todo.html')
-

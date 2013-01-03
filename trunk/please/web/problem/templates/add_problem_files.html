@@ -1,5 +1,5 @@
 <form action="{% url "file_upload" id=id %}" enctype="multipart/form-data" method='POST'>{% csrf_token %}
-    <p>Checker (current path: {{ model.checker_path }}): {{ form.checker }}</p>
-    <p>Validator (current path: {{ model.validator_path }}): {{ form.checker }}</p>
+    <p>Checker (current path: {{ problem.checker_path }}): {{ form.checker }}</p>
+    <p>Validator (current path: {{ problem.validator_path }}): {{ form.checker }}</p>
     <input type="submit" value="Submit" />
 </form>

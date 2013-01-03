@@ -6,39 +6,46 @@ from problem.helpers import problem_sync
 import os.path
 
 
+def copy_to_problem(problem, path, data):
+    with open(os.path.join(str(problem.path), str(path)), 'wb') as file:
+        file.write(data.read())
+
+
 @problem_sync(read=True, write=False)
 def upload_main(request, id):
-    model = Problem.objects.get(id=id)
-    print(model.checker_path)
+    problem = Problem.objects.get(id=id)
     if request.method == 'POST':
         form = ProblemUploadFilesForm(request.POST, request.FILES)
         if form.is_valid() and len(request.FILES) > 0:
             if 'checker' in request.FILES.keys():
-                checker_fpath, checker_fname = os.path.split(str(model.checker_path))
-                print(checker_fpath, checker_fname)
-                checker_fname = request.FILES['checker'].name
-                model.checker_path = os.path.join(checker_fpath, checker_fname)
-                open(os.path.join(
-                        str(model.path),
-                        str(model.checker_path)
-                    ), 'wb').write(request.FILES['checker'].read())
+                copy_to_problem(problem, os.path.join(problem.checker_path, str(request.FILES['checker'].name)), request.FILES['checker'])
             if 'validator' in request.FILES.keys():
-                validator_fpath, validator_fname = os.path.split(str(model.validator_path))
-                validator_fname = request.FILES['validator'].name
-                model.validator_path = os.path.join(validator_fpath, validator_fname)
-                open(os.path.join(
-                        str(model.path),
-                        str(model.validator_path)
-                    ), 'wb').write(request.FILES['validator'].read())
-            model.save()
+                copy_to_problem(problem, os.path.join(problem.validator_path, str(request.FILES['validator'].name)), request.FILES['validator'])
+            problem.save()
             return redirect('/problems/confirmation/')
     else:
         form = ProblemUploadFilesForm()
-    return render_to_response('add_problem_files.html', {
-            'form': form,
-            'model': model,
-            'id': id
-        }, RequestContext(request))
+    return render_to_response('add_problem_files.html', {'form': form,
+                                                         'problem': problem,
+                                                         'id': id},
+                              RequestContext(request))
 
-def upload_additional():
-    form = problem.forms.AdditonalUpload()
+
+def upload_additional(request, id):
+    problem = Problem.objects.get(id=id)
+    if request.method == 'POST':
+        form = AdditonalUpload(request.POST, request.FILES)
+        if form.is_valid():
+            copy_to_problem(problem, request.FILES['uploaded'].name, request.FILES['uploaded'])
+            problem.save()
+            return redirect(request.path)
+    else:
+        form = AdditonalUpload()
+
+    uploaded_files = [i for i in os.listdir(problem.path) if i[0] != '.']
+
+    return render_to_response('upload_additional.html',
+                              {'uploaded_files': uploaded_files,
+                               'additional_upload_form': form,
+                               'problem_id': problem.id},
+                              context_instance=RequestContext(request))
