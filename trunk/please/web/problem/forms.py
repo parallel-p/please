@@ -2,6 +2,10 @@ from django import forms
 from problem.models import *
 
 
+class AddProblemForm(forms.Form):
+    path = forms.CharField(max_length=255, required=True)
+
+
 class AddTestsForm(forms.Form):
     test = forms.FileField(label='Specify a test file (or a zip archive with test files)')
 
