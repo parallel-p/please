@@ -43,7 +43,7 @@ def edit(request, id):
             if not vals[2][1]:
                 file_write(form.cleaned_data["analysis"], analysis_abspath)
             # Here we have to do "git commit".
-            return redirect('/problems/confirmation/')
+            return redirect('/problems/{}/materials/statement/generate/'.format(id))
     else:
         form = ProblemEditMaterialsForm(initial={
             'statement': vals[0][0],
