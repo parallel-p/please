@@ -26,9 +26,6 @@ def show(request, id):
     }, RequestContext(request))
 
 
-def upload_add_file(num, data):
-    open(os.path.join(str(problem.path), 'tests', num), 'wb').write(data)
-
 def upload(request, id):
     problem = get_object_or_404(Problem.objects, id=id)
     if request.method == 'POST':

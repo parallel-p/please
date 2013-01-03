@@ -1,8 +1,10 @@
 from django import forms
 from problem.models import *
 
+
 class AddTestsForm(forms.Form):
     test = forms.FileField(label='Specify a test file (or a zip archive with test files)')
+
 
 class ProblemEditForm(forms.ModelForm):
     class Meta:
@@ -31,7 +33,7 @@ class SolutionAddForm(forms.Form):
     output_file = forms.FileField(required=True)
     expected_verdicts = forms.MultipleChoiceField(choices=[(verdict, verdict.name) for verdict in Verdict.objects.all()])
     possible_verdicts = forms.MultipleChoiceField(choices=[(verdict, verdict.name) for verdict in Verdict.objects.all()])
-    
+
 
 class TestsForm(forms.Form):
     tests_please_content = forms.CharField(
@@ -41,4 +43,4 @@ class TestsForm(forms.Form):
 
 
 class AdditonalUpload(forms.Form):
-    file = forms.FileField(required=True, label='Select file')
+    uploaded = forms.FileField(required=True, label='Select file')

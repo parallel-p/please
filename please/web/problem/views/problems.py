@@ -25,8 +25,10 @@ def create(request):
             'form': form
         }, RequestContext(request))
 
+
 def problems_list(problems):
     return render_to_response("problems_list.html", {"problems": problems})
+
 
 def search_by_tag(request):
     form = ProblemSearch(request.GET)
