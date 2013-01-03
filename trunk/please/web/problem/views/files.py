@@ -1,9 +1,13 @@
+import os.path
+
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
+
 from problem.models import Problem
 from problem.forms import ProblemUploadFilesForm, AdditonalUpload
 from problem.helpers import problem_sync
-import os.path
+
+from . import file_utils
 
 
 def copy_to_problem(problem, path, data):
@@ -31,21 +35,23 @@ def upload_main(request, id):
                               RequestContext(request))
 
 
-def upload_additional(request, id):
+def process_additional_upload(request, id):
     problem = Problem.objects.get(id=id)
     if request.method == 'POST':
         form = AdditonalUpload(request.POST, request.FILES)
         if form.is_valid():
             copy_to_problem(problem, request.FILES['uploaded'].name, request.FILES['uploaded'])
             problem.save()
-            return redirect(request.path)
+            form = AdditonalUpload()
     else:
         form = AdditonalUpload()
 
-    uploaded_files = [i for i in os.listdir(problem.path) if i[0] != '.']
+    return {'files': list(file_utils.list_files_flat(problem.path)),
+            'form': form,
+            'id': id}
 
+
+def upload_additional_view(request, id):
     return render_to_response('upload_additional.html',
-                              {'uploaded_files': uploaded_files,
-                               'additional_upload_form': form,
-                               'problem_id': problem.id},
+                              {'additional_upload': process_additional_upload(request, id)},
                               context_instance=RequestContext(request))
