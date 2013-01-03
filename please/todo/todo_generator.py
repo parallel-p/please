@@ -67,13 +67,13 @@ class TodoGenerator:
         config = package_config.PackageConfig.get_config(root_path)
         result = []
         for item in FILE_ITEMS:
-            status = TodoGenerator.__get_file_item_status(config, md5values, item)
+            status = TodoGenerator.__get_file_item_status(config, md5values, item, root_path=root_path)
             result.append((item, (status, FILE_ITEM_TRANSITION[status])))
         for item in SIMPLE_ITEMS:
             status = TodoGenerator.__get_simple_item_status(config, item)
             result.append((item, (status, SIMPLE_ITEM_TRANSITION[status])))
         tests_description_path = globalconfig.default_tests_config
-        tests_description_status = TodoGenerator.__get_file_item_status(config, md5values, 'tests_description', tests_description_path)
+        tests_description_status = TodoGenerator.__get_file_item_status(config, md5values, 'tests_description', tests_description_path, root_path=root_path)
         result.append(('tests description', (tests_description_status, FILE_ITEM_TRANSITION[tests_description_status])))
         return result
         
@@ -106,7 +106,7 @@ class TodoGenerator:
             print(painter.error(text + err_msg))
             
     @staticmethod
-    def __get_file_item_status(config, md5values, item=None, path=None):
+    def __get_file_item_status(config, md5values, item=None, path=None, root_path='.'):
         """
         Description:
         this function returns one of three item statuses (types):
@@ -117,10 +117,10 @@ class TodoGenerator:
         and this file is not default(it's content was modified after creation problem)
         """
         if (path != None):
-            item_path = path
+            item_path = os.path.join(root_path, path)
         else:
             if (item in config):
-                item_path = config.get(item, '')
+                item_path = os.path.join(root_path, config.get(item, ''))
             else:
                 return "error"
         if (os.path.exists(item_path)):
