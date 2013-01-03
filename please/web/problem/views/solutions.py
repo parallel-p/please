@@ -6,25 +6,26 @@ from problem.forms import SolutionAddForm
 import os.path
 from problem.helpers import problem_sync
 
+
+def add_save_file(file, directory):
+    if not os.path.isdir(directory):
+        os.makedirs(directory)
+    fullname = os.path.join(directory, file.name)
+    stream = open(fullname, mode='wb')
+    stream.write(file.read())
+    stream.close()
+    return fullname
+
 @problem_sync(read=True, write=False)
 def add(request, id):
-    def save_file(file, directory):
-        if not os.path.isdir(directory):
-            os.makedirs(directory)
-        fullname = os.path.join(directory, file.name)
-        stream = open(fullname, mode='wb')
-        stream.write(file.read())
-        stream.close()
-        return fullname
-    
     if request.method == 'POST':
         form = SolutionAddForm(request.POST, request.FILES)
         if form.is_valid():
             solution = Solution(problem=Problem.objects.get(id=id))
             dir = str(solution.problem.path)
-            solution.path = save_file(request.FILES['solution_file'], dir)
-            solution.input = save_file(request.FILES['input_file'], dir)
-            solution.output = save_file(request.FILES['output_file'], dir)
+            solution.path = add_save_file(request.FILES['solution_file'], dir)
+            solution.input = add_save_file(request.FILES['input_file'], dir)
+            solution.output = add_save_file(request.FILES['output_file'], dir)
             solution.save()
             for choice in filter(lambda t: t[0] in form.cleaned_data['expected_verdicts'], form.fields['expected_verdicts'].choices):
                 solution.expected_verdicts.add(choice.id)
