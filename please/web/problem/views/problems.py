@@ -1,23 +1,36 @@
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from problem.models import Problem
-from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm
-from problem.synchronization import import_to_database, export_from_database
+from problem.forms import ProblemEditForm, ProblemSearch
+from problem.synchronization import export_from_database, import_to_database
 from please.template.problem_template_generator import generate_problem
 import os
 
 
 def create(request):
+    model = Problem()
+    model.save()
+    
+    import_to_database(model, "../templates/Template/")
     if request.method == 'POST':
         form = ProblemEditForm(request.POST)
         if form.is_valid():
             cur_path = os.getcwd()
             os.chdir(form.cleaned_data["path"])
-            generate_problem(form.cleaned_data["name"])
+            generate_problem(form.cleaned_data["short_name"])
             os.chdir(cur_path)
-            model = form.save()
-            model.path = os.path.join(model.path, model.name)
+                        
+            model.checker_path = 'checker.cpp'
+            model.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
+            model.name = form.cleaned_data["short_name"]
+            model.short_name = form.cleaned_data["short_name"]
+            model.input = form.cleaned_data["input"]
+            model.output = form.cleaned_data["output"]
+            model.time_limit = float(form.cleaned_data["time_limit"])
+            model.memory_limit = int(form.cleaned_data["memory_limit"])
+            model.save()
             export_from_database(model)
+            
             return redirect('/problems/confirmation/')
     else:
         form = ProblemEditForm()
