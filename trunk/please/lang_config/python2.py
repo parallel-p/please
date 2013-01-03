@@ -1,6 +1,5 @@
 from .base import BaseConfig
 from .utils import is_windows
-import winreg
 import sys
 import itertools
 import logging
