@@ -1,8 +1,12 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
+from django.core.servers.basehttp import FileWrapper
+from django.http import HttpResponse
 from problem.forms import ProblemEditMaterialsForm
 from problem.models import Problem
 from problem.helpers import problem_sync
+from please.latex.latex_tools import generate_problem
+from please import globalconfig
 import os
 
 
@@ -53,4 +57,25 @@ def edit(request, id):
     return render_to_response('edit_problem_materials.html', {
             'form': form,
             'problem_id': id,
+        }, RequestContext(request))
+
+def gen_statement(request, id):
+    problem = get_object_or_404(Problem.objects, id=id)
+    file_exists = os.path.isfile(
+        os.path.join(problem.path, problem.statement_path)
+    )
+    if request.method == 'POST':
+        cwd = os.getcwd()
+        os.chdir(str(problem.path))
+        pdf_path = os.path.abspath(os.path.join(
+            globalconfig.statements_dir,
+            os.path.basename(generate_problem())
+        ))
+        os.chdir(cwd)
+        response = HttpResponse(FileWrapper(open(pdf_path, 'rb')), content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="{}"'.format(os.path.basename(pdf_path))
+        return response
+    return render_to_response('generate_statement.html', {
+            'id': id,
+            'file_exists': file_exists
         }, RequestContext(request))

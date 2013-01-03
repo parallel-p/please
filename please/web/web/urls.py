@@ -17,5 +17,6 @@ urlpatterns = patterns('',
     url(r'^problems/create/$', 'problem.views.problems.create'),
     url(r'^problems/$', 'problem.views.problems.search_by_tag', name="problem-list"),
     url(r'^problems/(?P<id>\d+)/tests/manual/upload/$', 'problem.views.tests.upload', name='upload_tests'),
+    url(r'^problems/(?P<id>\d+)/materials/statement/generate/$', 'problem.views.materials.gen_statement', name="gen_statement"),
     url(r'^$', 'problem.views.problems.search_by_tag'),
 )
