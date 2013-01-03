@@ -11,7 +11,6 @@ import os
 
 
 def edit_load_files(*args):
-    print(args)
     exc_str = "Could not create {} file (wrong file path field?)"
     fnames = ('statement', 'description', 'analysis')
     result = [['', False] for i in args]
@@ -45,7 +44,6 @@ def edit(request, id):
             # Here we have to do "git commit".
             return redirect('/problems/confirmation/')
     else:
-        print(vals)
         form = ProblemEditMaterialsForm(initial={
             'statement': vals[0][0],
             'description': vals[1][0],

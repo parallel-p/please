@@ -32,7 +32,6 @@ def add(request, id):
                 solution.expected_verdicts.add(choice.id)
             for choice in filter(lambda t: t[0] in form.cleaned_data['possible_verdicts'], form.fields['possible_verdicts'].choices):
                 solution.possible_verdicts.add(choice.id)
-            print(solution.possible_verdicts.__dict__)
             solution.save()
             return redirect(reverse('problem.views.problems.search_by_tag'))
             #TODO: change to reverse() here
