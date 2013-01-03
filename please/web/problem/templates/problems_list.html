@@ -12,6 +12,7 @@
         <th>Materials</th>
         <th>Tests</th>
         <th>Todo</th>
+        <th>Files</th>
     <tr>
     {% for problem in problems %}
         <tr>
@@ -29,6 +30,9 @@
             </td>
             <td>
                 <a href="{% url 'problem.views.todo.show' id=problem.id %}">Show</a>
+            </td>
+            <td>
+                <a href="{% url 'file_upload' id=problem.id %}">Upload</a>
             </td>
         </tr>
     {% endfor %}
