@@ -58,6 +58,7 @@ def edit(request, id):
             'problem_id': id,
         }, RequestContext(request))
 
+
 def gen_statement(request, id):
     problem = get_object_or_404(Problem.objects, id=id)
     file_exists = os.path.isfile(

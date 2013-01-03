@@ -18,7 +18,9 @@ def list_files_flat(startpath):
     with ChangeDir(startpath):
         for root, dirs, files in os.walk('.'):
             for file in files:
-                yield os.path.join(root, file)[2:]
+                path = os.path.join(root, file)[2:]
+                if path[0] != '.':
+                    yield path
 
 
 def file_save(temp_file, path):
