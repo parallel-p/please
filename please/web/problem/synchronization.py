@@ -10,7 +10,7 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
     model.short_name = conf.get("shortname", "")
 
     model.tags.clear()
-    for entry in conf.get('tags', '').split(';'):
+    for entry in conf.get('tags', '').strip().split(';'):
         model.tags.add(ProblemTag.objects.get_or_create(name=entry.strip())[0])
 
     model.input = conf.get("input", "")
