@@ -1,4 +1,24 @@
-import os.path
+import os
+
+
+class ChangeDir:
+    def __init__(self, path):
+        self.old_path = os.getcwd()
+        self.where = path
+
+    def __enter__(self):
+        os.chdir(self.where)
+        return self
+
+    def __exit__(self, type, value, traceback):
+        os.chdir(self.old_path)
+
+
+def list_files_flat(startpath):
+    with ChangeDir(startpath):
+        for root, dirs, files in os.walk('.'):
+            for file in files:
+                yield os.path.join(root, file)[2:]
 
 
 def file_save(temp_file, path):

@@ -1,13 +1,13 @@
-{% if uploaded_files %}
+{% if additional_upload.files %}
     <ul>
-    {% for file in uploaded_files %}
+    {% for file in additional_upload.files %}
         <li>{{ file }}</li>
     {% endfor %}
     </ul>
 {% endif %}
 
-<form action="{% url "additional_upload" id=problem_id %}" method="post" enctype="multipart/form-data">
+<form action="{% url "additional_upload" id=additional_upload.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ additional_upload_form.as_p }}
-    <input type="submit" value="Submit" />
+    {{ additional_upload.form.as_p }}
+    <input type="submit" value="Upload" />
 </form>
