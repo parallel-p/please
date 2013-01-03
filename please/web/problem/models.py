@@ -7,28 +7,12 @@ class ProblemTag(models.Model):
     def __str__(self):
         return str(self.name)
 
-    def get_or_create(name):
-        try:
-            return ProblemTag.objects.get(name=name)
-        except ProblemTag.DoesNotExist:
-            tag = ProblemTag(name=name)
-            tag.save()
-            return tag
-
 
 class WellDone(models.Model):
     name = models.CharField(max_length=64)
 
     def __str__(self):
         return str(self.name)
-
-    def get_or_create(name):
-        try:
-            return WellDone.objects.get(name=name)
-        except WellDone.DoesNotExist:
-            well_done = WellDone(name=name)
-            well_done.save()
-            return well_done
 
 
 class Problem(models.Model):
@@ -130,14 +114,6 @@ class Verdict(models.Model):
 
     def __str__(self):
         return str(self.name)
-
-    def get_or_create(name):
-        try:
-            return Verdict.objects.get(name=name)
-        except Verdict.DoesNotExist:
-            verdict = Verdict(name=name)
-            verdict.save()
-            return verdict
 
 
 class Solution(models.Model):
