@@ -14,7 +14,7 @@ class TodoGeneratorTest(unittest.TestCase):
         ITEMS = ('statement', 'checker', 'description', 'analysis', 'validator', 'main_solution', 'tags', 'name', 'tests_description')
         TRANSITION = dict(map(lambda item: (item, 'warning'), ITEMS))
 
-        TodoGenerator._TodoGenerator__get_file_item_status = lambda config, md5_values, item, path=None: TRANSITION[item]
+        TodoGenerator._TodoGenerator__get_file_item_status = lambda config, md5_values, item, path=None, root_path=None: TRANSITION[item]
         TodoGenerator._TodoGenerator__get_simple_item_status = lambda config, item: TRANSITION[item]
 
         self.assertDictEqual(dict(TodoGenerator.get_status_description()), {
