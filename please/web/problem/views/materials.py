@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from problem.forms import ProblemEditMaterialsForm
 from problem.models import Problem
 from problem.helpers import problem_sync
+from problem.views.file_utils import file_write
 from please.latex.latex_tools import generate_problem
 from please import globalconfig
 import os
@@ -36,11 +37,11 @@ def edit(request, id):
         form = ProblemEditMaterialsForm(request.POST)
         if form.is_valid():
             if not vals[0][1]:
-                open(statement_abspath, 'w', encoding='utf-8').write(form.cleaned_data["statement"])
+                file_write(form.cleaned_data["statement"], statement_abspath)
             if not vals[1][1]:
-                open(description_abspath, 'w', encoding='utf-8').write(form.cleaned_data["description"])
+                file_write(form.cleaned_data["description"], description_abspath)
             if not vals[2][1]:
-                open(analysis_abspath, 'w', encoding='utf-8').write(form.cleaned_data["analysis"])
+                file_write(form.cleaned_data["analysis"], analysis_abspath)
             # Here we have to do "git commit".
             return redirect('/problems/confirmation/')
     else:
