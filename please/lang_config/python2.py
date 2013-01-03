@@ -1,5 +1,6 @@
 from .base import BaseConfig
 from .utils import is_windows
+import winreg
 import sys
 import itertools
 import logging
@@ -30,7 +31,7 @@ def _find_py2_install_win():
                     continue
                 with winreg.OpenKey(regkey, keyname) as verskey:
                     versions.append((keyname,
-                                     os.path.normpath(verskey.QueryValue('InstallPath'))))
+                                     os.path.normpath(winreg.QueryValue(verskey, 'InstallPath'))))
         return versions
     HKLM = winreg.HKEY_LOCAL_MACHINE
     HKCU = winreg.HKEY_CURRENT_USER
