@@ -1,0 +1,32 @@
+[
+	{
+		"model": "problem.problem",
+		"pk": 1,
+		"fields": {
+			"name": "first",
+			"tags": [1]
+		}
+	},
+	{
+		"model": "problem.problem",
+		"pk": 2,
+		"fields": {
+			"name": "second",
+			"tags": [2]
+		}
+	},
+	{
+		"model": "problem.problemtag",
+		"pk": 1,
+		"fields": {
+			"name": "gcd"
+		}
+	},
+	{
+		"model": "problem.problemtag",
+		"pk": 2,
+		"fields": {
+			"name": "lcm"
+		}
+	}
+]
