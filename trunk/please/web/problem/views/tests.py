@@ -3,6 +3,7 @@ from django.template import RequestContext
 from problem.models import Problem, Test
 from problem.forms import TestsForm, AddTestsForm
 from problem.helpers import problem_sync
+from problem.views.file_utils import file_write
 import os
 from zipfile import ZipFile
 
@@ -31,18 +32,14 @@ def upload(request, id):
     if request.method == 'POST':
         form = AddTestsForm(request.POST, request.FILES)
         if form.is_valid():
-            path = os.path.join(str(problem.path), request.FILES['test'].name)
-            open(path, 'wb').write(request.FILES['test'].read())
-            if path.endswith('.zip'):
-                zfile = ZipFile(path)
-                for fname in zfile.namelist():
-                    upload_add_file(fname, zfile.open(fname).read())
+            test_dir = os.path.join(str(problem.path), 'tests')
+            if request.FILES['test'].name.endswith('.zip'):
+                path = os.path.join(str(problem.path), request.FILES['test'].name)
+                open(path, 'wb').write(request.FILES['test'].read())
+                ZipFile(path).extractall(path=test_dir)
+                os.remove(path)
             else:
-                upload_add_file(
-                    request.FILES['test'].name,
-                    open(path, 'rb').read()
-                )
-            os.remove(path)
+                file_write(str(request.FILES['test'].read(), encoding='utf-8'), os.path.join(test_dir, request.FILES['test'].name))
             return redirect('/problems/confirmation/')
     else:
         form = AddTestsForm()
