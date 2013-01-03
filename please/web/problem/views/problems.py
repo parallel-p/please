@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from problem.models import Problem
-from problem.forms import ProblemEditForm, ProblemSearch
+from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm
 from problem.synchronization import export_from_database, import_to_database
 from please.template.problem_template_generator import generate_problem
 import os
