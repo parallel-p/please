@@ -1,5 +1,5 @@
 <table>
-{% for item, status in status_description %}
+{% for item, status in todo.status_description %}
     <tr>
         <td>{{ item }}</td>
         <td>{{ status }}</td>
@@ -10,10 +10,10 @@
 <table>
     <tr>
         <td>generated tests</td>
-        <td>{{ tests_count }}</td>
+        <td>{{ todo.tests_count }}</td>
     </tr>
     <tr>
         <td>sample tests</td>
-        <td>{{ samples_count }}</td>
+        <td>{{ todo.samples_count }}</td>
     </tr>
 </table>
