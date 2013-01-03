@@ -20,6 +20,7 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
     model.memory_limit = int(conf.get("memory_limit", "268435456"))
 
     model.checker_path = conf.get("checker", "")
+    print('Got checker path:', model.checker_path)
     model.validator_path = conf.get("validator", "")
 
     model.statement_path = conf.get("statement", "")

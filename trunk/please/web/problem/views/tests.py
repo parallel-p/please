@@ -25,12 +25,12 @@ def show(request, id):
         'problem_id': id,
     }, RequestContext(request))
 
+
+def upload_add_file(num, data):
+    open(os.path.join(str(problem.path), 'tests', num), 'wb').write(data)
+
 def upload(request, id):
     problem = get_object_or_404(Problem.objects, id=id)
-
-    def add_file(num, data):
-        open(os.path.join(str(problem.path), 'tests', num), 'wb').write(data)
-
     if request.method == 'POST':
         form = AddTestsForm(request.POST, request.FILES)
         if form.is_valid():
@@ -39,9 +39,12 @@ def upload(request, id):
             if path.endswith('.zip'):
                 zfile = ZipFile(path)
                 for fname in zfile.namelist():
-                    add_file(fname, zfile.open(fname).read())
+                    upload_add_file(fname, zfile.open(fname).read())
             else:
-                add_file(request.FILES['test'].name, open(path, 'rb').read())
+                upload_add_file(
+                    request.FILES['test'].name,
+                    open(path, 'rb').read()
+                )
             os.remove(path)
             return redirect('/problems/confirmation/')
     else:

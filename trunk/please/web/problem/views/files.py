@@ -9,11 +9,13 @@ import os.path
 @problem_sync(read=True, write=False)
 def upload_main(request, id):
     model = Problem.objects.get(id=id)
+    print(model.checker_path)
     if request.method == 'POST':
         form = ProblemUploadFilesForm(request.POST, request.FILES)
         if form.is_valid() and len(request.FILES) > 0:
             if 'checker' in request.FILES.keys():
                 checker_fpath, checker_fname = os.path.split(str(model.checker_path))
+                print(checker_fpath, checker_fname)
                 checker_fname = request.FILES['checker'].name
                 model.checker_path = os.path.join(checker_fpath, checker_fname)
                 open(os.path.join(
