@@ -21,6 +21,7 @@ def edit_load_files(*args):
                 result[num] = [exc_str.format(fnames[num]), True]
     return result
 
+
 @problem_sync(read=True, write=False)
 def edit(request, id):
     model = Problem.objects.get(id=id)

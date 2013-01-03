@@ -2,11 +2,12 @@ from please.package.package_config import PackageConfig
 from please import globalconfig
 from please.add_source.add_source import add_solution
 from problem.models import ProblemTag, WellDone, Solution, Verdict
+import os
 
 
 def import_to_database(model, path=None, name=globalconfig.default_package):
     problem_path = path or str(model.path)
-    
+
     if not os.path.exists(problem_path):
         model.delete()
         return

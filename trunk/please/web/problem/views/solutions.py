@@ -16,6 +16,7 @@ def add_save_file(file, directory):
     stream.close()
     return fullname
 
+
 @problem_sync(read=True, write=False)
 def add(request, id):
     if request.method == 'POST':
@@ -37,6 +38,5 @@ def add(request, id):
             #TODO: change to reverse() here
     else:
         form = SolutionAddForm()
-    return render_to_response('add_solution.html', {'form': form, 'id' : id},
+    return render_to_response('add_solution.html', {'form': form, 'id': id},
         context_instance=RequestContext(request))
-
