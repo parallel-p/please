@@ -11,7 +11,8 @@ def show_block(problem):
         'samples_count': TodoGenerator.sample_tests_count(problem.path),
     }
 
+
 @problem_sync(read=True, write=False)
 def show(request, id):
     problem = get_object_or_404(Problem, id=id)
-    return render_to_response('todo.html', { 'todo': show_block(problem) })
+    return render_to_response('todo.html', {'todo': show_block(problem)})
