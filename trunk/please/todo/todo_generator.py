@@ -31,7 +31,7 @@ class TodoGenerator:
 
     @staticmethod
     def get_todo(root_path='.'):
-        for item, (internal_status, external_status) in TodoGenerator.__get_internal_status_description():
+        for item, (internal_status, external_status) in TodoGenerator.__get_internal_status_description(root_path):
             print(painter.__dict__[internal_status]('{} is {}'.format(item, external_status)))
         TodoGenerator.__counter_print(TodoGenerator.generated_tests_count(root_path), ' tests generated')
         TodoGenerator.__counter_print(TodoGenerator.sample_tests_count(root_path),
