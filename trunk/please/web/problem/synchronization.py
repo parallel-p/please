@@ -6,54 +6,46 @@ from problem.models import ProblemTag, WellDone, Solution, Verdict
 def import_to_database(model, path=None, name=globalconfig.default_package):
     conf = PackageConfig.get_config(path or str(model.path), name)
 
-    model.name = conf["name"]
-    model.short_name = conf["shortname"]
+    model.name = conf.get("name", "")
+    model.short_name = conf.get("shortname", "")
 
     model.tags.clear()
-    for entry in map(lambda tag: tag.strip(), conf.get('tags', '').strip().split(';')):
-        model.tags.add(ProblemTag.get_or_create(entry))
+    for entry in conf.get('tags', '').split(';'):
+        model.tags.add(ProblemTag.objects.get_or_create(name=entry.strip())[0])
 
-    model.input = conf["input"]
-    model.output = conf["output"]
-    model.time_limit = float(conf["time_limit"])
-    model.memory_limit = int(conf["memory_limit"])
+    model.input = conf.get("input", "")
+    model.output = conf.get("output", "")
+    model.time_limit = float(conf.get("time_limit", "2.0"))
+    model.memory_limit = int(conf.get("memory_limit", "268435456"))
 
-    model.checker_path = conf["checker"]
-    model.validator_path = conf["validator"]
+    model.checker_path = conf.get("checker", "")
+    model.validator_path = conf.get("validator", "")
 
-    model.statement_path = conf["statement"]
-    model.description_path = conf["description"]
-    model.analysis_path = conf["analysis"]
+    model.statement_path = conf.get("statement", "")
+    model.description_path = conf.get("description", "")
+    model.analysis_path = conf.get("analysis", "")
 
-    model.hand_answer_extension = conf["hand_answer_extension"]
+    model.hand_answer_extension = conf.get("hand_answer_extension", "")
+    print(model.hand_answer_extension)
 
     model.well_done_test.clear()
-    for entry in conf['well_done_test']:
-        model.well_done_test.add(WellDone.get_or_create(entry))
+    for entry in conf.get('well_done_test', []):
+        model.well_done_test.add(WellDone.objects.get_or_create(name=entry)[0])
     
     model.well_done_answer.clear()
-    for entry in conf['well_done_answer']:
-        model.well_done_answer.add(WellDone.get_or_create(entry))
+    for entry in conf.get('well_done_answer', []):
+        model.well_done_answer.add(WellDone.objects.get_or_create(name=entry)[0])
 
-    for solution in conf["solution"]:
-        try:
-            sol = Solution.objects.get(path=solution['source'], problem=model)
-            sol.input = solution.get('input')
-            sol.output = solution.get('output')
-            sol.expected_verdicts.clear()
-            sol.possible_verdicts.clear()
-        except Solution.DoesNotExist:
-            sol = Solution(
-                path=solution['source'],
-                problem=model,
-                input=solution.get('input'),
-                output=solution.get('output'),
-            )
-            sol.save()
+    for solution in conf.get("solution", []):
+        sol = Solution.objects.get_or_create(path=solution['source'], problem=model)[0]
+        sol.input = solution.get('input')
+        sol.output = solution.get('output')
+        sol.expected_verdicts.clear()
+        sol.possible_verdicts.clear()
         for verdict in solution['expected']:
-            sol.expected_verdicts.add(Verdict.get_or_create(verdict))
+            sol.expected_verdicts.add(Verdict.objects.get_or_create(name=verdict)[0])
         for verdict in solution.get('possible'):
-            sol.possible_verdicts.add(Verdict.get_or_create(verdict))
+            sol.possible_verdicts.add(Verdict.objects.get_or_create(name=verdict)[0])
         if solution['source'] == conf['main_solution']:
             model.main_solution = sol
         sol.save()
@@ -94,4 +86,4 @@ def export_from_database(model, name=globalconfig.default_package):
         if solution.expected_verdicts.count() != 0:
             args += (['expected'] +
                     list(map(str, solution.expected_verdicts.all())))
-        add_solution(str(solution.path), args, root_dir=model.path)
+        add_solution(str(solution.path), args, root_dir=str(model.path))
