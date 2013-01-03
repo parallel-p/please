@@ -4,7 +4,13 @@ from please.add_source.add_source import add_solution
 from problem.models import ProblemTag, WellDone, Solution, Verdict
 
 def import_to_database(model, path=None, name=globalconfig.default_package):
-    conf = PackageConfig.get_config(path or str(model.path), name)
+    problem_path = path or str(model.path)
+    
+    if not os.path.exists(problem_path):
+        model.delete()
+        return
+
+    conf = PackageConfig.get_config(problem_path, name)
 
     model.name = conf.get("name", "")
     model.short_name = conf.get("shortname", "")
