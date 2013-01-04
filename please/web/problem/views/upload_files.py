@@ -10,12 +10,11 @@ def upload_files(request, problem):
         form = UploadFilesForm(request.POST, request.FILES)
         if form.is_valid() and form.cleaned_data["file"] is not None:
             path = form.cleaned_data["path"]
-            temp_file = form.cleaned_data["file"]
-
-            if temp_file.content_type == 'application/zip':
-                ZipFile(temp_file).extractall(path)
-            else:
-                file_save(temp_file, path)
+            for temp_file in request.FILES.getlist('file'):
+                if temp_file.content_type == 'application/zip':
+                    ZipFile(temp_file).extractall(path)
+                else:
+                    file_save(temp_file, path)
     else:
         form = UploadFilesForm()
 
