@@ -1,8 +1,7 @@
 from zipfile import ZipFile
-from django.shortcuts import get_object_or_404
-from problem.models import Problem
 from problem.forms import upload_files_form
 from problem.views.file_utils import *
+
 
 def upload_files(request, problem):
     UploadFilesForm = upload_files_form(problem.path)

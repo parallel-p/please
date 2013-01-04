@@ -1,11 +1,9 @@
-from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
-from django.template import RequestContext
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse
 from problem.forms import ProblemEditMaterialsForm
 from problem.models import Problem
-from problem.helpers import problem_sync
 from problem.views.file_utils import file_write, ChangeDir
 from please.latex.latex_tools import generate_problem
 from please import globalconfig
@@ -25,6 +23,7 @@ def edit_load_files(*args):
             except:
                 result[num] = [exc_str.format(fnames[num]), True]
     return result
+
 
 def edit_dict(request, id):
     model = Problem.objects.get(id=id)
