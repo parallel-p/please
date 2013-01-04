@@ -1,0 +1,27 @@
+@import 'bootstrap.min.css';
+
+header {
+    margin: 10px 0 10px 0;
+}
+
+textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.todo {
+}
+    table {
+        margin-bottom: 15px;
+    }
+    .todo table {
+        width: 100%;
+    }
+    .todo tr > td:last-child {
+        text-align: center;
+        width: 30px;
+    }
+
+footer {
+    margin-bottom: 30px;
+}
