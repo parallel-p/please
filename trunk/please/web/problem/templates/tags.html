@@ -1,0 +1,5 @@
+<form action="{% url 'edit_tags' id=edit_tags.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ edit_tags.form.as_p }}
+    <input type="submit" value="Select" />
+</form>

@@ -21,7 +21,7 @@
             <td>{% for tag in problem.tags.all %}
                 <a href="/?tags={{tag.name}}">{{tag.name}}</a>;
                 {% endfor %}
-                <a href="google.com">Edit</a>
+                <a href="{% url 'edit_tags' id=problem.id %}">Edit</a>
             </td>
             <td>
                 <a href="{% url 'problem.views.materials.edit' id=problem.id %}">Edit</a>

@@ -53,3 +53,9 @@ class TestsForm(forms.Form):
 
 class AdditonalUpload(forms.Form):
     uploaded = forms.FileField(required=True, label='Select file')
+
+
+class TagsEditForm(forms.ModelForm):
+    class Meta:
+        model = Problem
+        fields = ('tags',)
