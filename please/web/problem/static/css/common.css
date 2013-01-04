@@ -1,4 +1,5 @@
 @import 'bootstrap.min.css';
+@import 'codemirror.css';
 
 body {
     padding-top: 70px;
@@ -24,6 +25,25 @@ body {
     color: #777;
     margin-bottom: 1.5em;
 }
+.CodeMirror {
+    height: auto !important;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border linear .2s, box-shadow linear .2s;
+    -moz-transition: border linear .2s, box-shadow linear .2s;
+    -o-transition: border linear .2s, box-shadow linear .2s;
+    transition: border linear .2s, box-shadow linear .2s;
+    margin-bottom: 15px;
+}
+    .CodeMirror-scroll {
+        height: auto !important;
+        overflow-y: hidden;
+        font-size: 12px;
+        max-height: 220px;
+    }
 
 form label {
     font-weight: bold;

@@ -3,6 +3,17 @@
 {% block title %}Statements{% endblock %}
 
 {% block content %}
+<script type="text/javascript">
+    $(function() {
+        $('textarea').each(function() {
+            var editor = CodeMirror.fromTextArea($(this)[0], {
+                lineWrapping: true,
+                lineNumbers: true,
+            });
+        });
+    });
+</script>
+
 <form action="{% url 'problem.views.problem.statements' id=problem.id %}" method="post">{% csrf_token %}
     <div>
         {% for field in edit_dict.form %}
