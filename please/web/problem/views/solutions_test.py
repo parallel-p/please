@@ -43,7 +43,7 @@ class SolutionsTests(ut.TestCase):
         solution_path = os.path.join(os.path.join(
             self.problem.path, 'solutions'), self.solution_file.name)
         old_solutions = set(self.problem.solution_set.all())
-        response = self.client.post(reverse('solution-add',
+        response = self.client.post(reverse('solution_add',
             args=(self.problem.id,)), data={
                         'solution_file': self.solution_file,
                         'possible_verdicts': [
@@ -73,6 +73,6 @@ class SolutionsTests(ut.TestCase):
 
     @patch('problem.views.solutions.file_save', Mock(side_effect=mock_save))
     def test_add(self):
-        self.assertEqual(django.test.client.Client().get(reverse('solution-add',
+        self.assertEqual(django.test.client.Client().get(reverse('solution_add',
             args=(self.problem.id,))).status_code, 200)
         self.assertTemplateUsed(template_name='add_solution.html')
