@@ -1,19 +1,21 @@
-<table>
-{% for item, status in todo.status_description %}
+<table class="todo-status">
+    {% for item, status in todo.status_description %}
     <tr>
         <td>{{ item }}</td>
-        <td>{{ status }}</td>
+        <td>
+            <i class="icon-{% ifequal status 'ok' %}ok{% else %}{% ifequal status 'default' %}adjust{% else %}remove{% endifequal %}{% endifequal %}" title="{{ status }}"></i>
+        </td>
     </tr>
-{% endfor %}
+    {% endfor %}
 </table>
 
-<table>
+<table class="todo-tests">
     <tr>
         <td>generated tests</td>
-        <td>{{ todo.tests_count }}</td>
+        <td><span class="badge">{{ todo.tests_count }}</span></td>
     </tr>
     <tr>
         <td>sample tests</td>
-        <td>{{ todo.samples_count }}</td>
+        <td><span class="badge">{{ todo.samples_count }}</span></td>
     </tr>
 </table>

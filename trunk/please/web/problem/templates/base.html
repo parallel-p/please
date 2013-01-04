@@ -6,19 +6,45 @@
 </head>
 
 <body>
-    <ul class="navigation">
-        {% block navigation %}
-        <li>
-            <a href="{% url 'problem.views.statements.common' id=problem_id %}">Statements</a>
-        </li>
-        {% endblock %}
-    </ul>
-    <div class="content">
-        {% block content %}
-        {% endblock %}
-    </div>
-    <div class="todo">
-        {% include 'todo.html' %}
+    <div class="container-fluid">
+        <header class="row-fluid">
+            <h1>Please</h1>
+        </header>
+        <div class="row-fluid">
+            <div class="span2">
+                <div class="well sidebar-nav">
+                    <ul class="nav nav-list">
+                        <li>
+                            <a href="#"><i class="icon-cog"></i> Settings</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'problem.views.statements.common' id=problem_id %}"><i class="icon-file"></i> Statements</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon-list"></i> Tests</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon-ok-sign"></i> Solutions</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="todo well">
+                    {% include 'todo.html' %}
+                </div>
+            </div>
+            <div class="span10">
+                <div class="content">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        <hr />
+        <footer class="row-fluid">
+            <div class="offset2">
+                <a href="http://code.google.com/p/please/">Please</a> Ⓒ Параллель «P», 2012.
+            </div>
+        </footer>
     </div>
 </body>
 </html>
