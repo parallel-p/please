@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container-fluid">
                 <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -51,6 +51,12 @@
             <div class="span10">
                 <div class="problem-name">Problem «{{ problem.name }}»</div>
                 <div class="problem-path">{{ problem.path }}</div>
+                {% if error %}
+                <div class="alert alert-error">
+                    <h4>Error</h4>
+                    {{ error }}
+                </div>
+                {% endif %}
                 {% block content %}
                 {% endblock %}
             </div>
