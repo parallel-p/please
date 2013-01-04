@@ -1,7 +1,9 @@
-<form action="{% url "solution-add" id %}" enctype="multipart/form-data" method=POST>{% csrf_token %}
-    {% for field in form %}
+{% block add_solution %}
+    <form action="{% url "solution-add" problem_id %}" enctype="multipart/form-data" method=POST>{% csrf_token %}
+    {% for field in problem_solution_add.form %}
         <p>{{ field.label_tag }}:<br />
         {{field}} </p>
     {% endfor %}
 	<input type="submit" value="Submit" />
 </form>
+{% endblock %}
