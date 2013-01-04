@@ -97,6 +97,8 @@ def export_from_database(model, name=globalconfig.default_package):
         sources = []
         already_there = [x['source'].replace(os.sep, '/') for x in conf['solution']]
         for solution in model.solution_set.all():
+            solution.path = solution.path.replace('\\', '/')
+            print(solution.path)
             sources.append(str(solution.path))
             if str(solution.path) in already_there:
                 continue
@@ -116,7 +118,7 @@ def export_from_database(model, name=globalconfig.default_package):
             except PleaseException:
                 solution.delete()
         for sol in already_there:
-            if sol not in sources:
+            if (sol not in sources) and (sol != conf['main_solution'].replace(os.sep, '/')):
                 del_solution(sol)
 
 
