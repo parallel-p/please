@@ -46,8 +46,10 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
 
     for solution in conf.get("solution", []):
         sol = Solution.objects.get_or_create(path=solution['source'], problem=model)[0]
-        sol.input = solution.get('input')
-        sol.output = solution.get('output')
+        if 'input' in solution:
+            sol.input = solution.get('input')
+        if 'output' in solution:
+            sol.output = solution.get('output')
         sol.expected_verdicts.clear()
         sol.possible_verdicts.clear()
         for verdict in solution['expected']:
