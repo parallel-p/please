@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from problem.forms import ProblemEditMaterialsForm
 from problem.models import Problem
 from problem.helpers import problem_sync
-from problem.views.file_utils import file_write
+from problem.views.file_utils import file_write, ChangeDir
 from please.latex.latex_tools import generate_problem
 from please import globalconfig
 import os
@@ -26,12 +26,14 @@ def edit_load_files(*args):
                 result[num] = [exc_str.format(fnames[num]), True]
     return result
 
-
-@problem_sync(read=True, write=False)
-def edit(request, id):
+def edit_dict(request, id):
     model = Problem.objects.get(id=id)
-    statement_abspath = os.path.join(str(model.path), str(model.statement_path))
-    description_abspath = os.path.join(str(model.path), str(model.description_path))
+    statement_abspath = os.path.join(
+        str(model.path), str(model.statement_path)
+    )
+    description_abspath = os.path.join(
+        str(model.path), str(model.description_path)
+    )
     analysis_abspath = os.path.join(str(model.path), str(model.analysis_path))
     vals = edit_load_files(statement_abspath, description_abspath, analysis_abspath)
     if request.method == 'POST':
@@ -40,40 +42,42 @@ def edit(request, id):
             if not vals[0][1]:
                 file_write(form.cleaned_data["statement"], statement_abspath)
             if not vals[1][1]:
-                file_write(form.cleaned_data["description"], description_abspath)
+                file_write(
+                    form.cleaned_data["description"], description_abspath
+                )
             if not vals[2][1]:
                 file_write(form.cleaned_data["analysis"], analysis_abspath)
             # Here we have to do "git commit".
-            return redirect('/problems/{}/materials/statement/generate/'.format(id))
-    else:
-        form = ProblemEditMaterialsForm(initial={
-            'statement': vals[0][0],
-            'description': vals[1][0],
-            'analysis': vals[2][0],
-        })
-        for num, name in enumerate(('statement', 'description', 'analysis')):
-            if vals[num][1]:
-                form.fields[name].widget.attrs['readonly'] = True
-    file_exists = os.path.isfile(
-        os.path.join(model.path, model.statement_path)
-    )
+    vals = edit_load_files(statement_abspath, description_abspath, analysis_abspath)
+    form = ProblemEditMaterialsForm(initial={
+        'statement': vals[0][0],
+        'description': vals[1][0],
+        'analysis': vals[2][0],
+    })
+    for num, name in enumerate(('statement', 'description', 'analysis')):
+        if vals[num][1]:
+            form.fields[name].widget.attrs['readonly'] = True
+    return {'form': form, 'problem_id': id}
+
+@problem_sync(read=True, write=False)
+def edit(request, id):
     return render_to_response('edit_problem_materials.html', {
-            'form': form,
-            'problem_id': id,
-            'file_exists': file_exists,
+            'edit_dict': edit_dict(request, id),
         }, RequestContext(request))
 
 
 @require_POST
 def gen_statement(request, id):
     problem = get_object_or_404(Problem.objects, id=id)
-    cwd = os.getcwd()
-    os.chdir(str(problem.path))
-    pdf_path = os.path.abspath(os.path.join(
-        globalconfig.statements_dir,
-        os.path.basename(generate_problem())
-    ))
-    os.chdir(cwd)
-    response = HttpResponse(FileWrapper(open(pdf_path, 'rb')), content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="{}"'.format(os.path.basename(pdf_path))
-    return response
+    with ChangeDir(str(problem.path)):
+        pdf_path = os.path.abspath(
+            os.path.join(globalconfig.statements_dir,
+            os.path.basename(generate_problem())
+        ))
+        response = HttpResponse(
+            FileWrapper(open(pdf_path, 'rb')), content_type='application/pdf'
+        )
+        response['Content-Disposition'] = 'attachment; filename="{}"'.format(
+            os.path.basename(pdf_path)
+        )
+        return response

@@ -6,6 +6,7 @@ from django.template import RequestContext
 from problem.models import Problem
 from problem.forms import ProblemUploadFilesForm, AdditonalUpload
 from problem.helpers import problem_sync
+from problem.views.file_utils import ChangeDir
 
 from . import file_utils
 
@@ -21,10 +22,19 @@ def upload_main(request, id):
     if request.method == 'POST':
         form = ProblemUploadFilesForm(request.POST, request.FILES)
         if form.is_valid() and len(request.FILES) > 0:
-            if 'checker' in request.FILES.keys():
-                copy_to_problem(problem, os.path.join(problem.checker_path, str(request.FILES['checker'].name)), request.FILES['checker'])
-            if 'validator' in request.FILES.keys():
-                copy_to_problem(problem, os.path.join(problem.validator_path, str(request.FILES['validator'].name)), request.FILES['validator'])
+            with ChangeDir(problem.path):
+                if 'checker' in request.FILES.keys():
+                    copy_to_problem(problem, os.path.join(
+                        os.path.dirname(problem.checker_path),
+                        str(request.FILES['checker'].name)),
+                        request.FILES['checker']
+                    )
+                if 'validator' in request.FILES.keys():
+                    copy_to_problem(problem, os.path.join(
+                        os.path.dirname(problem.validator_path),
+                        str(request.FILES['validator'].name)), 
+                        request.FILES['validator']
+                    )
             problem.save()
             return redirect('/problems/confirmation/')
     else:
