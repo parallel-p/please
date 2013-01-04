@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Tests{% endblock %}
+
+{% block content %}
+<form action="{% url 'problem.views.problem.tests' id=manage_tests.problem_id %}" method="POST" enctype="multipart/form-data">
+    <div>
+        {% csrf_token %}
+        <div class="well">
+            <h4>Load file</h4>
+            {% for field in manage_tests.upload_files.form %}
+                {{ field.label_tag }}
+                {{ field }}
+            {% endfor %}
+        </div>
+        {% for field in manage_tests.form %} 
+            {{ field.label_tag }}
+            {{ field }}
+        {% endfor %}
+    </div>
+    <div>
+        <input class="btn" type="submit" name="save" value="Save" />
+        <input class="btn" type="submit" name="generate_tests" value="Save &amp; generate tests" />
+        <input class="btn" type="submit" name="generate_answers" value="Save &amp; generate answers" />
+    </div>
+</form>
+{% endblock %}

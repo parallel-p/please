@@ -28,6 +28,9 @@ body {
 form label {
     font-weight: bold;
 }
+form input[type='file'] {
+    margin-bottom: 15px;
+}
 form textarea {
     width: 100%;
     box-sizing: border-box;
