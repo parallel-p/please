@@ -13,7 +13,7 @@ class AddTestsForm(forms.Form):
 class ProblemEditForm(forms.ModelForm):
     class Meta:
         model = Problem
-        fields = ('path', 'short_name', 'input', 'output', 'time_limit', 'memory_limit')
+        fields = ('path', 'name', 'short_name', 'input', 'output', 'time_limit', 'memory_limit')
 
 
 class ProblemSearch(forms.Form):
