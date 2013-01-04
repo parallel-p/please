@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="{% url "problem.views.statements.common" id=edit_dict.problem_id %}" method="post">{% csrf_token %}
+<form action="{% url 'problem.views.statements.common' id=edit_dict.problem_id %}" method="post">{% csrf_token %}
     {% for field in edit_dict.form %} 
         <p>{{ field.label_tag }}:<br />
         {{ field }}</p>
     {% endfor %}
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Save" />
+    <input type="submit" name="save_and_generate" value="Save &amp; Generate statement" />
 </form>
 
-<form action="{% url "gen_statement" id=edit_dict.problem_id %}" enctype="multipart/form-data" method="POST">{% csrf_token %}
+<form action="{% url 'gen_statement' id=edit_dict.problem_id %}" method="POST">{% csrf_token %}
     <input type="submit" value="Generate statement" />
 </form>
 {% endblock %}
