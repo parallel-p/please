@@ -29,17 +29,17 @@ def import_to_database_advanced(model, path):
         model = template_problem
     return model
 
-def create(request, id = None):
+
+def create(request, id=None):
     problem_id = id
     model = Problem()
     try:
         model = Problem.objects.get(id=id)
     except ObjectDoesNotExist:
-        problem_id = None    
-        
+        problem_id = None
+
     if problem_id is None:
         model = import_to_database_advanced(model, "../templates/Template/")
-            
 
     if request.method == 'POST':
         form = ProblemEditForm(request.POST)
@@ -47,14 +47,14 @@ def create(request, id = None):
             if problem_id is None:
                 old_path = os.getcwd()
                 if not os.path.exists(form.cleaned_data["path"]):
-                    raise NoSuchDirectoryException("There is no such directory!")
+                    raise NoDirectoryException("There is no such directory!")
                 model.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
                 if os.path.exists(model.path):
                     raise ProblemExistsException("This problem already exists")
                 os.chdir(form.cleaned_data["path"])
                 generate_problem(form.cleaned_data["short_name"])
                 os.chdir(old_path)
-                
+
             model.name = form.cleaned_data["name"]
             model.short_name = form.cleaned_data["short_name"]
             model.input = form.cleaned_data["input"]
@@ -69,7 +69,7 @@ def create(request, id = None):
         if problem_id is None:
             form = ProblemEditForm()
         else:
-            form = ProblemEditForm(initial = {'name': model.name, 'short_name': model.short_name})
+            form = ProblemEditForm(initial={'name': model.name, 'short_name': model.short_name})
 
     return render_to_response('create_problem.html', {
             'form': form,

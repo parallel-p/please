@@ -6,8 +6,10 @@ import os.path
 from problem.helpers import problem_sync
 from problem.views.file_utils import file_save
 
+
 def verdicts_with_names(names):
     return filter(lambda verdict: verdict.name in names, Verdict.objects.all())
+
 
 @problem_sync(read=True, write=False)
 def add_block(request, problem_id):
