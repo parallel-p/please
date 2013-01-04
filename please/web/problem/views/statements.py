@@ -12,7 +12,7 @@ def common(request, id):
         materials.edit_dict(request, id)
         return materials.gen_statement(request, id)
     return render_to_response('statements.html', {
-        'problem_id': id,
+        'problem': problem,
         'edit_dict': materials.edit_dict(request, id),
         'todo': todo.show_block(problem),
     }, RequestContext(request))

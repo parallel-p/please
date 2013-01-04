@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="/static/common.css" />
     <title>Please — {% block title %}:){% endblock %}</title>
 </head>
 
 <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="/">Please</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li><a href="/problems/">Problems</a></li>
+                        <li><a href="#">Contests</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
-        <header class="row-fluid">
-            <h1>Please</h1>
-        </header>
         <div class="row-fluid">
             <div class="span2">
                 <div class="well sidebar-nav">
@@ -18,7 +34,7 @@
                             <a href="#"><i class="icon-cog"></i> Settings</a>
                         </li>
                         <li>
-                            <a href="{% url 'problem.views.statements.common' id=problem_id %}"><i class="icon-file"></i> Statements</a>
+                            <a href="{% url 'problem.views.statements.common' id=problem.id %}"><i class="icon-file"></i> Statements</a>
                         </li>
                         <li>
                             <a href="#"><i class="icon-list"></i> Tests</a>
@@ -33,16 +49,16 @@
                 </div>
             </div>
             <div class="span10">
-                <div class="content">
-                    {% block content %}
-                    {% endblock %}
-                </div>
+                <div class="problem-name">Problem «{{ problem.name }}»</div>
+                <div class="problem-path">{{ problem.path }}</div>
+                {% block content %}
+                {% endblock %}
             </div>
         </div>
         <hr />
         <footer class="row-fluid">
             <div class="offset2">
-                <a href="http://code.google.com/p/please/">Please</a> Ⓒ Параллель «P» <a href="http://lksh.ru">ЛКШ</a>, 2012.
+                <a href="http://code.google.com/p/please/">Please</a> © Параллель «P» <a href="http://lksh.ru">ЛКШ</a>, 2012.
             </div>
         </footer>
     </div>
