@@ -110,7 +110,7 @@ class TestError(models.Model):
 
 
 class Verdict(models.Model):
-    name = models.CharField(max_length=2)
+    name = models.CharField(max_length=2, unique=True)
 
     def __str__(self):
         return str(self.name)
