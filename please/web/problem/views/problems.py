@@ -10,7 +10,7 @@ import os
 def create(request):
     model = Problem()
     model.save()
-    
+
     import_to_database(model, "../templates/Template/")
     if request.method == 'POST':
         form = ProblemEditForm(request.POST)
@@ -30,7 +30,7 @@ def create(request):
             model.memory_limit = int(form.cleaned_data["memory_limit"])
             model.save()
             export_from_database(model)
-            
+
             return redirect('/problems/confirmation/')
     else:
         form = ProblemEditForm()
