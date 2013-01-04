@@ -1,6 +1,6 @@
-<form action="{% url 'file_upload' id=id %}" enctype="multipart/form-data" method='POST'>{% csrf_token %}
-    <p>Checker (current path: {{ problem.checker_path }}): {{ form.checker }}</p>
-    <p>Validator (current path: {{ problem.validator_path }}): {{ form.checker }}</p>
+<form action="{% url 'file_upload' id=upload_main_dict.id %}" enctype="multipart/form-data" method='POST'>{% csrf_token %}
+    <p>Checker (current path: {{ upload_main_dict.problem.checker_path }}): {{ upload_main_dict.form.checker }}</p>
+    <p>Validator (current path: {{ upload_main_dict.problem.validator_path }}): {{ upload_main_dict.form.checker }}</p>
     <input type="submit" value="Submit" />
 </form>
-<p><a href="{% url 'additional_upload' id=id %}">Go to additional upload page</a></p>
+<p><a href="{% url 'additional_upload' id=upload_main_dict.id %}">Go to additional upload page</a></p>

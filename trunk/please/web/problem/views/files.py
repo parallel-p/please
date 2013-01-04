@@ -15,9 +15,7 @@ def copy_to_problem(problem, path, data):
     with open(os.path.join(str(problem.path), str(path)), 'wb') as file:
         file.write(data.read())
 
-
-@problem_sync(read=True, write=False)
-def upload_main(request, id):
+def upload_main_dict(request, id):
     problem = Problem.objects.get(id=id)
     if request.method == 'POST':
         form = ProblemUploadFilesForm(request.POST, request.FILES)
@@ -35,14 +33,15 @@ def upload_main(request, id):
                         str(request.FILES['validator'].name)), 
                         request.FILES['validator']
                     )
-            problem.save()
-            return redirect('/problems/confirmation/')
-    else:
-        form = ProblemUploadFilesForm()
-    return render_to_response('add_problem_files.html', {'form': form,
-                                                         'problem': problem,
-                                                         'id': id},
-                              RequestContext(request))
+            problem.save()    
+    form = ProblemUploadFilesForm()
+    return {'form': form, 'problem': problem, 'id': id}
+
+@problem_sync(read=True, write=False)
+def upload_main(request, id):
+    return render_to_response('add_problem_files.html', {
+            'upload_main_dict': upload_main_dict(request, id)
+        }, RequestContext(request))
 
 
 def process_additional_upload(request, id):
