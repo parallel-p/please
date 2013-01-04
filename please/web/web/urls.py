@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^problems/(?P<id>\d+)/tests/$', 'problem.views.tests.show'),
     url(r'^problems/(?P<id>\d+)/tests/manual/upload/$', 'problem.views.tests.upload', name='upload_tests'),
     url(r'^problems/(?P<id>\d+)/solutions/add/$', 'problem.views.solutions.add', name='solution-add'),
+    url(r'^problems/(?P<id>\d+)/tags/$', 'problem.views.tags.edit_tags_view', name='edit_tags'),
 
     url(r'^$', 'problem.views.problems.search_by_tag'),
 )
