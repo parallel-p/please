@@ -1,12 +1,8 @@
 @import 'bootstrap.min.css';
 
-header {
-    margin: 10px 0 10px 0;
-}
-
-textarea {
-    width: 100%;
-    box-sizing: border-box;
+body {
+    padding-top: 70px;
+    padding-bottom: 30px;
 }
 
 .todo {
@@ -20,6 +16,19 @@ textarea {
         width: 30px;
     }
 
-footer {
-    margin-bottom: 30px;
+.problem-name {
+    font-size: 180%;
+    margin-bottom: 0.4em;
+}
+.problem-path {
+    color: #777;
+    margin-bottom: 1.5em;
+}
+
+form label {
+    font-weight: bold;
+}
+form textarea {
+    width: 100%;
+    box-sizing: border-box;
 }
