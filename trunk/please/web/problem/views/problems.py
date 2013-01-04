@@ -19,10 +19,10 @@ def create(request):
             os.chdir(form.cleaned_data["path"])
             generate_problem(form.cleaned_data["short_name"])
             os.chdir(cur_path)
-                        
+
             model.checker_path = 'checker.cpp'
             model.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
-            model.name = form.cleaned_data["short_name"]
+            model.name = form.cleaned_data["name"]
             model.short_name = form.cleaned_data["short_name"]
             model.input = form.cleaned_data["input"]
             model.output = form.cleaned_data["output"]
