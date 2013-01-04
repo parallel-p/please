@@ -1,0 +1,14 @@
+<form action="{% url 'problem.views.problems.add_tree' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
+{% if paths %}
+	Imported from paths:
+	<ul>
+	{% for path in paths %}
+		<li>{{ path }}</li>
+	{% endfor %}
+	</ul>
+{% endif %}
