@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^problems/$', 'problem.views.problems.search_by_tag', name="problem-list"),
     url(r'^problems/add/$', 'problem.views.problems.add'),
     url(r'^problems/create/$', 'problem.views.problems.create'),
+    url(r'^problems/(?P<id>\d+)/edit/$', 'problem.views.problems.create'),
     url(r'^problems/confirmation/$', TemplateView.as_view(template_name='problem_edit_success.html')),
 
     url(r'^problems/(?P<id>\d+)/todo/$', 'problem.views.todo.show'),
