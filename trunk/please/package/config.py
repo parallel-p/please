@@ -204,7 +204,8 @@ class Config:
                 #    raise PleaseException("There is no file '{0}' in current directory and in intpleaernal Please checkers directory (config {1})".format(checker, self.__file))
                 #else:
                 return root_checker_path
-            return checker_full_path
+            #return checker_full_path
+            return checker_local_path
         elif item in ["source", "validator", "statement", "description", "main_solution", "solution"]:
             if item == "validator":
                 return self.__settings.get(item)
