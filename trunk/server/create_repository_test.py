@@ -39,8 +39,8 @@ class CreateRepositoryFromDir_test(unittest.TestCase):
             out = subprocess.check_output(command_line)
         finally:
             os.chdir("..")
-        self.assertEqual(set(out.decode("ASCII").split("\n")[:-1]),
-                         set([".gitignore", "sub/abacaba"]))
+        self.assertListEqual(sorted(out.decode("ASCII").split("\n")[:-1]),
+                             sorted([".gitignore", "sub/abacaba"]))
 
 if __name__ == '__main__':
     unittest.main()
