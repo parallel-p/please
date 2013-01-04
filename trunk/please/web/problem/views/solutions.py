@@ -35,7 +35,7 @@ def add_block(request, problem_id):
     return {'problem_solution_add': {'form': form}, 'problem_id': problem_id}
 
 
-def add(request, problem_id):
+def add(request, id):
     return render_to_response('add_solution.html',
-        add_block(request, problem_id),
+        add_block(request, id),
         context_instance=RequestContext(request))

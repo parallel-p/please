@@ -19,8 +19,9 @@
             <td>{{problem.id}}</td>
             <td>{{problem.name}}</td>
             <td>{% for tag in problem.tags.all %}
-                {{tag.name}}
+                <a href="/?tags={{tag.name}}">{{tag.name}}</a>;
                 {% endfor %}
+                <a href="google.com">Edit</a>
             </td>
             <td>
                 <a href="{% url 'problem.views.materials.edit' id=problem.id %}">Edit</a>
