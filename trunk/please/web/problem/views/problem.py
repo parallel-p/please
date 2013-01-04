@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from problem.helpers import problem_sync
 from problem.models import Problem
-from problem.views import materials, todo, manage_tests
+from problem.views import materials, todo, manage_tests, solutions
 from please.utils.exceptions import PleaseException
 
 
@@ -30,5 +30,15 @@ def tests(request, id):
     return render_to_response('problem/tests.html', {
         'problem': problem,
         'manage_tests': manage_tests.manage_tests(request, problem),
+        'todo': todo.show_block(problem),
+    }, RequestContext(request))
+
+
+@problem_sync(read=False, write=False)
+def solution(request, id):
+    problem = get_object_or_404(Problem, id=id)
+    return render_to_response('problem/solutions.html', {
+        'problem': problem,
+        'problem_solution': solutions.process_solutions(request, id),
         'todo': todo.show_block(problem),
     }, RequestContext(request))

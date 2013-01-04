@@ -11,11 +11,11 @@ def verdicts_with_names(names):
     return filter(lambda verdict: verdict.name in names, Verdict.objects.all())
 
 
-def add_block(request, problem_id):
+def process_solutions(request, id):
     if request.method == 'POST':
         form = SolutionAddForm(request.POST, request.FILES)
         if form.is_valid():
-            solution = Solution(problem=Problem.objects.get(id=problem_id))
+            solution = Solution(problem=Problem.objects.get(id=id))
             directory = os.path.join(str(solution.problem.path), 'solutions')
             solution.path = os.path.relpath(
                     file_save(request.FILES['solution_file'], directory),
@@ -33,11 +33,11 @@ def add_block(request, problem_id):
             form = SolutionAddForm()
     else:
         form = SolutionAddForm()
-    solutions = [i.path for i in Solution.objects.filter(problem__id=problem_id)]
-    return {'problem_solution_add': {'form': form, 'solutions': solutions}, 'problem_id': problem_id}
+    solutions = [i.path for i in Solution.objects.filter(problem__id=id)]
+    return {'form': form, 'solutions': solutions}
 
 
-def add(request, id):
+def view_solutions(request, id):
     return render_to_response('add_solution.html',
-        add_block(request, id),
-        context_instance=RequestContext(request))
+                              process_solutions(request, id),
+                              context_instance=RequestContext(request))
