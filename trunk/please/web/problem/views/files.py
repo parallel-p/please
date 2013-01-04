@@ -51,6 +51,7 @@ def process_additional_upload(request, id):
             'id': id}
 
 
+# @problem_sync(read=True, write=False)
 def upload_additional_view(request, id):
     return render_to_response('upload_additional.html',
                               {'additional_upload': process_additional_upload(request, id)},

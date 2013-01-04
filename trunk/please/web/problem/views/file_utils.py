@@ -7,7 +7,8 @@ class ChangeDir:
         self.where = path
 
     def __enter__(self):
-        os.chdir(self.where)
+        if self.where:
+            os.chdir(self.where)
         return self
 
     def __exit__(self, type, value, traceback):
