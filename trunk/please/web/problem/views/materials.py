@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.views.decorators.http import require_POST
 from django.template import RequestContext
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse
@@ -53,29 +54,26 @@ def edit(request, id):
         for num, name in enumerate(('statement', 'description', 'analysis')):
             if vals[num][1]:
                 form.fields[name].widget.attrs['readonly'] = True
+    file_exists = os.path.isfile(
+        os.path.join(model.path, model.statement_path)
+    )
     return render_to_response('edit_problem_materials.html', {
             'form': form,
             'problem_id': id,
+            'file_exists': file_exists,
         }, RequestContext(request))
 
 
+@require_POST
 def gen_statement(request, id):
     problem = get_object_or_404(Problem.objects, id=id)
-    file_exists = os.path.isfile(
-        os.path.join(problem.path, problem.statement_path)
-    )
-    if request.method == 'POST':
-        cwd = os.getcwd()
-        os.chdir(str(problem.path))
-        pdf_path = os.path.abspath(os.path.join(
-            globalconfig.statements_dir,
-            os.path.basename(generate_problem())
-        ))
-        os.chdir(cwd)
-        response = HttpResponse(FileWrapper(open(pdf_path, 'rb')), content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename="{}"'.format(os.path.basename(pdf_path))
-        return response
-    return render_to_response('generate_statement.html', {
-            'id': id,
-            'file_exists': file_exists
-        }, RequestContext(request))
+    cwd = os.getcwd()
+    os.chdir(str(problem.path))
+    pdf_path = os.path.abspath(os.path.join(
+        globalconfig.statements_dir,
+        os.path.basename(generate_problem())
+    ))
+    os.chdir(cwd)
+    response = HttpResponse(FileWrapper(open(pdf_path, 'rb')), content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="{}"'.format(os.path.basename(pdf_path))
+    return response
