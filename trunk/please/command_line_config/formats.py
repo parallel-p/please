@@ -1,5 +1,6 @@
 from please.command_line.template import Template
 
+
 def add_import_opertions(matcher, active):
         from please.import_from_polygon import create_contest
         from please.import_from_polygon import create_problem
@@ -15,6 +16,7 @@ def add_import_opertions(matcher, active):
         matcher.add_handler(Template(["import", "polygon", "package", "#package"]),
                 create_problem, active)
 
+
 def add_export_operations(matcher):
     from please.exporter.exporter import export
     matcher.add_handler(
@@ -24,5 +26,3 @@ def add_export_operations(matcher):
             "@problems"]),
         export,
         True)
-    
-

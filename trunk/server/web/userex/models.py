@@ -8,7 +8,6 @@ import linux_user
 def create_user_callback(sender, **kwargs):
     if sender == User:
         if 'created' in kwargs and kwargs['created'] and 'instance' in kwargs:
-            print('\x1b[42m' + '-' * 30 + ' user for '
-                  + kwargs['instance'].username + ' should be created here ' +
-                  '-' * 30 + '\x1b[0m')
+            print('\x1b[42m' + '-' * 15 + ' user for ' + kwargs['instance'].username +
+                ' should be created here ' + '-' * 15 + '\x1b[0m')
             linux_user.register_user(kwargs['instance'].username)

@@ -1,5 +1,6 @@
 from please.command_line.template import Template
 
+
 def add_generate_operations(matcher, active):
         from please.command_line.generate_tests import generate_tests, generate_tests_with_tags
         from please.latex import latex_tools
@@ -30,14 +31,15 @@ def add_validate_operations(matcher, active):
         add_validator,
         active)
 
+
 def add_stress_test_operations(matcher, active):
     from please import stress_tester
     from please.package import package_config
     pkg = package_config.PackageConfig.get_config()
-    stresser = stress_tester.StressTester(config = pkg)
+    stresser = stress_tester.StressTester(config=pkg)
     matcher.add_handler(
         Template(["stress", "$solution", "$generator"]),
-        stresser, 
+        stresser,
         active)
     matcher.add_handler(
         Template(["stress", "$solution", "$correct_solution", "$generator"]),
@@ -51,4 +53,3 @@ def add_stress_test_operations(matcher, active):
         Template(["stress", "$solution", "$correct_solution", "$generator", "with", "arg|args", "@args"]),
         stresser,
         active)
- 

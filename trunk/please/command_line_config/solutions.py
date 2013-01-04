@@ -1,4 +1,6 @@
 from please.command_line.template import Template
+
+
 def add_solution_modifications(matcher, active):
         from please.add_source.add_source import del_props, del_solution,\
                                                  add_solution, add_main_solution,\
@@ -19,6 +21,7 @@ def add_solution_modifications(matcher, active):
         matcher.add_handler(
                 Template(["delete|del", "prop|properties", "@args"]),
                 del_props, active)
+
 
 def add_checking_solution_operations(matcher, active):
     from please.solution_tester import check_solution

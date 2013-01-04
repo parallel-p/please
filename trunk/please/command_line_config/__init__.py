@@ -10,7 +10,8 @@ from .solutions import *
 from .package import *
 from .execute import *
 from .easter_eggs import *
-    
+
+
 def add_creation_operations(matcher, active):
     from please.contest import commands as contest_commands
     from please.template import problem_template_generator
@@ -18,6 +19,7 @@ def add_creation_operations(matcher, active):
             problem_template_generator.generate_problem, active)
     matcher.add_handler(Template(["create", "contest", "#name", "of", "@problems"]),
             contest_commands.command_create_contest, active)
+
 
 def add_aggregate_operations(matcher, active):
     from please.build_all.build_tools import build_all
@@ -31,6 +33,3 @@ def add_aggregate_operations(matcher, active):
             Template(tpl),
             build_all,
             active)
-
-
-

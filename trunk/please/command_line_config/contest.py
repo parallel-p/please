@@ -1,5 +1,7 @@
 from please.command_line.template import Template
 from please.contest import commands as contest_commands
+
+
 def add_contest_operations(matcher, active):
         matcher.add_handler(
                 Template(["add", "problem|problems", "@problems", "to", "#name", "as", "@problems_as"]),
@@ -24,5 +26,3 @@ def add_contest_operations(matcher, active):
         matcher.add_handler(Template(["change", "contest", "#name", "properties|prop", "#key", "#value"]),
                 contest_commands.command_set_parameter,
                 active)
-
-

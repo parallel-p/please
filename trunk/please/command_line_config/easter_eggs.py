@@ -4,6 +4,7 @@ import time
 
 import random
 
+
 def take_over_the_world():
     sys.stdout.write("In progress.")
     while True:
@@ -11,11 +12,13 @@ def take_over_the_world():
         sys.stdout.flush()
         time.sleep(1.0)
 
+
 def sudo_make_me_food(food):
     if food != ['sandwich']:
         print('Sorry, doesn\'t know how to make', *food)
     else:
         print('Okay.', 'http://xkcd.com/149/')
+
 
 def add_easter_eggs_operations(matcher):
     matcher.add_handler(
@@ -38,5 +41,3 @@ def add_easter_eggs_operations(matcher):
         Template(["smile"]),
         lambda: print(random.choice([":-)", "(^ ^)", ":-D"])),
         True)
-
-

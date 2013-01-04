@@ -27,8 +27,26 @@ class ProblemEditMaterialsForm(forms.Form):
     analysis = forms.CharField(widget=forms.Textarea, required=False)
 
 
+standart_checkers = [('', ''),
+                     ('acmp', 'acmp'),
+                     ('dcmp', 'dcmp'),
+                     ('fcmp', 'fcmp'),
+                     ('hcmp', 'hcmp'),
+                     ('icmp', 'icmp'),
+                     ('lcmp', 'lcmp'),
+                     ('ncmp', 'ncmp'),
+                     ('rcmp', 'rcmp'),
+                     ('rcmp4', 'rcmp4'),
+                     ('rcmp6', 'rcmp6'),
+                     ('rcmp9', 'rcmp9'),
+                     ('rncmp', 'rncmp'),
+                     ('wcmp', 'wcmp'),
+                     ('yesno', 'yesno')]
+
+
 class ProblemUploadFilesForm(forms.Form):
-    checker = forms.FileField(required=False)
+    checker = forms.FileField(required=False, )
+    select_checker = forms.ChoiceField(required=False, choices=standart_checkers)
     validator = forms.FileField(required=False)
 
 
