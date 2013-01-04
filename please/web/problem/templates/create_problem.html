@@ -1,4 +1,20 @@
-<form action="{% url 'problem.views.problems.create' %}" method="post"> {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit" />
-</form>
+{% ifnotequal problem_id None %}
+    <form action="{% url 'problem.views.problems.create' id=problem_id %}" method="post"> {% csrf_token %}
+        <ul>
+        {% for field in form %}
+            {% ifnotequal field.label "Path" %}
+                <li>{{ field.label }}
+                {{ field }}</li>
+            {% else %}
+                <li> <input id="id_path" name = "path" type="hidden" value="Path" /> </li>
+            {% endifnotequal %}
+        {% endfor %}
+        </ul>
+        <input type="submit" value="Submit" />
+    </form>
+{% else %}
+    <form action="{% url 'problem.views.problems.create' %}" method="post"> {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" />
+    </form>
+{% endifnotequal %}
