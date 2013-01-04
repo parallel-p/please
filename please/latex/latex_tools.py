@@ -321,8 +321,9 @@ class SingleProblemCreator:
                     answer_data = f.read()
                 os.remove(ans + '.tex')
             else:
-                with open(os.path.join(ans)) as f:
-                    answer_data = f.read()
+                f = open(os.path.join(ans))
+                answer_data = f.read()
+                f.close()
             os.remove(ans)
 
             if os.path.exists(test + '.ha'):
