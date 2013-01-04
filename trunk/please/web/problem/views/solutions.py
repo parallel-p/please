@@ -11,15 +11,14 @@ def verdicts_with_names(names):
     return filter(lambda verdict: verdict.name in names, Verdict.objects.all())
 
 
-@problem_sync(read=True, write=False)
 def add_block(request, problem_id):
     if request.method == 'POST':
         form = SolutionAddForm(request.POST, request.FILES)
         if form.is_valid():
             solution = Solution(problem=Problem.objects.get(id=problem_id))
-            dir = os.path.join(str(solution.problem.path), 'solutions')
+            directory = os.path.join(str(solution.problem.path), 'solutions')
             solution.path = os.path.relpath(
-                    file_save(request.FILES['solution_file'], dir),
+                    file_save(request.FILES['solution_file'], directory),
                     start=str(solution.problem.path))
             solution.input = form.cleaned_data['input_file_name']
             solution.output = form.cleaned_data['output_file_name']
@@ -34,7 +33,8 @@ def add_block(request, problem_id):
             form = SolutionAddForm()
     else:
         form = SolutionAddForm()
-    return {'problem_solution_add': {'form': form}, 'problem_id': problem_id}
+    solutions = [i.path for i in Solution.objects.filter(problem__id=problem_id)]
+    return {'problem_solution_add': {'form': form, 'solutions': solutions}, 'problem_id': problem_id}
 
 
 def add(request, id):
