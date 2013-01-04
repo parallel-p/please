@@ -1,29 +1,24 @@
 please_version = 0.3
 name = Кубики
 shortname = cubes
+tags = hash; prefix-function
 type = 
-
 input = stdin
 output = stdout
-time_limit = 2
+time_limit = 2.0
 memory_limit = 256
-
-checker = checker.cpp
+checker = /home/inviz/projects/please/please/web/problem/fixtures/problems/cubes/checker.cpp
 validator = validator.cpp
 main_solution = solutions/solution.py
-
 statement = statements/default.ru.tex
 description = statements/description.ru.tex
-
 hand_answer_extension = a
-
 well_done_test = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
 well_done_answer = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
-
 analysis = statements/analysis.ru.tex
-
 solution = {
     source = solutions/solution.cpp
+    expected = OK
 }
 solution = {
     source = solutions/solution_wrong.cpp
@@ -34,4 +29,3 @@ solution = {
     source = solutions/solution.py
     expected = OK
 }
-tags = hash; prefix-function

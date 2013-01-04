@@ -1,8 +1,10 @@
 from please.package.package_config import PackageConfig
+from please.package.config import ConfigFile
 from please import globalconfig
 from please.add_source.add_source import add_solution
 from problem.models import ProblemTag, WellDone, Solution, Verdict
 from problem.views.file_utils import ChangeDir
+from please.utils.exceptions import PleaseException
 import os
 
 
@@ -14,7 +16,6 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
         return
 
     with ChangeDir(problem_path):
-        print(os.getcwd())
         conf = PackageConfig.get_config('.', name)
 
         model.name = conf.get("name", "")
@@ -67,7 +68,11 @@ def import_to_database(model, path=None, name=globalconfig.default_package):
 
 def export_from_database(model, name=globalconfig.default_package):
     with ChangeDir(str(model.path)):
-        conf = PackageConfig.get_config('.', name)
+        try:
+            conf = PackageConfig.get_config('.', name)
+        except TypeError:  # Seemingly, this is due to a lacking please_verion.
+            conf = ConfigFile(name)
+        conf['please_version'] = conf['please_version'] or str(globalconfig.please_version)
         conf['name'] = str(model.name)
         conf['shortname'] = str(model.short_name)
         conf['tags'] = '; '.join(map(str, model.tags.all()))
@@ -86,8 +91,8 @@ def export_from_database(model, name=globalconfig.default_package):
         conf['well_done_test'] = list(map(lambda well_done: well_done.name, model.well_done_test.all()))
         conf['well_done_answer'] = list(map(lambda well_done: well_done.name, model.well_done_answer.all()))
         conf['analysis'] = str(model.analysis_path)
-        conf['solution'] = []
-        print('Exporting.')
+        if conf['solution'] is not None:
+            del conf['solution']
         conf.write()
         for solution in model.solution_set.all():
             args = []
@@ -101,4 +106,8 @@ def export_from_database(model, name=globalconfig.default_package):
             if solution.expected_verdicts.count() != 0:
                 args += (['expected'] +
                         list(map(str, solution.expected_verdicts.all())))
-            add_solution(str(solution.path), args, root_dir=str(model.path))
+            try:
+                add_solution(str(solution.path), args)
+            except PleaseException:
+                solution.delete()
+                print(solution, 'deleted')
