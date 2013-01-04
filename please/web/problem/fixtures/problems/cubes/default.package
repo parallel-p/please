@@ -17,15 +17,11 @@ well_done_test = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_doub
 well_done_answer = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
 analysis = statements/analysis.ru.tex
 solution = {
-    source = solutions/solution.cpp
+    source = solutions/solution.py
     expected = OK
 }
 solution = {
     source = solutions/solution_wrong.cpp
-    expected = OK, RE
     possible = TL, WA
-}
-solution = {
-    source = solutions/solution.py
-    expected = OK
+    expected = OK, RE
 }

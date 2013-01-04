@@ -1,7 +1,7 @@
 from please.package.package_config import PackageConfig
 from please.package.config import ConfigFile
 from please import globalconfig
-from please.add_source.add_source import add_solution
+from please.add_source.add_source import add_solution, del_solution
 from problem.models import Problem, ProblemTag, WellDone, Solution, Verdict
 from problem.views.file_utils import ChangeDir
 from please.utils.exceptions import PleaseException
@@ -90,10 +90,14 @@ def export_from_database(model, name=globalconfig.default_package):
         conf['well_done_test'] = list(map(lambda well_done: well_done.name, model.well_done_test.all()))
         conf['well_done_answer'] = list(map(lambda well_done: well_done.name, model.well_done_answer.all()))
         conf['analysis'] = str(model.analysis_path)
-        if conf['solution'] is not None:
-            del conf['solution']
         conf.write()
+
+        sources = []
+        already_there = [x['source'] for x in conf['solution']]
         for solution in model.solution_set.all():
+            sources.append(str(solution.path))
+            if solution.path in already_there:
+                continue
             args = []
             if solution.input:
                 args += ['input', str(solution.input)]
@@ -109,3 +113,8 @@ def export_from_database(model, name=globalconfig.default_package):
                 add_solution(str(solution.path), args)
             except PleaseException:
                 solution.delete()
+
+        for sol in conf['solution']:
+            print(sol['source'])
+            if sol['source'] not in sources:
+                del_solution(sol['source'])
