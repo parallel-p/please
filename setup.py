@@ -15,9 +15,9 @@ import please.log
 
 path = os.path.join(os.path.dirname(please.__file__), 'checkers')
 for file in os.listdir(path):
-    res,fout, err = None, None, None 
+    res,fout, err = None, None, None
     if os.path.splitext(file)[1] == '.cpp':
-        res, fout, err = compile(os.path.join(path, file))       
+        res, fout, err = compile(os.path.join(path, file))
         if res.verdict != 'OK':
             print(form_err_string_by_std(fout, err))
 
@@ -116,9 +116,3 @@ if (system == 'W'):
 
 
 log.info('\nInstallation finished!')
-
-
-
-
-
-

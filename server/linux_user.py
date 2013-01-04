@@ -41,7 +41,8 @@ def add_directory():
     if not os.path.isdir(WEBPLEASE_PATH):
         os.mkdir(WEBPLEASE_PATH)
         shutil.chown(WEBPLEASE_PATH, user=WEBPLEASE_OWNER, group=WEBPLEASE_GROUP)
-        os.chmod(WEBPLEASE_PATH, mode=(stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR | stat.S_IRGRP | stat.S_IXGRP | stat.S_ISVTX))
+        os.chmod(WEBPLEASE_PATH, mode=(stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR
+                                       | stat.S_IRGRP | stat.S_IXGRP | stat.S_ISVTX))
 
 
 def set_password(username, password):
