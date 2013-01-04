@@ -27,15 +27,15 @@ class Problem(models.Model):
     time_limit = models.FloatField(default=2.0)
     memory_limit = models.IntegerField(default=64)
 
-    checker_path = models.CharField(max_length=256, default="")
-    validator_path = models.CharField(max_length=256, default="")
+    checker_path = models.CharField(max_length=256, default='', blank=True)
+    validator_path = models.CharField(max_length=256, default='', blank=True)
     main_solution = models.OneToOneField('Solution', related_name='problem+', blank=True, null=True)
 
-    statement_path = models.CharField(max_length=256, default="")
-    description_path = models.CharField(max_length=256, default="")
-    analysis_path = models.CharField(max_length=256, default="")
+    statement_path = models.CharField(max_length=256, default='', blank=True)
+    description_path = models.CharField(max_length=256, default='', blank=True)
+    analysis_path = models.CharField(max_length=256, default='', blank=True)
 
-    hand_answer_extension = models.CharField(max_length=64, default="")
+    hand_answer_extension = models.CharField(max_length=64, default='', blank=True)
 
     well_done_test = models.ManyToManyField(WellDone, related_name='well_done_test+', blank=True)
     well_done_answer = models.ManyToManyField(WellDone, related_name='well_done_answer+', blank=True)
