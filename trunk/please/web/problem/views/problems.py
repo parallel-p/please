@@ -4,24 +4,57 @@ from problem.models import Problem
 from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm
 from problem.synchronization import export_from_database, import_to_database
 from please.template.problem_template_generator import generate_problem
+from django.core.exceptions import ObjectDoesNotExist
 import os
 
 
-def create(request):
-    model = Problem()
-    model.save()
+class NoDirectoryException(Exception):
+    pass
 
-    import_to_database(model, "../templates/Template/")
+
+class ProblemExistsException(Exception):
+    pass
+
+
+def import_to_database_advanced(model, path):
+    template_problem = None
+    for problem in Problem.objects.all():
+        if problem.name == "Template_problem_for_please":
+            template_problem = problem
+            break
+    if template_problem is None:
+        model.save()
+        import_to_database(model, path)
+    else:
+        model = template_problem
+    return model
+
+def create(request, id = None):
+    problem_id = id
+    model = Problem()
+    try:
+        model = Problem.objects.get(id=id)
+    except ObjectDoesNotExist:
+        problem_id = None    
+        
+    if problem_id is None:
+        model = import_to_database_advanced(model, "../templates/Template/")
+            
+
     if request.method == 'POST':
         form = ProblemEditForm(request.POST)
         if form.is_valid():
-            cur_path = os.getcwd()
-            os.chdir(form.cleaned_data["path"])
-            generate_problem(form.cleaned_data["short_name"])
-            os.chdir(cur_path)
-
-            model.checker_path = 'checker.cpp'
-            model.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
+            if problem_id is None:
+                old_path = os.getcwd()
+                if not os.path.exists(form.cleaned_data["path"]):
+                    raise NoSuchDirectoryException("There is no such directory!")
+                model.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
+                if os.path.exists(model.path):
+                    raise ProblemExistsException("This problem already exists")
+                os.chdir(form.cleaned_data["path"])
+                generate_problem(form.cleaned_data["short_name"])
+                os.chdir(old_path)
+                
             model.name = form.cleaned_data["name"]
             model.short_name = form.cleaned_data["short_name"]
             model.input = form.cleaned_data["input"]
@@ -35,7 +68,8 @@ def create(request):
     else:
         form = ProblemEditForm()
     return render_to_response('create_problem.html', {
-            'form': form
+            'form': form,
+            'problem_id': problem_id,
         }, RequestContext(request))
 
 
