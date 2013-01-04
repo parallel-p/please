@@ -3,6 +3,13 @@
 {% block title %}Tests{% endblock %}
 
 {% block content %}
+{% if manage_tests.error %}
+<div class="alert alert-error">
+    <h4>Error</h4>
+    {{ manage_tests.error }}
+</div>
+{% endif %}
+
 <form action="{% url 'problem.views.problem.tests' id=manage_tests.problem_id %}" method="POST" enctype="multipart/form-data">
     <div>
         {% csrf_token %}
