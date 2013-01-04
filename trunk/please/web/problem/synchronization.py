@@ -93,10 +93,10 @@ def export_from_database(model, name=globalconfig.default_package):
         conf.write()
 
         sources = []
-        already_there = [x['source'] for x in conf['solution']]
+        already_there = [os.path.join(x['source']) for x in conf['solution']]
         for solution in model.solution_set.all():
             sources.append(str(solution.path))
-            if solution.path in already_there:
+            if str(solution.path) in already_there:
                 continue
             args = []
             if solution.input:
@@ -114,7 +114,6 @@ def export_from_database(model, name=globalconfig.default_package):
             except PleaseException:
                 solution.delete()
 
-        for sol in conf['solution']:
-            print(sol['source'])
-            if sol['source'] not in sources:
-                del_solution(sol['source'])
+        for sol in already_there:
+            if sol not in sources:
+                del_solution(sol)
