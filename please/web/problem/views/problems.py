@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from problem.models import Problem
 from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm
-from problem.synchronization import export_from_database, import_to_database
+from problem.synchronization import export_from_database, import_to_database, import_tree
 from please.template.problem_template_generator import generate_problem
 from django.core.exceptions import ObjectDoesNotExist
 import os
@@ -90,6 +90,20 @@ def add(request):
     else:
         form = AddProblemForm()
     return render_to_response('problem_add.html', {'form': form}, RequestContext(request))
+
+
+def add_tree(request):
+    if request.method == 'POST':
+        form = AddProblemForm(request.POST)
+        if form.is_valid():
+            path = form.cleaned_data['path']
+            return render_to_response('problem_add_tree.html', {
+                'form': form,
+                'paths': import_tree(path),
+            }, RequestContext(request))
+    else:
+        form = AddProblemForm()
+    return render_to_response('problem_add_tree.html', {'form': form}, RequestContext(request))
 
 
 def problems_list(problems):

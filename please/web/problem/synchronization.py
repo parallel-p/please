@@ -5,6 +5,7 @@ from please.add_source.add_source import add_solution, del_solution
 from problem.models import Problem, ProblemTag, WellDone, Solution, Verdict
 from problem.views.file_utils import ChangeDir
 from please.utils.exceptions import PleaseException
+from please import launcher
 import os
 
 
@@ -117,3 +118,16 @@ def export_from_database(model, name=globalconfig.default_package):
         for sol in already_there:
             if sol not in sources:
                 del_solution(sol)
+
+
+def import_tree(path):
+    paths = []
+    for root, dirs, files in os.walk(path):
+        package = PackageConfig.get_config(root)
+        if package:
+            paths.append(root)
+            problem = Problem(path=root)
+            problem.save()
+            import_to_database(problem)
+            problem.save()
+    return paths
