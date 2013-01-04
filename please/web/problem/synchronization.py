@@ -12,6 +12,7 @@ def import_to_database(model=Problem(), path=None, name=globalconfig.default_pac
     problem_path = path or str(model.path)
 
     if not os.path.exists(problem_path):
+        print('Deleting model')
         model.delete()
         return
 
@@ -30,8 +31,8 @@ def import_to_database(model=Problem(), path=None, name=globalconfig.default_pac
     model.time_limit = float(conf.get("time_limit", "2.0"))
     model.memory_limit = int(conf.get("memory_limit", "268435456"))
 
-    model.checker_path = os.path.relpath(conf.get("checker", ""), problem_path)
-    model.validator_path = os.path.relpath(conf.get("validator", ""), problem_path)
+    model.checker_path = conf.get("checker", "")#os.path.relpath(conf.get("checker", ""), problem_path)
+    model.validator_path = conf.get("validator", "")#os.path.relpath(conf.get("validator", ""), problem_path)
 
     model.statement_path = conf.get("statement", "")
     model.description_path = conf.get("description", "")
@@ -93,7 +94,7 @@ def export_from_database(model, name=globalconfig.default_package):
         conf.write()
 
         sources = []
-        already_there = [os.path.join(x['source']) for x in conf['solution']]
+        already_there = [x['source'].replace("\\", "/") for x in conf['solution']]
         for solution in model.solution_set.all():
             sources.append(str(solution.path))
             if str(solution.path) in already_there:
@@ -113,7 +114,6 @@ def export_from_database(model, name=globalconfig.default_package):
                 add_solution(str(solution.path), args)
             except PleaseException:
                 solution.delete()
-
         for sol in already_there:
             if sol not in sources:
                 del_solution(sol)
