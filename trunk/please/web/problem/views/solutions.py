@@ -1,6 +1,5 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.core.urlresolvers import reverse
 from problem.models import Problem, Solution
 from problem.forms import SolutionAddForm
 import os.path
@@ -33,7 +32,8 @@ def add_block(request, problem_id):
             form = SolutionAddForm()
     else:
         form = SolutionAddForm()
-    return {'problem_solution_add': {'form' : form}, 'problem_id': problem_id}
+    return {'problem_solution_add': {'form': form}, 'problem_id': problem_id}
+
 
 def add(request, problem_id):
     return render_to_response('add_solution.html',
