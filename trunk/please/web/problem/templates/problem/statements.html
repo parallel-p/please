@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Statements{% endblock %}
+
+{% block content %}
+<form action="{% url 'problem.views.problem.statements' id=edit_dict.problem_id %}" method="post">{% csrf_token %}
+    <div>
+        {% for field in edit_dict.form %} 
+            {{ field.label_tag }}
+            {{ field }}
+        {% endfor %}
+    </div>
+    <div>
+        <input class="btn" type="submit" value="Save" />
+        <input class="btn" type="submit" name="save_and_generate" value="Save &amp; Generate statement" />
+    </div>
+</form>
+{% endblock %}

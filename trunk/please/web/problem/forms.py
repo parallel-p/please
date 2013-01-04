@@ -47,7 +47,7 @@ class SolutionAddForm(forms.Form):
 
 class ManageTestsForm(forms.Form):
     tests_please_content = forms.CharField(
-        widget=forms.Textarea(attrs={'cols': 80, 'rows': 20}),
+        widget=forms.Textarea(),
         required=False
     )
     tags_for_generate_tests = forms.CharField(required = False)

@@ -4,8 +4,7 @@ from problem.models import Problem
 from problem.forms import upload_files_form
 from problem.views.file_utils import *
 
-def upload_files(request, id):
-    problem = get_object_or_404(Problem.objects, id=id)
+def upload_files(request, problem):
     UploadFilesForm = upload_files_form(problem.path)
 
     if request.method == 'POST':
@@ -21,4 +20,4 @@ def upload_files(request, id):
     else:
         form = UploadFilesForm()
 
-    return {'upload_files': {'form': form, 'problem_id': id}}
+    return {'form': form, 'problem_id': problem.id}
