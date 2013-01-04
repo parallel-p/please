@@ -68,16 +68,6 @@ class TestGeneratorError(models.Model):
     description = models.ForeignKey(RunErrorDescription)
 
 
-class TestError(models.Model):
-    PROGRAM_TYPES = (
-        ('v', 'validator'),
-        ('c', 'checker'),
-    )
-    program_type = models.CharField(max_length=1, choices=PROGRAM_TYPES)
-    command_line = models.CharField(max_length=500)
-    description = models.ForeignKey(RunErrorDescription)
-
-
 class TestGeneratorTag(models.Model):
     name = models.CharField(max_length=50)
     value = models.CharField(max_length=50, blank=True)
@@ -103,10 +93,20 @@ class TestGenerator(models.Model):
 class Test(models.Model):
     test_number = models.IntegerField()
     generator = models.ForeignKey(TestGenerator)
-    error = models.ForeignKey(TestError, blank=True, null=True)
 
     def __str__(self):
         return str(self.test_number)
+
+
+class TestError(models.Model):
+    PROGRAM_TYPES = (
+        ('v', 'validator'),
+        ('c', 'checker'),
+    )
+    program_type = models.CharField(max_length=1, choices=PROGRAM_TYPES)
+    command_line = models.CharField(max_length=500)
+    description = models.ForeignKey(RunErrorDescription)
+    test = models.ForeignKey(Test)
 
 
 class Verdict(models.Model):
