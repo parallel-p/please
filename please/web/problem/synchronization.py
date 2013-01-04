@@ -32,8 +32,8 @@ def import_to_database(model=Problem(), path=None, name=globalconfig.default_pac
     model.time_limit = float(conf.get("time_limit", "2.0"))
     model.memory_limit = int(conf.get("memory_limit", "268435456"))
 
-    model.checker_path = conf.get("checker", "")#os.path.relpath(conf.get("checker", ""), problem_path)
-    model.validator_path = conf.get("validator", "")#os.path.relpath(conf.get("validator", ""), problem_path)
+    model.checker_path = os.path.relpath(conf.get("checker", ""), problem_path)
+    model.validator_path = os.path.relpath(conf.get("validator", ""), problem_path)
 
     model.statement_path = conf.get("statement", "")
     model.description_path = conf.get("description", "")
