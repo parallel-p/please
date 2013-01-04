@@ -5,6 +5,7 @@
 {% block content %}
 {% if manage_tests.error %}
 <div class="alert alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
     <h4>Error</h4>
     {{ manage_tests.error }}
 </div>
