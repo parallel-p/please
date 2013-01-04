@@ -59,12 +59,6 @@ def edit_dict(request, id):
             form.fields[name].widget.attrs['readonly'] = True
     return {'form': form, 'problem_id': id}
 
-@problem_sync(read=True, write=False)
-def edit(request, id):
-    return render_to_response('edit_problem_materials.html', {
-            'edit_dict': edit_dict(request, id),
-        }, RequestContext(request))
-
 
 @require_POST
 def gen_statement(request, id):
