@@ -66,7 +66,11 @@ def create(request, id = None):
 
             return redirect('/problems/confirmation/')
     else:
-        form = ProblemEditForm()
+        if problem_id is None:
+            form = ProblemEditForm()
+        else:
+            form = ProblemEditForm(initial = {'name': model.name, 'short_name': model.short_name})
+
     return render_to_response('create_problem.html', {
             'form': form,
             'problem_id': problem_id,
