@@ -5,3 +5,11 @@
     {% endfor %}
 	<input type="submit" value="Submit" />
 </form>
+
+<form action="{% url "gen_statement" id=problem_id %}" enctype="multipart/form-data" method="POST">{% csrf_token %}
+    {% if file_exists %}
+        <input type="submit" value="Generate statement" />
+    {% else %}
+        Cannot generate statement (no .tex file found)
+    {% endif %}
+</form>
