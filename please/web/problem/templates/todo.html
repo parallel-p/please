@@ -13,9 +13,11 @@
     <tr>
         <td>generated tests</td>
         <td><span class="badge">{{ todo.tests_count }}</span></td>
-    </tr>
+    </tr> 
     <tr>
         <td>sample tests</td>
-        <td><span class="badge">{{ todo.samples_count }}</span></td>
+        <td>
+            <i {% if todo.samples_present %}class="icon-ok" title="You have specified sample tests"{% else %}class="icon-remove" title="No sample tests found"{% endif %}></i>
+        </td>
     </tr>
 </table>
