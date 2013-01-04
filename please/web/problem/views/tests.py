@@ -3,7 +3,7 @@ from django.template import RequestContext
 from problem.models import Problem, Test
 from problem.forms import TestsForm, AddTestsForm
 from problem.helpers import problem_sync
-from problem.views.file_utils import file_write
+from problem.views.file_utils import file_save
 import os
 from zipfile import ZipFile
 
@@ -39,7 +39,8 @@ def upload(request, id):
                 ZipFile(path).extractall(path=test_dir)
                 os.remove(path)
             else:
-                file_write(str(request.FILES['test'].read(), encoding='utf-8'), os.path.join(test_dir, request.FILES['test'].name))
+                file_save(request.FILES['test'], test_dir)
+                # file_write(str(request.FILES['test'].read(), encoding='utf-8'), os.path.join(test_dir, request.FILES['test'].name))
             return redirect('/problems/confirmation/')
     else:
         form = AddTestsForm()
