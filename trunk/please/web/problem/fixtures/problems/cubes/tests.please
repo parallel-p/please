@@ -1,5 +1,5 @@
 [sample]tests/[1-2]
-[exclude=tests/3]tests/[3-4]
+[exclude=tests/3]tests\[3-4]
 [copy]tests/*
 [small]generator_random.cpp 3
 #generator_random.cpp 4

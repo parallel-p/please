@@ -1,5 +1,6 @@
 from django import forms
 from problem.models import *
+import re
 import os.path
 
 
@@ -82,8 +83,17 @@ def upload_files_form(path_str):
             allow_files=False, allow_folders=True,
             required=False, recursive=True
         )
+
         path.choices[0] = (path_str, os.path.sep)
-        file = forms.FileField(required=False)
+        choices = []
+        for choice in path.choices:
+            if not re.match(r'^[/\\]\.', choice[1]):
+                choices.append(choice)
+        path.choices = choices
+
+        file = forms.FileField(required=False, widget=forms.FileInput(attrs={
+            'multiple': 'multiple',
+        }))
     return UploadFiles
 
 
