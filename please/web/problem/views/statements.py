@@ -1,0 +1,15 @@
+from django.shortcuts import render_to_response, get_object_or_404
+from django.template import RequestContext
+from problem.helpers import problem_sync
+from problem.models import Problem
+from problem.views import materials, todo
+
+
+@problem_sync(read=True, write=False)
+def common(request, id):
+    problem = get_object_or_404(Problem, id=id)
+    return render_to_response('statements.html', {
+        'problem_id': id,
+        'edit_dict': materials.edit_dict(request, id),
+        'todo': todo.show_block(problem),
+    }, RequestContext(request))
