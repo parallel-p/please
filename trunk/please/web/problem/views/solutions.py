@@ -1,11 +1,13 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from problem.models import Problem, Solution
+from problem.models import Problem, Solution, Verdict
 from problem.forms import SolutionAddForm
 import os.path
 from problem.helpers import problem_sync
 from problem.views.file_utils import file_save
 
+def verdicts_with_names(names):
+    return filter(lambda verdict: verdict.name in names, Verdict.objects.all())
 
 @problem_sync(read=True, write=False)
 def add_block(request, problem_id):
@@ -14,20 +16,18 @@ def add_block(request, problem_id):
         if form.is_valid():
             solution = Solution(problem=Problem.objects.get(id=problem_id))
             dir = os.path.join(str(solution.problem.path), 'solutions')
-            solution.path = file_save(request.FILES['solution_file'], dir)
+            solution.path = os.path.relpath(
+                    file_save(request.FILES['solution_file'], dir),
+                    start=str(solution.problem.path))
             solution.input = form.cleaned_data['input_file_name']
             solution.output = form.cleaned_data['output_file_name']
             solution.save()
-            print(form.cleaned_data['expected_verdicts'])
-            for choice in filter(
-                    lambda t: t[1] in form.cleaned_data['expected_verdicts'],
-                    form.fields['expected_verdicts'].choices):
-                print(choice)
-                solution.expected_verdicts.add(choice[0].id)
-            for choice in filter(
-                    lambda t: t[1] in form.cleaned_data['possible_verdicts'],
-                    form.fields['possible_verdicts'].choices):
-                solution.possible_verdicts.add(choice[0].id)
+            for choice in verdicts_with_names(
+                    form.cleaned_data['possible_verdicts']):
+                solution.possible_verdicts.add(choice)
+            for choice in verdicts_with_names(
+                    form.cleaned_data['expected_verdicts']):
+                solution.expected_verdicts.add(choice)
             solution.save()
             form = SolutionAddForm()
     else:
