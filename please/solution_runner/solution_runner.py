@@ -52,6 +52,8 @@ def run_solution(config):
             
             if stream_in:
                 stream_in.close()
+            if stream_out:
+                stream_out.close()
             if solution_input != 'stdin':
                 os.remove(solution_input)
             
