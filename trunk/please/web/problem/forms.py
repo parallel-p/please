@@ -33,10 +33,15 @@ class ProblemUploadFilesForm(forms.Form):
 
 class SolutionAddForm(forms.Form):
     solution_file = forms.FileField(required=True)
-    input_file = forms.FileField(required=True)
-    output_file = forms.FileField(required=True)
-    expected_verdicts = forms.MultipleChoiceField(choices=[(verdict, verdict.name) for verdict in Verdict.objects.all()])
-    possible_verdicts = forms.MultipleChoiceField(choices=[(verdict, verdict.name) for verdict in Verdict.objects.all()])
+    input_file_name = forms.CharField(required=False)
+    output_file_name = forms.CharField(required=False)
+    expected_verdicts = forms.MultipleChoiceField(
+            choices=[(verdict, verdict.name) for verdict in Verdict.objects.all()],
+            required=True,
+            initial=["OK"])
+    possible_verdicts = forms.MultipleChoiceField(
+            choices=[(verdict, verdict.name) for verdict in Verdict.objects.all()],
+            required=False)
 
 
 class TestsForm(forms.Form):
