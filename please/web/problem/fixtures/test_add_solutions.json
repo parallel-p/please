@@ -1,0 +1,37 @@
+[
+    {
+        "model": "problem.problem",
+        "pk": 1,
+        "fields": {
+            "name": "test_problem"
+        }
+    },
+    {
+        "model": "problem.verdict",
+        "pk": 1
+        "fields": {
+            "name": "OK",
+        }
+    },
+    {
+        "model": "problem.verdict",
+        "pk": 2
+        "fields": {
+            "name": "WA",
+        }
+    },
+    {
+        "model": "problem.verdict",
+        "pk": 3
+        "fields": {
+            "name": "NO",
+        }
+    },
+    {
+        "model": "problem.verdict",
+        "pk": 4
+        "fields": {
+            "name": "TL",
+        }
+    }
+]
