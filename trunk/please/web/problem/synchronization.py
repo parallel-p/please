@@ -2,68 +2,66 @@ from please.package.package_config import PackageConfig
 from please.package.config import ConfigFile
 from please import globalconfig
 from please.add_source.add_source import add_solution
-from problem.models import ProblemTag, WellDone, Solution, Verdict
+from problem.models import Problem, ProblemTag, WellDone, Solution, Verdict
 from problem.views.file_utils import ChangeDir
 from please.utils.exceptions import PleaseException
 import os
 
 
-def import_to_database(model, path=None, name=globalconfig.default_package):
+def import_to_database(model=Problem(), path=None, name=globalconfig.default_package):
     problem_path = path or str(model.path)
 
     if not os.path.exists(problem_path):
         model.delete()
         return
 
-    with ChangeDir(problem_path):
-        conf = PackageConfig.get_config('.', name)
+    conf = PackageConfig.get_config(problem_path, name)
 
-        model.name = conf.get("name", "")
-        model.short_name = conf.get("shortname", "")
+    model.name = conf.get("name", "")
+    model.short_name = conf.get("shortname", "")
 
-        model.tags.clear()
-        for entry in conf.get('tags', '').split(';'):
-            if entry.strip() != '':
-                model.tags.add(ProblemTag.objects.get_or_create(name=entry.strip())[0])
+    model.tags.clear()
+    for entry in conf.get('tags', '').split(';'):
+        if entry.strip() != '':
+            model.tags.add(ProblemTag.objects.get_or_create(name=entry.strip())[0])
 
-        model.input = conf.get("input", "")
-        model.output = conf.get("output", "")
-        model.time_limit = float(conf.get("time_limit", "2.0"))
-        model.memory_limit = int(conf.get("memory_limit", "268435456"))
+    model.input = conf.get("input", "")
+    model.output = conf.get("output", "")
+    model.time_limit = float(conf.get("time_limit", "2.0"))
+    model.memory_limit = int(conf.get("memory_limit", "268435456"))
 
-        model.checker_path = conf.get("checker", "")
-        print(model.checker_path)
-        model.validator_path = conf.get("validator", "")
+    model.checker_path = os.path.relpath(conf.get("checker", ""), problem_path)
+    model.validator_path = os.path.relpath(conf.get("validator", ""), problem_path)
 
-        model.statement_path = conf.get("statement", "")
-        model.description_path = conf.get("description", "")
-        model.analysis_path = conf.get("analysis", "")
+    model.statement_path = conf.get("statement", "")
+    model.description_path = conf.get("description", "")
+    model.analysis_path = conf.get("analysis", "")
 
-        model.hand_answer_extension = conf.get("hand_answer_extension", "")
+    model.hand_answer_extension = conf.get("hand_answer_extension", "")
 
-        model.well_done_test.clear()
-        for entry in conf.get('well_done_test', []):
-            model.well_done_test.add(WellDone.objects.get_or_create(name=entry)[0])
+    model.well_done_test.clear()
+    for entry in conf.get('well_done_test', []):
+        model.well_done_test.add(WellDone.objects.get_or_create(name=entry)[0])
 
-        model.well_done_answer.clear()
-        for entry in conf.get('well_done_answer', []):
-            model.well_done_answer.add(WellDone.objects.get_or_create(name=entry)[0])
+    model.well_done_answer.clear()
+    for entry in conf.get('well_done_answer', []):
+        model.well_done_answer.add(WellDone.objects.get_or_create(name=entry)[0])
 
-        for solution in conf.get("solution", []):
-            sol = Solution.objects.get_or_create(path=solution['source'], problem=model)[0]
-            sol.input = solution.get('input')
-            sol.output = solution.get('output')
-            sol.expected_verdicts.clear()
-            sol.possible_verdicts.clear()
-            for verdict in solution['expected']:
-                sol.expected_verdicts.add(Verdict.objects.get_or_create(name=verdict)[0])
-            for verdict in solution.get('possible'):
-                sol.possible_verdicts.add(Verdict.objects.get_or_create(name=verdict)[0])
-            if solution['source'] == conf['main_solution']:
-                model.main_solution = sol
-            sol.save()
+    for solution in conf.get("solution", []):
+        sol = Solution.objects.get_or_create(path=solution['source'], problem=model)[0]
+        sol.input = solution.get('input')
+        sol.output = solution.get('output')
+        sol.expected_verdicts.clear()
+        sol.possible_verdicts.clear()
+        for verdict in solution['expected']:
+            sol.expected_verdicts.add(Verdict.objects.get_or_create(name=verdict)[0])
+        for verdict in solution.get('possible'):
+            sol.possible_verdicts.add(Verdict.objects.get_or_create(name=verdict)[0])
+        if solution['source'] == conf['main_solution']:
+            model.main_solution = sol
+        sol.save()
 
-        model.save()
+    model.save()
 
 
 def export_from_database(model, name=globalconfig.default_package):
@@ -110,4 +108,3 @@ def export_from_database(model, name=globalconfig.default_package):
                 add_solution(str(solution.path), args)
             except PleaseException:
                 solution.delete()
-                print(solution, 'deleted')
