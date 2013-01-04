@@ -1,5 +1,6 @@
 from django import forms
 from problem.models import *
+import os.path
 
 
 class AddProblemForm(forms.Form):
@@ -44,15 +45,28 @@ class SolutionAddForm(forms.Form):
             required=False)
 
 
-class TestsForm(forms.Form):
+class ManageTestsForm(forms.Form):
     tests_please_content = forms.CharField(
         widget=forms.Textarea(attrs={'cols': 80, 'rows': 20}),
         required=False
     )
+    tags_for_generate_tests = forms.CharField(required = False)
 
 
 class AdditonalUpload(forms.Form):
     uploaded = forms.FileField(required=True, label='Select file')
+
+
+def upload_files_form(path_str):
+    class UploadFiles(forms.Form):
+        path = forms.FilePathField(
+            path=path_str,
+            allow_files=False, allow_folders=True,
+            required=False, recursive=True
+        )
+        path.choices[0] = (path_str, os.path.sep)
+        file = forms.FileField(required=False)
+    return UploadFiles
 
 
 class TagsEditForm(forms.ModelForm):

@@ -1,0 +1,9 @@
+﻿<form action="{% url 'problem.views.manage_tests.manage_tests_page' id=manage_tests.problem_id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+<table>
+{% include "upload_files.html" %}
+{{manage_tests.form.as_table}}
+</table>
+<input type="submit" name="save" value="Save" />
+<input type="submit" name="generate_tests" value="Save & generate tests" />
+<input type="submit" name="generate_answers" value="Save & generate answers" />
+</form>
