@@ -16,17 +16,19 @@ def add_block(request, problem_id):
             solution = Solution(problem=Problem.objects.get(id=problem_id))
             dir = os.path.join(str(solution.problem.path), 'solutions')
             solution.path = file_save(request.FILES['solution_file'], dir)
-            solution.input = file_save(request.FILES['input_file'], dir)
-            solution.output = file_save(request.FILES['output_file'], dir)
+            solution.input = form.cleaned_data['input_file_name']
+            solution.output = form.cleaned_data['output_file_name']
             solution.save()
+            print(form.cleaned_data['expected_verdicts'])
             for choice in filter(
-                    lambda t: t[0] in form.cleaned_data['expected_verdicts'],
+                    lambda t: t[1] in form.cleaned_data['expected_verdicts'],
                     form.fields['expected_verdicts'].choices):
-                solution.expected_verdicts.add(choice.id)
+                print(choice)
+                solution.expected_verdicts.add(choice[0].id)
             for choice in filter(
-                    lambda t: t[0] in form.cleaned_data['possible_verdicts'],
+                    lambda t: t[1] in form.cleaned_data['possible_verdicts'],
                     form.fields['possible_verdicts'].choices):
-                solution.possible_verdicts.add(choice.id)
+                solution.possible_verdicts.add(choice[0].id)
             solution.save()
             form = SolutionAddForm()
     else:
