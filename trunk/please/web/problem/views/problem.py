@@ -8,7 +8,7 @@ from problem.views.problems import edit_or_create_problem_block
 from please.utils.exceptions import PleaseException
 
 
-@problem_sync(read=False, write=False)
+@problem_sync(read=True, write=False)
 def settings(request, id):
     problem = get_object_or_404(Problem, id=id)
     return render_to_response('problem/settings.html', {
@@ -19,7 +19,7 @@ def settings(request, id):
     }, RequestContext(request))
 
 
-@problem_sync(read=False, write=False)
+@problem_sync(read=True, write=False)
 def statements(request, id):
     problem = get_object_or_404(Problem, id=id)
     error = None
@@ -38,7 +38,7 @@ def statements(request, id):
     }, RequestContext(request))
 
 
-@problem_sync(read=False, write=False)
+@problem_sync(read=True, write=False)
 def tests(request, id):
     problem = get_object_or_404(Problem, id=id)
     return render_to_response('problem/tests.html', {
@@ -49,7 +49,7 @@ def tests(request, id):
     }, RequestContext(request))
 
 
-@problem_sync(read=False, write=False)
+@problem_sync(read=True, write=False)
 def solutions(request, id):
     problem = get_object_or_404(Problem, id=id)
     return render_to_response('problem/solutions.html', {
