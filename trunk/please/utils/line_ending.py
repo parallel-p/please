@@ -1,10 +1,14 @@
 def convert(file):
     """
-    This method converts all ends of lines in file to utf-8 styled ends of file, using dirty hack
+    This method converts all ends of lines to native
+    Do nothing if unable to open file in utf-8
     """
     data = None
-    with open(file, 'r', encoding='utf-8') as f:
-        data = f.read()
+    try:
+        with open(file, 'r', encoding='utf-8') as f:
+            data = f.read()
+    except UnicodeDecodeError as e:
+        pass #ignore this error
     
     if (data is None):
         return
