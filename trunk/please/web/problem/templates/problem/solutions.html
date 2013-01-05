@@ -6,26 +6,34 @@
 <div class="well">
     <table class="table table-condensed">
         <thead>
-            <td>Test #</td>
+            <th>Test #</th>
             {% for solution in retest.solutions %}
-                <td>{{ solution }}</td>
+            <th>{{ solution }}</th>
             {% endfor %}
         </thead>
         <tbody>
-        {% for row in retest.output %}
+            {% for row in retest.output %}
             <tr>
-            {% for elem in row %}
-                <td>{{elem}}</td>
-            {% endfor %}
+                {% for value in row %}
+                <td>
+                    {% ifequal value 'N/A' %}
+                    —
+                    {% else %}
+                    {{ value }}
+                    {% endifequal %}
+                </td>
+                {% endfor %}
             </tr>
-        {% endfor %}
+            {% endfor %}
             <tr>
                 <td></td>
-                <form action="{% url 'problem.views.problem.solutions' id=problem.id %}" enctype="multipart/form-data" method="POST">
-                {% csrf_token %}
-                {% for solution in retest.solutions %}
-                    <td><input class="btn" type="submit" name="{{solution}}_retest" value="Test this" /></td>
-                {% endfor %}
+                <form action="{% url 'problem.views.problem.solutions' id=problem.id %}" method="POST">
+                    {% csrf_token %}
+                    {% for solution in retest.solutions %}
+                    <td>
+                        <input class="btn" type="submit" name="{{solution}}_retest" value="Test" />
+                    </td>
+                    {% endfor %}
                 </form>
             </tr>
         </tbody>
