@@ -106,10 +106,19 @@ def upload_files_form(path_str):
     return UploadFiles
 
 
-class TagsEditForm(forms.ModelForm):
-    class Meta:
-        model = Problem
-        fields = ('tags',)
+def tags_edit_form(problem):
+    class EditTagsForm(forms.Form):
+        added_tags = forms.MultipleChoiceField(
+            widget=forms.CheckboxSelectMultiple,
+            choices=((tag, tag.name) for tag in problem.tags.all()),
+            required=False
+        )
+        other_tags = forms.ChoiceField(
+            choices=[('', '')] + [(tag, tag.name) for tag in ProblemTag.objects.all() if tag not in problem.tags.all()],
+            required=False
+        )
+        add_tag = forms.CharField(required=False)
+    return EditTagsForm
 
 
 class EmptyForm(forms.Form):
