@@ -11,7 +11,7 @@ from please.utils.exceptions import PleaseException
 from problem.views.tags import process_edit_tags
 
 
-# @problem_sync(read=True, write=False)
+@problem_sync(read=True, write=False)
 def settings(request, id):
     problem = get_object_or_404(Problem, id=id)
     return render_to_response('problem/settings.html', {
@@ -23,7 +23,7 @@ def settings(request, id):
     }, RequestContext(request))
 
 
-# @problem_sync(read=True, write=False)
+@problem_sync(read=True, write=False)
 def statements(request, id):
     problem = get_object_or_404(Problem, id=id)
     error = None
@@ -42,7 +42,7 @@ def statements(request, id):
     }, RequestContext(request))
 
 
-# @problem_sync(read=True, write=False)
+@problem_sync(read=True, write=False)
 def tests(request, id):
     problem = get_object_or_404(Problem, id=id)
     return render_to_response('problem/tests.html', {
@@ -55,7 +55,7 @@ def tests(request, id):
     }, RequestContext(request))
 
 
-# @problem_sync(read=True, write=False)
+@problem_sync(read=True, write=False)
 def solutions(request, id):
     problem = get_object_or_404(Problem, id=id)
     return render_to_response('problem/solutions.html', {
