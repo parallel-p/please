@@ -42,17 +42,8 @@ def create(request, id = None):
     try:
         problem = Problem.objects.get(id=id)
     except ObjectDoesNotExist:
-<<<<<<< .mine
-        problem_id = None    
-        
-    if problem_id is None:
-        model = import_to_database_advanced(model, "../templates/Template/")
-            
-
-=======
         problem_id = None
-            
->>>>>>> .r1462
+
     if request.method == 'POST':
         form = ProblemEditForm(request.POST)
         if form.is_valid():
