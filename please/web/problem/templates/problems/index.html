@@ -24,7 +24,7 @@
             <tr>
                 <td>{{ problem.id }}</td>
                 <td>
-                    <a href="{% url 'problem.views.problem.statements' id=problem.id %}">
+                    <a href="{% url 'problem.views.problem.settings' id=problem.id %}">
                         {{ problem.name|default:'[no name]' }}
                     </a>
                 </td>
