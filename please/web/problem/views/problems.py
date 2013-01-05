@@ -38,9 +38,9 @@ def import_to_database_advanced(model, path):
 
 def create(request, id = None):
     problem_id = id
-    model = Problem()
+    problem = Problem()
     try:
-        model = Problem.objects.get(id=id)
+        problem = Problem.objects.get(id=id)
     except ObjectDoesNotExist:
 <<<<<<< .mine
         problem_id = None    
@@ -59,36 +59,33 @@ def create(request, id = None):
             if problem_id is None:
                 if not os.path.exists(form.cleaned_data["path"]):
                     raise NoSuchDirectoryException("There is no such directory!")
-                model.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
-                if os.path.exists(model.path):
+                problem.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
+                if os.path.exists(problem.path):
                     raise ProblemExistsException("This problem already exists")
-                model.save()
-                import_to_database(model, "../templates/Template/")
+                problem.save()
+                import_to_database(problem, "../templates/Template/")
                 old_path = os.getcwd()
                 os.chdir(form.cleaned_data["path"])
                 generate_problem(form.cleaned_data["short_name"])
                 os.chdir(old_path)
                 
-            model.name = form.cleaned_data["name"]
-            model.short_name = form.cleaned_data["short_name"]
-            model.input = form.cleaned_data["input"]
-            model.output = form.cleaned_data["output"]
-            model.time_limit = float(form.cleaned_data["time_limit"])
-            model.memory_limit = int(form.cleaned_data["memory_limit"])
-            model.save()
-            export_from_database(model)
+            problem.name = form.cleaned_data["name"]
+            problem.short_name = form.cleaned_data["short_name"]
+            problem.input = form.cleaned_data["input"]
+            problem.output = form.cleaned_data["output"]
+            problem.time_limit = float(form.cleaned_data["time_limit"])
+            problem.memory_limit = int(form.cleaned_data["memory_limit"])
+            problem.save()
+            export_from_database(problem)
 
             return redirect('/problems/confirmation/')
     else:
         if problem_id is None:
             form = ProblemEditForm()
         else:
-<<<<<<< .mine
-            form = ProblemEditForm(initial = {'name': model.name, 'short_name': model.short_name})
-=======
-            form = ProblemEditForm(initial={'name': model.name, 'short_name': model.short_name,
-                                            'input': model.input, 'output': model.output,
-                                            'time_limit': model.time_limit, 'memory_limit': model.memory_limit,
+            form = ProblemEditForm(initial={'name': problem.name, 'short_name': problem.short_name,
+                                            'input': problem.input, 'output': problem.output,
+                                            'time_limit': problem.time_limit, 'memory_limit': problem.memory_limit,
                                            })
 >>>>>>> .r1462
 
@@ -99,7 +96,10 @@ def create(request, id = None):
 
 
 def show_tests(request, id):
-    pass    
+    problem = Problem.objects.get(id=id)
+    tests_path = os.path.join(problem.)
+
+    return render_to_response('problem_tests.html', {'form': form, 'problem_id': id}, RequestContext(request))
 
 
 def add(request):
