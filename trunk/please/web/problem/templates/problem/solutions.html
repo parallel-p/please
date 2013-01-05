@@ -14,13 +14,11 @@
         <tbody>
             {% for row in retest.output %}
             <tr>
-                {% for value in row %}
+                <td>{{ forloop.counter }}</td>
+                {% for result in row %}
                 <td>
-                    {% ifequal value 'N/A' %}
-                    —
-                    {% else %}
-                    {{ value }}
-                    {% endifequal %}
+                    {{ result.verdict|default:'—' }}
+                    {{ result.time }}
                 </td>
                 {% endfor %}
             </tr>

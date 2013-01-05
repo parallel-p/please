@@ -40,14 +40,14 @@ def retest_solutions(request, id):
     output = []
     max_count = 0
     for solution in solutions:
-        output.append([str(i.verdict) + ': ' + str(i.cpu_time) for i in TestResult.objects.filter(solution=solution['obj'])])
+        output.append([{'verdict': str(i.verdict), 'time': str(i.cpu_time)} for i in TestResult.objects.filter(solution=solution['obj'])])
         max_count = max(max_count, len(output[-1]))
 
     for i in output:
         if len(i) != max_count:
-            i.extend(['N/A'] * (max_count - len(i)))
+            i.extend([{}] * (max_count - len(i)))
 
-    return {'output': list(zip(*([list(range(1, max_count + 1))] + output))),
+    return {'output': list(zip(*(output))),
             'solutions': [i['name'] for i in solutions]}
 
 
