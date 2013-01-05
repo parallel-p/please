@@ -1,12 +1,13 @@
+from django.shortcuts import render_to_response
 from problem.models import Problem
 from problem import synchronization
-from django.shortcuts import render_to_response
+
 
 def problem_sync(read=True, write=False):
     def wrapped_decorator(function):
         def wrapped_function(request, id, *args, **kwargs):
             problem_was_deleted = False
-            
+
             if read:
                 try:
                     problem = Problem.objects.get(id=id)

@@ -1,15 +1,17 @@
-from django.shortcuts import render_to_response, redirect, get_object_or_404
+import os
+
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
+
+from please.template.problem_template_generator import generate_problem
+from please.import_from_polygon import download_zip
+from please.import_from_polygon import create_problem
+
 from problem.models import Problem
 from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm, ProblemImportFromPolygonForm
 from problem.synchronization import export_from_database, import_to_database, import_tree, is_problem_path
-from please.template.problem_template_generator import generate_problem
-from django.core.exceptions import ObjectDoesNotExist
-import os
 from problem.views.file_utils import ChangeDir
-from please.import_from_polygon import download_zip
-from please.import_from_polygon import create_problem
 
 
 def index(request):
@@ -69,6 +71,7 @@ def edit_or_create_problem_block(request, problem=None):
         'is_success': is_success,
     }
 
+
 def create(request):
     block = edit_or_create_problem_block(request)
     if block['is_success']:
@@ -77,6 +80,7 @@ def create(request):
         'nav': 'create',
         'edit_problem': block,
     }, RequestContext(request))
+
 
 def show_tests(request, id):
     problem = Problem.objects.get(id=id)
@@ -103,7 +107,7 @@ def show_tests(request, id):
             output_file_data = "{}...".format(output_file_data[:254])
             big_output = True
         test_data.append((input_file_data, output_file_data, test[0], test[1], big_input, big_output))
-                                        
+
     return render_to_response('problem_tests.html',
                               {'problem_id': id,
                                'file_names': tests,
@@ -111,6 +115,7 @@ def show_tests(request, id):
                                'big_input': big_input,
                                'big_output': big_output,
                                }, RequestContext(request))
+
 
 def show_test(request, problem_id, test_id):
     problem = Problem.objects.get(id=problem_id)
@@ -122,6 +127,7 @@ def show_test(request, problem_id, test_id):
         os.path.basename(test_path)
     )
     return response
+
 
 def add_problem_block(request):
     is_success, is_error = False, False
@@ -217,7 +223,7 @@ def import_from_polygon_block(request):
 
 
 def import_from_polygon(request):
-    block =  import_from_polygon_block(request)
+    block = import_from_polygon_block(request)
     if block['is_success']:
         print([x.name for x in Problem.objects.all()])
         return redirect(reverse('problem.views.problems.index'))

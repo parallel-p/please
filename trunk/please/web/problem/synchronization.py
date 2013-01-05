@@ -1,12 +1,13 @@
+import os
+
+from please import globalconfig
 from please.package.package_config import PackageConfig
 from please.package.config import ConfigFile
-from please import globalconfig
 from please.add_source.add_source import add_solution, del_solution
+from please.utils.exceptions import PleaseException
+
 from problem.models import Problem, ProblemTag, WellDone, Solution, Verdict
 from problem.views.file_utils import ChangeDir
-from please.utils.exceptions import PleaseException
-from please import launcher
-import os
 
 
 def import_to_database(model=None, path=None, name=globalconfig.default_package):

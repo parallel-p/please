@@ -1,10 +1,11 @@
-import django.test.testcases as ut
-import django.test.client
-import os.path
 import os
 import io
-from django.core.urlresolvers import reverse
 from unittest.mock import Mock, NonCallableMock, NonCallableMagicMock, patch
+
+import django.test.testcases as ut
+import django.test.client
+from django.core.urlresolvers import reverse
+
 from problem.models import Problem, Solution, Verdict
 
 

@@ -1,13 +1,15 @@
+import os
+
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse
+
+from please import globalconfig
 from problem.forms import ProblemEditMaterialsForm
 from problem.models import Problem
 from problem.views.file_utils import file_write, ChangeDir
 from please.latex.latex_tools import generate_problem
-from please import globalconfig
-import os
 
 
 def edit_load_files(*args):

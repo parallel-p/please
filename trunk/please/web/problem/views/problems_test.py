@@ -1,28 +1,31 @@
-import django.test
-from unittest.mock import Mock, patch
 import os.path
 import shutil
-from problem.models import Problem
+from unittest.mock import Mock, patch
+
+import django.test
 from django.core.urlresolvers import reverse
 
-POLYGON_IMPORT_TARGET_PATH=os.path.abspath(os.path.curdir)
-POLYGON_IMPORTED_CONTEST_ID=777
-POLYGON_IMPORTED_PROBLEM_LETTER='X'
-POLYGON_IMPORTED_PROBLEM_NAME='centroid'
+from problem.models import Problem
+
+POLYGON_IMPORT_TARGET_PATH = os.path.abspath(os.path.curdir)
+POLYGON_IMPORTED_CONTEST_ID = 777
+POLYGON_IMPORTED_PROBLEM_LETTER = 'X'
+POLYGON_IMPORTED_PROBLEM_NAME = 'centroid'
 # ~~~Problem name must be same as a name of a
 # zip archive in please/import_from_polygon/testdata
 # because Polygon names the archive by the problem name~~~
 
-TEST_POLYGON_ARCHIVE_PATH=os.path.abspath(os.path.join(
+TEST_POLYGON_ARCHIVE_PATH = os.path.abspath(os.path.join(
         # please/web/problem/views/
         os.path.dirname(os.path.abspath(__file__)),
-        '..', # please/web/problem
-        '..', # please/web/
-        '..', # please/
-        'import_from_polygon', # please/import_from_polygon
-        'testdata', # please/import_from_polygon/testdata
+        '..',  # please/web/problem
+        '..',  # please/web/
+        '..',  # please/
+        'import_from_polygon',  # please/import_from_polygon
+        'testdata',  # please/import_from_polygon/testdata
         'centroid-70.zip'))
 # please/import_from_polygon/testdata/centroid-70_correct.zip
+
 
 def fake_download(contest_id, problem_letter):
     shutil.copyfile(TEST_POLYGON_ARCHIVE_PATH,
@@ -30,6 +33,7 @@ def fake_download(contest_id, problem_letter):
                 POLYGON_IMPORT_TARGET_PATH,
                 POLYGON_IMPORTED_PROBLEM_NAME + '.zip'))
     return POLYGON_IMPORTED_PROBLEM_NAME
+
 
 def names(problems):
     return [x.name for x in problems]
@@ -93,4 +97,3 @@ class ProblemsTests(django.test.TestCase):
         self.assertEqual(problem.short_name, POLYGON_IMPORTED_PROBLEM_NAME)
         self.assertEqual(problem.path, os.path.join(
             POLYGON_IMPORT_TARGET_PATH, POLYGON_IMPORTED_PROBLEM_NAME))
-

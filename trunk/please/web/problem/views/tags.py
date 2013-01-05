@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from problem.forms import tags_edit_form
 
+from problem.forms import tags_edit_form
 from problem.models import Problem, ProblemTag
 
 
