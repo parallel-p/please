@@ -85,13 +85,6 @@ def create(request, id = None):
         }, RequestContext(request))
 
 
-def show_tests(request, id):
-    problem = Problem.objects.get(id=id)
-    tests_path = os.path.join(problem.)
-
-    return render_to_response('problem_tests.html', {'form': form, 'problem_id': id}, RequestContext(request))
-
-
 def add(request):
     if request.method == 'POST':
         form = AddProblemForm(request.POST)
