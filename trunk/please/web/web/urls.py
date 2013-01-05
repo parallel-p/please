@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^problems/$', 'problem.views.problems.common'),
+    url(r'^$', 'problem.views.problems.common'),
     url(r'^problems/add/$', 'problem.views.problems.add'),
     url(r'^problems/add-tree/$', 'problem.views.problems.add_tree'),
     url(r'^problems/create/$', 'problem.views.problems.create'),
