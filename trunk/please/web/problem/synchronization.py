@@ -34,10 +34,6 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
     model.name = conf.get("name", "")
     model.short_name = conf.get("shortname", "")
 
-    model.tags.clear()
-    for entry in conf['tags']:
-        model.tags.add(ProblemTag.objects.get_or_create(name=entry)[0])
-
     model.input = conf.get("input", "")
     model.output = conf.get("output", "")
     model.time_limit = float(conf.get("time_limit", "2.0"))
@@ -51,14 +47,6 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
     model.analysis_path = conf.get("analysis", "")
 
     model.hand_answer_extension = conf.get("hand_answer_extension", "")
-
-    model.well_done_test.clear()
-    for entry in conf.get('well_done_test', []):
-        model.well_done_test.add(WellDone.objects.get_or_create(name=entry)[0])
-
-    model.well_done_answer.clear()
-    for entry in conf.get('well_done_answer', []):
-        model.well_done_answer.add(WellDone.objects.get_or_create(name=entry)[0])
 
     model.solution_set.all().delete()
     for solution in conf.get("solution", []):
@@ -77,11 +65,34 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
             model.main_solution = sol
         sol.save()
 
+    model.tags.clear()
+    for entry in conf.get('tags', []):
+        model.tags.add(ProblemTag.objects.get_or_create(name=entry)[0])
+
+    model.well_done_test.clear()
+    for entry in conf.get('well_done_test', []):
+        model.well_done_test.add(WellDone.objects.get_or_create(name=entry)[0])
+
+    model.well_done_answer.clear()
+    for entry in conf.get('well_done_answer', []):
+        model.well_done_answer.add(WellDone.objects.get_or_create(name=entry)[0])
+
     model.save()
     return model
 
 
-def export_from_database(model, name=globalconfig.default_package):
+def export_from_database(model=None, path=None, name=globalconfig.default_package):
+    assert (model is None) != (path is None)
+    if path is not None:
+        try:
+            model = Problem.objects.get(path=path)
+        except Problem.DoesNotExist:
+            if path[-1] == os.sep:
+                path = path[:-1]
+            else:
+                path += os.sep
+            model = Problem.objects.get_or_create(path=path)[0]
+
     with ChangeDir(str(model.path)):
         try:
             conf = PackageConfig.get_config('.', name)
