@@ -6,7 +6,9 @@ from problem.models import Problem
 from problem.views import materials, todo, manage_tests
 from problem.views.solutions import upload_solution, retest_solutions
 from problem.views.problems import edit_or_create_problem_block, show_tests_block
+from problem.views.tags import process_edit_tags
 from please.utils.exceptions import PleaseException
+from problem.views.tags import process_edit_tags
 
 
 # @problem_sync(read=True, write=False)
@@ -16,6 +18,7 @@ def settings(request, id):
         'nav': 'settings',
         'problem': problem,
         'edit_problem': edit_or_create_problem_block(request, problem),
+        'edit_tags': process_edit_tags(request, id),
         'todo': todo.show_block(problem),
     }, RequestContext(request))
 
