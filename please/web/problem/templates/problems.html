@@ -56,7 +56,11 @@
                     </a>
                 </td>
                 <td>{{ problem.path }}</td>
-                <td>{{ problem.tags.all|join:', ' }}</td>
+                <td>
+                {% for tag in problem.tags.all %}
+                    <a href="?tags={{tag}}">{{tag}}</a>{% if not forloop.last %},{% endif %}
+                {% endfor %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
