@@ -120,15 +120,15 @@ class TodoGenerator:
         if (path != None):
             item_path = os.path.join(root_path, path)
         else:
-            if (item in config):
+            if item in config:
                 item_path = os.path.join(root_path, config.get(item, ''))
             else:
                 return "error"
-        if (os.path.exists(item_path)):
+        if os.path.isfile(item_path):
             hashobj = hashlib.md5()
             with open(item_path,"rb") as item_file:
                 hashobj.update(item_file.read())
-            if (hashobj.hexdigest() != md5values[item]):
+            if hashobj.hexdigest() != md5values[item]:
                 return "ok" 
             else:
                 return "warning"
