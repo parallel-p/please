@@ -1,8 +1,0 @@
-<form action="{% url 'edit_tags' id=edit_tags.id %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    Remove related tags:
-    {{ edit_tags.form.added_tags }}
-    Add an existing tag: {{ edit_tags.form.other_tags }}<br />
-    ... or specify a tag name: {{ edit_tags.form.add_tag }}<br />
-    <input type="submit" value="Apply" />
-</form>

@@ -21,6 +21,11 @@
                     <input id="id_path" name="path" type="hidden" value="Path" />
                 {% endifnotequal %}
             {% endfor %}
+
+    Remove related tags:
+    {{ edit_tags.form.added_tags }}
+    Add an existing tag: {{ edit_tags.form.other_tags }}<br />
+    ... or specify a tag name: {{ edit_tags.form.add_tag }}<br />
         </div>
         <div>
             <input class="btn" type="submit" name="save" value="Save" />
