@@ -9,7 +9,6 @@ from ..test_config_parser import parser
 
 #TODO: make it nonstatic class
 class TodoGenerator:
-
     @staticmethod
     def __read_md5_values(root_path = '.'):
         md5path = os.path.join(root_path, '.please', 'md5.config')
@@ -90,7 +89,7 @@ class TodoGenerator:
         if item in config:
             element = config[item]
             if element == [] or \
-                    (isinstance(element, str) and element.strip() != ""):
+                    (isinstance(element, str) and element.strip() == ""):
                 return "warning"
             else:
                 return "ok"
