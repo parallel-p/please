@@ -19,7 +19,10 @@ class ProblemEditForm(forms.ModelForm):
 
 
 class ProblemSearch(forms.Form):
-    tags = forms.CharField(required=False)
+    tags = forms.CharField(required=False, widget=forms.TextInput(attrs={
+        'placeholder': 'search by tags',
+        'class': 'search-query',
+    }))
 
 
 class ProblemEditMaterialsForm(forms.Form):
