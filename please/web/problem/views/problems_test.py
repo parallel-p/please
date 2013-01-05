@@ -93,7 +93,7 @@ class ProblemsTests(django.test.TestCase):
                 POLYGON_IMPORTED_PROBLEM_LETTER)
         new_problems = set(Problem.objects.all()).difference(old_problems)
         self.assertEqual(len(new_problems), 1)
-        problem, *_ = tuple(new_problems)
+        problem = tuple(new_problems)[0]
         self.assertEqual(problem.short_name, POLYGON_IMPORTED_PROBLEM_NAME)
         self.assertEqual(problem.path, os.path.join(
             POLYGON_IMPORT_TARGET_PATH, POLYGON_IMPORTED_PROBLEM_NAME))
