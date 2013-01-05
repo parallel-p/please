@@ -40,7 +40,6 @@ def create(request, id=None):
 
     if problem_id is None:
         model = import_to_database_advanced(model, "../templates/Template/")
-
     if request.method == 'POST':
         form = ProblemEditForm(request.POST)
         if form.is_valid():
@@ -69,7 +68,10 @@ def create(request, id=None):
         if problem_id is None:
             form = ProblemEditForm()
         else:
-            form = ProblemEditForm(initial={'name': model.name, 'short_name': model.short_name})
+            form = ProblemEditForm(initial={'name': model.name, 'short_name': model.short_name,
+                                            'input': model.input, 'output': model.output,
+                                            'time_limit': model.time_limit, 'memory_limit': model.memory_limit,
+                                           })
 
     return render_to_response('create_problem.html', {
             'form': form,
