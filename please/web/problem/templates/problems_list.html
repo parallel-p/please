@@ -14,7 +14,7 @@
     {% for problem in problems %}
         <tr>
             <td>{{problem.id}}</td>
-            <td><a href="{% url 'problem_statement' problem.id%}">{{problem.name}}</a></td>
+            <td><a href="{% url 'problem_statement' problem.id%}">{{problem.name| default:"[no name]"}}</a></td>
             <td>{{ problem.tags.all | join:", " }}</td>
         </tr>
     {% endfor %}
