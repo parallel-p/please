@@ -115,8 +115,6 @@ def show_tests(request, id):
                               {'problem_id': id,
                                'file_names': tests,
                                'data': test_data,
-                               'big_input': big_input,
-                               'big_output': big_output,
                                }, RequestContext(request))
 
 
@@ -131,6 +129,17 @@ def show_test(request, problem_id, test_id):
     )
     return response
 
+
+def show_test_answer(request, problem_id, test_id):
+    problem = Problem.objects.get(id=problem_id)
+    test_path = os.path.join(problem.path, ".tests/{0}.a".format(test_id)).replace(os.sep, '/')
+    response = HttpResponse(
+        FileWrapper(open(test_path, 'rb')), content_type='text/plain'
+    )
+    response['Content-Disposition'] = 'attachment; filename="{}"'.format(
+        os.path.basename(test_path)
+    )
+    return response
 
 def add_problem_block(request):
     is_success, is_error = False, False
