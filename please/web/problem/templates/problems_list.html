@@ -9,12 +9,14 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Path</th>
         <th>Tags</th>
     <tr>
     {% for problem in problems %}
         <tr>
             <td>{{problem.id}}</td>
             <td><a href="{% url 'problem_statement' problem.id%}">{{problem.name| default:"[no name]"}}</a></td>
+            <td>{{ problem.path }}</td>
             <td>{{ problem.tags.all | join:", " }}</td>
         </tr>
     {% endfor %}
