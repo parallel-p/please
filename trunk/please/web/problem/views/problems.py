@@ -179,13 +179,13 @@ def import_from_polygon_block(request):
         form = ProblemImportFromPolygonForm(request.POST)
         if form.is_valid():
             with ChangeDir(form.cleaned_data['target_path']):
-                problem_name = download_zip.get_problem(
+                archive_name = download_zip.get_problem(
                         form.cleaned_data['contest_id'],
                         form.cleaned_data['problem_letter'].upper())
-                create_problem(problem_name + ".zip")
+                problem_name = create_problem(archive_name + ".zip")
             problem_path = os.path.join(form.cleaned_data['target_path'],
                     problem_name)
-            problem = Problem(path=problem_path, name=problem_name)
+            problem = Problem(path=problem_path, short_name=problem_name)
             problem.save()
             import_to_database(model=problem, path=problem_path)
             problem.save()

@@ -1,6 +1,35 @@
 import django.test
 from unittest.mock import Mock, patch
+import os.path
+import shutil
+from problem.models import Problem
+from django.core.urlresolvers import reverse
 
+POLYGON_IMPORT_TARGET_PATH=os.path.abspath(os.path.curdir)
+POLYGON_IMPORTED_CONTEST_ID=777
+POLYGON_IMPORTED_PROBLEM_LETTER='X'
+POLYGON_IMPORTED_PROBLEM_NAME='centroid'
+# ~~~Problem name must be same as a name of a
+# zip archive in please/import_from_polygon/testdata
+# because Polygon names the archive by the problem name~~~
+
+TEST_POLYGON_ARCHIVE_PATH=os.path.abspath(os.path.join(
+        # please/web/problem/views/
+        os.path.dirname(os.path.abspath(__file__)),
+        '..', # please/web/problem
+        '..', # please/web/
+        '..', # please/
+        'import_from_polygon', # please/import_from_polygon
+        'testdata', # please/import_from_polygon/testdata
+        'centroid-70.zip'))
+# please/import_from_polygon/testdata/centroid-70_correct.zip
+
+def fake_download(contest_id, problem_letter):
+    shutil.copyfile(TEST_POLYGON_ARCHIVE_PATH,
+            os.path.join(
+                POLYGON_IMPORT_TARGET_PATH,
+                POLYGON_IMPORTED_PROBLEM_NAME + '.zip'))
+    return POLYGON_IMPORTED_PROBLEM_NAME
 
 def names(problems):
     return [x.name for x in problems]
@@ -38,3 +67,30 @@ class ProblemsTests(django.test.TestCase):
         self.assertEqual(names(resp.context["problems"]),
                 ["first"])
         self.assertTemplateUsed(resp, "problems_list.html")
+
+    def test_import_from_polygon(self):
+        response = self.client.get(reverse('polygon-import'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(template_name='import_from_polygon.html')
+
+    @patch('problem.views.problems.download_zip.get_problem',
+            side_effect=fake_download)
+    def test_import_from_polygon_block(self, download):
+        old_problems = set(Problem.objects.all())
+        response = self.client.post(
+                reverse('polygon-import'),
+                data={
+                    'target_path': POLYGON_IMPORT_TARGET_PATH,
+                    'contest_id': POLYGON_IMPORTED_CONTEST_ID,
+                    'problem_letter': POLYGON_IMPORTED_PROBLEM_LETTER
+                })
+        self.assertEqual(response.status_code, 302)
+        download.assertCalledOnceWith(POLYGON_IMPORTED_CONTEST_ID,
+                POLYGON_IMPORTED_PROBLEM_LETTER)
+        new_problems = set(Problem.objects.all()).difference(old_problems)
+        self.assertEqual(len(new_problems), 1)
+        problem, *_ = tuple(new_problems)
+        self.assertEqual(problem.short_name, POLYGON_IMPORTED_PROBLEM_NAME)
+        self.assertEqual(problem.path, os.path.join(
+            POLYGON_IMPORT_TARGET_PATH, POLYGON_IMPORTED_PROBLEM_NAME))
+
