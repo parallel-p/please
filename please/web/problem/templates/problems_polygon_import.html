@@ -1,0 +1,9 @@
+{% block import_from_polygon %}
+    <form action="{% url "polygon-import" %}", method=POST>{% csrf_token %}
+        {% for field in import_from_polygon.form %}
+            <p>{{ field.label_tag }}:<br/>
+            {{field}}</p>
+        {% endfor %}
+        <input type="submit" value="Import">
+    </form>
+{% endblock %}

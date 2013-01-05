@@ -1,11 +1,14 @@
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from problem.models import Problem
-from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm
+from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm, ProblemImportFromPolygonForm
 from problem.synchronization import export_from_database, import_to_database, import_tree
 from please.template.problem_template_generator import generate_problem
 from django.core.exceptions import ObjectDoesNotExist
 import os
+from problem.views.file_utils import ChangeDir
+from please.import_from_polygon import download_zip
+from please.import_from_polygon import create_problem
 
 
 def common(request):
@@ -33,21 +36,29 @@ def import_to_database_advanced(model, path):
         model = template_problem
     return model
 
-
-def create(request, id=None):
+def create(request, id = None):
     problem_id = id
     model = Problem()
     try:
         model = Problem.objects.get(id=id)
     except ObjectDoesNotExist:
+<<<<<<< .mine
+        problem_id = None    
+        
+    if problem_id is None:
+        model = import_to_database_advanced(model, "../templates/Template/")
+            
+
+=======
         problem_id = None
             
+>>>>>>> .r1462
     if request.method == 'POST':
         form = ProblemEditForm(request.POST)
         if form.is_valid():
             if problem_id is None:
                 if not os.path.exists(form.cleaned_data["path"]):
-                    raise NoDirectoryException("There is no such directory!")
+                    raise NoSuchDirectoryException("There is no such directory!")
                 model.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
                 if os.path.exists(model.path):
                     raise ProblemExistsException("This problem already exists")
@@ -57,7 +68,7 @@ def create(request, id=None):
                 os.chdir(form.cleaned_data["path"])
                 generate_problem(form.cleaned_data["short_name"])
                 os.chdir(old_path)
-
+                
             model.name = form.cleaned_data["name"]
             model.short_name = form.cleaned_data["short_name"]
             model.input = form.cleaned_data["input"]
@@ -72,10 +83,14 @@ def create(request, id=None):
         if problem_id is None:
             form = ProblemEditForm()
         else:
+<<<<<<< .mine
+            form = ProblemEditForm(initial = {'name': model.name, 'short_name': model.short_name})
+=======
             form = ProblemEditForm(initial={'name': model.name, 'short_name': model.short_name,
                                             'input': model.input, 'output': model.output,
                                             'time_limit': model.time_limit, 'memory_limit': model.memory_limit,
                                            })
+>>>>>>> .r1462
 
     return render_to_response('create_problem.html', {
             'form': form,
@@ -131,3 +146,27 @@ def show_by_tag_block(request):
         'form': form,
         'problems': problems,
     }
+
+def import_from_polygon_block(request):
+    if request.method == 'POST':
+        form = ProblemImportFromPolygonForm(request.POST)
+        if form.is_valid():
+            with ChangeDir(form.cleaned_data['target_path']):
+                problem_name = download_zip.get_problem(
+                        form.cleaned_data['contest_id'],
+                        form.cleaned_data['problem_letter'].upper())
+                create_problem(problem_name + ".zip")
+            problem = Problem(path=form.cleaned_data['target_path'],
+                    name=problem_name)
+            problem.save()
+            import_to_database(model=problem, path=os.path.join(
+                form.cleaned_data['target_path'], problem_name))
+            problem.save()
+            form = ProblemImportFromPolygonForm()
+    else:
+        form = ProblemImportFromPolygonForm()
+    return {'import_from_polygon' : {'form' : form}}
+
+def import_from_polygon(request):
+    return render_to_response('problems_polygon_import.html', import_from_polygon_block(request),
+            context_instance=RequestContext(request))
