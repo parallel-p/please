@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Solutions{% endblock %}
+
+{% block content %}
+
+
+<div class="well">
+
+    <ul>
+    {% for solution in problem_solution.solutions %}
+        <li>{{ solution }}</li>
+    {% endfor %}
+    </ul>
+
+    <form action="{% url 'problem.views.problem.solution' problem.id %}" enctype="multipart/form-data" method=POST>{% csrf_token %}
+        {{problem_solution.form.solution_file.label_tag}}{{problem_solution.form.solution_file}}
+        <div>
+            {{problem_solution.form.as_p}}
+            <input class="btn" type="submit" value="Submit" />
+        </div>
+    </form>
+</div>
+
+{% endblock %}
