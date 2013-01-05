@@ -1,14 +1,14 @@
 <ul class="nav nav-list">
-    <li>
+    <li class="{% ifequal nav 'settings' %}active{% endifequal %}">
         <a href="#"><i class="icon-cog"></i> Settings</a>
     </li>
-    <li>
+    <li class="{% ifequal nav 'statements' %}active{% endifequal %}">
         <a href="{% url 'problem.views.problem.statements' id=problem.id %}"><i class="icon-file"></i> Statements</a>
     </li>
-    <li>
+    <li class="{% ifequal nav 'tests' %}active{% endifequal %}">
         <a href="{% url 'problem.views.problem.tests' id=problem.id %}"><i class="icon-list"></i> Tests</a>
     </li>
-    <li>
-        <a href="{% url 'problem.views.problem.solution' id=problem.id %}"><i class="icon-ok-sign"></i> Solutions</a>
+    <li class="{% ifequal nav 'solutions' %}active{% endifequal %}">
+        <a href="{% url 'problem.views.problem.solutions' id=problem.id %}"><i class="icon-ok-sign"></i> Solutions</a>
     </li>
 </ul>

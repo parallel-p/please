@@ -17,8 +17,12 @@
                 <a class="brand" href="/">Please</a>
                 <div class="nav-collapse collapse">
                     <ul class="nav">
-                        <li><a href="/problems/">Problems</a></li>
-                        <li><a href="#">Contests</a></li>
+                        <li class="{% ifequal navbar 'problems' %}active{% endifequal %}">
+                            <a href="{% url 'problem.views.problems.common' %}">Problems</a>
+                        </li>
+                        <li class="{% ifequal navbar 'contests' %}active{% endifequal %}">
+                            <a href="#">Contests</a>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -12,7 +12,7 @@
 </div>
 
 <div class="well">
-    <form action="{% url 'problem.views.problem.solution' id=problem.id %}" enctype="multipart/form-data" method="POST">
+    <form action="{% url 'problem.views.problem.solutions' id=problem.id %}" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         <div>
             {{ problem_solution.form.as_p }}
