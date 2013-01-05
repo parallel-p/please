@@ -75,6 +75,15 @@ body {
         text-decoration: underline;
         font-weight: bold;
     }
+.verdict-OK {
+    color: #3DAD00;
+}
+.verdict-PE, .verdict-RE, .verdict-WA {
+    color: #92010E;
+}
+.veridct-TL, .verdict-ML {
+    color: #006D8F;
+}
 
 form label {
     font-weight: bold;
