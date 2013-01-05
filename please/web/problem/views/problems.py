@@ -1,17 +1,20 @@
-import os
-
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
+from django.core.servers.basehttp import FileWrapper
+from django.http import HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
 
 from please.template.problem_template_generator import generate_problem
-from please.import_from_polygon import download_zip
-from please.import_from_polygon import create_problem
+from please.import_from_polygon import download_zip, create_problem
+from please.template.problem_template_generator import generate_problem
 
 from problem.models import Problem
 from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm, ProblemImportFromPolygonForm
 from problem.synchronization import export_from_database, import_to_database, import_tree, is_problem_path
 from problem.views.file_utils import ChangeDir
+
+import os
 
 
 def index(request):
