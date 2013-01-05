@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     url(r'^problems/(?P<id>\d+)/files/upload/additional$', 'problem.views.files.upload_additional_view', name='additional_upload'),
     url(r'^problems/(?P<id>\d+)/tags/$', 'problem.views.tags.edit_tags_view', name='edit_tags'),
 
-    url(r'^problems/(?P<id>\d+)/solutions/$', 'problem.views.problem.solution'),
+    url(r'^problems/(?P<id>\d+)/solutions/$', 'problem.views.problem.solutions'),
     url(r'^problems/(?P<id>\d+)/statements/$', 'problem.views.problem.statements', name='problem_statement'),
     url(r'^problems/(?P<id>\d+)/tests/$', 'problem.views.problem.tests'),
 )

@@ -12,7 +12,10 @@ from please.import_from_polygon import create_problem
 
 
 def common(request):
-    return render_to_response('problems.html', show_by_tag_block(request), RequestContext(request))
+    return render_to_response('problems.html', {
+        'navbar': 'problems',
+        'problems_list': show_by_tag_block(request),
+    }, RequestContext(request))
 
 
 class NoDirectoryException(Exception):

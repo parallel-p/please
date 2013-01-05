@@ -32,7 +32,7 @@
 <div class="content-subtitle"></div>
 <div class="content">
     <form class="form-search" action="{% url 'problem.views.problems.common' %}" method="GET">
-        {% for field in form %}
+        {% for field in problems_list.form %}
             {{ field }}
         {% endfor %}
         <input class="btn" type="submit" value="Search" />
@@ -47,7 +47,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for problem in problems %}
+            {% for problem in problems_list.problems %}
             <tr>
                 <td>{{ problem.id }}</td>
                 <td>

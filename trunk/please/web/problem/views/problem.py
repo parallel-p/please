@@ -2,7 +2,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from problem.helpers import problem_sync
 from problem.models import Problem
-from problem.views import materials, todo, manage_tests, solutions
+from problem.views import materials, todo, manage_tests
+from problem.views.solutions import process_solutions
 from please.utils.exceptions import PleaseException
 
 
@@ -17,6 +18,7 @@ def statements(request, id):
         except PleaseException as e:
             error = str(e)
     return render_to_response('problem/statements.html', {
+        'nav': 'statements',
         'problem': problem,
         'edit_dict': materials.edit_dict(request, id),
         'todo': todo.show_block(problem),
@@ -28,6 +30,7 @@ def statements(request, id):
 def tests(request, id):
     problem = get_object_or_404(Problem, id=id)
     return render_to_response('problem/tests.html', {
+        'nav': 'tests',
         'problem': problem,
         'manage_tests': manage_tests.manage_tests(request, problem),
         'todo': todo.show_block(problem),
@@ -35,10 +38,11 @@ def tests(request, id):
 
 
 @problem_sync(read=False, write=False)
-def solution(request, id):
+def solutions(request, id):
     problem = get_object_or_404(Problem, id=id)
     return render_to_response('problem/solutions.html', {
+        'nav': 'solutions',
         'problem': problem,
-        'problem_solution': solutions.process_solutions(request, id),
+        'problem_solution': process_solutions(request, id),
         'todo': todo.show_block(problem),
     }, RequestContext(request))
