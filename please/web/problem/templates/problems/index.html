@@ -1,43 +1,10 @@
-{% extends 'base.html' %}
-
-{% block title %}Problems{% endblock %}
-
-{% block sidebar %}
-<div class="well sidebar-nav">
-    <ul class="nav nav-list">
-        <li>
-            <a href="{% url 'problem.views.problems.create' %}">
-                <i class="icon-plus"></i>
-                Create
-            </a>
-        </li>
-        <li>
-            <a href="{% url 'problem.views.problems.add' %}">
-                <i class="icon-folder-close"></i>
-                Add existing
-            </a>
-        </li>
-        <li>
-            <a href="{% url 'problem.views.problems.add_tree' %}">
-                <i class="icon-list-alt"></i>
-                Add tree
-            </a>
-        </li>
-        <li>
-            <a href="{% url 'problem.views.problems.import_from_polygon' %}">
-                <i class="icon-share"></i>
-                Polygon import
-            </a>
-        </li>
-    </ul>
-</div>
-{% endblock %}
+{% extends 'problems/base.html' %}
 
 {% block main %}
 <div class="content-title">Problems</div>
 <div class="content-subtitle"></div>
 <div class="content">
-    <form class="form-search" action="{% url 'problem.views.problems.common' %}" method="GET">
+    <form class="form-search" action="{% url 'problem.views.problems.index' %}" method="GET">
         {% for field in problems_list.form %}
             {{ field }}
         {% endfor %}

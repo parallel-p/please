@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
+from django.core.urlresolvers import reverse
 from problem.models import Problem
 from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm, ProblemImportFromPolygonForm
 from problem.synchronization import export_from_database, import_to_database, import_tree
@@ -11,8 +12,8 @@ from please.import_from_polygon import download_zip
 from please.import_from_polygon import create_problem
 
 
-def common(request):
-    return render_to_response('problems.html', {
+def index(request):
+    return render_to_response('problems/index.html', {
         'navbar': 'problems',
         'problems_list': show_by_tag_block(request),
     }, RequestContext(request))
@@ -26,21 +27,8 @@ class ProblemExistsException(Exception):
     pass
 
 
-def import_to_database_advanced(model, path):
-    template_problem = None
-    for problem in Problem.objects.all():
-        if problem.name == "Template_problem_for_please":
-            template_problem = problem
-            break
-    if template_problem is None:
-        model.save()
-        import_to_database(model, path)
-    else:
-        model = template_problem
-    return model
-
-
 def edit_or_create_problem_block(request, problem=None):
+    is_success = False
     if request.method == 'POST':
         form = ProblemEditForm(request.POST)
         if form.is_valid():         
@@ -63,6 +51,7 @@ def edit_or_create_problem_block(request, problem=None):
             problem.memory_limit = int(form.cleaned_data["memory_limit"])
             problem.save()
             export_from_database(problem)
+            is_success = True
     else:
         if problem is None:
             form = ProblemEditForm()
@@ -77,11 +66,17 @@ def edit_or_create_problem_block(request, problem=None):
             })
     return {
         'form': form,
-        'problem': problem,
+        'is_success': is_success,
     }
 
 def create(request):
-    return render_to_response('create_problem.html', edit_or_create_problem_block(request), RequestContext(request))
+    edit_problem = edit_or_create_problem_block(request)
+    if edit_problem['is_success']:
+        return redirect(reverse('problem.views.problems.index'))
+    return render_to_response('problems/create.html', {
+        'nav': 'create',
+        'edit_problem': edit_problem,
+    }, RequestContext(request))
 
 def show_tests(request, id):
     problem = Problem.objects.get(id=id)
