@@ -78,7 +78,6 @@ def create(request, id = None):
                                             'input': problem.input, 'output': problem.output,
                                             'time_limit': problem.time_limit, 'memory_limit': problem.memory_limit,
                                            })
->>>>>>> .r1462
 
     return render_to_response('create_problem.html', {
             'form': form,
