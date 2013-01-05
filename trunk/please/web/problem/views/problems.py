@@ -140,11 +140,11 @@ def import_from_polygon_block(request):
                         form.cleaned_data['contest_id'],
                         form.cleaned_data['problem_letter'].upper())
                 create_problem(problem_name + ".zip")
-            problem = Problem(path=form.cleaned_data['target_path'],
-                    name=problem_name)
+            problem_path = os.path.join(form.cleaned_data['target_path'],
+                    problem_name)
+            problem = Problem(path=problem_path, name=problem_name)
             problem.save()
-            import_to_database(model=problem, path=os.path.join(
-                form.cleaned_data['target_path'], problem_name))
+            import_to_database(model=problem, path=problem_path)
             problem.save()
             form = ProblemImportFromPolygonForm()
     else:
