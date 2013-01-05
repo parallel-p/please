@@ -43,7 +43,6 @@ def create(request, id = None):
         problem = Problem.objects.get(id=id)
     except ObjectDoesNotExist:
         problem_id = None
-
     if request.method == 'POST':
         form = ProblemEditForm(request.POST)
         if form.is_valid():
@@ -78,7 +77,6 @@ def create(request, id = None):
                                             'input': problem.input, 'output': problem.output,
                                             'time_limit': problem.time_limit, 'memory_limit': problem.memory_limit,
                                            })
-
     return render_to_response('create_problem.html', {
             'form': form,
             'problem_id': problem_id,
