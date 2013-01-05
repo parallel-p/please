@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}
+<div class="well sidebar-nav">
+    {% include 'problem/navigation.html' %}
+</div>
+<div class="todo well">
+    {% include 'problem/todo.html' %}
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="problem-name">Problem «{{ problem.name |default:"[no name]"}}»</div>
+<div class="problem-path">{{ problem.path }}</div>
+{% if error %}
+<div class="alert alert-error">
+    <a href="#" class="close" data-dismiss="alert">×</a>
+    <h4>Error</h4>
+    {{ error }}
+</div>
+{% endif %}
+<div class="content">
+    {% block content %}
+    {% endblock %}
+</div>
+{% endblock %}
