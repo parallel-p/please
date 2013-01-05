@@ -1,0 +1,14 @@
+<table border = "1" width="600">
+    <tr>
+      <td width="20">#</td>
+      <td align="center">input (first 255 bytes)</td>
+      <td align="center">output (first 255 bytes)</td>
+    </tr>
+    {% for input_data, output_data in data %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ input_data }}</td>
+            <td>{{ output_data }}</td>
+        </tr>
+    {% endfor %}
+</table>
