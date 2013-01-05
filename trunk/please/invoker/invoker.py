@@ -13,6 +13,7 @@ CHUNKSIZE = 4096
 
 if _on_windows:
     import threading
+
     def _read(file, list, event):
         if file is None:
             return
@@ -23,6 +24,7 @@ if _on_windows:
             list.append(bs)
             if event.isSet():
                 break
+
     def _new_reading_thread(file, list):
         event = threading.Event()
         thread = threading.Thread(target=_read, args=(file, list, event))
@@ -36,10 +38,11 @@ else:
 import logging
 logger = logging.getLogger("please_logger.invoker")
 
+
 class ResultInfo:
     '''
     This class represents all the information we have to get from the execution:
-    * verdict: 
+    * verdict:
         possible values are:
           OK (program executed succesfully);
           TL (CPU time limit exceeded);
@@ -63,11 +66,11 @@ class ResultInfo:
         self.used_memory = used_memory
 
     def __str__(self):
-        return ("verdict: {0}\n" \
-                + "return code: {1}\n" \
-                + "real time: {2:.2f} sec, cpu time: {3:.2f} sec\n" \
-                + "used memory: {4:.3f} Mb").format(self.verdict, self.return_code, 
-                                                    self.real_time, self.cpu_time, 
+        return ("verdict: {0}" \
+                + "return code: {1}" \
+                + "real time: {2:.2f} sec, cpu time: {3:.2f} sec" \
+                + "used memory: {4:.3f} Mb").format(self.verdict, self.return_code,
+                                                    self.real_time, self.cpu_time,
                                                     self.used_memory)
 
     def __repr__(self):
@@ -80,6 +83,7 @@ class ResultInfo:
                 self.cpu_time == other.cpu_time and
                 self.used_memory == other.used_memory)
 
+
 class ExecutionLimits:
     '''
     This class represents constraints of the execution.
@@ -87,7 +91,7 @@ class ExecutionLimits:
     def __init__(self, cpu_time=10, memory=512, real_time=None):
         real_time = real_time or cpu_time * 5
         self.real_time, self.memory, self.cpu_time = \
-            real_time, memory, cpu_time 
+            real_time, memory, cpu_time
         self.real_time = float(self.real_time)
         self.memory = float(self.memory)
         self.cpu_time = float(self.cpu_time)
@@ -112,11 +116,11 @@ Example of using:
 
   handler = psutil.Popen(["program.exe", "--arg1=first", "/arg2=second"],
                          stdout = PIPE) # read help(psutil.Popen)
-  limits = ExecutionLimits(real_time=3, memory=128, cpu_time=10) 
+  limits = ExecutionLimits(real_time=3, memory=128, cpu_time=10)
                            # cpu_time can be omitted; by default it equals
                            # to real_time.
                            # Warning: don't use this value if you don't
-                           # know what is it 
+                           # know what is it
 
   result = invoke(handler, limits)
   print(str(result))
@@ -126,7 +130,8 @@ Example of using:
       raise Exception(":-(")
 '''
 
-def run_command(args, limits, stdin = None, stdout = PIPE, stderr = PIPE, **kw):
+
+def run_command(args, limits, stdin=None, stdout=PIPE, stderr=PIPE, **kw):
     stdout_fh = stdout if stdout != PIPE else tempfile.TemporaryFile()
     stderr_fh = stderr if stderr != PIPE else tempfile.TemporaryFile()
 
@@ -146,17 +151,18 @@ def run_command(args, limits, stdin = None, stdout = PIPE, stderr = PIPE, **kw):
 
     return res, retstdout, retstderr
 
+
 def invoke(handler, limits):
     CHECK_PERIOD = 0.05
     MEGABYTE = 1 << 20
-    
+
     used_memory = 0
     cpu_time = 0
     verdict = None
-    
+
     start_time = time.time()
     real_time = 0
-    return_code = None 
+    return_code = None
     stdout = []
     stderr = []
     if _on_windows:
@@ -167,6 +173,7 @@ def invoke(handler, limits):
         flags = select.POLLIN | select.POLLPRI
         fds = {}
         outs = {}
+
         def _register(f, out):
             if f is not None:
                 poller.register(f.fileno(), flags)
@@ -186,21 +193,21 @@ def invoke(handler, limits):
             return_code = handler.wait(CHECK_PERIOD)
         except psutil.TimeoutExpired:
             pass
-    
+
         try:
             cpu_time = sum(list(handler.get_cpu_times()))
             real_time = time.time() - start_time
             used_memory = max(used_memory, __get_memory_info(handler))
         except psutil.error.NoSuchProcess:
             #logger.warning("Couldn't check limits: NoSuchProcess")
-            continue #sometimes it happens for unknown reasons
+            continue  # sometimes it happens for unknown reasons
         except psutil.error.AccessDenied:
-            try: #wait some time, in darwin process is steel running, but already not exists
+            try:  # wait some time, in darwin process is steel running, but already not exists
                 return_code = handler.wait(CHECK_PERIOD)
             except psutil.TimeoutExpired:
                 pass
             #logger.warning("Couldn't check limits: AccessDenied")
-            continue #sometimes it happens for unknown reasons
+            continue  # sometimes it happens for unknown reasons
 
         if real_time > limits.real_time:
             handler.kill()
@@ -226,11 +233,11 @@ def invoke(handler, limits):
                 try:
                     events = poller.poll(0)
                 except OSError as e:
-                    if e.args[0] == errno.EINTR: # rewrite this for python 3.3
+                    if e.args[0] == errno.EINTR:  # rewrite this for python 3.3
                         continue
                     raise
                 for fd, mode in events:
-                    if mode & flags: # actual message
+                    if mode & flags:  # actual message
                         try:
                             data = os.read(fd, CHUNKSIZE)
                         except OSError as e:
@@ -290,5 +297,6 @@ def invoke(handler, limits):
 
 __current_platform = platform_detector.get_platform()
 
+
 def __get_memory_info(handler):
-    return handler.get_memory_info()[0]        
+    return handler.get_memory_info()[0]
