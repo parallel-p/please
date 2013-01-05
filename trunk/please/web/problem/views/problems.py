@@ -44,10 +44,8 @@ def create(request, id=None):
                     raise ProblemExistsException("This problem already exists")
                 problem.save()
                 import_to_database(problem, "../templates/Template/")
-                old_path = os.getcwd()
-                os.chdir(form.cleaned_data["path"])
-                generate_problem(form.cleaned_data["short_name"])
-                os.chdir(old_path)
+                with ChangeDir(form.cleaned_data["path"]):
+                    generate_problem(form.cleaned_data["short_name"])
 
             problem.name = form.cleaned_data["name"]
             problem.short_name = form.cleaned_data["short_name"]
