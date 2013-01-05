@@ -125,7 +125,7 @@ class Solution(models.Model):
     output = models.CharField(max_length=64, blank=True, null=True)
 
     def __str__(self):
-        return '{}@{}'.format(self.path, self.problem)
+        return self.path
 
 
 class TestResults(models.Model):
