@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div class="span10">
-                <div class="problem-name">Problem «{{ problem.name }}»</div>
+                <div class="problem-name">Problem «{{ problem.name |default:"[no name]"}}»</div>
                 <div class="problem-path">{{ problem.path }}</div>
                 {% if error %}
                 <div class="alert alert-error">
