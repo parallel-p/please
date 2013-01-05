@@ -2,14 +2,14 @@ from django.db import models
 
 
 class ProblemTag(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, unique=True)
 
     def __str__(self):
         return str(self.name)
 
 
 class WellDone(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, unique=True)
 
     def __str__(self):
         return str(self.name)
