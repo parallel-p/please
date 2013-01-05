@@ -5,7 +5,7 @@ from problem.helpers import problem_sync
 from problem.models import Problem
 from problem.views import materials, todo, manage_tests
 from problem.views.solutions import upload_solution, retest_solutions
-from problem.views.problems import edit_or_create_problem_block
+from problem.views.problems import edit_or_create_problem_block, show_tests_block
 from please.utils.exceptions import PleaseException
 
 
@@ -46,6 +46,7 @@ def tests(request, id):
         'nav': 'tests',
         'problem': problem,
         'manage_tests': manage_tests.manage_tests(request, problem),
+        'test_data': show_tests_block(request, problem),
         'todo': todo.show_block(problem),
     }, RequestContext(request))
 
