@@ -7,6 +7,12 @@
         </td>
     </tr>
     {% endfor %}
+    <tr>
+        <td>sample tests</td>
+        <td>
+            <i {% if todo.samples_present %}class="icon-ok" title="You have specified sample tests"{% else %}class="icon-remove" title="No sample tests found"{% endif %}></i>
+        </td>
+    </tr>
 </table>
 
 <table class="todo-tests">
@@ -14,10 +20,4 @@
         <td>generated tests</td>
         <td><span class="badge">{{ todo.tests_count }}</span></td>
     </tr> 
-    <tr>
-        <td>sample tests</td>
-        <td>
-            <i {% if todo.samples_present %}class="icon-ok" title="You have specified sample tests"{% else %}class="icon-remove" title="No sample tests found"{% endif %}></i>
-        </td>
-    </tr>
 </table>

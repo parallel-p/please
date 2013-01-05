@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'problem/base.html' %}
 
 {% block title %}Tests{% endblock %}
 
 {% block content %}
 {% if manage_tests.error %}
 <div class="alert alert-error">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <a href="#" class="close" data-dismiss="alert">×</a>
     <h4>Error</h4>
     {{ manage_tests.error }}
 </div>
