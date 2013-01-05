@@ -80,10 +80,35 @@ def edit_or_create_problem_block(request, problem=None):
         'problem': problem,
     }
 
-
 def create(request):
     return render_to_response('create_problem.html', edit_or_create_problem_block(request), RequestContext(request))
 
+def show_tests(request, id):
+    problem = Problem.objects.get(id=id)
+    tests_path = os.path.join(problem.path, ".tests").replace(os.sep, '/')
+    tests = []
+    for root, dirs, files in os.walk(tests_path):
+        for file_name in files:
+            if file_name.split('.')[-1] != "a":
+                output_file_name = file_name + ".a"
+                if output_file_name not in files:
+                    output_file_name = None
+                tests.append((file_name, output_file_name))
+
+    test_data = []
+    for test in tests:
+        input_file_data = open(os.path.join(tests_path, test[0]), "r").read()
+        if (len(input_file_data) > 255):
+            input_file_data = "{}...".format(input_file_data[:254])
+        output_file_data = open(os.path.join(tests_path, test[1]), "r").read() if test[1] is not None else ""
+        if (len(output_file_data) > 255):
+            output_file_data = "{}...".format(output_file_data[:254])
+        test_data.append((input_file_data, output_file_data))
+                                        
+    return render_to_response('problem_tests.html',
+                              {'problem_id': id,
+                               'data': test_data,
+                               }, RequestContext(request))
 
 def add(request):
     if request.method == 'POST':
