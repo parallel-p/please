@@ -16,7 +16,6 @@ urlpatterns = patterns('',
     url(r'^problems/import/polygon/$', 'problem.views.problems.import_from_polygon', name='polygon-import'),
     url(r'^problems/confirmation/$', TemplateView.as_view(template_name='problem_edit_success.html')),
 
-    url(r'^problems/(?P<id>\d+)/todo/$', 'problem.views.todo.show'),
     url(r'^problems/(?P<id>\d+)/materials/statement/generate/$', 'problem.views.materials.gen_statement', name="gen_statement"),
     url(r'^problems/(?P<id>\d+)/files/upload/main$', 'problem.views.files.upload_main', name='file_upload'),
     url(r'^problems/(?P<id>\d+)/files/upload/additional$', 'problem.views.files.upload_additional_view', name='additional_upload'),
