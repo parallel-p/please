@@ -26,7 +26,7 @@ class ProblemExistsException(Exception):
     pass
 
 
-def create(request, id = None):
+def create(request, id=None):
     problem_id = id
     problem = Problem()
     try:
@@ -38,7 +38,7 @@ def create(request, id = None):
         if form.is_valid():
             if problem_id is None:
                 if not os.path.exists(form.cleaned_data["path"]):
-                    raise NoSuchDirectoryException("There is no such directory!")
+                    raise NoDirectoryException("There is no such directory!")
                 problem.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
                 if os.path.exists(problem.path):
                     raise ProblemExistsException("This problem already exists")
@@ -48,7 +48,7 @@ def create(request, id = None):
                 os.chdir(form.cleaned_data["path"])
                 generate_problem(form.cleaned_data["short_name"])
                 os.chdir(old_path)
-                
+
             problem.name = form.cleaned_data["name"]
             problem.short_name = form.cleaned_data["short_name"]
             problem.input = form.cleaned_data["input"]
@@ -118,6 +118,7 @@ def show_by_tag_block(request):
         'problems': problems,
     }
 
+
 def import_from_polygon_block(request):
     if request.method == 'POST':
         form = ProblemImportFromPolygonForm(request.POST)
@@ -136,7 +137,8 @@ def import_from_polygon_block(request):
             form = ProblemImportFromPolygonForm()
     else:
         form = ProblemImportFromPolygonForm()
-    return {'import_from_polygon' : {'form' : form}}
+    return {'import_from_polygon': {'form': form}}
+
 
 def import_from_polygon(request):
     return render_to_response('problems_polygon_import.html', import_from_polygon_block(request),
