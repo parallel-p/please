@@ -1,7 +1,7 @@
 {% extends 'problems/base.html' %}
 
 {% block main %}
-<div class="content-title">Add existing problem</div>
+<div class="content-title">{% block title %}Add existing problem{% endblock %}</div>
 <div class="content-subtitle"></div>
 <div class="content">
     {% if add_problem.is_error %}

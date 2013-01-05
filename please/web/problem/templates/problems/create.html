@@ -1,7 +1,7 @@
 {% extends 'problems/base.html' %}
 
 {% block main %}
-<div class="content-title">Create problem</div>
+<div class="content-title">{% block title %}Create problem{% endblock %}</div>
 <div class="content-subtitle"></div>
 <div class="content">
     <form action="{% url 'problem.views.problems.create' %}" method="POST">

@@ -1,7 +1,7 @@
 {% extends 'problems/base.html' %}
 
 {% block main %}
-<div class="content-title">Add tree</div>
+<div class="content-title">{% block title %}Add tree{% endblock %}</div>
 <div class="content-subtitle"></div>
 <div class="content">
     {% ifnotequal add_problem.paths None %}
