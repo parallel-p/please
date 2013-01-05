@@ -212,3 +212,4 @@ class PolygonProblemImporter:
 def create_problem(package):
     importer = PolygonProblemImporter()
     importer.create_problem(package)
+    return importer.name
