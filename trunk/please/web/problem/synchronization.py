@@ -33,7 +33,7 @@ def import_to_database(model=Problem(), path=None, name=globalconfig.default_pac
     model.short_name = conf.get("shortname", "")
 
     model.tags.clear()
-    for entry in conf['tags'].replace(',', ';').split(';'):
+    for entry in conf['tags']:
         if entry.strip() != '':
             model.tags.add(ProblemTag.objects.get_or_create(name=entry.strip())[0])
 
