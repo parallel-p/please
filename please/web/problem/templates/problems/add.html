@@ -1,0 +1,35 @@
+{% extends 'problems/base.html' %}
+
+{% block main %}
+<div class="content-title">Add existing problem</div>
+<div class="content-subtitle"></div>
+<div class="content">
+    {% if add_problem.form.errors %}
+    <div class="alert alert-error">
+        <a href="#" class="close" data-dismiss="alert">×</a>
+        <h5>Error</h5>
+        {% for field in add_problem.form %}
+        {% for error in field.errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <form action="{% url 'problem.views.problems.add' %}" method="POST">
+        {% csrf_token %}
+        <div>
+            {% for field in add_problem.form %}
+                <div class="control-group{% if field.errors %} error{% endif %}">
+                    {{ field.label_tag }}
+                    <div class="controls">
+                        {{ field }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            <input class="btn" type="submit" name="save" value="Add" />
+        </div>
+    </form>
+</div>
+{% endblock %}

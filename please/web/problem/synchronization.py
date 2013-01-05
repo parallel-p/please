@@ -133,11 +133,14 @@ def export_from_database(model, name=globalconfig.default_package):
                 del_solution(sol)
 
 
+def is_problem_path(path):
+    return PackageConfig.get_config(path) is not None
+
+
 def import_tree(path):
     paths = []
     for root, dirs, files in os.walk(path):
-        package = PackageConfig.get_config(root)
-        if package:
+        if is_problem_path(root):
             paths.append(root)
             problem = Problem(path=root)
             problem.save()
