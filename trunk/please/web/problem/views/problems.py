@@ -26,19 +26,6 @@ class ProblemExistsException(Exception):
     pass
 
 
-def import_to_database_advanced(model, path):
-    template_problem = None
-    for problem in Problem.objects.all():
-        if problem.name == "Template_problem_for_please":
-            template_problem = problem
-            break
-    if template_problem is None:
-        model.save()
-        import_to_database(model, path)
-    else:
-        model = template_problem
-    return model
-
 def create(request, id = None):
     problem_id = id
     problem = Problem()
