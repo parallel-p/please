@@ -27,7 +27,6 @@ def retest_solutions(request, id):
                     results = get_test_results_from_solution(solution['path'])[2]
                     results = sorted(results.items(), key=lambda x: int(os.path.basename(x[0])))
                     for result in results:
-                        print('return_code', result[1][0].return_code)
                         obj = TestResult(solution=solution['obj'],
                                          verdict=result[1][0].verdict,
                                          return_code=result[1][0].return_code,
@@ -41,19 +40,15 @@ def retest_solutions(request, id):
     output = []
     max_count = 0
     for solution in solutions:
-        output.append([i.verdict for i in TestResult.objects.filter(solution=solution['obj'])])
+        output.append([str(i.verdict) + ': ' + str(i.cpu_time) for i in TestResult.objects.filter(solution=solution['obj'])])
         max_count = max(max_count, len(output[-1]))
 
     for i in output:
         if len(i) != max_count:
             i.extend(['N/A'] * (max_count - len(i)))
-    output = [list(range(1, max_count + 1))] + output
 
-    output = list(zip(*output))
-
-    solutions = [i['name'] for i in solutions]
-
-    return {'output': output, 'solutions': solutions}
+    return {'output': list(zip(*([list(range(1, max_count + 1))] + output))),
+            'solutions': [i['name'] for i in solutions]}
 
 
 def upload_solution(request, id):
