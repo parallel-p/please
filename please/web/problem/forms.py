@@ -55,7 +55,7 @@ class ProblemUploadFilesForm(forms.Form):
 
 
 class SolutionAddForm(forms.Form):
-    solution_file = forms.FileField(required=False)
+    solution_file = forms.FileField(required=True)
     input_file_name = forms.CharField(required=False)
     output_file_name = forms.CharField(required=False)
     expected_verdicts = forms.MultipleChoiceField(
@@ -110,3 +110,7 @@ class TagsEditForm(forms.ModelForm):
     class Meta:
         model = Problem
         fields = ('tags',)
+
+
+class EmptyForm(forms.Form):
+    pass

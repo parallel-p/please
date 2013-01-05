@@ -42,7 +42,6 @@ def process_additional_upload(request, id):
         form = AdditonalUpload(request.POST, request.FILES)
         if form.is_valid():
             file_save(problem, request.FILES['uploaded'])
-            problem.save()
             form = AdditonalUpload()
     else:
         form = AdditonalUpload()
