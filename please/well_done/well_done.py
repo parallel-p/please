@@ -158,8 +158,9 @@ class WellDone:
             elif result == FIXED:
                 self.__fixes += [function_name]
         if self.__fixes:
-            if fix_inplace:
-                self.__rewrite()
+            #WTF?
+            #if fix_inplace:
+            self.__rewrite()
             return (FIXED, self.__fixes)
         else:
             return (OK, [])
