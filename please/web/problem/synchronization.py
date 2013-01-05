@@ -21,6 +21,7 @@ def import_to_database(model=Problem(), path=None, name=globalconfig.default_pac
 
     model.name = conf.get("name", "")
     model.short_name = conf.get("shortname", "")
+    model.save()
 
     model.tags.clear()
     for entry in conf.get('tags', '').split(';'):
@@ -33,6 +34,7 @@ def import_to_database(model=Problem(), path=None, name=globalconfig.default_pac
     model.memory_limit = int(conf.get("memory_limit", "268435456"))
 
     model.checker_path = os.path.relpath(conf.get("checker", ""), problem_path) if conf.get("checker", "") != "" else ""
+
     model.validator_path = conf.get("validator", "")
 
     model.statement_path = conf.get("statement", "")
@@ -64,7 +66,9 @@ def import_to_database(model=Problem(), path=None, name=globalconfig.default_pac
         if solution['source'] == conf['main_solution']:
             model.main_solution = sol
         sol.save()
+
     model.save()
+    return model
 
 
 def export_from_database(model, name=globalconfig.default_package):
