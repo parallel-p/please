@@ -19,11 +19,13 @@ def upload_main_block(request, problem):
                     path = standard_checkers_utils.add_standard_checker_to_solution(form.cleaned_data['select_checker'])
                     problem.checker_path = path
             elif 'checker' in request.FILES.keys():
-                problem.checker_path = str(request.FILES['checker'].name)
-                file_save(request.FILES['checker'], problem.path)
+                checker_file = request.FILES['checker']
+                problem.checker_path = str(checker_file.name)
+                file_save(checker_file, problem.path)
             if 'validator' in request.FILES.keys():
-                problem.validator_path = str(request.FILES['validator'].name)
-                file_save(request.FILES['validator'], problem.path)
+                validator_file = request.FILES['validator']
+                problem.validator_path = str(validator_file.name)
+                file_save(validator_file, problem.path)
             problem.save()
     form = ProblemUploadFilesForm()
     return {'form': form, 'problem': problem}
