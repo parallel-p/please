@@ -1,0 +1,29 @@
+{% extends 'problem/base.html' %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<form action="{% url 'problem.views.problem.settings' id=problem.id %}" method="POST">
+    {% csrf_token %}
+    <div>
+        {% for field in edit_problem.form %}
+            {% ifnotequal field.label "Path" %}
+                <div class="control-group{% if field.errors %} error{% endif %}">
+                    {{ field.label_tag }}
+                    <div class="controls">
+                        {{ field }}
+                        <div class="help-inline">
+                            {{ field.errors }}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <input id="id_path" name="path" type="hidden" value="Path" />
+            {% endifnotequal %}
+        {% endfor %}
+    </div>
+    <div>
+        <input class="btn" type="submit" name="save" value="Save" />
+    </div>
+</form>
+{% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from problem.models import Problem
 from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm, ProblemImportFromPolygonForm
@@ -26,17 +26,26 @@ class ProblemExistsException(Exception):
     pass
 
 
-def create(request, id=None):
-    problem_id = id
-    problem = Problem()
-    try:
-        problem = Problem.objects.get(id=id)
-    except ObjectDoesNotExist:
-        problem_id = None
+def import_to_database_advanced(model, path):
+    template_problem = None
+    for problem in Problem.objects.all():
+        if problem.name == "Template_problem_for_please":
+            template_problem = problem
+            break
+    if template_problem is None:
+        model.save()
+        import_to_database(model, path)
+    else:
+        model = template_problem
+    return model
+
+
+def edit_or_create_problem_block(request, problem=None):
     if request.method == 'POST':
         form = ProblemEditForm(request.POST)
-        if form.is_valid():
-            if problem_id is None:
+        if form.is_valid():         
+            if problem is None:
+                problem = Problem()
                 if not os.path.exists(form.cleaned_data["path"]):
                     raise NoDirectoryException("There is no such directory!")
                 problem.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
@@ -46,7 +55,6 @@ def create(request, id=None):
                 import_to_database(problem, "../templates/Template/")
                 with ChangeDir(form.cleaned_data["path"]):
                     generate_problem(form.cleaned_data["short_name"])
-
             problem.name = form.cleaned_data["name"]
             problem.short_name = form.cleaned_data["short_name"]
             problem.input = form.cleaned_data["input"]
@@ -55,20 +63,26 @@ def create(request, id=None):
             problem.memory_limit = int(form.cleaned_data["memory_limit"])
             problem.save()
             export_from_database(problem)
-
-            return redirect('/problems/confirmation/')
     else:
-        if problem_id is None:
+        if problem is None:
             form = ProblemEditForm()
         else:
-            form = ProblemEditForm(initial={'name': problem.name, 'short_name': problem.short_name,
-                                            'input': problem.input, 'output': problem.output,
-                                            'time_limit': problem.time_limit, 'memory_limit': problem.memory_limit,
-                                           })
-    return render_to_response('create_problem.html', {
-            'form': form,
-            'problem_id': problem_id,
-        }, RequestContext(request))
+            form = ProblemEditForm(initial={
+                'name': problem.name,
+                'short_name': problem.short_name,
+                'input': problem.input,
+                'output': problem.output,
+                'time_limit': problem.time_limit,
+                'memory_limit': problem.memory_limit,
+            })
+    return {
+        'form': form,
+        'problem': problem,
+    }
+
+
+def create(request):
+    return render_to_response('create_problem.html', edit_or_create_problem_block(request), RequestContext(request))
 
 
 def add(request):
