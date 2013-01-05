@@ -6,8 +6,8 @@ type =
 input = stdin
 output = stdout
 time_limit = 2.0
-memory_limit = 64
-checker = acmp.cpp
+memory_limit = 256
+checker = yesno.cpp
 validator = validator.cpp
 main_solution = solutions/solution.py
 statement = statements/default.ru.tex
@@ -24,4 +24,8 @@ solution = {
     source = solutions/solution_wrong.cpp
     possible = TL, WA
     expected = OK, RE
+}
+solution = {
+    source = solutions/solution.cpp
+    expected = OK
 }

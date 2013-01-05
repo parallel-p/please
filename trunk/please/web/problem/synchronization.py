@@ -10,6 +10,16 @@ import os
 
 
 def import_to_database(model=Problem(), path=None, name=globalconfig.default_package):
+    if path is not None:
+        try:
+            model = Problem.objects.get(path=path)
+        except Problem.DoesNotExist:
+            if path[-1] == os.sep:
+                path = path[:-1]
+            else:
+                path += os.sep
+            model = Problem.objects.get_or_create(path=path)[0]
+
     problem_path = path or str(model.path)
 
     if not os.path.exists(problem_path):
@@ -21,7 +31,6 @@ def import_to_database(model=Problem(), path=None, name=globalconfig.default_pac
 
     model.name = conf.get("name", "")
     model.short_name = conf.get("shortname", "")
-    model.save()
 
     model.tags.clear()
     for entry in conf.get('tags', '').split(';'):
@@ -33,8 +42,7 @@ def import_to_database(model=Problem(), path=None, name=globalconfig.default_pac
     model.time_limit = float(conf.get("time_limit", "2.0"))
     model.memory_limit = int(conf.get("memory_limit", "268435456"))
 
-    model.checker_path = os.path.relpath(conf.get("checker", ""), problem_path) if conf.get("checker", "") != "" else ""
-
+    model.checker_path = os.path.relpath(conf.get("checker", ""), os.path.abspath(problem_path)) if conf.get("checker", "") != "" else ""
     model.validator_path = conf.get("validator", "")
 
     model.statement_path = conf.get("statement", "")
@@ -101,7 +109,6 @@ def export_from_database(model, name=globalconfig.default_package):
         sources = []
         already_there = [x['source'].replace(os.sep, '/') for x in conf['solution']]
         for solution in model.solution_set.all():
-            solution.path = solution.path.replace('\\', '/')
             solution.path = solution.path.replace(os.sep, '/')
             sources.append(str(solution.path))
             if str(solution.path) in already_there:
