@@ -15,27 +15,34 @@
     <div>
         {% csrf_token %}
         <div class="well">
-        <table>
-        <tr><td>
             <h4>Load file</h4>
             {% for field in manage_tests.upload_files.form %}
                 {{ field.label_tag }}
                 {{ field }}
             {% endfor %}
-        </td><td>
-            <table>
-            <tr><th>well_done</th><th>Input</th><th>Answer</th></tr>
-            {% for well_done, checked_test, checked_answer in manage_tests.well_dones %}
-            <tr>
-                <td>{{well_done}}</td>
-                <td><input type="checkbox" name="well_done_test" value="{{well_done}}"{% if checked_test %} checked="checked"{% endif %} /></td>
-                <td><input type="checkbox" name="well_done_answer" value="{{well_done}}"{% if checked_answer %} checked="checked"{% endif %} /></td>
-            </tr>
-            {% endfor %}
-            </table>
-        </td></tr>
-        </table>
         </div>
+        <table class="well-done table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>well done</th>
+                    <th>input</th>
+                    <th>answer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for well_done, checked_test, checked_answer in manage_tests.well_dones %}
+                <tr>
+                    <td>{{well_done}}</td>
+                    <td>
+                        <input type="checkbox" name="well_done_test" value="{{well_done}}"{% if checked_test %} checked="checked"{% endif %} />
+                    </td>
+                    <td>
+                        <input type="checkbox" name="well_done_answer" value="{{well_done}}"{% if checked_answer %} checked="checked"{% endif %} />
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         {% for field in manage_tests.form %} 
             {{ field.label_tag }}
             {{ field }}
