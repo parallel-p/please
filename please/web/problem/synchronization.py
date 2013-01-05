@@ -32,8 +32,8 @@ def import_to_database(model=Problem(), path=None, name=globalconfig.default_pac
     model.time_limit = float(conf.get("time_limit", "2.0"))
     model.memory_limit = int(conf.get("memory_limit", "268435456"))
 
-    model.checker_path = os.path.relpath(conf.get("checker", ""), problem_path) if conf.get('checker', '') != '' else ''
-    model.validator_path = os.path.relpath(conf.get("validator", ""), problem_path) if conf.get('validator', '') != '' else ''
+    model.checker_path = os.path.relpath(conf.get("checker", ""), problem_path) if conf.get("checker", "") != "" else ""
+    model.validator_path = conf.get("validator", "")
 
     model.statement_path = conf.get("statement", "")
     model.description_path = conf.get("description", "")
@@ -98,7 +98,7 @@ def export_from_database(model, name=globalconfig.default_package):
         already_there = [x['source'].replace(os.sep, '/') for x in conf['solution']]
         for solution in model.solution_set.all():
             solution.path = solution.path.replace('\\', '/')
-            print(solution.path)
+            solution.path = solution.path.replace(os.sep, '/')
             sources.append(str(solution.path))
             if str(solution.path) in already_there:
                 continue
