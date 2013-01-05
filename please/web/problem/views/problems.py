@@ -204,7 +204,7 @@ def import_from_polygon_block(request):
                     problem_name)
             problem = Problem(path=problem_path, short_name=problem_name)
             problem.save()
-            import_to_database(model=problem, path=problem_path)
+            import_to_database(model=problem)
             problem.save()
             form = ProblemImportFromPolygonForm()
             is_success = True
@@ -219,6 +219,7 @@ def import_from_polygon_block(request):
 def import_from_polygon(request):
     block =  import_from_polygon_block(request)
     if block['is_success']:
+        print([x.name for x in Problem.objects.all()])
         return redirect(reverse('problem.views.problems.index'))
     return render_to_response('problems/polygon.html', {
         'polygon': block,

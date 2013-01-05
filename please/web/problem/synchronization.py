@@ -9,7 +9,8 @@ from please import launcher
 import os
 
 
-def import_to_database(model=Problem(), path=None, name=globalconfig.default_package):
+def import_to_database(model=None, path=None, name=globalconfig.default_package):
+    assert (model is None) != (path is None)
     if path is not None:
         try:
             model = Problem.objects.get(path=path)
