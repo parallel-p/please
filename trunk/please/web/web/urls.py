@@ -22,7 +22,7 @@ urlpatterns = patterns('',
     url(r'^problems/(?P<id>\d+)/tags/$', 'problem.views.tags.edit_tags_view', name='edit_tags'),
 
     url(r'^problems/(?P<id>\d+)/solutions/$', 'problem.views.problem.solution'),
-    url(r'^problems/(?P<id>\d+)/statements/$', 'problem.views.problem.statements'),
+    url(r'^problems/(?P<id>\d+)/statements/$', 'problem.views.problem.statements', name='problem_statement'),
     url(r'^problems/(?P<id>\d+)/tests/$', 'problem.views.problem.tests'),
     url(r'^$', 'problem.views.problems.search_by_tag'),
 )

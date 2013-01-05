@@ -12,7 +12,7 @@ def add_tags(tags):
 
     current_tags = []
     if opened_config["tags"] != "":
-        current_tags = opened_config["tags"].split("; ")
+        current_tags = opened_config["tags"].replace(',',';').split(";")
     for tag in tags:
         if tag not in current_tags:
             current_tags.append(tag)
