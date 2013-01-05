@@ -18,7 +18,9 @@ def process_edit_tags(request, id):
             if form.cleaned_data['other_tags']:
                 problem.tags.add(ProblemTag.objects.get(name=form.cleaned_data['other_tags']))
             if form.cleaned_data['add_tag']:
-                problem.tags.add(ProblemTag.objects.get_or_create(name=form.cleaned_data['add_tag'])[0])
+                for tag in map(str.strip, form.cleaned_data['add_tag'].split(';')):
+                    if tag:
+                        problem.tags.add(ProblemTag.objects.get_or_create(name=tag)[0])
 
     form = tags_edit_form(problem)()
     return {'form': form, 'id': id}
