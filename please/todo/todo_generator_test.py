@@ -1,8 +1,8 @@
 import unittest
 from functools import partial
-from unittest.mock import Mock, MagicMock
+from unittest.mock import Mock, MagicMock, patch
 from please.todo.todo_generator import TodoGenerator
-from please.utils import utests
+import please.utils.utests
 from please.test_config_parser import parser
 
 
@@ -30,8 +30,8 @@ class TodoGeneratorTest(unittest.TestCase):
         })
 
     def test_generated_tests_count(self):
-        utests.get_tests = lambda root_path: [1, 2, 3]
-        self.assertEqual(TodoGenerator.generated_tests_count(), 3)
+        with patch('please.utils.utests.get_tests', return_value=[1,2,3]):
+            self.assertEqual(TodoGenerator.generated_tests_count(), 3)
 
 
 if __name__ == '__main__':
