@@ -23,19 +23,18 @@ def import_to_database(model=Problem(), path=None, name=globalconfig.default_pac
     problem_path = path or str(model.path)
 
     if not os.path.exists(problem_path):
-        print('Deleting model')
+        print('Deleting model %s' % model)
         model.delete()
-        return
+        return None
 
-    conf = PackageConfig.get_config(problem_path, name)
+    conf = PackageConfig.get_config(problem_path, name, ignore_cache=True)
 
     model.name = conf.get("name", "")
     model.short_name = conf.get("shortname", "")
 
     model.tags.clear()
     for entry in conf['tags']:
-        if entry.strip() != '':
-            model.tags.add(ProblemTag.objects.get_or_create(name=entry.strip())[0])
+        model.tags.add(ProblemTag.objects.get_or_create(name=entry)[0])
 
     model.input = conf.get("input", "")
     model.output = conf.get("output", "")
