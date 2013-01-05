@@ -41,19 +41,19 @@ def create(request, id=None):
         model = Problem.objects.get(id=id)
     except ObjectDoesNotExist:
         problem_id = None
-
-    if problem_id is None:
-        model = import_to_database_advanced(model, "../templates/Template/")
+            
     if request.method == 'POST':
         form = ProblemEditForm(request.POST)
         if form.is_valid():
             if problem_id is None:
-                old_path = os.getcwd()
                 if not os.path.exists(form.cleaned_data["path"]):
                     raise NoDirectoryException("There is no such directory!")
                 model.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
                 if os.path.exists(model.path):
                     raise ProblemExistsException("This problem already exists")
+                model.save()
+                import_to_database(model, "../templates/Template/")
+                old_path = os.getcwd()
                 os.chdir(form.cleaned_data["path"])
                 generate_problem(form.cleaned_data["short_name"])
                 os.chdir(old_path)
@@ -81,6 +81,10 @@ def create(request, id=None):
             'form': form,
             'problem_id': problem_id,
         }, RequestContext(request))
+
+
+def show_tests(request, id):
+    pass    
 
 
 def add(request):
