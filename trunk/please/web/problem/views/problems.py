@@ -174,6 +174,7 @@ def show_by_tag_block(request):
 
 
 def import_from_polygon_block(request):
+    is_success = False
     if request.method == 'POST':
         form = ProblemImportFromPolygonForm(request.POST)
         if form.is_valid():
@@ -189,11 +190,19 @@ def import_from_polygon_block(request):
             import_to_database(model=problem, path=problem_path)
             problem.save()
             form = ProblemImportFromPolygonForm()
+            is_success = True
     else:
         form = ProblemImportFromPolygonForm()
-    return {'import_from_polygon': {'form': form}}
+    return {
+        'form': form,
+        'is_success': is_success,
+    }
 
 
 def import_from_polygon(request):
-    return render_to_response('problems_polygon_import.html', import_from_polygon_block(request),
-            context_instance=RequestContext(request))
+    block =  import_from_polygon_block(request)
+    if block['is_success']:
+        return redirect(reverse('problem.views.problems.index'))
+    return render_to_response('problems/polygon.html', {
+        'polygon': block,
+    }, RequestContext(request))
