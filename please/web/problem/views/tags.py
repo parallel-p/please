@@ -5,6 +5,7 @@ from problem.forms import tags_edit_form
 from problem.models import Problem, ProblemTag
 
 
+@problem_sync(read=True, write=True)
 def process_edit_tags(request, id):
     problem = Problem.objects.get(id=id)
 
