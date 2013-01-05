@@ -52,7 +52,7 @@ class ProblemUploadFilesForm(forms.Form):
 
 
 class SolutionAddForm(forms.Form):
-    solution_file = forms.FileField(required=True)
+    solution_file = forms.FileField(required=False)
     input_file_name = forms.CharField(required=False)
     output_file_name = forms.CharField(required=False)
     expected_verdicts = forms.MultipleChoiceField(
