@@ -1,5 +1,5 @@
-import django.test
 from unittest.mock import Mock
+import django.test
 from . import files
 
 

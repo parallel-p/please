@@ -1,7 +1,7 @@
-from django import forms
-from problem.models import *
 import re
 import os.path
+from django import forms
+from problem.models import *
 
 
 class AddProblemForm(forms.Form):
