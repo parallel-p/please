@@ -14,7 +14,6 @@
     </ul>
 
     <form action="{% url 'problem.views.problem.solution' problem.id %}" enctype="multipart/form-data" method=POST>{% csrf_token %}
-        {{problem_solution.form.solution_file.label_tag}}{{problem_solution.form.solution_file}}
         <div>
             {{problem_solution.form.as_p}}
             <input class="btn" type="submit" value="Submit" />
