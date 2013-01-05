@@ -1,7 +1,7 @@
 {% extends 'problems/base.html' %}
 
 {% block main %}
-<div class="content-title">Problems</div>
+<div class="content-title">{% block title %}Problems{% endblock %}</div>
 <div class="content-subtitle"></div>
 <div class="content">
     <form class="form-search" action="{% url 'problem.views.problems.index' %}" method="GET">
