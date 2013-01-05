@@ -126,3 +126,15 @@ class Solution(models.Model):
 
     def __str__(self):
         return '{}@{}'.format(self.path, self.problem)
+
+
+class TestResults(models.Model):
+    solution = models.ForeignKey(Solution)
+    verdict = models.ForeignKey(Verdict)
+    test_number = models.IntegerField()
+    return_code = models.IntegerField()
+    real_time = models.FloatField()
+    cpu_time = models.FloatField()
+    used_memory = models.FloatField()
+    checker_stdout = models.TextField()
+    checker_stderr = models.TextField()

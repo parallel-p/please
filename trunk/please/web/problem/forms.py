@@ -66,6 +66,7 @@ class SolutionAddForm(forms.Form):
             choices=[(verdict, verdict.name) for verdict in Verdict.objects.all()],
             required=False)
 
+
 class ProblemImportFromPolygonForm(forms.Form):
     target_path = forms.CharField(required=True, max_length=255)
     contest_id = forms.IntegerField(required=True)
