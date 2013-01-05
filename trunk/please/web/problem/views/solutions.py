@@ -14,7 +14,7 @@ def verdicts_with_names(names):
 def process_solutions(request, id):
     if request.method == 'POST':
         form = SolutionAddForm(request.POST, request.FILES)
-        if form.is_valid():
+        if form.is_valid() and request.FILES:
             solution = Solution(problem=Problem.objects.get(id=id))
             directory = os.path.join(str(solution.problem.path), 'solutions')
             solution.path = os.path.relpath(
