@@ -21,7 +21,7 @@ def manage_tests(request, problem):
     form = ManageTestsForm()
     error = None
 
-    if request.method == 'POST':
+    if request.method == 'POST' and 'manage_tests' in request.POST:
         form = ManageTestsForm(request.POST)
         if form.is_valid():
             file_write(form.cleaned_data["tests_please_content"], tp_path)
