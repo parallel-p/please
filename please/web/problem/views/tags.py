@@ -3,6 +3,7 @@ from django.template import RequestContext
 
 from problem.forms import tags_edit_form
 from problem.models import Problem, ProblemTag
+from problem.helpers import problem_sync
 
 
 @problem_sync(read=True, write=True)
