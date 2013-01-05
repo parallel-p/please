@@ -21,7 +21,7 @@
                 {{ field }}
             {% endfor %}
         </div>
-        <table class="well-done table table-striped table-hover table-bordered">
+        <table class="well-done table table-condensed table-striped table-hover table-bordered">
             <thead>
                 <tr>
                     <th>well done</th>
@@ -59,4 +59,27 @@
     {% endfor %}
     </ul>
 </form>
+
+<hr />
+
+<table class="tests table table-striped table-hover table-bordered">
+    <thead>
+        <th>#</th>
+        <th>input</th>
+        <th>output</th>
+    </thead>
+    <tbody>
+    {% for input, output in test_data %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                <p>{{ input.content }}{% if input.is_too_big %}<a href="{% url 'problem.views.problems.show_test' problem_id=problem.id test_name=input.name %}" target="_blank" class="download-test">...</a>{% endif %}</p>
+            </td>
+            <td>
+                <p>{{ output.content }}{% if output.is_too_big %}<a href="{% url 'problem.views.problems.show_test' problem_id=problem.id test_name=output.name %}" target="_blank" class="download-test">...</a>{% endif %}</p>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

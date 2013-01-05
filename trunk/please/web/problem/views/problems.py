@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.core.servers.basehttp import FileWrapper
@@ -8,6 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from please.template.problem_template_generator import generate_problem
 from please.import_from_polygon import download_zip, create_problem
 from please.template.problem_template_generator import generate_problem
+from please import globalconfig
 
 from problem.models import Problem
 from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm, ProblemImportFromPolygonForm
@@ -85,61 +86,56 @@ def create(request):
     }, RequestContext(request))
 
 
-def show_tests(request, id):
-    problem = Problem.objects.get(id=id)
-    tests_path = os.path.join(problem.path, ".tests").replace(os.sep, '/')
-    tests = []
-    for root, dirs, files in os.walk(tests_path):
-        for file_name in files:
-            if file_name.split('.')[-1] != "a":
-                output_file_name = file_name + ".a"
-                if output_file_name not in files:
-                    output_file_name = None
-                tests.append((file_name, output_file_name))
+def show_tests_block(request, problem):
+    SIZE_LIMIT = 255
 
+    tests_path = os.path.join(problem.path, globalconfig.temp_tests_dir).replace(os.sep, '/')
+    current_test = 1
     test_data = []
-    for test in tests:
-        input_file_data = open(os.path.join(tests_path, test[0]), "r").read()
-        big_input = False
-        if (len(input_file_data) > 255):
-            input_file_data = "{}...".format(input_file_data[:254])
-            big_input = True
-        output_file_data = open(os.path.join(tests_path, test[1]), "r").read() if test[1] is not None else ""
-        big_output = False
-        if (len(output_file_data) > 255):
-            output_file_data = "{}...".format(output_file_data[:254])
-            big_output = True
-        test_data.append((input_file_data, output_file_data, test[0], test[1], big_input, big_output))
 
-    return render_to_response('problem_tests.html',
-                              {'problem_id': id,
-                               'file_names': tests,
-                               'data': test_data,
-                               }, RequestContext(request))
+    while True:
+        input_name = '{}'.format(current_test)
+        output_name = '{}.a'.format(current_test)
+        input_file = os.path.join(tests_path, input_name)
+        output_file = os.path.join(tests_path, output_name)
+
+        if not (os.path.exists(input_file) and os.path.exists(output_file)):
+            break
+
+        with open(input_file, 'r') as f:
+            input_content = f.read(SIZE_LIMIT)
+        with open(output_file, 'r') as f:
+            output_content = f.read(SIZE_LIMIT)
+
+        is_input_too_big = len(input_content) == SIZE_LIMIT
+        is_output_too_big = len(output_content) == SIZE_LIMIT
+
+        test_data.append((
+            {
+                'content': input_content,
+                'is_too_big': is_input_too_big,
+                'name': input_name,
+            },
+            {
+                'content': output_content,
+                'is_too_big': is_output_too_big,
+                'name': output_name,
+            },
+        ))
+
+        current_test += 1
+
+    return test_data
 
 
-def show_test(request, problem_id, test_id):
-    problem = Problem.objects.get(id=problem_id)
-    test_path = os.path.join(problem.path, ".tests/{0}".format(test_id)).replace(os.sep, '/')
-    response = HttpResponse(
-        FileWrapper(open(test_path, 'rb')), content_type='text/plain'
-    )
-    response['Content-Disposition'] = 'attachment; filename="{}"'.format(
-        os.path.basename(test_path)
-    )
+def show_test(request, problem_id, test_name):
+    problem = get_object_or_404(Problem, id=problem_id)
+    tests_path = os.path.join(problem.path, globalconfig.temp_tests_dir).replace(os.sep, '/')
+    test_path = os.path.join(tests_path, test_name)
+    response = HttpResponse(FileWrapper(open(test_path, 'rb')), content_type='text/plain')
+    response['Content-Disposition'] = 'attachment; filename="{}"'.format(os.path.basename(test_path))
     return response
 
-
-def show_test_answer(request, problem_id, test_id):
-    problem = Problem.objects.get(id=problem_id)
-    test_path = os.path.join(problem.path, ".tests/{0}.a".format(test_id)).replace(os.sep, '/')
-    response = HttpResponse(
-        FileWrapper(open(test_path, 'rb')), content_type='text/plain'
-    )
-    response['Content-Disposition'] = 'attachment; filename="{}"'.format(
-        os.path.basename(test_path)
-    )
-    return response
 
 def add_problem_block(request):
     is_success, is_error = False, False
