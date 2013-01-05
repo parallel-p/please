@@ -11,6 +11,20 @@
 </div>
 {% endif %}
 
+<div class="well">
+    <form action="{% url 'problem.views.problem.tests' id=upload_main.problem.id %}" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <p>
+            Choose one of default checkers {{ upload_main.form.select_checker }} or upload your own checker (current path: {{ upload_main.problem.checker_path }}): {{ upload_main.form.checker }}
+        </p>
+        <p>
+            Upload your own validator (current path: {{ upload_main.problem.validator_path }}): {{ upload_main.form.validator }}
+        </p>
+        <input type="hidden" name="upload_main" value="1" />
+        <input class="btn" type="submit" value="Save" />
+    </form>
+</div>
+
 <form action="{% url 'problem.views.problem.tests' id=manage_tests.problem.id %}" method="POST" enctype="multipart/form-data">
     <div>
         {% csrf_token %}
@@ -49,6 +63,7 @@
         {% endfor %}
     </div>
     <div>
+        <input type="hidden" name="manage_tests" value="1" />
         <input class="btn" type="submit" name="save" value="Save" />
         <input class="btn" type="submit" name="generate_tests" value="Save &amp; generate tests" />
         <input class="btn" type="submit" name="validate" value="Save &amp; validate" />

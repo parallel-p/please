@@ -10,9 +10,8 @@ from problem.views.file_utils import ChangeDir, file_save
 from . import file_utils
 
 
-def upload_main_dict(request, id):
-    problem = Problem.objects.get(id=id)
-    if request.method == 'POST':
+def upload_main_block(request, problem):
+    if request.method == 'POST' and 'upload_main' in request.POST:
         form = ProblemUploadFilesForm(request.POST, request.FILES)
         if form.is_valid():
             if form.cleaned_data['select_checker']:
@@ -27,13 +26,7 @@ def upload_main_dict(request, id):
                 file_save(problem, request.FILES['validator'])
             problem.save()
     form = ProblemUploadFilesForm()
-    return {'form': form, 'problem': problem, 'id': id}
-
-
-def upload_main(request, id):
-    return render_to_response('add_problem_files.html', {
-            'upload_main_dict': upload_main_dict(request, id)
-        }, RequestContext(request))
+    return {'form': form, 'problem': problem}
 
 
 def process_additional_upload(request, id):
