@@ -57,6 +57,19 @@ body {
         max-height: 220px;
     }
 
+.well-done {
+    font-size: 90%;
+    width: auto;
+}
+    .well-done th, .well-done td {
+        padding: 5px;
+        min-width: 45px;
+        text-align: center;
+    }
+    .well-done th:first-child, .well-done td:first-child {
+        text-align: left;
+    }
+
 form label {
     font-weight: bold;
 }
