@@ -1,0 +1,27 @@
+{% extends 'problems/base.html' %}
+
+{% block main %}
+<div class="content-title">Create problem</div>
+<div class="content-subtitle"></div>
+<div class="content">
+    <form action="{% url 'problem.views.problems.create' %}" method="POST">
+        {% csrf_token %}
+        <div>
+            {% for field in edit_problem.form %}
+                <div class="control-group{% if field.errors %} error{% endif %}">
+                    {{ field.label_tag }}
+                    <div class="controls">
+                        {{ field }}
+                        <div class="help-inline">
+                            {{ field.errors }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            <input class="btn" type="submit" name="save" value="Save" />
+        </div>
+    </form>
+</div>
+{% endblock %}
