@@ -73,10 +73,10 @@
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>
-                <p>{{ input.content }}{% if input.is_too_big %}<a href="{% url 'problem.views.problems.show_test' problem_id=problem.id test_name=input.name %}" target="_blank" class="download-test">...</a>{% endif %}</p>
+                {{ input.content }}{% if input.is_too_big %}<a href="{% url 'problem.views.problems.show_test' problem_id=problem.id test_name=input.name %}" target="_blank" class="download-test">...</a>{% endif %}
             </td>
             <td>
-                <p>{{ output.content }}{% if output.is_too_big %}<a href="{% url 'problem.views.problems.show_test' problem_id=problem.id test_name=output.name %}" target="_blank" class="download-test">...</a>{% endif %}</p>
+                {{ output.content }}{% if output.is_too_big %}<a href="{% url 'problem.views.problems.show_test' problem_id=problem.id test_name=output.name %}" target="_blank" class="download-test">...</a>{% endif %}
             </td>
         </tr>
     {% endfor %}
