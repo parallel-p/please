@@ -1,22 +1,13 @@
-import os.path
-
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from please.checkers import standard_checkers_utils
 
 from problem.models import Problem
 from problem.forms import ProblemUploadFilesForm, AdditonalUpload
-from problem.helpers import problem_sync
-from problem.views.file_utils import ChangeDir
-
+from problem.views.file_utils import ChangeDir, file_save
 
 from . import file_utils
-
-
-def copy_to_problem(problem, path, data):
-    with open(os.path.join(str(problem.path), str(path)), 'wb') as file:
-        file.write(data.read())
 
 
 def upload_main_dict(request, id):
@@ -30,10 +21,10 @@ def upload_main_dict(request, id):
                     problem.checker_path = path
             elif 'checker' in request.FILES.keys():
                 problem.checker_path = str(request.FILES['checker'].name)
-                copy_to_problem(problem, problem.checker_path, request.FILES['checker'])
+                file_save(problem, request.FILES['checker'])
             if 'validator' in request.FILES.keys():
                 problem.validator_path = str(request.FILES['validator'].name)
-                copy_to_problem(problem, problem.validator_path, request.FILES['validator'])
+                file_save(problem, request.FILES['validator'])
             problem.save()
     form = ProblemUploadFilesForm()
     return {'form': form, 'problem': problem, 'id': id}
@@ -50,7 +41,7 @@ def process_additional_upload(request, id):
     if request.method == 'POST':
         form = AdditonalUpload(request.POST, request.FILES)
         if form.is_valid():
-            copy_to_problem(problem, request.FILES['uploaded'].name, request.FILES['uploaded'])
+            file_save(problem, request.FILES['uploaded'])
             problem.save()
             form = AdditonalUpload()
     else:
