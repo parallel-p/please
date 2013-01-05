@@ -5,10 +5,11 @@
 {% block content %}
 <script type="text/javascript">
     $(function() {
-        $('textarea').each(function() {
-            var editor = CodeMirror.fromTextArea($(this)[0], {
+        $('textarea').each(function(index) {
+            var editor = CodeMirror.fromTextArea(this, {
                 lineWrapping: true,
                 lineNumbers: true,
+                firstLineNumber: $(this).attr('name') == 'statement' ? 34 : 1,
             });
         });
     });
