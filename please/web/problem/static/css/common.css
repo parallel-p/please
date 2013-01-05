@@ -6,6 +6,17 @@ body {
     padding-bottom: 30px;
 }
 
+.sidebar {
+    position: relative;
+    top: 0;
+    left: auto;
+    width: 200px;
+    float: left;
+}
+.fixed-fluid {
+    margin-left: 220px;
+}
+
 .todo {
 }
     .todo table {
