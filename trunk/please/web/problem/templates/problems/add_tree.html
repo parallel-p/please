@@ -1,0 +1,45 @@
+{% extends 'problems/base.html' %}
+
+{% block main %}
+<div class="content-title">Add tree</div>
+<div class="content-subtitle"></div>
+<div class="content">
+    {% ifnotequal add_problem.paths None %}
+    {% ifequal add_problem.paths|length 0 %}
+    <div class="alert alert-warning">
+        <a href="#" class="close" data-dismiss="alert">×</a>
+        <h5>No problems found</h5>
+    </div>
+    {% else %}
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert">×</a>
+        <h5>Imported from</h5>
+        <ul>
+        {% for path in add_problem.paths %}
+            <li>{{ path }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endifequal %}
+    {% endifnotequal %}
+    <form action="{% url 'problem.views.problems.add_tree' %}" method="POST">
+        {% csrf_token %}
+        <div>
+            {% for field in add_problem.form %}
+                <div class="control-group{% if field.errors %} error{% endif %}">
+                    {{ field.label_tag }}
+                    <div class="controls">
+                        {{ field }}
+                        <div class="help-inline">
+                            {{ field.errors }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            <input class="btn" type="submit" name="save" value="Add" />
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from problem.models import Problem
 from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm, ProblemImportFromPolygonForm
-from problem.synchronization import export_from_database, import_to_database, import_tree
+from problem.synchronization import export_from_database, import_to_database, import_tree, is_problem_path
 from please.template.problem_template_generator import generate_problem
 from django.core.exceptions import ObjectDoesNotExist
 import os
@@ -70,12 +70,12 @@ def edit_or_create_problem_block(request, problem=None):
     }
 
 def create(request):
-    edit_problem = edit_or_create_problem_block(request)
-    if edit_problem['is_success']:
+    block = edit_or_create_problem_block(request)
+    if block['is_success']:
         return redirect(reverse('problem.views.problems.index'))
     return render_to_response('problems/create.html', {
         'nav': 'create',
-        'edit_problem': edit_problem,
+        'edit_problem': block,
     }, RequestContext(request))
 
 def show_tests(request, id):
@@ -105,37 +105,58 @@ def show_tests(request, id):
                                'data': test_data,
                                }, RequestContext(request))
 
-def add(request):
+
+def add_problem_block(request):
+    is_success = False
     if request.method == 'POST':
         form = AddProblemForm(request.POST)
         if form.is_valid():
             path = form.cleaned_data['path']
-            problem = Problem(path=path)
-            problem.save()
-            import_to_database(problem)
-            problem.save()
-            return redirect('/problems/confirmation')
+            if is_problem_path(path):
+                problem = Problem(path=path)
+                problem.save()
+                import_to_database(problem)
+                problem.save()
+                is_success = True
+            else:
+                form.errors['path'] = ['Not a problem path']
     else:
         form = AddProblemForm()
-    return render_to_response('problem_add.html', {'form': form}, RequestContext(request))
+    return {
+        'form': form,
+        'is_success': is_success,
+    }
+
+
+def add_tree_block(request):
+    if request.method == 'POST':
+        form = AddProblemForm(request.POST)
+        if form.is_valid():
+            path = form.cleaned_data['path']
+            return {
+                'form': form,
+                'paths': import_tree(path),
+            }
+    else:
+        form = AddProblemForm()
+    return {'form': form}
+
+
+def add(request):
+    block = add_problem_block(request)
+    if block['is_success']:
+        return redirect(reverse('problem.views.problems.index'))
+    return render_to_response('problems/add.html', {
+        'nav': 'add',
+        'add_problem': block,
+    }, RequestContext(request))
 
 
 def add_tree(request):
-    if request.method == 'POST':
-        form = AddProblemForm(request.POST)
-        if form.is_valid():
-            path = form.cleaned_data['path']
-            return render_to_response('problem_add_tree.html', {
-                'form': form,
-                'paths': import_tree(path),
-            }, RequestContext(request))
-    else:
-        form = AddProblemForm()
-    return render_to_response('problem_add_tree.html', {'form': form}, RequestContext(request))
-
-
-def problems_list(problems):
-    return render_to_response("problems_list.html", {"problems": problems})
+    return render_to_response('problems/add_tree.html', {
+        'nav': 'add_tree',
+        'add_problem': add_tree_block(request),
+    }, RequestContext(request))
 
 
 def show_by_tag_block(request):
