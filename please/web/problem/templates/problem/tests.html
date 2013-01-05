@@ -15,10 +15,10 @@
     <form action="{% url 'problem.views.problem.tests' id=upload_main.problem.id %}" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         <p>
-            Choose one of default checkers {{ upload_main.form.select_checker }} or upload your own checker (current path: {{ upload_main.problem.checker_path }}): {{ upload_main.form.checker }}
+            Checker: <code>{{ upload_main.problem.checker_path }}</code> / choose default {{ upload_main.form.select_checker }} / upload: {{ upload_main.form.checker }}
         </p>
         <p>
-            Upload your own validator (current path: {{ upload_main.problem.validator_path }}): {{ upload_main.form.validator }}
+            Validator: <code>{{ upload_main.problem.validator_path }}</code> / {{ upload_main.form.validator }}
         </p>
         <input type="hidden" name="upload_main" value="1" />
         <input class="btn" type="submit" value="Save" />
