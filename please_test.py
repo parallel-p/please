@@ -52,7 +52,7 @@ class PleaseTest(unittest.TestCase):
         
         os.chdir(start_dir)
         
-        self.assertEqual(open_config["tags"], "tag1; tag2; tag3; tag4")
+        self.assertEqual(open_config["tags"], ["tag1", "tag2", "tag3", "tag4"])
         
         
     def test_show_tags(self):
@@ -76,7 +76,7 @@ class PleaseTest(unittest.TestCase):
         
         open_config = package_config.PackageConfig.get_config(ignore_cache = True)
         os.chdir(start_dir)
-        self.assertEqual(open_config["tags"], tags_from_std)
+        self.assertEqual(open_config["tags"], tags_from_std.split("; "))
     
     def test_clear_tags(self):
         """ Checks command 'clear tags' """

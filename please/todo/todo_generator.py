@@ -88,10 +88,12 @@ class TodoGenerator:
     @staticmethod
     def __get_simple_item_status(config, item):
         if item in config:
-            if config[item].strip() != "":
-                return "ok"
-            else:
+            element = config[item]
+            if element == [] or \
+                    (isinstance(element, str) and element.strip() != ""):
                 return "warning"
+            else:
+                return "ok"
         else:
             return "error" 
     
