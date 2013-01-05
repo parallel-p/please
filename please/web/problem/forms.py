@@ -78,7 +78,7 @@ class ManageTestsForm(forms.Form):
         widget=forms.Textarea(),
         required=False
     )
-    tags_for_generate_tests = forms.CharField(required=False)
+    tags = forms.CharField(required=False)
 
 
 class AdditonalUpload(forms.Form):
