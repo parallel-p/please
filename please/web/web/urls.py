@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^problems/(?P<id>\d+)/tests/$', 'problem.views.problems.show_tests'),
 
     url(r'^problems/(?P<id>\d+)/settings/$', 'problem.views.problem.settings'),
+    url(r'^problems/(?P<id>\d+)/$', 'problem.views.problem.settings'),
     url(r'^problems/(?P<id>\d+)/solutions/$', 'problem.views.problem.solutions'),
     url(r'^problems/(?P<id>\d+)/statements/$', 'problem.views.problem.statements', name='problem_statement'),
     url(r'^problems/(?P<id>\d+)/tests/$', 'problem.views.problem.tests'),
