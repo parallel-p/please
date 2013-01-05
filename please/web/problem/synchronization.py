@@ -59,6 +59,7 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
     for entry in conf.get('well_done_answer', []):
         model.well_done_answer.add(WellDone.objects.get_or_create(name=entry)[0])
 
+    model.solution_set.all().delete()
     for solution in conf.get("solution", []):
         sol = Solution.objects.get_or_create(path=solution['source'], problem=model)[0]
         if 'input' in solution:
