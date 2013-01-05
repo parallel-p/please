@@ -7,12 +7,7 @@ def add_tags(tags):
     opened_config = PackageConfig.get_config()
     # TODO: check if opened_config is None
     
-    if not "tags" in opened_config:
-        opened_config["tags"] = ""
-
-    current_tags = []
-    if opened_config["tags"] != "":
-        current_tags = opened_config["tags"].replace(',',';').split(";")
+    current_tags = opened_config["tags"]
     for tag in tags:
         if tag not in current_tags:
             current_tags.append(tag)
@@ -24,9 +19,7 @@ def add_tags(tags):
 def clear_tags():
     opened_config = PackageConfig.get_config()
     # TODO: check if opened_config is None
-    if not "tags" in opened_config:
-        pass
-    opened_config["tags"] = " "
+    opened_config["tags"] = ""
     config_file = opened_config.get_text()
     writepackage(config_file)
     
@@ -36,5 +29,5 @@ def show_tags():
     opened_config = PackageConfig.get_config()
     # TODO: check if opened_config is None
     if "tags" in opened_config:
-        print(opened_config["tags"])
+        print("; ".join(opened_config["tags"]))
 

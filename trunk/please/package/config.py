@@ -237,6 +237,9 @@ class Config:
             if self.__settings.get(item) in [None, ""]:
                 raise PleaseException("Items 'shortname', 'input' and 'output' in config {0} should be set".format(self.__file))
             return self.__settings.get(item)
+        elif item == "tags":
+            tags_str = self.__settings.get(item, "")
+            return [x.strip() for x in tags_str.replace(',',';').split(";") if x.strip()]
         if item not in self.__settings and item in self.repeating_keywords + self.list_keywords:
             return []
         return self.__settings.get(item)
