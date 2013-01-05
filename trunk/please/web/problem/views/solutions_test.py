@@ -56,7 +56,7 @@ class SolutionsTests(ut.TestCase):
         new_solutions = set(
             self.problem.solution_set.all()).difference(old_solutions)
         self.assertEqual(len(new_solutions), 1)
-        solution, *_ = tuple(new_solutions)
+        solution = tuple(new_solutions)[0]
         self.assertSetEqual(set(solution.possible_verdicts.all()),
                 self.possible_verdicts)
         self.assertSetEqual(set(solution.expected_verdicts.all()),
