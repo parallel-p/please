@@ -93,18 +93,35 @@ def show_tests(request, id):
     test_data = []
     for test in tests:
         input_file_data = open(os.path.join(tests_path, test[0]), "r").read()
+        big_input = False
         if (len(input_file_data) > 255):
             input_file_data = "{}...".format(input_file_data[:254])
+            big_input = True
         output_file_data = open(os.path.join(tests_path, test[1]), "r").read() if test[1] is not None else ""
+        big_output = False
         if (len(output_file_data) > 255):
             output_file_data = "{}...".format(output_file_data[:254])
-        test_data.append((input_file_data, output_file_data))
+            big_output = True
+        test_data.append((input_file_data, output_file_data, test[0], test[1], big_input, big_output))
                                         
     return render_to_response('problem_tests.html',
                               {'problem_id': id,
+                               'file_names': tests,
                                'data': test_data,
+                               'big_input': big_input,
+                               'big_output': big_output,
                                }, RequestContext(request))
 
+def show_test(request, problem_id, test_id):
+    problem = Problem.objects.get(id=problem_id)
+    test_path = os.path.join(problem.path, ".tests/{0}".format(test_id)).replace(os.sep, '/')
+    response = HttpResponse(
+        FileWrapper(open(test_path, 'rb')), content_type='text/plain'
+    )
+    response['Content-Disposition'] = 'attachment; filename="{}"'.format(
+        os.path.basename(test_path)
+    )
+    return response
 
 def add_problem_block(request):
     is_success, is_error = False, False
