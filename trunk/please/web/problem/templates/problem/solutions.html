@@ -16,9 +16,11 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 {% for result in row %}
-                <td>
+                <td class="verdict-{{ result.verdict|default:'none' }}">
                     {{ result.verdict|default:'—' }}
-                    {{ result.time }}
+                    {% if result.time %}
+                    {{ result.time|floatformat:2 }}
+                    {% endif %}
                 </td>
                 {% endfor %}
             </tr>
