@@ -13,7 +13,9 @@ import os.path
 
 def manage_tests(request, problem):
     tp_path = os.path.join(problem.path, globalconfig.default_tests_config)
+    form = ManageTestsForm()
     error = None
+
     if request.method == 'POST':
         form = ManageTestsForm(request.POST)
         if form.is_valid():
@@ -34,7 +36,10 @@ def manage_tests(request, problem):
             except PleaseException as e:
                 error = e
     else:
-        form = ManageTestsForm(initial={"tests_please_content": file_read(tp_path)})
+        try:
+            form = ManageTestsForm(initial={"tests_please_content": file_read(tp_path)})
+        except (UnicodeDecodeError, FileNotFoundError) as e:
+            error = e
 
     answer = {'form': form, 'problem_id': problem.id, 'error': error}
     answer.update({'upload_files': upload_files(request, problem)})
