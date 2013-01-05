@@ -56,7 +56,7 @@ def process_additional_upload(request, id):
     else:
         form = AdditonalUpload()
 
-    return {'files': list(file_utils.list_files_flat(problem.path)),
+    return {'files': sorted(list(file_utils.list_files_flat(problem.path))),
             'form': form,
             'id': id}
 
