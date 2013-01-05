@@ -20,10 +20,10 @@ def upload_main_block(request, problem):
                     problem.checker_path = path
             elif 'checker' in request.FILES.keys():
                 problem.checker_path = str(request.FILES['checker'].name)
-                file_save(problem, request.FILES['checker'])
+                file_save(problem.path, request.FILES['checker'])
             if 'validator' in request.FILES.keys():
                 problem.validator_path = str(request.FILES['validator'].name)
-                file_save(problem, request.FILES['validator'])
+                file_save(problem.path, request.FILES['validator'])
             problem.save()
     form = ProblemUploadFilesForm()
     return {'form': form, 'problem': problem}
@@ -34,7 +34,7 @@ def process_additional_upload(request, id):
     if request.method == 'POST':
         form = AdditonalUpload(request.POST, request.FILES)
         if form.is_valid():
-            file_save(problem, request.FILES['uploaded'])
+            file_save(problem.path, request.FILES['uploaded'])
             form = AdditonalUpload()
     else:
         form = AdditonalUpload()
