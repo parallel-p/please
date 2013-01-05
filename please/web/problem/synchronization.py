@@ -71,11 +71,15 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
 
     model.well_done_test.clear()
     for entry in conf.get('well_done_test', []):
-        model.well_done_test.add(WellDone.objects.get_or_create(name=entry)[0])
+        try:
+            model.well_done_test.add(WellDone.objects.get(name=entry))
+        except WellDone.DoesNotExist: pass  # Bad well done...
 
     model.well_done_answer.clear()
     for entry in conf.get('well_done_answer', []):
-        model.well_done_answer.add(WellDone.objects.get_or_create(name=entry)[0])
+        try:
+            model.well_done_answer.add(WellDone.objects.get(name=entry))
+        except WellDone.DoesNotExist: pass  # Analogously...
 
     model.save()
     return model
