@@ -17,14 +17,15 @@ body {
         width: 30px;
     }
 
-.problem-name {
+.content-title {
     font-size: 180%;
     margin-bottom: 0.4em;
 }
-.problem-path {
+.content-subtitle {
     color: #777;
     margin-bottom: 1.5em;
 }
+
 .CodeMirror {
     height: auto !important;
     background-color: #ffffff;

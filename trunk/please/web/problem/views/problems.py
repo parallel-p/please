@@ -8,6 +8,10 @@ from django.core.exceptions import ObjectDoesNotExist
 import os
 
 
+def common(request):
+    return render_to_response('problems.html', show_by_tag_block(request), RequestContext(request))
+
+
 class NoDirectoryException(Exception):
     pass
 
@@ -112,13 +116,14 @@ def problems_list(problems):
     return render_to_response("problems_list.html", {"problems": problems})
 
 
-def search_by_tag(request):
+def show_by_tag_block(request):
     form = ProblemSearch(request.GET)
     form.is_valid()
     if form.cleaned_data["tags"] == "":
-        return render_to_response("problems_search_by_tag.html", {
-            "form": form,
-            "problems": Problem.objects.all()
-        })
+        problems = Problem.objects.all()
     else:
-        return problems_list(Problem.objects.filter(tags__name__contains=form.cleaned_data["tags"]).distinct())
+        problems = Problem.objects.filter(tags__name__contains=form.cleaned_data["tags"]).distinct()
+    return {
+        'form': form,
+        'problems': problems,
+    }

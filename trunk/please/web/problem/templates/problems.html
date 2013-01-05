@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Problems{% endblock %}
+
+{% block sidebar %}
+<div class="well sidebar-nav">
+    <ul class="nav nav-list">
+        <li>
+            <a href="{% url 'problem.views.problems.create' %}">
+                <i class="icon-plus"></i>
+                Create
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'problem.views.problems.add' %}">
+                <i class="icon-folder-close"></i>
+                Add existing
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'problem.views.problems.add_tree' %}">
+                <i class="icon-list-alt"></i>
+                Add tree
+            </a>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="content-title">Problems</div>
+<div class="content-subtitle"></div>
+<div class="content">
+    <form class="form-search" action="{% url 'problem.views.problems.common' %}" method="GET">
+        {% for field in form %}
+            {{ field }}
+        {% endfor %}
+        <input class="btn" type="submit" value="Search" />
+    </form>
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Path</th>
+                <th>Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for problem in problems %}
+            <tr>
+                <td>{{ problem.id }}</td>
+                <td>
+                    <a href="{% url 'problem.views.problem.statements' id=problem.id %}">
+                        {{ problem.name|default:'[no name]' }}
+                    </a>
+                </td>
+                <td>{{ problem.path }}</td>
+                <td>{{ problem.tags.all|join:', ' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

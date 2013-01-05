@@ -10,8 +10,8 @@
 {% endblock %}
 
 {% block main %}
-<div class="problem-name">Problem «{{ problem.name |default:"[no name]"}}»</div>
-<div class="problem-path">{{ problem.path }}</div>
+<div class="content-title">Problem «{{ problem.name|default:"[no name]" }}»</div>
+<div class="content-subtitle">{{ problem.path }}</div>
 {% if error %}
 <div class="alert alert-error">
     <a href="#" class="close" data-dismiss="alert">×</a>
