@@ -4,7 +4,19 @@ from problem.helpers import problem_sync
 from problem.models import Problem
 from problem.views import materials, todo, manage_tests
 from problem.views.solutions import process_solutions
+from problem.views.problems import edit_or_create_problem_block
 from please.utils.exceptions import PleaseException
+
+
+@problem_sync(read=False, write=False)
+def settings(request, id):
+    problem = get_object_or_404(Problem, id=id)
+    return render_to_response('problem/settings.html', {
+        'nav': 'settings',
+        'problem': problem,
+        'edit_problem': edit_or_create_problem_block(request, problem),
+        'todo': todo.show_block(problem),
+    }, RequestContext(request))
 
 
 @problem_sync(read=False, write=False)
