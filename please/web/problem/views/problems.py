@@ -107,7 +107,7 @@ def show_tests(request, id):
 
 
 def add_problem_block(request):
-    is_success = False
+    is_success, is_error = False, False
     if request.method == 'POST':
         form = AddProblemForm(request.POST)
         if form.is_valid():
@@ -119,12 +119,13 @@ def add_problem_block(request):
                 problem.save()
                 is_success = True
             else:
-                form.errors['path'] = ['Not a problem path']
+                is_error = True
     else:
         form = AddProblemForm()
     return {
         'form': form,
         'is_success': is_success,
+        'is_error': is_error,
     }
 
 
