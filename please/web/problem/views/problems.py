@@ -33,14 +33,14 @@ def edit_or_create_problem_block(request, problem=None):
         form = ProblemEditForm(request.POST)
         if form.is_valid():         
             if problem is None:
-                problem = Problem()
+                # problem = Problem()
                 if not os.path.exists(form.cleaned_data["path"]):
                     raise NoDirectoryException("There is no such directory!")
-                problem.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
-                if os.path.exists(problem.path):
+                if os.path.exists(os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])):
                     raise ProblemExistsException("This problem already exists")
-                problem.save()
-                import_to_database(problem, "../templates/Template/")
+                #problem.save()
+                problem = import_to_database(problem, "../templates/Template/")
+                problem.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
                 with ChangeDir(form.cleaned_data["path"]):
                     generate_problem(form.cleaned_data["short_name"])
             problem.name = form.cleaned_data["name"]
