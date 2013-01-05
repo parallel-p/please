@@ -26,7 +26,7 @@ def download_problem(url, name):
     request.urlretrieve (
             url,
             name+".zip",
-            data = urllib.parse.urlencode(globalconfig.access))
+            data=bytes(urllib.parse.urlencode(globalconfig.access), encoding="UTF-8"))
     
 def get_problem(contest_id, problem_letter):
     print("__________________________________")
