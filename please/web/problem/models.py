@@ -99,10 +99,7 @@ class Test(models.Model):
 
 
 class TestError(models.Model):
-    PROGRAM_TYPES = (
-        ('v', 'validator'),
-        ('c', 'checker'),
-    )
+    PROGRAM_TYPES = (('v', 'validator'), ('c', 'checker'))
     program_type = models.CharField(max_length=1, choices=PROGRAM_TYPES)
     command_line = models.CharField(max_length=500)
     description = models.ForeignKey(RunErrorDescription)
@@ -128,11 +125,11 @@ class Solution(models.Model):
         return self.path
 
 
-class TestResults(models.Model):
+class TestResult(models.Model):
     solution = models.ForeignKey(Solution)
-    verdict = models.ForeignKey(Verdict)
+    verdict = models.CharField(max_length=30)
     test_number = models.IntegerField()
-    return_code = models.IntegerField()
+    return_code = models.IntegerField(null=True)
     real_time = models.FloatField()
     cpu_time = models.FloatField()
     used_memory = models.FloatField()

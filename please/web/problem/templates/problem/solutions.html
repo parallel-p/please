@@ -4,21 +4,42 @@
 
 {% block content %}
 <div class="well">
-    <ul>
-    {% for solution in problem_solution.solutions %}
-        <li>{{ solution }}</li>
-    {% endfor %}
-    </ul>
+    <table class="table table-condensed">
+        <thead>
+            <td>Test #</td>
+            {% for solution in retest.solutions %}
+                <td>{{ solution }}</td>
+            {% endfor %}
+        </thead>
+        <tbody>
+        {% for row in retest.output %}
+            <tr>
+            {% for elem in row %}
+                <td>{{elem}}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+            <tr>
+                <td></td>
+                <form action="{% url 'problem.views.problem.solutions' id=problem.id %}" enctype="multipart/form-data" method="POST">
+                {% csrf_token %}
+                {% for solution in retest.solutions %}
+                    <td><input class="btn" type="submit" name="{{solution}}_retest" value="Test this" /></td>
+                {% endfor %}
+                </form>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <div class="well">
     <form action="{% url 'problem.views.problem.solutions' id=problem.id %}" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         <div>
-            {{ problem_solution.form.as_p }}
+            {{ upload_solution.form.as_p }}
         </div>
         <div>
-            <input class="btn" type="submit" value="Save" />
+            <input class="btn" type="submit" name="submit_file" value="Save" />
         </div>
     </form>
 </div>

@@ -31,7 +31,7 @@ def edit_or_create_problem_block(request, problem=None):
     is_success = False
     if request.method == 'POST':
         form = ProblemEditForm(request.POST)
-        if form.is_valid():         
+        if form.is_valid():
             if problem is None:
                 # problem = Problem()
                 if not os.path.exists(form.cleaned_data["path"]):

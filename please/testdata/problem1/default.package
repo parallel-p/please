@@ -9,7 +9,7 @@ output = prev.out
 time_limit = 2.1
 memory_limit = 128
 
-checker = check.cpp
+checker = fcmp.cpp
 validator = val.cpp
 main_solution = solutions/prev_st.dpr
 

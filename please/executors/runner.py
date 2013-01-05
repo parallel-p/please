@@ -7,6 +7,7 @@ from .. import globalconfig
 from . import trash_remover
 from ..log import logger
 
+
 class ExecutionControl:
     def __init__(self, stdin_fh, stdout_fh, stderr_fh, process):
         self.stdin_fh = stdin_fh
@@ -27,11 +28,12 @@ class ExecutionControl:
                 result = False
         return result
 
-def run(source, args_list = [], limits=globalconfig.default_limits, stdin = None, \
-        stdout = PIPE, stderr = PIPE, env=None, encoding = 'utf-8', shell = False):
+
+def run(source, args_list=[], limits=globalconfig.default_limits, stdin=None, \
+        stdout=PIPE, stderr=PIPE, env=None, encoding='utf-8', shell=False):
     """
     Runs the binary, associated with language of the source given.
-    Also removes al the trash, generated during running (Ex: *.pyc)
+    Also removes all the trash, generated during running (Ex: *.pyc)
     Returns tuple of (invoker.ResultInfo, stdout, stderr)
     Parameters:
         source - path to the source, previously compiled
@@ -60,15 +62,14 @@ def run(source, args_list = [], limits=globalconfig.default_limits, stdin = None
     #invoke_result = None
     #with ExecutionControl(stdin, stdout, stderr, process):
     invoke_result, out, err = invoker.run_command(args, limits,
-                                                  stdin = stdin,
-                                                  stdout = stdout,
-                                                  stderr = stderr,
-                                                  env = env,
-                                                  shell = shell)
+                                                  stdin=stdin,
+                                                  stdout=stdout,
+                                                  stderr=stderr,
+                                                  env=env,
+                                                  shell=shell)
 
     snapshot_after = Snapshot()
 
-    trash_remover.remove_trash(snapshot_before.get_changes(snapshot_after), \
-                       lang.is_run_garbage)
+    trash_remover.remove_trash(snapshot_before.get_changes(snapshot_after), lang.is_run_garbage)
 
     return (invoke_result, out, err)

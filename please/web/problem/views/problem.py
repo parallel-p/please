@@ -3,7 +3,7 @@ from django.template import RequestContext
 from problem.helpers import problem_sync
 from problem.models import Problem
 from problem.views import materials, todo, manage_tests
-from problem.views.solutions import process_solutions
+from problem.views.solutions import upload_solution, retest_solutions
 from problem.views.problems import edit_or_create_problem_block
 from please.utils.exceptions import PleaseException
 
@@ -55,6 +55,7 @@ def solutions(request, id):
     return render_to_response('problem/solutions.html', {
         'nav': 'solutions',
         'problem': problem,
-        'problem_solution': process_solutions(request, id),
+        'upload_solution': upload_solution(request, id),
+        'retest': retest_solutions(request, id),
         'todo': todo.show_block(problem),
     }, RequestContext(request))
