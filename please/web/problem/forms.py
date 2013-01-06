@@ -111,13 +111,13 @@ def tags_edit_form(problem):
             widget=forms.CheckboxSelectMultiple(attrs={'checked': 'checked'}),
             choices=((tag, tag.name) for tag in problem.tags.all()),
             required=False
-        )
+        ) if problem.tags.count() > 0 else "no tags matching the problem"
         other_tags = forms.MultipleChoiceField(
             choices=[(tag, tag.name) for tag in ProblemTag.objects.all() if tag not in problem.tags.all()],
             required=False
-        )
+        ) if ProblemTag.objects.count() > problem.tags.count() else ''
         add_tag = forms.CharField(required=False, widget=forms.TextInput(attrs={
-            'placeholder': 'or add your own',
+            'placeholder': 'or add your own' if ProblemTag.objects.count() > problem.tags.count() else 'add your own tag'
         }))
     return EditTagsForm
 
