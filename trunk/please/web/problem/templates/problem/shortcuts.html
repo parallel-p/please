@@ -1,0 +1,4 @@
+<form action="{% url "build-all" problem.id %}" method="POST">
+    {% csrf_token %}
+    <input class="btn btn-small" type="submit" value="Build all">
+</form>

@@ -1,5 +1,4 @@
-{% block build_all %}
-    <form action="{% url "build-all" build_all.problem_id %}" method=POST>{% csrf_token %}
-        <input type="submit" value="Build all">
-    </form>
-{% endblock %}
+<form action="{% url "build-all" build_all.problem_id %}" method=POST>
+    {% csrf_token %}
+    <input type="submit" value="Build all">
+</form>
