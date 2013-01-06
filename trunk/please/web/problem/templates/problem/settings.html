@@ -3,9 +3,10 @@
 {% block title %}Settings{% endblock %}
 
 {% block content %}
-    <form action="{% url 'problem.views.problem.settings' id=problem.id %}" method="POST">
-        {% csrf_token %}
-        <div>
+<form action="{% url 'problem.views.problem.settings' id=problem.id %}" method="POST">
+    {% csrf_token %}
+    <div class="row-fluid">
+        <div class="span6">
             {% for field in edit_problem.form %}
                 {% ifnotequal field.label "Path" %}
                     <div class="control-group{% if field.errors %} error{% endif %}">
@@ -21,18 +22,19 @@
                     <input id="id_path" name="path" type="hidden" value="Path" />
                 {% endifnotequal %}
             {% endfor %}
-
-    {% if edit_tags.any_related_tags %}
-        Remove related tags:
-        {{ edit_tags.form.added_tags }}
-    {% else %}
-        There are not any related tags.<br />
-    {% endif %}
-    Add an existing tag: {{ edit_tags.form.other_tags }}<br />
-    ... or specify a tag name: {{ edit_tags.form.add_tag }}<br />
         </div>
-        <div>
-            <input class="btn" type="submit" name="save" value="Save" />
+        <div class="span6">
+            <label>Tags</label>
+            <div class="tags">
+            {{ edit_tags.form.added_tags }}
+            </div>
+            <label>Add tag</label>
+            <div>{{ edit_tags.form.other_tags }}</div>
+            <div>{{ edit_tags.form.add_tag }}</div>
         </div>
-    </form>
+    </div>
+    <div>
+        <input class="btn" type="submit" name="save" value="Save" />
+    </div>
+</form>
 {% endblock %}

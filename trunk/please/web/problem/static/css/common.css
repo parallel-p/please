@@ -37,6 +37,17 @@ body {
     margin-bottom: 1.5em;
 }
 
+.tags {
+    margin-bottom: 20px;
+}
+    .tags ul {
+        list-style: none;
+        margin: 0;
+    }
+    .tags label {
+        font-weight: normal;
+    }
+
 .CodeMirror {
     height: auto !important;
     background-color: #ffffff;
