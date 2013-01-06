@@ -100,6 +100,7 @@ def read_from_file(file_name, LINES_LIMIT, SIZE_LIMIT):
             if line == '' or line_id >= LINES_LIMIT:
                 if line_id >= LINES_LIMIT:
                     big_file = True
+                    content += '...'
                 break
             line_id += 1
             if len(line) >= SIZE_LIMIT:
