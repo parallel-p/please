@@ -34,7 +34,7 @@ class ProblemExistsException(Exception):
     pass
 
 
-def please_clean(request, problem):
+def please_clean(problem):
     with ChangeDir(problem.path):
         Cleaner.cleanup()
 
