@@ -143,10 +143,10 @@ def export_from_database(model=None, path=None, name=globalconfig.default_packag
             if solution.expected_verdicts.count() != 0:
                 args += (['expected'] +
                         list(map(str, solution.expected_verdicts.all())))
-            #try:
-            add_solution(str(solution.path), args)
-            #except PleaseException:
-            #    solution.delete()
+            try:
+                add_solution(str(solution.path), args)
+            except PleaseException:
+                solution.delete()
         for sol in already_there:
             if (sol not in sources) and (sol != conf['main_solution'].replace(os.sep, '/')):
                 del_solution(sol)

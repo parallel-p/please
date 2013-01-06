@@ -22,8 +22,9 @@ def retest_solutions(request, id):
 
     if request.method == 'POST':
         form = EmptyForm(request.POST)
+        print(form.data)
         for solution in solutions:
-            if solution['name'] + '_retest' in form.data:
+            if (solution['name'] + '_retest' in form.data) or ("retest_all_solutions" in form.data):
                 for i in TestResult.objects.filter(solution=solution['obj']):
                     i.delete()
                 with ChangeDir(problem.path):
