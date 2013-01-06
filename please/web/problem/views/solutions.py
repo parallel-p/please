@@ -3,11 +3,12 @@ import os
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
+import please.globalconfig
+from please.reports.generate_html_report import get_test_results_from_solution
+
 from problem.models import Problem, Solution, Verdict, TestResult
 from problem.forms import SolutionAddForm, EmptyForm
 from problem.views.file_utils import file_save
-
-from please.reports.generate_html_report import get_test_results_from_solution
 from problem.views.file_utils import ChangeDir
 from problem.synchronization import export_from_database
 
@@ -16,7 +17,7 @@ def retest_solutions(request, id):
     problem = Problem.objects.get(id=id)
     solutions = [{'obj': i,
                   'path': i.path,
-                  'name': os.path.relpath(i.path, 'solutions/'),
+                  'name': os.path.relpath(i.path, please.globalconfig.solutions_dir),
                   'expected_verdicts': i.expected_verdicts.all(),
                   'possible_verdicts': i.possible_verdicts.all()} for i in Solution.objects.filter(problem__id=id)]
 
