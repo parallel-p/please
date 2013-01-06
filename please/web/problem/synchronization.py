@@ -56,7 +56,7 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
     old_solutions = {i.path for i in model.solution_set.all()}
     for solution in conf.get("solution", []):
         sol = Solution.objects.get_or_create(path=solution['source'], problem=model)[0]
-        old_solutions -= {solution['source']}
+        old_solutions.discard(solution['source'])
         sol.input = solution.get('input', '')
         sol.output = solution.get('output', '')
         sol.expected_verdicts.clear()
