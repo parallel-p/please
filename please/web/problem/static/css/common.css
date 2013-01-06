@@ -43,6 +43,9 @@ body {
         list-style: none;
         margin: 0;
     }
+    .dir li {
+        white-space: nowrap;
+    }
 
 .content-title {
     font-size: 180%;
