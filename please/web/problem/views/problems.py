@@ -12,7 +12,7 @@ from please import globalconfig
 from problem.models import Problem
 from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm, ProblemImportFromPolygonForm
 from problem.synchronization import export_from_database, import_to_database, import_tree, is_problem_path
-from problem.views.file_utils import ChangeDir
+from problem.views.file_utils import ChangeDir, file_read
 
 import os
 
@@ -217,9 +217,16 @@ def show_by_tag_block(request):
         problems = Problem.objects.all()
     else:
         problems = Problem.objects.filter(tags__name__contains=form.cleaned_data["tags"]).distinct()
+    descriptions = [(problem, file_read(
+        os.path.join(
+            problem.path,
+            problem.description_path)) if os.path.isfile(
+                os.path.join(
+                    problem.path,
+                    problem.description_path)) else '[description not found]') for problem in problems]
     return {
         'form': form,
-        'problems': problems,
+        'problem_descriptions': descriptions
     }
 
 
