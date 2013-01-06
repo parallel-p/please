@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 import please.globalconfig
 from please import answers_generator
 from please.utils.exceptions import PleaseException
+
 from problem.models import Problem, TestResult, Solution
 from problem.views.file_utils import ChangeDir
 
@@ -16,8 +17,10 @@ def single_test_block(problem, solution_name, test_id):
                                      test_number=test_id)
     with ChangeDir(problem.path):
         test_path = os.path.join(please.globalconfig.temp_tests_dir, test_id)
+        config = package_config.PackageConfig.get_config(ignore_cache=True)
         try:
-            answers_generator.generate_answers(tests=[test_path], source_path=source_path)
+            answers_generator.generate_answers(tests=[test_path], source_path=source_path,
+                                               solution_config=config,)
         except PleaseException as exc:
             full_output = repr(exc)
         else:
