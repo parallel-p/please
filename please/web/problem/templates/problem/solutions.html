@@ -42,12 +42,14 @@
                 <td>{{ forloop.counter }}</td>
                 {% for result in row %}
                 <td class="verdict-{{ result.verdict|default:'none' }}">
+                {% if result.verdict %}
                     <a href="{{result.solution}}/test/{{forloop.parentloop.counter}}">
-                    {{ result.verdict|default:'—' }}
+                    {{ result.verdict}}
                     {% if result.time %}
                     {{ result.time|floatformat:2 }}
                     {% endif %}
                     </a>
+                {% else %}—{% endif %}
                 </td>
                 {% endfor %}
             </tr>
