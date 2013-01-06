@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 
 from problem.helpers import problem_sync
@@ -71,6 +71,7 @@ def solutions(request, id):
 
 def build_all_block(request, problem_id):
     button_pressed = False
+    error_msg = None
     if request.method == 'POST':
         with ChangeDir(Problem.objects.get(id=problem_id).path):
             build_tools.build_all()
