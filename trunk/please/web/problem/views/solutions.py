@@ -15,7 +15,9 @@ def retest_solutions(request, id):
     problem = Problem.objects.get(id=id)
     solutions = [{'obj': i,
                   'path': i.path,
-                  'name': os.path.relpath(i.path, 'solutions/')} for i in Solution.objects.filter(problem__id=id)]
+                  'name': os.path.relpath(i.path, 'solutions/'),
+                  'expected_verdicts': i.expected_verdicts.all(),
+                  'possible_verdicts': i.possible_verdicts.all()} for i in Solution.objects.filter(problem__id=id)]
 
     if request.method == 'POST':
         form = EmptyForm(request.POST)
@@ -48,7 +50,9 @@ def retest_solutions(request, id):
             i.extend([{}] * (max_count - len(i)))
 
     return {'output': list(zip(*(output))),
-            'solutions': [i['name'] for i in solutions]}
+            'solutions': [i['name'] for i in solutions],
+            'expected_verdicts': [solution['expected_verdicts'] for solution in solutions],
+            'possible_verdicts': [solution['possible_verdicts'] for solution in solutions],}
 
 
 def upload_solution(request, id):
