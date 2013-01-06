@@ -96,12 +96,12 @@ def read_from_file(file_name, LINES_LIMIT, SIZE_LIMIT):
         while True:
             line = f.readline()
             if line == '' or line_id >= LINES_LIMIT:
-                if line_id >= LINES_LIMIT:
+                if line_id > LINES_LIMIT:
                     big_file = True
                     content += '...'
                 break
             line_id += 1
-            if len(line) >= SIZE_LIMIT:
+            if len(line) > SIZE_LIMIT:
                 big_file = True
                 line = line[:SIZE_LIMIT - 1] + '...\n'
             content += line
