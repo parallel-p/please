@@ -3,6 +3,7 @@ from .config import ConfigFile, Config
 from .. import globalconfig
 from ..utils.writepackage import writepackage
 
+
 #TODO:move it to another directory
 class PackageConfig:
     """
@@ -24,7 +25,7 @@ class PackageConfig:
     configs_dict = {}
 
     @staticmethod
-    def get_config(dir = ".", package_name = globalconfig.default_package, ignore_cache = False):
+    def get_config(dir=".", package_name=globalconfig.default_package, ignore_cache=False):
         package_path = os.path.abspath(os.path.join(dir, package_name))
         if not os.path.exists(package_path):
             return None
@@ -41,7 +42,7 @@ class PackageConfig:
 
     @staticmethod
     def oldversion_fix(conf):
-        '''Fix *.package 
+        '''Fix *.package
            and rewrite please_version to current
         '''
         if conf['please_version'] != globalconfig.please_version:
@@ -55,7 +56,7 @@ class PackageConfig:
     @staticmethod
     def main_solution_fix(conf):
         '''In please version <0.3 main_solution was not described
-           in solutions config. 
+           in solutions config.
         '''
         new_config = Config("")
         new_config["source"] = conf['main_solution']
