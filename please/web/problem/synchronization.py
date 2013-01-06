@@ -53,10 +53,11 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
 
     model.hand_answer_extension = conf.get("hand_answer_extension", "")
 
-    old_solutions = {i.path for i in model.solution_set.all()}
+    old_solutions = {i.path.replace(os.sep, '/') for i in model.solution_set.all()}
     for solution in conf.get("solution", []):
-        sol = Solution.objects.get_or_create(path=solution['source'], problem=model)[0]
-        old_solutions.discard(solution['source'])
+        path = solution['source'].replace(os.sep, '/')
+        sol = Solution.objects.get_or_create(path=path, problem=model)[0]
+        old_solutions.discard(path)
         sol.input = solution.get('input', '')
         sol.output = solution.get('output', '')
         sol.expected_verdicts.clear()
@@ -65,7 +66,7 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
             sol.expected_verdicts.add(Verdict.objects.get_or_create(name=verdict)[0])
         for verdict in solution.get('possible'):
             sol.possible_verdicts.add(Verdict.objects.get_or_create(name=verdict)[0])
-        if solution['source'] == conf['main_solution']:
+        if path == conf['main_solution'].replace(os.sep, '/'):
             model.main_solution = sol
         sol.save()
 
