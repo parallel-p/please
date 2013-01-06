@@ -18,12 +18,17 @@ def files_in_dir_block(problem):
     files_in_dir = []
     with ChangeDir(problem.path):
         for dirpath, dirnames, filenames in os.walk("."):
-            if re.search(IGNORED, dirpath):
+            dirpath = dirpath.replace(os.sep, '/')
+            print(os.path.basename(dirpath))
+            if re.search(IGNORED, dirpath) or (dirpath != '.' and re.search(IGNORED, './' + os.path.basename(dirpath))):
                 continue
+            depth = 2 * dirpath.count('/')
+            if dirpath != '.':
+                files_in_dir.append(('/' + os.path.basename(dirpath), [''] * (depth - 2)))
             for filename in filenames:
                 if not re.search(IGNORED, filename):
-                    files_in_dir.append(os.path.join(dirpath, filename)[2:])
-    files_in_dir.sort()
+                    files_in_dir.append((filename, [''] * depth))
+                
     return files_in_dir
 
 
