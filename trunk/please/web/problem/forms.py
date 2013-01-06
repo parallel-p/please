@@ -114,7 +114,7 @@ def tags_edit_form(problem):
             required=False
         )
         other_tags = forms.MultipleChoiceField(
-            choices=[('', 'select existing tag')] + [(tag, tag.name) for tag in ProblemTag.objects.all() if tag not in problem.tags.all()],
+            choices=[(tag, tag.name) for tag in ProblemTag.objects.all() if tag not in problem.tags.all()],
             required=False
         )
         add_tag = forms.CharField(required=False, widget=forms.TextInput(attrs={
