@@ -19,10 +19,11 @@
                 <th>Name</th>
                 <th>Path</th>
                 <th>Tags</th>
+                <th>Description</th>
             </tr>
         </thead>
         <tbody>
-            {% for problem in problems_list.problems %}
+            {% for problem, description in problems_list.problem_descriptions %}
             <tr>
                 <td>{{ problem.id }}</td>
                 <td>
@@ -35,6 +36,9 @@
                 {% for tag in problem.tags.all %}
                     <a href="?tags={{tag}}">{{tag}}</a>{% if not forloop.last %},{% endif %}
                 {% endfor %}
+                </td>
+                <td>
+                    {{description}}
                 </td>
             </tr>
             {% endfor %}
