@@ -52,7 +52,7 @@ def retest_solutions(request, id):
         max_count = max(max_count, len(output[-1]))
 
     for row in output:
-        if len(i) != max_count:
+        if len(row) != max_count:
             row.extend([{}] * (max_count - len(i)))
     return {'output': list(zip(*(output))),
             'solutions': [solution['name'] for solution in solutions],
