@@ -26,8 +26,8 @@ def retest_solutions(request, id):
         print(form.data)
         for solution in solutions:
             if (solution['name'] + '_retest' in form.data) or ("retest_all_solutions" in form.data):
-                for i in TestResult.objects.filter(solution=solution['obj']):
-                    i.delete()
+                for result in TestResult.objects.filter(solution=solution['obj']):
+                    result.delete()
                 with ChangeDir(problem.path):
                     results = get_test_results_from_solution(solution['path'])[2]
                     results = sorted(results.items(), key=lambda x: int(os.path.basename(x[0])))
@@ -53,7 +53,7 @@ def retest_solutions(request, id):
 
     for row in output:
         if len(row) != max_count:
-            row.extend([{}] * (max_count - len(i)))
+            row.extend([{}] * (max_count - len(row)))
     return {'output': list(zip(*(output))),
             'solutions': [solution['name'] for solution in solutions],
             'expected_verdicts': [solution['expected_verdicts'] for solution in solutions],
