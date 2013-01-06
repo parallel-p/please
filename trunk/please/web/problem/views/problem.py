@@ -85,6 +85,6 @@ def build_all_block(request, problem_id):
 def build_all(request, problem_id):
     block = build_all_block(request, problem_id)
     if block['is_success']:
-        return redirect(reverse('problem.views.problems.index'))  # TODO: there?
+        return redirect(reverse('problem.views.problems.solutions'))
     return render_to_response('problem/build_all.html', {'build_all': block},
             context_instance=RequestContext(request))
