@@ -19,7 +19,16 @@ def files_in_dir_block(problem):
     with ChangeDir(problem.path):
         for dirpath, dirnames, filenames in os.walk("."):
             dirpath = dirpath.replace(os.sep, '/')
-            if re.search(IGNORED, dirpath) or (dirpath != '.' and re.search(IGNORED, './' + os.path.basename(dirpath))):
+            dirname = './' + os.path.basename(dirpath)
+
+            dirnames_to_remove = []
+            for dirname in dirnames:
+                if re.search(IGNORED, './' + dirname):
+                    dirnames_to_remove.append(dirname)
+            for dirname in dirnames_to_remove:
+                dirnames.remove(dirname)
+
+            if re.search(IGNORED, dirpath) or (dirpath != '.' and re.search(IGNORED, dirname)):
                 continue
             depth = 2 * dirpath.count('/')
             if dirpath != '.':
