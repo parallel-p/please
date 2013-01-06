@@ -136,6 +136,7 @@
             </div>
         </form>
         <hr />
+        {% if test_data %}
         <table class="tests table table-striped table-bordered">
             <thead>
                 <th>#</th>
@@ -168,6 +169,9 @@
             {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <p>No tests generated</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
