@@ -54,15 +54,47 @@
     </table>
 </div>
 
-<div class="well">
-    <form action="{% url 'problem.views.problem.solutions' id=problem.id %}" enctype="multipart/form-data" method="POST">
+<form action="{% url 'problem.views.problem.solutions' id=problem.id %}" enctype="multipart/form-data" method="POST">
+    <div class="row-fluid">
         {% csrf_token %}
-        <div>
-            {{ upload_solution.form.as_p }}
+        <div class="span2">
+        <h4>Add solution</h4>
+            <div class="control-group">
+                <!--{{ upload_solution.form.solution_file.label_tag }}-->
+                <div class="controls">
+                    {{ upload_solution.form.solution_file }}
+                </div>
+                <input class="btn" type="submit" name="submit_file" value="Save" />
+            </div>
         </div>
-        <div>
-            <input class="btn" type="submit" name="submit_file" value="Save" />
+        <div class="span3">
+            <div class="control-group">
+                {{ upload_solution.form.input_file_name.label_tag }}
+                <div class="controls">
+                    {{ upload_solution.form.input_file_name }}
+                </div>
+                {{ upload_solution.form.output_file_name.label_tag }}
+                <div class="controls">
+                    {{ upload_solution.form.output_file_name }}
+                </div>
+            </div>
         </div>
-    </form>
-</div>
+        <div class="span3">
+            <div class="control-group">
+                {{ upload_solution.form.expected_verdicts.label_tag }}
+                <div class="controls">
+                    {{ upload_solution.form.expected_verdicts }}
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div class="control-group">
+                {{ upload_solution.form.possible_verdicts.label_tag }}
+                <div class="controls">
+                    {{ upload_solution.form.possible_verdicts }}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 {% endblock %}
