@@ -51,4 +51,3 @@ class Cleaner:
         else:
             logger.info("There is no report.html")
         trash_remover.remove_logs_in_depth()
-

@@ -47,7 +47,8 @@ def retest_solutions(request, id):
 
     for solution in solutions:
         output.append([{'verdict': str(i.verdict),
-                        'time': str(i.cpu_time)} for i in TestResult.objects.filter(solution=solution['obj'])])
+                        'time': str(i.cpu_time),
+                        'solution': solution['name']} for i in TestResult.objects.filter(solution=solution['obj'])])
         max_count = max(max_count, len(output[-1]))
 
     for i in output:
