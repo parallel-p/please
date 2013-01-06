@@ -17,26 +17,13 @@
                 {% for expected_verdicts in retest.expected_verdicts %}
                     <td>{% for expected_verdict in expected_verdicts %} {{ expected_verdict }} {% endfor %}</td>
                 {% endfor %}
-            </tr>          
+            </tr>
             <tr>
                 <td>Possible verdicts:</td>
                 {% for possible_verdicts in retest.possible_verdicts %}
                     <td>{% for possible_verdict in possible_verdicts %} {{ possible_verdict }} {% endfor %}</td>
                 {% endfor %}
-            </tr>          
-            {% for row in retest.output %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                {% for result in row %}
-                <td class="verdict-{{ result.verdict|default:'none' }}">
-                    {{ result.verdict|default:'—' }}
-                    {% if result.time %}
-                    {{ result.time|floatformat:2 }}
-                    {% endif %}
-                </td>
-                {% endfor %}
             </tr>
-            {% endfor %}
             <tr>
                 <form action="{% url 'problem.views.problem.solutions' id=problem.id %}" method="POST">
                 {% csrf_token %}
@@ -50,6 +37,19 @@
                     {% endfor %}
                 </form>
             </tr>
+            {% for row in retest.output %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                {% for result in row %}
+                <td class="verdict-{{ result.verdict|default:'none' }}">
+                    {{ result.verdict|default:'—' }}
+                    {% if result.time %}
+                    {{ result.time|floatformat:2 }}
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
