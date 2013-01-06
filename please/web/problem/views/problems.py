@@ -105,7 +105,7 @@ def read_from_file(file_name, LINES_LIMIT, SIZE_LIMIT):
         line_id = 0
         while True:
             line = f.readline()
-            if line == '' or line_id >= LINES_LIMIT:
+            if line == '' or line_id > LINES_LIMIT:
                 if line_id > LINES_LIMIT:
                     big_file = True
                     content += '...'
