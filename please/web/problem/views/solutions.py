@@ -54,7 +54,7 @@ def retest_solutions(request, id):
     return {'output': list(zip(*(output))),
             'solutions': [i['name'] for i in solutions],
             'expected_verdicts': [solution['expected_verdicts'] for solution in solutions],
-            'possible_verdicts': [solution['possible_verdicts'] for solution in solutions],}
+            'possible_verdicts': [solution['possible_verdicts'] for solution in solutions]}
 
 
 def upload_solution(request, id):
