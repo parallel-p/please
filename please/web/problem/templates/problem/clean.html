@@ -1,0 +1,4 @@
+<form action="{% current url %}" method='POST'>
+    {% csrf_token %}
+    <input type="submit" name="please_clean" value="Cleanup problem" />
+</form>
