@@ -119,12 +119,6 @@ textarea#id_tests_please_content {
 .tests {
     font-size: 90%;
 }
-    .tests pre {
-        font-size: inherit;
-        padding: 0;
-        background-color: transparent;
-        border: 0;
-    }
     .tests td {
         position: relative;
     }
@@ -146,6 +140,13 @@ textarea#id_tests_please_content {
 }
 .veridct-TL a, .verdict-ML a {
     color: #006D8F !important;
+}
+
+pre {
+    font-size: inherit;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
 }
 
 form label {

@@ -34,18 +34,18 @@
         {% if test.results.checker_stdout %}
         <tr>
             <td>Checker output</td>
-            <td>{{ test.results.checker_stdout }}</td>
+            <td><pre>{{ test.results.checker_stdout }}</pre></td>
         </tr>
         {% endif %}
         {% if test.results.checker_stderr %}
         <tr>
             <td>Checker stderr</td>
-            <td>{{ test.results.checker_stderr }}</td>
+            <td><pre>{{ test.results.checker_stderr }}</pre></td>
         </tr>
         {% endif %}
         <tr>
             <td>Solution output</td>
-            <td>{{ test.full_output }}</td>
+            <td><pre>{{ test.full_output }}</pre></td>
         </tr>
     </tbody>
 </table>
