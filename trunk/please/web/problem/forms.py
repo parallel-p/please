@@ -59,10 +59,12 @@ class SolutionAddForm(forms.Form):
     input_file_name = forms.CharField(required=False)
     output_file_name = forms.CharField(required=False)
     expected_verdicts = forms.MultipleChoiceField(
+            widget=forms.SelectMultiple(attrs={'size': 6}),
             choices=[(verdict, verdict.name) for verdict in Verdict.objects.all()],
             required=True,
             initial=["OK"])
     possible_verdicts = forms.MultipleChoiceField(
+            widget=forms.SelectMultiple(attrs={'size': 6}),
             choices=[(verdict, verdict.name) for verdict in Verdict.objects.all()],
             required=False)
 
