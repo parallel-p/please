@@ -12,6 +12,18 @@
             {% endfor %}
         </thead>
         <tbody>
+            <tr>
+                <td>Expected verdicts:</td>
+                {% for expected_verdicts in retest.expected_verdicts %}
+                    <td>{% for expected_verdict in expected_verdicts %} {{ expected_verdict }} {% endfor %}</td>
+                {% endfor %}
+            </tr>          
+            <tr>
+                <td>Possible verdicts:</td>
+                {% for possible_verdicts in retest.possible_verdicts %}
+                    <td>{% for possible_verdict in possible_verdicts %} {{ possible_verdict }} {% endfor %}</td>
+                {% endfor %}
+            </tr>          
             {% for row in retest.output %}
             <tr>
                 <td>{{ forloop.counter }}</td>
