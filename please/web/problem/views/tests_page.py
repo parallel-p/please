@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 import please.globalconfig
 from please import answers_generator
 from please.utils.exceptions import PleaseException
-
+from please.package import package_config
 from problem.models import Problem, TestResult, Solution
 from problem.views.file_utils import ChangeDir
 
