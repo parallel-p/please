@@ -1,10 +1,8 @@
-from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.template import RequestContext
-from problem.models import Problem, WellDone
+from problem.models import WellDone
 from problem.forms import ManageTestsForm
 from problem.views.file_utils import *
 from problem.views.upload_files import *
-from please.command_line.generate_tests import generate_tests, generate_tests_with_tags
+from please.command_line.generate_tests import generate_tests
 from please import globalconfig
 from please.utils.exceptions import PleaseException
 from please.tests_answer_generator.tests_answer_generator import TestsAndAnswersGenerator
@@ -39,8 +37,8 @@ def manage_tests(request, problem):
         if form.is_valid():
             file_write(form.cleaned_data["tests_please_content"], tp_path)
 
-            for field, listname in ((problem.well_done_test,'well_done_test'),
-                                    (problem.well_done_answer,'well_done_answer')):
+            for field, listname in ((problem.well_done_test, 'well_done_test'),
+                                    (problem.well_done_answer, 'well_done_answer')):
                 field.clear()
                 for name in request.POST.getlist(listname):
                     field.add(WellDone.objects.get(name=name))
