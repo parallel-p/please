@@ -22,6 +22,9 @@
                     <input id="id_path" name="path" type="hidden" value="Path" />
                 {% endifnotequal %}
             {% endfor %}
+            <div>
+                <input class="btn" type="submit" name="save" value="Save" />
+            </div>
         </div>
         <div class="span6">
             <label>Tags</label>
@@ -31,10 +34,10 @@
             <label>Add tag</label>
             <div>{{ edit_tags.form.other_tags }}</div>
             <div>{{ edit_tags.form.add_tag }}</div>
+            <div>
+                <input class="btn" type="submit" name="save" value="Save" />
+            </div>
         </div>
-    </div>
-    <div>
-        <input class="btn" type="submit" name="save" value="Save" />
     </div>
 </form>
 {% endblock %}
