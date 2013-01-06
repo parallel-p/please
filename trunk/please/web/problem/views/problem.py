@@ -90,6 +90,6 @@ def build_all(request, problem_id):
     problem = get_object_or_404(Problem, id=problem_id)
     block = build_all_block(request, problem)
     if block['is_success']:
-        return redirect(reverse('problem.views.problems.solutions'))
+        return redirect(reverse('problem.views.problem.solutions', kwargs={"id":problem_id}))
     return render_to_response('problem/build_all.html', {'build_all': block},
             context_instance=RequestContext(request))

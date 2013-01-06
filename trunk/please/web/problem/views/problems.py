@@ -36,7 +36,7 @@ class ProblemExistsException(Exception):
 
 def please_clean(problem):
     with ChangeDir(problem.path):
-        Cleaner.cleanup()
+        Cleaner().cleanup()
 
 
 def edit_or_create_problem_block(request, problem=None):
