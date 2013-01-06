@@ -8,6 +8,9 @@ from problem.views.solutions import upload_solution, retest_solutions
 from problem.views.problems import edit_or_create_problem_block, show_tests_block
 from problem.views.tags import process_edit_tags
 from please.utils.exceptions import PleaseException
+from problem.views.file_utils import ChangeDir
+from please.build_all import build_tools
+from django.core.urlresolvers import reverse
 from problem.views.tags import process_edit_tags
 
 
@@ -65,3 +68,18 @@ def solutions(request, id):
         'retest': retest_solutions(request, id),
         'todo': todo.show_block(problem),
     }, RequestContext(request))
+
+def build_all_block(request, problem_id):
+    button_pressed = False
+    if request.method == 'POST':
+        with ChangeDir(Problem.objects.get(id=problem_id).path):
+            build_tools.build_all()
+            button_pressed = True
+    return {'is_success': button_pressed, 'problem_id': problem_id}
+
+def build_all(request, problem_id):
+    block = build_all_block(request, problem_id)
+    if block['is_success']:
+        return redirect(reverse('problem.views.problems.index')) #TODO: there?
+    return render_to_response('problem/build_all.html', {'build_all': block},
+            context_instance=RequestContext(request))
