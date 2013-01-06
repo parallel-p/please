@@ -1,7 +1,7 @@
 please_version = 0.3
 name = Кубики
 shortname = cubes
-tags = hash; prefix-function; a; b; c; d; e; f; g; h; q; w
+tags = 
 type = 
 input = stdin
 output = stdout

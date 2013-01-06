@@ -1,0 +1,16 @@
+
+<table border="2">
+<tr><td>Verdict</td><td>{{results.verdict}}</td></tr>
+<tr><td>Return code</td><td>{{results.return_code}}</td></tr>
+<tr><td>Real time</td><td>{{results.real_time}}</td></tr>
+<tr><td>CPU time</td><td>{{results.cpu_time}}</td></tr>
+<tr><td>Used memory</td><td>{{results.used_memory}}</td></tr>
+<tr><td>Test number</td><td>{{results.test_number}}</td></tr>
+{% if results.checker_stdout %}
+<tr><td>Checker output</td><td>{{results.checker_stdout}}</td></tr>
+{% endif %}
+{% if results.checker_stderr %}
+<tr><td>Checker stderr</td><td>{{results.checker_stderr}}</td></tr>
+{% endif %}
+<tr><td valign="top">Solution's output</td><td>{{full_output}}</td></tr>
+</table>
