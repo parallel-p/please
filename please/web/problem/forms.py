@@ -113,7 +113,7 @@ def tags_edit_form(problem):
             choices=((tag, tag.name) for tag in problem.tags.all()),
             required=False
         )
-        other_tags = forms.ChoiceField(
+        other_tags = forms.MultipleChoiceField(
             choices=[('', 'select existing tag')] + [(tag, tag.name) for tag in ProblemTag.objects.all() if tag not in problem.tags.all()],
             required=False
         )
