@@ -9,6 +9,7 @@ from ..test_config_parser import parser
 
 logger = logging.getLogger("please_logger.cleaner.cleaner")
 
+
 class Cleaner:
     def __clean_binary(self, source):
         if source is not None:
@@ -21,7 +22,7 @@ class Cleaner:
                         os.remove(binary)
                     else:
                         logger.info("There is no binary '{0}' for source '{1}'".format(binary, source))
-                
+
     def cleanup(self):
         if os.path.exists(globalconfig.temp_statements_dir):
             shutil.rmtree(globalconfig.temp_statements_dir)
