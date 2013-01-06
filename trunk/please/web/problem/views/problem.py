@@ -22,6 +22,7 @@ def settings(request, id):
         'edit_problem': edit_or_create_problem_block(request, problem),
         'edit_tags': process_edit_tags(request, id),
         'todo': todo.show_block(problem),
+        'files_in_dir': manage_tests.files_in_dir_block(problem),
     }, RequestContext(request))
 
 
@@ -40,6 +41,7 @@ def statements(request, id):
         'problem': problem,
         'edit_dict': materials.edit_dict(request, id),
         'todo': todo.show_block(problem),
+        'files_in_dir': manage_tests.files_in_dir_block(problem),
         'error': error,
     }, RequestContext(request))
 
@@ -54,6 +56,7 @@ def tests(request, id):
         'test_data': show_tests_block(request, problem),
         'upload_main': files.upload_main_block(request, problem),
         'todo': todo.show_block(problem),
+        'files_in_dir': manage_tests.files_in_dir_block(problem),
     }, RequestContext(request))
 
 
@@ -66,6 +69,7 @@ def solutions(request, id):
         'upload_solution': upload_solution(request, id),
         'retest': retest_solutions(request, id),
         'todo': todo.show_block(problem),
+        'files_in_dir': manage_tests.files_in_dir_block(problem),
     }, RequestContext(request))
 
 
