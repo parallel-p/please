@@ -1,0 +1,6 @@
+<h6>Problem files</h6>
+<ul>
+    {% for filename in files_in_dir %}
+    <li>{{ filename|truncatechars:28 }}</li>
+    {% endfor %}
+</ul>

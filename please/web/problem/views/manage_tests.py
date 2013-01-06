@@ -16,6 +16,19 @@ import re
 IGNORED = r'(^\.[\\/]((\.)|(__)))|(\.(exe|pyc|log|config|please|aux|package)$)'
 
 
+def files_in_dir_block(problem):
+    files_in_dir = []
+    with ChangeDir(problem.path):
+        for dirpath, dirnames, filenames in os.walk("."):
+            if re.search(IGNORED, dirpath):
+                continue
+            for filename in filenames:
+                if not re.search(IGNORED, filename):
+                    files_in_dir.append(os.path.join(dirpath, filename)[2:])
+    files_in_dir.sort()
+    return files_in_dir
+
+
 def manage_tests(request, problem):
     tp_path = os.path.join(problem.path, globalconfig.default_tests_config)
     form = ManageTestsForm()
@@ -53,22 +66,11 @@ def manage_tests(request, problem):
         except (UnicodeDecodeError, FileNotFoundError) as e:
             error = e
 
-    files_in_dir = []
-    with ChangeDir(problem.path):
-        for dirpath, dirnames, filenames in os.walk("."):
-            if re.search(IGNORED, dirpath):
-                continue
-            for filename in filenames:
-                if not re.search(IGNORED, filename):
-                    files_in_dir.append(os.path.join(dirpath, filename)[2:])
-    files_in_dir.sort()
-
     well_dones = [(well_done.name,
                    well_done in problem.well_done_test.all(),
                    well_done in problem.well_done_answer.all())
                    for well_done in WellDone.objects.all()]
 
-    answer = {'form': form, 'problem': problem, 'error': error, 'well_dones': well_dones,
-              'dir_files': files_in_dir}
+    answer = {'form': form, 'problem': problem, 'error': error, 'well_dones': well_dones}
     answer.update({'upload_files': upload_files(request, problem)})
     return answer
