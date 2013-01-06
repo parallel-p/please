@@ -19,7 +19,6 @@ def files_in_dir_block(problem):
     with ChangeDir(problem.path):
         for dirpath, dirnames, filenames in os.walk("."):
             dirpath = dirpath.replace(os.sep, '/')
-            print(os.path.basename(dirpath))
             if re.search(IGNORED, dirpath) or (dirpath != '.' and re.search(IGNORED, './' + os.path.basename(dirpath))):
                 continue
             depth = 2 * dirpath.count('/')
