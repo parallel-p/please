@@ -28,10 +28,12 @@
         </div>
         <div class="span6">
             <label>Tags</label>
-            <div class="tags">
-            {{ edit_tags.form.added_tags }}
-            </div>
-            <label>Add tag</label>
+                <div class="tags">
+                    {{ edit_tags.form.added_tags }}
+                </div>
+            {% ifnotequal edit_tags.form.other_tags '' %}
+            <label>Add an existing tag</label>
+            {% endifnotequal %}
             <div>{{ edit_tags.form.other_tags }}</div>
             <div>{{ edit_tags.form.add_tag }}</div>
             <div>
