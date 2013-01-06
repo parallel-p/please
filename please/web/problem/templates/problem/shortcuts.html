@@ -1,5 +1,11 @@
 <form action="{% url "build-all" problem.id %}" method="POST">
     {% csrf_token %}
-    <input class="btn btn-small" type="submit" name="build" value="Build all">
-    <input class="btn btn-small" type="submit" name="clean" value="Clean">
+    <button class="btn btn-small" type="submit" name="build">
+        <i class="icon-thumbs-up"></i>
+        Build all
+    </button>
+    <button class="btn btn-small" type="submit" name="clean">
+        <i class="icon-trash"></i>
+        Clean
+    </button>
 </form>
