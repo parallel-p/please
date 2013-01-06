@@ -103,6 +103,7 @@ body {
     font-size: 90%;
 }
     .tests pre {
+        font-size: inherit;
         padding: 0;
         background-color: transparent;
         border: 0;
