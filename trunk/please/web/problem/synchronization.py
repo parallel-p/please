@@ -9,6 +9,7 @@ from please.utils.exceptions import PleaseException
 from problem.models import Problem, ProblemTag, WellDone, Solution, Verdict
 from problem.views.file_utils import ChangeDir
 
+
 def get_problem_by_path(path):
     try:
         model = Problem.objects.get(path=path)
@@ -20,8 +21,9 @@ def get_problem_by_path(path):
         model = Problem.objects.get_or_create(path=path)[0]
     return model
 
+
 def import_to_database(model=None, path=None, name=globalconfig.default_package):
-    assert (model is None) != (path is None)
+    assert ((model is None) != (path is None))
     if path is not None:
         model = get_problem_by_path(path)
 
@@ -51,9 +53,10 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
 
     model.hand_answer_extension = conf.get("hand_answer_extension", "")
 
-    model.solution_set.all().delete()
+    old_solutions = {i.path for i in model.solution_set.all()}
     for solution in conf.get("solution", []):
         sol = Solution.objects.get_or_create(path=solution['source'], problem=model)[0]
+        old_solutions -= {solution['source']}
         sol.input = solution.get('input', '')
         sol.output = solution.get('output', '')
         sol.expected_verdicts.clear()
@@ -66,6 +69,9 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
             model.main_solution = sol
         sol.save()
 
+    for old in old_solutions:
+        model.solution_set.get(path=old).delete()
+
     model.tags.clear()
     for entry in conf.get('tags', []):
         model.tags.add(ProblemTag.objects.get_or_create(name=entry)[0])
@@ -74,13 +80,15 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
     for entry in conf.get('well_done_test', []):
         try:
             model.well_done_test.add(WellDone.objects.get(name=entry))
-        except WellDone.DoesNotExist: pass  # Bad well done...
+        except WellDone.DoesNotExist:
+            pass  # Bad well done...
 
     model.well_done_answer.clear()
     for entry in conf.get('well_done_answer', []):
         try:
             model.well_done_answer.add(WellDone.objects.get(name=entry))
-        except WellDone.DoesNotExist: pass  # Analogously...
+        except WellDone.DoesNotExist:
+            pass
 
     model.save()
     return model
