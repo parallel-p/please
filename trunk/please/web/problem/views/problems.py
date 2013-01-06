@@ -90,8 +90,27 @@ def create(request):
     }, RequestContext(request))
 
 
+def read_from_file(file_name, LINES_LIMIT, SIZE_LIMIT):
+    content = ''
+    big_file = False
+    with open(file_name, 'r') as f:
+        line_id = 0
+        while True:
+            line = f.readline()
+            if line == '' or line_id >= LINES_LIMIT:
+                if line_id >= LINES_LIMIT:
+                    big_file = True
+                break
+            line_id += 1
+            if len(line) >= SIZE_LIMIT:
+                big_file = True
+                line = line[:SIZE_LIMIT - 1] + '...\n'
+            content += line
+    return (content, big_file)
+
 def show_tests_block(request, problem):
-    SIZE_LIMIT = 255
+    SIZE_LIMIT = 40
+    LINES_LIMIT = 7
 
     tests_path = os.path.join(problem.path, globalconfig.temp_tests_dir).replace(os.sep, '/')
     current_test = 1
@@ -106,13 +125,8 @@ def show_tests_block(request, problem):
         if not (os.path.exists(input_file) and os.path.exists(output_file)):
             break
 
-        with open(input_file, 'r') as f:
-            input_content = f.read(SIZE_LIMIT)
-        with open(output_file, 'r') as f:
-            output_content = f.read(SIZE_LIMIT)
-
-        is_input_too_big = len(input_content) == SIZE_LIMIT
-        is_output_too_big = len(output_content) == SIZE_LIMIT
+        input_content, is_input_too_big = read_from_file(input_file, LINES_LIMIT, SIZE_LIMIT)
+        output_content, is_output_too_big = read_from_file(output_file, LINES_LIMIT, SIZE_LIMIT)
 
         test_data.append((
             {
