@@ -9,6 +9,7 @@ from problem.views.file_utils import file_save
 
 from please.reports.generate_html_report import get_test_results_from_solution
 from problem.views.file_utils import ChangeDir
+from problem.synchronization import export_from_database
 
 
 def retest_solutions(request, id):
@@ -41,14 +42,15 @@ def retest_solutions(request, id):
                         obj.save()
     output = []
     max_count = 0
+
     for solution in solutions:
-        output.append([{'verdict': str(i.verdict), 'time': str(i.cpu_time)} for i in TestResult.objects.filter(solution=solution['obj'])])
+        output.append([{'verdict': str(i.verdict),
+                        'time': str(i.cpu_time)} for i in TestResult.objects.filter(solution=solution['obj'])])
         max_count = max(max_count, len(output[-1]))
 
     for i in output:
         if len(i) != max_count:
             i.extend([{}] * (max_count - len(i)))
-
     return {'output': list(zip(*(output))),
             'solutions': [i['name'] for i in solutions],
             'expected_verdicts': [solution['expected_verdicts'] for solution in solutions],
@@ -75,6 +77,7 @@ def upload_solution(request, id):
                     solution.expected_verdicts.add(choice)
                 solution.save()
                 form = SolutionAddForm()
+                export_from_database(problem)
         else:
             form = SolutionAddForm()
     else:
