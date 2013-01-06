@@ -13,8 +13,9 @@ def process_edit_tags(request, id):
     if request.method == 'POST':
         form = tags_edit_form(problem)(request.POST)
         if form.is_valid():
-            for to_delete in form.cleaned_data['added_tags']:
-                problem.tags.remove(ProblemTag.objects.get(name=to_delete))
+            problem.tags.clear()
+            for to_add in form.cleaned_data['added_tags']:
+                problem.tags.add(ProblemTag.objects.get(name=to_add))
             other_tags = form.cleaned_data['other_tags']
             for tag in other_tags:
                 if tag:

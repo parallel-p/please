@@ -109,17 +109,18 @@ def upload_files_form(path_str):
 def tags_edit_form(problem):
     class EditTagsForm(forms.Form):
         added_tags = forms.MultipleChoiceField(
-            widget=forms.CheckboxSelectMultiple,
+            widget=forms.CheckboxSelectMultiple(attrs={'checked': 'checked'}),
             choices=((tag, tag.name) for tag in problem.tags.all()),
             required=False
         )
-        other_tags = forms.MultipleChoiceField(
-            choices=[('', '-'*15)] + [(tag, tag.name) for tag in ProblemTag.objects.all() if tag not in problem.tags.all()],
+        other_tags = forms.ChoiceField(
+            choices=[('', 'select existing tag')] + [(tag, tag.name) for tag in ProblemTag.objects.all() if tag not in problem.tags.all()],
             required=False
         )
-        add_tag = forms.CharField(required=False)
+        add_tag = forms.CharField(required=False, widget=forms.TextInput(attrs={
+            'placeholder': 'or add your own',
+        }))
     return EditTagsForm
-
-
+ 
 class EmptyForm(forms.Form):
     pass
