@@ -15,8 +15,10 @@ def process_edit_tags(request, id):
         if form.is_valid():
             for to_delete in form.cleaned_data['added_tags']:
                 problem.tags.remove(ProblemTag.objects.get(name=to_delete))
-            if form.cleaned_data['other_tags']:
-                problem.tags.add(ProblemTag.objects.get(name=form.cleaned_data['other_tags']))
+            other_tags = form.cleaned_data['other_tags']
+            for tag in other_tags:
+                if tag:
+                    problem.tags.add(ProblemTag.objects.get(name=tag))
             if form.cleaned_data['add_tag']:
                 for tag in map(str.strip, form.cleaned_data['add_tag'].split(';')):
                     if tag:
