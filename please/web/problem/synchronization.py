@@ -30,7 +30,6 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
     problem_path = path or str(model.path)
 
     if not os.path.exists(problem_path):
-        print('Deleting model %s' % model)
         model.delete()
         return None
 
