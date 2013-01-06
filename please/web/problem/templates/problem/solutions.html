@@ -3,101 +3,104 @@
 {% block title %}Solutions{% endblock %}
 
 {% block content %}
-<div class="well">
-    <table class="table table-condensed">
-        <thead>
-            <th>Test #</th>
-            {% for solution in retest.solutions %}
-            <th>{{ solution }}</th>
-            {% endfor %}
-        </thead>
-        <tbody>
-            <tr>
-                <td>Expected verdicts:</td>
-                {% for expected_verdicts in retest.expected_verdicts %}
-                    <td>{% for expected_verdict in expected_verdicts %} {{ expected_verdict }} {% endfor %}</td>
-                {% endfor %}
-            </tr>
-            <tr>
-                <td>Possible verdicts:</td>
-                {% for possible_verdicts in retest.possible_verdicts %}
-                    <td>{% for possible_verdict in possible_verdicts %} {{ possible_verdict }} {% endfor %}</td>
-                {% endfor %}
-            </tr>
-            <tr>
-                <form action="{% url 'problem.views.problem.solutions' id=problem.id %}" method="POST">
-                {% csrf_token %}
-                    <td>
-                        <input class="btn" type="submit" name="retest_all_solutions" value="Test all" />
-                    </td>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="well">
+            <table class="table table-condensed">
+                <thead>
+                    <th>Test #</th>
                     {% for solution in retest.solutions %}
-                    <td>
-                        <input class="btn" type="submit" name="{{solution}}_retest" value="Test" />
-                    </td>
+                    <th>{{ solution }}</th>
                     {% endfor %}
-                </form>
-            </tr>
-            {% for row in retest.output %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                {% for result in row %}
-                <td class="verdict-{{ result.verdict|default:'none' }}">
-                {% if result.verdict %}
-                    <a href="{{result.solution}}/test/{{forloop.parentloop.counter}}">
-                    {{ result.verdict}}
-                    {% if result.time %}
-                    {{ result.time|floatformat:2 }}
-                    {% endif %}
-                    </a>
-                {% else %}—{% endif %}
-                </td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Expected verdicts:</td>
+                        {% for expected_verdicts in retest.expected_verdicts %}
+                            <td>{% for expected_verdict in expected_verdicts %} {{ expected_verdict }} {% endfor %}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Possible verdicts:</td>
+                        {% for possible_verdicts in retest.possible_verdicts %}
+                            <td>{% for possible_verdict in possible_verdicts %} {{ possible_verdict }} {% endfor %}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <form action="{% url 'problem.views.problem.solutions' id=problem.id %}" method="POST">
+                        {% csrf_token %}
+                            <td>
+                                <input class="btn" type="submit" name="retest_all_solutions" value="Test all" />
+                            </td>
+                            {% for solution in retest.solutions %}
+                            <td>
+                                <input class="btn" type="submit" name="{{solution}}_retest" value="Test" />
+                            </td>
+                            {% endfor %}
+                        </form>
+                    </tr>
+                    {% for row in retest.output %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        {% for result in row %}
+                        <td class="verdict-{{ result.verdict|default:'none' }}">
+                        {% if result.verdict %}
+                            <a href="{{result.solution}}/test/{{forloop.parentloop.counter}}">
+                            {{ result.verdict}}
+                            {% if result.time %}
+                            {{ result.time|floatformat:2 }}
+                            {% endif %}
+                            </a>
+                        {% else %}—{% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-<form action="{% url 'problem.views.problem.solutions' id=problem.id %}" enctype="multipart/form-data" method="POST">
-    <div class="row-fluid">
-        {% csrf_token %}
-        <div class="span2">
-        <h4>Add solution</h4>
+        <form action="{% url 'problem.views.problem.solutions' id=problem.id %}" enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            <h4>Add solution</h4>
+            <div class="row-fluid">
+                <div class="span4">
+                    <div class="control-group">
+                        {{ upload_solution.form.input_file_name.label_tag }}
+                        <div class="controls">
+                            {{ upload_solution.form.input_file_name }}
+                        </div>
+                        <div style="margin-top: 13px"></div>
+                        {{ upload_solution.form.output_file_name.label_tag }}
+                        <div class="controls">
+                            {{ upload_solution.form.output_file_name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        {{ upload_solution.form.expected_verdicts.label_tag }}
+                        <div class="controls">
+                            {{ upload_solution.form.expected_verdicts }}
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        {{ upload_solution.form.possible_verdicts.label_tag }}
+                        <div class="controls">
+                            {{ upload_solution.form.possible_verdicts }}
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="control-group">
                 <div class="controls">
                     {{ upload_solution.form.solution_file }}
                 </div>
-                <input class="btn" type="submit" name="submit_file" value="Save" />
+                <input class="btn" type="submit" name="submit_file" value="Add" />
             </div>
-        </div>
-        <div class="span3">
-            <div class="control-group">
-                {{ upload_solution.form.input_file_name.label_tag }}
-                <div class="controls">
-                    {{ upload_solution.form.input_file_name }}
-                </div>
-                {{ upload_solution.form.output_file_name.label_tag }}
-                <div class="controls">
-                    {{ upload_solution.form.output_file_name }}
-                </div>
-            </div>
-        </div>
-        <div class="span3">
-            <div class="control-group">
-                {{ upload_solution.form.expected_verdicts.label_tag }}
-                <div class="controls">
-                    {{ upload_solution.form.expected_verdicts }}
-                </div>
-            </div>
-        </div>
-        <div class="span3">
-            <div class="control-group">
-                {{ upload_solution.form.possible_verdicts.label_tag }}
-                <div class="controls">
-                    {{ upload_solution.form.possible_verdicts }}
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
-</form>
+</div>
 {% endblock %}
