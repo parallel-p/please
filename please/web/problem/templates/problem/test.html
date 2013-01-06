@@ -1,0 +1,52 @@
+{% extends 'problem/base.html' %}
+
+{% block title %}Single test{% endblock %}
+
+{% block content %}
+<h4>{{ test.solution_name }}</h4>
+
+<table class="tests table table-striped table-bordered">
+    <tbody>
+        <tr>
+            <td>Test #</td>
+            <td>{{ test.results.test_number }}</td>
+        </tr>
+        <tr>
+            <td>Verdict</td>
+            <td>{{ test.results.verdict }}</td>
+        </tr>
+        <tr>
+            <td>Return code</td>
+            <td>{{ test.results.return_code }}</td>
+        </tr>
+        <tr>
+            <td>Real time</td>
+            <td>{{ test.results.real_time|floatformat:5 }}</td>
+        </tr>
+        <tr>
+            <td>CPU time</td>
+            <td>{{ test.results.real_time|floatformat:5 }}</td>
+        </tr>
+        <tr>
+            <td>Used memory</td>
+            <td>{{ test.results.used_memory }}</td>
+        </tr>
+        {% if test.results.checker_stdout %}
+        <tr>
+            <td>Checker output</td>
+            <td>{{ test.results.checker_stdout }}</td>
+        </tr>
+        {% endif %}
+        {% if test.results.checker_stderr %}
+        <tr>
+            <td>Checker stderr</td>
+            <td>{{ test.results.checker_stderr }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td>Solution output</td>
+            <td>{{ test.full_output }}</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
