@@ -76,3 +76,14 @@ def gen_statement(request, id):
             os.path.basename(pdf_path)
         )
         return response
+
+def view_statement(request, id):
+    problem = get_object_or_404(Problem.objects, id=id)
+    pdf_path = os.path.abspath(
+            os.path.join(
+                str(problem.path),
+                globalconfig.statements_dir,
+                os.path.splitext(
+                    os.path.basename(problem.statement_path))[0] + '.pdf'))
+    print(pdf_path)
+    return HttpResponse(FileWrapper(open(pdf_path, 'rb')), content_type='application/pdf')

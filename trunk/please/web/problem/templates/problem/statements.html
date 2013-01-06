@@ -14,17 +14,31 @@
         });
     });
 </script>
-
-<form action="{% url 'problem.views.problem.statements' id=problem.id %}" method="post">{% csrf_token %}
-    <div>
-        {% for field in edit_dict.form %}
-            {{ field.label_tag }}
-            {{ field }}
-        {% endfor %}
-    </div>
-    <div>
-        <input class="btn" type="submit" value="Save" />
-        <input class="btn" type="submit" name="save_and_generate" value="Save &amp; Generate statement" onclick="$('.alert').alert('close');" />
-    </div>
-</form>
+<script type="text/javascript">
+function openPdf(){
+    var omyFrame = document.getElementById("myFrame");
+    omyFrame.style.display="block";
+    omyFrame.src = "{% url "view_statement" problem.id %}";
+}
+</script>
+<body onload="openPdf();"/>
+<table><tr>
+    <td>
+    <form action="{% url 'problem.views.problem.statements' id=problem.id %}" method="post">{% csrf_token %}
+        <div>
+            {% for field in edit_dict.form %}
+                {{ field.label_tag }}
+                {{ field }}
+            {% endfor %}
+        </div>
+        <div>
+            <input class="btn" type="submit" value="Save" />
+            <input class="btn" type="submit" name="save_and_generate" value="Save &amp; Generate statement" onclick="$('.alert').alert('close');" />
+        </div>
+    </form>
+    </td>
+    <td>
+        <iframe id="myFrame" style="display:none" width="100%" height="100%"></iframe>
+    </td>
+</tr></table>
 {% endblock %}
