@@ -11,7 +11,6 @@ from please.utils.exceptions import PleaseException
 from problem.views.file_utils import ChangeDir
 from please.build_all import build_tools
 from django.core.urlresolvers import reverse
-from problem.views.tags import process_edit_tags
 
 
 @problem_sync(read=True, write=False)
@@ -69,9 +68,9 @@ def solutions(request, id):
         'todo': todo.show_block(problem),
     }, RequestContext(request))
 
+
 def build_all_block(request, problem_id):
     button_pressed = False
-    error_msg = None
     if request.method == 'POST':
         with ChangeDir(Problem.objects.get(id=problem_id).path):
             build_tools.build_all()
