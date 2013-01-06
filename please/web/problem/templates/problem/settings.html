@@ -22,8 +22,12 @@
                 {% endifnotequal %}
             {% endfor %}
 
-    Remove related tags:
-    {{ edit_tags.form.added_tags }}
+    {% if edit_tags.any_related_tags %}
+        Remove related tags:
+        {{ edit_tags.form.added_tags }}
+    {% else %}
+        There are not any related tags.<br />
+    {% endif %}
     Add an existing tag: {{ edit_tags.form.other_tags }}<br />
     ... or specify a tag name: {{ edit_tags.form.add_tag }}<br />
         </div>
