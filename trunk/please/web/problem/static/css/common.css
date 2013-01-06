@@ -102,6 +102,11 @@ body {
 .tests {
     font-size: 90%;
 }
+    .tests pre {
+        padding: 0;
+        background-color: transparent;
+        border: 0;
+    }
     .download-test {
         text-decoration: underline;
         font-weight: bold;
