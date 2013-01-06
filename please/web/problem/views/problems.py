@@ -94,7 +94,7 @@ def read_from_file(file_name, LINES_LIMIT, SIZE_LIMIT):
     with open(file_name, 'r') as f:
         line_id = 0
         while True:
-            line = f.readline()
+            line = f.readline().strip()
             if line == '' or line_id >= LINES_LIMIT:
                 if line_id >= LINES_LIMIT:
                     big_file = True
