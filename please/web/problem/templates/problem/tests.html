@@ -136,7 +136,7 @@
             </div>
         </form>
         <hr />
-        <table class="tests table table-striped table-hover table-bordered">
+        <table class="tests table table-striped table-bordered">
             <thead>
                 <th>#</th>
                 <th>input</th>
@@ -148,21 +148,21 @@
                     <td>{{ forloop.counter }}</td>
                     <td>
                         <pre>{{ input.content }}</pre>
-                        {% if input.is_too_big %}
-                        <a href="{% url 'problem.views.problems.show_test' problem_id=problem.id test_name=input.name %}" target="_blank" class="btn btn-mini">
-                            <i class="icon-download-alt"></i>
-                            Download
-                        </a>
-                        {% endif %}
+                        <div class="download">
+                            <a href="{% url 'problem.views.problems.show_test' problem_id=problem.id test_name=input.name %}" target="_blank" class="btn btn-mini">
+                                <i class="icon-download-alt"></i>
+                                Download
+                            </a>
+                        </div>
                     </td>
                     <td>
                         <pre>{{ output.content }}</pre>
-                        {% if output.is_too_big %}
-                        <a href="{% url 'problem.views.problems.show_test' problem_id=problem.id test_name=output.name %}" target="_blank" class="btn btn-mini">
-                            <i class="icon-download-alt"></i>
-                            Download
-                        </a>
-                        {% endif %}
+                        <div class="download">
+                            <a href="{% url 'problem.views.problems.show_test' problem_id=problem.id test_name=output.name %}" target="_blank" class="btn btn-mini">
+                                <i class="icon-download-alt"></i>
+                                Download
+                            </a>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}

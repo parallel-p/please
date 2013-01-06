@@ -117,6 +117,18 @@ textarea#id_tests_please_content {
         background-color: transparent;
         border: 0;
     }
+    .tests td {
+        position: relative;
+    }
+        .tests td .download {
+            display: none;
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+        }
+        .tests td:hover .download {
+            display: block;
+        }
 
 .verdict-OK {
     color: #3DAD00;
