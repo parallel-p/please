@@ -31,7 +31,7 @@ class ProblemEditMaterialsForm(forms.Form):
     analysis = forms.CharField(widget=forms.Textarea, required=False)
 
 
-standart_checkers = [('', ''),
+standart_checkers = [('', 'select default'),
                      ('acmp', 'acmp'),
                      ('dcmp', 'dcmp'),
                      ('fcmp', 'fcmp'),
@@ -49,7 +49,7 @@ standart_checkers = [('', ''),
 
 
 class ProblemUploadFilesForm(forms.Form):
-    checker = forms.FileField(required=False, )
+    checker = forms.FileField(required=False)
     select_checker = forms.ChoiceField(required=False, choices=standart_checkers)
     validator = forms.FileField(required=False)
 
