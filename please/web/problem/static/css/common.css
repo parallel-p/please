@@ -28,6 +28,9 @@ body {
         text-align: center;
         width: 30px;
     }
+    .todo tr > td:last-child i {
+        margin: 0 auto;
+    }
 .shortcuts {
     text-align: center;
 }
