@@ -68,89 +68,94 @@
     </form>
 </div>
 
-<div class="well">
-    <form action="{% url 'problem.views.problem.tests' id=upload_main.problem.id %}" enctype="multipart/form-data" method="POST">
-        {% csrf_token %}
-        <table class="upload-cv">
-            <tbody>
-                <tr>
-                    <td>Checker</td>
-                    <td><code>{{ upload_main.problem.checker_path }}</code></td>
-                    <td><a class="btn btn-mini" href="#change-checker" role="button" class="btn" data-toggle="modal">change</a></td>
-                </tr>
-                <tr>
-                    <td>Validator</td>
-                    <td><code>{{ upload_main.problem.validator_path }}</code></td>
-                    <td><a class="btn btn-mini" href="#change-validator" role="button" data-toggle="modal">change</a></td>
-                </tr>
-                <tr>
-                    <td>Other</td>
-                    <td>generators, tests, libraries</td>
-                    <td><a class="btn btn-mini" href="#upload-other" role="button" data-toggle="modal">change</a></td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
-</div>
-
-<form action="{% url 'problem.views.problem.tests' id=manage_tests.problem.id %}" method="POST" enctype="multipart/form-data">
-    <div>
-        {% csrf_token %}
-        <table class="well-done table table-condensed table-striped table-hover table-bordered">
+<div class="row-fluid">
+    <div class="span12">
+        <form action="{% url 'problem.views.problem.tests' id=manage_tests.problem.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row-fluid">
+                <div class="span8">
+                    <div class="well">
+                        <table class="upload-cv">
+                            <tbody>
+                                <tr>
+                                    <td>Checker</td>
+                                    <td><code>{{ upload_main.problem.checker_path }}</code></td>
+                                    <td><a class="btn btn-mini" href="#change-checker" role="button" data-toggle="modal">change</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Validator</td>
+                                    <td><code>{{ upload_main.problem.validator_path }}</code></td>
+                                    <td><a class="btn btn-mini" href="#change-validator" role="button" data-toggle="modal">change</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Other</td>
+                                    <td>generators, tests, libraries</td>
+                                    <td><a class="btn btn-mini" href="#upload-other" role="button" data-toggle="modal">change</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        {% csrf_token %}
+                        {% for field in manage_tests.form %} 
+                            {{ field.label_tag }}
+                            {{ field }}
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <input type="hidden" name="manage_tests" value="1" />
+                        <input class="btn" type="submit" name="save" value="Save" />
+                        <input class="btn" type="submit" name="generate_tests" value="Save &amp; generate tests" />
+                        <input class="btn" type="submit" name="validate" value="Save &amp; validate" />
+                    </div>
+                </div>
+                <div class="span4">
+                    <table class="well-done table table-condensed table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>well done</th>
+                                <th>input</th>
+                                <th>answer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for well_done, checked_test, checked_answer in manage_tests.well_dones %}
+                            <tr>
+                                <td>{{well_done}}</td>
+                                <td>
+                                    <input type="checkbox" name="well_done_test" value="{{well_done}}"{% if checked_test %} checked="checked"{% endif %} />
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="well_done_answer" value="{{well_done}}"{% if checked_answer %} checked="checked"{% endif %} />
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+        <hr />
+        <table class="tests table table-striped table-hover table-bordered">
             <thead>
-                <tr>
-                    <th>well done</th>
-                    <th>input</th>
-                    <th>answer</th>
-                </tr>
+                <th>#</th>
+                <th>input</th>
+                <th>output</th>
             </thead>
             <tbody>
-                {% for well_done, checked_test, checked_answer in manage_tests.well_dones %}
+            {% for input, output in test_data %}
                 <tr>
-                    <td>{{well_done}}</td>
+                    <td>{{ forloop.counter }}</td>
                     <td>
-                        <input type="checkbox" name="well_done_test" value="{{well_done}}"{% if checked_test %} checked="checked"{% endif %} />
+                        <pre>{{ input.content }}</pre>{% if input.is_too_big %}<a href="{% url 'problem.views.problems.show_test' problem_id=problem.id test_name=input.name %}" target="_blank" class="download-test">...</a>{% endif %}
                     </td>
                     <td>
-                        <input type="checkbox" name="well_done_answer" value="{{well_done}}"{% if checked_answer %} checked="checked"{% endif %} />
+                        <pre>{{ output.content }}</pre>{% if output.is_too_big %}<a href="{% url 'problem.views.problems.show_test' problem_id=problem.id test_name=output.name %}" target="_blank" class="download-test">...</a>{% endif %}
                     </td>
                 </tr>
-                {% endfor %}
+            {% endfor %}
             </tbody>
         </table>
-        {% for field in manage_tests.form %} 
-            {{ field.label_tag }}
-            {{ field }}
-        {% endfor %}
     </div>
-    <div>
-        <input type="hidden" name="manage_tests" value="1" />
-        <input class="btn" type="submit" name="save" value="Save" />
-        <input class="btn" type="submit" name="generate_tests" value="Save &amp; generate tests" />
-        <input class="btn" type="submit" name="validate" value="Save &amp; validate" />
-    </div>
-</form>
-
-<hr />
-
-<table class="tests table table-striped table-hover table-bordered">
-    <thead>
-        <th>#</th>
-        <th>input</th>
-        <th>output</th>
-    </thead>
-    <tbody>
-    {% for input, output in test_data %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>
-                <pre>{{ input.content }}</pre>{% if input.is_too_big %}<a href="{% url 'problem.views.problems.show_test' problem_id=problem.id test_name=input.name %}" target="_blank" class="download-test">...</a>{% endif %}
-            </td>
-            <td>
-                <pre>{{ output.content }}</pre>{% if output.is_too_big %}<a href="{% url 'problem.views.problems.show_test' problem_id=problem.id test_name=output.name %}" target="_blank" class="download-test">...</a>{% endif %}
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+</div>
 {% endblock %}

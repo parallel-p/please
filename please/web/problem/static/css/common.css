@@ -105,6 +105,9 @@ body {
     .well-done th:first-child, .well-done td:first-child {
         text-align: left;
     }
+textarea#id_tests_please_content {
+    height: 186px !important;
+}
 .tests {
     font-size: 90%;
 }
@@ -118,6 +121,7 @@ body {
         text-decoration: underline;
         font-weight: bold;
     }
+
 .verdict-OK {
     color: #3DAD00;
 }
@@ -137,6 +141,7 @@ form input[type='file'] {
 form textarea {
     width: 100%;
     box-sizing: border-box;
+    resize: vertical;
 }
 .well form, .modal form {
     margin: 0 !important;
