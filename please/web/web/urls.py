@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^problems/confirmation/$', TemplateView.as_view(template_name='problem_edit_success.html')),
 
     url(r'^problems/(?P<id>\d+)/materials/statement/generate/$', 'problem.views.materials.gen_statement', name="gen_statement"),
+    url(r'^problems/(?P<id>\d+)/materials/statement/view/$', 'problem.views.materials.view_statement', name="view_statement"),
     url(r'^problems/(?P<id>\d+)/files/upload/additional$', 'problem.views.files.upload_additional_view', name='additional_upload'),
     url(r'^problems/(?P<id>\d+)/tags/$', 'problem.views.tags.edit_tags_view', name='edit_tags'),
     url(r'^problems/(?P<problem_id>\d+)/tests/(?P<test_name>\d+(\.a)?)/$', 'problem.views.problems.show_test'),
