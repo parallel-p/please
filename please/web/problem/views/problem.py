@@ -11,6 +11,8 @@ from please.utils.exceptions import PleaseException
 from problem.views.file_utils import ChangeDir
 from please.build_all import build_tools
 from django.core.urlresolvers import reverse
+from please import globalconfig
+import os.path
 
 
 @problem_sync(read=True, write=False)
@@ -30,11 +32,10 @@ def settings(request, id):
 def statements(request, id):
     problem = get_object_or_404(Problem, id=id)
     error = None
-    pdf = None
     if request.method == 'POST' and 'save_and_generate' in request.POST:
         materials.edit_dict(request, id)
         try:
-            pdf = materials.gen_statement(request, id)
+            materials.gen_statement(request, id)
         except PleaseException as e:
             error = str(e)
     return render_to_response('problem/statements.html', {
@@ -44,8 +45,10 @@ def statements(request, id):
         'todo': todo.show_block(problem),
         'files_in_dir': manage_tests.files_in_dir_block(problem),
         'error': error,
-        'pdf': pdf,
-        'have_generated_pdf': pdf is not None
+        'pdf_exists': os.path.isfile(os.path.join(
+            problem.path,
+            globalconfig.statements_dir,
+            os.path.splitext(os.path.basename(problem.statement_path))[0] + ".pdf"))
     }, RequestContext(request))
 
 
@@ -70,8 +73,8 @@ def solutions(request, id):
         'nav': 'solutions',
         'problem': problem,
         'upload_solution': upload_solution(request, id),
-        'retest': retest_solutions(request, id),
-        'todo': todo.show_block(problem),
+    'retest': retest_solutions(request, id),
+    'todo': todo.show_block(problem),
         'files_in_dir': manage_tests.files_in_dir_block(problem),
     }, RequestContext(request))
 
