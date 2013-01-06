@@ -8,6 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from please.template.problem_template_generator import generate_problem
 from please.import_from_polygon import download_zip, create_problem
 from please.template.problem_template_generator import generate_problem
+from please.cleaner.cleaner import Cleaner
 from please import globalconfig
 
 from problem.models import Problem
@@ -31,6 +32,11 @@ class NoDirectoryException(Exception):
 
 class ProblemExistsException(Exception):
     pass
+
+
+def please_clean(request, problem):
+    with ChangeDir(problem.path):
+        Cleaner.cleanup()
 
 
 def edit_or_create_problem_block(request, problem=None):
