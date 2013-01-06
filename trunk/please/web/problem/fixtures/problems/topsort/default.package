@@ -11,10 +11,10 @@ memory_limit = 256
 
 checker = check.dpr
 validator = validator.cpp
-main_solution = solutions\topsort_vp.py
+main_solution = solutions/topsort_vp.py
 
-statement = statements\statement.russian.tex
-description = statements\description.ru.tex
+statement = statements/statement.russian.tex
+description = statements/description.ru.tex
 
 hand_answer_extension = a
 
@@ -33,4 +33,8 @@ solution = {
 solution = {
     source = solutions\topsort_ik.py
     possible = OK, WA, ML, TL, RE, PE
+}
+solution = {
+    source = solutions/solution.py
+    expected = OK
 }
