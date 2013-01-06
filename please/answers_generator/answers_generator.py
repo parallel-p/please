@@ -36,7 +36,8 @@ class AnswersGenerator:
                     *solution_result[1:3]))
 
     @staticmethod
-    def generate(tests=None, source_path=None, args=None, solution_config=None, execution_limits=globalconfig.default_limits):
+    def generate(tests=None, source_path=None, args=None, solution_config=None,
+                 execution_limits=globalconfig.default_limits):
         config = package_config.PackageConfig.get_config()
         # TODO: check if config is None
         result = []

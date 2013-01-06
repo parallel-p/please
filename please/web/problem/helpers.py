@@ -19,8 +19,11 @@ def problem_sync(read=True, write=False):
                 if problem:
                     magic_path = os.path.join(problem.path, 'default.package')
                     if not (os.path.exists(magic_path) and
-                        problem and
-                        os.path.getmtime(magic_path) == problem.magic_modified_value):
+                            problem and
+                            os.path.getmtime(magic_path) == problem.magic_modified_value):
+                        print('OLOLO', os.path.getmtime(magic_path), '!=',
+                              problem.magic_modified_value, 'diff is',
+                              os.path.getmtime(magic_path) - problem.magic_modified_value)
                         problem = synchronization.import_to_database(problem)
                         if problem:
                             problem.magic_modified_value = os.path.getmtime(magic_path)

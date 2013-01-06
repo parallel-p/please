@@ -1,12 +1,21 @@
 import os
 
 from django.shortcuts import render_to_response
+
 import please.globalconfig
-from please import answers_generator
 from please.utils.exceptions import PleaseException
 from please.package import package_config
-from problem.models import Problem, TestResult, Solution
+from please.solution_runner.solution_runner import SolutionInfo, run_solution
+
+from problem.models import TestResult, Solution
 from problem.views.file_utils import ChangeDir
+
+
+def generate_single_output(source_path, test, output_filename, execution_limits=please.globalconfig.default_limits):
+    config = package_config.PackageConfig.get_config()
+    args = (config['args'] if 'args' in config else [])
+    solution_config = {'input': config['input'], 'output': config['output']}
+    run_solution((SolutionInfo(source_path, args, execution_limits, solution_config, test, output_filename)))
 
 
 def single_test_block(problem, solution_name, test_id):
@@ -17,18 +26,15 @@ def single_test_block(problem, solution_name, test_id):
                                      test_number=test_id)
     with ChangeDir(problem.path):
         test_path = os.path.join(please.globalconfig.temp_tests_dir, test_id)
-        config = package_config.PackageConfig.get_config(ignore_cache=True)
+        out_path = os.path.join('.please', solution_name + '_' + str(test_id) + '.output')
         try:
-            answers_generator.generate_answers(tests=[test_path], source_path=source_path,
-                                               solution_config=config,)
+            generate_single_output(source_path, test_path, out_path)
         except PleaseException as exc:
             full_output = repr(exc)
         else:
-            with open(test_path + '.a') as file:
+            with open(out_path) as file:
                 full_output = file.read()
 
-    return {
-        'solution_name': solution_name,
-        'full_output': full_output,
-        'results': results,
-    }
+    return {'solution_name': solution_name,
+            'full_output': full_output,
+            'results': results}

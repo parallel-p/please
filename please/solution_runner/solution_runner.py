@@ -6,15 +6,17 @@ import logging
 
 log = logging.getLogger("please_logger.solution_runner.solution_runner")
 
+
 class SolutionInfo:
-    def __init__(self, source_path, args, execution_limits, solution_config,  solution_input_file, solution_output_file = None):
+    def __init__(self, source_path, args, execution_limits, solution_config,  solution_input_file, solution_output_file=None):
         #We dont need a config dictionary, we need to use a simple string with a path to the runnig test.
-        self.source_path = source_path                   #Source path, string
-        self.args = args                                 #Run arguments, list
-        self.execution_limits = execution_limits         #Executon limits, class ExecutionLimits from Invoker
-        self.solution_config = solution_config           #
-        self.solution_input_file = solution_input_file   #Redirectering input file, string
-        self.solution_output_file = solution_output_file #Rederectering output file, string
+        self.source_path = source_path                    #  Source path, string
+        self.args = args                                  #  Run arguments, list
+        self.execution_limits = execution_limits          #  Executon limits, class ExecutionLimits from Invoker
+        self.solution_config = solution_config            #
+        self.solution_input_file = solution_input_file    #  Redirectering input file, string
+        self.solution_output_file = solution_output_file  #  Rederectering output file, string
+
 
 def run_solution(config):
     """

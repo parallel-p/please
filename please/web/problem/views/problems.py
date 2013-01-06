@@ -56,7 +56,7 @@ def edit_or_create_problem_block(request, problem=None):
                     for tag in other_tags:
                         if tag:
                             problem.tags.add(ProblemTag.objects.get(name=tag))
-                if form.cleaned_data['new_tags']:               
+                if form.cleaned_data['new_tags']:
                     for tags in form.cleaned_data['new_tags'].split(';'):
                         for tag in map(str.strip, tags.split(',')):
                             if tag:
@@ -269,7 +269,6 @@ def import_from_polygon_block(request):
 def import_from_polygon(request):
     block = import_from_polygon_block(request)
     if block['is_success']:
-        print([x.name for x in Problem.objects.all()])
         return redirect(reverse('problem.views.problems.index'))
     return render_to_response('problems/polygon.html', {
         'polygon': block,

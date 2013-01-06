@@ -23,7 +23,6 @@ def retest_solutions(request, id):
 
     if request.method == 'POST':
         form = EmptyForm(request.POST)
-        print(form.data)
         for solution in solutions:
             if (solution['name'] + '_retest' in form.data) or ("retest_all_solutions" in form.data):
                 for result in TestResult.objects.filter(solution=solution['obj']):
@@ -50,11 +49,10 @@ def retest_solutions(request, id):
                         'time': str(results.cpu_time),
                         'solution': solution['name']} for results in TestResult.objects.filter(solution=solution['obj'])])
         max_count = max(max_count, len(output[-1]))
-
     for row in output:
         if len(row) != max_count:
             row.extend([{}] * (max_count - len(row)))
-    return {'output': list(zip(*(output))),
+    return {'output': list(zip(*output)),
             'solutions': [solution['name'] for solution in solutions],
             'expected_verdicts': [solution['expected_verdicts'] for solution in solutions],
             'possible_verdicts': [solution['possible_verdicts'] for solution in solutions]}
