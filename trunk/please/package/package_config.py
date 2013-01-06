@@ -52,7 +52,6 @@ class PackageConfig:
             conf['please_version'] = str(globalconfig.please_version)
             conf.write()
 
-
     @staticmethod
     def main_solution_fix(conf):
         '''In please version <0.3 main_solution was not described
@@ -62,4 +61,3 @@ class PackageConfig:
         new_config["source"] = conf['main_solution']
         new_config["expected"] = ["OK", ]
         conf.set("solution", new_config, None, True)
-
