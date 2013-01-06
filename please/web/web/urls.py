@@ -23,11 +23,10 @@ urlpatterns = patterns('',
     url(r'^problems/(?P<problem_id>\d+)/tests/(?P<test_name>\d+(\.a)?)/$', 'problem.views.problems.show_test'),
     url(r'^problems/(?P<problem_id>\d+)/build_all/$', 'problem.views.problem.build_all', name='build-all'),
 
-    url(r'^problems/(?P<id>\d+)/solutions/(?P<solution_name>.+?)/test/(?P<test_id>\d+)$', 'problem.views.tests_page.single_test_view'),
-
     url(r'^problems/(?P<id>\d+)/settings/$', 'problem.views.problem.settings'),
     url(r'^problems/(?P<id>\d+)/$', 'problem.views.problem.settings'),
     url(r'^problems/(?P<id>\d+)/solutions/$', 'problem.views.problem.solutions'),
+    url(r'^problems/(?P<id>\d+)/solutions/(?P<solution_name>.+?)/test/(?P<test_id>\d+)$', 'problem.views.problem.show_test'),
     url(r'^problems/(?P<id>\d+)/statements/$', 'problem.views.problem.statements', name='problem_statement'),
     url(r'^problems/(?P<id>\d+)/tests/$', 'problem.views.problem.tests'),
 )
