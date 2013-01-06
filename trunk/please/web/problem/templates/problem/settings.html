@@ -8,6 +8,8 @@
     <div class="row-fluid">
         <div class="span6">
             {% for field in edit_problem.form %}
+                {% ifnotequal field.label "Available tags" %}
+                {% ifnotequal field.label "" %}
                 {% ifnotequal field.label "Path" %}
                     <div class="control-group{% if field.errors %} error{% endif %}">
                         {{ field.label_tag }}
@@ -21,6 +23,8 @@
                 {% else %}
                     <input id="id_path" name="path" type="hidden" value="Path" />
                 {% endifnotequal %}
+                {% endifnotequal %}
+                {% endifnotequal %}
             {% endfor %}
             <div>
                 <input class="btn" type="submit" name="save" value="Save" />
@@ -32,7 +36,7 @@
                     {{ edit_tags.form.added_tags }}
                 </div>
             {% ifnotequal edit_tags.form.other_tags '' %}
-            <label>Add an existing tag</label>
+                <label>Add existing tag(s)</label>
             {% endifnotequal %}
             <div>{{ edit_tags.form.other_tags }}</div>
             <div>{{ edit_tags.form.add_tag }}</div>
