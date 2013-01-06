@@ -11,10 +11,10 @@ memory_limit = 64
 
 checker = checker.cpp
 validator = validator.cpp
-main_solution = solutions\solution.cpp
+main_solution = solutions/solution.cpp
 
-statement = statements\default.ru.tex
-description = statements\description.ru.tex
+statement = statements/default.ru.tex
+description = statements/description.ru.tex
 
 hand_answer_extension = a
 

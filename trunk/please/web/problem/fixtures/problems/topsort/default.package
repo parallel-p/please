@@ -34,7 +34,3 @@ solution = {
     source = solutions\topsort_ik.py
     possible = OK, WA, ML, TL, RE, PE
 }
-solution = {
-    source = solutions/solution.py
-    expected = OK
-}

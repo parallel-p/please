@@ -38,9 +38,11 @@
             </tr>
             {% endfor %}
             <tr>
-                <td></td>
                 <form action="{% url 'problem.views.problem.solutions' id=problem.id %}" method="POST">
-                    {% csrf_token %}
+                {% csrf_token %}
+                    <td>
+                        <input class="btn" type="submit" name="retest_all_solutions" value="Test all" />
+                    </td>
                     {% for solution in retest.solutions %}
                     <td>
                         <input class="btn" type="submit" name="{{solution}}_retest" value="Test" />
