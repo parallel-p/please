@@ -9,18 +9,21 @@ from please.utils.exceptions import PleaseException
 from problem.models import Problem, ProblemTag, WellDone, Solution, Verdict
 from problem.views.file_utils import ChangeDir
 
+def get_problem_by_path(path):
+    try:
+        model = Problem.objects.get(path=path)
+    except Problem.DoesNotExist:
+        if path[-1] == os.sep:
+            path = path[:-1]
+        else:
+            path += os.sep
+        model = Problem.objects.get_or_create(path=path)[0]
+    return model
 
 def import_to_database(model=None, path=None, name=globalconfig.default_package):
     assert (model is None) != (path is None)
     if path is not None:
-        try:
-            model = Problem.objects.get(path=path)
-        except Problem.DoesNotExist:
-            if path[-1] == os.sep:
-                path = path[:-1]
-            else:
-                path += os.sep
-            model = Problem.objects.get_or_create(path=path)[0]
+        model = get_problem_by_path(path)
 
     problem_path = path or str(model.path)
 
@@ -51,10 +54,8 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
     model.solution_set.all().delete()
     for solution in conf.get("solution", []):
         sol = Solution.objects.get_or_create(path=solution['source'], problem=model)[0]
-        if 'input' in solution:
-            sol.input = solution.get('input')
-        if 'output' in solution:
-            sol.output = solution.get('output')
+        sol.input = solution.get('input', '')
+        sol.output = solution.get('output', '')
         sol.expected_verdicts.clear()
         sol.possible_verdicts.clear()
         for verdict in solution['expected']:
@@ -88,14 +89,7 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
 def export_from_database(model=None, path=None, name=globalconfig.default_package):
     assert (model is None) != (path is None)
     if path is not None:
-        try:
-            model = Problem.objects.get(path=path)
-        except Problem.DoesNotExist:
-            if path[-1] == os.sep:
-                path = path[:-1]
-            else:
-                path += os.sep
-            model = Problem.objects.get_or_create(path=path)[0]
+        model = get_problem_by_path(path)
 
     with ChangeDir(str(model.path)):
         try:
@@ -141,10 +135,10 @@ def export_from_database(model=None, path=None, name=globalconfig.default_packag
             if solution.expected_verdicts.count() != 0:
                 args += (['expected'] +
                         list(map(str, solution.expected_verdicts.all())))
-            try:
-                add_solution(str(solution.path), args)
-            except PleaseException:
-                solution.delete()
+            #try:
+            add_solution(str(solution.path), args)
+            #except PleaseException:
+            #    solution.delete()
         for sol in already_there:
             if (sol not in sources) and (sol != conf['main_solution'].replace(os.sep, '/')):
                 del_solution(sol)

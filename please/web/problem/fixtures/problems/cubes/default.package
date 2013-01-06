@@ -21,11 +21,10 @@ solution = {
     expected = OK
 }
 solution = {
-    source = solutions/solution_wrong.cpp
-    possible = TL, WA
-    expected = OK, RE
+    source = solutions/solution.cpp
+    expected = OK
 }
 solution = {
-    source = solutions/solution.cpp
+    source = solutions/solution_wrong.cpp
     expected = OK
 }
