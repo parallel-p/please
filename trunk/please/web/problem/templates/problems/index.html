@@ -5,10 +5,12 @@
 <div class="content-subtitle"></div>
 <div class="content">
     <form class="form-search" action="{% url 'problem.views.problems.index' %}" method="GET">
-        {% for field in problems_list.form %}
-            {{ field }}
-        {% endfor %}
-        <input class="btn" type="submit" value="Search" />
+        <div class="input-append">
+            {% for field in problems_list.form %}
+                {{ field }}
+            {% endfor %}
+            <input class="btn" type="submit" value="Search" />
+        </div>
     </form>
     <table class="table table-striped table-hover table-bordered">
         <thead>

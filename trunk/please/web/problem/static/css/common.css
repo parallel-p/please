@@ -68,6 +68,10 @@ body {
         max-height: 220px;
     }
 
+.upload-cv td {
+    padding: 2px 15px 2px 0;
+}
+
 .well-done {
     font-size: 90%;
     width: auto;
@@ -105,4 +109,7 @@ form input[type='file'] {
 form textarea {
     width: 100%;
     box-sizing: border-box;
+}
+.well form, .modal form {
+    margin: 0 !important;
 }
