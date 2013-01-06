@@ -138,14 +138,14 @@ textarea#id_tests_please_content {
             display: block;
         }
 
-.verdict-OK {
-    color: #3DAD00;
+.verdict-OK a {
+    color: #3DAD00 !important;
 }
-.verdict-PE, .verdict-RE, .verdict-WA {
-    color: #92010E;
+.verdict-PE a, .verdict-RE a, .verdict-WA a {
+    color: #92010E !important;
 }
-.veridct-TL, .verdict-ML {
-    color: #006D8F;
+.veridct-TL a, .verdict-ML a {
+    color: #006D8F !important;
 }
 
 form label {
