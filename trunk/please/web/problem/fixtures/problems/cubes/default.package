@@ -1,10 +1,8 @@
-
-<!-- saved from url=(0112)https://please.googlecode.com/svn-history/r1548/trunk/please/web/problem/fixtures/problems/cubes/default.package -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css"></style></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">please_version = 0.3
+please_version = 0.3
 name = Кубики
 shortname = cubes
 tags = hash; prefix-function; a; b; c; d; e; f; g; h; q; w
-type = 
+type =
 input = stdin
 output = stdout
 time_limit = 2.0
@@ -30,4 +28,3 @@ solution = {
     source = solutions/solution.cpp
     expected = OK
 }
-</pre></body></html>
