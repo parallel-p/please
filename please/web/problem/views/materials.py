@@ -77,6 +77,7 @@ def gen_statement(request, id):
         )
         return response
 
+
 def view_statement(request, id):
     problem = get_object_or_404(Problem.objects, id=id)
     pdf_path = os.path.abspath(

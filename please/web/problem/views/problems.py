@@ -3,11 +3,9 @@ from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse
-from django.core.exceptions import ObjectDoesNotExist
 
 from please.template.problem_template_generator import generate_problem
 from please.import_from_polygon import download_zip, create_problem
-from please.template.problem_template_generator import generate_problem
 from please.cleaner.cleaner import Cleaner
 from please import globalconfig
 
@@ -108,6 +106,7 @@ def read_from_file(file_name, LINES_LIMIT, SIZE_LIMIT):
                 line = line[:SIZE_LIMIT - 1] + '...\n'
             content += line
     return (content, big_file)
+
 
 def show_tests_block(request, problem):
     SIZE_LIMIT = 40
@@ -257,4 +256,3 @@ def import_from_polygon(request):
     return render_to_response('problems/polygon.html', {
         'polygon': block,
     }, RequestContext(request))
-
