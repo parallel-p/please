@@ -49,12 +49,8 @@ def manage_tests(request, problem):
 
             try:
                 if "generate_tests" in request.POST:
-                    stags = form.cleaned_data["tags"]
                     with ChangeDir(problem.path):
-                        if stags != "":
-                            generate_tests_with_tags(stags.split(" "))
-                        else:
-                            generate_tests()
+                        generate_tests()
                 elif "validate" in request.POST:
                     with ChangeDir(problem.path):
                         TestsAndAnswersGenerator().validate()
