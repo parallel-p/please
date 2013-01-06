@@ -236,3 +236,4 @@ def import_from_polygon(request):
     return render_to_response('problems/polygon.html', {
         'polygon': block,
     }, RequestContext(request))
+
