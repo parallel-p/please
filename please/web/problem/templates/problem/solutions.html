@@ -60,47 +60,49 @@
             </table>
         </div>
 
-        <form action="{% url 'problem.views.problem.solutions' id=problem.id %}" enctype="multipart/form-data" method="POST">
-            {% csrf_token %}
-            <h4>Add solution</h4>
-            <div class="row-fluid">
-                <div class="span4">
-                    <div class="control-group">
-                        {{ upload_solution.form.input_file_name.label_tag }}
-                        <div class="controls">
-                            {{ upload_solution.form.input_file_name }}
+        <div class="well">
+            <form action="{% url 'problem.views.problem.solutions' id=problem.id %}" enctype="multipart/form-data" method="POST">
+                {% csrf_token %}
+                <h4>Add solution</h4>
+                <div class="row-fluid">
+                    <div class="span4">
+                        <div class="control-group">
+                            {{ upload_solution.form.input_file_name.label_tag }}
+                            <div class="controls">
+                                {{ upload_solution.form.input_file_name }}
+                            </div>
+                            <div style="margin-top: 13px"></div>
+                            {{ upload_solution.form.output_file_name.label_tag }}
+                            <div class="controls">
+                                {{ upload_solution.form.output_file_name }}
+                            </div>
                         </div>
-                        <div style="margin-top: 13px"></div>
-                        {{ upload_solution.form.output_file_name.label_tag }}
-                        <div class="controls">
-                            {{ upload_solution.form.output_file_name }}
+                    </div>
+                    <div class="span4">
+                        <div class="control-group">
+                            {{ upload_solution.form.expected_verdicts.label_tag }}
+                            <div class="controls">
+                                {{ upload_solution.form.expected_verdicts }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <div class="control-group">
+                            {{ upload_solution.form.possible_verdicts.label_tag }}
+                            <div class="controls">
+                                {{ upload_solution.form.possible_verdicts }}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="span4">
-                    <div class="control-group">
-                        {{ upload_solution.form.expected_verdicts.label_tag }}
-                        <div class="controls">
-                            {{ upload_solution.form.expected_verdicts }}
-                        </div>
+                <div class="control-group">
+                    <div class="controls">
+                        {{ upload_solution.form.solution_file }}
                     </div>
+                    <input class="btn" type="submit" name="submit_file" value="Add" />
                 </div>
-                <div class="span4">
-                    <div class="control-group">
-                        {{ upload_solution.form.possible_verdicts.label_tag }}
-                        <div class="controls">
-                            {{ upload_solution.form.possible_verdicts }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
-                    {{ upload_solution.form.solution_file }}
-                </div>
-                <input class="btn" type="submit" name="submit_file" value="Add" />
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}
