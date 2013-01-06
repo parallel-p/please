@@ -42,10 +42,12 @@
                 <td>{{ forloop.counter }}</td>
                 {% for result in row %}
                 <td class="verdict-{{ result.verdict|default:'none' }}">
+                    <a href="{{result.solution}}/test/{{forloop.parentloop.counter}}">
                     {{ result.verdict|default:'—' }}
                     {% if result.time %}
                     {{ result.time|floatformat:2 }}
                     {% endif %}
+                    </a>
                 </td>
                 {% endfor %}
             </tr>
@@ -60,7 +62,6 @@
         <div class="span2">
         <h4>Add solution</h4>
             <div class="control-group">
-                <!--{{ upload_solution.form.solution_file.label_tag }}-->
                 <div class="controls">
                     {{ upload_solution.form.solution_file }}
                 </div>

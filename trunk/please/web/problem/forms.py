@@ -120,6 +120,7 @@ def tags_edit_form(problem):
             'placeholder': 'or add your own',
         }))
     return EditTagsForm
- 
+
+
 class EmptyForm(forms.Form):
     pass
