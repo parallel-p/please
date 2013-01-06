@@ -9,7 +9,7 @@ from please.import_from_polygon import download_zip, create_problem
 from please.cleaner.cleaner import Cleaner
 from please import globalconfig
 
-from problem.models import Problem
+from problem.models import Problem, ProblemTag
 from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm, ProblemImportFromPolygonForm
 from problem.synchronization import export_from_database, import_to_database, import_tree, is_problem_path
 from problem.views.file_utils import ChangeDir, file_read
@@ -51,6 +51,16 @@ def edit_or_create_problem_block(request, problem=None):
                 problem.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
                 with ChangeDir(form.cleaned_data["path"]):
                     generate_problem(form.cleaned_data["short_name"])
+                if not hasattr(ProblemEditForm, 'available_tags'):
+                    other_tags = form.cleaned_data['available_tags']
+                    for tag in other_tags:
+                        if tag:
+                            problem.tags.add(ProblemTag.objects.get(name=tag))
+                if form.cleaned_data['new_tags']:               
+                    for tags in form.cleaned_data['new_tags'].split(';'):
+                        for tag in map(str.strip, tags.split(',')):
+                            if tag:
+                                problem.tags.add(ProblemTag.objects.get_or_create(name=tag)[0])
             problem.name = form.cleaned_data["name"]
             problem.short_name = form.cleaned_data["short_name"]
             problem.input = form.cleaned_data["input"]

@@ -16,6 +16,15 @@ class ProblemEditForm(forms.ModelForm):
     class Meta:
         model = Problem
         fields = ('path', 'name', 'short_name', 'input', 'output', 'time_limit', 'memory_limit')
+    available_tags = forms.MultipleChoiceField(
+                required=False, 
+                choices=((tag, tag.name) for tag in ProblemTag.objects.all())
+            ) if ProblemTag.objects.count() > 0 else ""
+    new_tags = forms.CharField(
+            widget=forms.TextInput(attrs={'placeholder': 'add your own tag(s)'}),
+            required=False,
+            label=''
+        )
 
 
 class ProblemSearch(forms.Form):
