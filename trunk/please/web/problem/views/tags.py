@@ -23,9 +23,10 @@ def process_edit_tags(request, id):
                 for tag in map(str.strip, form.cleaned_data['add_tag'].split(';')):
                     if tag:
                         problem.tags.add(ProblemTag.objects.get_or_create(name=tag)[0])
+            problem.save()
 
     form = tags_edit_form(problem)()
-    return {'form': form, 'id': id}
+    return {'form': form, 'id': id, 'any_related_tags': bool(len(problem.tags.all()))}
 
 
 def edit_tags_view(request, id):
