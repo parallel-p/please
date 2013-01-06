@@ -3,7 +3,7 @@ from django.template import RequestContext
 
 from problem.helpers import problem_sync
 from problem.models import Problem
-from problem.views import materials, todo, manage_tests, files
+from problem.views import materials, todo, manage_tests, files, tests_page
 from problem.views.solutions import upload_solution, retest_solutions
 from problem.views.problems import edit_or_create_problem_block, show_tests_block, please_clean
 from problem.views.tags import process_edit_tags
@@ -73,9 +73,20 @@ def solutions(request, id):
         'nav': 'solutions',
         'problem': problem,
         'upload_solution': upload_solution(request, id),
-    'retest': retest_solutions(request, id),
-    'todo': todo.show_block(problem),
+        'retest': retest_solutions(request, id),
+        'todo': todo.show_block(problem),
         'files_in_dir': manage_tests.files_in_dir_block(problem),
+    }, RequestContext(request))
+
+
+@problem_sync(read=True, write=False)
+def show_test(request, id, solution_name, test_id):
+    problem = get_object_or_404(Problem, id=id)
+    return render_to_response('problem/test.html', {
+        'problem': problem,
+        'todo': todo.show_block(problem),
+        'files_in_dir': manage_tests.files_in_dir_block(problem),
+        'test': tests_page.single_test_block(problem, solution_name, test_id),
     }, RequestContext(request))
 
 

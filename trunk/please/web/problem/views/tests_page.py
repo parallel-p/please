@@ -8,9 +8,8 @@ from problem.models import Problem, TestResult, Solution
 from problem.views.file_utils import ChangeDir
 
 
-def single_test_view(request, id, solution_name, test_id):
+def single_test_block(problem, solution_name, test_id):
     source_path = os.path.join(please.globalconfig.solutions_dir, solution_name)
-    problem = Problem.objects.get(id=id)
     solution = Solution.objects.get(problem=problem,
                                     path=source_path)
     results = TestResult.objects.get(solution=solution,
@@ -25,6 +24,8 @@ def single_test_view(request, id, solution_name, test_id):
             with open(test_path + '.a') as file:
                 full_output = file.read()
 
-    return render_to_response('single_test.html',
-                              {'full_output': full_output,
-                               'results': results})
+    return {
+        'solution_name': solution_name,
+        'full_output': full_output,
+        'results': results,
+    }
