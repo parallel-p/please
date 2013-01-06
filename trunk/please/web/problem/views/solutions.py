@@ -15,11 +15,11 @@ from problem.synchronization import export_from_database
 
 def retest_solutions(request, id):
     problem = Problem.objects.get(id=id)
-    solutions = [{'obj': i,
-                  'path': i.path,
-                  'name': os.path.relpath(i.path, please.globalconfig.solutions_dir),
-                  'expected_verdicts': i.expected_verdicts.all(),
-                  'possible_verdicts': i.possible_verdicts.all()} for i in Solution.objects.filter(problem__id=id)]
+    solutions = [{'obj': solution,
+                  'path': solution.path,
+                  'name': os.path.relpath(solution.path, please.globalconfig.solutions_dir),
+                  'expected_verdicts': solution.expected_verdicts.all(),
+                  'possible_verdicts': solution.possible_verdicts.all()} for solution in Solution.objects.filter(problem__id=id)]
 
     if request.method == 'POST':
         form = EmptyForm(request.POST)
@@ -32,30 +32,30 @@ def retest_solutions(request, id):
                     results = get_test_results_from_solution(solution['path'])[2]
                     results = sorted(results.items(), key=lambda x: int(os.path.basename(x[0])))
                     for result in results:
-                        obj = TestResult(solution=solution['obj'],
-                                         verdict=result[1][0].verdict,
-                                         return_code=result[1][0].return_code,
-                                         real_time=result[1][0].real_time,
-                                         cpu_time=result[1][0].cpu_time,
-                                         used_memory=result[1][0].used_memory,
-                                         test_number=int(os.path.basename(result[0])),
-                                         checker_stdout=result[1][1],
-                                         checker_stderr=result[1][2])
-                        obj.save()
+                        test_result = TestResult(solution=solution['obj'],
+                                                 verdict=result[1][0].verdict,
+                                                 return_code=result[1][0].return_code,
+                                                 real_time=result[1][0].real_time,
+                                                 cpu_time=result[1][0].cpu_time,
+                                                 used_memory=result[1][0].used_memory,
+                                                 test_number=int(os.path.basename(result[0])),
+                                                 checker_stdout=result[1][1],
+                                                 checker_stderr=result[1][2])
+                        test_result.save()
     output = []
     max_count = 0
 
     for solution in solutions:
-        output.append([{'verdict': str(i.verdict),
-                        'time': str(i.cpu_time),
-                        'solution': solution['name']} for i in TestResult.objects.filter(solution=solution['obj'])])
+        output.append([{'verdict': str(results.verdict),
+                        'time': str(results.cpu_time),
+                        'solution': solution['name']} for results in TestResult.objects.filter(solution=solution['obj'])])
         max_count = max(max_count, len(output[-1]))
 
-    for i in output:
+    for row in output:
         if len(i) != max_count:
-            i.extend([{}] * (max_count - len(i)))
+            row.extend([{}] * (max_count - len(i)))
     return {'output': list(zip(*(output))),
-            'solutions': [i['name'] for i in solutions],
+            'solutions': [solution['name'] for solution in solutions],
             'expected_verdicts': [solution['expected_verdicts'] for solution in solutions],
             'possible_verdicts': [solution['possible_verdicts'] for solution in solutions]}
 
