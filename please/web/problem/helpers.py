@@ -17,16 +17,15 @@ def problem_sync(read=True, write=False):
                     problem = None
                 problem_path = problem.path if problem else None
                 if problem:
-                    magic_path = os.path.join(problem.path, 'default.package')
-                    if not (os.path.exists(magic_path) and
-                            problem and
-                            os.path.getmtime(magic_path) == problem.magic_modified_value):
-                        print('OLOLO', os.path.getmtime(magic_path), '!=',
-                              problem.magic_modified_value, 'diff is',
-                              os.path.getmtime(magic_path) - problem.magic_modified_value)
+                    package_path = os.path.join(problem.path, 'default.package')
+                    if not (os.path.exists(package_path) and
+                            os.path.getmtime(package_path) == problem.last_modified):
+                        # print('OLOLO', os.path.getmtime(package_path), '!=',
+                              # problem.last_modified, 'diff is',
+                              # os.path.getmtime(package_path) - problem.last_modified)
                         problem = synchronization.import_to_database(problem)
                         if problem:
-                            problem.magic_modified_value = os.path.getmtime(magic_path)
+                            problem.last_modified = os.path.getmtime(package_path)
                             problem.save()
                         else:
                             problem_was_deleted = True
