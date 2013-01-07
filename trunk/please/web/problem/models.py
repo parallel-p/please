@@ -40,7 +40,7 @@ class Problem(models.Model):
     well_done_test = models.ManyToManyField(WellDone, related_name='well_done_test+', blank=True)
     well_done_answer = models.ManyToManyField(WellDone, related_name='well_done_answer+', blank=True)
 
-    magic_modified_value = models.FloatField(null=True)
+    last_modified = models.FloatField(null=True)
 
     def __str__(self):
         """
