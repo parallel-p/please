@@ -19,7 +19,7 @@ def generate_single_output(source_path, test, output_filename, execution_limits=
 
 
 def single_test_block(problem, solution_name, test_id):
-    source_path = os.path.join(please.globalconfig.solutions_dir, solution_name)
+    source_path = os.path.join(please.globalconfig.solutions_dir, solution_name).replace(os.sep, '/')
     solution = Solution.objects.get(problem=problem,
                                     path=source_path)
     results = TestResult.objects.get(solution=solution,
