@@ -1,0 +1,10 @@
+[sample, tests] tests/01
+[tests] tests/02
+[tests] tests/gen03.py 100000
+[tests] tests/gen04.py 100000
+[tests] tests/gen05.py 100000
+[tests] tests/gen06.py 100000
+[tests] tests/gen07.py 100000 420
+[tests] tests/gen07.py 100000 100000
+[tests] tests/gen07.py 100000 1000000000
+[tests] tests/gen07.py 100000 2

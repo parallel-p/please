@@ -1,0 +1,13 @@
+[sample] tests/0[1-2]
+tests/0[3-5]
+tests/gen1.cpp 100000 50000 4354234
+tests/gen1.cpp 100000 50000 3485437
+tests/gen2.cpp 100000 50000 7345945
+tests/gen3.cpp 100000 50000 4214142
+tests/gen4.cpp 100000 50000 2152515
+genMaxRandom.py 1
+genMaxRandom.py 2
+genMaxRandom.py 3
+genMaxRandom.py 4
+genMaxRandom.py 5
+genMaxPermanent.py 1

@@ -1,0 +1,19 @@
+[tests, sample] tests/tests_1
+[tests] tests/tests_2
+[tests] tests/tests_3
+[tests] tests/tests_4
+[tests] tests/tests_5
+[tests] tests/tests_6
+[tests] tests/tests_7
+[tests] tests/tests_8
+[tests] tests/tests_9
+[tests] tests/tests_10
+[tests] tests/tests_11
+[tests] tests/gen_rand.py 5
+[tests] tests/gen_rand.py 10
+[tests] tests/gen_rand.py 50
+[tests] tests/gen_rand.py 100
+[tests] tests/gen_rand.py 500
+[tests] tests/gen_rand.py 1000
+
+

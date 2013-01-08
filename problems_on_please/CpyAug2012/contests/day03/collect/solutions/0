@@ -1,0 +1,419 @@
+(INFO) [19:40:01]: Generating 0 tests series:
+
+(WARNING) [19:40:01]: General validator (well_done) is on
+(INFO) [19:40:01]: Generating pdf from tex...
+(INFO) [19:40:01]: Compiling statement.russian.tex
+(INFO) [19:40:01]: Compilation statement.russian.tex succeded.
+		STDOUT:
+This is pdfTeX, Version 3.1415926-1.40.11 (MiKTeX 2.9)
+entering extended mode
+(C:\svn\svn\Cpy\contests\day03\collect\.statements\statement.russian.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size12.clo"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+(C:\Users\1\AppData\Roaming\MiKTeX\2.9\tex\latex\cyrillic\t2aenc.def)
+(C:\Users\1\AppData\Roaming\MiKTeX\2.9\tex\latex\cyrillic\t2acmr.fd))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\utf8.def"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1enc.dfu")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ot1enc.dfu")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omsenc.dfu")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t2aenc.dfu")))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.sty"
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\english.ldf"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\russianb.ldf"))
+(c:\please\please\templates\olymp.sty)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"))))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsmath.sty"
+For additional information on amsmath, use the `?' option.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amstext.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsgen.sty"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsbsy.sty")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsopn.sty"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\classes\amsthm.sty")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\epsfig.sty")
+(c:\please\please\templates\import.sty) (c:\please\please\templates\wrapfig.sty
+) (c:\please\please\templates\epigraph.sty)
+(C:\svn\svn\Cpy\contests\day03\collect\.statements\statement.russian.aux)
+(C:\Users\1\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (C:\Users\1\AppData\Roaming\MiKTeX\2.9\tex\latex\cyrillic\t2acmss.fd)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd")
+(C:\Users\1\AppData\Roaming\MiKTeX\2.9\tex\latex\cyrillic\t2acmtt.fd) [1{C:/Use
+rs/1/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+(C:\svn\svn\Cpy\contests\day03\collect\.statements\statement.russian.aux) )
+pdfTeX warning: \pdfdraftmode enabled, not changing output pdf
+Transcript written on statement.russian.log.
+
+(INFO) [19:40:01]: Compilation statement.russian.tex succeded.
+		STDOUT:
+This is pdfTeX, Version 3.1415926-1.40.11 (MiKTeX 2.9)
+entering extended mode
+(C:\svn\svn\Cpy\contests\day03\collect\.statements\statement.russian.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size12.clo"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+(C:\Users\1\AppData\Roaming\MiKTeX\2.9\tex\latex\cyrillic\t2aenc.def)
+(C:\Users\1\AppData\Roaming\MiKTeX\2.9\tex\latex\cyrillic\t2acmr.fd))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\utf8.def"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1enc.dfu")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ot1enc.dfu")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omsenc.dfu")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t2aenc.dfu")))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.sty"
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\english.ldf"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\russianb.ldf"))
+(c:\please\please\templates\olymp.sty)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"))))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsmath.sty"
+For additional information on amsmath, use the `?' option.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amstext.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsgen.sty"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsbsy.sty")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsopn.sty"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\classes\amsthm.sty")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\epsfig.sty")
+(c:\please\please\templates\import.sty) (c:\please\please\templates\wrapfig.sty
+) (c:\please\please\templates\epigraph.sty)
+(C:\svn\svn\Cpy\contests\day03\collect\.statements\statement.russian.aux)
+(C:\Users\1\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (C:\Users\1\AppData\Roaming\MiKTeX\2.9\tex\latex\cyrillic\t2acmss.fd)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd")
+(C:\Users\1\AppData\Roaming\MiKTeX\2.9\tex\latex\cyrillic\t2acmtt.fd) [1{C:/Use
+rs/1/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+(C:\svn\svn\Cpy\contests\day03\collect\.statements\statement.russian.aux) ) <C:
+\Users\1\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\lh\lh-t2a\dpi600\lasx1200.pk>
+ <C:\Users\1\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\lh\lh-t2a\dpi600\latt1000
+.pk> <C:\Users\1\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\unknown\unknown\dpi60
+0\larm1000.pk> <C:\Users\1\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\lh\lh-t2a\d
+pi600\lasx1440.pk> <C:\Users\1\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\lh\lh-t
+2a\dpi600\lass1200.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cm/cmmi10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts
+/symbols/msam10.pfb>
+Output written on statement.russian.pdf (1 page, 69384 bytes).
+Transcript written on statement.russian.log.
+
+(INFO) [19:40:01]: PDF statement.russian.pdf was created successfully
+(INFO) [19:40:01]: Generating 13 tests series:
+
+(INFO) [19:40:01]: Test #1 'stdout of gen.cpp' is generated
+(INFO) [19:40:01]: Test series #1 generated
+
+(INFO) [19:40:01]: Test #2 'stdout of gen.cpp' is generated
+(INFO) [19:40:01]: Test series #2 generated
+
+(INFO) [19:40:01]: Test #3 'stdout of gen.cpp' is generated
+(INFO) [19:40:01]: Test series #3 generated
+
+(INFO) [19:40:01]: Test #4 'stdout of gen.cpp' is generated
+(INFO) [19:40:01]: Test series #4 generated
+
+(INFO) [19:40:01]: Test #5 'stdout of gen.cpp' is generated
+(INFO) [19:40:01]: Test series #5 generated
+
+(INFO) [19:40:01]: Test #6 'stdout of gen.cpp' is generated
+(INFO) [19:40:01]: Test series #6 generated
+
+(INFO) [19:40:01]: Test #7 'stdout of gen.cpp' is generated
+(INFO) [19:40:01]: Test series #7 generated
+
+(INFO) [19:40:01]: Test #8 'stdout of gen.cpp' is generated
+(INFO) [19:40:01]: Test series #8 generated
+
+(INFO) [19:40:01]: Test #9 'stdout of gen.cpp' is generated
+(INFO) [19:40:01]: Test series #9 generated
+
+(INFO) [19:40:01]: Test #10 'stdout of gen.cpp' is generated
+(INFO) [19:40:01]: Test series #10 generated
+
+(INFO) [19:40:01]: Test #11 'stdout of gen.cpp' is generated
+(INFO) [19:40:01]: Test series #11 generated
+
+(INFO) [19:40:02]: Test #12 'stdout of gen.cpp' is generated
+(INFO) [19:40:02]: Test series #12 generated
+
+(INFO) [19:40:02]: Test #13 'tests\tests_13' is generated
+(INFO) [19:40:02]: Test series #13 generated
+
+(WARNING) [19:40:02]: General validator (well_done) is on
+(INFO) [19:40:02]: Start validation on test #1
+(INFO) [19:40:02]: Validator said OK
+(INFO) [19:40:02]: Start validation on test #2
+(INFO) [19:40:02]: Validator said OK
+(INFO) [19:40:02]: Start validation on test #3
+(INFO) [19:40:02]: Validator said OK
+(INFO) [19:40:02]: Start validation on test #4
+(INFO) [19:40:02]: Validator said OK
+(INFO) [19:40:02]: Start validation on test #5
+(INFO) [19:40:02]: Validator said OK
+(INFO) [19:40:02]: Start validation on test #6
+(INFO) [19:40:02]: Validator said OK
+(INFO) [19:40:02]: Start validation on test #7
+(INFO) [19:40:02]: Validator said OK
+(INFO) [19:40:02]: Start validation on test #8
+(INFO) [19:40:02]: Validator said OK
+(INFO) [19:40:02]: Start validation on test #9
+(INFO) [19:40:02]: Validator said OK
+(INFO) [19:40:02]: Start validation on test #10
+(INFO) [19:40:02]: Validator said OK
+(INFO) [19:40:02]: Start validation on test #11
+(INFO) [19:40:02]: Validator said OK
+(INFO) [19:40:02]: Start validation on test #12
+(INFO) [19:40:03]: Validator said OK
+(INFO) [19:40:03]: Start validation on test #13
+(INFO) [19:40:03]: Validator said OK
+(INFO) [19:40:03]: Generating answer for test #1 with 'solutions\bins_sb.pas'
+(INFO) [19:40:03]: Generating answer for test #2 with 'solutions\bins_sb.pas'
+(INFO) [19:40:03]: Generating answer for test #3 with 'solutions\bins_sb.pas'
+(INFO) [19:40:04]: Generating answer for test #4 with 'solutions\bins_sb.pas'
+(INFO) [19:40:04]: Generating answer for test #5 with 'solutions\bins_sb.pas'
+(INFO) [19:40:04]: Generating answer for test #6 with 'solutions\bins_sb.pas'
+(INFO) [19:40:04]: Generating answer for test #7 with 'solutions\bins_sb.pas'
+(INFO) [19:40:04]: Generating answer for test #8 with 'solutions\bins_sb.pas'
+(INFO) [19:40:04]: Generating answer for test #9 with 'solutions\bins_sb.pas'
+(INFO) [19:40:04]: Generating answer for test #10 with 'solutions\bins_sb.pas'
+(INFO) [19:40:04]: Generating answer for test #11 with 'solutions\bins_sb.pas'
+(INFO) [19:40:04]: Generating answer for test #12 with 'solutions\bins_sb.pas'
+(INFO) [19:40:04]: Generating answer for test #13 with 'solutions\bins_sb.pas'
+(INFO) [19:40:04]: Testing solutions\collect_py.py on test #1
+(INFO) [19:40:04]: Compiling solutions\collect_py.py
+(INFO) [19:40:04]: Testing solutions\collect_py.py on test #2
+(INFO) [19:40:04]: Compiling solutions\collect_py.py
+(INFO) [19:40:04]: Testing solutions\collect_py.py on test #3
+(INFO) [19:40:04]: Compiling solutions\collect_py.py
+(INFO) [19:40:04]: Testing solutions\collect_py.py on test #4
+(INFO) [19:40:04]: Compiling solutions\collect_py.py
+(INFO) [19:40:04]: Testing solutions\collect_py.py on test #5
+(INFO) [19:40:04]: Compiling solutions\collect_py.py
+(INFO) [19:40:04]: Testing solutions\collect_py.py on test #6
+(INFO) [19:40:04]: Compiling solutions\collect_py.py
+(INFO) [19:40:05]: Testing solutions\collect_py.py on test #7
+(INFO) [19:40:05]: Compiling solutions\collect_py.py
+(INFO) [19:40:05]: Testing solutions\collect_py.py on test #8
+(INFO) [19:40:05]: Compiling solutions\collect_py.py
+(INFO) [19:40:05]: Testing solutions\collect_py.py on test #9
+(INFO) [19:40:05]: Compiling solutions\collect_py.py
+(INFO) [19:40:05]: Testing solutions\collect_py.py on test #10
+(INFO) [19:40:05]: Compiling solutions\collect_py.py
+(INFO) [19:40:05]: Testing solutions\collect_py.py on test #11
+(INFO) [19:40:05]: Compiling solutions\collect_py.py
+(INFO) [19:40:06]: Testing solutions\collect_py.py on test #12
+(INFO) [19:40:06]: Compiling solutions\collect_py.py
+(INFO) [19:40:09]: Testing solutions\collect_py.py on test #13
+(INFO) [19:40:09]: Compiling solutions\collect_py.py
+(INFO) [19:40:09]: Testing solutions\bins_sb.pas on test #1
+(INFO) [19:40:09]: Testing solutions\bins_sb.pas on test #2
+(INFO) [19:40:09]: Testing solutions\bins_sb.pas on test #3
+(INFO) [19:40:09]: Testing solutions\bins_sb.pas on test #4
+(INFO) [19:40:09]: Testing solutions\bins_sb.pas on test #5
+(INFO) [19:40:09]: Testing solutions\bins_sb.pas on test #6
+(INFO) [19:40:09]: Testing solutions\bins_sb.pas on test #7
+(INFO) [19:40:09]: Testing solutions\bins_sb.pas on test #8
+(INFO) [19:40:09]: Testing solutions\bins_sb.pas on test #9
+(INFO) [19:40:09]: Testing solutions\bins_sb.pas on test #10
+(INFO) [19:40:09]: Testing solutions\bins_sb.pas on test #11
+(INFO) [19:40:09]: Testing solutions\bins_sb.pas on test #12
+(INFO) [19:40:10]: Testing solutions\bins_sb.pas on test #13
+(INFO) [19:40:10]: Testing solutions\collect.dpr on test #1
+(INFO) [19:40:10]: Testing solutions\collect.dpr on test #2
+(INFO) [19:40:10]: Testing solutions\collect.dpr on test #3
+(INFO) [19:40:10]: Testing solutions\collect.dpr on test #4
+(INFO) [19:40:10]: Testing solutions\collect.dpr on test #5
+(INFO) [19:40:10]: Testing solutions\collect.dpr on test #6
+(INFO) [19:40:10]: Testing solutions\collect.dpr on test #7
+(INFO) [19:40:10]: Testing solutions\collect.dpr on test #8
+(INFO) [19:40:10]: Testing solutions\collect.dpr on test #9
+(INFO) [19:40:10]: Testing solutions\collect.dpr on test #10
+(INFO) [19:40:10]: Testing solutions\collect.dpr on test #11
+(INFO) [19:40:10]: Testing solutions\collect.dpr on test #12
+(INFO) [19:40:10]: Testing solutions\collect.dpr on test #13
+(INFO) [19:40:10]: Testing solutions\collect_as.py on test #1
+(WARNING) [19:40:10]: Assuming solutions\collect_as.py is python2 file. 
+If you want to translate it with python3, insert 'python3' in the comment in the first line of this file
+(INFO) [19:40:10]: Compiling solutions\collect_as.py
+(ERROR) [19:40:11]: Solution solutions\collect_as.py is failed RE with exit code: 1
+		STDERR:
+Traceback (most recent call last):
+  File "solutions\collect_as.py", line 12, in <module>
+    r = len(v)
+TypeError: object of type 'map' has no len()
+
+(INFO) [19:40:11]: Testing solutions\collect_as.py on test #2
+(INFO) [19:40:11]: Compiling solutions\collect_as.py
+(ERROR) [19:40:11]: Solution solutions\collect_as.py is failed RE with exit code: 1
+		STDERR:
+Traceback (most recent call last):
+  File "solutions\collect_as.py", line 12, in <module>
+    r = len(v)
+TypeError: object of type 'map' has no len()
+
+(INFO) [19:40:11]: Testing solutions\collect_as.py on test #3
+(INFO) [19:40:11]: Compiling solutions\collect_as.py
+(ERROR) [19:40:11]: Solution solutions\collect_as.py is failed RE with exit code: 1
+		STDERR:
+Traceback (most recent call last):
+  File "solutions\collect_as.py", line 12, in <module>
+    r = len(v)
+TypeError: object of type 'map' has no len()
+
+(INFO) [19:40:11]: Testing solutions\collect_as.py on test #4
+(INFO) [19:40:11]: Compiling solutions\collect_as.py
+(ERROR) [19:40:11]: Solution solutions\collect_as.py is failed RE with exit code: 1
+		STDERR:
+Traceback (most recent call last):
+  File "solutions\collect_as.py", line 12, in <module>
+    r = len(v)
+TypeError: object of type 'map' has no len()
+
+(INFO) [19:40:11]: Testing solutions\collect_as.py on test #5
+(INFO) [19:40:11]: Compiling solutions\collect_as.py
+(ERROR) [19:40:11]: Solution solutions\collect_as.py is failed RE with exit code: 1
+		STDERR:
+Traceback (most recent call last):
+  File "solutions\collect_as.py", line 12, in <module>
+    r = len(v)
+TypeError: object of type 'map' has no len()
+
+(INFO) [19:40:11]: Testing solutions\collect_as.py on test #6
+(INFO) [19:40:11]: Compiling solutions\collect_as.py
+(ERROR) [19:40:11]: Solution solutions\collect_as.py is failed RE with exit code: 1
+		STDERR:
+Traceback (most recent call last):
+  File "solutions\collect_as.py", line 12, in <module>
+    r = len(v)
+TypeError: object of type 'map' has no len()
+
+(INFO) [19:40:11]: Testing solutions\collect_as.py on test #7
+(INFO) [19:40:11]: Compiling solutions\collect_as.py
+(ERROR) [19:40:11]: Solution solutions\collect_as.py is failed RE with exit code: 1
+		STDERR:
+Traceback (most recent call last):
+  File "solutions\collect_as.py", line 12, in <module>
+    r = len(v)
+TypeError: object of type 'map' has no len()
+
+(INFO) [19:40:11]: Testing solutions\collect_as.py on test #8
+(INFO) [19:40:11]: Compiling solutions\collect_as.py
+(ERROR) [19:40:11]: Solution solutions\collect_as.py is failed RE with exit code: 1
+		STDERR:
+Traceback (most recent call last):
+  File "solutions\collect_as.py", line 12, in <module>
+    r = len(v)
+TypeError: object of type 'map' has no len()
+
+(INFO) [19:40:11]: Testing solutions\collect_as.py on test #9
+(INFO) [19:40:11]: Compiling solutions\collect_as.py
+(ERROR) [19:40:11]: Solution solutions\collect_as.py is failed RE with exit code: 1
+		STDERR:
+Traceback (most recent call last):
+  File "solutions\collect_as.py", line 12, in <module>
+    r = len(v)
+TypeError: object of type 'map' has no len()
+
+(INFO) [19:40:11]: Testing solutions\collect_as.py on test #10
+(INFO) [19:40:11]: Compiling solutions\collect_as.py
+(ERROR) [19:40:11]: Solution solutions\collect_as.py is failed RE with exit code: 1
+		STDERR:
+Traceback (most recent call last):
+  File "solutions\collect_as.py", line 12, in <module>
+    r = len(v)
+TypeError: object of type 'map' has no len()
+
+(INFO) [19:40:11]: Testing solutions\collect_as.py on test #11
+(INFO) [19:40:11]: Compiling solutions\collect_as.py
+(ERROR) [19:40:11]: Solution solutions\collect_as.py is failed RE with exit code: 1
+		STDERR:
+Traceback (most recent call last):
+  File "solutions\collect_as.py", line 12, in <module>
+    r = len(v)
+TypeError: object of type 'map' has no len()
+
+(INFO) [19:40:11]: Testing solutions\collect_as.py on test #12
+(INFO) [19:40:11]: Compiling solutions\collect_as.py
+(ERROR) [19:40:12]: Solution solutions\collect_as.py is failed RE with exit code: 1
+		STDERR:
+Traceback (most recent call last):
+  File "solutions\collect_as.py", line 12, in <module>
+    r = len(v)
+TypeError: object of type 'map' has no len()
+
+(INFO) [19:40:12]: Testing solutions\collect_as.py on test #13
+(INFO) [19:40:12]: Compiling solutions\collect_as.py
+(ERROR) [19:40:12]: Solution solutions\collect_as.py is failed RE with exit code: 1
+		STDERR:
+Traceback (most recent call last):
+  File "solutions\collect_as.py", line 12, in <module>
+    r = len(v)
+TypeError: object of type 'map' has no len()
+
+(INFO) [19:40:12]: Testing solutions\collect_rg.dpr on test #1
+(INFO) [19:40:12]: Testing solutions\collect_rg.dpr on test #2
+(INFO) [19:40:12]: Testing solutions\collect_rg.dpr on test #3
+(INFO) [19:40:12]: Testing solutions\collect_rg.dpr on test #4
+(INFO) [19:40:12]: Testing solutions\collect_rg.dpr on test #5
+(INFO) [19:40:12]: Testing solutions\collect_rg.dpr on test #6
+(INFO) [19:40:12]: Testing solutions\collect_rg.dpr on test #7
+(INFO) [19:40:12]: Testing solutions\collect_rg.dpr on test #8
+(INFO) [19:40:12]: Testing solutions\collect_rg.dpr on test #9
+(INFO) [19:40:12]: Testing solutions\collect_rg.dpr on test #10
+(INFO) [19:40:12]: Testing solutions\collect_rg.dpr on test #11
+(INFO) [19:40:12]: Testing solutions\collect_rg.dpr on test #12
+(INFO) [19:40:13]: Testing solutions\collect_rg.dpr on test #13
+(INFO) [19:40:13]: HTML report is generated and saved as 'report.html' in the root directory of current problem

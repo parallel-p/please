@@ -1,0 +1,12 @@
+[sample, tests] gen.cpp 2 2
+[tests] tests/tests_2
+[tests] gen.cpp 5 5
+[tests] gen.cpp 1 10
+[tests] gen.cpp 20 2
+[tests] gen.cpp 10 10
+[tests] gen.cpp 40 40
+[tests] gen.cpp 50 50
+[tests] gen.cpp 100 100
+[tests] gen.cpp 500 500
+[tests] gen.cpp 499 498
+[tests] gen.cpp 497 496

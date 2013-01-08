@@ -1,0 +1,33 @@
+name = 
+id_method = default
+statement = {
+    name = Параллель C.py - день 5
+    location = Берендеевы Поляны
+    date = 2 августа 2012
+    template = contest.tex
+}
+problem = {
+    path = numbers
+    id = A
+}
+problem = {
+    path = sequence
+    id = B
+}
+problem = {
+    path = largest-common-subsequence
+    id = C
+}
+problem = {
+    path = tickets
+    id = D
+}
+problem = {
+    path = knapsack
+    id = E
+}
+
+problem = {
+    path = knapsack2
+    id = F
+}

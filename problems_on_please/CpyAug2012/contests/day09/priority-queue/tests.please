@@ -1,0 +1,17 @@
+[sample] tests/01
+generators/add_pop.py               20 746482849
+generators/add_pop_mix.py           20 673456344
+generators/add_change_pop.py        20 827482345
+generators/add_change_min_max.py    20 723523734
+generators/add_pop.py              200 837482943
+generators/add_pop_mix.py          200 456373546
+generators/add_change_pop.py       200 345625234
+generators/add_change_min_max.py   200 326734512
+generators/add_pop.py             3000 827394875
+generators/add_pop_mix.py         3000 435634756
+generators/add_change_pop.py      3000 634563737
+generators/add_change_min_max.py  3000 745672345
+generators/add_pop.py            30000 234123434
+generators/add_pop_mix.py        30000 763452435
+generators/add_change_pop.py     30000 123434564
+generators/add_change_min_max.py 30000 234123412

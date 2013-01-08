@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "c:\python32\scripts\please-script.py", line 9, in <module>
+    load_entry_point('Please==0.3', 'console_scripts', 'please')()
+  File "c:\python32\lib\site-packages\distribute-0.6.19-py3.2.egg\pkg_resources.py", line 337, in load_entry_point
+    return get_distribution(dist).load_entry_point(group, name)
+  File "c:\python32\lib\site-packages\distribute-0.6.19-py3.2.egg\pkg_resources.py", line 2282, in load_entry_point
+    return ep.load()
+  File "c:\python32\lib\site-packages\distribute-0.6.19-py3.2.egg\pkg_resources.py", line 1992, in load
+    entry = __import__(self.module_name, globals(),globals(), ['__name__'])
+  File "c:\please\please\launcher.py", line 9, in <module>
+    from . import command_line_config
+  File "c:\please\please\command_line_config\__init__.py", line 7, in <module>
+    from .contest import *
+  File "c:\please\please\command_line_config\contest.py", line 2, in <module>
+    from please.contest import commands as contest_commands
+  File "c:\please\please\contest\commands.py", line 3, in <module>
+    from ..latex import latex_tools
+  File "c:\please\please\latex\latex_tools.py", line 6, in <module>
+    from ..executors import compiler
+  File "c:\please\please\executors\compiler.py", line 1, in <module>
+    from ..lang_config import get_lang_config
+  File "c:\please\please\lang_config\__init__.py", line 24, in <module>
+    _configs[module.LANGUAGE] = module.get_config()
+  File "c:\please\please\lang_config\pascal.py", line 22, in get_config
+    return utils.choose(FPCConfig)
+  File "c:\please\please\lang_config\utils.py", line 35, in choose
+    raise OSError('No alternatives found')
+OSError: No alternatives found

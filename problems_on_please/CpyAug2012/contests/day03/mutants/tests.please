@@ -1,0 +1,15 @@
+[sample, tests] tests/tests_1
+[tests] gen.cpp 1 1 543345 1 1
+[tests] gen.cpp 0 500 5543 6484477 100
+[tests] gen.cpp 20000 20000 657 1 1
+[tests] gen.cpp 100 20000 6654 100 100
+[tests] gen.cpp 43 100 14786 43 43
+[tests] gen.cpp 5432 20000 8754 2 1
+[tests] gen.cpp 6774 20000 2345 17585 20000
+[tests] gen.cpp 12534 10056 7436 1234 12
+[tests] gen.cpp 19424 20000 7987 154585 20000
+[tests] gen.cpp 20000 20000 151769 154585 20000
+[tests] gen.cpp 20000 20000 26951769 154585 20000
+[tests] gen.cpp 20000 20000 90234812 154585 20000
+[tests] tests/tests_14
+[tests] tests/tests_15

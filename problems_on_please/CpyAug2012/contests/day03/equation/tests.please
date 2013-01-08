@@ -1,0 +1,6 @@
+[sample]tests/01
+[sample]tests/02
+tests/0[2-9]
+tests/1[0-9]
+tests/2[0-9]
+tests/3[0-2]

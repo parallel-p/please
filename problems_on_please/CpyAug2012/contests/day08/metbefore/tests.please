@@ -1,0 +1,10 @@
+[tests,sample] tests/01
+[tests] tests/02
+[tests] tests/03
+[tests] gen.py 10
+[tests] gen.py 100
+[tests] gen.py 1000
+[tests] gen.py 10000
+[tests] gen.py 100000
+[tests] gen2.py
+[tests] gen3.py

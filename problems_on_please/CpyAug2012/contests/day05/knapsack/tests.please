@@ -1,0 +1,14 @@
+[tests,sample] tests/tests_1
+[tests,sample] tests/tests_2
+[tests] tests/tests_3
+[tests] tests/tests_4
+[tests] tests/tests_5
+[tests] tests/tests_6
+[tests] gen.cpp 7
+[tests] gen.cpp 8
+[tests] gen.cpp 9
+[tests] gen.cpp 10
+[tests] gen.cpp 11
+[tests] gen.cpp 12
+[tests] gen.cpp 13
+[tests] gen.cpp 14

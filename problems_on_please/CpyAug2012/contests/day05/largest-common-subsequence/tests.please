@@ -1,0 +1,13 @@
+[tests, sample] tests/tests_1
+[tests] tests/tests_2
+[tests] tests/tests_3
+[tests] tests/tests_4
+[tests] gen.pas 1 1 123
+[tests] gen.pas 1 1000 3677
+[tests] gen.pas 0 0 976
+[tests] gen.pas 0 0 9874
+[tests] tests/tests_12
+[tests] gen.pas 500 1 752008
+[tests] gen.pas 0 2 37493
+[tests] tests/tests_15
+[tests] GenMaxAns.pas 345 4838

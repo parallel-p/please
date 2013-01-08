@@ -1,0 +1,28 @@
+name = 
+id_method = default
+statement = {
+    name = Параллель C.py - день 3
+    location = Берендеевы Поляны 
+    date = 31 июля 2012
+    template = contest.tex
+}
+problem = {
+    path = collect
+    id = A
+}
+problem = {
+    path = mutants
+    id = B
+}
+problem = {
+    path = equation
+    id = C
+}
+problem = {
+    path = ropes
+    id = D
+}
+problem = {
+    path = palindrom
+    id = E
+}
