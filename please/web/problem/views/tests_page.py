@@ -34,6 +34,7 @@ def single_test_block(problem, solution_name, test_id):
         else:
             with open(out_path) as file:
                 full_output = file.read()
+            os.remove(out_path)
 
     return {'solution_name': solution_name,
             'full_output': full_output,
