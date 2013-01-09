@@ -5,9 +5,6 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-
     url(r'^problems/$', 'problem.views.problems.index'),
     url(r'^$', 'problem.views.problems.index'),
     url(r'^problems/add/$', 'problem.views.problems.add'),
@@ -29,4 +26,9 @@ urlpatterns = patterns('',
     url(r'^problems/(?P<id>\d+)/solutions/(?P<solution_name>.+?)/test/(?P<test_id>\d+)$', 'problem.views.problem.show_test'),
     url(r'^problems/(?P<id>\d+)/statements/$', 'problem.views.problem.statements', name='problem_statement'),
     url(r'^problems/(?P<id>\d+)/tests/$', 'problem.views.problem.tests'),
-)
+) + patterns('',
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^admin/', include(admin.site.urls)),
+    )
+
+
