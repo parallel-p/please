@@ -60,7 +60,7 @@ temp_solution_out_file = ".out"
 
 #information about polygon
 polygon_url = 'http://codecenter.sgu.ru/polygon/'
-access = {'login': 'gurovic', "password": "********"}
+access = {'login': 'gurovic', "password": "lenochka"}
 
 #exports = {
 #    'lksh': export.Ejudge('ssh://ejudge@ejudge.lksh.ru'),
