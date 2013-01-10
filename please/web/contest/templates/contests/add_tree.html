@@ -1,0 +1,45 @@
+{% extends 'contests/base.html' %}
+
+{% block main %}
+<div class="content-title">{% block title %}Add tree{% endblock %}</div>
+<div class="content-subtitle"></div>
+<div class="content">
+    {% ifnotequal add_contest.paths None %}
+    {% ifequal add_contest.paths|length 0 %}
+    <div class="alert alert-warning">
+        <a href="#" class="close" data-dismiss="alert">×</a>
+        <h5>No contests found</h5>
+    </div>
+    {% else %}
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert">×</a>
+        <h5>Imported from</h5>
+        <ul>
+        {% for path in add_contest.paths %}
+            <li>{{ path }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endifequal %}
+    {% endifnotequal %}
+    <form action="{% url 'contest.views.contests.add_tree' %}" method="POST">
+        {% csrf_token %}
+        <div>
+            {% for field in add_contest.form %}
+                <div class="control-group{% if field.errors %} error{% endif %}">
+                    {{ field.label_tag }}
+                    <div class="controls">
+                        {{ field }}
+                        <div class="help-inline">
+                            {{ field.errors }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            <input class="btn" type="submit" name="save" value="Add" />
+        </div>
+    </form>
+</div>
+{% endblock %}

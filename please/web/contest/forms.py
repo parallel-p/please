@@ -5,7 +5,7 @@ from contest.models import *
 
 
 class AddContestForm(forms.Form):
-    path = forms.CharField(max_length=1000, required=True)
+    path = forms.CharField(label='Path to .contest file, including filename', required=True)
 
 class AddContestProblemForm(forms.Form):
     class Meta:

@@ -34,11 +34,15 @@ def import_to_database(model=None, path=None):
         model.delete()
         return None
 
-    conf = PleaseContest(os.path.join(contest_path, contest_path.split(os.sep)[-1] + '.contest')).config
+    conf = PleaseContest(contest_path).config
 
     model.name = conf.get("name", "")
-    model.id_method = conf.get("id_method", "")
-
+    method = conf.get("id_method", "")
+    if method:
+        for id in Contest.ID_METHODS:
+            if id[1] == method:
+                model.id_method = id[0]
+                break
     model.statement_name = conf['statement'].get("name", "")
     model.statement_location = conf['statement'].get("location", "")
     model.statement_date = conf['statement'].get("date", "")
@@ -74,20 +78,20 @@ def export_from_database(model=None, path=None):
     if path is not None:
         model = get_contest_by_path(path)
 
-    os.mkdir(model.path)
-    with ChangeDir(str(model.path)):
-        contest = PleaseContest(os.path.join(model.path, model.name + '.contest'), True)
-        conf = contest.config
-        conf['please_version'] = conf['please_version'] or str(globalconfig.please_version)
-        conf['name'] = str(model.name)
-        conf['id_method'] = str(model.id_method)
-        conf['statement']['name'] = str(model.statement_name)
-        conf['statement']['location'] = str(model.statement_location)
-        conf['statement']['date'] = str(model.statement_date)
-        conf['statement']['template'] = str(model.statement_template)
-        contest.save()
+    contest = PleaseContest(model.path, True)
+    conf = contest.config
+    conf['please_version'] = conf['please_version'] or str(globalconfig.please_version)
+    conf['name'] = str(model.name)
+    for id in Contest.ID_METHODS:
+        if id[0] == model.id_method:
+            conf['id_method'] = id[1]
+    conf['statement']['name'] = str(model.statement_name)
+    conf['statement']['location'] = str(model.statement_location)
+    conf['statement']['date'] = str(model.statement_date)
+    conf['statement']['template'] = str(model.statement_template)
+    contest.save()
 
-        '''
+    '''
         for solution in model.solution_set.all():
             solution.path = solution.path.replace(os.sep, '/')
             sources.append(str(solution.path))
@@ -111,7 +115,15 @@ def export_from_database(model=None, path=None):
         for sol in already_there:
             if (sol not in sources) and (sol != conf['main_solution'].replace(os.sep, '/')):
                 del_solution(sol)
-        '''
+    '''
 
-def is_contest_path(path):
-    return os.path.exists(os.path.join(path, path.split(os.sep)[-1] + '.contest'))
+def import_tree(path):
+    paths = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if file.endswith('.contest'):
+                paths.append(os.path.join(root, file))
+                contest = Contest(path=os.path.join(root, file))
+                contest.save()
+                import_to_database(contest)
+    return paths
