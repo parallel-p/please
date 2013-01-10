@@ -4,7 +4,7 @@ from please.web.problem.models import Problem
 # Create your models here.
 
 class Contest(models.Model):
-    name = models.CharField(max_length=256)
+    name = models.CharField(blank=True, max_length=256)
     path = models.CharField(max_length=1000)
 
     ID_METHODS = (('d', 'default'), 
@@ -13,10 +13,10 @@ class Contest(models.Model):
                  )
     id_method =  models.CharField(max_length=1, choices=ID_METHODS)
     
-    statement_name = models.CharField(max_length=1000)
-    statement_location = models.CharField(max_length=1000)
-    statement_date = models.CharField(max_length=1000)
-    statement_template = models.CharField(max_length=1000, default='contest.tex')
+    statement_name = models.CharField(blank=True, max_length=1000)
+    statement_location = models.CharField(blank=True, max_length=1000)
+    statement_date = models.CharField(blank=True, max_length=1000)
+    statement_template = models.CharField(blank=True, max_length=1000, default='contest.tex')
     problems = models.ManyToManyField(Problem, through='ContestProblem')
 
     def __str__(self):
