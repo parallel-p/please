@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block main %}
+<div class="content-title">Contest «{{ contest.name|default:"[no name]" }}»</div>
+<div class="content-subtitle">{{ contest.path }}</div>
+{% if error %}
+<div class="alert alert-error">
+    <a href="#" class="close" data-dismiss="alert">×</a>
+    <h4>Error</h4>
+    {{ error }}
+</div>
+{% endif %}
+<div class="content">
+    {% block content %}
+    {% endblock %}
+</div>
+{% endblock %}

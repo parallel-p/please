@@ -1,0 +1,33 @@
+{% extends 'contests/base.html' %}
+
+{% block main %}
+<div class="content-title">{% block title %}Add existing contest{% endblock %}</div>
+<div class="content-subtitle"></div>
+<div class="content">
+    {% if add_contest.is_error %}
+    <div class="alert alert-error">
+        <a href="#" class="close" data-dismiss="alert">×</a>
+        <h5>No contest found</h5>
+    </div>
+    {% endif %}
+    <form action="{% url 'contest.views.contests.add' %}" method="POST">
+        {% csrf_token %}
+        <div>
+            {% for field in add_contest.form %}
+                <div class="control-group{% if field.errors %} error{% endif %}">
+                    {{ field.label_tag }}
+                    <div class="controls">
+                        {{ field }}
+                        <div class="help-inline">
+                            {{ field.errors }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            <input class="btn" type="submit" name="save" value="Add" />
+        </div>
+    </form>
+</div>
+{% endblock %}

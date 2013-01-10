@@ -1,0 +1,38 @@
+{% extends 'contests/base.html' %}
+
+{% block main %}
+<div class="content-title">{% block title %}Contests{% endblock %}</div>
+<div class="content-subtitle"></div>
+<div class="content">
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Path</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contest in contests_list %}
+            <tr>
+                <td>{{ contest.id }}</td>
+                <td>
+                    <a href="{% url 'contest.views.contest.index' id=contest.id %}">
+                        {{ contest.name|default:'[no name]' }}
+                    </a>
+                </td>
+                <td>{{ contest.path }}</td>
+                <td>
+                {% for tag in problem.tags.all %}
+                    <a href="?tags={{tag}}">{{tag}}</a>{% if not forloop.last %},{% endif %}
+                {% endfor %}
+                </td>
+                <td>
+                    {{description}}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

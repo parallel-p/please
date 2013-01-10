@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/static/css/common.css" />
+    <script type="text/javascript" src="/static/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/codemirror.js"></script>
+    <script src="/static/js/codemirror.stex.js"></script>
+    <title>Please — {% block title %}:){% endblock %}</title>
+</head>
+
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="brand" href="/">Please</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li class="{% ifequal navbar 'problems' %}active{% endifequal %}">
+                            <a href="{% url 'problem.views.problems.index' %}">Problems</a>
+                        </li>
+                        <li class="{% ifequal navbar 'contests' %}active{% endifequal %}">
+                            <a href="{% url 'contest.views.contests.index' %}">Contests</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="sidebar">
+                {% block sidebar %}
+                {% endblock %}
+            </div>
+            <div class="fixed-fluid">
+                {% block main %}
+                {% endblock %}
+            </div>
+        </div>
+        <hr />
+        <footer class="row-fluid">
+            <div class="fixed-fluid">
+                <a href="http://code.google.com/p/please/">Please</a> © Параллель «Пэ» <a href="http://lksh.ru">ЛКШ</a>, 2012.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
