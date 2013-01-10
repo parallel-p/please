@@ -30,4 +30,8 @@
         </div>
     </div>
 </form>
+{% if pdf_exists %}
+<iframe class="statements-frame" src="{% url "contest.views.contest.view_statement" contest.id %}"></iframe>
+{% endif %}
 {% endblock %}
+

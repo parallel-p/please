@@ -1,3 +1,6 @@
+import os
+from please import globalconfig
+
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -12,5 +15,18 @@ def index(request, id):
     return render_to_response('contest/index.html', {
         'contest': contest,
         'edit_contest': edit_or_create_contest_block(request, contest),
+        'pdf_exists': os.path.isfile(os.path.abspath(os.path.join(
+                os.path.dirname(contest.path), '.statements',
+                os.path.splitext(os.path.basename(contest.path))[0] + '.pdf')))
     }, RequestContext(request))
 
+def view_statement(request, id):
+    contest = get_object_or_404(Contest.objects, id=id)
+    pdf_path = os.path.abspath(
+            os.path.join(
+                os.path.dirname(contest.path),
+                '.statements',
+                os.path.splitext(
+                    os.path.basename(contest.path))[0] + '.pdf'))
+    return HttpResponse(FileWrapper(open(pdf_path, 'rb')), content_type='application/pdf')
+    
