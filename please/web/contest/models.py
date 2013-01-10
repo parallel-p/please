@@ -5,6 +5,7 @@ from please.web.problem.models import Problem
 
 class Contest(models.Model):
     name = models.CharField(max_length=256)
+    path = models.CharField(max_length=1000)
 
     ID_METHODS = (('d', 'default'), 
                   ('a', 'alpha'), 
@@ -15,7 +16,7 @@ class Contest(models.Model):
     statement_name = models.CharField(max_length=1000)
     statement_location = models.CharField(max_length=1000)
     statement_date = models.CharField(max_length=1000)
-    statement_template = models.CharField(max_length=1000)
+    statement_template = models.CharField(max_length=1000, default='contest.tex')
     problems = models.ManyToManyField(Problem, through='ContestProblem')
 
     def __str__(self):
@@ -25,7 +26,7 @@ class ContestProblem(models.Model):
     contest = models.ForeignKey(Contest)
     problem = models.ForeignKey(Problem)
     order = models.IntegerField()
-    id_in_contest = models.CharField(max_length=256)
+    id_in_contest = models.CharField(max_length=256, blank=True, default='')
 
     def __str__(self):
         return '{} - {}'.format(self.contest, self.problem)

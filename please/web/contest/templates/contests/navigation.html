@@ -1,0 +1,28 @@
+<div class="well sidebar-nav">
+    <ul class="nav nav-list">
+        <li class="{% ifequal nav 'create' %}active{% endifequal %}">
+            <a href="{% url 'contest.views.contests.create' %}">
+                <i class="icon-plus"></i>
+                Create
+            </a>
+        </li>
+        <li class="{% ifequal nav 'add' %}active{% endifequal %}">
+            <a href="{% url 'contest.views.contests.add' %}">
+                <i class="icon-folder-close"></i>
+                Add existing
+            </a>
+        </li>
+        <li class="{% ifequal nav 'add_tree' %}active{% endifequal %}">
+            <a href="{% url 'contest.views.contests.add_tree' %}">
+                <i class="icon-list-alt"></i>
+                Add tree
+            </a>
+        </li>
+        <li class="{% ifequal nav 'import_from_polygon' %}active{% endifequal %}">
+            <a href="{% url 'contest.views.contests.import_from_polygon' %}">
+                <i class="icon-share"></i>
+                Polygon import
+            </a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,31 @@
+{% extends 'contests/base.html' %}
+
+{% block main %}
+<div class="content-title">{% block title %}Create contest{% endblock %}</div>
+<div class="content-subtitle"></div>
+<div class="content">
+    <!--<div class="row-fluid">-->
+        <form action="{% url 'contest.views.contests.create' %}" method="POST">
+            {% csrf_token %}
+            <div>
+                {% for field in edit_contest.form %}
+                    {% ifnotequal field '' %}
+                        <div class="control-group{% if field.errors %} error{% endif %}">
+                            {{ field.label_tag }}
+                            <div class="controls">
+                                {{ field }}
+                                <div class="help-inline">
+                                    {{ field.errors }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endifnotequal %}
+                {% endfor %}
+                <div>
+                    <input class="btn" type="submit" name="save" value="Save" />
+                </div>
+            </div>
+        </form>
+    <!--</div>-->
+</div>
+{% endblock %}
