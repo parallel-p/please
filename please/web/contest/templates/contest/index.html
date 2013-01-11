@@ -31,6 +31,12 @@
         </div>
     </div>
 </form>
+<p><b>Problems</b>
+<ul>
+{% for problem in contest.contestproblem_set.all %}
+    <li>{{problem.id_in_contest}}. {{ problem.problem.name }} ({{problem.problem.path}})
+{% endfor %}
+</ul>
 {% if pdf_exists %}
 <iframe class="statements-frame" src="{% url "contest.views.contest.view_statement" contest.id %}"></iframe>
 {% endif %}

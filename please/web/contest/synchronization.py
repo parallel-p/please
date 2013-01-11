@@ -6,7 +6,7 @@ from please.contest.contest import Contest as PleaseContest
 #from please.add_source.add_source import add_solution, del_solution
 from please.utils.exceptions import PleaseException
 
-from contest.models import Contest
+from contest.models import Contest, ContestProblem
 from please.web.problem.models import Problem
 from please.web.problem.views.file_utils import ChangeDir
 
@@ -47,30 +47,13 @@ def import_to_database(model=None, path=None):
     model.statement_location = conf['statement'].get("location", "")
     model.statement_date = conf['statement'].get("date", "")
     model.statement_template = conf['statement'].get("template", "contest.tex")
-
-    '''
-    old_solutions = {i.path.replace(os.sep, '/') for i in model.solution_set.all()}
-    for solution in conf.get("solution", []):
-        path = solution['source'].replace(os.sep, '/')
-        sol = Solution.objects.get_or_create(path=path, problem=model)[0]
-        old_solutions.discard(path)
-        sol.input = solution.get('input', '')
-        sol.output = solution.get('output', '')
-        sol.expected_verdicts.clear()
-        sol.possible_verdicts.clear()
-        for verdict in solution['expected']:
-            sol.expected_verdicts.add(Verdict.objects.get_or_create(name=verdict)[0])
-        for verdict in solution.get('possible'):
-            sol.possible_verdicts.add(Verdict.objects.get_or_create(name=verdict)[0])
-        if path == conf['main_solution'].replace(os.sep, '/'):
-            model.main_solution = sol
-        sol.save()
-    
-    for old in old_solutions:
-        model.solution_set.get(path=old).delete()
-    '''
-
     model.save()
+    order = 0
+    ContestProblem.objects.filter(contest=model).delete()
+    for problem in conf['problem']:
+        ContestProblem(problem=Problem.objects.get(path=os.path.join(os.path.dirname(model.path), problem['path']).replace('\\','/').rstrip('/')), 
+                       contest=model, id_in_contest=problem['id'], order=order).save()
+        order += 1
     return model
 
 def export_from_database(model=None, path=None):
