@@ -101,7 +101,7 @@ def edit_or_create_contest_block(request, contest=None):
                     raise ContestExistsException("This contest already exists")
                 contest = Contest()
                 contest.path = form.cleaned_data["path"]
-            command_create_contest(form.cleaned_data["path"], [])
+                command_create_contest(form.cleaned_data["path"][:-8], [])
             contest.name = form.cleaned_data["name"]
             contest.id_method = form.cleaned_data["id_method"]
             contest.statement_name = form.cleaned_data["statement_name"]

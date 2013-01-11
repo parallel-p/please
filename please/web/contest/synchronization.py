@@ -54,6 +54,8 @@ def import_to_database(model=None, path=None):
         ContestProblem(problem=Problem.objects.get(path=os.path.join(os.path.dirname(model.path), problem['path']).replace('\\','/').rstrip('/')), 
                        contest=model, id_in_contest=problem['id'], order=order).save()
         order += 1
+    a = Contest.objects.get(id=1)
+    print('***', a.statement_template)
     return model
 
 def export_from_database(model=None, path=None):
@@ -61,6 +63,7 @@ def export_from_database(model=None, path=None):
     if path is not None:
         model = get_contest_by_path(path)
 
+    print(model.path)
     contest = PleaseContest(model.path, True)
     conf = contest.config
     conf['please_version'] = conf['please_version'] or str(globalconfig.please_version)
@@ -71,6 +74,7 @@ def export_from_database(model=None, path=None):
     conf['statement']['name'] = str(model.statement_name)
     conf['statement']['location'] = str(model.statement_location)
     conf['statement']['date'] = str(model.statement_date)
+    print(model.statement_template)
     conf['statement']['template'] = str(model.statement_template)
     contest.save()
 
