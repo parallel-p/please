@@ -11,7 +11,9 @@ from ..models import Contest
 from .contests import edit_or_create_contest_block
 from please.contest.commands import command_generate_statement
 from please.web.problem.views.file_utils import ChangeDir
+from ..helpers import contest_sync
 
+@contest_sync(read=True, write=False)
 def index(request, id):
     contest = get_object_or_404(Contest, id=id)
     if request.method == 'POST' and 'save_and_generate' in request.POST:

@@ -31,3 +31,5 @@ class ContestProblem(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.contest, self.problem)
     
+    class Meta:
+        ordering = ['order',]

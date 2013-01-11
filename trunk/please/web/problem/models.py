@@ -50,7 +50,14 @@ class Problem(models.Model):
         """
         return str(self.short_name)
 
+    def clean(self):
+        super(Problem, self).clean()
+        self.path = self.path.replace('\\', '/').replace('//', '/').rstrip('/')
 
+    def save(self):
+        self.clean()
+        super(Problem, self).save()
+        
 class RunErrorDescription(models.Model):
     stdout = models.TextField(blank=True)
     stderr = models.TextField(blank=True)
