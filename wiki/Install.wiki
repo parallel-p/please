@@ -1,3 +1,20 @@
+==NEW! Установка please с локальным веб-клиентом под Windows 7==
+  # скачайте и установите python3.3 x86 с сайта python.org
+  # скачайте дистрибутив please из svn командой svn checkout http://please.googlecode.com/svn/ please
+  # скачайте и разархивируйте последнюю версию distribute (http://pypi.python.org/pypi/distribute)
+  # установите ее командой c:\python33\python setup.py install
+  # разархивируйте из папки please/third_party пакет HTML и установите его командой c:\python33\python setup.py install
+  # разархивируйте из папки please/third_party пакет colorama и установите его командой c:\python33\python setup.py install
+install
+  # разархивируйте из папки please/third_party пакет psutil и установите его командой c:\python33\python setup.py install
+  # установите пакет please командой c:\python33\python setup.py develop из папки please/trunk (не удаляйте эту папку после установки!)
+  # проверьте, что всё работает, запустив в консоли команду please (она лежит в c:\python33\Scripts
+
+Для запуска веб-версии:
+  # в папке please/trunk/web запустите команду c:\python33\python manage.py syncbd для создания базы данных. В ответ на вопрос о создании пользователя скажите no
+  # в папке please/trunk/web запустите команду c:\python33\python manage.py runserver
+  # откройте браузер и зайдите на страницу http://127.0.0.1:8000
+
 ==Linux==
   # скачать из раздела Downloads необходимый архив, распаковать
   # установить пакеты python3-dev
