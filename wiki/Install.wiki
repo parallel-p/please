@@ -1,4 +1,7 @@
 ==NEW! Установка please с локальным веб-клиентом под Windows 7==
+Для создания задач в please вам потребуются ТеХ, Delphi, g++, visual studio g++, java.
+Мы предполагаем, что эти продукты у вас уже установлены.
+ 
   # скачайте и установите python3.3 x86 с сайта python.org
   # скачайте дистрибутив please из svn командой svn checkout http://please.googlecode.com/svn/ please
   # скачайте и разархивируйте последнюю версию distribute (http://pypi.python.org/pypi/distribute)
@@ -11,9 +14,12 @@ install
   # проверьте, что всё работает, запустив в консоли команду please (она лежит в c:\python33\Scripts
 
 Для запуска веб-версии:
-  # в папке please/trunk/web запустите команду c:\python33\python manage.py syncbd для создания базы данных. В ответ на вопрос о создании пользователя скажите no
+  # установите django1.5 (не младше!) с djangoproject.com
+  # в папке please/trunk/please/web запустите команду c:\python33\python manage.py syncbd для создания базы данных. В ответ на вопрос о создании пользователя скажите no
   # в папке please/trunk/web запустите команду c:\python33\python manage.py runserver
   # откройте браузер и зайдите на страницу http://127.0.0.1:8000
+
+Если что-то не заработало, напишите мне (gurovic@gmail.com)
 
 ==Linux==
   # скачать из раздела Downloads необходимый архив, распаковать
