@@ -54,9 +54,9 @@ class Problem(models.Model):
         super(Problem, self).clean()
         self.path = self.path.replace('\\', '/').replace('//', '/').rstrip('/')
 
-    def save(self):
+    def save(self, force_insert=False, using=None):
         self.clean()
-        super(Problem, self).save()
+        super(Problem, self).save(force_insert=force_insert, using=using)
         
 class RunErrorDescription(models.Model):
     stdout = models.TextField(blank=True)

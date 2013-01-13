@@ -10,7 +10,7 @@ from problem.forms import ProblemEditMaterialsForm
 from problem.models import Problem
 from problem.views.file_utils import file_write, ChangeDir
 from please.latex.latex_tools import generate_problem
-
+from problem.views.file_utils import norm
 
 def edit_load_files(*args):
     exc_str = "Could not create {} file (wrong file path field?)"
@@ -29,13 +29,13 @@ def edit_load_files(*args):
 
 def edit_dict(request, id):
     model = Problem.objects.get(id=id)
-    statement_abspath = os.path.join(
-        str(model.path), str(model.statement_path)
+    statement_abspath = norm(os.path.join(
+        str(model.path), str(model.statement_path))
     )
-    description_abspath = os.path.join(
-        str(model.path), str(model.description_path)
+    description_abspath = norm(os.path.join(
+        str(model.path), str(model.description_path))
     )
-    analysis_abspath = os.path.join(str(model.path), str(model.analysis_path))
+    analysis_abspath = norm(os.path.join(str(model.path), str(model.analysis_path)))
     vals = edit_load_files(statement_abspath, description_abspath, analysis_abspath)
     if request.method == 'POST':
         form = ProblemEditMaterialsForm(request.POST)
@@ -65,10 +65,10 @@ def edit_dict(request, id):
 def gen_statement(request, id):
     problem = get_object_or_404(Problem.objects, id=id)
     with ChangeDir(str(problem.path)):
-        pdf_path = os.path.abspath(
+        pdf_path = norm(os.path.abspath(
             os.path.join(globalconfig.statements_dir,
             os.path.basename(generate_problem())
-        ))
+        )))
         response = HttpResponse(
             FileWrapper(open(pdf_path, 'rb')), content_type='application/pdf'
         )
@@ -80,10 +80,10 @@ def gen_statement(request, id):
 
 def view_statement(request, id):
     problem = get_object_or_404(Problem.objects, id=id)
-    pdf_path = os.path.abspath(
+    pdf_path = norm(os.path.abspath(
             os.path.join(
                 str(problem.path),
                 globalconfig.statements_dir,
                 os.path.splitext(
-                    os.path.basename(problem.statement_path))[0] + '.pdf'))
+                    os.path.basename(problem.statement_path))[0] + '.pdf')))
     return HttpResponse(FileWrapper(open(pdf_path, 'rb')), content_type='application/pdf')

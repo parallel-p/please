@@ -7,6 +7,7 @@ from problem.models import Problem
 from problem.forms import ProblemUploadFilesForm, AdditonalUpload
 from problem.views.file_utils import ChangeDir, file_save
 from problem.synchronization import export_from_database
+from problem.views.file_utils import norm
 
 from . import file_utils
 
@@ -19,16 +20,16 @@ def upload_main_block(request, problem):
             if form.cleaned_data['select_checker']:
                 with ChangeDir(problem.path):
                     path = standard_checkers_utils.add_standard_checker_to_solution(form.cleaned_data['select_checker'])
-                    problem.checker_path = path
+                    problem.checker_path = norm(path)
                     modified = True
             elif 'checker' in request.FILES.keys():
                 checker_file = request.FILES['checker']
-                problem.checker_path = str(checker_file.name)
+                problem.checker_path = norm(checker_file.name)
                 file_save(checker_file, problem.path)
                 modified = True
             if 'validator' in request.FILES.keys():
                 validator_file = request.FILES['validator']
-                problem.validator_path = str(validator_file.name)
+                problem.validator_path = norm(validator_file.name)
                 file_save(validator_file, problem.path)
                 modified = True
             problem.save()
