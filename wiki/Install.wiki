@@ -8,7 +8,6 @@
   # установите ее командой c:\python33\python setup.py install
   # разархивируйте из папки please/third_party пакет HTML и установите его командой c:\python33\python setup.py install
   # разархивируйте из папки please/third_party пакет colorama и установите его командой c:\python33\python setup.py install
-install
   # разархивируйте из папки please/third_party пакет psutil и установите его командой c:\python33\python setup.py install
   # установите пакет please командой c:\python33\python setup.py develop из папки please/trunk (не удаляйте эту папку после установки!)
   # проверьте, что всё работает, запустив в консоли команду please (она лежит в c:\python33\Scripts
