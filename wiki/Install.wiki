@@ -1,5 +1,5 @@
 ==NEW! Установка please с локальным веб-клиентом под Windows 7==
-Для создания задач в please вам потребуются ТеХ, Delphi, g++, visual studio g++, java.
+Для создания задач в please вам потребуются ТеХ, Delphi, visual studio C++, java.
 Мы предполагаем, что эти продукты у вас уже установлены.
  
   # скачайте и установите python3.3 x86 с сайта python.org
@@ -10,7 +10,7 @@
   # разархивируйте из папки please/third_party пакет colorama и установите его командой c:\python33\python setup.py install
   # разархивируйте из папки please/third_party пакет psutil и установите его командой c:\python33\python setup.py install
   # установите пакет please командой c:\python33\python setup.py develop из папки please/trunk (не удаляйте эту папку после установки!)
-  # проверьте, что всё работает, запустив в консоли команду please (она лежит в c:\python33\Scripts
+  # проверьте, что всё работает, запустив в консоли команду please (она лежит в c:\python33\Scripts)
 
 Для запуска веб-версии:
   # установите django1.5 (не младше!) с djangoproject.com
