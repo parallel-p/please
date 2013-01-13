@@ -55,6 +55,7 @@ class ProblemsTests(django.test.TestCase):
     def test_all_problems(self):
         resp = self.client.get("/problems/")
         self.assertEqual(resp.status_code, 200)
+        print(resp.context[:1000])
         self.assertEqual(names(resp.context["problems"]),
                 ["first", "second"])
         self.assertTemplateUsed(resp, "problems_list.html")
@@ -95,5 +96,4 @@ class ProblemsTests(django.test.TestCase):
         self.assertEqual(len(new_problems), 1)
         problem = tuple(new_problems)[0]
         self.assertEqual(problem.short_name, POLYGON_IMPORTED_PROBLEM_NAME)
-        self.assertEqual(problem.path, os.path.join(
-            POLYGON_IMPORT_TARGET_PATH, POLYGON_IMPORTED_PROBLEM_NAME))
+        self.assertEqual(problem.path, os.path.join(POLYGON_IMPORT_TARGET_PATH, POLYGON_IMPORTED_PROBLEM_NAME).replace('\\', '/'))

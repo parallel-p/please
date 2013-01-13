@@ -13,7 +13,7 @@ from problem.models import Problem, ProblemTag
 from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm, ProblemImportFromPolygonForm
 from problem.synchronization import export_from_database, import_to_database, import_tree, is_problem_path
 from problem.views.file_utils import ChangeDir, file_read
-
+from problem.views.file_utils import norm
 import os
 
 
@@ -48,7 +48,7 @@ def edit_or_create_problem_block(request, problem=None):
                 if os.path.exists(os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])):
                     raise ProblemExistsException("This problem already exists")
                 problem = import_to_database(problem, "../templates/Template/")
-                problem.path = os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"])
+                problem.path = norm(os.path.join(form.cleaned_data["path"], form.cleaned_data["short_name"]))
                 with ChangeDir(form.cleaned_data["path"]):
                     generate_problem(form.cleaned_data["short_name"])
                 if not hasattr(ProblemEditForm, 'available_tags'):
@@ -123,15 +123,15 @@ def show_tests_block(request, problem):
     SIZE_LIMIT = 40
     LINES_LIMIT = 7
 
-    tests_path = os.path.join(problem.path, globalconfig.temp_tests_dir).replace(os.sep, '/')
+    tests_path = norm(os.path.join(problem.path, globalconfig.temp_tests_dir))
     current_test = 1
     test_data = []
 
     while True:
         input_name = '{}'.format(current_test)
         output_name = '{}.a'.format(current_test)
-        input_file = os.path.join(tests_path, input_name)
-        output_file = os.path.join(tests_path, output_name)
+        input_file = norm(os.path.join(tests_path, input_name))
+        output_file = norm(os.path.join(tests_path, output_name))
 
         if not (os.path.exists(input_file) and os.path.exists(output_file)):
             break
@@ -159,8 +159,8 @@ def show_tests_block(request, problem):
 
 def show_test(request, problem_id, test_name):
     problem = get_object_or_404(Problem, id=problem_id)
-    tests_path = os.path.join(problem.path, globalconfig.temp_tests_dir).replace(os.sep, '/')
-    test_path = os.path.join(tests_path, test_name)
+    tests_path = norm(os.path.join(problem.path, globalconfig.temp_tests_dir))
+    test_path = norm(os.path.join(tests_path, test_name))
     response = HttpResponse(FileWrapper(open(test_path, 'rb')), content_type='text/plain')
     response['Content-Disposition'] = 'attachment; filename="{}"'.format(os.path.basename(test_path))
     return response
@@ -171,7 +171,7 @@ def add_problem_block(request):
     if request.method == 'POST':
         form = AddProblemForm(request.POST)
         if form.is_valid():
-            path = form.cleaned_data['path']
+            path = norm(form.cleaned_data['path'])
             if is_problem_path(path):
                 problem = Problem(path=path)
                 problem.save()
@@ -193,7 +193,7 @@ def add_tree_block(request):
     if request.method == 'POST':
         form = AddProblemForm(request.POST)
         if form.is_valid():
-            path = form.cleaned_data['path']
+            path = norm(form.cleaned_data['path'])
             return {
                 'form': form,
                 'paths': import_tree(path),
@@ -250,8 +250,8 @@ def import_from_polygon_block(request):
                         form.cleaned_data['contest_id'],
                         form.cleaned_data['problem_letter'].upper())
                 problem_name = create_problem(archive_name + ".zip")
-            problem_path = os.path.join(form.cleaned_data['target_path'],
-                    problem_name)
+            problem_path = norm(os.path.join(form.cleaned_data['target_path'],
+                    problem_name))
             problem = Problem(path=problem_path, short_name=problem_name)
             problem.save()
             import_to_database(model=problem)

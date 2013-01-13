@@ -11,13 +11,13 @@ from problem.forms import SolutionAddForm, EmptyForm
 from problem.views.file_utils import file_save
 from problem.views.file_utils import ChangeDir
 from problem.synchronization import export_from_database
-
+from problem.views.file_utils import norm
 
 def retest_solutions(request, id):
     problem = Problem.objects.get(id=id)
     solutions = [{'obj': solution,
                   'path': solution.path,
-                  'name': os.path.relpath(solution.path, please.globalconfig.solutions_dir),
+                  'name': norm(os.path.relpath(solution.path, please.globalconfig.solutions_dir)),
                   'expected_verdicts': solution.expected_verdicts.all(),
                   'possible_verdicts': solution.possible_verdicts.all()} for solution in Solution.objects.filter(problem__id=id)]
 
@@ -65,10 +65,10 @@ def upload_solution(request, id):
         if 'submit_file' in form.data:
             if form.is_valid() and request.FILES:
                 solution = Solution(problem=problem)
-                directory = os.path.join(str(problem.path), 'solutions')
-                solution.path = os.path.relpath(
+                directory = norm(os.path.join(str(problem.path), 'solutions'))
+                solution.path = norm(os.path.relpath(
                         file_save(request.FILES['solution_file'], directory),
-                        start=str(problem.path))
+                        start=str(problem.path)))
                 solution.input = form.cleaned_data['input_file_name']
                 solution.output = form.cleaned_data['output_file_name']
                 solution.save()

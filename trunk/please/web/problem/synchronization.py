@@ -8,26 +8,18 @@ from please.utils.exceptions import PleaseException
 
 from problem.models import Problem, ProblemTag, WellDone, Solution, Verdict
 from problem.views.file_utils import ChangeDir
-
+from problem.views.file_utils import norm
 
 def get_problem_by_path(path):
-    try:
-        model = Problem.objects.get(path=path)
-    except Problem.DoesNotExist:
-        if path[-1] == os.sep:
-            path = path[:-1]
-        else:
-            path += os.sep
-        model = Problem.objects.get_or_create(path=path)[0]
+    model = Problem.objects.get_or_create(path=norm(path))[0]
     return model
-
 
 def import_to_database(model=None, path=None, name=globalconfig.default_package):
     assert ((model is None) != (path is None))
     if path is not None:
-        model = get_problem_by_path(path)
+        model = get_problem_by_path(norm(path))
 
-    problem_path = path or str(model.path)
+    problem_path = norm(path or str(model.path))
 
     if not os.path.exists(problem_path):
         model.delete()
@@ -43,18 +35,18 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
     model.time_limit = float(conf.get("time_limit", "2.0"))
     model.memory_limit = int(conf.get("memory_limit", "268435456"))
 
-    model.checker_path = os.path.relpath(conf.get("checker", ""), os.path.abspath(problem_path)) if conf.get("checker", "") != "" else ""
-    model.validator_path = conf.get("validator", "")
+    model.checker_path = norm(os.path.relpath(conf.get("checker", ""), os.path.abspath(problem_path)) if conf.get("checker", "") != "" else "")
+    model.validator_path = norm(conf.get("validator", ""))
 
-    model.statement_path = conf.get("statement", "")
-    model.description_path = conf.get("description", "")
-    model.analysis_path = conf.get("analysis", "")
+    model.statement_path = norm(conf.get("statement", ""))
+    model.description_path = norm(conf.get("description", ""))
+    model.analysis_path = norm(conf.get("analysis", ""))
 
     model.hand_answer_extension = conf.get("hand_answer_extension", "")
 
-    old_solutions = {i.path.replace(os.sep, '/') for i in model.solution_set.all()}
+    old_solutions = {norm(i.path) for i in model.solution_set.all()}
     for solution in conf.get("solution", []):
-        path = solution['source'].replace(os.sep, '/')
+        path = norm(solution['source'])
         sol = Solution.objects.get_or_create(path=path, problem=model)[0]
         old_solutions.discard(path)
         sol.input = solution.get('input', '')
@@ -65,7 +57,7 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
             sol.expected_verdicts.add(Verdict.objects.get_or_create(name=verdict)[0])
         for verdict in solution.get('possible'):
             sol.possible_verdicts.add(Verdict.objects.get_or_create(name=verdict)[0])
-        if path == conf['main_solution'].replace(os.sep, '/'):
+        if path == norm(conf['main_solution']):
             model.main_solution = sol
         sol.save()
 
@@ -97,9 +89,9 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
 def export_from_database(model=None, path=None, name=globalconfig.default_package):
     assert (model is None) != (path is None)
     if path is not None:
-        model = get_problem_by_path(path)
+        model = get_problem_by_path(norm(path))
 
-    with ChangeDir(str(model.path)):
+    with ChangeDir(model.path):
         try:
             conf = PackageConfig.get_config('.', name)
         except TypeError:  # Seemingly, this is due to a lacking please_verion.
@@ -126,9 +118,9 @@ def export_from_database(model=None, path=None, name=globalconfig.default_packag
         conf.write()
 
         sources = []
-        already_there = [x['source'].replace(os.sep, '/') for x in conf['solution']]
+        already_there = [norm(x['source']) for x in conf['solution']]
         for solution in model.solution_set.all():
-            solution.path = solution.path.replace(os.sep, '/')
+            solution.path = norm(solution.path)
             sources.append(str(solution.path))
             if str(solution.path) in already_there:
                 continue
@@ -160,7 +152,7 @@ def import_tree(path):
     paths = []
     for root, dirs, files in os.walk(path):
         if is_problem_path(root):
-            paths.append(root)
+            paths.append(norm(root))
             problem = Problem(path=root)
             problem.save()
             import_to_database(problem)

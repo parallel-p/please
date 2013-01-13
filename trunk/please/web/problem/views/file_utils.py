@@ -1,5 +1,10 @@
 import os
 
+def norm(path):
+    ''' 
+    Normalize path: uses / instead \ , no / at the end.
+    '''
+    return path.replace('\\', '/').rstrip('/')
 
 class ChangeDir:
     def __init__(self, path):
@@ -21,7 +26,8 @@ def list_files_flat(startpath):
             for file in files:
                 path = os.path.join(root, file)[2:]
                 if path[0] != '.':
-                    yield path
+                    print(norm(path))
+                    yield norm(path)
 
 
 def file_save(temp_file, path):
