@@ -9,6 +9,7 @@ from please.utils.exceptions import PleaseException
 from contest.models import Contest, ContestProblem
 from please.web.problem.models import Problem
 from please.web.problem.views.file_utils import ChangeDir
+from please.web.problem.views.file_utils import norm
 
 
 def get_contest_by_path(path):
@@ -51,8 +52,10 @@ def import_to_database(model=None, path=None):
     order = 0
     ContestProblem.objects.filter(contest=model).delete()
     for problem in conf['problem']:
-        ContestProblem(problem=Problem.objects.get(path=os.path.join(os.path.dirname(model.path), problem['path']).replace('\\','/').rstrip('/')), 
-                       contest=model, id_in_contest=problem['id'], order=order).save()
+        ContestProblem(problem=Problem.objects.get(path=norm(os.path.join(os.path.dirname(model.path), problem['path']))), 
+                       contest=model, id_in_contest=problem['id'], order=order
+                       
+                       ).save()
         order += 1
     a = Contest.objects.get(id=1)
     return model
