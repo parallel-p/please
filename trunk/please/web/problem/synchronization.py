@@ -140,7 +140,7 @@ def export_from_database(model=None, path=None, name=globalconfig.default_packag
             except PleaseException:
                 solution.delete()
         for sol in already_there:
-            if (sol not in sources) and (sol != conf['main_solution'].replace(os.sep, '/')):
+            if (sol not in sources) and (sol != norm(conf['main_solution'])):
                 del_solution(sol)
 
 
