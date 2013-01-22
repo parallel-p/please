@@ -14,6 +14,7 @@
 
 Для запуска веб-версии:
   # установите django1.5 (не младше!) с djangoproject.com
+  # установите django-mptt из /third-party/
   # в папке please/trunk/please/web запустите команду c:\python33\python manage.py syncbd для создания базы данных. В ответ на вопрос о создании пользователя скажите no
   # в папке please/trunk/web запустите команду c:\python33\python manage.py runserver
   # откройте браузер и зайдите на страницу http://127.0.0.1:8000
