@@ -4,7 +4,12 @@ def norm(path):
     ''' 
     Normalize path: uses / instead \ , no / at the end.
     '''
-    return path.replace('\\', '/').rstrip('/')
+    path = path.replace('\\', '/').rstrip('/')
+    # WIN hack:
+    if len(path) > 1 and path[1] == ':': # C:/...
+       path = path.lower()
+
+    return path
 
 class ChangeDir:
     def __init__(self, path):

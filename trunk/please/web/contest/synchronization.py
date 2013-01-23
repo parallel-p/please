@@ -8,9 +8,7 @@ from please.utils.exceptions import PleaseException
 
 from contest.models import Contest, ContestProblem
 from please.web.problem.models import Problem
-from please.web.problem.views.file_utils import ChangeDir
-from please.web.problem.views.file_utils import norm
-
+from please.web.problem.views.file_utils import ChangeDir, norm
 
 def get_contest_by_path(path):
     try:
@@ -53,9 +51,7 @@ def import_to_database(model=None, path=None):
     ContestProblem.objects.filter(contest=model).delete()
     for problem in conf['problem']:
         ContestProblem(problem=Problem.objects.get(path=norm(os.path.join(os.path.dirname(model.path), problem['path']))), 
-                       contest=model, id_in_contest=problem['id'], order=order
-                       
-                       ).save()
+                       contest=model, id_in_contest=problem['id'], order=order).save()
         order += 1
     a = Contest.objects.get(id=1)
     return model
@@ -80,7 +76,7 @@ def export_from_database(model=None, path=None):
 
     '''
         for solution in model.solution_set.all():
-            solution.path = solution.path.replace(os.sep, '/')
+            solution.path = norm(solution.path)
             sources.append(str(solution.path))
             if str(solution.path) in already_there:
                 continue
@@ -100,7 +96,7 @@ def export_from_database(model=None, path=None):
             except PleaseException:
                 solution.delete()
         for sol in already_there:
-            if (sol not in sources) and (sol != conf['main_solution'].replace(os.sep, '/')):
+            if (sol not in sources) and (sol != norm(conf['main_solution'])):
                 del_solution(sol)
     '''
 
