@@ -15,9 +15,7 @@ from ..helpers import contest_sync
 
 @contest_sync(read=True, write=True)
 def index(request, id):
-    print('aaaa')
     contest = get_object_or_404(Contest, id=id)
-    print(contest.statement_template)
     if request.method == 'POST' and 'save_and_generate' in request.POST:
         with ChangeDir(os.path.dirname(contest.path)):
             command_generate_statement(os.path.basename(contest.path[:-8]))
