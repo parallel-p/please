@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse
 
-from ..models import Contest
+from ..models import Contest, ContestProblem
 from .contests import edit_or_create_contest_block
 from please.contest.commands import command_generate_statement
 from please.web.problem.views.file_utils import ChangeDir
@@ -38,3 +38,7 @@ def view_statement(request, id):
                     os.path.basename(contest.path))[0] + '.pdf'))
     return HttpResponse(FileWrapper(open(pdf_path, 'rb')), content_type='application/pdf')
     
+@contest_sync(read=False, write=True)
+def delete_problem(request, id, problem_id):
+    ContestProblem.objects.filter(problem__id=problem_id, contest__id=id).delete()
+    return redirect('/contests/{}'.format(id))

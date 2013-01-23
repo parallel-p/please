@@ -1,6 +1,22 @@
 <div class="well sidebar-nav">
     <ul class="nav nav-list">
         <li class="{% ifequal nav 'create' %}active{% endifequal %}">
+            <a href="{% url 'contest.views.contests.index' %}">
+                <i class="icon-th"></i>
+                Contest table
+            </a>
+        </li>
+        <li class="{% ifequal nav 'add' %}active{% endifequal %}">
+            <a href="{% url 'contest.views.tree.show_categories' %}">
+                <i class="icon-list"></i>
+                Contest tree
+            </a>
+    </ul>
+</div>
+
+<div class="well sidebar-nav">
+    <ul class="nav nav-list">
+        <li class="{% ifequal nav 'create' %}active{% endifequal %}">
             <a href="{% url 'contest.views.contests.create' %}">
                 <i class="icon-plus"></i>
                 Create
@@ -15,7 +31,7 @@
         <li class="{% ifequal nav 'add_tree' %}active{% endifequal %}">
             <a href="{% url 'contest.views.contests.add_tree' %}">
                 <i class="icon-list-alt"></i>
-                Add tree
+                Add several
             </a>
         </li>
     </ul>

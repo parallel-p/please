@@ -32,9 +32,8 @@
     </div>
 </form>
 <p><b>Problems</b>
-<ul>
 {% for problem in contest.contestproblem_set.all %}
-    <li>{{problem.id_in_contest}}. {{ problem.problem.name }} ({{problem.problem.path}})
+    <p><a href="{% url 'delete' contest.id problem.problem.id %}">X</a> {{problem.id_in_contest}}. {{ problem.problem.name }} ({{problem.problem.path}})
 {% endfor %}
 </ul>
 {% if pdf_exists %}

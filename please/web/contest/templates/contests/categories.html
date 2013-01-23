@@ -1,0 +1,27 @@
+{% extends 'contests/base.html' %}
+
+{% block main %}
+<div class="content-title">{% block title %}Contest Tree{% endblock %}</div>
+{% load mptt_tags %}
+<ul>
+    {% recursetree nodes %}
+        <li>{{ node.name }}</a>
+        {% if not node.is_leaf_node %}
+            <ul class="children">
+                {{ children }}
+            </ul>
+        {% else %}
+           <ul>
+           {% for contestnode in node.contestnode_set.all %}
+               <li>
+                   <a href="{%url 'contest' contestnode.contest.id %}">
+                      #{{ contestnode.contest.id }}. <em>{{ contestnode.contest.name|default:'[no name]' }}</em> {{ contestnode.contest.path }}
+                   </a>
+               </li>
+           {% endfor %}
+           </ul>
+        {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>
+{% endblock %}
