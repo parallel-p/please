@@ -7,6 +7,14 @@ from contest.models import *
 class AddContestForm(forms.Form):
     path = forms.CharField(required=True)
 
+def choices():
+    contests = Contest.objects.all()
+    return [[contest.id, str(contest)] for contest in contests]
+
+class CopyContestForm(forms.Form):
+    contest = forms.ChoiceField(choices=choices())
+    new_contest_file = forms.CharField(required=True)
+
 class AddContestProblemForm(forms.ModelForm):
     class Meta:
         model = ContestProblem
