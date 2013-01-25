@@ -31,7 +31,7 @@ def list_files_flat(startpath):
             for file in files:
                 path = os.path.join(root, file)[2:]
                 if path[0] != '.':
-                    print(norm(path))
+                    # print(norm(path))
                     yield norm(path)
 
 

@@ -48,7 +48,7 @@ class Problem(models.Model):
         >>> str(Problem(short_name="abc"))
         'abc'
         """
-        return str(self.short_name)
+        return '#{}. {} ({})'.format(self.id, self.short_name, self.path)
 
     def clean(self):
         super(Problem, self).clean()

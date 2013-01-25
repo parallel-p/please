@@ -5,7 +5,7 @@
 {% block content %}
 <div class="row-fluid">
 <div class="span6">
-<form action="{% url 'contest.views.contest.index' id=contest.id %}" method="POST">
+<form action="{% url 'contest' id=contest.id %}" method="POST">
     {% csrf_token %}
     <div class="row-fluid">
         <div class="span6">
@@ -41,6 +41,14 @@
        {{problem.id_in_contest}}. 
        <a href="{% url 'problem' problem.problem.id %}">{{ problem.problem.name }}</a> ({{problem.problem.path}})
 {% endfor %}
+<p><b>Insert problem</b>
+<form action="{% url 'insert_problem' id=contest.id %}" method="POST">
+    {% csrf_token %}
+    {% for field in insert_problem.form %}
+        {{ field.label}} {{ field }} 
+    {% endfor%}
+    <input class="btn" type="submit" name="Insert" value="Insert" />
+</form>
 </ul>
 </div>
 </div>

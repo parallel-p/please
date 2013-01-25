@@ -7,10 +7,10 @@ from contest.models import *
 class AddContestForm(forms.Form):
     path = forms.CharField(required=True)
 
-class AddContestProblemForm(forms.Form):
+class AddContestProblemForm(forms.ModelForm):
     class Meta:
         model = ContestProblem
-        fields = ('problem', 'id_in_contest')
+        fields = ('id_in_contest', 'problem')
 
 class ContestEditForm(forms.ModelForm):
     class Meta:
