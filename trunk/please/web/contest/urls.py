@@ -13,4 +13,5 @@ urlpatterns = patterns('',
     url(r'^s/add_tree/$', 'contest.views.contests.add_tree'),
     url(r'^s/import/polygon/$', 'contest.views.contests.import_from_polygon'),
     url(r'^s/tree/$', 'contest.views.tree.show_categories'),
+    url(r'^s/(?P<id>\d+)/insert_problem/$', 'contest.views.contest.index', name = 'insert_problem'), 
     )

@@ -91,7 +91,7 @@ def create(request):
 
 def edit_or_create_contest_block(request, contest=None):
     is_success = False
-    if request.method == 'POST':
+    if request.method == 'POST' and 'Insert' not in request.POST:
         form = ContestEditForm(request.POST)
         if form.is_valid():
             if contest is None:

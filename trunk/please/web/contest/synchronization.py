@@ -75,7 +75,7 @@ def export_from_database(model=None, path=None):
     contest.save()
     with ChangeDir(os.path.dirname(model.path)):
         for problem in problems:
-            contest.problem_add(os.path.basename(problem.problem.path), problem.id_in_contest)
+            contest.problem_add(problem.problem.path, problem.id_in_contest)
     contest.save()
     '''
         for solution in model.solution_set.all():
