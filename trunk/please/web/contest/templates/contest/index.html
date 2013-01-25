@@ -37,7 +37,14 @@
 <div class="span6">
 <b>Problems</b>
 {% for problem in contest.contestproblem_set.all %}
-    <p><a href="{% url 'delete' contest.id problem.problem.id %}">X</a> 
+    <p>
+       <a href="{% url 'delete' contest.id problem.id %}"><i class="icon-remove"></i></a> 
+       {% if forloop.counter0 %}
+       <a href="{% url 'up' contest.id problem.id %}"><i class="icon-arrow-up"></i></a> 
+       {% endif %}
+       {% if forloop.revcounter0 %}
+       <a href="{% url 'down' contest.id problem.id %}"><i class="icon-arrow-down"></i></a> 
+       {% endif %}
        {{problem.id_in_contest}}. 
        <a href="{% url 'problem' problem.problem.id %}">{{ problem.problem.name }}</a> ({{problem.problem.path}})
 {% endfor %}

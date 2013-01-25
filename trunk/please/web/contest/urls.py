@@ -14,4 +14,6 @@ urlpatterns = patterns('',
     url(r'^s/import/polygon/$', 'contest.views.contests.import_from_polygon'),
     url(r'^s/tree/$', 'contest.views.tree.show_categories'),
     url(r'^s/(?P<id>\d+)/insert_problem/$', 'contest.views.contest.index', name = 'insert_problem'), 
+    url(r'^s/(\d+)/up/(\d+)$', 'contest.views.contest.problem_up', name = 'up'), 
+    url(r'^s/(\d+)/down/(\d+)$', 'contest.views.contest.problem_down', name = 'down'), 
     )
