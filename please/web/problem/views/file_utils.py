@@ -4,7 +4,7 @@ def norm(path):
     ''' 
     Normalize path: uses / instead \ , no / at the end.
     '''
-    path = path.replace('\\', '/').rstrip('/')
+    path = path.replace('\\', '/').replace('/./','/').rstrip('/')
     # WIN hack:
     if len(path) > 1 and path[1] == ':': # C:/...
        path = path.lower()
