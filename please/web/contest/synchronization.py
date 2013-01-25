@@ -62,7 +62,6 @@ def export_from_database(model=None, path=None):
     os.remove(model.path)
     contest = PleaseContest(model.path, True)
     conf = contest.config
-    print(conf['problems'])
     conf['please_version'] = conf['please_version'] or str(globalconfig.please_version)
     conf['name'] = str(model.name)
     for id in Contest.ID_METHODS:

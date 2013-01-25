@@ -37,7 +37,9 @@
 <div class="span6">
 <b>Problems</b>
 {% for problem in contest.contestproblem_set.all %}
-    <p><a href="{% url 'delete' contest.id problem.problem.id %}">X</a> {{problem.id_in_contest}}. {{ problem.problem.name }} ({{problem.problem.path}})
+    <p><a href="{% url 'delete' contest.id problem.problem.id %}">X</a> 
+       {{problem.id_in_contest}}. 
+       <a href="{% url 'problem' problem.problem.id %}">{{ problem.problem.name }}</a> ({{problem.problem.path}})
 {% endfor %}
 </ul>
 </div>
