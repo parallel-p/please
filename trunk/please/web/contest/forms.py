@@ -10,7 +10,7 @@ class AddContestForm(forms.Form):
 class AddContestProblemForm(forms.Form):
     class Meta:
         model = ContestProblem
-        fields = ('contest', 'problem', 'order', 'id_in_contest')
+        fields = ('problem', 'id_in_contest')
 
 class ContestEditForm(forms.ModelForm):
     class Meta:
