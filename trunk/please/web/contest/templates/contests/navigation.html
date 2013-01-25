@@ -34,5 +34,11 @@
                 Add several
             </a>
         </li>
+        <li class="{% ifequal nav 'copy_contest' %}active{% endifequal %}">
+            <a href="{% url 'contest.views.contests.copy_contest' %}">
+                <i class="icon-tags"></i>
+                Copy
+            </a>
+        </li>
     </ul>
 </div>

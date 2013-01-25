@@ -1,8 +1,12 @@
+from shutil import copyfile
+import os
+
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse
+
 
 #from please.template.problem_template_generator import generate_problem
 #from please.import_from_polygon import download_zip, create_problem
@@ -11,11 +15,11 @@ from django.http import HttpResponse
 
 from please.contest.commands import command_create_contest
 from contest.models import Contest                   
-from contest.forms import AddContestForm, ContestEditForm
+from contest.forms import CopyContestForm, AddContestForm, ContestEditForm
 from contest.synchronization import import_to_database, export_from_database, import_tree
-from please.web.problem.views.file_utils import ChangeDir, file_read
+from please.web.problem.views.file_utils import ChangeDir, file_read, norm
 
-import os
+
 
 class NoDirectoryException(Exception):
     pass
@@ -59,6 +63,38 @@ def add_contest_block(request):
                 is_error = True
     else:
         form = AddContestForm()
+    return {
+        'form': form,
+        'is_success': is_success,
+        'is_error': is_error,
+    }
+
+
+def copy_contest(request):
+    block = copy_contest_block(request)
+    if block['is_success']:
+        return redirect(reverse('contest.views.contests.index'))
+    return render_to_response('contests/copy_contest.html', {
+        'nav': 'copy',
+        'copy_contest': block,
+    }, RequestContext(request))
+
+def copy_contest_block(request):
+    print(111)
+    is_success, is_error = False, False
+    if request.method == 'POST':
+        form = CopyContestForm(request.POST)
+        if form.is_valid():
+            new_path = norm(form.cleaned_data['new_contest_file'])
+            old_path = Contest.objects.get(id=form.cleaned_data['contest']).path
+            copyfile(old_path, new_path)
+            contest = Contest(path=new_path)
+            contest.save()
+            import_to_database(path=new_path)
+            contest.save()
+            is_success = True
+    else:
+        form = CopyContestForm()
     return {
         'form': form,
         'is_success': is_success,
