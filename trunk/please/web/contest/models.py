@@ -5,7 +5,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 # Create your models here.
 
 class Category(MPTTModel):
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50, unique=False)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
     order = models.IntegerField(max_length=4)
 

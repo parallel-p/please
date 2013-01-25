@@ -2,8 +2,7 @@ import os
 
 from please import globalconfig
 from please.contest.contest import Contest as PleaseContest
-#from please.package.config import ConfigFile
-#from please.add_source.add_source import add_solution, del_solution
+from please.package.config import Config
 from please.utils.exceptions import PleaseException
 
 from contest.models import Contest, ContestProblem
@@ -60,9 +59,10 @@ def export_from_database(model=None, path=None):
     assert (model is None) != (path is None)
     if path is not None:
         model = get_contest_by_path(path)
-
+    os.remove(model.path)
     contest = PleaseContest(model.path, True)
     conf = contest.config
+    print(conf['problems'])
     conf['please_version'] = conf['please_version'] or str(globalconfig.please_version)
     conf['name'] = str(model.name)
     for id in Contest.ID_METHODS:
@@ -72,8 +72,12 @@ def export_from_database(model=None, path=None):
     conf['statement']['location'] = str(model.statement_location)
     conf['statement']['date'] = str(model.statement_date)
     conf['statement']['template'] = str(model.statement_template)
+    problems = ContestProblem.objects.filter(contest=model)
     contest.save()
-
+    with ChangeDir(os.path.dirname(model.path)):
+        for problem in problems:
+            contest.problem_add(os.path.basename(problem.problem.path), problem.id_in_contest)
+    contest.save()
     '''
         for solution in model.solution_set.all():
             solution.path = norm(solution.path)
