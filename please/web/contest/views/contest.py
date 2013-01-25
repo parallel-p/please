@@ -49,6 +49,7 @@ def insert_problem(request, contest):
         if form.is_valid():
             problem = form.cleaned_data['problem']
             id_in_contest = form.cleaned_data['id_in_contest']
+            order = ContestProblem.objects.filter(contest=contest).count()
             ContestProblem(problem=problem, id_in_contest=id_in_contest, order=100, contest=contest).save()           
     else:
         form = AddContestProblemForm()
