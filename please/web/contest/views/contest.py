@@ -40,7 +40,11 @@ def view_statement(request, id):
     
 @contest_sync(read=False, write=True)
 def delete_problem(request, id, problem_id):
-    ContestProblem.objects.filter(problem__id=problem_id, contest__id=id).delete()
+    ContestProblem.objects.get(id=problem_id).delete()
+    probs = ContestProblem.objects.filter(contest__id=id)
+    for i in range(len(probs)):
+        probs[i].order = i
+        probs[i].save()
     return redirect('/contests/{}'.format(id))
 
 def insert_problem(request, contest):
@@ -56,3 +60,24 @@ def insert_problem(request, contest):
     return {
         'form': form,
     }
+
+@contest_sync(read=True, write=True)
+def problem_up(request, id, problem_id):
+    prob2 = ContestProblem.objects.get(id=problem_id)
+    prob1 = ContestProblem.objects.get(order=prob2.order - 1, contest__id=id)
+    print(prob1.order, prob2.order)
+    prob1.order, prob2.order = prob2.order, prob1.order
+    print(prob1.order, prob2.order)
+    prob1.save()
+    prob2.save()
+    return redirect('/contests/{}'.format(id))
+
+@contest_sync(read=True, write=True)
+def problem_down(request, id, problem_id):
+    prob2 = ContestProblem.objects.get(id=problem_id)
+    prob1 = ContestProblem.objects.get(order=prob2.order + 1, contest__id=id)
+    prob1.order, prob2.order = prob2.order, prob1.order
+    prob1.save()
+    prob2.save()
+    return redirect('/contests/{}'.format(id))
+
