@@ -24,5 +24,11 @@
                 Polygon import
             </a>
         </li>
+        <li class="{% ifequal nav 'copy_problem' %}active{% endifequal %}">
+            <a href="{% url 'problem.views.problems.copy_problem' %}">
+                <i class="icon-tags"></i>
+                Copy
+            </a>
+        </li>
     </ul>
 </div>
