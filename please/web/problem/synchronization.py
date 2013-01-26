@@ -28,6 +28,7 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
     conf = PackageConfig.get_config(problem_path, name, ignore_cache=True)
 
     model.name = conf.get("name", "")
+    print(111, model.name)
     model.short_name = conf.get("shortname", "")
 
     model.input = conf.get("input", "")
@@ -83,6 +84,7 @@ def import_to_database(model=None, path=None, name=globalconfig.default_package)
             pass
 
     model.save()
+    print(model.id, model.name)
     return model
 
 

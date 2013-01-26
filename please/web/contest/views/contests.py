@@ -80,7 +80,6 @@ def copy_contest(request):
     }, RequestContext(request))
 
 def copy_contest_block(request):
-    print(111)
     is_success, is_error = False, False
     if request.method == 'POST':
         form = CopyContestForm(request.POST)

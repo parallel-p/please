@@ -135,3 +135,11 @@ def tags_edit_form(problem):
 
 class EmptyForm(forms.Form):
     pass
+
+def choices():
+    problems = Problem.objects.all()
+    return [[problem.id, str(problem)] for problem in problems]
+
+class CopyProblemForm(forms.Form):
+    problem = forms.ChoiceField(choices=choices())
+    copy_to = forms.CharField(required=True)

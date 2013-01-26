@@ -1,3 +1,6 @@
+import os
+from shutil import copytree
+
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -10,11 +13,10 @@ from please.cleaner.cleaner import Cleaner
 from please import globalconfig
 
 from problem.models import Problem, ProblemTag
-from problem.forms import ProblemEditForm, ProblemSearch, AddProblemForm, ProblemImportFromPolygonForm
+from problem.forms import CopyProblemForm, ProblemEditForm, ProblemSearch, AddProblemForm, ProblemImportFromPolygonForm
 from problem.synchronization import export_from_database, import_to_database, import_tree, is_problem_path
 from problem.views.file_utils import ChangeDir, file_read
 from problem.views.file_utils import norm
-import os
 
 
 def index(request):
@@ -273,3 +275,41 @@ def import_from_polygon(request):
     return render_to_response('problems/polygon.html', {
         'polygon': block,
     }, RequestContext(request))
+
+
+def copy_problem(request):
+    block = copy_problem_block(request)
+    if block['is_success']:
+        print('***', block)
+        return redirect(reverse('problem.views.problems.index'))
+    return render_to_response('problems/copy_problems.html', {
+        'nav': 'copy',
+        'copy_problem': block,
+    }, RequestContext(request))
+
+def copy_problem_block(request):
+    is_success, is_error = False, False
+    if request.method == 'POST':
+        form = CopyProblemForm(request.POST)
+        if form.is_valid():
+            new_path = norm(form.cleaned_data['copy_to'])
+            old_path = Problem.objects.get(id=form.cleaned_data['problem']).path
+            copytree(old_path, new_path)
+            problem = Problem(path=new_path)
+            problem.save()
+            problem = import_to_database(path=new_path)
+            problem.save()
+            is_success = True
+            print(111, problem.id, problem.name)
+            id = problem.id
+            prob = Problem.objects.get(id=id)
+            print(222, prob.id, prob.name)
+    else:
+        form = CopyProblemForm()
+    return {
+        'form': form,
+        'is_success': is_success,
+        'is_error': is_error,
+    }
+
+
