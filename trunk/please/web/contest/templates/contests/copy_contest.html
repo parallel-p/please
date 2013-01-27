@@ -1,0 +1,27 @@
+{% extends 'contests/base.html' %}
+
+{% block main %}
+<div class="content-title">{% block title %}Copy contest{% endblock %}</div>
+<div class="content-subtitle"></div>
+<div class="content">
+    <form action="{% url 'contest.views.contests.copy_contest' %}" method="POST">
+        {% csrf_token %}
+        <div>
+            {% for field in copy_contest.form %}
+                <div class="control-group{% if field.errors %} error{% endif %}">
+                    {{ field.label_tag }}
+                    <div class="controls">
+                        {{ field }}
+                        <div class="help-inline">
+                            {{ field.errors }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            <input class="btn" type="submit" name="save" value="Copy" />
+        </div>
+    </form>
+</div>
+{% endblock %}
