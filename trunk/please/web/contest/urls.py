@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^s/(?P<id>\d+)/insert_problem/$', 'contest.views.contest.index', name = 'insert_problem'), 
     url(r'^s/(\d+)/up/(\d+)$', 'contest.views.contest.problem_up', name = 'up'), 
     url(r'^s/(\d+)/down/(\d+)$', 'contest.views.contest.problem_down', name = 'down'), 
+    url(r'^s/(\d+)/export_to_tester/$', 'contest.views.contest.export_to_tester', name = 'export_to_tester'), 
     )

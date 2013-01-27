@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-import configparser, os, io
+import configparser, os, io, sys
 
 # run_tests.py will run ejudge_formatter test correct only with relative imports
 try:
@@ -34,7 +33,7 @@ class EjudgeContest:
                     self.__static += line
 
         for problem in self.__problems_raw:
-            problem_config = configparser.RawConfigParser(allow_no_value = True)
+            problem_config = configparser.RawConfigParser(allow_no_value=True)
             problem_config.read_string(problem)
             ej_problem = EjudgeProblem(problem_config['problem'], problem)
             if ej_problem.abstract:
@@ -215,7 +214,6 @@ def export(inp, out):
     to_copy = []
     for problem in new_problems:
         to_copy.append(EjudgeProblemToCopy(no_quotes(problem.internal_name), no_quotes(problem.internal_name), problem.checker_ext))
-
     if contest.get_version() == 0:
         formatter = ejudge_formatter.OldEjudgeFormatter(to_copy)
     else:
