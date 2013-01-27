@@ -58,6 +58,7 @@
 </form>
 </ul>
 </div>
+<a href="{% url 'export_to_tester' contest.id %}">Export to Testing Server</a>
 </div>
 {% if pdf_exists %}
 <iframe height="1000" class="statements-frame" src="{% url "contest.views.contest.view_statement" contest.id %}"></iframe>

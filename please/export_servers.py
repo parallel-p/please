@@ -7,7 +7,17 @@ servers = {
       'host' : 'ejudge.lksh.ru',
       'port' : '22',
       'login' : 'ejudge',
-      'password' : 'axeiraod',
+      'password' : '********',
+      'destination' : '/home/judges/'
+    },
+    libs = []
+  ),
+  'contest' : EjudgeExporter(
+    network = {
+      'host' : 'contest.mccme.ru',
+      'port' : '22',
+      'login' : 'ejudge',
+      'password' : '********',
       'destination' : '/home/judges/'
     },
     libs = []

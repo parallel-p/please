@@ -1,0 +1,27 @@
+{% extends 'contest/base.html' %}
+
+{% block main %}
+<div class="content-title">{% block title %}Export contest to testing server{% endblock %}</div>
+<div class="content-subtitle"></div>
+<div class="content">
+    <form action="{% url 'contest.views.contest.export_to_tester' id %}" method="POST">
+        {% csrf_token %}
+        <div>
+            {% for field in export_to_tester.form %}
+                <div class="control-group{% if field.errors %} error{% endif %}">
+                    {{ field.label_tag }}
+                    <div class="controls">
+                        {{ field }}
+                        <div class="help-inline">
+                            {{ field.errors }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            <input class="btn" type="submit" name="export_to_tester" value="Export to tester" />
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -22,23 +22,23 @@ class EjudgeExporter(GenericExporter):
     def get_script(self):
         return globalconfig.export_scripts['ejudge']
     def run_script(self):
-        self.connector.run_command('cd '+ self.network['destination'] + '/' + self.contest_id + '/please_tmp/ ; '+ 
-                                   '/usr/bin/env python3 ' + self.network['destination'] + '/' + 
-                                   self.contest_id + '/please_tmp/' + globalconfig.export_scripts['ejudge']['run'])
+      self.connector.run_command('cd {}; /usr/bin/env python3.2 {}'.format(os.path.join(self.network['destination'], self.contest_id, 'please_tmp'),
+os.path.join(self.network['destination'], self.contest_id , 'please_tmp', globalconfig.export_scripts['ejudge']['run'])).replace('\\', '/'))
+
     def create_archive(self):
         for problem in self.problems:
             conf = PackageConfig.get_config(dir = problem)
             # TODO: check if conf is None
             #with open(problem + os.path.sep + 'default.package', 'r') as configfile:
             #    conf = config.Config(configfile.read())
-            config.create_simple_config(problem + os.path.sep + 'default.simple', conf)
+            config.create_simple_config(os.path.join(problem, 'default.simple'), conf)
         for need_src in globalconfig.export_scripts['ejudge']['scripts']:
-            self.archiver.add(globalconfig.root + os.path.sep + need_src, os.path.split(need_src)[-1])
+            self.archiver.add(os.path.join(globalconfig.root, need_src), os.path.split(need_src)[-1])
         super(EjudgeExporter,self).create_archive()
         self.archiver.close()
         #self.archiver.add(self.get_script())
     def upload_file(self):
-        plpt = self.network['destination']+'/'+self.contest_id+'/'
-        #self.connector.run_command('rm -rf ' + plpt + 'please_tmp; mkdir ' + plpt)
-        self.connector.upload_file(self.archiver.path, plpt+'/'+os.path.split(self.archiver.path)[-1])
+        plpt = os.path.join(self.network['destination'], self.contest_id)
+        # self.connector.run_command('rm -rf ' + plpt + 'please_tmp; mkdir ' + plpt + 'please_tmp')
+        self.connector.upload_file(self.archiver.path, os.path.join(plpt, os.path.split(self.archiver.path)[-1]).replace('\\', '/'))
 

@@ -43,7 +43,7 @@ class Connector:
         logger.info("File was downloaded.")
 
     def run_command(self, command):
-        logger.info("Connecting to server and running the command")
+        logger.info("Connecting to server and running the command: {}".format(command))
         self.__connector.run_command(command)
         logger.info("Command executed")
         
@@ -64,7 +64,7 @@ class WindowsConnector:
             new_dir = os.path.split(destination)[0] + '/' + 'please_tmp/'
             handler = psutil.Popen(["plink", "-P", self.__port, "-pw", self.__password, "-l", self.__login, self.__host, "rm -rf", new_dir, "; unzip", 
                 destination,"-d", new_dir, ";rm", destination])
-            #result = invoke(handler, limits)
+            result = invoke(handler, limits)
 
     def download_file(self, source, destination):
         handler = psutil.Popen(["pscp", "-P", self.__port, "-pw", self.__password, self.__login + "@" + self.__host + ":" + source, destination])

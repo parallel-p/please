@@ -60,10 +60,12 @@ class WindowsConnector:
         new_dir = ".".join(splitted)
         handler = psutil.Popen(["plink", "-P", self.__port, "-pw", self.__password, "-l", self.__login, self.__host, "rm -r", new_dir, ";unzip", \
             destination, "-d", os.path.split(new_dir)[0], ";rm", destination])
+        limits = ExecutionLimits(real_time=6000, memory=2048, cpu_time=6000) 
+        invoke(handler, limits)
 
     def download_file(self, source, destination):
         handler = psutil.Popen(["pscp", "-P", self.__port, "-pw", self.__password, self.__login + "@" + self.__host + ":" + source, destination])
-        limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600) 
+        limits = ExecutionLimits(real_time=6000, memory=2048, cpu_time=6000) 
         invoke(handler, limits)
 
 class LinuxConnector:
@@ -74,8 +76,7 @@ class LinuxConnector:
         self.__password = password
     
     def upload_file(self, source, destination):
-        limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600)
-        
+        limits = ExecutionLimits(real_time=6000, memory=2048, cpu_time=6000)
         handler = psutil.Popen(["scp", "-P", self.__port, source, self.__login + "@" + self.__host + ":" + destination])
         invoke(handler, limits)
 
@@ -84,7 +85,6 @@ class LinuxConnector:
         new_dir = ".".join(splitted)
         handler = psutil.Popen(["ssh", "-p", self.__port, "-l", self.__login, self.__host, "rm -r", new_dir, ";unzip", \
             destination, "-d", os.path.split(new_dir)[0], ";rm", destination])
-
         invoke(handler, limits)
         
     def download_file(self, source, destination):

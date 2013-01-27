@@ -8,11 +8,12 @@ from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse
 
 from ..models import Contest, ContestProblem
-from ..forms import AddContestProblemForm
+from ..forms import AddContestProblemForm, ExportToTesterForm
 from .contests import edit_or_create_contest_block
-from please.contest.commands import command_generate_statement
+from please.contest.commands import command_generate_statement, command_export
 from please.web.problem.views.file_utils import ChangeDir
 from ..helpers import contest_sync
+
 
 @contest_sync(read=True, write=True)
 def index(request, id):
@@ -80,4 +81,32 @@ def problem_down(request, id, problem_id):
     prob1.save()
     prob2.save()
     return redirect('/contests/{}'.format(id))
+
+def export_to_tester(request, id):
+    block = export_to_tester_block(request, id)
+    if block['is_success']:
+        return redirect(reverse('contest.views.contests.index'))
+    return render_to_response('contest/export_to_tester.html', {
+        'export_to_tester': block,
+        'id': id,
+    }, RequestContext(request))
+
+def export_to_tester_block(request, id):
+    is_success = False
+    if request.method == 'POST':
+        contest = get_object_or_404(Contest, id=id)
+        form = ExportToTesterForm(request.POST)
+        if form.is_valid():
+            server_contest_id = form.cleaned_data['server_contest_id']
+            server = form.cleaned_data['server']
+            print(contest.path, contest)
+            with ChangeDir(os.path.dirname(contest.path)):
+                command_export(os.path.basename(contest.path)[:-8], server, server_contest_id)
+            is_success = True
+    else:
+        form = ExportToTesterForm()
+    return {
+        'is_success': is_success,
+        'form': form,
+    }
 

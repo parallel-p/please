@@ -92,6 +92,7 @@ def command_generate_statement(name):
 def command_export(name, where, contest):
     current_contest = get_contest(name)
     problems = []
+    print(where, contest, current_contest)
     for problem in current_contest.config['problem']:
         config = package_config.PackageConfig.get_config(problem['path'])
         # TODO: check if config is None
