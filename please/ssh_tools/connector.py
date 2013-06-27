@@ -22,15 +22,15 @@ class Connector:
     # there will be only those files in "new_file\" that had already been in "file.zip/new_file"
     
     """
-    def __init__(self, host, port, login, password): 
+    def __init__(self, host, port, *args, **kwargs): 
         if (port is None):
             port = "22"
         
         self.__platform = get_platform()
         if (get_platform()[0] == 'Windows'):
-            self.__connector = WindowsConnector(host, port, login, password)
+            self.__connector = WindowsConnector(host, port, *args, **kwargs)
         else:
-            self.__connector = LinuxConnector(host, port, login, password)
+            self.__connector = LinuxConnector(host, port, *args, **kwargs)
 
     def upload_file(self, source, destination):
         logger.info("Uploading...")
@@ -48,61 +48,69 @@ class Connector:
         logger.info("Command executed")
         
 class WindowsConnector:
-    def __init__(self, host, port, login, password): 
+    def __init__(self, host, port, login, password=None, private_key=None): 
         self.__host = host
         self.__port = port
         self.__login = login
         self.__password = password
-       
+        self.__private_key = private_key
+
     def upload_file(self, source, destination, need_to_extract_zip = True):
         limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600) 
         
-        handler = psutil.Popen(["pscp", "-P", self.__port, "-pw", self.__password, source, self.__login + "@" + self.__host + ":" + destination])
+        handler = psutil.Popen(["pscp", "-P", self.__port] + self.__get_credentials() + [source, self.__login + "@" + self.__host + ":" + destination])
         result = invoke(handler, limits)
         if need_to_extract_zip:
             splitted = destination.split(".")
             new_dir = os.path.split(destination)[0] + '/' + 'please_tmp/'
-            handler = psutil.Popen(["plink", "-P", self.__port, "-pw", self.__password, "-l", self.__login, self.__host, "rm -rf", new_dir, "; unzip", 
+            handler = psutil.Popen(["plink", "-P", self.__port] + self.__get_credentials() + ["-l", self.__login, self.__host, "rm -rf", new_dir, "; unzip", 
                 destination,"-d", new_dir, ";rm", destination])
             result = invoke(handler, limits)
 
     def download_file(self, source, destination):
-        handler = psutil.Popen(["pscp", "-P", self.__port, "-pw", self.__password, self.__login + "@" + self.__host + ":" + source, destination])
+        handler = psutil.Popen(["pscp", "-P", self.__port] + self.__get_credentials() + [self.__login + "@" + self.__host + ":" + source, destination])
         limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600) 
         result = invoke(handler, limits)
 
     def run_command(self, command):
-        handler = psutil.Popen(["plink", "-P", self.__port, "-pw", self.__password, "-l", self.__login, self.__host, command])
+        handler = psutil.Popen(["plink", "-P", self.__port] + self.__get_credentials() + ["-l", self.__login, self.__host, command])
         limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600)
         result = invoke(handler, limits)
+
+    def __get_credentials(self):
+        return ["-i", self.__private_key] if self.__private_key else ["-pw", self.__password]
 
 
 class LinuxConnector:
-    def __init__(self, host, port, login, password):
+    def __init__(self, host, port, login, password=None, private_key=None):
         self.__host = host
         self.__port = port
         self.__login = login
         self.__password = password
-    
+        self.__private_key = private_key
+
     def upload_file(self, source, destination, need_to_extract_zip = True):
         limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600)
         
-        handler = psutil.Popen(["scp", "-P", self.__port, source, self.__login + "@" + self.__host + ":" + destination])
+        handler = psutil.Popen(["scp", "-P", self.__port] + self.__get_credentials() + [source, self.__login + "@" + self.__host + ":" + destination])
         result = invoke(handler, limits)
 
         if need_to_extract_zip:
             splitted = destination.split(".")
             new_dir = os.path.split(destination)[0] + '/' + 'please_tmp/'
-            handler = psutil.Popen(["ssh", "-p", self.__port, "-l", self.__login, self.__host, "rm -rf", new_dir, "; unzip", " -o ", 
+            handler = psutil.Popen(["ssh", "-p", self.__port] + self.__get_credentials() + ["-l", self.__login, self.__host, "rm -rf", new_dir, "; unzip", " -o ", 
                 destination,"-d", new_dir, ";rm", destination])
             result = invoke(handler, limits)
         
     def download_file(self, source, destination):
-        handler = psutil.Popen(["scp", "-P", self.__port, self.__login + "@" + self.__host + ":" + source, destination])
+        handler = psutil.Popen(["scp", "-P", self.__port] + self.__get_credentials() + [self.__login + "@" + self.__host + ":" + source, destination])
         limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600)
         result = invoke(handler, limits)
 
     def run_command(self, command):
-        handler = psutil.Popen(["ssh", "-p", self.__port, "-l", self.__login, self.__host, command])
+        handler = psutil.Popen(["ssh", "-p", self.__port] + self.__get_credentials() + ["-l", self.__login, self.__host, command])
         limits = ExecutionLimits(real_time=600, memory=128, cpu_time=600)
         result = invoke(handler, limits)
+
+    def __get_credentials(self):
+        return ["-i", self.__private_key] if self.__private_key else []

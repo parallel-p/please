@@ -9,7 +9,7 @@ from ..package.package_config import PackageConfig
 
 class EjudgeExporter(GenericExporter):
     def __init__(self,network = {},libs = [],problems = []):
-        self.connector = Connector(network['host'],network['port'],network['login'],network['password'])
+        self.connector = Connector(network['host'], network['port'], network['login'], network.get('password'), network.get('private_key'))
         self.network = network
         self.archiver = ZIPArchiver('please.archive.zip')
         self.problems = problems
