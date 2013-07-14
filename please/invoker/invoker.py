@@ -6,6 +6,7 @@ import errno
 import os
 from subprocess import PIPE
 import tempfile
+import psutil.error
 
 _on_windows = sys.platform.startswith('win')
 
