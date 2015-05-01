@@ -24,7 +24,6 @@ for file in os.listdir(path):
 import distribute_setup
 # Ставим дистрибьют правильной версии
 # Installation of the up to date distribution
-distribute_setup.use_setuptools(version="0.6.19")
 
 from setuptools import setup, find_packages
 
