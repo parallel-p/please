@@ -6,7 +6,7 @@ import errno
 import os
 from subprocess import PIPE
 import tempfile
-import psutil.error
+import psutil
 
 _on_windows = sys.platform.startswith('win')
 
@@ -198,10 +198,10 @@ def invoke(handler, limits):
             cpu_time = sum(list(handler.get_cpu_times()))
             real_time = time.time() - start_time
             used_memory = max(used_memory, __get_memory_info(handler))
-        except psutil.error.NoSuchProcess:
+        except psutil.NoSuchProcess:
             #logger.warning("Couldn't check limits: NoSuchProcess")
             continue  # sometimes it happens for unknown reasons
-        except psutil.error.AccessDenied:
+        except psutil.AccessDenied:
             try:  # wait some time, in darwin process is steel running, but already not exists
                 return_code = handler.wait(CHECK_PERIOD)
             except psutil.TimeoutExpired:

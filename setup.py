@@ -51,7 +51,7 @@ entry_points = {
 # ссылку на страницу, где перечислены варианты дистрибутивов этой библиотеки
 # со ссылками - он сам повыдёргивает, откуда скачать.
 install_requires = [
-    'psutil',
+    'psutil ==2.0.0',
     'colorama',
     'HTML.py ==0.04',
 ]
@@ -60,7 +60,7 @@ dependency_links = [
     'http://please.googlecode.com/svn/third_party/HTML.py-0.04-py3.2.egg',
     'http://www.decalage.info/files/',
     'http://pypi.python.org/pypi/colorama',
-    'http://please.googlecode.com/svn/third_party/psutil-0.3.0.tar.gz',
+    'http://please.googlecode.com/svn/third_party/psutil-2.0.0.tar.gz',
     'http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win32-py3.2.exe', #psutil for win32
     'http://please.googlecode.com/svn/third_party/windows/HTML.py-0.04-py3.2.egg', #html for win32
     'http://please.googlecode.com/svn/third_party/windows/psutil-0.3.0.win-amd64-py3.2.exe', # psutil for amd64
