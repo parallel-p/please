@@ -1,8 +1,4 @@
-[All Wiki pages](http://code.google.com/p/please/w/list)
-
----
-
-User documentation
+### User documentation ###
   * [Install](Install.md)
   * [CreateProblem](CreateProblem.md)
   * [ProblemConfig](ProblemConfig.md)
