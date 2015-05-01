@@ -1,21 +1,11 @@
-Open-source cross-platform tool for creating and editing contest problems for programming contests (such as ACM ICPC, IOI, etc.)
-<table width='100%'><tr><td>
-<h3>Документация</h3>
-<a href='http://code.google.com/p/please/wiki/Install'>Установка</a>
-
-<a href='http://code.google.com/p/please/wiki/CreateProblem'>Создание задачи</a>
-
-<a href='http://code.google.com/p/please/wiki/ProblemConfig'>Конфигурирование главного конфига задачи</a>
-
-<a href='http://code.google.com/p/please/wiki/GenerateStatement'>Генерация условий для задач</a>
-
-<a href='http://code.google.com/p/please/wiki/TestsConfig'>Конфигурирование tests.please</a>
-
-<a href='http://code.google.com/p/please/wiki/Validator'>Проверка тестов на корректность</a>
-
-<a href='http://code.google.com/p/please/wiki/Contest'>Работа с контестами</a>
-
-<a href='http://code.google.com/p/please/wiki/Export'>Работа с экспортом в проверяющие системы</a>
-</td><td><a href='http://www.youtube.com/watch?feature=player_embedded&v=MYaK9D1C0gE' target='_blank'><img src='http://img.youtube.com/vi/MYaK9D1C0gE/0.jpg' width='425' height=344 /></a></td></tr></table>
-### Ссылки ###
-Работа с ветками в subversion: http://svnbook.red-bean.com/en/1.1/ch04.html. Для крупных подзадач следует создавать отдельные ветки.
+<table width='100%'>
+<tr><th colspan="2" align="center"><b>Документация</b></th></tr>
+<tr><td>[Установка](Install.md)</td><td rowspan="0"><iframe width="640" height="390" src="https://www.youtube.com/embed/MYaK9D1C0gE" frameborder="0" allowfullscreen></iframe></td></tr>
+<tr><td>[Создание задачи](CreateProblem.md)</td></tr>
+<tr><td>[Конфигурирование главного конфига задачи](ProblemConfig.md)</td></tr>
+<tr><td>[Генерация условий для задач](GenerateStatement.md)</td></tr>
+<tr><td>[Конфигурирование tests.please](TestsConfig.md)</td></tr>
+<tr><td>[Проверка тестов на корректность](Validator.md)</td></tr>
+<tr><td>[Работа с контестами](Contest.md)</td></tr>
+<tr><td>[Работа с экспортом в проверяющие системы](Export.md)</td></tr>
+</table>
