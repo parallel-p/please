@@ -1,0 +1,32 @@
+please_version = 0.3
+name = Рюкзак # names in other languages:
+shortname = knapsack
+tags = group-c
+type = 
+
+input = knapsack.in
+output = knapsack.out
+time_limit = 2
+memory_limit = 64
+
+checker = check.cpp
+validator = 
+main_solution = solutions/knapsack_vp.py
+
+statement = statements/statement.russian.tex
+description = statements/description.ru.tex
+
+hand_answer_extension = a
+
+well_done_test = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
+well_done_answer = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
+
+analysis = statements/analysis.ru.tex
+solution = {
+    source = solutions/knapsack_vp.py
+    expected = OK
+}
+solution = {
+    source = solutions\solution.cpp
+    expected = OK
+}

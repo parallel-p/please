@@ -1,0 +1,16 @@
+[testsб, sample] tests/tests_1
+[tests] gen1.cpp 1
+[tests] gen1.cpp 10
+[tests] gen1.cpp 100
+[tests] gen1.cpp 1000
+[tests] gen2.cpp 2
+[tests] gen2.cpp 4
+[tests] gen2.cpp 10
+[tests] gen2.cpp 31
+[tests] gen2r.cpp 200 10 976245
+[tests] gen2r.cpp 1000 31 34875629
+[tests] genr.cpp 10 10 3248756
+[tests] genr.cpp 100 1000 34865
+[tests] genr.cpp 1000 1000 349867
+[tests] genr.cpp 1000 1000 95
+[tests] genr.cpp 1000 1000000000 397

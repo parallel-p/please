@@ -24,6 +24,7 @@ for file in os.listdir(path):
 import distribute_setup
 # Ставим дистрибьют правильной версии
 # Installation of the up to date distribution
+# distribute_setup.use_setuptools(version="0.6.19")
 
 from setuptools import setup, find_packages
 
@@ -55,11 +56,13 @@ install_requires = [
     'HTML.py ==0.04',
 ]
 
+repository_url = 'https://raw.githubusercontent.com/dubov94/please/master/'
+
 dependency_links = [
-    'http://please.googlecode.com/svn/third_party/HTML.py-0.04-py3.2.egg',
+    repository_url + 'third_party/HTML.py-0.04-py3.2.egg',
     'http://www.decalage.info/files/',
     'http://pypi.python.org/pypi/colorama',
-    'http://please.googlecode.com/svn/third_party/windows/HTML.py-0.04-py3.2.egg', #html for win32
+    repository_url + 'third_party/windows/HTML.py-0.04-py3.2.egg', #html for win32
 ]
 
 # python-библиотеки, необходимые для разработчика.

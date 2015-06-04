@@ -1,9 +1,9 @@
 ## NEW! Установка please с локальным веб-клиентом под Windows 7 ##
-Для создания задач в please вам потребуются ТеХ, Delphi, visual studio C++, java.
+Для создания задач в please вам потребуются ТеХ, Delphi, Visual Studio C++, Java.
 Мы предполагаем, что эти продукты у вас уже установлены.
 
   1. скачайте и установите python3.3 x86 с сайта python.org
-  1. скачайте дистрибутив please из svn командой svn checkout http://please.googlecode.com/svn/ please
+  1. скачайте дистрибутив please из GitHub командой git clone https://github.com/dubov94/please.git
   1. скачайте и разархивируйте последнюю версию distribute (http://pypi.python.org/pypi/distribute)
   1. установите ее командой c:\python33\python setup.py install
   1. разархивируйте из папки please/third\_party пакет HTML и установите его командой c:\python33\python setup.py install
@@ -19,7 +19,7 @@
   1. в папке please/trunk/web запустите команду c:\python33\python manage.py runserver
   1. откройте браузер и зайдите на страницу http://127.0.0.1:8000
 
-Если что-то не заработало, напишите мне (gurovic@gmail.com)
+Если что-то не заработало, напишите мне (gurovic@gmail.com).
 
 ## Linux ##
   1. скачать из раздела Downloads необходимый архив, распаковать
@@ -32,7 +32,7 @@
   1. выполнить python setup.py install
 
 ## Текущая версия ##
-  1. сделать checkout code.google.com/p/please/svn
+  1. сделать clone
   1. установить необходимые библиотеки (см. выше Linux или Windows)
   1. установить pymox (находится в third\_party), распаковав архив и выполнив ...setup.py install
   1. установить mock (easy-install mock; только для python3.2 - в python3.3 она стала стандартной)

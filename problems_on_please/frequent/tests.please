@@ -1,0 +1,38 @@
+[sample] tests/01.manual
+[sample] tests/02.manual
+tests/03.manual
+tests/04.manual
+tests/05.manual
+tests/gen_tests.cpp 1 80 34
+tests/gen_tests.cpp 1 80 345
+tests/gen_tests.cpp 2 80 5
+tests/gen_tests.cpp 5 80 54
+tests/gen_tests.cpp 132 79 45
+tests/gen_tests.cpp 111 79 42
+tests/gen_tests.cpp 57 79 43
+tests/gen_tests.cpp 456 79 65
+tests/gen_tests.cpp 20 79 654
+tests/gen_tests.cpp 42 79 656
+tests/gen_tests.cpp 24 57 467
+tests/gen_tests.cpp 432 57 37
+tests/gen_tests.cpp 746 57 98
+tests/gen_tests.cpp 1341 57 23567
+tests/gen_tests.cpp 4 42 45678
+tests/gen_tests.cpp 7 42 98477
+tests/gen_tests.cpp 77 42 3467
+tests/gen_tests.cpp 777 42 43
+tests/gen_tests.cpp 57 79 348
+tests/gen_tests.cpp 179 79 3487
+tests/gen_tests.cpp 1543 79 3498
+tests/gen_tests.cpp 123 57 349
+tests/gen_tests.cpp 456 57 47
+tests/gen_tests.cpp 98 57 467
+tests/gen_tests.cpp 97 57 4634
+tests/gen_tests.cpp 96 57 3467
+tests/gen_tests.cpp 95 57 876
+tests/gen_tests.cpp 44 79 683
+tests/gen_tests.cpp 1235 79 3368
+tests/gen_tests.cpp 333 79 3685
+tests/gen_tests.cpp 3323 70 5367834
+tests/gen_tests.cpp 2232 80 5367
+tests/gen_tests.cpp 1000 1000 4367

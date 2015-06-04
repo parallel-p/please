@@ -1,0 +1,10 @@
+[tests, sample] tests/tests_1
+[tests] gen.cpp 5 10 17
+[tests] gen.cpp 2 1 71
+[tests] gen.cpp 3 2 90
+[tests] gen.cpp 10 17 1000
+[tests] gen.cpp 76 2000 3786
+[tests] gen.cpp 150 6713 1234
+[tests] gen.cpp 789 78900 4321
+[tests] tests/tests_9
+[tests] gen.cpp 2000 50000 5678

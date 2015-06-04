@@ -1,0 +1,32 @@
+name = 
+id_method = default
+statement = {
+    name = Параллель C.py - день 8
+    location = Берендеевы Поляны
+    date = 6 августа 2012
+    template = contest.tex
+}
+problem = {
+    path = metbefore/
+    id = A
+}
+problem = {
+    path = frequency/
+    id = B
+}
+problem = {
+    path = dictionary/
+    id = C
+}
+problem = {
+    path = eqsubstr/
+    id = D
+}
+problem = {
+    path = maxcomsubstr
+    id = E
+}
+problem = {
+    path = maxcomsubstr2
+    id = F
+}

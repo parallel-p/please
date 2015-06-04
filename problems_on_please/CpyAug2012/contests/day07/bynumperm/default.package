@@ -1,0 +1,32 @@
+please_version = 0.3
+name = Перестановка по номеру # names in other languages:
+shortname = C
+tags = combinatorics, group-c
+type = 
+
+input = bynumber.in
+output = bynumber.out
+time_limit = 1
+memory_limit = 64
+
+checker = check.cpp
+validator = val.cpp
+main_solution = solutions\bynumber_dkmike.cpp
+
+statement = statements/statement.russian.tex
+description = statements/description.ru.tex
+
+hand_answer_extension = a
+
+well_done_test = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
+well_done_answer = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
+
+analysis = statements/analysis.ru.tex
+solution = {
+    source = solutions\permbynumber_ni.py
+    expected = OK
+}
+solution = {
+    source = solutions\bynumber_dkmike.cpp
+    expected = OK
+}

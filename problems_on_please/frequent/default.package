@@ -1,0 +1,25 @@
+please_version = 0.1
+name = 
+shortname = frequent
+tags = dictionary arrays
+type = 
+input = stdin
+output = stdout
+time_limit = 2.9
+memory_limit = 32
+checker = checker.cpp
+validator = validator.cpp
+main_solution = solutions/solution_slow.py
+statement = statements/default.ru.tex
+description = statements/description.ru.tex
+
+solution = {
+    source = solutions/solution_slow.py
+    expected = OK
+    possible = OK
+}
+solution = {
+    source = solutions/solution.cpp
+    expected = OK
+    possible = OK
+}

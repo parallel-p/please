@@ -1,0 +1,15 @@
+[tests, sample] tests/tests_1
+[tests, sample] tests/tests_2
+[tests] gen.pas 10 90 435
+[tests] gen.pas 50 20 32623
+[tests] gen.pas 48 47 666
+[tests] gen.pas 100 77 3145
+[tests] gen.pas 1345 123 6456
+[tests] gen.pas 25000 100000 364589
+[tests] gen.pas 50000 100000 2345
+[tests] gen.pas 100000 1 365
+[tests] gen.pas 100000 100000 5665
+[tests] gen1_ik.cpp
+[tests] gen2_ik.cpp
+[tests] gen3_ik.cpp
+[tests] gen4_ik.cpp

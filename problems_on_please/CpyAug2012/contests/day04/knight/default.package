@@ -1,0 +1,37 @@
+please_version = 0.3
+name = Ход конём # names in other languages:
+shortname = knight
+tags = dp, group-c
+type = 
+
+input = stdin
+output = stdout
+time_limit = 1
+memory_limit = 64
+
+checker = check.cpp
+validator = val.cpp
+main_solution = solutions/knight_as.py
+
+statement = statements/statement.russian.tex
+description = statements/description.ru.tex
+
+hand_answer_extension = a
+
+well_done_test = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
+well_done_answer = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
+
+analysis = statements/analysis.ru.tex
+solution = {
+    source = solutions/knight.pas
+    expected = OK
+}
+solution = {
+    source = solutions/knight_as.py
+    expected = OK
+}
+solution = {
+    source = solutions/knight_ag_tl.dpr
+    expected = TL
+    possible = OK, WA, ML, RE, PE
+}

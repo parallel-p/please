@@ -1,0 +1,8 @@
+[sample] tests/[1-2]
+tests/[3-6]
+longGraphGenerator.py 1
+longGraphGenerator.py 2
+longGraphGenerator.py 3
+fullGraphGenerator.py 1
+fullGraphGenerator.py 2
+fullGraphGenerator.py 3

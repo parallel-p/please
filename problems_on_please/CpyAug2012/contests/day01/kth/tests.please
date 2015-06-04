@@ -1,0 +1,16 @@
+[sample]tests/01
+tests/0[2-6]
+randomGenerator.py 1
+randomGenerator.py 2
+randomGenerator.py 3
+randomGenerator.py 4
+randomGenerator.py 5
+randomGenerator.py 6
+randomGenerator.py 7
+randomGenerator.py 8
+randomGenerator.py 9
+randomGenerator.py 10
+maxRandomGenerator.py 1
+maxRandomGenerator.py 2
+maxRandomGenerator.py 3
+maxRandomGenerator.py 4

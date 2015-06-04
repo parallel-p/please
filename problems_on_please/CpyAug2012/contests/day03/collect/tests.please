@@ -1,0 +1,13 @@
+[sample,tests] gen.cpp 7 4 100 10010
+[tests] gen.cpp 10 3 100 21213
+[tests] gen.cpp 100 10 1000 93754
+[tests] gen.cpp 100 30 1000 20564
+[tests] gen.cpp 100 100 1000 99999
+[tests] gen.cpp 1000 100 10000 30663
+[tests] gen.cpp 5678 100 10000000 42424
+[tests] gen.cpp 6540 1003 10000000 34500
+[tests] gen.cpp 10000 1000 10000000 42456
+[tests] gen.cpp 10000 100 1000000000 56560
+[tests] gen.cpp 100000 10000 1000000000 12098
+[tests] gen.cpp 100000 100000 1000000000 29466
+[tests] tests/tests_13

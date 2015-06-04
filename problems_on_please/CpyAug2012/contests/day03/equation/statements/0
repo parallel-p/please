@@ -1,0 +1,93 @@
+(INFO) [16:10:31]: Generating 0 tests series:
+
+(WARNING) [16:10:31]: General validator (well_done) is on
+(INFO) [16:10:31]: Generating pdf from tex...
+(INFO) [16:10:31]: Compiling default.ru.tex
+(INFO) [16:10:31]: Compilation default.ru.tex succeded.
+		STDERR:
+Running pdftex...
+This is pdfTeX, Version 3.141592-1.40.4 (MiKTeX 2.7) (INITEX)
+entering extended mode
+("C:\Program Files (x86)\MiKTeX 2.7\tex\latex\config\pdflatex.ini"
+(C:\Users\1\AppData\Roaming\MiKTeX\2.7\tex\generic\config\pdftexconfig.tex)
+("C:\Program Files (x86)\MiKTeX 2.7\tex\latex\base\latex.ltx"
+("C:\Program Files (x86)\MiKTeX 2.7\tex\latex\00miktex\texsys.cfg")
+./texsys.aux found
+
+
+\@currdir set to: ./.
+
+
+Assuming \openin and \input 
+have the same search path.
+
+
+Defining UNIX/DOS style filename parser.
+
+catcodes, registers, compatibility for TeX 2,  parameters,
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! You are attempting to make a LaTeX format from a source file
+! That is more than five years old.
+!
+! If you enter <return> to scroll past this message then the format
+! will be built, but please consider obtaining newer source files
+! before continuing to build LaTeX.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! LaTeX source files more than 5 years old!.
+l.545 ...aTeX source files more than 5 years old!}
+                                                  
+!  ==> Fatal error occurred, no output PDF file produced!
+Transcript written on pdflatex.log.
+makefmt: pdftex failed on pdflatex.ini.
+initexmf.EXE: The operation failed for some reason.
+
+		STDOUT:
+This is pdfTeX, Version 3.141592-1.40.4 (MiKTeX 2.7)
+I can't find the default format file!
+
+(ERROR) [16:10:31]: Please error: Compilation default.ru.tex failed with: RE with exit code: 1
+		STDERR:
+Running pdftex...
+This is pdfTeX, Version 3.141592-1.40.4 (MiKTeX 2.7) (INITEX)
+entering extended mode
+("C:\Program Files (x86)\MiKTeX 2.7\tex\latex\config\pdflatex.ini"
+(C:\Users\1\AppData\Roaming\MiKTeX\2.7\tex\generic\config\pdftexconfig.tex)
+("C:\Program Files (x86)\MiKTeX 2.7\tex\latex\base\latex.ltx"
+("C:\Program Files (x86)\MiKTeX 2.7\tex\latex\00miktex\texsys.cfg")
+./texsys.aux found
+
+
+\@currdir set to: ./.
+
+
+Assuming \openin and \input 
+have the same search path.
+
+
+Defining UNIX/DOS style filename parser.
+
+catcodes, registers, compatibility for TeX 2,  parameters,
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! You are attempting to make a LaTeX format from a source file
+! That is more than five years old.
+!
+! If you enter <return> to scroll past this message then the format
+! will be built, but please consider obtaining newer source files
+! before continuing to build LaTeX.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! LaTeX source files more than 5 years old!.
+l.545 ...aTeX source files more than 5 years old!}
+                                                  
+!  ==> Fatal error occurred, no output PDF file produced!
+Transcript written on pdflatex.log.
+makefmt: pdftex failed on pdflatex.ini.
+initexmf.EXE: The operation failed for some reason.
+
+		STDOUT:
+This is pdfTeX, Version 3.141592-1.40.4 (MiKTeX 2.7)
+I can't find the default format file!
+

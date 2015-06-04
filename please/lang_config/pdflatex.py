@@ -44,7 +44,7 @@ class MiKTeXConfig(BaseLaTeXConfig):
 class UnknownVersionTeXConfig(BaseLaTeXConfig):
     def __init__(self, source):
         raise PleaseException('Your TeX version is unknown. Please contact us'
-                              ' at code.google.com/p/please')
+                              ' at https://github.com/dubov94/please')
 
 def get_config():
     try:

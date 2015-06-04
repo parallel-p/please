@@ -22,7 +22,7 @@ def print_standard_checkers():
         if fname.endswith('.cpp'):
             filelist += [fname[:-4]]
     log.warning('Standard checkers available: ' + ', '.join(filelist))
-    log.warning('For more detailed information look at wiki on http://code.google.com/p/please')
+    log.warning('For more detailed information look at wiki on https://github.com/dubov94/please')
 
 
 def __checker_global_dir():

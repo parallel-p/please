@@ -1,0 +1,3 @@
+[tests, sample] tests/tests_1
+[tests] tests/tests_[2-9]
+[tests] tests/tests_10

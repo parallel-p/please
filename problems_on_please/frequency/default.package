@@ -1,0 +1,24 @@
+﻿please_version = 0.1
+name = Частотный анализ
+shortname = frequency
+tags = dictionary
+type = acm
+input = stdin
+output = stdout
+time_limit = 2.5
+memory_limit = 64
+checker = checker.cpp
+validator = validator.dpr
+main_solution = solutions/solution.py
+statement = statements/default.ru.tex
+description = statements/description.ru.tex
+solution = {
+    source = solutions/solution.dpr
+    expected = OK
+    possible = OK
+}
+solution = {
+    source = solutions/solution_TL.dpr
+    expected = TL
+    possible = OK
+}

@@ -1,0 +1,20 @@
+please_version = 0.1
+name = 
+shortname = inside
+tags = set; sort, two pointers
+type = 
+input = inside.in
+output = inside.out
+time_limit = 0.5
+memory_limit = 256
+checker = checker.cpp
+validator = validator.cpp
+main_solution = solutions/solution.cpp
+statement = statements/default.ru.tex
+description = statements/description.ru.tex
+
+solution = {
+    source = solutions/solution.py
+    expected = OK
+    possible = OK
+}

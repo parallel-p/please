@@ -1,0 +1,12 @@
+[sample]tests/0[1-2]
+tests/0[3-7]
+maxRandomGen.py 1
+maxRandomGen.py 2
+maxRandomGen.py 3
+maxRandomGen.py 4
+maxRandomGen.py 5
+maxRandomGen.py 6
+maxRandomGen.py 7
+maxRandomGen.py 8
+maxRandomGen.py 9
+maxPermanentGen.py

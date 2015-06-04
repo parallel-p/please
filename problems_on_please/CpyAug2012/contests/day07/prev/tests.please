@@ -1,0 +1,23 @@
+[tests, sample] tests/tests_1
+[tests] tests/tests_2
+[tests] tests/tests_3
+[tests] gen.dpr 9860 4
+[tests] gen.dpr 1398 5
+[tests] gen.dpr 2180 6
+[tests] gen.dpr 9860 10
+[tests] gen.dpr 1398 100
+[tests] gen.dpr 2180 1000
+[tests] gen.dpr 2098 10000
+[tests] gen.dpr 2285 100000
+[tests] gen_forward.dpr 10
+[tests] gen_forward.dpr 100
+[tests] gen_forward.dpr 1000
+[tests] gen_forward.dpr 10000
+[tests] gen_forward.dpr 100000
+[tests] gen_back.dpr 10
+[tests] gen_back.dpr 100
+[tests] gen_back.dpr 1000
+[tests] gen_back.dpr 10000
+[tests] gen_back.dpr 100000
+[tests] gen.dpr 4242 100000
+[tests] gen.dpr 7777 100000

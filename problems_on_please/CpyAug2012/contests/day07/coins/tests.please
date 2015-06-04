@@ -1,0 +1,6 @@
+[tests, sample] tests\01
+[tests, sample] tests\02
+[tests, sample] tests\03
+[tests] tests\0[4-9]
+[tests] tests\1[0-9]
+[tests] tests\2[0-4]

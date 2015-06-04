@@ -1,0 +1,40 @@
+please_version = 0.3
+name = Очередь с приоритетами
+shortname = priority-queue
+tags = 
+type = 
+
+input = priority-queue.in
+output = priority-queue.out
+time_limit = 2
+memory_limit = 64
+
+checker = lcmp.cpp
+validator = validator.cpp
+main_solution = solutions/solution_dk.py
+
+statement = statements/default.ru.tex
+description = statements/description.ru.tex
+
+hand_answer_extension = a
+
+well_done_test = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
+well_done_answer = endswith_EOLN, no_symbols_less_32, no_left_right_space, no_double_space, no_top_bottom_emptyline, not_empty
+
+solution = {
+    source = solutions/solution_dk.py
+    expected = OK
+}
+analysis = statements/analysis.ru.tex
+solution = {
+    source = solutions/solution_slow.py
+    expected = TL, OK
+}
+solution = {
+    source = solutions/solution_slow2.py
+    expected = TL, OK
+}
+solution = {
+    source = solutions/solution_ma.py
+    expected = OK
+}
